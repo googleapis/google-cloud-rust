@@ -151,12 +151,6 @@ impl ListMigrationJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMigrationJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [migration_jobs][crate::model::ListMigrationJobsResponse::migration_jobs].
     pub fn set_migration_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -165,6 +159,12 @@ impl ListMigrationJobsResponse {
     {
         use std::iter::Iterator;
         self.migration_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMigrationJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -762,21 +762,6 @@ impl GenerateSshScriptRequest {
         })
     }
 
-    /// The value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
-    /// if it holds a `VmSelectionConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn vm_selection_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VmSelectionConfig>> {
-        #[allow(unreachable_patterns)]
-        self.vm_config.as_ref().and_then(|v| match v {
-            crate::model::generate_ssh_script_request::VmConfig::VmSelectionConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
     /// to hold a `VmCreationConfig`.
     ///
@@ -792,6 +777,21 @@ impl GenerateSshScriptRequest {
             crate::model::generate_ssh_script_request::VmConfig::VmCreationConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
+    /// if it holds a `VmSelectionConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vm_selection_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VmSelectionConfig>> {
+        #[allow(unreachable_patterns)]
+        self.vm_config.as_ref().and_then(|v| match v {
+            crate::model::generate_ssh_script_request::VmConfig::VmSelectionConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
@@ -1176,12 +1176,6 @@ impl ListConnectionProfilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connection_profiles][crate::model::ListConnectionProfilesResponse::connection_profiles].
     pub fn set_connection_profiles<T, V>(mut self, v: T) -> Self
     where
@@ -1190,6 +1184,12 @@ impl ListConnectionProfilesResponse {
     {
         use std::iter::Iterator;
         self.connection_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1707,12 +1707,6 @@ impl ListPrivateConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [private_connections][crate::model::ListPrivateConnectionsResponse::private_connections].
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
@@ -1721,6 +1715,12 @@ impl ListPrivateConnectionsResponse {
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2045,12 +2045,6 @@ impl ListConversionWorkspacesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversionWorkspacesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversion_workspaces][crate::model::ListConversionWorkspacesResponse::conversion_workspaces].
     pub fn set_conversion_workspaces<T, V>(mut self, v: T) -> Self
     where
@@ -2059,6 +2053,12 @@ impl ListConversionWorkspacesResponse {
     {
         use std::iter::Iterator;
         self.conversion_workspaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversionWorkspacesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2621,12 +2621,6 @@ impl ListMappingRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMappingRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [mapping_rules][crate::model::ListMappingRulesResponse::mapping_rules].
     pub fn set_mapping_rules<T, V>(mut self, v: T) -> Self
     where
@@ -2635,6 +2629,12 @@ impl ListMappingRulesResponse {
     {
         use std::iter::Iterator;
         self.mapping_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMappingRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2770,17 +2770,6 @@ impl SeedConversionWorkspaceRequest {
         })
     }
 
-    /// The value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
-    /// if it holds a `DestinationConnectionProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn destination_connection_profile(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.seed_from.as_ref().and_then(|v| match v {
-            crate::model::seed_conversion_workspace_request::SeedFrom::DestinationConnectionProfile(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
     /// to hold a `SourceConnectionProfile`.
     ///
@@ -2796,6 +2785,17 @@ impl SeedConversionWorkspaceRequest {
             ),
         );
         self
+    }
+
+    /// The value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
+    /// if it holds a `DestinationConnectionProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn destination_connection_profile(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.seed_from.as_ref().and_then(|v| match v {
+            crate::model::seed_conversion_workspace_request::SeedFrom::DestinationConnectionProfile(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
@@ -2957,12 +2957,6 @@ impl ImportMappingRulesRequest {
         self
     }
 
-    /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
-    pub fn set_auto_commit<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.auto_commit = v.into();
-        self
-    }
-
     /// Sets the value of [rules_files][crate::model::ImportMappingRulesRequest::rules_files].
     pub fn set_rules_files<T, V>(mut self, v: T) -> Self
     where
@@ -2971,6 +2965,12 @@ impl ImportMappingRulesRequest {
     {
         use std::iter::Iterator;
         self.rules_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [auto_commit][crate::model::ImportMappingRulesRequest::auto_commit].
+    pub fn set_auto_commit<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.auto_commit = v.into();
         self
     }
 }
@@ -3328,12 +3328,6 @@ impl DescribeDatabaseEntitiesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::DescribeDatabaseEntitiesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [database_entities][crate::model::DescribeDatabaseEntitiesResponse::database_entities].
     pub fn set_database_entities<T, V>(mut self, v: T) -> Self
     where
@@ -3342,6 +3336,12 @@ impl DescribeDatabaseEntitiesResponse {
     {
         use std::iter::Iterator;
         self.database_entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::DescribeDatabaseEntitiesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3764,12 +3764,6 @@ impl FetchStaticIpsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [static_ips][crate::model::FetchStaticIpsResponse::static_ips].
     pub fn set_static_ips<T, V>(mut self, v: T) -> Self
     where
@@ -3778,6 +3772,12 @@ impl FetchStaticIpsResponse {
     {
         use std::iter::Iterator;
         self.static_ips = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4247,20 +4247,6 @@ impl PostgreSqlConnectionProfile {
         })
     }
 
-    /// The value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
-    /// if it holds a `PrivateServiceConnectConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn private_service_connect_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>>
-    {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::postgre_sql_connection_profile::Connectivity::PrivateServiceConnectConnectivity(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
     /// to hold a `StaticIpConnectivity`.
     ///
@@ -4278,6 +4264,20 @@ impl PostgreSqlConnectionProfile {
             ),
         );
         self
+    }
+
+    /// The value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
+    /// if it holds a `PrivateServiceConnectConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn private_service_connect_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>>
+    {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::postgre_sql_connection_profile::Connectivity::PrivateServiceConnectConnectivity(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
@@ -4460,36 +4460,6 @@ impl OracleConnectionProfile {
         })
     }
 
-    /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
-    /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn forward_ssh_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
-    /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn private_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::oracle_connection_profile::Connectivity::PrivateConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// to hold a `StaticServiceIpConnectivity`.
     ///
@@ -4509,6 +4479,21 @@ impl OracleConnectionProfile {
         self
     }
 
+    /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
+    /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn forward_ssh_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// to hold a `ForwardSshConnectivity`.
     ///
@@ -4524,6 +4509,21 @@ impl OracleConnectionProfile {
             crate::model::oracle_connection_profile::Connectivity::ForwardSshConnectivity(v.into()),
         );
         self
+    }
+
+    /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
+    /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn private_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::oracle_connection_profile::Connectivity::PrivateConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
@@ -4766,17 +4766,6 @@ impl SqlAclEntry {
         })
     }
 
-    /// The value of [expiration][crate::model::SqlAclEntry::expiration]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.expiration.as_ref().and_then(|v| match v {
-            crate::model::sql_acl_entry::Expiration::Ttl(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [expiration][crate::model::SqlAclEntry::expiration]
     /// to hold a `ExpireTime`.
     ///
@@ -4790,6 +4779,17 @@ impl SqlAclEntry {
             crate::model::sql_acl_entry::Expiration::ExpireTime(v.into()),
         );
         self
+    }
+
+    /// The value of [expiration][crate::model::SqlAclEntry::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::sql_acl_entry::Expiration::Ttl(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [expiration][crate::model::SqlAclEntry::expiration]
@@ -5061,6 +5061,18 @@ impl CloudSqlSettings {
         self
     }
 
+    /// Sets the value of [user_labels][crate::model::CloudSqlSettings::user_labels].
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [tier][crate::model::CloudSqlSettings::tier].
     pub fn set_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tier = v.into();
@@ -5104,6 +5116,18 @@ impl CloudSqlSettings {
         v: T,
     ) -> Self {
         self.auto_storage_increase = v.into();
+        self
+    }
+
+    /// Sets the value of [database_flags][crate::model::CloudSqlSettings::database_flags].
+    pub fn set_database_flags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.database_flags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5186,30 +5210,6 @@ impl CloudSqlSettings {
         v: T,
     ) -> Self {
         self.edition = v.into();
-        self
-    }
-
-    /// Sets the value of [user_labels][crate::model::CloudSqlSettings::user_labels].
-    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [database_flags][crate::model::CloudSqlSettings::database_flags].
-    pub fn set_database_flags<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.database_flags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6005,6 +6005,18 @@ impl AlloyDbSettings {
         self
     }
 
+    /// Sets the value of [labels][crate::model::AlloyDbSettings::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [primary_instance_settings][crate::model::AlloyDbSettings::primary_instance_settings].
     pub fn set_primary_instance_settings<
         T: std::convert::Into<
@@ -6026,18 +6038,6 @@ impl AlloyDbSettings {
         v: T,
     ) -> Self {
         self.encryption_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::AlloyDbSettings::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6170,12 +6170,6 @@ pub mod alloy_db_settings {
             self
         }
 
-        /// Sets the value of [private_ip][crate::model::alloy_db_settings::PrimaryInstanceSettings::private_ip].
-        pub fn set_private_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.private_ip = v.into();
-            self
-        }
-
         /// Sets the value of [database_flags][crate::model::alloy_db_settings::PrimaryInstanceSettings::database_flags].
         pub fn set_database_flags<T, K, V>(mut self, v: T) -> Self
         where
@@ -6197,6 +6191,12 @@ pub mod alloy_db_settings {
         {
             use std::iter::Iterator;
             self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [private_ip][crate::model::alloy_db_settings::PrimaryInstanceSettings::private_ip].
+        pub fn set_private_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.private_ip = v.into();
             self
         }
     }
@@ -6531,6 +6531,18 @@ impl ForwardSshTunnelConnectivity {
         })
     }
 
+    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
+    /// to hold a `Password`.
+    ///
+    /// Note that all the setters affecting `authentication_method` are
+    /// mutually exclusive.
+    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.authentication_method = std::option::Option::Some(
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
+        );
+        self
+    }
+
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `PrivateKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -6542,18 +6554,6 @@ impl ForwardSshTunnelConnectivity {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
-    /// to hold a `Password`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
@@ -6849,6 +6849,18 @@ impl MigrationJob {
         self
     }
 
+    /// Sets the value of [labels][crate::model::MigrationJob::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::MigrationJob::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -6994,18 +7006,6 @@ impl MigrationJob {
         self
     }
 
-    /// Sets the value of [labels][crate::model::MigrationJob::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [connectivity][crate::model::MigrationJob::connectivity].
     ///
     /// Note that all the setters affecting `connectivity` are mutually
@@ -7035,36 +7035,6 @@ impl MigrationJob {
         })
     }
 
-    /// The value of [connectivity][crate::model::MigrationJob::connectivity]
-    /// if it holds a `VpcPeeringConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn vpc_peering_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::migration_job::Connectivity::VpcPeeringConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connectivity][crate::model::MigrationJob::connectivity]
-    /// if it holds a `StaticIpConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn static_ip_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::migration_job::Connectivity::StaticIpConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connectivity][crate::model::MigrationJob::connectivity]
     /// to hold a `ReverseSshConnectivity`.
     ///
@@ -7082,6 +7052,21 @@ impl MigrationJob {
         self
     }
 
+    /// The value of [connectivity][crate::model::MigrationJob::connectivity]
+    /// if it holds a `VpcPeeringConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn vpc_peering_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::migration_job::Connectivity::VpcPeeringConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connectivity][crate::model::MigrationJob::connectivity]
     /// to hold a `VpcPeeringConnectivity`.
     ///
@@ -7097,6 +7082,21 @@ impl MigrationJob {
             crate::model::migration_job::Connectivity::VpcPeeringConnectivity(v.into()),
         );
         self
+    }
+
+    /// The value of [connectivity][crate::model::MigrationJob::connectivity]
+    /// if it holds a `StaticIpConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn static_ip_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::migration_job::Connectivity::StaticIpConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connectivity][crate::model::MigrationJob::connectivity]
@@ -8043,6 +8043,18 @@ impl ConnectionProfile {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::ConnectionProfile::state].
     pub fn set_state<T: std::convert::Into<crate::model::connection_profile::State>>(
         mut self,
@@ -8073,18 +8085,6 @@ impl ConnectionProfile {
         v: T,
     ) -> Self {
         self.provider = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -8119,66 +8119,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
-    /// if it holds a `Postgresql`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgreSqlConnectionProfile>> {
-        #[allow(unreachable_patterns)]
-        self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Postgresql(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
-    /// if it holds a `Oracle`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oracle(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleConnectionProfile>> {
-        #[allow(unreachable_patterns)]
-        self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Oracle(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
-    /// if it holds a `Cloudsql`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloudsql(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlConnectionProfile>> {
-        #[allow(unreachable_patterns)]
-        self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Cloudsql(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
-    /// if it holds a `Alloydb`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn alloydb(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbConnectionProfile>> {
-        #[allow(unreachable_patterns)]
-        self.connection_profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::ConnectionProfile::Alloydb(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// to hold a `Mysql`.
     ///
@@ -8194,6 +8134,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::ConnectionProfile::Mysql(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
+    /// if it holds a `Postgresql`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgreSqlConnectionProfile>> {
+        #[allow(unreachable_patterns)]
+        self.connection_profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::ConnectionProfile::Postgresql(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
@@ -8213,6 +8168,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
+    /// if it holds a `Oracle`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oracle(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleConnectionProfile>> {
+        #[allow(unreachable_patterns)]
+        self.connection_profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::ConnectionProfile::Oracle(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// to hold a `Oracle`.
     ///
@@ -8230,6 +8200,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
+    /// if it holds a `Cloudsql`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloudsql(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlConnectionProfile>> {
+        #[allow(unreachable_patterns)]
+        self.connection_profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::ConnectionProfile::Cloudsql(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// to hold a `Cloudsql`.
     ///
@@ -8245,6 +8230,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::ConnectionProfile::Cloudsql(v.into()),
         );
         self
+    }
+
+    /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
+    /// if it holds a `Alloydb`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn alloydb(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbConnectionProfile>> {
+        #[allow(unreachable_patterns)]
+        self.connection_profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::ConnectionProfile::Alloydb(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
@@ -8954,6 +8954,18 @@ impl PrivateConnection {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PrivateConnection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::PrivateConnection::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -8975,18 +8987,6 @@ impl PrivateConnection {
         v: T,
     ) -> Self {
         self.error = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::PrivateConnection::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -9390,6 +9390,18 @@ impl ConversionWorkspace {
         self
     }
 
+    /// Sets the value of [global_settings][crate::model::ConversionWorkspace::global_settings].
+    pub fn set_global_settings<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.global_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [has_uncommitted_changes][crate::model::ConversionWorkspace::has_uncommitted_changes].
     pub fn set_has_uncommitted_changes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_uncommitted_changes = v.into();
@@ -9435,18 +9447,6 @@ impl ConversionWorkspace {
     /// Sets the value of [display_name][crate::model::ConversionWorkspace::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [global_settings][crate::model::ConversionWorkspace::global_settings].
-    pub fn set_global_settings<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.global_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -9593,57 +9593,6 @@ impl BackgroundJobLogEntry {
         })
     }
 
-    /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
-    /// if it holds a `ImportRulesJobDetails`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn import_rules_job_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::ImportRulesJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
-    /// if it holds a `ConvertJobDetails`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn convert_job_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
-    /// if it holds a `ApplyJobDetails`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn apply_job_details(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.job_details.as_ref().and_then(|v| match v {
-            crate::model::background_job_log_entry::JobDetails::ApplyJobDetails(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// to hold a `SeedJobDetails`.
     ///
@@ -9659,6 +9608,23 @@ impl BackgroundJobLogEntry {
             crate::model::background_job_log_entry::JobDetails::SeedJobDetails(v.into()),
         );
         self
+    }
+
+    /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
+    /// if it holds a `ImportRulesJobDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn import_rules_job_details(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.job_details.as_ref().and_then(|v| match v {
+            crate::model::background_job_log_entry::JobDetails::ImportRulesJobDetails(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
@@ -9680,6 +9646,23 @@ impl BackgroundJobLogEntry {
         self
     }
 
+    /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
+    /// if it holds a `ConvertJobDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn convert_job_details(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.job_details.as_ref().and_then(|v| match v {
+            crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// to hold a `ConvertJobDetails`.
     ///
@@ -9697,6 +9680,23 @@ impl BackgroundJobLogEntry {
             crate::model::background_job_log_entry::JobDetails::ConvertJobDetails(v.into()),
         );
         self
+    }
+
+    /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
+    /// if it holds a `ApplyJobDetails`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn apply_job_details(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.job_details.as_ref().and_then(|v| match v {
+            crate::model::background_job_log_entry::JobDetails::ApplyJobDetails(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
@@ -9787,15 +9787,6 @@ pub mod background_job_log_entry {
             std::default::Default::default()
         }
 
-        /// Sets the value of [file_format][crate::model::background_job_log_entry::ImportRulesJobDetails::file_format].
-        pub fn set_file_format<T: std::convert::Into<crate::model::ImportRulesFileFormat>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.file_format = v.into();
-            self
-        }
-
         /// Sets the value of [files][crate::model::background_job_log_entry::ImportRulesJobDetails::files].
         pub fn set_files<T, V>(mut self, v: T) -> Self
         where
@@ -9804,6 +9795,15 @@ pub mod background_job_log_entry {
         {
             use std::iter::Iterator;
             self.files = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [file_format][crate::model::background_job_log_entry::ImportRulesJobDetails::file_format].
+        pub fn set_file_format<T: std::convert::Into<crate::model::ImportRulesFileFormat>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.file_format = v.into();
             self
         }
     }
@@ -10287,150 +10287,6 @@ impl MappingRule {
         })
     }
 
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `MultiEntityRename`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn multi_entity_rename(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiEntityRename>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::MultiEntityRename(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `EntityMove`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn entity_move(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityMove>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::EntityMove(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `SingleColumnChange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn single_column_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SingleColumnChange>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SingleColumnChange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `MultiColumnDataTypeChange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn multi_column_data_type_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiColumnDatatypeChange>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::MultiColumnDataTypeChange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `ConditionalColumnSetValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn conditional_column_set_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ConditionalColumnSetValue>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::ConditionalColumnSetValue(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `ConvertRowidColumn`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn convert_rowid_column(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ConvertRowIdToColumn>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::ConvertRowidColumn(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `SetTablePrimaryKey`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn set_table_primary_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SetTablePrimaryKey>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SetTablePrimaryKey(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `SinglePackageChange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn single_package_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SinglePackageChange>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SinglePackageChange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `SourceSqlChange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_sql_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceSqlChange>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::SourceSqlChange(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [details][crate::model::MappingRule::details]
-    /// if it holds a `FilterTableColumns`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn filter_table_columns(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FilterTableColumns>> {
-        #[allow(unreachable_patterns)]
-        self.details.as_ref().and_then(|v| match v {
-            crate::model::mapping_rule::Details::FilterTableColumns(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [details][crate::model::MappingRule::details]
     /// to hold a `SingleEntityRename`.
     ///
@@ -10446,6 +10302,21 @@ impl MappingRule {
             crate::model::mapping_rule::Details::SingleEntityRename(v.into()),
         );
         self
+    }
+
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `MultiEntityRename`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn multi_entity_rename(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiEntityRename>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::MultiEntityRename(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::MappingRule::details]
@@ -10465,6 +10336,17 @@ impl MappingRule {
         self
     }
 
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `EntityMove`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn entity_move(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityMove>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::EntityMove(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::MappingRule::details]
     /// to hold a `EntityMove`.
     ///
@@ -10477,6 +10359,21 @@ impl MappingRule {
         self.details =
             std::option::Option::Some(crate::model::mapping_rule::Details::EntityMove(v.into()));
         self
+    }
+
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `SingleColumnChange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn single_column_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SingleColumnChange>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::SingleColumnChange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::MappingRule::details]
@@ -10496,6 +10393,21 @@ impl MappingRule {
         self
     }
 
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `MultiColumnDataTypeChange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn multi_column_data_type_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiColumnDatatypeChange>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::MultiColumnDataTypeChange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::MappingRule::details]
     /// to hold a `MultiColumnDataTypeChange`.
     ///
@@ -10511,6 +10423,21 @@ impl MappingRule {
             crate::model::mapping_rule::Details::MultiColumnDataTypeChange(v.into()),
         );
         self
+    }
+
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `ConditionalColumnSetValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn conditional_column_set_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ConditionalColumnSetValue>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::ConditionalColumnSetValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::MappingRule::details]
@@ -10530,6 +10457,21 @@ impl MappingRule {
         self
     }
 
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `ConvertRowidColumn`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn convert_rowid_column(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ConvertRowIdToColumn>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::ConvertRowidColumn(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::MappingRule::details]
     /// to hold a `ConvertRowidColumn`.
     ///
@@ -10545,6 +10487,21 @@ impl MappingRule {
             crate::model::mapping_rule::Details::ConvertRowidColumn(v.into()),
         );
         self
+    }
+
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `SetTablePrimaryKey`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn set_table_primary_key(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SetTablePrimaryKey>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::SetTablePrimaryKey(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::MappingRule::details]
@@ -10564,6 +10521,21 @@ impl MappingRule {
         self
     }
 
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `SinglePackageChange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn single_package_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SinglePackageChange>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::SinglePackageChange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::MappingRule::details]
     /// to hold a `SinglePackageChange`.
     ///
@@ -10581,6 +10553,19 @@ impl MappingRule {
         self
     }
 
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `SourceSqlChange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_sql_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceSqlChange>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::SourceSqlChange(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [details][crate::model::MappingRule::details]
     /// to hold a `SourceSqlChange`.
     ///
@@ -10596,6 +10581,21 @@ impl MappingRule {
             crate::model::mapping_rule::Details::SourceSqlChange(v.into()),
         );
         self
+    }
+
+    /// The value of [details][crate::model::MappingRule::details]
+    /// if it holds a `FilterTableColumns`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn filter_table_columns(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FilterTableColumns>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::mapping_rule::Details::FilterTableColumns(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [details][crate::model::MappingRule::details]
@@ -11110,12 +11110,6 @@ impl SingleColumnChange {
         self
     }
 
-    /// Sets the value of [comment][crate::model::SingleColumnChange::comment].
-    pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.comment = v.into();
-        self
-    }
-
     /// Sets the value of [set_values][crate::model::SingleColumnChange::set_values].
     pub fn set_set_values<T, V>(mut self, v: T) -> Self
     where
@@ -11124,6 +11118,12 @@ impl SingleColumnChange {
     {
         use std::iter::Iterator;
         self.set_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [comment][crate::model::SingleColumnChange::comment].
+    pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.comment = v.into();
         self
     }
 }
@@ -11282,21 +11282,6 @@ impl MultiColumnDatatypeChange {
         })
     }
 
-    /// The value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
-    /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_numeric_filter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
-        #[allow(unreachable_patterns)]
-        self.source_filter.as_ref().and_then(|v| match v {
-            crate::model::multi_column_datatype_change::SourceFilter::SourceNumericFilter(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
     /// to hold a `SourceTextFilter`.
     ///
@@ -11312,6 +11297,21 @@ impl MultiColumnDatatypeChange {
             crate::model::multi_column_datatype_change::SourceFilter::SourceTextFilter(v.into()),
         );
         self
+    }
+
+    /// The value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
+    /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_numeric_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
+        #[allow(unreachable_patterns)]
+        self.source_filter.as_ref().and_then(|v| match v {
+            crate::model::multi_column_datatype_change::SourceFilter::SourceNumericFilter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
@@ -11564,21 +11564,6 @@ impl ConditionalColumnSetValue {
         })
     }
 
-    /// The value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
-    /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_numeric_filter(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
-        #[allow(unreachable_patterns)]
-        self.source_filter.as_ref().and_then(|v| match v {
-            crate::model::conditional_column_set_value::SourceFilter::SourceNumericFilter(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
     /// to hold a `SourceTextFilter`.
     ///
@@ -11594,6 +11579,21 @@ impl ConditionalColumnSetValue {
             crate::model::conditional_column_set_value::SourceFilter::SourceTextFilter(v.into()),
         );
         self
+    }
+
+    /// The value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
+    /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_numeric_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
+        #[allow(unreachable_patterns)]
+        self.source_filter.as_ref().and_then(|v| match v {
+            crate::model::conditional_column_set_value::SourceFilter::SourceNumericFilter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
@@ -11685,6 +11685,17 @@ impl ValueTransformation {
         })
     }
 
+    /// Sets the value of [filter][crate::model::ValueTransformation::filter]
+    /// to hold a `IsNull`.
+    ///
+    /// Note that all the setters affecting `filter` are
+    /// mutually exclusive.
+    pub fn set_is_null<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
+        self.filter =
+            std::option::Option::Some(crate::model::value_transformation::Filter::IsNull(v.into()));
+        self
+    }
+
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `ValueList`, `None` if the field is not set or
     /// holds a different branch.
@@ -11698,47 +11709,6 @@ impl ValueTransformation {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [filter][crate::model::ValueTransformation::filter]
-    /// if it holds a `IntComparison`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int_comparison(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IntComparisonFilter>> {
-        #[allow(unreachable_patterns)]
-        self.filter.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Filter::IntComparison(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [filter][crate::model::ValueTransformation::filter]
-    /// if it holds a `DoubleComparison`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn double_comparison(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DoubleComparisonFilter>> {
-        #[allow(unreachable_patterns)]
-        self.filter.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Filter::DoubleComparison(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [filter][crate::model::ValueTransformation::filter]
-    /// to hold a `IsNull`.
-    ///
-    /// Note that all the setters affecting `filter` are
-    /// mutually exclusive.
-    pub fn set_is_null<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
-        self.filter =
-            std::option::Option::Some(crate::model::value_transformation::Filter::IsNull(v.into()));
-        self
     }
 
     /// Sets the value of [filter][crate::model::ValueTransformation::filter]
@@ -11756,6 +11726,21 @@ impl ValueTransformation {
         self
     }
 
+    /// The value of [filter][crate::model::ValueTransformation::filter]
+    /// if it holds a `IntComparison`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int_comparison(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IntComparisonFilter>> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Filter::IntComparison(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [filter][crate::model::ValueTransformation::filter]
     /// to hold a `IntComparison`.
     ///
@@ -11771,6 +11756,21 @@ impl ValueTransformation {
             crate::model::value_transformation::Filter::IntComparison(v.into()),
         );
         self
+    }
+
+    /// The value of [filter][crate::model::ValueTransformation::filter]
+    /// if it holds a `DoubleComparison`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn double_comparison(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DoubleComparisonFilter>> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Filter::DoubleComparison(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [filter][crate::model::ValueTransformation::filter]
@@ -11817,73 +11817,6 @@ impl ValueTransformation {
         })
     }
 
-    /// The value of [action][crate::model::ValueTransformation::action]
-    /// if it holds a `AssignSpecificValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn assign_specific_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AssignSpecificValue>> {
-        #[allow(unreachable_patterns)]
-        self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignSpecificValue(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [action][crate::model::ValueTransformation::action]
-    /// if it holds a `AssignMinValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn assign_min_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
-        #[allow(unreachable_patterns)]
-        self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignMinValue(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [action][crate::model::ValueTransformation::action]
-    /// if it holds a `AssignMaxValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn assign_max_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
-        #[allow(unreachable_patterns)]
-        self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::AssignMaxValue(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [action][crate::model::ValueTransformation::action]
-    /// if it holds a `RoundScale`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn round_scale(&self) -> std::option::Option<&std::boxed::Box<crate::model::RoundToScale>> {
-        #[allow(unreachable_patterns)]
-        self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::RoundScale(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [action][crate::model::ValueTransformation::action]
-    /// if it holds a `ApplyHash`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn apply_hash(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApplyHash>> {
-        #[allow(unreachable_patterns)]
-        self.action.as_ref().and_then(|v| match v {
-            crate::model::value_transformation::Action::ApplyHash(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [action][crate::model::ValueTransformation::action]
     /// to hold a `AssignNull`.
     ///
@@ -11897,6 +11830,21 @@ impl ValueTransformation {
             crate::model::value_transformation::Action::AssignNull(v.into()),
         );
         self
+    }
+
+    /// The value of [action][crate::model::ValueTransformation::action]
+    /// if it holds a `AssignSpecificValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn assign_specific_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AssignSpecificValue>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Action::AssignSpecificValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [action][crate::model::ValueTransformation::action]
@@ -11916,6 +11864,19 @@ impl ValueTransformation {
         self
     }
 
+    /// The value of [action][crate::model::ValueTransformation::action]
+    /// if it holds a `AssignMinValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn assign_min_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Action::AssignMinValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [action][crate::model::ValueTransformation::action]
     /// to hold a `AssignMinValue`.
     ///
@@ -11929,6 +11890,19 @@ impl ValueTransformation {
             crate::model::value_transformation::Action::AssignMinValue(v.into()),
         );
         self
+    }
+
+    /// The value of [action][crate::model::ValueTransformation::action]
+    /// if it holds a `AssignMaxValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn assign_max_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Action::AssignMaxValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [action][crate::model::ValueTransformation::action]
@@ -11946,6 +11920,19 @@ impl ValueTransformation {
         self
     }
 
+    /// The value of [action][crate::model::ValueTransformation::action]
+    /// if it holds a `RoundScale`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn round_scale(&self) -> std::option::Option<&std::boxed::Box<crate::model::RoundToScale>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Action::RoundScale(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [action][crate::model::ValueTransformation::action]
     /// to hold a `RoundScale`.
     ///
@@ -11959,6 +11946,19 @@ impl ValueTransformation {
             crate::model::value_transformation::Action::RoundScale(v.into()),
         );
         self
+    }
+
+    /// The value of [action][crate::model::ValueTransformation::action]
+    /// if it holds a `ApplyHash`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn apply_hash(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApplyHash>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::value_transformation::Action::ApplyHash(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [action][crate::model::ValueTransformation::action]
@@ -12097,12 +12097,6 @@ impl SetTablePrimaryKey {
         std::default::Default::default()
     }
 
-    /// Sets the value of [primary_key][crate::model::SetTablePrimaryKey::primary_key].
-    pub fn set_primary_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.primary_key = v.into();
-        self
-    }
-
     /// Sets the value of [primary_key_columns][crate::model::SetTablePrimaryKey::primary_key_columns].
     pub fn set_primary_key_columns<T, V>(mut self, v: T) -> Self
     where
@@ -12111,6 +12105,12 @@ impl SetTablePrimaryKey {
     {
         use std::iter::Iterator;
         self.primary_key_columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [primary_key][crate::model::SetTablePrimaryKey::primary_key].
+    pub fn set_primary_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.primary_key = v.into();
         self
     }
 }
@@ -12305,12 +12305,6 @@ impl ValueListFilter {
         self
     }
 
-    /// Sets the value of [ignore_case][crate::model::ValueListFilter::ignore_case].
-    pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.ignore_case = v.into();
-        self
-    }
-
     /// Sets the value of [values][crate::model::ValueListFilter::values].
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
@@ -12319,6 +12313,12 @@ impl ValueListFilter {
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ignore_case][crate::model::ValueListFilter::ignore_case].
+    pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_case = v.into();
         self
     }
 }
@@ -12387,6 +12387,7 @@ pub struct DoubleComparisonFilter {
 
     /// Required. Double compare value to be used
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub value: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12711,132 +12712,6 @@ impl DatabaseEntity {
         })
     }
 
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `Schema`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::SchemaEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::Schema(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `Table`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn table(&self) -> std::option::Option<&std::boxed::Box<crate::model::TableEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::Table(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `View`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn view(&self) -> std::option::Option<&std::boxed::Box<crate::model::ViewEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::View(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `Sequence`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sequence(&self) -> std::option::Option<&std::boxed::Box<crate::model::SequenceEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::Sequence(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `StoredProcedure`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn stored_procedure(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StoredProcedureEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::StoredProcedure(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `DatabaseFunction`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn database_function(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FunctionEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::DatabaseFunction(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `Synonym`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn synonym(&self) -> std::option::Option<&std::boxed::Box<crate::model::SynonymEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::Synonym(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `DatabasePackage`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn database_package(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PackageEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::DatabasePackage(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `Udt`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn udt(&self) -> std::option::Option<&std::boxed::Box<crate::model::UDTEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::Udt(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
-    /// if it holds a `MaterializedView`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn materialized_view(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MaterializedViewEntity>> {
-        #[allow(unreachable_patterns)]
-        self.entity_body.as_ref().and_then(|v| match v {
-            crate::model::database_entity::EntityBody::MaterializedView(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// to hold a `Database`.
     ///
@@ -12854,6 +12729,17 @@ impl DatabaseEntity {
         self
     }
 
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `Schema`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::SchemaEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::Schema(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// to hold a `Schema`.
     ///
@@ -12866,6 +12752,17 @@ impl DatabaseEntity {
         self.entity_body =
             std::option::Option::Some(crate::model::database_entity::EntityBody::Schema(v.into()));
         self
+    }
+
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `Table`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn table(&self) -> std::option::Option<&std::boxed::Box<crate::model::TableEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::Table(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
@@ -12882,6 +12779,17 @@ impl DatabaseEntity {
         self
     }
 
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `View`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn view(&self) -> std::option::Option<&std::boxed::Box<crate::model::ViewEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::View(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// to hold a `View`.
     ///
@@ -12894,6 +12802,17 @@ impl DatabaseEntity {
         self.entity_body =
             std::option::Option::Some(crate::model::database_entity::EntityBody::View(v.into()));
         self
+    }
+
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `Sequence`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sequence(&self) -> std::option::Option<&std::boxed::Box<crate::model::SequenceEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::Sequence(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
@@ -12909,6 +12828,21 @@ impl DatabaseEntity {
             crate::model::database_entity::EntityBody::Sequence(v.into()),
         );
         self
+    }
+
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `StoredProcedure`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn stored_procedure(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StoredProcedureEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::StoredProcedure(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
@@ -12928,6 +12862,21 @@ impl DatabaseEntity {
         self
     }
 
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `DatabaseFunction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn database_function(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FunctionEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::DatabaseFunction(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// to hold a `DatabaseFunction`.
     ///
@@ -12945,6 +12894,17 @@ impl DatabaseEntity {
         self
     }
 
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `Synonym`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn synonym(&self) -> std::option::Option<&std::boxed::Box<crate::model::SynonymEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::Synonym(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// to hold a `Synonym`.
     ///
@@ -12957,6 +12917,21 @@ impl DatabaseEntity {
         self.entity_body =
             std::option::Option::Some(crate::model::database_entity::EntityBody::Synonym(v.into()));
         self
+    }
+
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `DatabasePackage`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn database_package(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PackageEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::DatabasePackage(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
@@ -12976,6 +12951,17 @@ impl DatabaseEntity {
         self
     }
 
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `Udt`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn udt(&self) -> std::option::Option<&std::boxed::Box<crate::model::UDTEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::Udt(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// to hold a `Udt`.
     ///
@@ -12988,6 +12974,21 @@ impl DatabaseEntity {
         self.entity_body =
             std::option::Option::Some(crate::model::database_entity::EntityBody::Udt(v.into()));
         self
+    }
+
+    /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
+    /// if it holds a `MaterializedView`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn materialized_view(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MaterializedViewEntity>> {
+        #[allow(unreachable_patterns)]
+        self.entity_body.as_ref().and_then(|v| match v {
+            crate::model::database_entity::EntityBody::MaterializedView(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body]
@@ -13301,21 +13302,6 @@ impl TableEntity {
         std::default::Default::default()
     }
 
-    /// Sets the value of [custom_features][crate::model::TableEntity::custom_features].
-    pub fn set_custom_features<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_features = v.into();
-        self
-    }
-
-    /// Sets the value of [comment][crate::model::TableEntity::comment].
-    pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.comment = v.into();
-        self
-    }
-
     /// Sets the value of [columns][crate::model::TableEntity::columns].
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
@@ -13357,6 +13343,21 @@ impl TableEntity {
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [custom_features][crate::model::TableEntity::custom_features].
+    pub fn set_custom_features<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.custom_features = v.into();
+        self
+    }
+
+    /// Sets the value of [comment][crate::model::TableEntity::comment].
+    pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.comment = v.into();
         self
     }
 }
@@ -13544,6 +13545,17 @@ impl ColumnEntity {
         self
     }
 
+    /// Sets the value of [set_values][crate::model::ColumnEntity::set_values].
+    pub fn set_set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.set_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [comment][crate::model::ColumnEntity::comment].
     pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.comment = v.into();
@@ -13559,17 +13571,6 @@ impl ColumnEntity {
     /// Sets the value of [default_value][crate::model::ColumnEntity::default_value].
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_value = v.into();
-        self
-    }
-
-    /// Sets the value of [set_values][crate::model::ColumnEntity::set_values].
-    pub fn set_set_values<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.set_values = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13646,12 +13647,34 @@ impl ConstraintEntity {
         self
     }
 
+    /// Sets the value of [table_columns][crate::model::ConstraintEntity::table_columns].
+    pub fn set_table_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.table_columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [custom_features][crate::model::ConstraintEntity::custom_features].
     pub fn set_custom_features<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
         v: T,
     ) -> Self {
         self.custom_features = v.into();
+        self
+    }
+
+    /// Sets the value of [reference_columns][crate::model::ConstraintEntity::reference_columns].
+    pub fn set_reference_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.reference_columns = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -13664,28 +13687,6 @@ impl ConstraintEntity {
     /// Sets the value of [table_name][crate::model::ConstraintEntity::table_name].
     pub fn set_table_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_name = v.into();
-        self
-    }
-
-    /// Sets the value of [table_columns][crate::model::ConstraintEntity::table_columns].
-    pub fn set_table_columns<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.table_columns = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [reference_columns][crate::model::ConstraintEntity::reference_columns].
-    pub fn set_reference_columns<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.reference_columns = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13746,6 +13747,17 @@ impl IndexEntity {
         self
     }
 
+    /// Sets the value of [table_columns][crate::model::IndexEntity::table_columns].
+    pub fn set_table_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.table_columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [unique][crate::model::IndexEntity::unique].
     pub fn set_unique<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.unique = v.into();
@@ -13758,17 +13770,6 @@ impl IndexEntity {
         v: T,
     ) -> Self {
         self.custom_features = v.into();
-        self
-    }
-
-    /// Sets the value of [table_columns][crate::model::IndexEntity::table_columns].
-    pub fn set_table_columns<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.table_columns = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13823,6 +13824,17 @@ impl TriggerEntity {
         self
     }
 
+    /// Sets the value of [triggering_events][crate::model::TriggerEntity::triggering_events].
+    pub fn set_triggering_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.triggering_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [trigger_type][crate::model::TriggerEntity::trigger_type].
     pub fn set_trigger_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_type = v.into();
@@ -13841,17 +13853,6 @@ impl TriggerEntity {
         v: T,
     ) -> Self {
         self.custom_features = v.into();
-        self
-    }
-
-    /// Sets the value of [triggering_events][crate::model::TriggerEntity::triggering_events].
-    pub fn set_triggering_events<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.triggering_events = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

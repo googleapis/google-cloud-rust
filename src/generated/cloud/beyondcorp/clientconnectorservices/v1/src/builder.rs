@@ -261,7 +261,7 @@ pub mod client_connector_services_service {
             crate::model::ClientConnectorService,
             crate::model::ClientConnectorServiceOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ClientConnectorService,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -289,7 +289,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClientConnectorServiceRequest::parent].
@@ -390,7 +390,7 @@ pub mod client_connector_services_service {
             crate::model::ClientConnectorService,
             crate::model::ClientConnectorServiceOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ClientConnectorService,
                 crate::model::ClientConnectorServiceOperationMetadata,
             >;
@@ -418,7 +418,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClientConnectorServiceRequest::update_mask].
@@ -517,8 +517,10 @@ pub mod client_connector_services_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::ClientConnectorServiceOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::ClientConnectorServiceOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::ClientConnectorServiceOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -543,7 +545,7 @@ pub mod client_connector_services_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClientConnectorServiceRequest::name].

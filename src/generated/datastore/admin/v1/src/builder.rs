@@ -109,7 +109,7 @@ pub mod datastore_admin {
             self,
         ) -> impl lro::Poller<crate::model::ExportEntitiesResponse, crate::model::ExportEntitiesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportEntitiesResponse,
                 crate::model::ExportEntitiesMetadata,
             >;
@@ -137,7 +137,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
@@ -145,6 +145,17 @@ pub mod datastore_admin {
         /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -162,17 +173,6 @@ pub mod datastore_admin {
         /// This is a **required** field for requests.
         pub fn set_output_url_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.output_url_prefix = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::ExportEntitiesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -222,7 +222,8 @@ pub mod datastore_admin {
 
         /// Creates a [Poller][lro::Poller] to work with `import_entities`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportEntitiesMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -247,7 +248,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
@@ -255,6 +256,17 @@ pub mod datastore_admin {
         /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -272,17 +284,6 @@ pub mod datastore_admin {
             v: T,
         ) -> Self {
             self.0.request.entity_filter = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::ImportEntitiesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -335,7 +336,7 @@ pub mod datastore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -360,7 +361,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::CreateIndexRequest::project_id].
@@ -427,7 +428,7 @@ pub mod datastore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,7 +453,7 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteIndexRequest::project_id].

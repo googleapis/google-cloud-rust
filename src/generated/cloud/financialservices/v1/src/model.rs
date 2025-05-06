@@ -127,6 +127,18 @@ impl BacktestResult {
         self
     }
 
+    /// Sets the value of [labels][crate::model::BacktestResult::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::BacktestResult::state].
     pub fn set_state<T: std::convert::Into<crate::model::backtest_result::State>>(
         mut self,
@@ -180,18 +192,6 @@ impl BacktestResult {
         v: T,
     ) -> Self {
         self.line_of_business = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::BacktestResult::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -504,12 +504,6 @@ impl ListBacktestResultsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBacktestResultsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backtest_results][crate::model::ListBacktestResultsResponse::backtest_results].
     pub fn set_backtest_results<T, V>(mut self, v: T) -> Self
     where
@@ -518,6 +512,12 @@ impl ListBacktestResultsResponse {
     {
         use std::iter::Iterator;
         self.backtest_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBacktestResultsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1139,30 +1139,6 @@ impl Dataset {
         self
     }
 
-    /// Sets the value of [state][crate::model::Dataset::state].
-    pub fn set_state<T: std::convert::Into<crate::model::dataset::State>>(mut self, v: T) -> Self {
-        self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [date_range][crate::model::Dataset::date_range].
-    pub fn set_date_range<T: std::convert::Into<std::option::Option<gtype::model::Interval>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.date_range = v.into();
-        self
-    }
-
-    /// Sets the value of [time_zone][crate::model::Dataset::time_zone].
-    pub fn set_time_zone<T: std::convert::Into<std::option::Option<gtype::model::TimeZone>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_zone = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Dataset::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -1184,6 +1160,30 @@ impl Dataset {
     {
         use std::iter::Iterator;
         self.table_specs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Dataset::state].
+    pub fn set_state<T: std::convert::Into<crate::model::dataset::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [date_range][crate::model::Dataset::date_range].
+    pub fn set_date_range<T: std::convert::Into<std::option::Option<gtype::model::Interval>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.date_range = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::Dataset::time_zone].
+    pub fn set_time_zone<T: std::convert::Into<std::option::Option<gtype::model::TimeZone>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_zone = v.into();
         self
     }
 }
@@ -1452,12 +1452,6 @@ impl ListDatasetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [datasets][crate::model::ListDatasetsResponse::datasets].
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
@@ -1466,6 +1460,12 @@ impl ListDatasetsResponse {
     {
         use std::iter::Iterator;
         self.datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1832,6 +1832,18 @@ impl EngineConfig {
         self
     }
 
+    /// Sets the value of [labels][crate::model::EngineConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::EngineConfig::state].
     pub fn set_state<T: std::convert::Into<crate::model::engine_config::State>>(
         mut self,
@@ -1897,18 +1909,6 @@ impl EngineConfig {
         v: T,
     ) -> Self {
         self.hyperparameter_source = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::EngineConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2464,12 +2464,6 @@ impl ListEngineConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEngineConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [engine_configs][crate::model::ListEngineConfigsResponse::engine_configs].
     pub fn set_engine_configs<T, V>(mut self, v: T) -> Self
     where
@@ -2478,6 +2472,12 @@ impl ListEngineConfigsResponse {
     {
         use std::iter::Iterator;
         self.engine_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEngineConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3176,12 +3176,6 @@ impl ListEngineVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEngineVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [engine_versions][crate::model::ListEngineVersionsResponse::engine_versions].
     pub fn set_engine_versions<T, V>(mut self, v: T) -> Self
     where
@@ -3190,6 +3184,12 @@ impl ListEngineVersionsResponse {
     {
         use std::iter::Iterator;
         self.engine_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEngineVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3336,12 +3336,6 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [kms_key][crate::model::Instance::kms_key].
-    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kms_key = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Instance::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -3351,6 +3345,12 @@ impl Instance {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [kms_key][crate::model::Instance::kms_key].
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
         self
     }
 }
@@ -3620,12 +3620,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -3634,6 +3628,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3955,6 +3955,17 @@ impl ImportRegisteredPartiesRequest {
         self
     }
 
+    /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
+    pub fn set_party_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.party_tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [mode][crate::model::ImportRegisteredPartiesRequest::mode].
     pub fn set_mode<
         T: std::convert::Into<crate::model::import_registered_parties_request::UpdateMode>,
@@ -3978,17 +3989,6 @@ impl ImportRegisteredPartiesRequest {
         v: T,
     ) -> Self {
         self.line_of_business = v.into();
-        self
-    }
-
-    /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
-    pub fn set_party_tables<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.party_tables = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4406,6 +4406,18 @@ impl Model {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Model::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Model::state].
     pub fn set_state<T: std::convert::Into<crate::model::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4445,18 +4457,6 @@ impl Model {
         v: T,
     ) -> Self {
         self.line_of_business = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Model::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4725,12 +4725,6 @@ impl ListModelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [models][crate::model::ListModelsResponse::models].
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
@@ -4739,6 +4733,12 @@ impl ListModelsResponse {
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5180,6 +5180,18 @@ impl PredictionResult {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PredictionResult::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::PredictionResult::state].
     pub fn set_state<T: std::convert::Into<crate::model::prediction_result::State>>(
         mut self,
@@ -5233,18 +5245,6 @@ impl PredictionResult {
         v: T,
     ) -> Self {
         self.line_of_business = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::PredictionResult::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5568,12 +5568,6 @@ impl ListPredictionResultsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPredictionResultsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [prediction_results][crate::model::ListPredictionResultsResponse::prediction_results].
     pub fn set_prediction_results<T, V>(mut self, v: T) -> Self
     where
@@ -5582,6 +5576,12 @@ impl ListPredictionResultsResponse {
     {
         use std::iter::Iterator;
         self.prediction_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPredictionResultsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

@@ -312,12 +312,6 @@ impl ListWorkloadsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workloads][crate::model::ListWorkloadsResponse::workloads].
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
@@ -326,6 +320,12 @@ impl ListWorkloadsResponse {
     {
         use std::iter::Iterator;
         self.workloads = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -477,6 +477,17 @@ impl Workload {
         self
     }
 
+    /// Sets the value of [resources][crate::model::Workload::resources].
+    pub fn set_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workload::ResourceInfo>,
+    {
+        use std::iter::Iterator;
+        self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [compliance_regime][crate::model::Workload::compliance_regime].
     pub fn set_compliance_regime<
         T: std::convert::Into<crate::model::workload::ComplianceRegime>,
@@ -509,6 +520,18 @@ impl Workload {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Workload::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [provisioned_resources_parent][crate::model::Workload::provisioned_resources_parent].
     pub fn set_provisioned_resources_parent<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -527,6 +550,17 @@ impl Workload {
         v: T,
     ) -> Self {
         self.kms_settings = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_settings][crate::model::Workload::resource_settings].
+    pub fn set_resource_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::workload::ResourceSettings>,
+    {
+        use std::iter::Iterator;
+        self.resource_settings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -558,37 +592,6 @@ impl Workload {
         self
     }
 
-    /// Sets the value of [partner][crate::model::Workload::partner].
-    pub fn set_partner<T: std::convert::Into<crate::model::workload::Partner>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.partner = v.into();
-        self
-    }
-
-    /// Sets the value of [resources][crate::model::Workload::resources].
-    pub fn set_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workload::ResourceInfo>,
-    {
-        use std::iter::Iterator;
-        self.resources = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [resource_settings][crate::model::Workload::resource_settings].
-    pub fn set_resource_settings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workload::ResourceSettings>,
-    {
-        use std::iter::Iterator;
-        self.resource_settings = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [compliant_but_disallowed_services][crate::model::Workload::compliant_but_disallowed_services].
     pub fn set_compliant_but_disallowed_services<T, V>(mut self, v: T) -> Self
     where
@@ -600,15 +603,12 @@ impl Workload {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Workload::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [partner][crate::model::Workload::partner].
+    pub fn set_partner<T: std::convert::Into<crate::model::workload::Partner>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.partner = v.into();
         self
     }
 }
@@ -2306,12 +2306,6 @@ impl ListViolationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListViolationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [violations][crate::model::ListViolationsResponse::violations].
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
@@ -2320,6 +2314,12 @@ impl ListViolationsResponse {
     {
         use std::iter::Iterator;
         self.violations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListViolationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2631,17 +2631,6 @@ pub mod violation {
             self
         }
 
-        /// Sets the value of [remediation_type][crate::model::violation::Remediation::remediation_type].
-        pub fn set_remediation_type<
-            T: std::convert::Into<crate::model::violation::remediation::RemediationType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.remediation_type = v.into();
-            self
-        }
-
         /// Sets the value of [compliant_values][crate::model::violation::Remediation::compliant_values].
         pub fn set_compliant_values<T, V>(mut self, v: T) -> Self
         where
@@ -2650,6 +2639,17 @@ pub mod violation {
         {
             use std::iter::Iterator;
             self.compliant_values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [remediation_type][crate::model::violation::Remediation::remediation_type].
+        pub fn set_remediation_type<
+            T: std::convert::Into<crate::model::violation::remediation::RemediationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.remediation_type = v.into();
             self
         }
     }

@@ -16,8 +16,8 @@ limitations under the License.
 
 # Setting up your development environment
 
-Prepare your environment for [Rust] app development and deployment on
-Google Cloud by installing the following tools.
+Prepare your environment for [Rust] app development and deployment on Google
+Cloud by installing the following tools.
 
 ## Install Rust
 
@@ -41,21 +41,22 @@ and IDEs, which provide the following features:
 ## Install the Google Cloud CLI
 
 The [Google Cloud CLI] is a set of tools for Google Cloud. It contains the
-[`gcloud`](https://cloud.google.com/sdk/gcloud/)
-and [`bq`](https://cloud.google.com/bigquery/docs/bq-command-line-tool)
-command-line tools used to access Compute Engine, Cloud Storage,
-BigQuery, and other services from the command line. You can run these
-tools interactively or in your automated scripts.
+[`gcloud`](https://cloud.google.com/sdk/gcloud/) and
+[`bq`](https://cloud.google.com/bigquery/docs/bq-command-line-tool) command-line
+tools used to access Compute Engine, Cloud Storage, BigQuery, and other services
+from the command line. You can run these tools interactively or in your
+automated scripts.
 
-To install the gcloud CLI, see [Installing the gcloud CLI](https://cloud.google.com/sdk/install).
+To install the gcloud CLI, see
+[Installing the gcloud CLI](https://cloud.google.com/sdk/install).
 
 ## Install the Cloud Client Libraries for Rust in a New Project
 
 The Cloud Client Libraries for Rust is the idiomatic way for Rust developers to
 integrate with Google Cloud services, such as Secret Manager and Workflows.
 
-For example, to use the package for an individual API, such as the
-Secret Manager API, do the following:
+For example, to use the package for an individual API, such as the Secret
+Manager API, do the following:
 
 1. Create a new Rust project:
 
@@ -104,8 +105,8 @@ Note: The source of the Cloud Client Libraries for Rust is
 
 ### Running the program
 
-1. To use the Cloud Client Libraries in a local development environment, set
-   up Application Default Credentials.
+1. To use the Cloud Client Libraries in a local development environment, set up
+   Application Default Credentials.
 
    ```shell
    gcloud auth application-default login

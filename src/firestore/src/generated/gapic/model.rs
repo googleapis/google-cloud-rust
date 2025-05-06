@@ -278,6 +278,17 @@ impl Precondition {
         })
     }
 
+    /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
+    /// to hold a `Exists`.
+    ///
+    /// Note that all the setters affecting `condition_type` are
+    /// mutually exclusive.
+    pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.condition_type =
+            std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
+        self
+    }
+
     /// The value of [condition_type][crate::model::Precondition::condition_type]
     /// if it holds a `UpdateTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -289,17 +300,6 @@ impl Precondition {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
-    /// to hold a `Exists`.
-    ///
-    /// Note that all the setters affecting `condition_type` are
-    /// mutually exclusive.
-    pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.condition_type =
-            std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
-        self
     }
 
     /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
@@ -402,19 +402,6 @@ impl TransactionOptions {
         })
     }
 
-    /// The value of [mode][crate::model::TransactionOptions::mode]
-    /// if it holds a `ReadWrite`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_write(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadWrite>> {
-        #[allow(unreachable_patterns)]
-        self.mode.as_ref().and_then(|v| match v {
-            crate::model::transaction_options::Mode::ReadWrite(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode][crate::model::TransactionOptions::mode]
     /// to hold a `ReadOnly`.
     ///
@@ -429,6 +416,19 @@ impl TransactionOptions {
         self.mode =
             std::option::Option::Some(crate::model::transaction_options::Mode::ReadOnly(v.into()));
         self
+    }
+
+    /// The value of [mode][crate::model::TransactionOptions::mode]
+    /// if it holds a `ReadWrite`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_write(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadWrite>> {
+        #[allow(unreachable_patterns)]
+        self.mode.as_ref().and_then(|v| match v {
+            crate::model::transaction_options::Mode::ReadWrite(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode][crate::model::TransactionOptions::mode]
@@ -703,6 +703,18 @@ impl Document {
         self
     }
 
+    /// Sets the value of [fields][crate::model::Document::fields].
+    pub fn set_fields<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::Value>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Document::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -718,18 +730,6 @@ impl Document {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [fields][crate::model::Document::fields].
-    pub fn set_fields<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::Value>,
-    {
-        use std::iter::Iterator;
-        self.fields = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -784,116 +784,6 @@ impl Value {
         })
     }
 
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `BooleanValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn boolean_value(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::BooleanValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `IntegerValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn integer_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::IntegerValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `DoubleValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn double_value(&self) -> std::option::Option<&f64> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::DoubleValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `TimestampValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn timestamp_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::TimestampValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `StringValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::StringValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `BytesValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::BytesValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `ReferenceValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn reference_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::ReferenceValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `GeoPointValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `ArrayValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn array_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::ArrayValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value_type][crate::model::Value::value_type]
-    /// if it holds a `MapValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn map_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::MapValue>> {
-        #[allow(unreachable_patterns)]
-        self.value_type.as_ref().and_then(|v| match v {
-            crate::model::value::ValueType::MapValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `NullValue`.
     ///
@@ -903,6 +793,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::NullValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `BooleanValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn boolean_value(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::BooleanValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -916,6 +817,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `IntegerValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn integer_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::IntegerValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `IntegerValue`.
     ///
@@ -927,6 +839,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `DoubleValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn double_value(&self) -> std::option::Option<&f64> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::DoubleValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `DoubleValue`.
     ///
@@ -936,6 +859,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::DoubleValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `TimestampValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn timestamp_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::TimestampValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -952,6 +886,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::StringValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `StringValue`.
     ///
@@ -961,6 +906,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::StringValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `BytesValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::BytesValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -974,6 +930,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `ReferenceValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn reference_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::ReferenceValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `ReferenceValue`.
     ///
@@ -983,6 +950,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::ReferenceValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `GeoPointValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -999,6 +977,17 @@ impl Value {
         self
     }
 
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `ArrayValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn array_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::ArrayValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value_type][crate::model::Value::value_type]
     /// to hold a `ArrayValue`.
     ///
@@ -1011,6 +1000,17 @@ impl Value {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::ArrayValue(v.into()));
         self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `MapValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn map_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::MapValue>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::MapValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value_type][crate::model::Value::value_type]
@@ -1298,6 +1298,18 @@ impl GetDocumentRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -1309,18 +1321,6 @@ impl GetDocumentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
@@ -1545,6 +1545,18 @@ impl ListDocumentsRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -1556,18 +1568,6 @@ impl ListDocumentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
@@ -1655,12 +1655,6 @@ impl ListDocumentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [documents][crate::model::ListDocumentsResponse::documents].
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
@@ -1669,6 +1663,12 @@ impl ListDocumentsResponse {
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1973,15 +1973,6 @@ impl BatchGetDocumentsRequest {
         self
     }
 
-    /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mask = v.into();
-        self
-    }
-
     /// Sets the value of [documents][crate::model::BatchGetDocumentsRequest::documents].
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
@@ -1990,6 +1981,15 @@ impl BatchGetDocumentsRequest {
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mask = v.into();
         self
     }
 
@@ -2022,6 +2022,18 @@ impl BatchGetDocumentsRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2035,31 +2047,6 @@ impl BatchGetDocumentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
@@ -2079,6 +2066,19 @@ impl BatchGetDocumentsRequest {
             ),
         );
         self
+    }
+
+    /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.consistency_selector.as_ref().and_then(|v| match v {
+            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
@@ -2229,19 +2229,6 @@ impl BatchGetDocumentsResponse {
         })
     }
 
-    /// The value of [result][crate::model::BatchGetDocumentsResponse::result]
-    /// if it holds a `Missing`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn missing(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.result.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_response::Result::Missing(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result]
     /// to hold a `Found`.
     ///
@@ -2255,6 +2242,19 @@ impl BatchGetDocumentsResponse {
             crate::model::batch_get_documents_response::Result::Found(v.into()),
         );
         self
+    }
+
+    /// The value of [result][crate::model::BatchGetDocumentsResponse::result]
+    /// if it holds a `Missing`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn missing(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::batch_get_documents_response::Result::Missing(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result]
@@ -2435,12 +2435,6 @@ impl CommitRequest {
         self
     }
 
-    /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.transaction = v.into();
-        self
-    }
-
     /// Sets the value of [writes][crate::model::CommitRequest::writes].
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
@@ -2449,6 +2443,12 @@ impl CommitRequest {
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.transaction = v.into();
         self
     }
 }
@@ -2488,15 +2488,6 @@ impl CommitResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [commit_time][crate::model::CommitResponse::commit_time].
-    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commit_time = v.into();
-        self
-    }
-
     /// Sets the value of [write_results][crate::model::CommitResponse::write_results].
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
@@ -2505,6 +2496,15 @@ impl CommitResponse {
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [commit_time][crate::model::CommitResponse::commit_time].
+    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commit_time = v.into();
         self
     }
 }
@@ -2692,6 +2692,18 @@ impl RunQueryRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2705,31 +2717,6 @@ impl RunQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_query_request::ConsistencySelector::ReadTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
@@ -2747,6 +2734,19 @@ impl RunQueryRequest {
             crate::model::run_query_request::ConsistencySelector::NewTransaction(v.into()),
         );
         self
+    }
+
+    /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.consistency_selector.as_ref().and_then(|v| match v {
+            crate::model::run_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
@@ -3149,6 +3149,18 @@ impl RunAggregationQueryRequest {
         })
     }
 
+    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+    /// to hold a `Transaction`.
+    ///
+    /// Note that all the setters affecting `consistency_selector` are
+    /// mutually exclusive.
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.consistency_selector = std::option::Option::Some(
+            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
+        );
+        self
+    }
+
     /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3162,31 +3174,6 @@ impl RunAggregationQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
@@ -3206,6 +3193,19 @@ impl RunAggregationQueryRequest {
             ),
         );
         self
+    }
+
+    /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.consistency_selector.as_ref().and_then(|v| match v {
+            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
@@ -3676,12 +3676,6 @@ impl PartitionQueryResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::PartitionQueryResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [partitions][crate::model::PartitionQueryResponse::partitions].
     pub fn set_partitions<T, V>(mut self, v: T) -> Self
     where
@@ -3690,6 +3684,12 @@ impl PartitionQueryResponse {
     {
         use std::iter::Iterator;
         self.partitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::PartitionQueryResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3795,12 +3795,6 @@ impl WriteRequest {
         self
     }
 
-    /// Sets the value of [stream_token][crate::model::WriteRequest::stream_token].
-    pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.stream_token = v.into();
-        self
-    }
-
     /// Sets the value of [writes][crate::model::WriteRequest::writes].
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
@@ -3809,6 +3803,12 @@ impl WriteRequest {
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [stream_token][crate::model::WriteRequest::stream_token].
+    pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.stream_token = v.into();
         self
     }
 
@@ -3883,15 +3883,6 @@ impl WriteResponse {
         self
     }
 
-    /// Sets the value of [commit_time][crate::model::WriteResponse::commit_time].
-    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commit_time = v.into();
-        self
-    }
-
     /// Sets the value of [write_results][crate::model::WriteResponse::write_results].
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
@@ -3900,6 +3891,15 @@ impl WriteResponse {
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [commit_time][crate::model::WriteResponse::commit_time].
+    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commit_time = v.into();
         self
     }
 }
@@ -3983,19 +3983,6 @@ impl ListenRequest {
         })
     }
 
-    /// The value of [target_change][crate::model::ListenRequest::target_change]
-    /// if it holds a `RemoveTarget`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn remove_target(&self) -> std::option::Option<&i32> {
-        #[allow(unreachable_patterns)]
-        self.target_change.as_ref().and_then(|v| match v {
-            crate::model::listen_request::TargetChange::RemoveTarget(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target_change][crate::model::ListenRequest::target_change]
     /// to hold a `AddTarget`.
     ///
@@ -4009,6 +3996,19 @@ impl ListenRequest {
             crate::model::listen_request::TargetChange::AddTarget(v.into()),
         );
         self
+    }
+
+    /// The value of [target_change][crate::model::ListenRequest::target_change]
+    /// if it holds a `RemoveTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remove_target(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.target_change.as_ref().and_then(|v| match v {
+            crate::model::listen_request::TargetChange::RemoveTarget(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target_change][crate::model::ListenRequest::target_change]
@@ -4108,62 +4108,6 @@ impl ListenResponse {
         })
     }
 
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `DocumentChange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn document_change(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentChange>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentChange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `DocumentDelete`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn document_delete(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentDelete>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentDelete(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `DocumentRemove`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn document_remove(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentRemove>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentRemove(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [response_type][crate::model::ListenResponse::response_type]
-    /// if it holds a `Filter`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExistenceFilter>> {
-        #[allow(unreachable_patterns)]
-        self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::Filter(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
     /// to hold a `TargetChange`.
     ///
@@ -4177,6 +4121,21 @@ impl ListenResponse {
             crate::model::listen_response::ResponseType::TargetChange(v.into()),
         );
         self
+    }
+
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `DocumentChange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn document_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentChange>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::DocumentChange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
@@ -4196,6 +4155,21 @@ impl ListenResponse {
         self
     }
 
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `DocumentDelete`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn document_delete(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentDelete>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::DocumentDelete(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
     /// to hold a `DocumentDelete`.
     ///
@@ -4213,6 +4187,21 @@ impl ListenResponse {
         self
     }
 
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `DocumentRemove`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn document_remove(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentRemove>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::DocumentRemove(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
     /// to hold a `DocumentRemove`.
     ///
@@ -4228,6 +4217,17 @@ impl ListenResponse {
             crate::model::listen_response::ResponseType::DocumentRemove(v.into()),
         );
         self
+    }
+
+    /// The value of [response_type][crate::model::ListenResponse::response_type]
+    /// if it holds a `Filter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExistenceFilter>> {
+        #[allow(unreachable_patterns)]
+        self.response_type.as_ref().and_then(|v| match v {
+            crate::model::listen_response::ResponseType::Filter(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
@@ -4427,19 +4427,6 @@ impl Target {
         })
     }
 
-    /// The value of [target_type][crate::model::Target::target_type]
-    /// if it holds a `Documents`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn documents(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::target::DocumentsTarget>> {
-        #[allow(unreachable_patterns)]
-        self.target_type.as_ref().and_then(|v| match v {
-            crate::model::target::TargetType::Documents(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target_type][crate::model::Target::target_type]
     /// to hold a `Query`.
     ///
@@ -4452,6 +4439,19 @@ impl Target {
         self.target_type =
             std::option::Option::Some(crate::model::target::TargetType::Query(v.into()));
         self
+    }
+
+    /// The value of [target_type][crate::model::Target::target_type]
+    /// if it holds a `Documents`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn documents(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::target::DocumentsTarget>> {
+        #[allow(unreachable_patterns)]
+        self.target_type.as_ref().and_then(|v| match v {
+            crate::model::target::TargetType::Documents(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target_type][crate::model::Target::target_type]
@@ -4495,17 +4495,6 @@ impl Target {
         })
     }
 
-    /// The value of [resume_type][crate::model::Target::resume_type]
-    /// if it holds a `ReadTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.resume_type.as_ref().and_then(|v| match v {
-            crate::model::target::ResumeType::ReadTime(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resume_type][crate::model::Target::resume_type]
     /// to hold a `ResumeToken`.
     ///
@@ -4515,6 +4504,17 @@ impl Target {
         self.resume_type =
             std::option::Option::Some(crate::model::target::ResumeType::ResumeToken(v.into()));
         self
+    }
+
+    /// The value of [resume_type][crate::model::Target::resume_type]
+    /// if it holds a `ReadTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.resume_type.as_ref().and_then(|v| match v {
+            crate::model::target::ResumeType::ReadTime(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resume_type][crate::model::Target::resume_type]
@@ -4818,6 +4818,17 @@ impl TargetChange {
         self
     }
 
+    /// Sets the value of [target_ids][crate::model::TargetChange::target_ids].
+    pub fn set_target_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.target_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cause][crate::model::TargetChange::cause].
     pub fn set_cause<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -4839,17 +4850,6 @@ impl TargetChange {
         v: T,
     ) -> Self {
         self.read_time = v.into();
-        self
-    }
-
-    /// Sets the value of [target_ids][crate::model::TargetChange::target_ids].
-    pub fn set_target_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.target_ids = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5189,12 +5189,6 @@ impl ListCollectionIdsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListCollectionIdsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [collection_ids][crate::model::ListCollectionIdsResponse::collection_ids].
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
@@ -5203,6 +5197,12 @@ impl ListCollectionIdsResponse {
     {
         use std::iter::Iterator;
         self.collection_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListCollectionIdsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5498,6 +5498,17 @@ impl StructuredQuery {
         self
     }
 
+    /// Sets the value of [from][crate::model::StructuredQuery::from].
+    pub fn set_from<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::structured_query::CollectionSelector>,
+    {
+        use std::iter::Iterator;
+        self.from = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [r#where][crate::model::StructuredQuery::where].
     pub fn set_where<
         T: std::convert::Into<std::option::Option<crate::model::structured_query::Filter>>,
@@ -5506,6 +5517,17 @@ impl StructuredQuery {
         v: T,
     ) -> Self {
         self.r#where = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::StructuredQuery::order_by].
+    pub fn set_order_by<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::structured_query::Order>,
+    {
+        use std::iter::Iterator;
+        self.order_by = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5550,28 +5572,6 @@ impl StructuredQuery {
         v: T,
     ) -> Self {
         self.find_nearest = v.into();
-        self
-    }
-
-    /// Sets the value of [from][crate::model::StructuredQuery::from].
-    pub fn set_from<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_query::CollectionSelector>,
-    {
-        use std::iter::Iterator;
-        self.from = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [order_by][crate::model::StructuredQuery::order_by].
-    pub fn set_order_by<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_query::Order>,
-    {
-        use std::iter::Iterator;
-        self.order_by = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5686,38 +5686,6 @@ pub mod structured_query {
             })
         }
 
-        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// if it holds a `FieldFilter`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn field_filter(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldFilter>>
-        {
-            #[allow(unreachable_patterns)]
-            self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::FieldFilter(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// if it holds a `UnaryFilter`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn unary_filter(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::UnaryFilter>>
-        {
-            #[allow(unreachable_patterns)]
-            self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::UnaryFilter(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// to hold a `CompositeFilter`.
         ///
@@ -5735,6 +5703,22 @@ pub mod structured_query {
             self
         }
 
+        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
+        /// if it holds a `FieldFilter`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn field_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldFilter>>
+        {
+            #[allow(unreachable_patterns)]
+            self.filter_type.as_ref().and_then(|v| match v {
+                crate::model::structured_query::filter::FilterType::FieldFilter(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// to hold a `FieldFilter`.
         ///
@@ -5750,6 +5734,22 @@ pub mod structured_query {
                 crate::model::structured_query::filter::FilterType::FieldFilter(v.into()),
             );
             self
+        }
+
+        /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
+        /// if it holds a `UnaryFilter`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn unary_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::UnaryFilter>>
+        {
+            #[allow(unreachable_patterns)]
+            self.filter_type.as_ref().and_then(|v| match v {
+                crate::model::structured_query::filter::FilterType::UnaryFilter(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
@@ -6770,6 +6770,7 @@ pub mod structured_query {
         /// * For EUCLIDEAN, COSINE: WHERE distance <= distance_threshold
         /// * For DOT_PRODUCT:       WHERE distance >= distance_threshold
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub distance_threshold: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7344,40 +7345,6 @@ pub mod structured_aggregation_query {
             })
         }
 
-        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// if it holds a `Sum`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn sum(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// if it holds a `Avg`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn avg(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// to hold a `Count`.
         ///
@@ -7397,6 +7364,23 @@ pub mod structured_aggregation_query {
             self
         }
 
+        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
+        /// if it holds a `Sum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sum(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.operator.as_ref().and_then(|v| match v {
+                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// to hold a `Sum`.
         ///
@@ -7414,6 +7398,23 @@ pub mod structured_aggregation_query {
                 crate::model::structured_aggregation_query::aggregation::Operator::Sum(v.into()),
             );
             self
+        }
+
+        /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
+        /// if it holds a `Avg`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn avg(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.operator.as_ref().and_then(|v| match v {
+                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
@@ -7699,12 +7700,6 @@ impl Cursor {
         std::default::Default::default()
     }
 
-    /// Sets the value of [before][crate::model::Cursor::before].
-    pub fn set_before<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.before = v.into();
-        self
-    }
-
     /// Sets the value of [values][crate::model::Cursor::values].
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
@@ -7713,6 +7708,12 @@ impl Cursor {
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [before][crate::model::Cursor::before].
+    pub fn set_before<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.before = v.into();
         self
     }
 }
@@ -7997,17 +7998,6 @@ impl Write {
         self
     }
 
-    /// Sets the value of [current_document][crate::model::Write::current_document].
-    pub fn set_current_document<
-        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.current_document = v.into();
-        self
-    }
-
     /// Sets the value of [update_transforms][crate::model::Write::update_transforms].
     pub fn set_update_transforms<T, V>(mut self, v: T) -> Self
     where
@@ -8016,6 +8006,17 @@ impl Write {
     {
         use std::iter::Iterator;
         self.update_transforms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [current_document][crate::model::Write::current_document].
+    pub fn set_current_document<
+        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.current_document = v.into();
         self
     }
 
@@ -8044,30 +8045,6 @@ impl Write {
         })
     }
 
-    /// The value of [operation][crate::model::Write::operation]
-    /// if it holds a `Delete`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::write::Operation::Delete(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [operation][crate::model::Write::operation]
-    /// if it holds a `Transform`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn transform(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentTransform>> {
-        #[allow(unreachable_patterns)]
-        self.operation.as_ref().and_then(|v| match v {
-            crate::model::write::Operation::Transform(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [operation][crate::model::Write::operation]
     /// to hold a `Update`.
     ///
@@ -8082,6 +8059,17 @@ impl Write {
         self
     }
 
+    /// The value of [operation][crate::model::Write::operation]
+    /// if it holds a `Delete`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::write::Operation::Delete(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [operation][crate::model::Write::operation]
     /// to hold a `Delete`.
     ///
@@ -8091,6 +8079,19 @@ impl Write {
         self.operation =
             std::option::Option::Some(crate::model::write::Operation::Delete(v.into()));
         self
+    }
+
+    /// The value of [operation][crate::model::Write::operation]
+    /// if it holds a `Transform`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn transform(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentTransform>> {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::write::Operation::Transform(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [operation][crate::model::Write::operation]
@@ -8275,71 +8276,6 @@ pub mod document_transform {
             })
         }
 
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `Increment`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn increment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Increment(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `Maximum`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Maximum(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `Minimum`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn minimum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Minimum(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `AppendMissingElements`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn append_missing_elements(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::AppendMissingElements(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// if it holds a `RemoveAllFromArray`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn remove_all_from_array(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
-            #[allow(unreachable_patterns)]
-            self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `SetToServerValue`.
         ///
@@ -8359,6 +8295,19 @@ pub mod document_transform {
             self
         }
 
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `Increment`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn increment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::Increment(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `Increment`.
         ///
@@ -8376,6 +8325,19 @@ pub mod document_transform {
             self
         }
 
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `Maximum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::Maximum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `Maximum`.
         ///
@@ -8391,6 +8353,19 @@ pub mod document_transform {
             self
         }
 
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `Minimum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn minimum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::Minimum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// to hold a `Minimum`.
         ///
@@ -8404,6 +8379,19 @@ pub mod document_transform {
                 crate::model::document_transform::field_transform::TransformType::Minimum(v.into()),
             );
             self
+        }
+
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `AppendMissingElements`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn append_missing_elements(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::AppendMissingElements(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
@@ -8423,6 +8411,19 @@ pub mod document_transform {
                 )
             );
             self
+        }
+
+        /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
+        /// if it holds a `RemoveAllFromArray`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn remove_all_from_array(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+            #[allow(unreachable_patterns)]
+            self.transform_type.as_ref().and_then(|v| match v {
+                crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
@@ -8886,15 +8887,6 @@ impl DocumentDelete {
         self
     }
 
-    /// Sets the value of [read_time][crate::model::DocumentDelete::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.read_time = v.into();
-        self
-    }
-
     /// Sets the value of [removed_target_ids][crate::model::DocumentDelete::removed_target_ids].
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
@@ -8903,6 +8895,15 @@ impl DocumentDelete {
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [read_time][crate::model::DocumentDelete::read_time].
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_time = v.into();
         self
     }
 }
@@ -8963,15 +8964,6 @@ impl DocumentRemove {
         self
     }
 
-    /// Sets the value of [read_time][crate::model::DocumentRemove::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.read_time = v.into();
-        self
-    }
-
     /// Sets the value of [removed_target_ids][crate::model::DocumentRemove::removed_target_ids].
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
@@ -8980,6 +8972,15 @@ impl DocumentRemove {
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [read_time][crate::model::DocumentRemove::read_time].
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.read_time = v.into();
         self
     }
 }

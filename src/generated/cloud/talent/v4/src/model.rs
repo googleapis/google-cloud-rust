@@ -119,6 +119,7 @@ pub struct Location {
     ///
     /// [google.type.LatLng]: gtype::model::LatLng
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub radius_miles: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -828,18 +829,6 @@ impl CustomAttribute {
         std::default::Default::default()
     }
 
-    /// Sets the value of [filterable][crate::model::CustomAttribute::filterable].
-    pub fn set_filterable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.filterable = v.into();
-        self
-    }
-
-    /// Sets the value of [keyword_searchable][crate::model::CustomAttribute::keyword_searchable].
-    pub fn set_keyword_searchable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.keyword_searchable = v.into();
-        self
-    }
-
     /// Sets the value of [string_values][crate::model::CustomAttribute::string_values].
     pub fn set_string_values<T, V>(mut self, v: T) -> Self
     where
@@ -859,6 +848,18 @@ impl CustomAttribute {
     {
         use std::iter::Iterator;
         self.long_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [filterable][crate::model::CustomAttribute::filterable].
+    pub fn set_filterable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.filterable = v.into();
+        self
+    }
+
+    /// Sets the value of [keyword_searchable][crate::model::CustomAttribute::keyword_searchable].
+    pub fn set_keyword_searchable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.keyword_searchable = v.into();
         self
     }
 }
@@ -986,6 +987,17 @@ impl CompensationInfo {
         std::default::Default::default()
     }
 
+    /// Sets the value of [entries][crate::model::CompensationInfo::entries].
+    pub fn set_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::compensation_info::CompensationEntry>,
+    {
+        use std::iter::Iterator;
+        self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [annualized_base_compensation_range][crate::model::CompensationInfo::annualized_base_compensation_range].
     pub fn set_annualized_base_compensation_range<
         T: std::convert::Into<std::option::Option<crate::model::compensation_info::CompensationRange>>,
@@ -1005,17 +1017,6 @@ impl CompensationInfo {
         v: T,
     ) -> Self {
         self.annualized_total_compensation_range = v.into();
-        self
-    }
-
-    /// Sets the value of [entries][crate::model::CompensationInfo::entries].
-    pub fn set_entries<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compensation_info::CompensationEntry>,
-    {
-        use std::iter::Iterator;
-        self.entries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1095,6 +1096,7 @@ pub mod compensation_info {
         /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.unit]: crate::model::compensation_info::CompensationEntry::unit
         /// [google.cloud.talent.v4.Job.employment_types]: crate::model::Job::employment_types
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub expected_units_per_year: std::option::Option<wkt::DoubleValue>,
 
         /// Compensation amount. It could be a fixed amount or a floating range.
@@ -1182,22 +1184,6 @@ pub mod compensation_info {
             })
         }
 
-        /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
-        /// if it holds a `Range`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn range(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::compensation_info::CompensationRange>>
-        {
-            #[allow(unreachable_patterns)]
-            self.compensation_amount.as_ref().and_then(|v| match v {
-                crate::model::compensation_info::compensation_entry::CompensationAmount::Range(
-                    v,
-                ) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
         /// to hold a `Amount`.
         ///
@@ -1213,6 +1199,22 @@ pub mod compensation_info {
                 ),
             );
             self
+        }
+
+        /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
+        /// if it holds a `Range`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn range(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::compensation_info::CompensationRange>>
+        {
+            #[allow(unreachable_patterns)]
+            self.compensation_amount.as_ref().and_then(|v| match v {
+                crate::model::compensation_info::compensation_entry::CompensationAmount::Range(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
@@ -2168,6 +2170,18 @@ impl Company {
         self
     }
 
+    /// Sets the value of [keyword_searchable_job_custom_attributes][crate::model::Company::keyword_searchable_job_custom_attributes].
+    #[deprecated]
+    pub fn set_keyword_searchable_job_custom_attributes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.keyword_searchable_job_custom_attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [derived_info][crate::model::Company::derived_info].
     pub fn set_derived_info<
         T: std::convert::Into<std::option::Option<crate::model::company::DerivedInfo>>,
@@ -2182,18 +2196,6 @@ impl Company {
     /// Sets the value of [suspended][crate::model::Company::suspended].
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
-        self
-    }
-
-    /// Sets the value of [keyword_searchable_job_custom_attributes][crate::model::Company::keyword_searchable_job_custom_attributes].
-    #[deprecated]
-    pub fn set_keyword_searchable_job_custom_attributes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.keyword_searchable_job_custom_attributes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2535,6 +2537,17 @@ impl ListCompaniesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [companies][crate::model::ListCompaniesResponse::companies].
+    pub fn set_companies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Company>,
+    {
+        use std::iter::Iterator;
+        self.companies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCompaniesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2549,17 +2562,6 @@ impl ListCompaniesResponse {
         v: T,
     ) -> Self {
         self.metadata = v.into();
-        self
-    }
-
-    /// Sets the value of [companies][crate::model::ListCompaniesResponse::companies].
-    pub fn set_companies<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Company>,
-    {
-        use std::iter::Iterator;
-        self.companies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2660,6 +2662,17 @@ impl CompleteQueryRequest {
         self
     }
 
+    /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+    pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::CompleteQueryRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -2689,17 +2702,6 @@ impl CompleteQueryRequest {
         v: T,
     ) -> Self {
         self.r#type = v.into();
-        self
-    }
-
-    /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
-    pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.language_codes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3041,17 +3043,6 @@ impl CompleteQueryResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [metadata][crate::model::CompleteQueryResponse::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::ResponseMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [completion_results][crate::model::CompleteQueryResponse::completion_results].
     pub fn set_completion_results<T, V>(mut self, v: T) -> Self
     where
@@ -3060,6 +3051,17 @@ impl CompleteQueryResponse {
     {
         use std::iter::Iterator;
         self.completion_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::CompleteQueryResponse::metadata].
+    pub fn set_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::ResponseMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -3916,54 +3918,6 @@ impl JobQuery {
         self
     }
 
-    /// Sets the value of [commute_filter][crate::model::JobQuery::commute_filter].
-    pub fn set_commute_filter<
-        T: std::convert::Into<std::option::Option<crate::model::CommuteFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commute_filter = v.into();
-        self
-    }
-
-    /// Sets the value of [compensation_filter][crate::model::JobQuery::compensation_filter].
-    pub fn set_compensation_filter<
-        T: std::convert::Into<std::option::Option<crate::model::CompensationFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.compensation_filter = v.into();
-        self
-    }
-
-    /// Sets the value of [custom_attribute_filter][crate::model::JobQuery::custom_attribute_filter].
-    pub fn set_custom_attribute_filter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_attribute_filter = v.into();
-        self
-    }
-
-    /// Sets the value of [disable_spell_check][crate::model::JobQuery::disable_spell_check].
-    pub fn set_disable_spell_check<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.disable_spell_check = v.into();
-        self
-    }
-
-    /// Sets the value of [publish_time_range][crate::model::JobQuery::publish_time_range].
-    pub fn set_publish_time_range<
-        T: std::convert::Into<std::option::Option<crate::model::TimestampRange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.publish_time_range = v.into();
-        self
-    }
-
     /// Sets the value of [companies][crate::model::JobQuery::companies].
     pub fn set_companies<T, V>(mut self, v: T) -> Self
     where
@@ -3997,6 +3951,17 @@ impl JobQuery {
         self
     }
 
+    /// Sets the value of [commute_filter][crate::model::JobQuery::commute_filter].
+    pub fn set_commute_filter<
+        T: std::convert::Into<std::option::Option<crate::model::CommuteFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commute_filter = v.into();
+        self
+    }
+
     /// Sets the value of [company_display_names][crate::model::JobQuery::company_display_names].
     pub fn set_company_display_names<T, V>(mut self, v: T) -> Self
     where
@@ -4005,6 +3970,32 @@ impl JobQuery {
     {
         use std::iter::Iterator;
         self.company_display_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [compensation_filter][crate::model::JobQuery::compensation_filter].
+    pub fn set_compensation_filter<
+        T: std::convert::Into<std::option::Option<crate::model::CompensationFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compensation_filter = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_attribute_filter][crate::model::JobQuery::custom_attribute_filter].
+    pub fn set_custom_attribute_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.custom_attribute_filter = v.into();
+        self
+    }
+
+    /// Sets the value of [disable_spell_check][crate::model::JobQuery::disable_spell_check].
+    pub fn set_disable_spell_check<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disable_spell_check = v.into();
         self
     }
 
@@ -4027,6 +4018,17 @@ impl JobQuery {
     {
         use std::iter::Iterator;
         self.language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [publish_time_range][crate::model::JobQuery::publish_time_range].
+    pub fn set_publish_time_range<
+        T: std::convert::Into<std::option::Option<crate::model::TimestampRange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.publish_time_range = v.into();
         self
     }
 
@@ -4086,6 +4088,7 @@ pub struct LocationFilter {
     /// identified as a city or smaller. This field is ignored if the location
     /// being searched for is a state or larger.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub distance_in_miles: f64,
 
     /// Allows the client to return jobs without a
@@ -4373,6 +4376,17 @@ impl CompensationFilter {
         self
     }
 
+    /// Sets the value of [units][crate::model::CompensationFilter::units].
+    pub fn set_units<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::compensation_info::CompensationUnit>,
+    {
+        use std::iter::Iterator;
+        self.units = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [range][crate::model::CompensationFilter::range].
     pub fn set_range<
         T: std::convert::Into<std::option::Option<crate::model::compensation_info::CompensationRange>>,
@@ -4390,17 +4404,6 @@ impl CompensationFilter {
         v: T,
     ) -> Self {
         self.include_jobs_with_unspecified_compensation_range = v.into();
-        self
-    }
-
-    /// Sets the value of [units][crate::model::CompensationFilter::units].
-    pub fn set_units<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compensation_info::CompensationUnit>,
-    {
-        use std::iter::Iterator;
-        self.units = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4706,19 +4709,6 @@ impl CommuteFilter {
         })
     }
 
-    /// The value of [traffic_option][crate::model::CommuteFilter::traffic_option]
-    /// if it holds a `DepartureTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn departure_time(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
-        #[allow(unreachable_patterns)]
-        self.traffic_option.as_ref().and_then(|v| match v {
-            crate::model::commute_filter::TrafficOption::DepartureTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [traffic_option][crate::model::CommuteFilter::traffic_option]
     /// to hold a `RoadTraffic`.
     ///
@@ -4732,6 +4722,19 @@ impl CommuteFilter {
             crate::model::commute_filter::TrafficOption::RoadTraffic(v.into()),
         );
         self
+    }
+
+    /// The value of [traffic_option][crate::model::CommuteFilter::traffic_option]
+    /// if it holds a `DepartureTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn departure_time(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
+        #[allow(unreachable_patterns)]
+        self.traffic_option.as_ref().and_then(|v| match v {
+            crate::model::commute_filter::TrafficOption::DepartureTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [traffic_option][crate::model::CommuteFilter::traffic_option]
@@ -5413,6 +5416,17 @@ impl Job {
         self
     }
 
+    /// Sets the value of [addresses][crate::model::Job::addresses].
+    pub fn set_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [application_info][crate::model::Job::application_info].
     pub fn set_application_info<
         T: std::convert::Into<std::option::Option<crate::model::job::ApplicationInfo>>,
@@ -5421,6 +5435,17 @@ impl Job {
         v: T,
     ) -> Self {
         self.application_info = v.into();
+        self
+    }
+
+    /// Sets the value of [job_benefits][crate::model::Job::job_benefits].
+    pub fn set_job_benefits<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::JobBenefit>,
+    {
+        use std::iter::Iterator;
+        self.job_benefits = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5435,9 +5460,43 @@ impl Job {
         self
     }
 
+    /// Sets the value of [custom_attributes][crate::model::Job::custom_attributes].
+    pub fn set_custom_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::CustomAttribute>,
+    {
+        use std::iter::Iterator;
+        self.custom_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [degree_types][crate::model::Job::degree_types].
+    pub fn set_degree_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DegreeType>,
+    {
+        use std::iter::Iterator;
+        self.degree_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [department][crate::model::Job::department].
     pub fn set_department<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.department = v.into();
+        self
+    }
+
+    /// Sets the value of [employment_types][crate::model::Job::employment_types].
+    pub fn set_employment_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EmploymentType>,
+    {
+        use std::iter::Iterator;
+        self.employment_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -5580,62 +5639,6 @@ impl Job {
         self.processing_options = v.into();
         self
     }
-
-    /// Sets the value of [addresses][crate::model::Job::addresses].
-    pub fn set_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.addresses = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [job_benefits][crate::model::Job::job_benefits].
-    pub fn set_job_benefits<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobBenefit>,
-    {
-        use std::iter::Iterator;
-        self.job_benefits = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [degree_types][crate::model::Job::degree_types].
-    pub fn set_degree_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DegreeType>,
-    {
-        use std::iter::Iterator;
-        self.degree_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [employment_types][crate::model::Job::employment_types].
-    pub fn set_employment_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EmploymentType>,
-    {
-        use std::iter::Iterator;
-        self.employment_types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [custom_attributes][crate::model::Job::custom_attributes].
-    pub fn set_custom_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::CustomAttribute>,
-    {
-        use std::iter::Iterator;
-        self.custom_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Job {
@@ -5688,12 +5691,6 @@ pub mod job {
             std::default::Default::default()
         }
 
-        /// Sets the value of [instruction][crate::model::job::ApplicationInfo::instruction].
-        pub fn set_instruction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.instruction = v.into();
-            self
-        }
-
         /// Sets the value of [emails][crate::model::job::ApplicationInfo::emails].
         pub fn set_emails<T, V>(mut self, v: T) -> Self
         where
@@ -5702,6 +5699,12 @@ pub mod job {
         {
             use std::iter::Iterator;
             self.emails = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [instruction][crate::model::job::ApplicationInfo::instruction].
+        pub fn set_instruction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.instruction = v.into();
             self
         }
 
@@ -6172,6 +6175,17 @@ impl ListJobsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    pub fn set_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Job>,
+    {
+        use std::iter::Iterator;
+        self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -6186,17 +6200,6 @@ impl ListJobsResponse {
         v: T,
     ) -> Self {
         self.metadata = v.into();
-        self
-    }
-
-    /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
-    pub fn set_jobs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
-    {
-        use std::iter::Iterator;
-        self.jobs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6627,6 +6630,17 @@ impl SearchJobsRequest {
         self
     }
 
+    /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
+    pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HistogramQuery>,
+    {
+        use std::iter::Iterator;
+        self.histogram_queries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [job_view][crate::model::SearchJobsRequest::job_view].
     pub fn set_job_view<T: std::convert::Into<crate::model::JobView>>(mut self, v: T) -> Self {
         self.job_view = v.into();
@@ -6707,17 +6721,6 @@ impl SearchJobsRequest {
         v: T,
     ) -> Self {
         self.relevance_threshold = v.into();
-        self
-    }
-
-    /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
-    pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HistogramQuery>,
-    {
-        use std::iter::Iterator;
-        self.histogram_queries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7725,9 +7728,42 @@ impl SearchJobsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [matching_jobs][crate::model::SearchJobsResponse::matching_jobs].
+    pub fn set_matching_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::search_jobs_response::MatchingJob>,
+    {
+        use std::iter::Iterator;
+        self.matching_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [histogram_query_results][crate::model::SearchJobsResponse::histogram_query_results].
+    pub fn set_histogram_query_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HistogramQueryResult>,
+    {
+        use std::iter::Iterator;
+        self.histogram_query_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [location_filters][crate::model::SearchJobsResponse::location_filters].
+    pub fn set_location_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Location>,
+    {
+        use std::iter::Iterator;
+        self.location_filters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -7762,39 +7798,6 @@ impl SearchJobsResponse {
         v: T,
     ) -> Self {
         self.spell_correction = v.into();
-        self
-    }
-
-    /// Sets the value of [matching_jobs][crate::model::SearchJobsResponse::matching_jobs].
-    pub fn set_matching_jobs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_jobs_response::MatchingJob>,
-    {
-        use std::iter::Iterator;
-        self.matching_jobs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [histogram_query_results][crate::model::SearchJobsResponse::histogram_query_results].
-    pub fn set_histogram_query_results<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HistogramQueryResult>,
-    {
-        use std::iter::Iterator;
-        self.histogram_query_results = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [location_filters][crate::model::SearchJobsResponse::location_filters].
-    pub fn set_location_filters<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Location>,
-    {
-        use std::iter::Iterator;
-        self.location_filters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8080,15 +8083,6 @@ impl BatchUpdateJobsRequest {
         self
     }
 
-    /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
-        self
-    }
-
     /// Sets the value of [jobs][crate::model::BatchUpdateJobsRequest::jobs].
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -8097,6 +8091,15 @@ impl BatchUpdateJobsRequest {
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
         self
     }
 }
@@ -8678,6 +8681,17 @@ impl ListTenantsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [tenants][crate::model::ListTenantsResponse::tenants].
+    pub fn set_tenants<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Tenant>,
+    {
+        use std::iter::Iterator;
+        self.tenants = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTenantsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -8692,17 +8706,6 @@ impl ListTenantsResponse {
         v: T,
     ) -> Self {
         self.metadata = v.into();
-        self
-    }
-
-    /// Sets the value of [tenants][crate::model::ListTenantsResponse::tenants].
-    pub fn set_tenants<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Tenant>,
-    {
-        use std::iter::Iterator;
-        self.tenants = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

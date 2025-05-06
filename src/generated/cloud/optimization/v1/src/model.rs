@@ -738,6 +738,7 @@ pub struct OptimizeToursRequest {
     /// the speed applied to compute travel times. Its value must be at least 1.0
     /// meters/seconds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub geodesic_meters_per_second: std::option::Option<f64>,
 
     /// Truncates the number of validation errors returned. These errors are
@@ -827,6 +828,17 @@ impl OptimizeToursRequest {
         self
     }
 
+    /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
+    pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ShipmentRoute>,
+    {
+        use std::iter::Iterator;
+        self.injected_first_solution_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
     pub fn set_injected_solution_constraint<
         T: std::convert::Into<std::option::Option<crate::model::InjectedSolutionConstraint>>,
@@ -835,6 +847,17 @@ impl OptimizeToursRequest {
         v: T,
     ) -> Self {
         self.injected_solution_constraint = v.into();
+        self
+    }
+
+    /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
+    pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ShipmentRoute>,
+    {
+        use std::iter::Iterator;
+        self.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -908,28 +931,6 @@ impl OptimizeToursRequest {
     #[deprecated]
     pub fn set_populate_travel_step_polylines<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.populate_travel_step_polylines = v.into();
-        self
-    }
-
-    /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
-    pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ShipmentRoute>,
-    {
-        use std::iter::Iterator;
-        self.injected_first_solution_routes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
-    pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ShipmentRoute>,
-    {
-        use std::iter::Iterator;
-        self.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1288,6 +1289,7 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     #[deprecated]
     pub total_cost: f64,
 
@@ -1300,30 +1302,6 @@ impl OptimizeToursResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [request_label][crate::model::OptimizeToursResponse::request_label].
-    pub fn set_request_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.request_label = v.into();
-        self
-    }
-
-    /// Sets the value of [metrics][crate::model::OptimizeToursResponse::metrics].
-    pub fn set_metrics<
-        T: std::convert::Into<std::option::Option<crate::model::optimize_tours_response::Metrics>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metrics = v.into();
-        self
-    }
-
-    /// Sets the value of [total_cost][crate::model::OptimizeToursResponse::total_cost].
-    #[deprecated]
-    pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.total_cost = v.into();
-        self
-    }
-
     /// Sets the value of [routes][crate::model::OptimizeToursResponse::routes].
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
@@ -1332,6 +1310,12 @@ impl OptimizeToursResponse {
     {
         use std::iter::Iterator;
         self.routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [request_label][crate::model::OptimizeToursResponse::request_label].
+    pub fn set_request_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_label = v.into();
         self
     }
 
@@ -1354,6 +1338,24 @@ impl OptimizeToursResponse {
     {
         use std::iter::Iterator;
         self.validation_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metrics][crate::model::OptimizeToursResponse::metrics].
+    pub fn set_metrics<
+        T: std::convert::Into<std::option::Option<crate::model::optimize_tours_response::Metrics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metrics = v.into();
+        self
+    }
+
+    /// Sets the value of [total_cost][crate::model::OptimizeToursResponse::total_cost].
+    #[deprecated]
+    pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.total_cost = v.into();
         self
     }
 }
@@ -1422,10 +1424,12 @@ pub mod optimize_tours_response {
         /// TransitionAttributes that are only reported in an aggregated way as of
         /// 2022/01.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
         pub costs: std::collections::HashMap<std::string::String, f64>,
 
         /// Total cost of the solution. The sum of all values in the costs map.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub total_cost: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1485,12 +1489,6 @@ pub mod optimize_tours_response {
             self
         }
 
-        /// Sets the value of [total_cost][crate::model::optimize_tours_response::Metrics::total_cost].
-        pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.total_cost = v.into();
-            self
-        }
-
         /// Sets the value of [costs][crate::model::optimize_tours_response::Metrics::costs].
         pub fn set_costs<T, K, V>(mut self, v: T) -> Self
         where
@@ -1500,6 +1498,12 @@ pub mod optimize_tours_response {
         {
             use std::iter::Iterator;
             self.costs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [total_cost][crate::model::optimize_tours_response::Metrics::total_cost].
+        pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.total_cost = v.into();
             self
         }
     }
@@ -1736,6 +1740,7 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub global_duration_cost_per_hour: f64,
 
     /// Specifies duration and distance matrices used in the model. If this field
@@ -1904,6 +1909,28 @@ impl ShipmentModel {
         std::default::Default::default()
     }
 
+    /// Sets the value of [shipments][crate::model::ShipmentModel::shipments].
+    pub fn set_shipments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Shipment>,
+    {
+        use std::iter::Iterator;
+        self.shipments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [vehicles][crate::model::ShipmentModel::vehicles].
+    pub fn set_vehicles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Vehicle>,
+    {
+        use std::iter::Iterator;
+        self.vehicles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [max_active_vehicles][crate::model::ShipmentModel::max_active_vehicles].
     pub fn set_max_active_vehicles<T: std::convert::Into<std::option::Option<i32>>>(
         mut self,
@@ -1934,28 +1961,6 @@ impl ShipmentModel {
     /// Sets the value of [global_duration_cost_per_hour][crate::model::ShipmentModel::global_duration_cost_per_hour].
     pub fn set_global_duration_cost_per_hour<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.global_duration_cost_per_hour = v.into();
-        self
-    }
-
-    /// Sets the value of [shipments][crate::model::ShipmentModel::shipments].
-    pub fn set_shipments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Shipment>,
-    {
-        use std::iter::Iterator;
-        self.shipments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [vehicles][crate::model::ShipmentModel::vehicles].
-    pub fn set_vehicles<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Vehicle>,
-    {
-        use std::iter::Iterator;
-        self.vehicles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2096,15 +2101,6 @@ pub mod shipment_model {
             std::default::Default::default()
         }
 
-        /// Sets the value of [vehicle_start_tag][crate::model::shipment_model::DurationDistanceMatrix::vehicle_start_tag].
-        pub fn set_vehicle_start_tag<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.vehicle_start_tag = v.into();
-            self
-        }
-
         /// Sets the value of [rows][crate::model::shipment_model::DurationDistanceMatrix::rows].
         pub fn set_rows<T, V>(mut self, v: T) -> Self
         where
@@ -2113,6 +2109,15 @@ pub mod shipment_model {
         {
             use std::iter::Iterator;
             self.rows = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [vehicle_start_tag][crate::model::shipment_model::DurationDistanceMatrix::vehicle_start_tag].
+        pub fn set_vehicle_start_tag<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.vehicle_start_tag = v.into();
             self
         }
     }
@@ -2145,6 +2150,7 @@ pub mod shipment_model {
             /// distances in the model, this can be left empty; otherwise it must have
             /// as many elements as `durations`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
             pub meters: std::vec::Vec<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2548,6 +2554,7 @@ pub struct Shipment {
     /// *IMPORTANT*: If this penalty is not specified, it is considered infinite,
     /// i.e. the shipment must be completed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub penalty_cost: std::option::Option<f64>,
 
     /// The set of vehicles that may perform this shipment. If empty, all vehicles
@@ -2568,6 +2575,7 @@ pub struct Shipment {
     /// These costs must be in the same unit as `penalty_cost` and must not be
     /// negative. Leave this field empty, if there are no such costs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
     pub costs_per_vehicle: std::vec::Vec<f64>,
 
     /// Indices of the vehicles to which `costs_per_vehicle` applies. If non-empty,
@@ -2595,6 +2603,7 @@ pub struct Shipment {
     /// As of 2017/10, detours are only supported when travel durations do not
     /// depend on vehicles.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub pickup_to_delivery_relative_detour_limit: std::option::Option<f64>,
 
     /// Specifies the maximum absolute detour time compared to the shortest path
@@ -2675,12 +2684,79 @@ impl Shipment {
         std::default::Default::default()
     }
 
+    /// Sets the value of [pickups][crate::model::Shipment::pickups].
+    pub fn set_pickups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::shipment::VisitRequest>,
+    {
+        use std::iter::Iterator;
+        self.pickups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deliveries][crate::model::Shipment::deliveries].
+    pub fn set_deliveries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::shipment::VisitRequest>,
+    {
+        use std::iter::Iterator;
+        self.deliveries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [load_demands][crate::model::Shipment::load_demands].
+    pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::shipment::Load>,
+    {
+        use std::iter::Iterator;
+        self.load_demands = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [penalty_cost][crate::model::Shipment::penalty_cost].
     pub fn set_penalty_cost<T: std::convert::Into<std::option::Option<f64>>>(
         mut self,
         v: T,
     ) -> Self {
         self.penalty_cost = v.into();
+        self
+    }
+
+    /// Sets the value of [allowed_vehicle_indices][crate::model::Shipment::allowed_vehicle_indices].
+    pub fn set_allowed_vehicle_indices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.allowed_vehicle_indices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [costs_per_vehicle][crate::model::Shipment::costs_per_vehicle].
+    pub fn set_costs_per_vehicle<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<f64>,
+    {
+        use std::iter::Iterator;
+        self.costs_per_vehicle = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [costs_per_vehicle_indices][crate::model::Shipment::costs_per_vehicle_indices].
+    pub fn set_costs_per_vehicle_indices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.costs_per_vehicle_indices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2735,61 +2811,6 @@ impl Shipment {
         self
     }
 
-    /// Sets the value of [pickups][crate::model::Shipment::pickups].
-    pub fn set_pickups<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::shipment::VisitRequest>,
-    {
-        use std::iter::Iterator;
-        self.pickups = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [deliveries][crate::model::Shipment::deliveries].
-    pub fn set_deliveries<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::shipment::VisitRequest>,
-    {
-        use std::iter::Iterator;
-        self.deliveries = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [allowed_vehicle_indices][crate::model::Shipment::allowed_vehicle_indices].
-    pub fn set_allowed_vehicle_indices<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.allowed_vehicle_indices = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [costs_per_vehicle][crate::model::Shipment::costs_per_vehicle].
-    pub fn set_costs_per_vehicle<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f64>,
-    {
-        use std::iter::Iterator;
-        self.costs_per_vehicle = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [costs_per_vehicle_indices][crate::model::Shipment::costs_per_vehicle_indices].
-    pub fn set_costs_per_vehicle_indices<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
-    {
-        use std::iter::Iterator;
-        self.costs_per_vehicle_indices = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [demands][crate::model::Shipment::demands].
     #[deprecated]
     pub fn set_demands<T, V>(mut self, v: T) -> Self
@@ -2799,18 +2820,6 @@ impl Shipment {
     {
         use std::iter::Iterator;
         self.demands = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [load_demands][crate::model::Shipment::load_demands].
-    pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::shipment::Load>,
-    {
-        use std::iter::Iterator;
-        self.load_demands = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2896,6 +2905,7 @@ pub mod shipment {
         /// shipment. This cost must be in the same unit as `Shipment.penalty_cost`
         /// and must not be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub cost: f64,
 
         /// Load demands of this visit request. This is just like
@@ -2993,27 +3003,6 @@ pub mod shipment {
             self
         }
 
-        /// Sets the value of [duration][crate::model::shipment::VisitRequest::duration].
-        pub fn set_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.duration = v.into();
-            self
-        }
-
-        /// Sets the value of [cost][crate::model::shipment::VisitRequest::cost].
-        pub fn set_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.cost = v.into();
-            self
-        }
-
-        /// Sets the value of [label][crate::model::shipment::VisitRequest::label].
-        pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.label = v.into();
-            self
-        }
-
         /// Sets the value of [tags][crate::model::shipment::VisitRequest::tags].
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
@@ -3036,26 +3025,18 @@ pub mod shipment {
             self
         }
 
-        /// Sets the value of [visit_types][crate::model::shipment::VisitRequest::visit_types].
-        pub fn set_visit_types<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.visit_types = v.into_iter().map(|i| i.into()).collect();
+        /// Sets the value of [duration][crate::model::shipment::VisitRequest::duration].
+        pub fn set_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.duration = v.into();
             self
         }
 
-        /// Sets the value of [demands][crate::model::shipment::VisitRequest::demands].
-        #[deprecated]
-        pub fn set_demands<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::CapacityQuantity>,
-        {
-            use std::iter::Iterator;
-            self.demands = v.into_iter().map(|i| i.into()).collect();
+        /// Sets the value of [cost][crate::model::shipment::VisitRequest::cost].
+        pub fn set_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.cost = v.into();
             self
         }
 
@@ -3068,6 +3049,35 @@ pub mod shipment {
         {
             use std::iter::Iterator;
             self.load_demands = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [visit_types][crate::model::shipment::VisitRequest::visit_types].
+        pub fn set_visit_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.visit_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [label][crate::model::shipment::VisitRequest::label].
+        pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.label = v.into();
+            self
+        }
+
+        /// Sets the value of [demands][crate::model::shipment::VisitRequest::demands].
+        #[deprecated]
+        pub fn set_demands<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::CapacityQuantity>,
+        {
+            use std::iter::Iterator;
+            self.demands = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3144,17 +3154,6 @@ impl ShipmentTypeIncompatibility {
         std::default::Default::default()
     }
 
-    /// Sets the value of [incompatibility_mode][crate::model::ShipmentTypeIncompatibility::incompatibility_mode].
-    pub fn set_incompatibility_mode<
-        T: std::convert::Into<crate::model::shipment_type_incompatibility::IncompatibilityMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.incompatibility_mode = v.into();
-        self
-    }
-
     /// Sets the value of [types][crate::model::ShipmentTypeIncompatibility::types].
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
@@ -3163,6 +3162,17 @@ impl ShipmentTypeIncompatibility {
     {
         use std::iter::Iterator;
         self.types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [incompatibility_mode][crate::model::ShipmentTypeIncompatibility::incompatibility_mode].
+    pub fn set_incompatibility_mode<
+        T: std::convert::Into<crate::model::shipment_type_incompatibility::IncompatibilityMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.incompatibility_mode = v.into();
         self
     }
 }
@@ -3357,17 +3367,6 @@ impl ShipmentTypeRequirement {
         std::default::Default::default()
     }
 
-    /// Sets the value of [requirement_mode][crate::model::ShipmentTypeRequirement::requirement_mode].
-    pub fn set_requirement_mode<
-        T: std::convert::Into<crate::model::shipment_type_requirement::RequirementMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requirement_mode = v.into();
-        self
-    }
-
     /// Sets the value of [required_shipment_type_alternatives][crate::model::ShipmentTypeRequirement::required_shipment_type_alternatives].
     pub fn set_required_shipment_type_alternatives<T, V>(mut self, v: T) -> Self
     where
@@ -3387,6 +3386,17 @@ impl ShipmentTypeRequirement {
     {
         use std::iter::Iterator;
         self.dependent_shipment_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [requirement_mode][crate::model::ShipmentTypeRequirement::requirement_mode].
+    pub fn set_requirement_mode<
+        T: std::convert::Into<crate::model::shipment_type_requirement::RequirementMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.requirement_mode = v.into();
         self
     }
 }
@@ -3741,6 +3751,7 @@ pub struct Vehicle {
     ///
     /// See also `extra_visit_duration_for_visit_type` below.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub travel_duration_multiple: std::option::Option<f64>,
 
     /// Unloading policy enforced on the vehicle.
@@ -3768,6 +3779,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_hour: f64,
 
     /// Cost per traveled hour of the vehicle route. This cost is applied only to
@@ -3777,6 +3789,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_traveled_hour: f64,
 
     /// Cost per kilometer of the vehicle route. This cost is applied to the
@@ -3787,10 +3800,12 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_kilometer: f64,
 
     /// Fixed cost applied if this vehicle is used to handle a shipment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub fixed_cost: f64,
 
     /// This field only applies to vehicles when their route does not serve any
@@ -3980,6 +3995,50 @@ impl Vehicle {
         self
     }
 
+    /// Sets the value of [start_tags][crate::model::Vehicle::start_tags].
+    pub fn set_start_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.start_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_tags][crate::model::Vehicle::end_tags].
+    pub fn set_end_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.end_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [start_time_windows][crate::model::Vehicle::start_time_windows].
+    pub fn set_start_time_windows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TimeWindow>,
+    {
+        use std::iter::Iterator;
+        self.start_time_windows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_time_windows][crate::model::Vehicle::end_time_windows].
+    pub fn set_end_time_windows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TimeWindow>,
+    {
+        use std::iter::Iterator;
+        self.end_time_windows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [travel_duration_multiple][crate::model::Vehicle::travel_duration_multiple].
     pub fn set_travel_duration_multiple<T: std::convert::Into<std::option::Option<f64>>>(
         mut self,
@@ -3995,6 +4054,18 @@ impl Vehicle {
         v: T,
     ) -> Self {
         self.unloading_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [load_limits][crate::model::Vehicle::load_limits].
+    pub fn set_load_limits<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::vehicle::LoadLimit>,
+    {
+        use std::iter::Iterator;
+        self.load_limits = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -4061,6 +4132,19 @@ impl Vehicle {
         self
     }
 
+    /// Sets the value of [extra_visit_duration_for_visit_type][crate::model::Vehicle::extra_visit_duration_for_visit_type].
+    pub fn set_extra_visit_duration_for_visit_type<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Duration>,
+    {
+        use std::iter::Iterator;
+        self.extra_visit_duration_for_visit_type =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [break_rule][crate::model::Vehicle::break_rule].
     pub fn set_break_rule<T: std::convert::Into<std::option::Option<crate::model::BreakRule>>>(
         mut self,
@@ -4079,50 +4163,6 @@ impl Vehicle {
     /// Sets the value of [ignore][crate::model::Vehicle::ignore].
     pub fn set_ignore<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore = v.into();
-        self
-    }
-
-    /// Sets the value of [start_tags][crate::model::Vehicle::start_tags].
-    pub fn set_start_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.start_tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [end_tags][crate::model::Vehicle::end_tags].
-    pub fn set_end_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.end_tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [start_time_windows][crate::model::Vehicle::start_time_windows].
-    pub fn set_start_time_windows<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimeWindow>,
-    {
-        use std::iter::Iterator;
-        self.start_time_windows = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [end_time_windows][crate::model::Vehicle::end_time_windows].
-    pub fn set_end_time_windows<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TimeWindow>,
-    {
-        use std::iter::Iterator;
-        self.end_time_windows = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4171,31 +4211,6 @@ impl Vehicle {
     {
         use std::iter::Iterator;
         self.end_load_intervals = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [load_limits][crate::model::Vehicle::load_limits].
-    pub fn set_load_limits<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::vehicle::LoadLimit>,
-    {
-        use std::iter::Iterator;
-        self.load_limits = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [extra_visit_duration_for_visit_type][crate::model::Vehicle::extra_visit_duration_for_visit_type].
-    pub fn set_extra_visit_duration_for_visit_type<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<wkt::Duration>,
-    {
-        use std::iter::Iterator;
-        self.extra_visit_duration_for_visit_type =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4248,6 +4263,7 @@ pub mod vehicle {
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.soft_max_load]: crate::model::vehicle::LoadLimit::soft_max_load
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub cost_per_unit_above_soft_max: f64,
 
         /// The acceptable load interval of the vehicle at the start of the route.
@@ -4421,6 +4437,7 @@ pub mod vehicle {
         ///
         /// The cost must be nonnegative.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub cost_per_hour_after_soft_max: std::option::Option<f64>,
 
         /// A soft limit not enforcing a maximum duration limit, but when violated
@@ -4449,6 +4466,7 @@ pub mod vehicle {
         ///
         /// The cost must be nonnegative.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub cost_per_square_hour_after_quadratic_soft_max: std::option::Option<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4850,6 +4868,7 @@ pub struct TimeWindow {
     /// This cost must be positive, and the field can only be set if
     /// soft_start_time has been set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_hour_before_soft_start_time: std::option::Option<f64>,
 
     /// A cost per hour added to other costs in the model if the event occurs after
@@ -4864,6 +4883,7 @@ pub struct TimeWindow {
     /// This cost must be positive, and the field can only be set if
     /// `soft_end_time` has been set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_hour_after_soft_end_time: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5080,6 +5100,7 @@ pub struct DistanceLimit {
     ///
     /// This cost is not supported in `route_distance_limit`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_kilometer_below_soft_max: std::option::Option<f64>,
 
     /// Cost per kilometer incurred if distance is above `soft_max_meters` limit.
@@ -5093,6 +5114,7 @@ pub struct DistanceLimit {
     ///
     /// The cost must be nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_kilometer_above_soft_max: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5195,6 +5217,7 @@ pub struct TransitionAttributes {
     /// as all other costs in the model and must not be negative. It is applied on
     /// top of all other existing costs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost: f64,
 
     /// Specifies a cost per kilometer applied to the distance traveled while
@@ -5204,6 +5227,7 @@ pub struct TransitionAttributes {
     ///
     /// [google.cloud.optimization.v1.Vehicle.cost_per_kilometer]: crate::model::Vehicle::cost_per_kilometer
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_kilometer: f64,
 
     /// Specifies a limit on the distance traveled while performing this
@@ -5358,17 +5382,6 @@ impl Waypoint {
         })
     }
 
-    /// The value of [location_type][crate::model::Waypoint::location_type]
-    /// if it holds a `PlaceId`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn place_id(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.location_type.as_ref().and_then(|v| match v {
-            crate::model::waypoint::LocationType::PlaceId(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [location_type][crate::model::Waypoint::location_type]
     /// to hold a `Location`.
     ///
@@ -5381,6 +5394,17 @@ impl Waypoint {
         self.location_type =
             std::option::Option::Some(crate::model::waypoint::LocationType::Location(v.into()));
         self
+    }
+
+    /// The value of [location_type][crate::model::Waypoint::location_type]
+    /// if it holds a `PlaceId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn place_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.location_type.as_ref().and_then(|v| match v {
+            crate::model::waypoint::LocationType::PlaceId(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [location_type][crate::model::Waypoint::location_type]
@@ -5872,10 +5896,12 @@ pub struct ShipmentRoute {
     /// detail here with the exception of costs related to TransitionAttributes
     /// that are only reported in an aggregated way as of 2022/01.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     pub route_costs: std::collections::HashMap<std::string::String, f64>,
 
     /// Total cost of the route. The sum of all costs in the cost map.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub route_total_cost: f64,
 
     /// Deprecated: Use
@@ -5965,62 +5991,6 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets the value of [has_traffic_infeasibilities][crate::model::ShipmentRoute::has_traffic_infeasibilities].
-    pub fn set_has_traffic_infeasibilities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.has_traffic_infeasibilities = v.into();
-        self
-    }
-
-    /// Sets the value of [route_polyline][crate::model::ShipmentRoute::route_polyline].
-    pub fn set_route_polyline<
-        T: std::convert::Into<std::option::Option<crate::model::shipment_route::EncodedPolyline>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.route_polyline = v.into();
-        self
-    }
-
-    /// Sets the value of [metrics][crate::model::ShipmentRoute::metrics].
-    pub fn set_metrics<
-        T: std::convert::Into<std::option::Option<crate::model::AggregatedMetrics>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metrics = v.into();
-        self
-    }
-
-    /// Sets the value of [route_total_cost][crate::model::ShipmentRoute::route_total_cost].
-    pub fn set_route_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.route_total_cost = v.into();
-        self
-    }
-
-    /// Sets the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
-    #[deprecated]
-    pub fn set_vehicle_detour<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vehicle_detour = v.into();
-        self
-    }
-
-    /// Sets the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
-    #[deprecated]
-    pub fn set_delay_before_vehicle_end<
-        T: std::convert::Into<std::option::Option<crate::model::shipment_route::Delay>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delay_before_vehicle_end = v.into();
-        self
-    }
-
     /// Sets the value of [visits][crate::model::ShipmentRoute::visits].
     pub fn set_visits<T, V>(mut self, v: T) -> Self
     where
@@ -6043,6 +6013,23 @@ impl ShipmentRoute {
         self
     }
 
+    /// Sets the value of [has_traffic_infeasibilities][crate::model::ShipmentRoute::has_traffic_infeasibilities].
+    pub fn set_has_traffic_infeasibilities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.has_traffic_infeasibilities = v.into();
+        self
+    }
+
+    /// Sets the value of [route_polyline][crate::model::ShipmentRoute::route_polyline].
+    pub fn set_route_polyline<
+        T: std::convert::Into<std::option::Option<crate::model::shipment_route::EncodedPolyline>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.route_polyline = v.into();
+        self
+    }
+
     /// Sets the value of [breaks][crate::model::ShipmentRoute::breaks].
     pub fn set_breaks<T, V>(mut self, v: T) -> Self
     where
@@ -6051,6 +6038,35 @@ impl ShipmentRoute {
     {
         use std::iter::Iterator;
         self.breaks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metrics][crate::model::ShipmentRoute::metrics].
+    pub fn set_metrics<
+        T: std::convert::Into<std::option::Option<crate::model::AggregatedMetrics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metrics = v.into();
+        self
+    }
+
+    /// Sets the value of [route_costs][crate::model::ShipmentRoute::route_costs].
+    pub fn set_route_costs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<f64>,
+    {
+        use std::iter::Iterator;
+        self.route_costs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [route_total_cost][crate::model::ShipmentRoute::route_total_cost].
+    pub fn set_route_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.route_total_cost = v.into();
         self
     }
 
@@ -6078,15 +6094,25 @@ impl ShipmentRoute {
         self
     }
 
-    /// Sets the value of [route_costs][crate::model::ShipmentRoute::route_costs].
-    pub fn set_route_costs<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<f64>,
-    {
-        use std::iter::Iterator;
-        self.route_costs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
+    #[deprecated]
+    pub fn set_vehicle_detour<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.vehicle_detour = v.into();
+        self
+    }
+
+    /// Sets the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
+    #[deprecated]
+    pub fn set_delay_before_vehicle_end<
+        T: std::convert::Into<std::option::Option<crate::model::shipment_route::Delay>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.delay_before_vehicle_end = v.into();
         self
     }
 }
@@ -6302,6 +6328,18 @@ pub mod shipment_route {
             self
         }
 
+        /// Sets the value of [load_demands][crate::model::shipment_route::Visit::load_demands].
+        pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::shipment::Load>,
+        {
+            use std::iter::Iterator;
+            self.load_demands = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [detour][crate::model::shipment_route::Visit::detour].
         pub fn set_detour<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -6326,18 +6364,6 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
-        #[deprecated]
-        pub fn set_delay_before_start<
-            T: std::convert::Into<std::option::Option<crate::model::shipment_route::Delay>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.delay_before_start = v.into();
-            self
-        }
-
         /// Sets the value of [arrival_loads][crate::model::shipment_route::Visit::arrival_loads].
         #[deprecated]
         pub fn set_arrival_loads<T, V>(mut self, v: T) -> Self
@@ -6350,6 +6376,18 @@ pub mod shipment_route {
             self
         }
 
+        /// Sets the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
+        #[deprecated]
+        pub fn set_delay_before_start<
+            T: std::convert::Into<std::option::Option<crate::model::shipment_route::Delay>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.delay_before_start = v.into();
+            self
+        }
+
         /// Sets the value of [demands][crate::model::shipment_route::Visit::demands].
         #[deprecated]
         pub fn set_demands<T, V>(mut self, v: T) -> Self
@@ -6359,18 +6397,6 @@ pub mod shipment_route {
         {
             use std::iter::Iterator;
             self.demands = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [load_demands][crate::model::shipment_route::Visit::load_demands].
-        pub fn set_load_demands<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<crate::model::shipment::Load>,
-        {
-            use std::iter::Iterator;
-            self.load_demands = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -6399,6 +6425,7 @@ pub mod shipment_route {
 
         /// Distance traveled during the transition.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub travel_distance_meters: f64,
 
         /// When traffic is requested via
@@ -6572,18 +6599,6 @@ pub mod shipment_route {
             self
         }
 
-        /// Sets the value of [loads][crate::model::shipment_route::Transition::loads].
-        #[deprecated]
-        pub fn set_loads<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::CapacityQuantity>,
-        {
-            use std::iter::Iterator;
-            self.loads = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
         /// Sets the value of [vehicle_loads][crate::model::shipment_route::Transition::vehicle_loads].
         pub fn set_vehicle_loads<T, K, V>(mut self, v: T) -> Self
         where
@@ -6593,6 +6608,18 @@ pub mod shipment_route {
         {
             use std::iter::Iterator;
             self.vehicle_loads = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [loads][crate::model::shipment_route::Transition::loads].
+        #[deprecated]
+        pub fn set_loads<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::CapacityQuantity>,
+        {
+            use std::iter::Iterator;
+            self.loads = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -6755,6 +6782,7 @@ pub mod shipment_route {
 
         /// Distance traveled during the step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub distance_meters: f64,
 
         /// When traffic is requested via
@@ -7268,6 +7296,7 @@ pub struct AggregatedMetrics {
 
     /// Total travel distance for a route or a solution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub travel_distance_meters: f64,
 
     /// Maximum load achieved over the entire route (resp. solution), for each of
@@ -7292,6 +7321,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.costs]: crate::model::optimize_tours_response::Metrics::costs
     /// [google.cloud.optimization.v1.ShipmentRoute.route_costs]: crate::model::ShipmentRoute::route_costs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     #[deprecated]
     pub costs: std::collections::HashMap<std::string::String, f64>,
 
@@ -7304,6 +7334,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     #[deprecated]
     pub total_cost: f64,
 
@@ -7382,13 +7413,6 @@ impl AggregatedMetrics {
         self
     }
 
-    /// Sets the value of [total_cost][crate::model::AggregatedMetrics::total_cost].
-    #[deprecated]
-    pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.total_cost = v.into();
-        self
-    }
-
     /// Sets the value of [max_loads][crate::model::AggregatedMetrics::max_loads].
     pub fn set_max_loads<T, K, V>(mut self, v: T) -> Self
     where
@@ -7411,6 +7435,13 @@ impl AggregatedMetrics {
     {
         use std::iter::Iterator;
         self.costs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [total_cost][crate::model::AggregatedMetrics::total_cost].
+    #[deprecated]
+    pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.total_cost = v.into();
         self
     }
 }
@@ -8182,6 +8213,17 @@ impl OptimizeToursValidationError {
         self
     }
 
+    /// Sets the value of [fields][crate::model::OptimizeToursValidationError::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::optimize_tours_validation_error::FieldReference>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [error_message][crate::model::OptimizeToursValidationError::error_message].
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
@@ -8194,17 +8236,6 @@ impl OptimizeToursValidationError {
         v: T,
     ) -> Self {
         self.offending_values = v.into();
-        self
-    }
-
-    /// Sets the value of [fields][crate::model::OptimizeToursValidationError::fields].
-    pub fn set_fields<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::optimize_tours_validation_error::FieldReference>,
-    {
-        use std::iter::Iterator;
-        self.fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8312,19 +8343,6 @@ pub mod optimize_tours_validation_error {
             })
         }
 
-        /// The value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
-        /// if it holds a `Key`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn key(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.index_or_key.as_ref().and_then(|v| match v {
-                crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Key(
-                    v,
-                ) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
         /// to hold a `Index`.
         ///
@@ -8337,6 +8355,19 @@ pub mod optimize_tours_validation_error {
                 ),
             );
             self
+        }
+
+        /// The value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
+        /// if it holds a `Key`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn key(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.index_or_key.as_ref().and_then(|v| match v {
+                crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Key(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]

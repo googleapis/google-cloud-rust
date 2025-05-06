@@ -196,6 +196,29 @@ impl AlertPolicy {
         self
     }
 
+    /// Sets the value of [user_labels][crate::model::AlertPolicy::user_labels].
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::AlertPolicy::conditions].
+    pub fn set_conditions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::alert_policy::Condition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [combiner][crate::model::AlertPolicy::combiner].
     pub fn set_combiner<
         T: std::convert::Into<crate::model::alert_policy::ConditionCombinerType>,
@@ -222,6 +245,17 @@ impl AlertPolicy {
         v: T,
     ) -> Self {
         self.validity = v.into();
+        self
+    }
+
+    /// Sets the value of [notification_channels][crate::model::AlertPolicy::notification_channels].
+    pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.notification_channels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -264,40 +298,6 @@ impl AlertPolicy {
         v: T,
     ) -> Self {
         self.severity = v.into();
-        self
-    }
-
-    /// Sets the value of [conditions][crate::model::AlertPolicy::conditions].
-    pub fn set_conditions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::alert_policy::Condition>,
-    {
-        use std::iter::Iterator;
-        self.conditions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [notification_channels][crate::model::AlertPolicy::notification_channels].
-    pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.notification_channels = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [user_labels][crate::model::AlertPolicy::user_labels].
-    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -564,90 +564,6 @@ pub mod alert_policy {
             })
         }
 
-        /// The value of [condition][crate::model::alert_policy::Condition::condition]
-        /// if it holds a `ConditionAbsent`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn condition_absent(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionAbsent(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [condition][crate::model::alert_policy::Condition::condition]
-        /// if it holds a `ConditionMatchedLog`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn condition_matched_log(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>
-        {
-            #[allow(unreachable_patterns)]
-            self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [condition][crate::model::alert_policy::Condition::condition]
-        /// if it holds a `ConditionMonitoringQueryLanguage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn condition_monitoring_query_language(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionMonitoringQueryLanguage(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [condition][crate::model::alert_policy::Condition::condition]
-        /// if it holds a `ConditionPrometheusQueryLanguage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn condition_prometheus_query_language(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
-            >,
-        > {
-            #[allow(unreachable_patterns)]
-            self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionPrometheusQueryLanguage(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [condition][crate::model::alert_policy::Condition::condition]
-        /// if it holds a `ConditionSql`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn condition_sql(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.condition.as_ref().and_then(|v| match v {
-                crate::model::alert_policy::condition::Condition::ConditionSql(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
         /// to hold a `ConditionThreshold`.
         ///
@@ -665,6 +581,23 @@ pub mod alert_policy {
                 crate::model::alert_policy::condition::Condition::ConditionThreshold(v.into()),
             );
             self
+        }
+
+        /// The value of [condition][crate::model::alert_policy::Condition::condition]
+        /// if it holds a `ConditionAbsent`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn condition_absent(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.condition.as_ref().and_then(|v| match v {
+                crate::model::alert_policy::condition::Condition::ConditionAbsent(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
@@ -686,6 +619,22 @@ pub mod alert_policy {
             self
         }
 
+        /// The value of [condition][crate::model::alert_policy::Condition::condition]
+        /// if it holds a `ConditionMatchedLog`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn condition_matched_log(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>
+        {
+            #[allow(unreachable_patterns)]
+            self.condition.as_ref().and_then(|v| match v {
+                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
         /// to hold a `ConditionMatchedLog`.
         ///
@@ -701,6 +650,23 @@ pub mod alert_policy {
                 crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v.into()),
             );
             self
+        }
+
+        /// The value of [condition][crate::model::alert_policy::Condition::condition]
+        /// if it holds a `ConditionMonitoringQueryLanguage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn condition_monitoring_query_language(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.condition.as_ref().and_then(|v| match v {
+                crate::model::alert_policy::condition::Condition::ConditionMonitoringQueryLanguage(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
@@ -726,6 +692,23 @@ pub mod alert_policy {
             self
         }
 
+        /// The value of [condition][crate::model::alert_policy::Condition::condition]
+        /// if it holds a `ConditionPrometheusQueryLanguage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn condition_prometheus_query_language(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.condition.as_ref().and_then(|v| match v {
+                crate::model::alert_policy::condition::Condition::ConditionPrometheusQueryLanguage(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
         /// to hold a `ConditionPrometheusQueryLanguage`.
         ///
@@ -747,6 +730,23 @@ pub mod alert_policy {
                 ),
             );
             self
+        }
+
+        /// The value of [condition][crate::model::alert_policy::Condition::condition]
+        /// if it holds a `ConditionSql`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn condition_sql(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.condition.as_ref().and_then(|v| match v {
+                crate::model::alert_policy::condition::Condition::ConditionSql(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
@@ -829,6 +829,18 @@ pub mod alert_policy {
                 })
             }
 
+            /// Sets the value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
+            /// to hold a `Count`.
+            ///
+            /// Note that all the setters affecting `r#type` are
+            /// mutually exclusive.
+            pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.r#type = std::option::Option::Some(
+                    crate::model::alert_policy::condition::trigger::Type::Count(v.into()),
+                );
+                self
+            }
+
             /// The value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
             /// if it holds a `Percent`, `None` if the field is not set or
             /// holds a different branch.
@@ -840,18 +852,6 @@ pub mod alert_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
-            /// to hold a `Count`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::alert_policy::condition::trigger::Type::Count(v.into()),
-                );
-                self
             }
 
             /// Sets the value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
@@ -972,6 +972,7 @@ pub mod alert_policy {
 
             /// A value against which to compare the time series.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub threshold_value: f64,
 
             /// The amount of time that a time series must violate the
@@ -1017,12 +1018,34 @@ pub mod alert_policy {
                 self
             }
 
+            /// Sets the value of [aggregations][crate::model::alert_policy::condition::MetricThreshold::aggregations].
+            pub fn set_aggregations<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::Aggregation>,
+            {
+                use std::iter::Iterator;
+                self.aggregations = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [denominator_filter][crate::model::alert_policy::condition::MetricThreshold::denominator_filter].
             pub fn set_denominator_filter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
             ) -> Self {
                 self.denominator_filter = v.into();
+                self
+            }
+
+            /// Sets the value of [denominator_aggregations][crate::model::alert_policy::condition::MetricThreshold::denominator_aggregations].
+            pub fn set_denominator_aggregations<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::Aggregation>,
+            {
+                use std::iter::Iterator;
+                self.denominator_aggregations = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -1077,28 +1100,6 @@ pub mod alert_policy {
                 v: T,
             ) -> Self {
                 self.evaluation_missing_data = v.into();
-                self
-            }
-
-            /// Sets the value of [aggregations][crate::model::alert_policy::condition::MetricThreshold::aggregations].
-            pub fn set_aggregations<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Aggregation>,
-            {
-                use std::iter::Iterator;
-                self.aggregations = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [denominator_aggregations][crate::model::alert_policy::condition::MetricThreshold::denominator_aggregations].
-            pub fn set_denominator_aggregations<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Aggregation>,
-            {
-                use std::iter::Iterator;
-                self.denominator_aggregations = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1228,6 +1229,17 @@ pub mod alert_policy {
                 self
             }
 
+            /// Sets the value of [aggregations][crate::model::alert_policy::condition::MetricAbsence::aggregations].
+            pub fn set_aggregations<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::Aggregation>,
+            {
+                use std::iter::Iterator;
+                self.aggregations = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [duration][crate::model::alert_policy::condition::MetricAbsence::duration].
             pub fn set_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
                 mut self,
@@ -1247,17 +1259,6 @@ pub mod alert_policy {
                 v: T,
             ) -> Self {
                 self.trigger = v.into();
-                self
-            }
-
-            /// Sets the value of [aggregations][crate::model::alert_policy::condition::MetricAbsence::aggregations].
-            pub fn set_aggregations<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::Aggregation>,
-            {
-                use std::iter::Iterator;
-                self.aggregations = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1574,6 +1575,18 @@ pub mod alert_policy {
                 self
             }
 
+            /// Sets the value of [labels][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::labels].
+            pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = (K, V)>,
+                K: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+                self
+            }
+
             /// Sets the value of [rule_group][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::rule_group].
             pub fn set_rule_group<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -1598,18 +1611,6 @@ pub mod alert_policy {
                 v: T,
             ) -> Self {
                 self.disable_metric_validation = v.into();
-                self
-            }
-
-            /// Sets the value of [labels][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::labels].
-            pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = (K, V)>,
-                K: std::convert::Into<std::string::String>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
                 self
             }
         }
@@ -1708,40 +1709,6 @@ pub mod alert_policy {
                 })
             }
 
-            /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
-            /// if it holds a `Hourly`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn hourly(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.schedule.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Hourly(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
-            /// if it holds a `Daily`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn daily(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.schedule.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// to hold a `Minutes`.
             ///
@@ -1765,6 +1732,23 @@ pub mod alert_policy {
                 self
             }
 
+            /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
+            /// if it holds a `Hourly`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn hourly(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.schedule.as_ref().and_then(|v| match v {
+                    crate::model::alert_policy::condition::sql_condition::Schedule::Hourly(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// to hold a `Hourly`.
             ///
@@ -1786,6 +1770,23 @@ pub mod alert_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
+            /// if it holds a `Daily`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn daily(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.schedule.as_ref().and_then(|v| match v {
+                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
@@ -1844,23 +1845,6 @@ pub mod alert_policy {
                 })
             }
 
-            /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
-            /// if it holds a `BooleanTest`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn boolean_test(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.evaluate.as_ref().and_then(|v| match v {
-                    crate::model::alert_policy::condition::sql_condition::Evaluate::BooleanTest(
-                        v,
-                    ) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
             /// to hold a `RowCountTest`.
             ///
@@ -1882,6 +1866,23 @@ pub mod alert_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
+            /// if it holds a `BooleanTest`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn boolean_test(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.evaluate.as_ref().and_then(|v| match v {
+                    crate::model::alert_policy::condition::sql_condition::Evaluate::BooleanTest(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
@@ -2414,15 +2415,6 @@ pub mod alert_policy {
             self
         }
 
-        /// Sets the value of [auto_close][crate::model::alert_policy::AlertStrategy::auto_close].
-        pub fn set_auto_close<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.auto_close = v.into();
-            self
-        }
-
         /// Sets the value of [notification_prompts][crate::model::alert_policy::AlertStrategy::notification_prompts].
         pub fn set_notification_prompts<T, V>(mut self, v: T) -> Self
         where
@@ -2431,6 +2423,15 @@ pub mod alert_policy {
         {
             use std::iter::Iterator;
             self.notification_prompts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [auto_close][crate::model::alert_policy::AlertStrategy::auto_close].
+        pub fn set_auto_close<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auto_close = v.into();
             self
         }
 
@@ -2528,17 +2529,6 @@ pub mod alert_policy {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [renotify_interval][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::renotify_interval].
-            pub fn set_renotify_interval<
-                T: std::convert::Into<std::option::Option<wkt::Duration>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.renotify_interval = v.into();
-                self
-            }
-
             /// Sets the value of [notification_channel_names][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::notification_channel_names].
             pub fn set_notification_channel_names<T, V>(mut self, v: T) -> Self
             where
@@ -2547,6 +2537,17 @@ pub mod alert_policy {
             {
                 use std::iter::Iterator;
                 self.notification_channel_names = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [renotify_interval][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::renotify_interval].
+            pub fn set_renotify_interval<
+                T: std::convert::Into<std::option::Option<wkt::Duration>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.renotify_interval = v.into();
                 self
             }
         }
@@ -3213,6 +3214,17 @@ impl ListAlertPoliciesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [alert_policies][crate::model::ListAlertPoliciesResponse::alert_policies].
+    pub fn set_alert_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AlertPolicy>,
+    {
+        use std::iter::Iterator;
+        self.alert_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListAlertPoliciesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3222,17 +3234,6 @@ impl ListAlertPoliciesResponse {
     /// Sets the value of [total_size][crate::model::ListAlertPoliciesResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [alert_policies][crate::model::ListAlertPoliciesResponse::alert_policies].
-    pub fn set_alert_policies<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AlertPolicy>,
-    {
-        use std::iter::Iterator;
-        self.alert_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3414,52 +3415,6 @@ impl TypedValue {
         })
     }
 
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `Int64Value`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int64_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `DoubleValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn double_value(&self) -> std::option::Option<&f64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::DoubleValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `StringValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::TypedValue::value]
-    /// if it holds a `DistributionValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn distribution_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::TypedValue::value]
     /// to hold a `BoolValue`.
     ///
@@ -3469,6 +3424,17 @@ impl TypedValue {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `Int64Value`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::TypedValue::value]
@@ -3482,6 +3448,17 @@ impl TypedValue {
         self
     }
 
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `DoubleValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn double_value(&self) -> std::option::Option<&f64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::DoubleValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::TypedValue::value]
     /// to hold a `DoubleValue`.
     ///
@@ -3493,6 +3470,17 @@ impl TypedValue {
         self
     }
 
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::TypedValue::value]
     /// to hold a `StringValue`.
     ///
@@ -3502,6 +3490,19 @@ impl TypedValue {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::TypedValue::value]
+    /// if it holds a `DistributionValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn distribution_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::TypedValue::value]
@@ -4661,32 +4662,6 @@ impl ListGroupsRequest {
         })
     }
 
-    /// The value of [filter][crate::model::ListGroupsRequest::filter]
-    /// if it holds a `AncestorsOfGroup`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ancestors_of_group(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.filter.as_ref().and_then(|v| match v {
-            crate::model::list_groups_request::Filter::AncestorsOfGroup(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [filter][crate::model::ListGroupsRequest::filter]
-    /// if it holds a `DescendantsOfGroup`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn descendants_of_group(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.filter.as_ref().and_then(|v| match v {
-            crate::model::list_groups_request::Filter::DescendantsOfGroup(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
     /// to hold a `ChildrenOfGroup`.
     ///
@@ -4702,6 +4677,19 @@ impl ListGroupsRequest {
         self
     }
 
+    /// The value of [filter][crate::model::ListGroupsRequest::filter]
+    /// if it holds a `AncestorsOfGroup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ancestors_of_group(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::list_groups_request::Filter::AncestorsOfGroup(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
     /// to hold a `AncestorsOfGroup`.
     ///
@@ -4715,6 +4703,19 @@ impl ListGroupsRequest {
             crate::model::list_groups_request::Filter::AncestorsOfGroup(v.into()),
         );
         self
+    }
+
+    /// The value of [filter][crate::model::ListGroupsRequest::filter]
+    /// if it holds a `DescendantsOfGroup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn descendants_of_group(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::list_groups_request::Filter::DescendantsOfGroup(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
@@ -4809,12 +4810,6 @@ impl ListGroupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [group][crate::model::ListGroupsResponse::group].
     pub fn set_group<T, V>(mut self, v: T) -> Self
     where
@@ -4823,6 +4818,12 @@ impl ListGroupsResponse {
     {
         use std::iter::Iterator;
         self.group = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5163,6 +5164,17 @@ impl ListGroupMembersResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [members][crate::model::ListGroupMembersResponse::members].
+    pub fn set_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<api::model::MonitoredResource>,
+    {
+        use std::iter::Iterator;
+        self.members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListGroupMembersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5172,17 +5184,6 @@ impl ListGroupMembersResponse {
     /// Sets the value of [total_size][crate::model::ListGroupMembersResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [members][crate::model::ListGroupMembersResponse::members].
-    pub fn set_members<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<api::model::MonitoredResource>,
-    {
-        use std::iter::Iterator;
-        self.members = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5394,6 +5395,17 @@ impl TimeSeries {
         self
     }
 
+    /// Sets the value of [points][crate::model::TimeSeries::points].
+    pub fn set_points<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Point>,
+    {
+        use std::iter::Iterator;
+        self.points = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [unit][crate::model::TimeSeries::unit].
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
@@ -5403,17 +5415,6 @@ impl TimeSeries {
     /// Sets the value of [description][crate::model::TimeSeries::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [points][crate::model::TimeSeries::points].
-    pub fn set_points<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Point>,
-    {
-        use std::iter::Iterator;
-        self.points = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5637,17 +5638,6 @@ pub mod time_series_data {
             std::default::Default::default()
         }
 
-        /// Sets the value of [time_interval][crate::model::time_series_data::PointData::time_interval].
-        pub fn set_time_interval<
-            T: std::convert::Into<std::option::Option<crate::model::TimeInterval>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time_interval = v.into();
-            self
-        }
-
         /// Sets the value of [values][crate::model::time_series_data::PointData::values].
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
@@ -5656,6 +5646,17 @@ pub mod time_series_data {
         {
             use std::iter::Iterator;
             self.values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [time_interval][crate::model::time_series_data::PointData::time_interval].
+        pub fn set_time_interval<
+            T: std::convert::Into<std::option::Option<crate::model::TimeInterval>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.time_interval = v.into();
             self
         }
     }
@@ -5711,28 +5712,6 @@ impl LabelValue {
         })
     }
 
-    /// The value of [value][crate::model::LabelValue::value]
-    /// if it holds a `Int64Value`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn int64_value(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::label_value::Value::Int64Value(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::LabelValue::value]
-    /// if it holds a `StringValue`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::label_value::Value::StringValue(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::LabelValue::value]
     /// to hold a `BoolValue`.
     ///
@@ -5744,6 +5723,17 @@ impl LabelValue {
         self
     }
 
+    /// The value of [value][crate::model::LabelValue::value]
+    /// if it holds a `Int64Value`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::label_value::Value::Int64Value(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::LabelValue::value]
     /// to hold a `Int64Value`.
     ///
@@ -5753,6 +5743,17 @@ impl LabelValue {
         self.value =
             std::option::Option::Some(crate::model::label_value::Value::Int64Value(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::LabelValue::value]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::label_value::Value::StringValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::LabelValue::value]
@@ -6110,12 +6111,6 @@ impl ListMonitoredResourceDescriptorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [resource_descriptors][crate::model::ListMonitoredResourceDescriptorsResponse::resource_descriptors].
     pub fn set_resource_descriptors<T, V>(mut self, v: T) -> Self
     where
@@ -6124,6 +6119,12 @@ impl ListMonitoredResourceDescriptorsResponse {
     {
         use std::iter::Iterator;
         self.resource_descriptors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6315,12 +6316,6 @@ impl ListMetricDescriptorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMetricDescriptorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [metric_descriptors][crate::model::ListMetricDescriptorsResponse::metric_descriptors].
     pub fn set_metric_descriptors<T, V>(mut self, v: T) -> Self
     where
@@ -6329,6 +6324,12 @@ impl ListMetricDescriptorsResponse {
     {
         use std::iter::Iterator;
         self.metric_descriptors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMetricDescriptorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6817,18 +6818,6 @@ impl ListTimeSeriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTimeSeriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [unit][crate::model::ListTimeSeriesResponse::unit].
-    pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.unit = v.into();
-        self
-    }
-
     /// Sets the value of [time_series][crate::model::ListTimeSeriesResponse::time_series].
     pub fn set_time_series<T, V>(mut self, v: T) -> Self
     where
@@ -6840,6 +6829,12 @@ impl ListTimeSeriesResponse {
         self
     }
 
+    /// Sets the value of [next_page_token][crate::model::ListTimeSeriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
     /// Sets the value of [execution_errors][crate::model::ListTimeSeriesResponse::execution_errors].
     pub fn set_execution_errors<T, V>(mut self, v: T) -> Self
     where
@@ -6848,6 +6843,12 @@ impl ListTimeSeriesResponse {
     {
         use std::iter::Iterator;
         self.execution_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unit][crate::model::ListTimeSeriesResponse::unit].
+    pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.unit = v.into();
         self
     }
 }
@@ -7215,12 +7216,6 @@ impl QueryTimeSeriesResponse {
         self
     }
 
-    /// Sets the value of [next_page_token][crate::model::QueryTimeSeriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [time_series_data][crate::model::QueryTimeSeriesResponse::time_series_data].
     pub fn set_time_series_data<T, V>(mut self, v: T) -> Self
     where
@@ -7229,6 +7224,12 @@ impl QueryTimeSeriesResponse {
     {
         use std::iter::Iterator;
         self.time_series_data = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryTimeSeriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7288,12 +7289,6 @@ impl QueryErrorList {
         std::default::Default::default()
     }
 
-    /// Sets the value of [error_summary][crate::model::QueryErrorList::error_summary].
-    pub fn set_error_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.error_summary = v.into();
-        self
-    }
-
     /// Sets the value of [errors][crate::model::QueryErrorList::errors].
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
@@ -7302,6 +7297,12 @@ impl QueryErrorList {
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error_summary][crate::model::QueryErrorList::error_summary].
+    pub fn set_error_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_summary = v.into();
         self
     }
 }
@@ -7443,15 +7444,6 @@ impl NotificationChannelDescriptor {
         self
     }
 
-    /// Sets the value of [launch_stage][crate::model::NotificationChannelDescriptor::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.launch_stage = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::NotificationChannelDescriptor::labels].
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
@@ -7472,6 +7464,15 @@ impl NotificationChannelDescriptor {
     {
         use std::iter::Iterator;
         self.supported_tiers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [launch_stage][crate::model::NotificationChannelDescriptor::launch_stage].
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.launch_stage = v.into();
         self
     }
 }
@@ -7622,6 +7623,30 @@ impl NotificationChannel {
         self
     }
 
+    /// Sets the value of [labels][crate::model::NotificationChannel::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [user_labels][crate::model::NotificationChannel::user_labels].
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [verification_status][crate::model::NotificationChannel::verification_status].
     pub fn set_verification_status<
         T: std::convert::Into<crate::model::notification_channel::VerificationStatus>,
@@ -7661,30 +7686,6 @@ impl NotificationChannel {
     {
         use std::iter::Iterator;
         self.mutation_records = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::NotificationChannel::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [user_labels][crate::model::NotificationChannel::user_labels].
-    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -7945,12 +7946,6 @@ impl ListNotificationChannelDescriptorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNotificationChannelDescriptorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [channel_descriptors][crate::model::ListNotificationChannelDescriptorsResponse::channel_descriptors].
     pub fn set_channel_descriptors<T, V>(mut self, v: T) -> Self
     where
@@ -7959,6 +7954,12 @@ impl ListNotificationChannelDescriptorsResponse {
     {
         use std::iter::Iterator;
         self.channel_descriptors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNotificationChannelDescriptorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8208,6 +8209,17 @@ impl ListNotificationChannelsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [notification_channels][crate::model::ListNotificationChannelsResponse::notification_channels].
+    pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NotificationChannel>,
+    {
+        use std::iter::Iterator;
+        self.notification_channels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListNotificationChannelsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -8217,17 +8229,6 @@ impl ListNotificationChannelsResponse {
     /// Sets the value of [total_size][crate::model::ListNotificationChannelsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [notification_channels][crate::model::ListNotificationChannelsResponse::notification_channels].
-    pub fn set_notification_channels<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationChannel>,
-    {
-        use std::iter::Iterator;
-        self.notification_channels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8701,125 +8702,6 @@ impl Service {
         })
     }
 
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `AppEngine`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn app_engine(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::AppEngine>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::AppEngine(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `CloudEndpoints`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_endpoints(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudEndpoints>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::CloudEndpoints(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `ClusterIstio`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cluster_istio(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::ClusterIstio>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::ClusterIstio(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `MeshIstio`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mesh_istio(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::MeshIstio>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::MeshIstio(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `IstioCanonicalService`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn istio_canonical_service(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::IstioCanonicalService>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::IstioCanonicalService(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `CloudRun`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn cloud_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudRun>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::CloudRun(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `GkeNamespace`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gke_namespace(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeNamespace>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::GkeNamespace(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `GkeWorkload`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gke_workload(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeWorkload>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::GkeWorkload(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [identifier][crate::model::Service::identifier]
-    /// if it holds a `GkeService`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gke_service(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeService>> {
-        #[allow(unreachable_patterns)]
-        self.identifier.as_ref().and_then(|v| match v {
-            crate::model::service::Identifier::GkeService(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [identifier][crate::model::Service::identifier]
     /// to hold a `Custom`.
     ///
@@ -8832,6 +8714,19 @@ impl Service {
         self.identifier =
             std::option::Option::Some(crate::model::service::Identifier::Custom(v.into()));
         self
+    }
+
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `AppEngine`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn app_engine(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::AppEngine>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::AppEngine(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::Service::identifier]
@@ -8850,6 +8745,19 @@ impl Service {
         self
     }
 
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `CloudEndpoints`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_endpoints(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudEndpoints>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::CloudEndpoints(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [identifier][crate::model::Service::identifier]
     /// to hold a `CloudEndpoints`.
     ///
@@ -8864,6 +8772,19 @@ impl Service {
         self.identifier =
             std::option::Option::Some(crate::model::service::Identifier::CloudEndpoints(v.into()));
         self
+    }
+
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `ClusterIstio`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cluster_istio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::ClusterIstio>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::ClusterIstio(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::Service::identifier]
@@ -8882,6 +8803,19 @@ impl Service {
         self
     }
 
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `MeshIstio`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mesh_istio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::MeshIstio>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::MeshIstio(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [identifier][crate::model::Service::identifier]
     /// to hold a `MeshIstio`.
     ///
@@ -8896,6 +8830,21 @@ impl Service {
         self.identifier =
             std::option::Option::Some(crate::model::service::Identifier::MeshIstio(v.into()));
         self
+    }
+
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `IstioCanonicalService`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn istio_canonical_service(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::IstioCanonicalService>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::IstioCanonicalService(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::Service::identifier]
@@ -8915,6 +8864,19 @@ impl Service {
         self
     }
 
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `CloudRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudRun>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::CloudRun(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [identifier][crate::model::Service::identifier]
     /// to hold a `CloudRun`.
     ///
@@ -8929,6 +8891,19 @@ impl Service {
         self.identifier =
             std::option::Option::Some(crate::model::service::Identifier::CloudRun(v.into()));
         self
+    }
+
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `GkeNamespace`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke_namespace(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeNamespace>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::GkeNamespace(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::Service::identifier]
@@ -8947,6 +8922,19 @@ impl Service {
         self
     }
 
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `GkeWorkload`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke_workload(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeWorkload>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::GkeWorkload(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [identifier][crate::model::Service::identifier]
     /// to hold a `GkeWorkload`.
     ///
@@ -8961,6 +8949,19 @@ impl Service {
         self.identifier =
             std::option::Option::Some(crate::model::service::Identifier::GkeWorkload(v.into()));
         self
+    }
+
+    /// The value of [identifier][crate::model::Service::identifier]
+    /// if it holds a `GkeService`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke_service(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeService>> {
+        #[allow(unreachable_patterns)]
+        self.identifier.as_ref().and_then(|v| match v {
+            crate::model::service::Identifier::GkeService(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [identifier][crate::model::Service::identifier]
@@ -9755,6 +9756,7 @@ pub struct ServiceLevelObjective {
     /// The fraction of service that must be good in order for this objective to be
     /// met. `0 < goal <= 0.9999`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub goal: f64,
 
     /// Labels which have been used to annotate the service-level objective. Label
@@ -9847,19 +9849,6 @@ impl ServiceLevelObjective {
         })
     }
 
-    /// The value of [period][crate::model::ServiceLevelObjective::period]
-    /// if it holds a `CalendarPeriod`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
-        #[allow(unreachable_patterns)]
-        self.period.as_ref().and_then(|v| match v {
-            crate::model::service_level_objective::Period::CalendarPeriod(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [period][crate::model::ServiceLevelObjective::period]
     /// to hold a `RollingPeriod`.
     ///
@@ -9873,6 +9862,19 @@ impl ServiceLevelObjective {
             crate::model::service_level_objective::Period::RollingPeriod(v.into()),
         );
         self
+    }
+
+    /// The value of [period][crate::model::ServiceLevelObjective::period]
+    /// if it holds a `CalendarPeriod`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
+        #[allow(unreachable_patterns)]
+        self.period.as_ref().and_then(|v| match v {
+            crate::model::service_level_objective::Period::CalendarPeriod(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [period][crate::model::ServiceLevelObjective::period]
@@ -10116,36 +10118,6 @@ impl ServiceLevelIndicator {
         })
     }
 
-    /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
-    /// if it holds a `RequestBased`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn request_based(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::service_level_indicator::Type::RequestBased(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
-    /// if it holds a `WindowsBased`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn windows_based(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::WindowsBasedSli>> {
-        #[allow(unreachable_patterns)]
-        self.r#type.as_ref().and_then(|v| match v {
-            crate::model::service_level_indicator::Type::WindowsBased(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// to hold a `BasicSli`.
     ///
@@ -10159,6 +10131,21 @@ impl ServiceLevelIndicator {
             crate::model::service_level_indicator::Type::BasicSli(v.into()),
         );
         self
+    }
+
+    /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
+    /// if it holds a `RequestBased`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn request_based(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::service_level_indicator::Type::RequestBased(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::r#type]
@@ -10176,6 +10163,21 @@ impl ServiceLevelIndicator {
             crate::model::service_level_indicator::Type::RequestBased(v.into()),
         );
         self
+    }
+
+    /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
+    /// if it holds a `WindowsBased`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn windows_based(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::WindowsBasedSli>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::service_level_indicator::Type::WindowsBased(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::r#type]
@@ -10331,19 +10333,6 @@ impl BasicSli {
         })
     }
 
-    /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
-    /// if it holds a `Latency`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn latency(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::LatencyCriteria>> {
-        #[allow(unreachable_patterns)]
-        self.sli_criteria.as_ref().and_then(|v| match v {
-            crate::model::basic_sli::SliCriteria::Latency(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [sli_criteria][crate::model::BasicSli::sli_criteria]
     /// to hold a `Availability`.
     ///
@@ -10358,6 +10347,19 @@ impl BasicSli {
         self.sli_criteria =
             std::option::Option::Some(crate::model::basic_sli::SliCriteria::Availability(v.into()));
         self
+    }
+
+    /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
+    /// if it holds a `Latency`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn latency(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::LatencyCriteria>> {
+        #[allow(unreachable_patterns)]
+        self.sli_criteria.as_ref().and_then(|v| match v {
+            crate::model::basic_sli::SliCriteria::Latency(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [sli_criteria][crate::model::BasicSli::sli_criteria]
@@ -10468,10 +10470,12 @@ pub mod basic_sli {
 pub struct Range {
     /// Range minimum.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub min: f64,
 
     /// Range maximum.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub max: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10551,21 +10555,6 @@ impl RequestBasedSli {
         })
     }
 
-    /// The value of [method][crate::model::RequestBasedSli::method]
-    /// if it holds a `DistributionCut`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn distribution_cut(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DistributionCut>> {
-        #[allow(unreachable_patterns)]
-        self.method.as_ref().and_then(|v| match v {
-            crate::model::request_based_sli::Method::DistributionCut(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [method][crate::model::RequestBasedSli::method]
     /// to hold a `GoodTotalRatio`.
     ///
@@ -10581,6 +10570,21 @@ impl RequestBasedSli {
             crate::model::request_based_sli::Method::GoodTotalRatio(v.into()),
         );
         self
+    }
+
+    /// The value of [method][crate::model::RequestBasedSli::method]
+    /// if it holds a `DistributionCut`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn distribution_cut(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DistributionCut>> {
+        #[allow(unreachable_patterns)]
+        self.method.as_ref().and_then(|v| match v {
+            crate::model::request_based_sli::Method::DistributionCut(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [method][crate::model::RequestBasedSli::method]
@@ -10821,6 +10825,21 @@ impl WindowsBasedSli {
         })
     }
 
+    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
+    /// to hold a `GoodBadMetricFilter`.
+    ///
+    /// Note that all the setters affecting `window_criterion` are
+    /// mutually exclusive.
+    pub fn set_good_bad_metric_filter<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.window_criterion = std::option::Option::Some(
+            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v.into()),
+        );
+        self
+    }
+
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `GoodTotalRatioThreshold`, `None` if the field is not set or
     /// holds a different branch.
@@ -10835,51 +10854,6 @@ impl WindowsBasedSli {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// if it holds a `MetricMeanInRange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn metric_mean_in_range(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
-        #[allow(unreachable_patterns)]
-        self.window_criterion.as_ref().and_then(|v| match v {
-            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// if it holds a `MetricSumInRange`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn metric_sum_in_range(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
-        #[allow(unreachable_patterns)]
-        self.window_criterion.as_ref().and_then(|v| match v {
-            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// to hold a `GoodBadMetricFilter`.
-    ///
-    /// Note that all the setters affecting `window_criterion` are
-    /// mutually exclusive.
-    pub fn set_good_bad_metric_filter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
@@ -10899,6 +10873,21 @@ impl WindowsBasedSli {
         self
     }
 
+    /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
+    /// if it holds a `MetricMeanInRange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn metric_mean_in_range(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
+        #[allow(unreachable_patterns)]
+        self.window_criterion.as_ref().and_then(|v| match v {
+            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// to hold a `MetricMeanInRange`.
     ///
@@ -10914,6 +10903,21 @@ impl WindowsBasedSli {
             crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v.into()),
         );
         self
+    }
+
+    /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
+    /// if it holds a `MetricSumInRange`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn metric_sum_in_range(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
+        #[allow(unreachable_patterns)]
+        self.window_criterion.as_ref().and_then(|v| match v {
+            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
@@ -10954,6 +10958,7 @@ pub mod windows_based_sli {
     pub struct PerformanceThreshold {
         /// If window `performance >= threshold`, the window is counted as good.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub threshold: f64,
 
         /// The means, either a request-based SLI or a basic SLI, by which to compute
@@ -11010,19 +11015,6 @@ pub mod windows_based_sli {
             })
         }
 
-        /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
-        /// if it holds a `BasicSliPerformance`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn basic_sli_performance(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
-            #[allow(unreachable_patterns)]
-            self.r#type.as_ref().and_then(|v| match v {
-                crate::model::windows_based_sli::performance_threshold::Type::BasicSliPerformance(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
         /// to hold a `Performance`.
         ///
@@ -11038,6 +11030,19 @@ pub mod windows_based_sli {
                 crate::model::windows_based_sli::performance_threshold::Type::Performance(v.into()),
             );
             self
+        }
+
+        /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
+        /// if it holds a `BasicSliPerformance`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn basic_sli_performance(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::windows_based_sli::performance_threshold::Type::BasicSliPerformance(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
@@ -11368,12 +11373,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -11382,6 +11381,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -11722,12 +11727,6 @@ impl ListServiceLevelObjectivesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceLevelObjectivesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_level_objectives][crate::model::ListServiceLevelObjectivesResponse::service_level_objectives].
     pub fn set_service_level_objectives<T, V>(mut self, v: T) -> Self
     where
@@ -11736,6 +11735,12 @@ impl ListServiceLevelObjectivesResponse {
     {
         use std::iter::Iterator;
         self.service_level_objectives = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceLevelObjectivesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -11988,12 +11993,6 @@ pub mod snooze {
             std::default::Default::default()
         }
 
-        /// Sets the value of [filter][crate::model::snooze::Criteria::filter].
-        pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.filter = v.into();
-            self
-        }
-
         /// Sets the value of [policies][crate::model::snooze::Criteria::policies].
         pub fn set_policies<T, V>(mut self, v: T) -> Self
         where
@@ -12002,6 +12001,12 @@ pub mod snooze {
         {
             use std::iter::Iterator;
             self.policies = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::snooze::Criteria::filter].
+        pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.filter = v.into();
             self
         }
     }
@@ -12176,12 +12181,6 @@ impl ListSnoozesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSnoozesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [snoozes][crate::model::ListSnoozesResponse::snoozes].
     pub fn set_snoozes<T, V>(mut self, v: T) -> Self
     where
@@ -12190,6 +12189,12 @@ impl ListSnoozesResponse {
     {
         use std::iter::Iterator;
         self.snoozes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSnoozesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -12910,24 +12915,6 @@ impl UptimeCheckConfig {
         self
     }
 
-    /// Sets the value of [checker_type][crate::model::UptimeCheckConfig::checker_type].
-    pub fn set_checker_type<
-        T: std::convert::Into<crate::model::uptime_check_config::CheckerType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.checker_type = v.into();
-        self
-    }
-
-    /// Sets the value of [is_internal][crate::model::UptimeCheckConfig::is_internal].
-    #[deprecated]
-    pub fn set_is_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.is_internal = v.into();
-        self
-    }
-
     /// Sets the value of [content_matchers][crate::model::UptimeCheckConfig::content_matchers].
     pub fn set_content_matchers<T, V>(mut self, v: T) -> Self
     where
@@ -12939,6 +12926,17 @@ impl UptimeCheckConfig {
         self
     }
 
+    /// Sets the value of [checker_type][crate::model::UptimeCheckConfig::checker_type].
+    pub fn set_checker_type<
+        T: std::convert::Into<crate::model::uptime_check_config::CheckerType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.checker_type = v.into();
+        self
+    }
+
     /// Sets the value of [selected_regions][crate::model::UptimeCheckConfig::selected_regions].
     pub fn set_selected_regions<T, V>(mut self, v: T) -> Self
     where
@@ -12947,6 +12945,13 @@ impl UptimeCheckConfig {
     {
         use std::iter::Iterator;
         self.selected_regions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [is_internal][crate::model::UptimeCheckConfig::is_internal].
+    #[deprecated]
+    pub fn set_is_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_internal = v.into();
         self
     }
 
@@ -13003,37 +13008,6 @@ impl UptimeCheckConfig {
         })
     }
 
-    /// The value of [resource][crate::model::UptimeCheckConfig::resource]
-    /// if it holds a `ResourceGroup`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn resource_group(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>
-    {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::Resource::ResourceGroup(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [resource][crate::model::UptimeCheckConfig::resource]
-    /// if it holds a `SyntheticMonitor`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn synthetic_monitor(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SyntheticMonitorTarget>> {
-        #[allow(unreachable_patterns)]
-        self.resource.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::Resource::SyntheticMonitor(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource]
     /// to hold a `MonitoredResource`.
     ///
@@ -13051,6 +13025,22 @@ impl UptimeCheckConfig {
         self
     }
 
+    /// The value of [resource][crate::model::UptimeCheckConfig::resource]
+    /// if it holds a `ResourceGroup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn resource_group(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>
+    {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::uptime_check_config::Resource::ResourceGroup(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource]
     /// to hold a `ResourceGroup`.
     ///
@@ -13066,6 +13056,21 @@ impl UptimeCheckConfig {
             crate::model::uptime_check_config::Resource::ResourceGroup(v.into()),
         );
         self
+    }
+
+    /// The value of [resource][crate::model::UptimeCheckConfig::resource]
+    /// if it holds a `SyntheticMonitor`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn synthetic_monitor(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SyntheticMonitorTarget>> {
+        #[allow(unreachable_patterns)]
+        self.resource.as_ref().and_then(|v| match v {
+            crate::model::uptime_check_config::Resource::SyntheticMonitor(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource]
@@ -13116,21 +13121,6 @@ impl UptimeCheckConfig {
         })
     }
 
-    /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
-    /// if it holds a `TcpCheck`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn tcp_check(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::TcpCheck>> {
-        #[allow(unreachable_patterns)]
-        self.check_request_type.as_ref().and_then(|v| match v {
-            crate::model::uptime_check_config::CheckRequestType::TcpCheck(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
     /// to hold a `HttpCheck`.
     ///
@@ -13146,6 +13136,21 @@ impl UptimeCheckConfig {
             crate::model::uptime_check_config::CheckRequestType::HttpCheck(v.into()),
         );
         self
+    }
+
+    /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
+    /// if it holds a `TcpCheck`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tcp_check(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::TcpCheck>> {
+        #[allow(unreachable_patterns)]
+        self.check_request_type.as_ref().and_then(|v| match v {
+            crate::model::uptime_check_config::CheckRequestType::TcpCheck(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
@@ -13432,6 +13437,18 @@ pub mod uptime_check_config {
             self
         }
 
+        /// Sets the value of [headers][crate::model::uptime_check_config::HttpCheck::headers].
+        pub fn set_headers<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [content_type][crate::model::uptime_check_config::HttpCheck::content_type].
         pub fn set_content_type<
             T: std::convert::Into<crate::model::uptime_check_config::http_check::ContentType>,
@@ -13464,17 +13481,6 @@ pub mod uptime_check_config {
             self
         }
 
-        /// Sets the value of [ping_config][crate::model::uptime_check_config::HttpCheck::ping_config].
-        pub fn set_ping_config<
-            T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::PingConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ping_config = v.into();
-            self
-        }
-
         /// Sets the value of [accepted_response_status_codes][crate::model::uptime_check_config::HttpCheck::accepted_response_status_codes].
         pub fn set_accepted_response_status_codes<T, V>(mut self, v: T) -> Self
         where
@@ -13488,15 +13494,14 @@ pub mod uptime_check_config {
             self
         }
 
-        /// Sets the value of [headers][crate::model::uptime_check_config::HttpCheck::headers].
-        pub fn set_headers<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [ping_config][crate::model::uptime_check_config::HttpCheck::ping_config].
+        pub fn set_ping_config<
+            T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::PingConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ping_config = v.into();
             self
         }
 
@@ -13662,6 +13667,20 @@ pub mod uptime_check_config {
                 })
             }
 
+            /// Sets the value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
+            /// to hold a `StatusValue`.
+            ///
+            /// Note that all the setters affecting `status_code` are
+            /// mutually exclusive.
+            pub fn set_status_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.status_code = std::option::Option::Some(
+                    crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusValue(
+                        v.into()
+                    )
+                );
+                self
+            }
+
             /// The value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
             /// if it holds a `StatusClass`, `None` if the field is not set or
             /// holds a different branch.
@@ -13675,20 +13694,6 @@ pub mod uptime_check_config {
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusClass(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
-            /// to hold a `StatusValue`.
-            ///
-            /// Note that all the setters affecting `status_code` are
-            /// mutually exclusive.
-            pub fn set_status_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.status_code = std::option::Option::Some(
-                    crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusValue(
-                        v.into()
-                    )
-                );
-                self
             }
 
             /// Sets the value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
@@ -15260,6 +15265,17 @@ impl ListUptimeCheckConfigsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [uptime_check_configs][crate::model::ListUptimeCheckConfigsResponse::uptime_check_configs].
+    pub fn set_uptime_check_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UptimeCheckConfig>,
+    {
+        use std::iter::Iterator;
+        self.uptime_check_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListUptimeCheckConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -15269,17 +15285,6 @@ impl ListUptimeCheckConfigsResponse {
     /// Sets the value of [total_size][crate::model::ListUptimeCheckConfigsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [uptime_check_configs][crate::model::ListUptimeCheckConfigsResponse::uptime_check_configs].
-    pub fn set_uptime_check_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UptimeCheckConfig>,
-    {
-        use std::iter::Iterator;
-        self.uptime_check_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -15570,12 +15575,6 @@ impl ListUptimeCheckIpsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUptimeCheckIpsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [uptime_check_ips][crate::model::ListUptimeCheckIpsResponse::uptime_check_ips].
     pub fn set_uptime_check_ips<T, V>(mut self, v: T) -> Self
     where
@@ -15584,6 +15583,12 @@ impl ListUptimeCheckIpsResponse {
     {
         use std::iter::Iterator;
         self.uptime_check_ips = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUptimeCheckIpsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

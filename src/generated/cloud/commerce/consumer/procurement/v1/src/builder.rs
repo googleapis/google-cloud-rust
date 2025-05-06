@@ -521,7 +521,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -546,7 +547,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PlaceOrderRequest::parent].
@@ -565,12 +566,6 @@ pub mod consumer_procurement_service {
             self
         }
 
-        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
-        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.request_id = v.into();
-            self
-        }
-
         /// Sets the value of [line_item_info][crate::model::PlaceOrderRequest::line_item_info].
         pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
         where
@@ -579,6 +574,12 @@ pub mod consumer_procurement_service {
         {
             use std::iter::Iterator;
             self.0.request.line_item_info = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
             self
         }
     }
@@ -757,7 +758,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -782,7 +784,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ModifyOrderRequest::name].
@@ -790,6 +792,17 @@ pub mod consumer_procurement_service {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
+        pub fn set_modifications<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::modify_order_request::Modification>,
+        {
+            use std::iter::Iterator;
+            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -802,17 +815,6 @@ pub mod consumer_procurement_service {
         /// Sets the value of [etag][crate::model::ModifyOrderRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
-            self
-        }
-
-        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
-        pub fn set_modifications<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::modify_order_request::Modification>,
-        {
-            use std::iter::Iterator;
-            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -864,7 +866,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -889,7 +892,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelOrderRequest::name].

@@ -183,8 +183,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -209,7 +211,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -225,6 +227,17 @@ pub mod database_admin {
         /// This is a **required** field for requests.
         pub fn set_create_statement<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.create_statement = v.into();
+            self
+        }
+
+        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -251,17 +264,6 @@ pub mod database_admin {
         /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
         pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
-            self
-        }
-
-        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
-        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -361,8 +363,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -387,7 +391,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -463,7 +467,8 @@ pub mod database_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -488,7 +493,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
@@ -496,18 +501,6 @@ pub mod database_admin {
         /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
-            self
-        }
-
-        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
-        pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.operation_id = v.into();
-            self
-        }
-
-        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
-        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.proto_descriptors = v.into();
             self
         }
 
@@ -521,6 +514,18 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
+        pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation_id = v.into();
+            self
+        }
+
+        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
+        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.proto_descriptors = v.into();
             self
         }
     }
@@ -853,7 +858,7 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
-                lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -878,7 +883,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -967,7 +972,8 @@ pub mod database_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -992,7 +998,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -1325,8 +1331,10 @@ pub mod database_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1351,7 +1359,7 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
@@ -1695,12 +1703,6 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
-        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.initiator = v.into();
-            self
-        }
-
         /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
         ///
         /// This is a **required** field for requests.
@@ -1711,6 +1713,12 @@ pub mod database_admin {
         {
             use std::iter::Iterator;
             self.0.request.split_points = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.initiator = v.into();
             self
         }
     }

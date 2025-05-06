@@ -196,12 +196,6 @@ impl DebugInfo {
         std::default::Default::default()
     }
 
-    /// Sets the value of [detail][crate::model::DebugInfo::detail].
-    pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.detail = v.into();
-        self
-    }
-
     /// Sets the value of [stack_entries][crate::model::DebugInfo::stack_entries].
     pub fn set_stack_entries<T, V>(mut self, v: T) -> Self
     where
@@ -210,6 +204,12 @@ impl DebugInfo {
     {
         use std::iter::Iterator;
         self.stack_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [detail][crate::model::DebugInfo::detail].
+    pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.detail = v.into();
         self
     }
 }
@@ -410,6 +410,18 @@ pub mod quota_failure {
             self
         }
 
+        /// Sets the value of [quota_dimensions][crate::model::quota_failure::Violation::quota_dimensions].
+        pub fn set_quota_dimensions<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.quota_dimensions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [quota_value][crate::model::quota_failure::Violation::quota_value].
         pub fn set_quota_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.quota_value = v.into();
@@ -422,18 +434,6 @@ pub mod quota_failure {
             v: T,
         ) -> Self {
             self.future_quota_value = v.into();
-            self
-        }
-
-        /// Sets the value of [quota_dimensions][crate::model::quota_failure::Violation::quota_dimensions].
-        pub fn set_quota_dimensions<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.quota_dimensions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -1004,12 +1004,6 @@ impl HttpRequest {
         self
     }
 
-    /// Sets the value of [body][crate::model::HttpRequest::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::HttpRequest::headers].
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
@@ -1018,6 +1012,12 @@ impl HttpRequest {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::HttpRequest::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 }
@@ -1073,12 +1073,6 @@ impl HttpResponse {
         self
     }
 
-    /// Sets the value of [body][crate::model::HttpResponse::body].
-    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
-        self
-    }
-
     /// Sets the value of [headers][crate::model::HttpResponse::headers].
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
@@ -1087,6 +1081,12 @@ impl HttpResponse {
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::HttpResponse::body].
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 }

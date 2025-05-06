@@ -75,6 +75,18 @@ impl LinuxNodeConfig {
         std::default::Default::default()
     }
 
+    /// Sets the value of [sysctls][crate::model::LinuxNodeConfig::sysctls].
+    pub fn set_sysctls<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.sysctls = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [cgroup_mode][crate::model::LinuxNodeConfig::cgroup_mode].
     pub fn set_cgroup_mode<T: std::convert::Into<crate::model::linux_node_config::CgroupMode>>(
         mut self,
@@ -92,18 +104,6 @@ impl LinuxNodeConfig {
         v: T,
     ) -> Self {
         self.hugepages = v.into();
-        self
-    }
-
-    /// Sets the value of [sysctls][crate::model::LinuxNodeConfig::sysctls].
-    pub fn set_sysctls<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.sysctls = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -904,9 +904,32 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [oauth_scopes][crate::model::NodeConfig::oauth_scopes].
+    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::NodeConfig::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::NodeConfig::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -916,15 +939,49 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [labels][crate::model::NodeConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [local_ssd_count][crate::model::NodeConfig::local_ssd_count].
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
         self
     }
 
+    /// Sets the value of [tags][crate::model::NodeConfig::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [preemptible][crate::model::NodeConfig::preemptible].
     pub fn set_preemptible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.preemptible = v.into();
+        self
+    }
+
+    /// Sets the value of [accelerators][crate::model::NodeConfig::accelerators].
+    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AcceleratorConfig>,
+    {
+        use std::iter::Iterator;
+        self.accelerators = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -951,6 +1008,17 @@ impl NodeConfig {
         v: T,
     ) -> Self {
         self.workload_metadata_config = v.into();
+        self
+    }
+
+    /// Sets the value of [taints][crate::model::NodeConfig::taints].
+    pub fn set_taints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NodeTaint>,
+    {
+        use std::iter::Iterator;
+        self.taints = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1079,6 +1147,18 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [resource_labels][crate::model::NodeConfig::resource_labels].
+    pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [logging_config][crate::model::NodeConfig::logging_config].
     pub fn set_logging_config<
         T: std::convert::Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
@@ -1162,6 +1242,28 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [secondary_boot_disks][crate::model::NodeConfig::secondary_boot_disks].
+    pub fn set_secondary_boot_disks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecondaryBootDisk>,
+    {
+        use std::iter::Iterator;
+        self.secondary_boot_disks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [storage_pools][crate::model::NodeConfig::storage_pools].
+    pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.storage_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [secondary_boot_disk_update_strategy][crate::model::NodeConfig::secondary_boot_disk_update_strategy].
     pub fn set_secondary_boot_disk_update_strategy<
         T: std::convert::Into<std::option::Option<crate::model::SecondaryBootDiskUpdateStrategy>>,
@@ -1192,108 +1294,6 @@ impl NodeConfig {
         v: T,
     ) -> Self {
         self.effective_cgroup_mode = v.into();
-        self
-    }
-
-    /// Sets the value of [oauth_scopes][crate::model::NodeConfig::oauth_scopes].
-    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::NodeConfig::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [accelerators][crate::model::NodeConfig::accelerators].
-    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>,
-    {
-        use std::iter::Iterator;
-        self.accelerators = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [taints][crate::model::NodeConfig::taints].
-    pub fn set_taints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeTaint>,
-    {
-        use std::iter::Iterator;
-        self.taints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [secondary_boot_disks][crate::model::NodeConfig::secondary_boot_disks].
-    pub fn set_secondary_boot_disks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecondaryBootDisk>,
-    {
-        use std::iter::Iterator;
-        self.secondary_boot_disks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [storage_pools][crate::model::NodeConfig::storage_pools].
-    pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.storage_pools = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::NodeConfig::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::NodeConfig::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [resource_labels][crate::model::NodeConfig::resource_labels].
-    pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1731,6 +1731,7 @@ pub struct NodeNetworkConfig {
     /// The ratio is Usage/[Total number of IPs in the secondary range],
     /// Usage=numNodes*numZones*podIPsPerNode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pod_ipv4_range_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1796,12 +1797,6 @@ impl NodeNetworkConfig {
         self
     }
 
-    /// Sets the value of [pod_ipv4_range_utilization][crate::model::NodeNetworkConfig::pod_ipv4_range_utilization].
-    pub fn set_pod_ipv4_range_utilization<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.pod_ipv4_range_utilization = v.into();
-        self
-    }
-
     /// Sets the value of [additional_node_network_configs][crate::model::NodeNetworkConfig::additional_node_network_configs].
     pub fn set_additional_node_network_configs<T, V>(mut self, v: T) -> Self
     where
@@ -1821,6 +1816,12 @@ impl NodeNetworkConfig {
     {
         use std::iter::Iterator;
         self.additional_pod_network_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [pod_ipv4_range_utilization][crate::model::NodeNetworkConfig::pod_ipv4_range_utilization].
+    pub fn set_pod_ipv4_range_utilization<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.pod_ipv4_range_utilization = v.into();
         self
     }
 }
@@ -4762,6 +4763,17 @@ impl MasterAuthorizedNetworksConfig {
         self
     }
 
+    /// Sets the value of [cidr_blocks][crate::model::MasterAuthorizedNetworksConfig::cidr_blocks].
+    pub fn set_cidr_blocks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::master_authorized_networks_config::CidrBlock>,
+    {
+        use std::iter::Iterator;
+        self.cidr_blocks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [gcp_public_cidrs_access_enabled][crate::model::MasterAuthorizedNetworksConfig::gcp_public_cidrs_access_enabled].
     pub fn set_gcp_public_cidrs_access_enabled<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
@@ -4779,17 +4791,6 @@ impl MasterAuthorizedNetworksConfig {
         v: T,
     ) -> Self {
         self.private_endpoint_enforcement_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [cidr_blocks][crate::model::MasterAuthorizedNetworksConfig::cidr_blocks].
-    pub fn set_cidr_blocks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::master_authorized_networks_config::CidrBlock>,
-    {
-        use std::iter::Iterator;
-        self.cidr_blocks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5469,6 +5470,7 @@ pub struct IPAllocationPolicy {
     /// pod. The ratio is Usage/[Total number of IPs in the secondary range],
     /// Usage=numNodes*numZones*podIPsPerNode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub default_pod_ipv4_range_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6200,9 +6202,43 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [node_pools][crate::model::Cluster::node_pools].
+    pub fn set_node_pools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NodePool>,
+    {
+        use std::iter::Iterator;
+        self.node_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::Cluster::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [enable_kubernetes_alpha][crate::model::Cluster::enable_kubernetes_alpha].
     pub fn set_enable_kubernetes_alpha<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_kubernetes_alpha = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_labels][crate::model::Cluster::resource_labels].
+    pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -6540,6 +6576,18 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [instance_group_urls][crate::model::Cluster::instance_group_urls].
+    #[deprecated]
+    pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.instance_group_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [current_node_count][crate::model::Cluster::current_node_count].
     #[deprecated]
     pub fn set_current_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -6571,6 +6619,17 @@ impl Cluster {
         v: T,
     ) -> Self {
         self.tpu_ipv4_cidr_block = v.into();
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::Cluster::conditions].
+    pub fn set_conditions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StatusCondition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -6751,63 +6810,6 @@ impl Cluster {
         v: T,
     ) -> Self {
         self.rbac_binding_config = v.into();
-        self
-    }
-
-    /// Sets the value of [node_pools][crate::model::Cluster::node_pools].
-    pub fn set_node_pools<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodePool>,
-    {
-        use std::iter::Iterator;
-        self.node_pools = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [locations][crate::model::Cluster::locations].
-    pub fn set_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.locations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [instance_group_urls][crate::model::Cluster::instance_group_urls].
-    #[deprecated]
-    pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.instance_group_urls = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [conditions][crate::model::Cluster::conditions].
-    pub fn set_conditions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StatusCondition>,
-    {
-        use std::iter::Iterator;
-        self.conditions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [resource_labels][crate::model::Cluster::resource_labels].
-    pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -7124,6 +7126,28 @@ impl UserManagedKeysConfig {
         self
     }
 
+    /// Sets the value of [service_account_signing_keys][crate::model::UserManagedKeysConfig::service_account_signing_keys].
+    pub fn set_service_account_signing_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.service_account_signing_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [service_account_verification_keys][crate::model::UserManagedKeysConfig::service_account_verification_keys].
+    pub fn set_service_account_verification_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.service_account_verification_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [aggregation_ca][crate::model::UserManagedKeysConfig::aggregation_ca].
     pub fn set_aggregation_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aggregation_ca = v.into();
@@ -7145,28 +7169,6 @@ impl UserManagedKeysConfig {
         v: T,
     ) -> Self {
         self.gkeops_etcd_backup_encryption_key = v.into();
-        self
-    }
-
-    /// Sets the value of [service_account_signing_keys][crate::model::UserManagedKeysConfig::service_account_signing_keys].
-    pub fn set_service_account_signing_keys<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.service_account_signing_keys = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [service_account_verification_keys][crate::model::UserManagedKeysConfig::service_account_verification_keys].
-    pub fn set_service_account_verification_keys<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.service_account_verification_keys = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8504,6 +8506,17 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_locations][crate::model::ClusterUpdate::desired_locations].
+    pub fn set_desired_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.desired_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
     #[deprecated]
     pub fn set_desired_master_authorized_networks_config<
@@ -9050,17 +9063,6 @@ impl ClusterUpdate {
         self.desired_node_pool_auto_config_linux_node_config = v.into();
         self
     }
-
-    /// Sets the value of [desired_locations][crate::model::ClusterUpdate::desired_locations].
-    pub fn set_desired_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.desired_locations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for ClusterUpdate {
@@ -9134,6 +9136,7 @@ pub struct RangeInfo {
 
     /// Output only. The utilization of the range.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9389,15 +9392,6 @@ impl Operation {
         self
     }
 
-    /// Sets the value of [error][crate::model::Operation::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
-        self
-    }
-
     /// Sets the value of [cluster_conditions][crate::model::Operation::cluster_conditions].
     #[deprecated]
     pub fn set_cluster_conditions<T, V>(mut self, v: T) -> Self
@@ -9419,6 +9413,15 @@ impl Operation {
     {
         use std::iter::Iterator;
         self.nodepool_conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::Operation::error].
+    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error = v.into();
         self
     }
 }
@@ -10062,6 +10065,18 @@ pub mod operation_progress {
             })
         }
 
+        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
+        /// to hold a `IntValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::operation_progress::metric::Value::IntValue(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `DoubleValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -10075,6 +10090,18 @@ pub mod operation_progress {
             })
         }
 
+        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
+        /// to hold a `DoubleValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::operation_progress::metric::Value::DoubleValue(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `StringValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -10086,30 +10113,6 @@ pub mod operation_progress {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
-        /// to hold a `IntValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::operation_progress::metric::Value::IntValue(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
-        /// to hold a `DoubleValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::operation_progress::metric::Value::DoubleValue(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [value][crate::model::operation_progress::Metric::value]
@@ -10638,6 +10641,17 @@ impl UpdateNodePoolRequest {
         self
     }
 
+    /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
     pub fn set_workload_metadata_config<
         T: std::convert::Into<std::option::Option<crate::model::WorkloadMetadataConfig>>,
@@ -10797,6 +10811,17 @@ impl UpdateNodePoolRequest {
         self
     }
 
+    /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
+    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AcceleratorConfig>,
+    {
+        use std::iter::Iterator;
+        self.accelerators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [machine_type][crate::model::UpdateNodePoolRequest::machine_type].
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
@@ -10845,28 +10870,6 @@ impl UpdateNodePoolRequest {
         v: T,
     ) -> Self {
         self.queued_provisioning = v.into();
-        self
-    }
-
-    /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
-    pub fn set_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.locations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
-    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>,
-    {
-        use std::iter::Iterator;
-        self.accelerators = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -11348,12 +11351,6 @@ impl SetLocationsRequest {
         self
     }
 
-    /// Sets the value of [name][crate::model::SetLocationsRequest::name].
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.name = v.into();
-        self
-    }
-
     /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
@@ -11362,6 +11359,12 @@ impl SetLocationsRequest {
     {
         use std::iter::Iterator;
         self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [name][crate::model::SetLocationsRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
         self
     }
 }
@@ -12282,15 +12285,6 @@ impl ServerConfig {
         self
     }
 
-    /// Sets the value of [default_image_type][crate::model::ServerConfig::default_image_type].
-    pub fn set_default_image_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.default_image_type = v.into();
-        self
-    }
-
     /// Sets the value of [valid_node_versions][crate::model::ServerConfig::valid_node_versions].
     pub fn set_valid_node_versions<T, V>(mut self, v: T) -> Self
     where
@@ -12299,6 +12293,15 @@ impl ServerConfig {
     {
         use std::iter::Iterator;
         self.valid_node_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [default_image_type][crate::model::ServerConfig::default_image_type].
+    pub fn set_default_image_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_image_type = v.into();
         self
     }
 
@@ -12395,15 +12398,6 @@ pub mod server_config {
             self
         }
 
-        /// Sets the value of [upgrade_target_version][crate::model::server_config::ReleaseChannelConfig::upgrade_target_version].
-        pub fn set_upgrade_target_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upgrade_target_version = v.into();
-            self
-        }
-
         /// Sets the value of [valid_versions][crate::model::server_config::ReleaseChannelConfig::valid_versions].
         pub fn set_valid_versions<T, V>(mut self, v: T) -> Self
         where
@@ -12412,6 +12406,15 @@ pub mod server_config {
         {
             use std::iter::Iterator;
             self.valid_versions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [upgrade_target_version][crate::model::server_config::ReleaseChannelConfig::upgrade_target_version].
+        pub fn set_upgrade_target_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.upgrade_target_version = v.into();
             self
         }
     }
@@ -12927,17 +12930,6 @@ pub mod blue_green_settings {
             })
         }
 
-        /// The value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
-        /// if it holds a `BatchNodeCount`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn batch_node_count(&self) -> std::option::Option<&i32> {
-            #[allow(unreachable_patterns)]
-            self.update_batch_size.as_ref().and_then(|v| match v {
-                crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchNodeCount(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
         /// to hold a `BatchPercentage`.
         ///
@@ -12950,6 +12942,17 @@ pub mod blue_green_settings {
                 )
             );
             self
+        }
+
+        /// The value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
+        /// if it holds a `BatchNodeCount`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn batch_node_count(&self) -> std::option::Option<&i32> {
+            #[allow(unreachable_patterns)]
+            self.update_batch_size.as_ref().and_then(|v| match v {
+                crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchNodeCount(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
@@ -13154,6 +13157,17 @@ impl NodePool {
         self
     }
 
+    /// Sets the value of [locations][crate::model::NodePool::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [network_config][crate::model::NodePool::network_config].
     pub fn set_network_config<
         T: std::convert::Into<std::option::Option<crate::model::NodeNetworkConfig>>,
@@ -13174,6 +13188,17 @@ impl NodePool {
     /// Sets the value of [version][crate::model::NodePool::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_group_urls][crate::model::NodePool::instance_group_urls].
+    pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.instance_group_urls = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -13223,6 +13248,17 @@ impl NodePool {
         v: T,
     ) -> Self {
         self.max_pods_constraint = v.into();
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::NodePool::conditions].
+    pub fn set_conditions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StatusCondition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -13290,39 +13326,6 @@ impl NodePool {
         v: T,
     ) -> Self {
         self.best_effort_provisioning = v.into();
-        self
-    }
-
-    /// Sets the value of [locations][crate::model::NodePool::locations].
-    pub fn set_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.locations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [instance_group_urls][crate::model::NodePool::instance_group_urls].
-    pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.instance_group_urls = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [conditions][crate::model::NodePool::conditions].
-    pub fn set_conditions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::StatusCondition>,
-    {
-        use std::iter::Iterator;
-        self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13556,24 +13559,6 @@ pub mod node_pool {
                 self
             }
 
-            /// Sets the value of [blue_pool_deletion_start_time][crate::model::node_pool::update_info::BlueGreenInfo::blue_pool_deletion_start_time].
-            pub fn set_blue_pool_deletion_start_time<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.blue_pool_deletion_start_time = v.into();
-                self
-            }
-
-            /// Sets the value of [green_pool_version][crate::model::node_pool::update_info::BlueGreenInfo::green_pool_version].
-            pub fn set_green_pool_version<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.green_pool_version = v.into();
-                self
-            }
-
             /// Sets the value of [blue_instance_group_urls][crate::model::node_pool::update_info::BlueGreenInfo::blue_instance_group_urls].
             pub fn set_blue_instance_group_urls<T, V>(mut self, v: T) -> Self
             where
@@ -13593,6 +13578,24 @@ pub mod node_pool {
             {
                 use std::iter::Iterator;
                 self.green_instance_group_urls = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [blue_pool_deletion_start_time][crate::model::node_pool::update_info::BlueGreenInfo::blue_pool_deletion_start_time].
+            pub fn set_blue_pool_deletion_start_time<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.blue_pool_deletion_start_time = v.into();
+                self
+            }
+
+            /// Sets the value of [green_pool_version][crate::model::node_pool::update_info::BlueGreenInfo::green_pool_version].
+            pub fn set_green_pool_version<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.green_pool_version = v.into();
                 self
             }
         }
@@ -14456,21 +14459,6 @@ impl MaintenanceWindow {
         })
     }
 
-    /// The value of [policy][crate::model::MaintenanceWindow::policy]
-    /// if it holds a `RecurringWindow`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn recurring_window(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringTimeWindow>> {
-        #[allow(unreachable_patterns)]
-        self.policy.as_ref().and_then(|v| match v {
-            crate::model::maintenance_window::Policy::RecurringWindow(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [policy][crate::model::MaintenanceWindow::policy]
     /// to hold a `DailyMaintenanceWindow`.
     ///
@@ -14486,6 +14474,21 @@ impl MaintenanceWindow {
             crate::model::maintenance_window::Policy::DailyMaintenanceWindow(v.into()),
         );
         self
+    }
+
+    /// The value of [policy][crate::model::MaintenanceWindow::policy]
+    /// if it holds a `RecurringWindow`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn recurring_window(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringTimeWindow>> {
+        #[allow(unreachable_patterns)]
+        self.policy.as_ref().and_then(|v| match v {
+            crate::model::maintenance_window::Policy::RecurringWindow(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [policy][crate::model::MaintenanceWindow::policy]
@@ -15374,6 +15377,17 @@ impl ClusterAutoscaling {
         self
     }
 
+    /// Sets the value of [resource_limits][crate::model::ClusterAutoscaling::resource_limits].
+    pub fn set_resource_limits<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResourceLimit>,
+    {
+        use std::iter::Iterator;
+        self.resource_limits = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [autoscaling_profile][crate::model::ClusterAutoscaling::autoscaling_profile].
     pub fn set_autoscaling_profile<
         T: std::convert::Into<crate::model::cluster_autoscaling::AutoscalingProfile>,
@@ -15393,17 +15407,6 @@ impl ClusterAutoscaling {
         v: T,
     ) -> Self {
         self.autoprovisioning_node_pool_defaults = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_limits][crate::model::ClusterAutoscaling::resource_limits].
-    pub fn set_resource_limits<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceLimit>,
-    {
-        use std::iter::Iterator;
-        self.resource_limits = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -15647,6 +15650,17 @@ impl AutoprovisioningNodePoolDefaults {
         std::default::Default::default()
     }
 
+    /// Sets the value of [oauth_scopes][crate::model::AutoprovisioningNodePoolDefaults::oauth_scopes].
+    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::AutoprovisioningNodePoolDefaults::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -15731,17 +15745,6 @@ impl AutoprovisioningNodePoolDefaults {
         v: T,
     ) -> Self {
         self.insecure_kubelet_readonly_port_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [oauth_scopes][crate::model::AutoprovisioningNodePoolDefaults::oauth_scopes].
-    pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -16129,6 +16132,18 @@ impl SetLabelsRequest {
         self
     }
 
+    /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
+    pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
     pub fn set_label_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16141,18 +16156,6 @@ impl SetLabelsRequest {
     /// Sets the value of [name][crate::model::SetLabelsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
-        self
-    }
-
-    /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
-    pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -18547,6 +18550,17 @@ impl AutopilotCompatibilityIssue {
         self
     }
 
+    /// Sets the value of [subjects][crate::model::AutopilotCompatibilityIssue::subjects].
+    pub fn set_subjects<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.subjects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [documentation_url][crate::model::AutopilotCompatibilityIssue::documentation_url].
     pub fn set_documentation_url<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -18559,17 +18573,6 @@ impl AutopilotCompatibilityIssue {
     /// Sets the value of [description][crate::model::AutopilotCompatibilityIssue::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [subjects][crate::model::AutopilotCompatibilityIssue::subjects].
-    pub fn set_subjects<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.subjects = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -18756,12 +18759,6 @@ impl CheckAutopilotCompatibilityResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [summary][crate::model::CheckAutopilotCompatibilityResponse::summary].
-    pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.summary = v.into();
-        self
-    }
-
     /// Sets the value of [issues][crate::model::CheckAutopilotCompatibilityResponse::issues].
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
@@ -18770,6 +18767,12 @@ impl CheckAutopilotCompatibilityResponse {
     {
         use std::iter::Iterator;
         self.issues = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [summary][crate::model::CheckAutopilotCompatibilityResponse::summary].
+    pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.summary = v.into();
         self
     }
 }
@@ -20132,12 +20135,6 @@ impl ListUsableSubnetworksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListUsableSubnetworksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [subnetworks][crate::model::ListUsableSubnetworksResponse::subnetworks].
     pub fn set_subnetworks<T, V>(mut self, v: T) -> Self
     where
@@ -20146,6 +20143,12 @@ impl ListUsableSubnetworksResponse {
     {
         use std::iter::Iterator;
         self.subnetworks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUsableSubnetworksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -20443,12 +20446,6 @@ impl UsableSubnetwork {
         self
     }
 
-    /// Sets the value of [status_message][crate::model::UsableSubnetwork::status_message].
-    pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.status_message = v.into();
-        self
-    }
-
     /// Sets the value of [secondary_ip_ranges][crate::model::UsableSubnetwork::secondary_ip_ranges].
     pub fn set_secondary_ip_ranges<T, V>(mut self, v: T) -> Self
     where
@@ -20457,6 +20454,12 @@ impl UsableSubnetwork {
     {
         use std::iter::Iterator;
         self.secondary_ip_ranges = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [status_message][crate::model::UsableSubnetwork::status_message].
+    pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.status_message = v.into();
         self
     }
 }
@@ -21607,6 +21610,17 @@ impl SecurityBulletinEvent {
         self
     }
 
+    /// Sets the value of [cve_ids][crate::model::SecurityBulletinEvent::cve_ids].
+    pub fn set_cve_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.cve_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [severity][crate::model::SecurityBulletinEvent::severity].
     pub fn set_severity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.severity = v.into();
@@ -21625,32 +21639,6 @@ impl SecurityBulletinEvent {
         v: T,
     ) -> Self {
         self.brief_description = v.into();
-        self
-    }
-
-    /// Sets the value of [suggested_upgrade_target][crate::model::SecurityBulletinEvent::suggested_upgrade_target].
-    pub fn set_suggested_upgrade_target<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggested_upgrade_target = v.into();
-        self
-    }
-
-    /// Sets the value of [manual_steps_required][crate::model::SecurityBulletinEvent::manual_steps_required].
-    pub fn set_manual_steps_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.manual_steps_required = v.into();
-        self
-    }
-
-    /// Sets the value of [cve_ids][crate::model::SecurityBulletinEvent::cve_ids].
-    pub fn set_cve_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.cve_ids = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -21673,6 +21661,21 @@ impl SecurityBulletinEvent {
     {
         use std::iter::Iterator;
         self.patched_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [suggested_upgrade_target][crate::model::SecurityBulletinEvent::suggested_upgrade_target].
+    pub fn set_suggested_upgrade_target<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.suggested_upgrade_target = v.into();
+        self
+    }
+
+    /// Sets the value of [manual_steps_required][crate::model::SecurityBulletinEvent::manual_steps_required].
+    pub fn set_manual_steps_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.manual_steps_required = v.into();
         self
     }
 }

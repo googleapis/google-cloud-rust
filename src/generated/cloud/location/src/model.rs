@@ -119,12 +119,6 @@ impl ListLocationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [locations][crate::model::ListLocationsResponse::locations].
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
@@ -133,6 +127,12 @@ impl ListLocationsResponse {
     {
         use std::iter::Iterator;
         self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -251,15 +251,6 @@ impl Location {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::Location::metadata].
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Location::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -269,6 +260,15 @@ impl Location {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::Location::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }

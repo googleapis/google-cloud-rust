@@ -83,6 +83,17 @@ impl Notification {
         self
     }
 
+    /// Sets the value of [messages][crate::model::Notification::messages].
+    pub fn set_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Message>,
+    {
+        use std::iter::Iterator;
+        self.messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Notification::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -98,17 +109,6 @@ impl Notification {
         v: T,
     ) -> Self {
         self.notification_type = v.into();
-        self
-    }
-
-    /// Sets the value of [messages][crate::model::Notification::messages].
-    pub fn set_messages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Message>,
-    {
-        use std::iter::Iterator;
-        self.messages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -248,6 +248,17 @@ impl Message {
         self
     }
 
+    /// Sets the value of [attachments][crate::model::Message::attachments].
+    pub fn set_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Attachment>,
+    {
+        use std::iter::Iterator;
+        self.attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Message::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -263,17 +274,6 @@ impl Message {
         v: T,
     ) -> Self {
         self.localization_time = v.into();
-        self
-    }
-
-    /// Sets the value of [attachments][crate::model::Message::attachments].
-    pub fn set_attachments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Attachment>,
-    {
-        use std::iter::Iterator;
-        self.attachments = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -621,6 +621,17 @@ impl ListNotificationsResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [notifications][crate::model::ListNotificationsResponse::notifications].
+    pub fn set_notifications<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Notification>,
+    {
+        use std::iter::Iterator;
+        self.notifications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListNotificationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -630,17 +641,6 @@ impl ListNotificationsResponse {
     /// Sets the value of [total_size][crate::model::ListNotificationsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
-        self
-    }
-
-    /// Sets the value of [notifications][crate::model::ListNotificationsResponse::notifications].
-    pub fn set_notifications<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Notification>,
-    {
-        use std::iter::Iterator;
-        self.notifications = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -756,12 +756,6 @@ impl Settings {
         self
     }
 
-    /// Sets the value of [etag][crate::model::Settings::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [notification_settings][crate::model::Settings::notification_settings].
     pub fn set_notification_settings<T, K, V>(mut self, v: T) -> Self
     where
@@ -771,6 +765,12 @@ impl Settings {
     {
         use std::iter::Iterator;
         self.notification_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Settings::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }

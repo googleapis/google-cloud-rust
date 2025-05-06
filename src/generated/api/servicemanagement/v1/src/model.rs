@@ -114,21 +114,6 @@ impl OperationMetadata {
         std::default::Default::default()
     }
 
-    /// Sets the value of [progress_percentage][crate::model::OperationMetadata::progress_percentage].
-    pub fn set_progress_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.progress_percentage = v.into();
-        self
-    }
-
-    /// Sets the value of [start_time][crate::model::OperationMetadata::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
-        self
-    }
-
     /// Sets the value of [resource_names][crate::model::OperationMetadata::resource_names].
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
@@ -148,6 +133,21 @@ impl OperationMetadata {
     {
         use std::iter::Iterator;
         self.steps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [progress_percentage][crate::model::OperationMetadata::progress_percentage].
+    pub fn set_progress_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.progress_percentage = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::OperationMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
         self
     }
 }
@@ -1014,21 +1014,6 @@ impl Rollout {
         })
     }
 
-    /// The value of [strategy][crate::model::Rollout::strategy]
-    /// if it holds a `DeleteServiceStrategy`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete_service_strategy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>> {
-        #[allow(unreachable_patterns)]
-        self.strategy.as_ref().and_then(|v| match v {
-            crate::model::rollout::Strategy::DeleteServiceStrategy(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [strategy][crate::model::Rollout::strategy]
     /// to hold a `TrafficPercentStrategy`.
     ///
@@ -1044,6 +1029,21 @@ impl Rollout {
             crate::model::rollout::Strategy::TrafficPercentStrategy(v.into()),
         );
         self
+    }
+
+    /// The value of [strategy][crate::model::Rollout::strategy]
+    /// if it holds a `DeleteServiceStrategy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_service_strategy(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>> {
+        #[allow(unreachable_patterns)]
+        self.strategy.as_ref().and_then(|v| match v {
+            crate::model::rollout::Strategy::DeleteServiceStrategy(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [strategy][crate::model::Rollout::strategy]
@@ -1118,6 +1118,7 @@ pub mod rollout {
         /// Key is the service configuration ID, Value is the traffic percentage
         /// which must be greater than 0.0 and the sum must equal to 100.0.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
         pub percentages: std::collections::HashMap<std::string::String, f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1446,12 +1447,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -1460,6 +1455,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1926,12 +1927,6 @@ impl ListServiceConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [service_configs][crate::model::ListServiceConfigsResponse::service_configs].
     pub fn set_service_configs<T, V>(mut self, v: T) -> Self
     where
@@ -1940,6 +1935,12 @@ impl ListServiceConfigsResponse {
     {
         use std::iter::Iterator;
         self.service_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2251,12 +2252,6 @@ impl ListServiceRolloutsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServiceRolloutsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [rollouts][crate::model::ListServiceRolloutsResponse::rollouts].
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
@@ -2265,6 +2260,12 @@ impl ListServiceRolloutsResponse {
     {
         use std::iter::Iterator;
         self.rollouts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceRolloutsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -161,14 +161,17 @@ extern crate wkt;
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub blue: f32,
 
     /// The fraction of this color that should be applied to the pixel. That is,
@@ -183,6 +186,7 @@ pub struct Color {
     /// If omitted, this color object is rendered as a solid color
     /// (as if the alpha value had been explicitly given a value of 1.0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub alpha: std::option::Option<wkt::FloatValue>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -445,17 +449,6 @@ impl DateTime {
         })
     }
 
-    /// The value of [time_offset][crate::model::DateTime::time_offset]
-    /// if it holds a `TimeZone`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
-        #[allow(unreachable_patterns)]
-        self.time_offset.as_ref().and_then(|v| match v {
-            crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
     /// to hold a `UtcOffset`.
     ///
@@ -468,6 +461,17 @@ impl DateTime {
         self.time_offset =
             std::option::Option::Some(crate::model::date_time::TimeOffset::UtcOffset(v.into()));
         self
+    }
+
+    /// The value of [time_offset][crate::model::DateTime::time_offset]
+    /// if it holds a `TimeZone`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
+        #[allow(unreachable_patterns)]
+        self.time_offset.as_ref().and_then(|v| match v {
+            crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
@@ -878,10 +882,12 @@ impl wkt::message::Message for Interval {
 pub struct LatLng {
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub latitude: f64,
 
     /// The longitude in degrees. It must be in the range [-180.0, +180.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub longitude: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1108,6 +1114,17 @@ impl PhoneNumber {
         })
     }
 
+    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
+    /// to hold a `E164Number`.
+    ///
+    /// Note that all the setters affecting `kind` are
+    /// mutually exclusive.
+    pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind =
+            std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
+        self
+    }
+
     /// The value of [kind][crate::model::PhoneNumber::kind]
     /// if it holds a `ShortCode`, `None` if the field is not set or
     /// holds a different branch.
@@ -1119,17 +1136,6 @@ impl PhoneNumber {
             crate::model::phone_number::Kind::ShortCode(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
-    /// to hold a `E164Number`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
-        self
     }
 
     /// Sets the value of [kind][crate::model::PhoneNumber::kind]
@@ -1435,12 +1441,6 @@ impl PostalAddress {
         self
     }
 
-    /// Sets the value of [organization][crate::model::PostalAddress::organization].
-    pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.organization = v.into();
-        self
-    }
-
     /// Sets the value of [address_lines][crate::model::PostalAddress::address_lines].
     pub fn set_address_lines<T, V>(mut self, v: T) -> Self
     where
@@ -1460,6 +1460,12 @@ impl PostalAddress {
     {
         use std::iter::Iterator;
         self.recipients = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [organization][crate::model::PostalAddress::organization].
+    pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.organization = v.into();
         self
     }
 }
@@ -1536,18 +1542,22 @@ impl wkt::message::Message for PostalAddress {
 pub struct Quaternion {
     /// The x component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub x: f64,
 
     /// The y component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub y: f64,
 
     /// The z component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub z: f64,
 
     /// The scalar component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub w: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

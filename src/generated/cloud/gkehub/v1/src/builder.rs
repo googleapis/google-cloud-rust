@@ -362,7 +362,7 @@ pub mod gke_hub {
             self,
         ) -> impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Membership, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -387,7 +387,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMembershipRequest::parent].
@@ -469,7 +469,8 @@ pub mod gke_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Feature, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -494,7 +495,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
@@ -571,7 +572,7 @@ pub mod gke_hub {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_membership`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -596,7 +597,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMembershipRequest::name].
@@ -663,7 +664,7 @@ pub mod gke_hub {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -688,7 +689,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
@@ -759,7 +760,7 @@ pub mod gke_hub {
             self,
         ) -> impl lro::Poller<crate::model::Membership, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Membership, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Membership, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -784,7 +785,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpdateMembershipRequest::name].
@@ -869,7 +870,8 @@ pub mod gke_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Feature, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Feature, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Feature, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -894,7 +896,7 @@ pub mod gke_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpdateFeatureRequest::name].

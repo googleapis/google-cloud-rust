@@ -433,30 +433,6 @@ impl UrlMap {
         })
     }
 
-    /// The value of [handler_type][crate::model::UrlMap::handler_type]
-    /// if it holds a `Script`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn script(&self) -> std::option::Option<&std::boxed::Box<crate::model::ScriptHandler>> {
-        #[allow(unreachable_patterns)]
-        self.handler_type.as_ref().and_then(|v| match v {
-            crate::model::url_map::HandlerType::Script(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [handler_type][crate::model::UrlMap::handler_type]
-    /// if it holds a `ApiEndpoint`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn api_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ApiEndpointHandler>> {
-        #[allow(unreachable_patterns)]
-        self.handler_type.as_ref().and_then(|v| match v {
-            crate::model::url_map::HandlerType::ApiEndpoint(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [handler_type][crate::model::UrlMap::handler_type]
     /// to hold a `StaticFiles`.
     ///
@@ -473,6 +449,17 @@ impl UrlMap {
         self
     }
 
+    /// The value of [handler_type][crate::model::UrlMap::handler_type]
+    /// if it holds a `Script`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn script(&self) -> std::option::Option<&std::boxed::Box<crate::model::ScriptHandler>> {
+        #[allow(unreachable_patterns)]
+        self.handler_type.as_ref().and_then(|v| match v {
+            crate::model::url_map::HandlerType::Script(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [handler_type][crate::model::UrlMap::handler_type]
     /// to hold a `Script`.
     ///
@@ -485,6 +472,19 @@ impl UrlMap {
         self.handler_type =
             std::option::Option::Some(crate::model::url_map::HandlerType::Script(v.into()));
         self
+    }
+
+    /// The value of [handler_type][crate::model::UrlMap::handler_type]
+    /// if it holds a `ApiEndpoint`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn api_endpoint(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ApiEndpointHandler>> {
+        #[allow(unreachable_patterns)]
+        self.handler_type.as_ref().and_then(|v| match v {
+            crate::model::url_map::HandlerType::ApiEndpoint(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [handler_type][crate::model::UrlMap::handler_type]
@@ -754,6 +754,18 @@ impl StaticFilesHandler {
         self
     }
 
+    /// Sets the value of [http_headers][crate::model::StaticFilesHandler::http_headers].
+    pub fn set_http_headers<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.http_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [mime_type][crate::model::StaticFilesHandler::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
@@ -778,18 +790,6 @@ impl StaticFilesHandler {
     /// Sets the value of [application_readable][crate::model::StaticFilesHandler::application_readable].
     pub fn set_application_readable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.application_readable = v.into();
-        self
-    }
-
-    /// Sets the value of [http_headers][crate::model::StaticFilesHandler::http_headers].
-    pub fn set_http_headers<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.http_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1458,12 +1458,6 @@ impl ListServicesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -1472,6 +1466,12 @@ impl ListServicesResponse {
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1725,12 +1725,6 @@ impl ListVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
@@ -1739,6 +1733,12 @@ impl ListVersionsResponse {
     {
         use std::iter::Iterator;
         self.versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2020,12 +2020,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -2034,6 +2028,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2264,12 +2264,6 @@ impl ListIngressRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListIngressRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [ingress_rules][crate::model::ListIngressRulesResponse::ingress_rules].
     pub fn set_ingress_rules<T, V>(mut self, v: T) -> Self
     where
@@ -2278,6 +2272,12 @@ impl ListIngressRulesResponse {
     {
         use std::iter::Iterator;
         self.ingress_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIngressRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2642,12 +2642,6 @@ impl ListAuthorizedDomainsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAuthorizedDomainsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [domains][crate::model::ListAuthorizedDomainsResponse::domains].
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
@@ -2656,6 +2650,12 @@ impl ListAuthorizedDomainsResponse {
     {
         use std::iter::Iterator;
         self.domains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthorizedDomainsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2767,12 +2767,6 @@ impl ListAuthorizedCertificatesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAuthorizedCertificatesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [certificates][crate::model::ListAuthorizedCertificatesResponse::certificates].
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
@@ -2781,6 +2775,12 @@ impl ListAuthorizedCertificatesResponse {
     {
         use std::iter::Iterator;
         self.certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthorizedCertificatesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3068,12 +3068,6 @@ impl ListDomainMappingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDomainMappingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [domain_mappings][crate::model::ListDomainMappingsResponse::domain_mappings].
     pub fn set_domain_mappings<T, V>(mut self, v: T) -> Self
     where
@@ -3082,6 +3076,12 @@ impl ListDomainMappingsResponse {
     {
         use std::iter::Iterator;
         self.domain_mappings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDomainMappingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3410,6 +3410,17 @@ impl Application {
         self
     }
 
+    /// Sets the value of [dispatch_rules][crate::model::Application::dispatch_rules].
+    pub fn set_dispatch_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UrlDispatchRule>,
+    {
+        use std::iter::Iterator;
+        self.dispatch_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [auth_domain][crate::model::Application::auth_domain].
     pub fn set_auth_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.auth_domain = v.into();
@@ -3503,17 +3514,6 @@ impl Application {
         v: T,
     ) -> Self {
         self.feature_settings = v.into();
-        self
-    }
-
-    /// Sets the value of [dispatch_rules][crate::model::Application::dispatch_rules].
-    pub fn set_dispatch_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UrlDispatchRule>,
-    {
-        use std::iter::Iterator;
-        self.dispatch_rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4050,19 +4050,6 @@ impl AuditData {
         })
     }
 
-    /// The value of [method][crate::model::AuditData::method]
-    /// if it holds a `CreateVersion`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn create_version(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateVersionMethod>> {
-        #[allow(unreachable_patterns)]
-        self.method.as_ref().and_then(|v| match v {
-            crate::model::audit_data::Method::CreateVersion(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [method][crate::model::AuditData::method]
     /// to hold a `UpdateService`.
     ///
@@ -4077,6 +4064,19 @@ impl AuditData {
         self.method =
             std::option::Option::Some(crate::model::audit_data::Method::UpdateService(v.into()));
         self
+    }
+
+    /// The value of [method][crate::model::AuditData::method]
+    /// if it holds a `CreateVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn create_version(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CreateVersionMethod>> {
+        #[allow(unreachable_patterns)]
+        self.method.as_ref().and_then(|v| match v {
+            crate::model::audit_data::Method::CreateVersion(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [method][crate::model::AuditData::method]
@@ -4304,6 +4304,17 @@ impl AuthorizedCertificate {
         self
     }
 
+    /// Sets the value of [domain_names][crate::model::AuthorizedCertificate::domain_names].
+    pub fn set_domain_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.domain_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [expire_time][crate::model::AuthorizedCertificate::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -4335,23 +4346,6 @@ impl AuthorizedCertificate {
         self
     }
 
-    /// Sets the value of [domain_mappings_count][crate::model::AuthorizedCertificate::domain_mappings_count].
-    pub fn set_domain_mappings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.domain_mappings_count = v.into();
-        self
-    }
-
-    /// Sets the value of [domain_names][crate::model::AuthorizedCertificate::domain_names].
-    pub fn set_domain_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.domain_names = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [visible_domain_mappings][crate::model::AuthorizedCertificate::visible_domain_mappings].
     pub fn set_visible_domain_mappings<T, V>(mut self, v: T) -> Self
     where
@@ -4360,6 +4354,12 @@ impl AuthorizedCertificate {
     {
         use std::iter::Iterator;
         self.visible_domain_mappings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [domain_mappings_count][crate::model::AuthorizedCertificate::domain_mappings_count].
+    pub fn set_domain_mappings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.domain_mappings_count = v.into();
         self
     }
 }
@@ -4512,6 +4512,18 @@ impl Deployment {
         std::default::Default::default()
     }
 
+    /// Sets the value of [files][crate::model::Deployment::files].
+    pub fn set_files<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::FileInfo>,
+    {
+        use std::iter::Iterator;
+        self.files = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [container][crate::model::Deployment::container].
     pub fn set_container<
         T: std::convert::Into<std::option::Option<crate::model::ContainerInfo>>,
@@ -4540,18 +4552,6 @@ impl Deployment {
         v: T,
     ) -> Self {
         self.cloud_build_options = v.into();
-        self
-    }
-
-    /// Sets the value of [files][crate::model::Deployment::files].
-    pub fn set_files<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::FileInfo>,
-    {
-        use std::iter::Iterator;
-        self.files = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5571,6 +5571,7 @@ pub struct Instance {
 
     /// Output only. Average queries per second (QPS) over the last minute.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub qps: f32,
 
     /// Output only. Average latency (ms) over the last minute.
@@ -6606,17 +6607,6 @@ impl Service {
         self
     }
 
-    /// Sets the value of [network_settings][crate::model::Service::network_settings].
-    pub fn set_network_settings<
-        T: std::convert::Into<std::option::Option<crate::model::NetworkSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_settings = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Service::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -6626,6 +6616,17 @@ impl Service {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network_settings][crate::model::Service::network_settings].
+    pub fn set_network_settings<
+        T: std::convert::Into<std::option::Option<crate::model::NetworkSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_settings = v.into();
         self
     }
 }
@@ -6657,6 +6658,7 @@ pub struct TrafficSplit {
     /// Up to two decimal place precision is supported for IP-based splits and
     /// up to three decimal places is supported for cookie-based splits.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     pub allocations: std::collections::HashMap<std::string::String, f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7103,6 +7105,17 @@ impl Version {
         self
     }
 
+    /// Sets the value of [inbound_services][crate::model::Version::inbound_services].
+    pub fn set_inbound_services<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InboundServiceType>,
+    {
+        use std::iter::Iterator;
+        self.inbound_services = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [instance_class][crate::model::Version::instance_class].
     pub fn set_instance_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_class = v.into();
@@ -7115,6 +7128,17 @@ impl Version {
         v: T,
     ) -> Self {
         self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [zones][crate::model::Version::zones].
+    pub fn set_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.zones = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -7154,6 +7178,18 @@ impl Version {
     /// Sets the value of [app_engine_apis][crate::model::Version::app_engine_apis].
     pub fn set_app_engine_apis<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.app_engine_apis = v.into();
+        self
+    }
+
+    /// Sets the value of [beta_settings][crate::model::Version::beta_settings].
+    pub fn set_beta_settings<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.beta_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -7217,6 +7253,39 @@ impl Version {
         self
     }
 
+    /// Sets the value of [handlers][crate::model::Version::handlers].
+    pub fn set_handlers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UrlMap>,
+    {
+        use std::iter::Iterator;
+        self.handlers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error_handlers][crate::model::Version::error_handlers].
+    pub fn set_error_handlers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ErrorHandler>,
+    {
+        use std::iter::Iterator;
+        self.error_handlers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [libraries][crate::model::Version::libraries].
+    pub fn set_libraries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Library>,
+    {
+        use std::iter::Iterator;
+        self.libraries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [api_config][crate::model::Version::api_config].
     pub fn set_api_config<
         T: std::convert::Into<std::option::Option<crate::model::ApiConfigHandler>>,
@@ -7225,6 +7294,30 @@ impl Version {
         v: T,
     ) -> Self {
         self.api_config = v.into();
+        self
+    }
+
+    /// Sets the value of [env_variables][crate::model::Version::env_variables].
+    pub fn set_env_variables<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.env_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [build_env_variables][crate::model::Version::build_env_variables].
+    pub fn set_build_env_variables<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.build_env_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -7325,97 +7418,6 @@ impl Version {
         self
     }
 
-    /// Sets the value of [inbound_services][crate::model::Version::inbound_services].
-    pub fn set_inbound_services<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InboundServiceType>,
-    {
-        use std::iter::Iterator;
-        self.inbound_services = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [zones][crate::model::Version::zones].
-    pub fn set_zones<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.zones = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [handlers][crate::model::Version::handlers].
-    pub fn set_handlers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UrlMap>,
-    {
-        use std::iter::Iterator;
-        self.handlers = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [error_handlers][crate::model::Version::error_handlers].
-    pub fn set_error_handlers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorHandler>,
-    {
-        use std::iter::Iterator;
-        self.error_handlers = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [libraries][crate::model::Version::libraries].
-    pub fn set_libraries<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Library>,
-    {
-        use std::iter::Iterator;
-        self.libraries = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [beta_settings][crate::model::Version::beta_settings].
-    pub fn set_beta_settings<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.beta_settings = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [env_variables][crate::model::Version::env_variables].
-    pub fn set_env_variables<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.env_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [build_env_variables][crate::model::Version::build_env_variables].
-    pub fn set_build_env_variables<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.build_env_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [scaling][crate::model::Version::scaling].
     ///
     /// Note that all the setters affecting `scaling` are mutually
@@ -7443,32 +7445,6 @@ impl Version {
         })
     }
 
-    /// The value of [scaling][crate::model::Version::scaling]
-    /// if it holds a `BasicScaling`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn basic_scaling(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BasicScaling>> {
-        #[allow(unreachable_patterns)]
-        self.scaling.as_ref().and_then(|v| match v {
-            crate::model::version::Scaling::BasicScaling(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [scaling][crate::model::Version::scaling]
-    /// if it holds a `ManualScaling`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn manual_scaling(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualScaling>> {
-        #[allow(unreachable_patterns)]
-        self.scaling.as_ref().and_then(|v| match v {
-            crate::model::version::Scaling::ManualScaling(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [scaling][crate::model::Version::scaling]
     /// to hold a `AutomaticScaling`.
     ///
@@ -7485,6 +7461,19 @@ impl Version {
         self
     }
 
+    /// The value of [scaling][crate::model::Version::scaling]
+    /// if it holds a `BasicScaling`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn basic_scaling(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BasicScaling>> {
+        #[allow(unreachable_patterns)]
+        self.scaling.as_ref().and_then(|v| match v {
+            crate::model::version::Scaling::BasicScaling(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [scaling][crate::model::Version::scaling]
     /// to hold a `BasicScaling`.
     ///
@@ -7497,6 +7486,19 @@ impl Version {
         self.scaling =
             std::option::Option::Some(crate::model::version::Scaling::BasicScaling(v.into()));
         self
+    }
+
+    /// The value of [scaling][crate::model::Version::scaling]
+    /// if it holds a `ManualScaling`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn manual_scaling(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualScaling>> {
+        #[allow(unreachable_patterns)]
+        self.scaling.as_ref().and_then(|v| match v {
+            crate::model::version::Scaling::ManualScaling(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [scaling][crate::model::Version::scaling]
@@ -8076,6 +8078,7 @@ pub struct CpuUtilization {
     /// Target CPU utilization ratio to maintain when scaling. Must be between 0
     /// and 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub target_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8294,10 +8297,12 @@ impl wkt::message::Message for NetworkUtilization {
 pub struct StandardSchedulerSettings {
     /// Target CPU utilization ratio to maintain when scaling.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub target_cpu_utilization: f64,
 
     /// Target throughput utilization ratio to maintain when scaling
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub target_throughput_utilization: f64,
 
     /// Minimum number of instances to run for this version. Set to zero to disable
@@ -8410,6 +8415,17 @@ impl Network {
         std::default::Default::default()
     }
 
+    /// Sets the value of [forwarded_ports][crate::model::Network::forwarded_ports].
+    pub fn set_forwarded_ports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.forwarded_ports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [instance_tag][crate::model::Network::instance_tag].
     pub fn set_instance_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_tag = v.into();
@@ -8431,17 +8447,6 @@ impl Network {
     /// Sets the value of [session_affinity][crate::model::Network::session_affinity].
     pub fn set_session_affinity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.session_affinity = v.into();
-        self
-    }
-
-    /// Sets the value of [forwarded_ports][crate::model::Network::forwarded_ports].
-    pub fn set_forwarded_ports<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.forwarded_ports = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8469,6 +8474,7 @@ pub struct Volume {
 
     /// Volume size in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub size_gb: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8513,14 +8519,17 @@ impl wkt::message::Message for Volume {
 pub struct Resources {
     /// Number of CPU cores needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cpu: f64,
 
     /// Disk size (GB) needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub disk_gb: f64,
 
     /// Memory (GB) needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub memory_gb: f64,
 
     /// User specified volumes.
@@ -8559,15 +8568,6 @@ impl Resources {
         self
     }
 
-    /// Sets the value of [kms_key_reference][crate::model::Resources::kms_key_reference].
-    pub fn set_kms_key_reference<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_reference = v.into();
-        self
-    }
-
     /// Sets the value of [volumes][crate::model::Resources::volumes].
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
@@ -8576,6 +8576,15 @@ impl Resources {
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kms_key_reference][crate::model::Resources::kms_key_reference].
+    pub fn set_kms_key_reference<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kms_key_reference = v.into();
         self
     }
 }

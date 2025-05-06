@@ -140,6 +140,17 @@ impl Voice {
         std::default::Default::default()
     }
 
+    /// Sets the value of [language_codes][crate::model::Voice::language_codes].
+    pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [name][crate::model::Voice::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -158,17 +169,6 @@ impl Voice {
     /// Sets the value of [natural_sample_rate_hertz][crate::model::Voice::natural_sample_rate_hertz].
     pub fn set_natural_sample_rate_hertz<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.natural_sample_rate_hertz = v.into();
-        self
-    }
-
-    /// Sets the value of [language_codes][crate::model::Voice::language_codes].
-    pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.language_codes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -698,6 +698,17 @@ impl SynthesisInput {
         })
     }
 
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
+    /// to hold a `Text`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source =
+            std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
+        self
+    }
+
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Ssml`, `None` if the field is not set or
     /// holds a different branch.
@@ -707,6 +718,17 @@ impl SynthesisInput {
             crate::model::synthesis_input::InputSource::Ssml(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
+    }
+
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
+    /// to hold a `Ssml`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source =
+            std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
+        self
     }
 
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
@@ -722,28 +744,6 @@ impl SynthesisInput {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
-        self
-    }
-
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Ssml`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
-        self
     }
 
     /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
@@ -912,12 +912,14 @@ pub struct AudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub speaking_rate: f64,
 
     /// Optional. Input only. Speaking pitch, in the range [-20.0, 20.0]. 20 means
     /// increase 20 semitones from the original pitch. -20 means decrease 20
     /// semitones from the original pitch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pitch: f64,
 
     /// Optional. Input only. Volume gain (in dB) of the normal native volume
@@ -929,6 +931,7 @@ pub struct AudioConfig {
     /// Strongly recommend not to exceed +10 (dB) as there's usually no effective
     /// increase in loudness for any value greater than that.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub volume_gain_db: f64,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. When this is
@@ -1292,6 +1295,7 @@ pub struct StreamingAudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub speaking_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1545,21 +1549,6 @@ impl StreamingSynthesizeRequest {
         })
     }
 
-    /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
-    /// if it holds a `Input`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
-        #[allow(unreachable_patterns)]
-        self.streaming_request.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesize_request::StreamingRequest::Input(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// to hold a `StreamingConfig`.
     ///
@@ -1575,6 +1564,21 @@ impl StreamingSynthesizeRequest {
             crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
+    /// if it holds a `Input`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn input(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
+        #[allow(unreachable_patterns)]
+        self.streaming_request.as_ref().and_then(|v| match v {
+            crate::model::streaming_synthesize_request::StreamingRequest::Input(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
@@ -1785,6 +1789,7 @@ pub struct SynthesizeLongAudioMetadata {
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub progress_percentage: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

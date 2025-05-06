@@ -182,6 +182,18 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Cluster::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [fleet][crate::model::Cluster::fleet].
     pub fn set_fleet<T: std::convert::Into<std::option::Option<crate::model::Fleet>>>(
         mut self,
@@ -288,6 +300,17 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [external_load_balancer_ipv4_address_pools][crate::model::Cluster::external_load_balancer_ipv4_address_pools].
+    pub fn set_external_load_balancer_ipv4_address_pools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.external_load_balancer_ipv4_address_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [control_plane_encryption][crate::model::Cluster::control_plane_encryption].
     pub fn set_control_plane_encryption<
         T: std::convert::Into<std::option::Option<crate::model::cluster::ControlPlaneEncryption>>,
@@ -305,6 +328,17 @@ impl Cluster {
         v: T,
     ) -> Self {
         self.status = v.into();
+        self
+    }
+
+    /// Sets the value of [maintenance_events][crate::model::Cluster::maintenance_events].
+    pub fn set_maintenance_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::cluster::MaintenanceEvent>,
+    {
+        use std::iter::Iterator;
+        self.maintenance_events = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -334,39 +368,6 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of [connection_state][crate::model::Cluster::connection_state].
-    pub fn set_connection_state<
-        T: std::convert::Into<std::option::Option<crate::model::cluster::ConnectionState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_state = v.into();
-        self
-    }
-
-    /// Sets the value of [external_load_balancer_ipv4_address_pools][crate::model::Cluster::external_load_balancer_ipv4_address_pools].
-    pub fn set_external_load_balancer_ipv4_address_pools<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.external_load_balancer_ipv4_address_pools = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [maintenance_events][crate::model::Cluster::maintenance_events].
-    pub fn set_maintenance_events<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::cluster::MaintenanceEvent>,
-    {
-        use std::iter::Iterator;
-        self.maintenance_events = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [external_load_balancer_ipv6_address_pools][crate::model::Cluster::external_load_balancer_ipv6_address_pools].
     pub fn set_external_load_balancer_ipv6_address_pools<T, V>(mut self, v: T) -> Self
     where
@@ -378,15 +379,14 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Cluster::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [connection_state][crate::model::Cluster::connection_state].
+    pub fn set_connection_state<
+        T: std::convert::Into<std::option::Option<crate::model::cluster::ConnectionState>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connection_state = v.into();
         self
     }
 }
@@ -450,22 +450,6 @@ pub mod cluster {
             })
         }
 
-        /// The value of [config][crate::model::cluster::ControlPlane::config]
-        /// if it holds a `Local`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn local(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::control_plane::Local>>
-        {
-            #[allow(unreachable_patterns)]
-            self.config.as_ref().and_then(|v| match v {
-                crate::model::cluster::control_plane::Config::Local(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [config][crate::model::cluster::ControlPlane::config]
         /// to hold a `Remote`.
         ///
@@ -481,6 +465,22 @@ pub mod cluster {
                 crate::model::cluster::control_plane::Config::Remote(v.into()),
             );
             self
+        }
+
+        /// The value of [config][crate::model::cluster::ControlPlane::config]
+        /// if it holds a `Local`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn local(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::control_plane::Local>>
+        {
+            #[allow(unreachable_patterns)]
+            self.config.as_ref().and_then(|v| match v {
+                crate::model::cluster::control_plane::Config::Local(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [config][crate::model::cluster::ControlPlane::config]
@@ -2381,6 +2381,18 @@ impl NodePool {
         self
     }
 
+    /// Sets the value of [labels][crate::model::NodePool::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [node_location][crate::model::NodePool::node_location].
     pub fn set_node_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_location = v.into();
@@ -2424,18 +2436,6 @@ impl NodePool {
         v: T,
     ) -> Self {
         self.node_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::NodePool::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2570,15 +2570,6 @@ pub mod node_pool {
             std::default::Default::default()
         }
 
-        /// Sets the value of [node_storage_schema][crate::model::node_pool::NodeConfig::node_storage_schema].
-        pub fn set_node_storage_schema<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.node_storage_schema = v.into();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::node_pool::NodeConfig::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -2588,6 +2579,15 @@ pub mod node_pool {
         {
             use std::iter::Iterator;
             self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [node_storage_schema][crate::model::node_pool::NodeConfig::node_storage_schema].
+        pub fn set_node_storage_schema<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.node_storage_schema = v.into();
             self
         }
     }
@@ -2679,6 +2679,18 @@ impl Machine {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Machine::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [hosted_node][crate::model::Machine::hosted_node].
     pub fn set_hosted_node<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hosted_node = v.into();
@@ -2700,18 +2712,6 @@ impl Machine {
     /// Sets the value of [disabled][crate::model::Machine::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Machine::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2814,6 +2814,18 @@ impl VpnConnection {
         self
     }
 
+    /// Sets the value of [labels][crate::model::VpnConnection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [nat_gateway_ip][crate::model::VpnConnection::nat_gateway_ip].
     pub fn set_nat_gateway_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nat_gateway_ip = v.into();
@@ -2875,18 +2887,6 @@ impl VpnConnection {
         v: T,
     ) -> Self {
         self.details = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::VpnConnection::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3441,15 +3441,6 @@ impl ZoneMetadata {
         std::default::Default::default()
     }
 
-    /// Sets the value of [config_data][crate::model::ZoneMetadata::config_data].
-    pub fn set_config_data<T: std::convert::Into<std::option::Option<crate::model::ConfigData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config_data = v.into();
-        self
-    }
-
     /// Sets the value of [quota][crate::model::ZoneMetadata::quota].
     pub fn set_quota<T, V>(mut self, v: T) -> Self
     where
@@ -3470,6 +3461,15 @@ impl ZoneMetadata {
     {
         use std::iter::Iterator;
         self.rack_types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [config_data][crate::model::ZoneMetadata::config_data].
+    pub fn set_config_data<T: std::convert::Into<std::option::Option<crate::model::ConfigData>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.config_data = v.into();
         self
     }
 }
@@ -3684,10 +3684,12 @@ pub struct Quota {
 
     /// Quota limit for this metric.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub limit: f64,
 
     /// Current usage of this metric.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub usage: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3984,9 +3986,15 @@ impl ServerConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [default_version][crate::model::ServerConfig::default_version].
-    pub fn set_default_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.default_version = v.into();
+    /// Sets the value of [channels][crate::model::ServerConfig::channels].
+    pub fn set_channels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ChannelConfig>,
+    {
+        use std::iter::Iterator;
+        self.channels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -4001,15 +4009,9 @@ impl ServerConfig {
         self
     }
 
-    /// Sets the value of [channels][crate::model::ServerConfig::channels].
-    pub fn set_channels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::ChannelConfig>,
-    {
-        use std::iter::Iterator;
-        self.channels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [default_version][crate::model::ServerConfig::default_version].
+    pub fn set_default_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.default_version = v.into();
         self
     }
 }
@@ -4188,17 +4190,6 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of [status_reason][crate::model::OperationMetadata::status_reason].
-    pub fn set_status_reason<
-        T: std::convert::Into<crate::model::operation_metadata::StatusReason>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status_reason = v.into();
-        self
-    }
-
     /// Sets the value of [warnings][crate::model::OperationMetadata::warnings].
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
@@ -4207,6 +4198,17 @@ impl OperationMetadata {
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [status_reason][crate::model::OperationMetadata::status_reason].
+    pub fn set_status_reason<
+        T: std::convert::Into<crate::model::operation_metadata::StatusReason>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status_reason = v.into();
         self
     }
 }
@@ -4448,12 +4450,6 @@ impl ListClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -4462,6 +4458,12 @@ impl ListClustersResponse {
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5179,12 +5181,6 @@ impl ListNodePoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNodePoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [node_pools][crate::model::ListNodePoolsResponse::node_pools].
     pub fn set_node_pools<T, V>(mut self, v: T) -> Self
     where
@@ -5193,6 +5189,12 @@ impl ListNodePoolsResponse {
     {
         use std::iter::Iterator;
         self.node_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNodePoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5534,12 +5536,6 @@ impl ListMachinesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListMachinesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [machines][crate::model::ListMachinesResponse::machines].
     pub fn set_machines<T, V>(mut self, v: T) -> Self
     where
@@ -5548,6 +5544,12 @@ impl ListMachinesResponse {
     {
         use std::iter::Iterator;
         self.machines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMachinesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5715,12 +5717,6 @@ impl ListVpnConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVpnConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vpn_connections][crate::model::ListVpnConnectionsResponse::vpn_connections].
     pub fn set_vpn_connections<T, V>(mut self, v: T) -> Self
     where
@@ -5729,6 +5725,12 @@ impl ListVpnConnectionsResponse {
     {
         use std::iter::Iterator;
         self.vpn_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVpnConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

@@ -110,6 +110,17 @@ impl Insight {
         self
     }
 
+    /// Sets the value of [target_resources][crate::model::Insight::target_resources].
+    pub fn set_target_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [insight_subtype][crate::model::Insight::insight_subtype].
     pub fn set_insight_subtype<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insight_subtype = v.into();
@@ -175,17 +186,6 @@ impl Insight {
     /// Sets the value of [etag][crate::model::Insight::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [target_resources][crate::model::Insight::target_resources].
-    pub fn set_target_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.target_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -852,12 +852,6 @@ impl InsightTypeConfig {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::InsightTypeConfig::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::InsightTypeConfig::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -867,6 +861,12 @@ impl InsightTypeConfig {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::InsightTypeConfig::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 }
@@ -1034,6 +1034,17 @@ impl Recommendation {
         self
     }
 
+    /// Sets the value of [additional_impact][crate::model::Recommendation::additional_impact].
+    pub fn set_additional_impact<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Impact>,
+    {
+        use std::iter::Iterator;
+        self.additional_impact = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [priority][crate::model::Recommendation::priority].
     pub fn set_priority<T: std::convert::Into<crate::model::recommendation::Priority>>(
         mut self,
@@ -1071,23 +1082,6 @@ impl Recommendation {
         self
     }
 
-    /// Sets the value of [xor_group_id][crate::model::Recommendation::xor_group_id].
-    pub fn set_xor_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.xor_group_id = v.into();
-        self
-    }
-
-    /// Sets the value of [additional_impact][crate::model::Recommendation::additional_impact].
-    pub fn set_additional_impact<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Impact>,
-    {
-        use std::iter::Iterator;
-        self.additional_impact = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [associated_insights][crate::model::Recommendation::associated_insights].
     pub fn set_associated_insights<T, V>(mut self, v: T) -> Self
     where
@@ -1096,6 +1090,12 @@ impl Recommendation {
     {
         use std::iter::Iterator;
         self.associated_insights = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [xor_group_id][crate::model::Recommendation::xor_group_id].
+    pub fn set_xor_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.xor_group_id = v.into();
         self
     }
 }
@@ -1316,15 +1316,6 @@ impl RecommendationContent {
         std::default::Default::default()
     }
 
-    /// Sets the value of [overview][crate::model::RecommendationContent::overview].
-    pub fn set_overview<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.overview = v.into();
-        self
-    }
-
     /// Sets the value of [operation_groups][crate::model::RecommendationContent::operation_groups].
     pub fn set_operation_groups<T, V>(mut self, v: T) -> Self
     where
@@ -1333,6 +1324,15 @@ impl RecommendationContent {
     {
         use std::iter::Iterator;
         self.operation_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [overview][crate::model::RecommendationContent::overview].
+    pub fn set_overview<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.overview = v.into();
         self
     }
 }
@@ -1576,6 +1576,17 @@ impl Operation {
         })
     }
 
+    /// Sets the value of [path_value][crate::model::Operation::path_value]
+    /// to hold a `Value`.
+    ///
+    /// Note that all the setters affecting `path_value` are
+    /// mutually exclusive.
+    pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
+        self.path_value =
+            std::option::Option::Some(crate::model::operation::PathValue::Value(v.into()));
+        self
+    }
+
     /// The value of [path_value][crate::model::Operation::path_value]
     /// if it holds a `ValueMatcher`, `None` if the field is not set or
     /// holds a different branch.
@@ -1587,17 +1598,6 @@ impl Operation {
             crate::model::operation::PathValue::ValueMatcher(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [path_value][crate::model::Operation::path_value]
-    /// to hold a `Value`.
-    ///
-    /// Note that all the setters affecting `path_value` are
-    /// mutually exclusive.
-    pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
-        self.path_value =
-            std::option::Option::Some(crate::model::operation::PathValue::Value(v.into()));
-        self
     }
 
     /// Sets the value of [path_value][crate::model::Operation::path_value]
@@ -1836,6 +1836,7 @@ pub struct SustainabilityProjection {
     /// Chose kg_c_o2e so that the name renders correctly in camelCase (kgCO2e).
     #[serde(rename = "kgCO2e")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub kg_c_o2e: f64,
 
     /// Duration for which this sustainability applies.
@@ -1896,15 +1897,6 @@ impl ReliabilityProjection {
         std::default::Default::default()
     }
 
-    /// Sets the value of [details][crate::model::ReliabilityProjection::details].
-    pub fn set_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = v.into();
-        self
-    }
-
     /// Sets the value of [risks][crate::model::ReliabilityProjection::risks].
     pub fn set_risks<T, V>(mut self, v: T) -> Self
     where
@@ -1913,6 +1905,15 @@ impl ReliabilityProjection {
     {
         use std::iter::Iterator;
         self.risks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [details][crate::model::ReliabilityProjection::details].
+    pub fn set_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.details = v.into();
         self
     }
 }
@@ -2127,49 +2128,6 @@ impl Impact {
         })
     }
 
-    /// The value of [projection][crate::model::Impact::projection]
-    /// if it holds a `SecurityProjection`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn security_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityProjection>> {
-        #[allow(unreachable_patterns)]
-        self.projection.as_ref().and_then(|v| match v {
-            crate::model::impact::Projection::SecurityProjection(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [projection][crate::model::Impact::projection]
-    /// if it holds a `SustainabilityProjection`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sustainability_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SustainabilityProjection>> {
-        #[allow(unreachable_patterns)]
-        self.projection.as_ref().and_then(|v| match v {
-            crate::model::impact::Projection::SustainabilityProjection(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [projection][crate::model::Impact::projection]
-    /// if it holds a `ReliabilityProjection`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn reliability_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ReliabilityProjection>> {
-        #[allow(unreachable_patterns)]
-        self.projection.as_ref().and_then(|v| match v {
-            crate::model::impact::Projection::ReliabilityProjection(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [projection][crate::model::Impact::projection]
     /// to hold a `CostProjection`.
     ///
@@ -2184,6 +2142,19 @@ impl Impact {
         self.projection =
             std::option::Option::Some(crate::model::impact::Projection::CostProjection(v.into()));
         self
+    }
+
+    /// The value of [projection][crate::model::Impact::projection]
+    /// if it holds a `SecurityProjection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn security_projection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityProjection>> {
+        #[allow(unreachable_patterns)]
+        self.projection.as_ref().and_then(|v| match v {
+            crate::model::impact::Projection::SecurityProjection(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [projection][crate::model::Impact::projection]
@@ -2203,6 +2174,21 @@ impl Impact {
         self
     }
 
+    /// The value of [projection][crate::model::Impact::projection]
+    /// if it holds a `SustainabilityProjection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sustainability_projection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SustainabilityProjection>> {
+        #[allow(unreachable_patterns)]
+        self.projection.as_ref().and_then(|v| match v {
+            crate::model::impact::Projection::SustainabilityProjection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [projection][crate::model::Impact::projection]
     /// to hold a `SustainabilityProjection`.
     ///
@@ -2218,6 +2204,21 @@ impl Impact {
             crate::model::impact::Projection::SustainabilityProjection(v.into()),
         );
         self
+    }
+
+    /// The value of [projection][crate::model::Impact::projection]
+    /// if it holds a `ReliabilityProjection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn reliability_projection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ReliabilityProjection>> {
+        #[allow(unreachable_patterns)]
+        self.projection.as_ref().and_then(|v| match v {
+            crate::model::impact::Projection::ReliabilityProjection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [projection][crate::model::Impact::projection]
@@ -2745,12 +2746,6 @@ impl RecommenderConfig {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::RecommenderConfig::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
     /// Sets the value of [annotations][crate::model::RecommenderConfig::annotations].
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
@@ -2760,6 +2755,12 @@ impl RecommenderConfig {
     {
         use std::iter::Iterator;
         self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::RecommenderConfig::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 }
@@ -2945,12 +2946,6 @@ impl ListInsightsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInsightsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [insights][crate::model::ListInsightsResponse::insights].
     pub fn set_insights<T, V>(mut self, v: T) -> Self
     where
@@ -2959,6 +2954,12 @@ impl ListInsightsResponse {
     {
         use std::iter::Iterator;
         self.insights = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInsightsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3049,12 +3050,6 @@ impl MarkInsightAcceptedRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::MarkInsightAcceptedRequest::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -3064,6 +3059,12 @@ impl MarkInsightAcceptedRequest {
     {
         use std::iter::Iterator;
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -3211,12 +3212,6 @@ impl ListRecommendationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRecommendationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [recommendations][crate::model::ListRecommendationsResponse::recommendations].
     pub fn set_recommendations<T, V>(mut self, v: T) -> Self
     where
@@ -3225,6 +3220,12 @@ impl ListRecommendationsResponse {
     {
         use std::iter::Iterator;
         self.recommendations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRecommendationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3359,12 +3360,6 @@ impl MarkRecommendationClaimedRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::MarkRecommendationClaimedRequest::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -3374,6 +3369,12 @@ impl MarkRecommendationClaimedRequest {
     {
         use std::iter::Iterator;
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -3420,12 +3421,6 @@ impl MarkRecommendationSucceededRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::MarkRecommendationSucceededRequest::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -3435,6 +3430,12 @@ impl MarkRecommendationSucceededRequest {
     {
         use std::iter::Iterator;
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -3481,12 +3482,6 @@ impl MarkRecommendationFailedRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::MarkRecommendationFailedRequest::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -3496,6 +3491,12 @@ impl MarkRecommendationFailedRequest {
     {
         use std::iter::Iterator;
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }

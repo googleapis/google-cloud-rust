@@ -72,10 +72,12 @@ pub struct DataSourceParameter {
 
     /// For integer and double values specifies minimum allowed value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub min_value: std::option::Option<wkt::DoubleValue>,
 
     /// For integer and double values specifies maximum allowed value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub max_value: std::option::Option<wkt::DoubleValue>,
 
     /// Deprecated. This field has no effect.
@@ -161,6 +163,17 @@ impl DataSourceParameter {
         self
     }
 
+    /// Sets the value of [allowed_values][crate::model::DataSourceParameter::allowed_values].
+    pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowed_values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [min_value][crate::model::DataSourceParameter::min_value].
     pub fn set_min_value<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(
         mut self,
@@ -176,6 +189,17 @@ impl DataSourceParameter {
         v: T,
     ) -> Self {
         self.max_value = v.into();
+        self
+    }
+
+    /// Sets the value of [fields][crate::model::DataSourceParameter::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataSourceParameter>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -212,28 +236,6 @@ impl DataSourceParameter {
     /// Sets the value of [deprecated][crate::model::DataSourceParameter::deprecated].
     pub fn set_deprecated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deprecated = v.into();
-        self
-    }
-
-    /// Sets the value of [allowed_values][crate::model::DataSourceParameter::allowed_values].
-    pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.allowed_values = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [fields][crate::model::DataSourceParameter::fields].
-    pub fn set_fields<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataSourceParameter>,
-    {
-        use std::iter::Iterator;
-        self.fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -548,6 +550,17 @@ impl DataSource {
         self
     }
 
+    /// Sets the value of [scopes][crate::model::DataSource::scopes].
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [transfer_type][crate::model::DataSource::transfer_type].
     #[deprecated]
     pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(
@@ -583,6 +596,17 @@ impl DataSource {
     /// Sets the value of [supports_custom_schedule][crate::model::DataSource::supports_custom_schedule].
     pub fn set_supports_custom_schedule<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_custom_schedule = v.into();
+        self
+    }
+
+    /// Sets the value of [parameters][crate::model::DataSource::parameters].
+    pub fn set_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataSourceParameter>,
+    {
+        use std::iter::Iterator;
+        self.parameters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -637,28 +661,6 @@ impl DataSource {
         v: T,
     ) -> Self {
         self.minimum_schedule_interval = v.into();
-        self
-    }
-
-    /// Sets the value of [scopes][crate::model::DataSource::scopes].
-    pub fn set_scopes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.scopes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [parameters][crate::model::DataSource::parameters].
-    pub fn set_parameters<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataSourceParameter>,
-    {
-        use std::iter::Iterator;
-        self.parameters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1072,12 +1074,6 @@ impl ListDataSourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [data_sources][crate::model::ListDataSourcesResponse::data_sources].
     pub fn set_data_sources<T, V>(mut self, v: T) -> Self
     where
@@ -1086,6 +1082,12 @@ impl ListDataSourcesResponse {
     {
         use std::iter::Iterator;
         self.data_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1555,6 +1557,17 @@ impl ListTransferConfigsRequest {
         self
     }
 
+    /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
+    pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.data_source_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_token][crate::model::ListTransferConfigsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
@@ -1564,17 +1577,6 @@ impl ListTransferConfigsRequest {
     /// Sets the value of [page_size][crate::model::ListTransferConfigsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
-        self
-    }
-
-    /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
-    pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.data_source_ids = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1611,12 +1613,6 @@ impl ListTransferConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTransferConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [transfer_configs][crate::model::ListTransferConfigsResponse::transfer_configs].
     pub fn set_transfer_configs<T, V>(mut self, v: T) -> Self
     where
@@ -1625,6 +1621,12 @@ impl ListTransferConfigsResponse {
     {
         use std::iter::Iterator;
         self.transfer_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTransferConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1696,6 +1698,17 @@ impl ListTransferRunsRequest {
         self
     }
 
+    /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
+    pub fn set_states<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TransferState>,
+    {
+        use std::iter::Iterator;
+        self.states = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_token][crate::model::ListTransferRunsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
@@ -1716,17 +1729,6 @@ impl ListTransferRunsRequest {
         v: T,
     ) -> Self {
         self.run_attempt = v.into();
-        self
-    }
-
-    /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
-    pub fn set_states<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferState>,
-    {
-        use std::iter::Iterator;
-        self.states = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1894,12 +1896,6 @@ impl ListTransferRunsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTransferRunsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [transfer_runs][crate::model::ListTransferRunsResponse::transfer_runs].
     pub fn set_transfer_runs<T, V>(mut self, v: T) -> Self
     where
@@ -1908,6 +1904,12 @@ impl ListTransferRunsResponse {
     {
         use std::iter::Iterator;
         self.transfer_runs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTransferRunsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2032,12 +2034,6 @@ impl ListTransferLogsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTransferLogsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [transfer_messages][crate::model::ListTransferLogsResponse::transfer_messages].
     pub fn set_transfer_messages<T, V>(mut self, v: T) -> Self
     where
@@ -2046,6 +2042,12 @@ impl ListTransferLogsResponse {
     {
         use std::iter::Iterator;
         self.transfer_messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTransferLogsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2305,19 +2307,6 @@ impl StartManualTransferRunsRequest {
         })
     }
 
-    /// The value of [time][crate::model::StartManualTransferRunsRequest::time]
-    /// if it holds a `RequestedRunTime`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn requested_run_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
-        #[allow(unreachable_patterns)]
-        self.time.as_ref().and_then(|v| match v {
-            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time]
     /// to hold a `RequestedTimeRange`.
     ///
@@ -2335,6 +2324,19 @@ impl StartManualTransferRunsRequest {
             crate::model::start_manual_transfer_runs_request::Time::RequestedTimeRange(v.into()),
         );
         self
+    }
+
+    /// The value of [time][crate::model::StartManualTransferRunsRequest::time]
+    /// if it holds a `RequestedRunTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn requested_run_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.time.as_ref().and_then(|v| match v {
+            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time]
@@ -2729,36 +2731,6 @@ impl ScheduleOptionsV2 {
         })
     }
 
-    /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
-    /// if it holds a `ManualSchedule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn manual_schedule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualSchedule>> {
-        #[allow(unreachable_patterns)]
-        self.schedule.as_ref().and_then(|v| match v {
-            crate::model::schedule_options_v_2::Schedule::ManualSchedule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
-    /// if it holds a `EventDrivenSchedule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn event_driven_schedule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EventDrivenSchedule>> {
-        #[allow(unreachable_patterns)]
-        self.schedule.as_ref().and_then(|v| match v {
-            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// to hold a `TimeBasedSchedule`.
     ///
@@ -2776,6 +2748,21 @@ impl ScheduleOptionsV2 {
         self
     }
 
+    /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
+    /// if it holds a `ManualSchedule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn manual_schedule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualSchedule>> {
+        #[allow(unreachable_patterns)]
+        self.schedule.as_ref().and_then(|v| match v {
+            crate::model::schedule_options_v_2::Schedule::ManualSchedule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// to hold a `ManualSchedule`.
     ///
@@ -2791,6 +2778,21 @@ impl ScheduleOptionsV2 {
             crate::model::schedule_options_v_2::Schedule::ManualSchedule(v.into()),
         );
         self
+    }
+
+    /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
+    /// if it holds a `EventDrivenSchedule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn event_driven_schedule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::EventDrivenSchedule>> {
+        #[allow(unreachable_patterns)]
+        self.schedule.as_ref().and_then(|v| match v {
+            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule]

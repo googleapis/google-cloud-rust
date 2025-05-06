@@ -161,15 +161,14 @@ pub mod logging_service_v_2 {
             self
         }
 
-        /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
-        pub fn set_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.partial_success = v.into();
-            self
-        }
-
-        /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
-        pub fn set_dry_run<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.dry_run = v.into();
+        /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -186,14 +185,15 @@ pub mod logging_service_v_2 {
             self
         }
 
-        /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
+        pub fn set_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.partial_success = v.into();
+            self
+        }
+
+        /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
+        pub fn set_dry_run<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.dry_run = v.into();
             self
         }
     }
@@ -251,6 +251,19 @@ pub mod logging_service_v_2 {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::ListLogEntriesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -272,19 +285,6 @@ pub mod logging_service_v_2 {
         /// Sets the value of [page_token][crate::model::ListLogEntriesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -408,6 +408,17 @@ pub mod logging_service_v_2 {
             self
         }
 
+        /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
+        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::ListLogsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -417,17 +428,6 @@ pub mod logging_service_v_2 {
         /// Sets the value of [page_token][crate::model::ListLogsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
-        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -832,7 +832,8 @@ pub mod config_service_v_2 {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::LogBucket, crate::model::BucketMetadata> {
-            type Operation = lro::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -857,7 +858,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
@@ -935,7 +936,8 @@ pub mod config_service_v_2 {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::LogBucket, crate::model::BucketMetadata> {
-            type Operation = lro::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -960,7 +962,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
@@ -1874,7 +1876,8 @@ pub mod config_service_v_2 {
 
         /// Creates a [Poller][lro::Poller] to work with `create_link`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Link, crate::model::LinkMetadata> {
-            type Operation = lro::Operation<crate::model::Link, crate::model::LinkMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Link, crate::model::LinkMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1899,7 +1902,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLinkRequest::parent].
@@ -1972,7 +1975,7 @@ pub mod config_service_v_2 {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_link`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::LinkMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::LinkMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::LinkMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1997,7 +2000,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLinkRequest::name].
@@ -2704,7 +2707,7 @@ pub mod config_service_v_2 {
             self,
         ) -> impl lro::Poller<crate::model::CopyLogEntriesResponse, crate::model::CopyLogEntriesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CopyLogEntriesResponse,
                 crate::model::CopyLogEntriesMetadata,
             >;
@@ -2732,7 +2735,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CopyLogEntriesRequest::name].

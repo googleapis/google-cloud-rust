@@ -37,8 +37,8 @@ and that your account has the necessary permissions.
 
 ### Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file:
 
 ```toml
 [dependencies]
@@ -122,8 +122,8 @@ rest of the example we will traverse the data structure and print the most
 relevant fields.
 
 Only errors returned by the service contain detailed information, so we first
-query the error to see if it contains the correct error type. If it does, we
-can break down some top-level information about the error:
+query the error to see if it contains the correct error type. If it does, we can
+break down some top-level information about the error:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
@@ -135,8 +135,8 @@ And then iterate over all the details:
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
 ```
 
-The client libraries return a [`StatusDetails`] enum with the different
-types of error details. In this example we will only examine `BadRequest` errors:
+The client libraries return a [`StatusDetails`] enum with the different types of
+error details. In this example we will only examine `BadRequest` errors:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-bad-request}}

@@ -215,8 +215,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -241,7 +243,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RegisterDomainRequest::parent].
@@ -260,23 +262,6 @@ pub mod domains {
             v: T,
         ) -> Self {
             self.0.request.registration = v.into();
-            self
-        }
-
-        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
             self
         }
 
@@ -299,6 +284,23 @@ pub mod domains {
         {
             use std::iter::Iterator;
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.yearly_price = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
@@ -406,8 +408,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -432,7 +436,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TransferDomainRequest::parent].
@@ -451,6 +455,17 @@ pub mod domains {
             v: T,
         ) -> Self {
             self.0.request.registration = v.into();
+            self
+        }
+
+        /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
+        pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ContactNotice>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -479,17 +494,6 @@ pub mod domains {
         /// Sets the value of [validate_only][crate::model::TransferDomainRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
-            self
-        }
-
-        /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
-        pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ContactNotice>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -668,8 +672,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -694,7 +700,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
@@ -768,8 +774,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -794,7 +802,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::ConfigureManagementSettingsRequest::registration].
@@ -876,8 +884,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -902,7 +912,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::ConfigureDnsSettingsRequest::registration].
@@ -990,8 +1000,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1016,7 +1028,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::ConfigureContactSettingsRequest::registration].
@@ -1047,12 +1059,6 @@ pub mod domains {
             self
         }
 
-        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-
         /// Sets the value of [contact_notices][crate::model::ConfigureContactSettingsRequest::contact_notices].
         pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
         where
@@ -1061,6 +1067,12 @@ pub mod domains {
         {
             use std::iter::Iterator;
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
@@ -1113,8 +1125,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1139,7 +1153,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportRegistrationRequest::name].
@@ -1197,7 +1211,7 @@ pub mod domains {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_registration`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1222,7 +1236,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRegistrationRequest::name].

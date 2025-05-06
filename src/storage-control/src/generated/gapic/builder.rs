@@ -706,6 +706,17 @@ pub mod storage {
             self
         }
 
+        /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
+        pub fn set_source_objects<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
+        {
+            use std::iter::Iterator;
+            self.0.request.source_objects = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [destination_predefined_acl][crate::model::ComposeObjectRequest::destination_predefined_acl].
         pub fn set_destination_predefined_acl<T: Into<std::string::String>>(
             mut self,
@@ -753,17 +764,6 @@ pub mod storage {
             v: T,
         ) -> Self {
             self.0.request.object_checksums = v.into();
-            self
-        }
-
-        /// Sets the value of [source_objects][crate::model::ComposeObjectRequest::source_objects].
-        pub fn set_source_objects<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
-        {
-            use std::iter::Iterator;
-            self.0.request.source_objects = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

@@ -231,48 +231,6 @@ impl Document {
         self
     }
 
-    /// Sets the value of [shard_info][crate::model::Document::shard_info].
-    pub fn set_shard_info<
-        T: std::convert::Into<std::option::Option<crate::model::document::ShardInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.shard_info = v.into();
-        self
-    }
-
-    /// Sets the value of [error][crate::model::Document::error].
-    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.error = v.into();
-        self
-    }
-
-    /// Sets the value of [document_layout][crate::model::Document::document_layout].
-    pub fn set_document_layout<
-        T: std::convert::Into<std::option::Option<crate::model::document::DocumentLayout>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.document_layout = v.into();
-        self
-    }
-
-    /// Sets the value of [chunked_document][crate::model::Document::chunked_document].
-    pub fn set_chunked_document<
-        T: std::convert::Into<std::option::Option<crate::model::document::ChunkedDocument>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.chunked_document = v.into();
-        self
-    }
-
     /// Sets the value of [text_styles][crate::model::Document::text_styles].
     #[deprecated]
     pub fn set_text_styles<T, V>(mut self, v: T) -> Self
@@ -329,6 +287,26 @@ impl Document {
         self
     }
 
+    /// Sets the value of [shard_info][crate::model::Document::shard_info].
+    pub fn set_shard_info<
+        T: std::convert::Into<std::option::Option<crate::model::document::ShardInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.shard_info = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::Document::error].
+    pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error = v.into();
+        self
+    }
+
     /// Sets the value of [revisions][crate::model::Document::revisions].
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
@@ -337,6 +315,28 @@ impl Document {
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [document_layout][crate::model::Document::document_layout].
+    pub fn set_document_layout<
+        T: std::convert::Into<std::option::Option<crate::model::document::DocumentLayout>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.document_layout = v.into();
+        self
+    }
+
+    /// Sets the value of [chunked_document][crate::model::Document::chunked_document].
+    pub fn set_chunked_document<
+        T: std::convert::Into<std::option::Option<crate::model::document::ChunkedDocument>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.chunked_document = v.into();
         self
     }
 
@@ -365,6 +365,16 @@ impl Document {
         })
     }
 
+    /// Sets the value of [source][crate::model::Document::source]
+    /// to hold a `Uri`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(crate::model::document::Source::Uri(v.into()));
+        self
+    }
+
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
@@ -374,16 +384,6 @@ impl Document {
             crate::model::document::Source::Content(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `Uri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::document::Source::Uri(v.into()));
-        self
     }
 
     /// Sets the value of [source][crate::model::Document::source]
@@ -615,6 +615,7 @@ pub mod document {
         pub struct FontSize {
             /// Font size for the text.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub size: f32,
 
             /// Unit for the font size. Follows CSS naming (such as `in`, `px`, and
@@ -774,6 +775,17 @@ pub mod document {
             self
         }
 
+        /// Sets the value of [transforms][crate::model::document::Page::transforms].
+        pub fn set_transforms<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::document::page::Matrix>,
+        {
+            use std::iter::Iterator;
+            self.transforms = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [dimension][crate::model::document::Page::dimension].
         pub fn set_dimension<
             T: std::convert::Into<std::option::Option<crate::model::document::page::Dimension>>,
@@ -793,42 +805,6 @@ pub mod document {
             v: T,
         ) -> Self {
             self.layout = v.into();
-            self
-        }
-
-        /// Sets the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
-        pub fn set_image_quality_scores<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::document::page::ImageQualityScores>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.image_quality_scores = v.into();
-            self
-        }
-
-        /// Sets the value of [provenance][crate::model::document::Page::provenance].
-        #[deprecated]
-        pub fn set_provenance<
-            T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.provenance = v.into();
-            self
-        }
-
-        /// Sets the value of [transforms][crate::model::document::Page::transforms].
-        pub fn set_transforms<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::page::Matrix>,
-        {
-            use std::iter::Iterator;
-            self.transforms = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -941,6 +917,31 @@ pub mod document {
             self.detected_barcodes = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [image_quality_scores][crate::model::document::Page::image_quality_scores].
+        pub fn set_image_quality_scores<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::document::page::ImageQualityScores>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.image_quality_scores = v.into();
+            self
+        }
+
+        /// Sets the value of [provenance][crate::model::document::Page::provenance].
+        #[deprecated]
+        pub fn set_provenance<
+            T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.provenance = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for Page {
@@ -962,10 +963,12 @@ pub mod document {
         pub struct Dimension {
             /// Page width.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub width: f32,
 
             /// Page height.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub height: f32,
 
             /// Dimension unit.
@@ -1163,6 +1166,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             /// The bounding polygon for the
@@ -1435,6 +1439,17 @@ pub mod document {
                 self
             }
 
+            /// Sets the value of [detected_languages][crate::model::document::page::Block::detected_languages].
+            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
+            {
+                use std::iter::Iterator;
+                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [provenance][crate::model::document::page::Block::provenance].
             #[deprecated]
             pub fn set_provenance<
@@ -1444,17 +1459,6 @@ pub mod document {
                 v: T,
             ) -> Self {
                 self.provenance = v.into();
-                self
-            }
-
-            /// Sets the value of [detected_languages][crate::model::document::page::Block::detected_languages].
-            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
-            {
-                use std::iter::Iterator;
-                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1508,6 +1512,17 @@ pub mod document {
                 self
             }
 
+            /// Sets the value of [detected_languages][crate::model::document::page::Paragraph::detected_languages].
+            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
+            {
+                use std::iter::Iterator;
+                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [provenance][crate::model::document::page::Paragraph::provenance].
             #[deprecated]
             pub fn set_provenance<
@@ -1517,17 +1532,6 @@ pub mod document {
                 v: T,
             ) -> Self {
                 self.provenance = v.into();
-                self
-            }
-
-            /// Sets the value of [detected_languages][crate::model::document::page::Paragraph::detected_languages].
-            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
-            {
-                use std::iter::Iterator;
-                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1582,6 +1586,17 @@ pub mod document {
                 self
             }
 
+            /// Sets the value of [detected_languages][crate::model::document::page::Line::detected_languages].
+            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
+            {
+                use std::iter::Iterator;
+                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [provenance][crate::model::document::page::Line::provenance].
             #[deprecated]
             pub fn set_provenance<
@@ -1591,17 +1606,6 @@ pub mod document {
                 v: T,
             ) -> Self {
                 self.provenance = v.into();
-                self
-            }
-
-            /// Sets the value of [detected_languages][crate::model::document::page::Line::detected_languages].
-            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
-            {
-                use std::iter::Iterator;
-                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1680,6 +1684,17 @@ pub mod document {
                 self
             }
 
+            /// Sets the value of [detected_languages][crate::model::document::page::Token::detected_languages].
+            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
+            {
+                use std::iter::Iterator;
+                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [provenance][crate::model::document::page::Token::provenance].
             #[deprecated]
             pub fn set_provenance<
@@ -1702,17 +1717,6 @@ pub mod document {
                 v: T,
             ) -> Self {
                 self.style_info = v.into();
-                self
-            }
-
-            /// Sets the value of [detected_languages][crate::model::document::page::Token::detected_languages].
-            pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
-            {
-                use std::iter::Iterator;
-                self.detected_languages = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -1933,10 +1937,12 @@ pub mod document {
                 ///
                 /// [google.cloud.documentai.v1.Document.Page.Token.StyleInfo.font_size]: crate::model::document::page::token::StyleInfo::font_size
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub pixel_font_size: f64,
 
                 /// Letter spacing in points.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub letter_spacing: f64,
 
                 /// Name or style of the font.
@@ -2290,18 +2296,6 @@ pub mod document {
                 self
             }
 
-            /// Sets the value of [provenance][crate::model::document::page::Table::provenance].
-            #[deprecated]
-            pub fn set_provenance<
-                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.provenance = v.into();
-                self
-            }
-
             /// Sets the value of [header_rows][crate::model::document::page::Table::header_rows].
             pub fn set_header_rows<T, V>(mut self, v: T) -> Self
             where
@@ -2332,6 +2326,18 @@ pub mod document {
             {
                 use std::iter::Iterator;
                 self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [provenance][crate::model::document::page::Table::provenance].
+            #[deprecated]
+            pub fn set_provenance<
+                T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.provenance = v.into();
                 self
             }
         }
@@ -2551,6 +2557,28 @@ pub mod document {
                 self
             }
 
+            /// Sets the value of [name_detected_languages][crate::model::document::page::FormField::name_detected_languages].
+            pub fn set_name_detected_languages<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
+            {
+                use std::iter::Iterator;
+                self.name_detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [value_detected_languages][crate::model::document::page::FormField::value_detected_languages].
+            pub fn set_value_detected_languages<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
+            {
+                use std::iter::Iterator;
+                self.value_detected_languages = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [value_type][crate::model::document::page::FormField::value_type].
             pub fn set_value_type<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -2586,28 +2614,6 @@ pub mod document {
                 v: T,
             ) -> Self {
                 self.provenance = v.into();
-                self
-            }
-
-            /// Sets the value of [name_detected_languages][crate::model::document::page::FormField::name_detected_languages].
-            pub fn set_name_detected_languages<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
-            {
-                use std::iter::Iterator;
-                self.name_detected_languages = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
-
-            /// Sets the value of [value_detected_languages][crate::model::document::page::FormField::value_detected_languages].
-            pub fn set_value_detected_languages<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::document::page::DetectedLanguage>,
-            {
-                use std::iter::Iterator;
-                self.value_detected_languages = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -2691,6 +2697,7 @@ pub mod document {
 
             /// Confidence of detected language. Range `[0, 1]`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2732,6 +2739,7 @@ pub mod document {
         pub struct ImageQualityScores {
             /// The overall quality score. Range `[0, 1]` where `1` is perfect quality.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub quality_score: f32,
 
             /// A list of detected defects.
@@ -2802,6 +2810,7 @@ pub mod document {
                 /// Confidence of detected defect. Range `[0, 1]` where `1` indicates
                 /// strong confidence that the defect exists.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub confidence: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2868,6 +2877,7 @@ pub mod document {
 
         /// Optional. Confidence of detected Schema entity. Range `[0, 1]`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence: f32,
 
         /// Optional. Represents the provenance of this entity wrt. the location on
@@ -2978,6 +2988,17 @@ pub mod document {
             self
         }
 
+        /// Sets the value of [properties][crate::model::document::Entity::properties].
+        pub fn set_properties<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::document::Entity>,
+        {
+            use std::iter::Iterator;
+            self.properties = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [provenance][crate::model::document::Entity::provenance].
         pub fn set_provenance<
             T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
@@ -2992,17 +3013,6 @@ pub mod document {
         /// Sets the value of [redacted][crate::model::document::Entity::redacted].
         pub fn set_redacted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.redacted = v.into();
-            self
-        }
-
-        /// Sets the value of [properties][crate::model::document::Entity::properties].
-        pub fn set_properties<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::document::Entity>,
-        {
-            use std::iter::Iterator;
-            self.properties = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3093,76 +3103,6 @@ pub mod document {
                 })
             }
 
-            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// if it holds a `DateValue`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn date_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
-                #[allow(unreachable_patterns)]
-                self.structured_value.as_ref().and_then(|v| match v {
-                    crate::model::document::entity::normalized_value::StructuredValue::DateValue(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// if it holds a `DatetimeValue`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn datetime_value(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<gtype::model::DateTime>> {
-                #[allow(unreachable_patterns)]
-                self.structured_value.as_ref().and_then(|v| match v {
-                    crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// if it holds a `AddressValue`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn address_value(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<gtype::model::PostalAddress>> {
-                #[allow(unreachable_patterns)]
-                self.structured_value.as_ref().and_then(|v| match v {
-                    crate::model::document::entity::normalized_value::StructuredValue::AddressValue(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// if it holds a `BooleanValue`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn boolean_value(&self) -> std::option::Option<&bool> {
-                #[allow(unreachable_patterns)]
-                self.structured_value.as_ref().and_then(|v| match v {
-                    crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// if it holds a `IntegerValue`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn integer_value(&self) -> std::option::Option<&i32> {
-                #[allow(unreachable_patterns)]
-                self.structured_value.as_ref().and_then(|v| match v {
-                    crate::model::document::entity::normalized_value::StructuredValue::IntegerValue(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// if it holds a `FloatValue`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn float_value(&self) -> std::option::Option<&f32> {
-                #[allow(unreachable_patterns)]
-                self.structured_value.as_ref().and_then(|v| match v {
-                    crate::model::document::entity::normalized_value::StructuredValue::FloatValue(v) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// to hold a `MoneyValue`.
             ///
@@ -3180,6 +3120,17 @@ pub mod document {
                 self
             }
 
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `DateValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn date_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::DateValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// to hold a `DateValue`.
             ///
@@ -3195,6 +3146,19 @@ pub mod document {
                     ),
                 );
                 self
+            }
+
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `DatetimeValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn datetime_value(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<gtype::model::DateTime>> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
@@ -3216,6 +3180,19 @@ pub mod document {
                 self
             }
 
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `AddressValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn address_value(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<gtype::model::PostalAddress>> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::AddressValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// to hold a `AddressValue`.
             ///
@@ -3235,6 +3212,17 @@ pub mod document {
                 self
             }
 
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `BooleanValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn boolean_value(&self) -> std::option::Option<&bool> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// to hold a `BooleanValue`.
             ///
@@ -3249,6 +3237,17 @@ pub mod document {
                 self
             }
 
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `IntegerValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn integer_value(&self) -> std::option::Option<&i32> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::IntegerValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// to hold a `IntegerValue`.
             ///
@@ -3261,6 +3260,17 @@ pub mod document {
                     ),
                 );
                 self
+            }
+
+            /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
+            /// if it holds a `FloatValue`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn float_value(&self) -> std::option::Option<&f32> {
+                #[allow(unreachable_patterns)]
+                self.structured_value.as_ref().and_then(|v| match v {
+                    crate::model::document::entity::normalized_value::StructuredValue::FloatValue(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
@@ -3406,12 +3416,6 @@ pub mod document {
             std::default::Default::default()
         }
 
-        /// Sets the value of [content][crate::model::document::TextAnchor::content].
-        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.content = v.into();
-            self
-        }
-
         /// Sets the value of [text_segments][crate::model::document::TextAnchor::text_segments].
         pub fn set_text_segments<T, V>(mut self, v: T) -> Self
         where
@@ -3420,6 +3424,12 @@ pub mod document {
         {
             use std::iter::Iterator;
             self.text_segments = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [content][crate::model::document::TextAnchor::content].
+        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.content = v.into();
             self
         }
     }
@@ -3584,6 +3594,7 @@ pub mod document {
             /// Optional. Confidence of detected page element, if applicable. Range
             /// `[0, 1]`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3899,17 +3910,6 @@ pub mod document {
             self
         }
 
-        /// Sets the value of [r#type][crate::model::document::Provenance::type].
-        pub fn set_type<
-            T: std::convert::Into<crate::model::document::provenance::OperationType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.r#type = v.into();
-            self
-        }
-
         /// Sets the value of [parents][crate::model::document::Provenance::parents].
         pub fn set_parents<T, V>(mut self, v: T) -> Self
         where
@@ -3918,6 +3918,17 @@ pub mod document {
         {
             use std::iter::Iterator;
             self.parents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::model::document::Provenance::type].
+        pub fn set_type<
+            T: std::convert::Into<crate::model::document::provenance::OperationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
             self
         }
     }
@@ -4221,26 +4232,6 @@ pub mod document {
             self
         }
 
-        /// Sets the value of [create_time][crate::model::document::Revision::create_time].
-        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.create_time = v.into();
-            self
-        }
-
-        /// Sets the value of [human_review][crate::model::document::Revision::human_review].
-        pub fn set_human_review<
-            T: std::convert::Into<std::option::Option<crate::model::document::revision::HumanReview>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.human_review = v.into();
-            self
-        }
-
         /// Sets the value of [parent][crate::model::document::Revision::parent].
         #[deprecated]
         pub fn set_parent<T, V>(mut self, v: T) -> Self
@@ -4261,6 +4252,26 @@ pub mod document {
         {
             use std::iter::Iterator;
             self.parent_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [create_time][crate::model::document::Revision::create_time].
+        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.create_time = v.into();
+            self
+        }
+
+        /// Sets the value of [human_review][crate::model::document::Revision::human_review].
+        pub fn set_human_review<
+            T: std::convert::Into<std::option::Option<crate::model::document::revision::HumanReview>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.human_review = v.into();
             self
         }
 
@@ -4289,6 +4300,18 @@ pub mod document {
             })
         }
 
+        /// Sets the value of [source][crate::model::document::Revision::source]
+        /// to hold a `Agent`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.source = std::option::Option::Some(
+                crate::model::document::revision::Source::Agent(v.into()),
+            );
+            self
+        }
+
         /// The value of [source][crate::model::document::Revision::source]
         /// if it holds a `Processor`, `None` if the field is not set or
         /// holds a different branch.
@@ -4300,18 +4323,6 @@ pub mod document {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [source][crate::model::document::Revision::source]
-        /// to hold a `Agent`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::document::revision::Source::Agent(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [source][crate::model::document::Revision::source]
@@ -4611,6 +4622,20 @@ pub mod document {
                 })
             }
 
+            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
+            /// to hold a `TextBlock`.
+            ///
+            /// Note that all the setters affecting `block` are
+            /// mutually exclusive.
+            pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self{
+                self.block = std::option::Option::Some(
+                    crate::model::document::document_layout::document_layout_block::Block::TextBlock(
+                        v.into()
+                    )
+                );
+                self
+            }
+
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `TableBlock`, `None` if the field is not set or
             /// holds a different branch.
@@ -4620,6 +4645,20 @@ pub mod document {
                     crate::model::document::document_layout::document_layout_block::Block::TableBlock(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
+            }
+
+            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
+            /// to hold a `TableBlock`.
+            ///
+            /// Note that all the setters affecting `block` are
+            /// mutually exclusive.
+            pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self{
+                self.block = std::option::Option::Some(
+                    crate::model::document::document_layout::document_layout_block::Block::TableBlock(
+                        v.into()
+                    )
+                );
+                self
             }
 
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
@@ -4637,34 +4676,6 @@ pub mod document {
                     crate::model::document::document_layout::document_layout_block::Block::ListBlock(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
-            /// to hold a `TextBlock`.
-            ///
-            /// Note that all the setters affecting `block` are
-            /// mutually exclusive.
-            pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self{
-                self.block = std::option::Option::Some(
-                    crate::model::document::document_layout::document_layout_block::Block::TextBlock(
-                        v.into()
-                    )
-                );
-                self
-            }
-
-            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
-            /// to hold a `TableBlock`.
-            ///
-            /// Note that all the setters affecting `block` are
-            /// mutually exclusive.
-            pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self{
-                self.block = std::option::Option::Some(
-                    crate::model::document::document_layout::document_layout_block::Block::TableBlock(
-                        v.into()
-                    )
-                );
-                self
             }
 
             /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
@@ -4836,15 +4847,6 @@ pub mod document {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of [caption][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::caption].
-                pub fn set_caption<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.caption = v.into();
-                    self
-                }
-
                 /// Sets the value of [header_rows][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::header_rows].
                 pub fn set_header_rows<T, V>(mut self, v: T) -> Self
                 where
@@ -4864,6 +4866,15 @@ pub mod document {
                 {
                     use std::iter::Iterator;
                     self.body_rows = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [caption][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::caption].
+                pub fn set_caption<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.caption = v.into();
                     self
                 }
             }
@@ -4942,18 +4953,6 @@ pub mod document {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of [row_span][crate::model::document::document_layout::document_layout_block::LayoutTableCell::row_span].
-                pub fn set_row_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                    self.row_span = v.into();
-                    self
-                }
-
-                /// Sets the value of [col_span][crate::model::document::document_layout::document_layout_block::LayoutTableCell::col_span].
-                pub fn set_col_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                    self.col_span = v.into();
-                    self
-                }
-
                 /// Sets the value of [blocks][crate::model::document::document_layout::document_layout_block::LayoutTableCell::blocks].
                 pub fn set_blocks<T, V>(mut self, v: T) -> Self
                 where
@@ -4964,6 +4963,18 @@ pub mod document {
                 {
                     use std::iter::Iterator;
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [row_span][crate::model::document::document_layout::document_layout_block::LayoutTableCell::row_span].
+                pub fn set_row_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.row_span = v.into();
+                    self
+                }
+
+                /// Sets the value of [col_span][crate::model::document::document_layout::document_layout_block::LayoutTableCell::col_span].
+                pub fn set_col_span<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                    self.col_span = v.into();
                     self
                 }
             }
@@ -5001,15 +5012,6 @@ pub mod document {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of [r#type][crate::model::document::document_layout::document_layout_block::LayoutListBlock::type].
-                pub fn set_type<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.r#type = v.into();
-                    self
-                }
-
                 /// Sets the value of [list_entries][crate::model::document::document_layout::document_layout_block::LayoutListBlock::list_entries].
                 pub fn set_list_entries<T, V>(mut self, v: T) -> Self
                 where
@@ -5018,6 +5020,15 @@ pub mod document {
                 {
                     use std::iter::Iterator;
                     self.list_entries = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [r#type][crate::model::document::document_layout::document_layout_block::LayoutListBlock::type].
+                pub fn set_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.r#type = v.into();
                     self
                 }
             }
@@ -5176,6 +5187,17 @@ pub mod document {
                 self
             }
 
+            /// Sets the value of [source_block_ids][crate::model::document::chunked_document::Chunk::source_block_ids].
+            pub fn set_source_block_ids<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.source_block_ids = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [content][crate::model::document::chunked_document::Chunk::content].
             pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.content = v.into();
@@ -5194,17 +5216,6 @@ pub mod document {
                 v: T,
             ) -> Self {
                 self.page_span = v.into();
-                self
-            }
-
-            /// Sets the value of [source_block_ids][crate::model::document::chunked_document::Chunk::source_block_ids].
-            pub fn set_source_block_ids<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
-            {
-                use std::iter::Iterator;
-                self.source_block_ids = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -5637,21 +5648,6 @@ impl BatchDocumentsInputConfig {
         })
     }
 
-    /// The value of [source][crate::model::BatchDocumentsInputConfig::source]
-    /// if it holds a `GcsDocuments`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gcs_documents(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocuments>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::batch_documents_input_config::Source::GcsDocuments(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::BatchDocumentsInputConfig::source]
     /// to hold a `GcsPrefix`.
     ///
@@ -5665,6 +5661,21 @@ impl BatchDocumentsInputConfig {
             crate::model::batch_documents_input_config::Source::GcsPrefix(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::BatchDocumentsInputConfig::source]
+    /// if it holds a `GcsDocuments`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_documents(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocuments>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::batch_documents_input_config::Source::GcsDocuments(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::BatchDocumentsInputConfig::source]
@@ -5998,6 +6009,17 @@ impl OcrConfig {
         self
     }
 
+    /// Sets the value of [advanced_ocr_options][crate::model::OcrConfig::advanced_ocr_options].
+    pub fn set_advanced_ocr_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.advanced_ocr_options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [enable_symbol][crate::model::OcrConfig::enable_symbol].
     pub fn set_enable_symbol<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_symbol = v.into();
@@ -6028,17 +6050,6 @@ impl OcrConfig {
         v: T,
     ) -> Self {
         self.premium_features = v.into();
-        self
-    }
-
-    /// Sets the value of [advanced_ocr_options][crate::model::OcrConfig::advanced_ocr_options].
-    pub fn set_advanced_ocr_options<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.advanced_ocr_options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6262,28 +6273,6 @@ impl ProcessOptions {
         })
     }
 
-    /// The value of [page_range][crate::model::ProcessOptions::page_range]
-    /// if it holds a `FromStart`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn from_start(&self) -> std::option::Option<&i32> {
-        #[allow(unreachable_patterns)]
-        self.page_range.as_ref().and_then(|v| match v {
-            crate::model::process_options::PageRange::FromStart(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [page_range][crate::model::ProcessOptions::page_range]
-    /// if it holds a `FromEnd`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn from_end(&self) -> std::option::Option<&i32> {
-        #[allow(unreachable_patterns)]
-        self.page_range.as_ref().and_then(|v| match v {
-            crate::model::process_options::PageRange::FromEnd(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [page_range][crate::model::ProcessOptions::page_range]
     /// to hold a `IndividualPageSelector`.
     ///
@@ -6301,6 +6290,17 @@ impl ProcessOptions {
         self
     }
 
+    /// The value of [page_range][crate::model::ProcessOptions::page_range]
+    /// if it holds a `FromStart`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn from_start(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.page_range.as_ref().and_then(|v| match v {
+            crate::model::process_options::PageRange::FromStart(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [page_range][crate::model::ProcessOptions::page_range]
     /// to hold a `FromStart`.
     ///
@@ -6311,6 +6311,17 @@ impl ProcessOptions {
             crate::model::process_options::PageRange::FromStart(v.into()),
         );
         self
+    }
+
+    /// The value of [page_range][crate::model::ProcessOptions::page_range]
+    /// if it holds a `FromEnd`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn from_end(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.page_range.as_ref().and_then(|v| match v {
+            crate::model::process_options::PageRange::FromEnd(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [page_range][crate::model::ProcessOptions::page_range]
@@ -6617,12 +6628,6 @@ impl ProcessRequest {
         self
     }
 
-    /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
-    pub fn set_imageless_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.imageless_mode = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::ProcessRequest::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -6632,6 +6637,12 @@ impl ProcessRequest {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
+    pub fn set_imageless_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.imageless_mode = v.into();
         self
     }
 
@@ -6662,28 +6673,6 @@ impl ProcessRequest {
         })
     }
 
-    /// The value of [source][crate::model::ProcessRequest::source]
-    /// if it holds a `RawDocument`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn raw_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::RawDocument>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::process_request::Source::RawDocument(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source][crate::model::ProcessRequest::source]
-    /// if it holds a `GcsDocument`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gcs_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocument>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::process_request::Source::GcsDocument(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::ProcessRequest::source]
     /// to hold a `InlineDocument`.
     ///
@@ -6699,6 +6688,17 @@ impl ProcessRequest {
         self
     }
 
+    /// The value of [source][crate::model::ProcessRequest::source]
+    /// if it holds a `RawDocument`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn raw_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::RawDocument>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::process_request::Source::RawDocument(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source][crate::model::ProcessRequest::source]
     /// to hold a `RawDocument`.
     ///
@@ -6711,6 +6711,17 @@ impl ProcessRequest {
         self.source =
             std::option::Option::Some(crate::model::process_request::Source::RawDocument(v.into()));
         self
+    }
+
+    /// The value of [source][crate::model::ProcessRequest::source]
+    /// if it holds a `GcsDocument`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocument>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::process_request::Source::GcsDocument(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::ProcessRequest::source]
@@ -7690,12 +7701,6 @@ impl ListProcessorTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProcessorTypesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [processor_types][crate::model::ListProcessorTypesResponse::processor_types].
     pub fn set_processor_types<T, V>(mut self, v: T) -> Self
     where
@@ -7704,6 +7709,12 @@ impl ListProcessorTypesResponse {
     {
         use std::iter::Iterator;
         self.processor_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProcessorTypesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7811,12 +7822,6 @@ impl ListProcessorsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProcessorsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [processors][crate::model::ListProcessorsResponse::processors].
     pub fn set_processors<T, V>(mut self, v: T) -> Self
     where
@@ -7825,6 +7830,12 @@ impl ListProcessorsResponse {
     {
         use std::iter::Iterator;
         self.processors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProcessorsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8041,12 +8052,6 @@ impl ListProcessorVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProcessorVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [processor_versions][crate::model::ListProcessorVersionsResponse::processor_versions].
     pub fn set_processor_versions<T, V>(mut self, v: T) -> Self
     where
@@ -8055,6 +8060,12 @@ impl ListProcessorVersionsResponse {
     {
         use std::iter::Iterator;
         self.processor_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProcessorVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8965,23 +8976,6 @@ impl TrainProcessorVersionRequest {
         })
     }
 
-    /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
-    /// if it holds a `FoundationModelTuningOptions`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn foundation_model_tuning_options(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<
-            crate::model::train_processor_version_request::FoundationModelTuningOptions,
-        >,
-    > {
-        #[allow(unreachable_patterns)]
-        self.processor_flags.as_ref().and_then(|v| match v {
-            crate::model::train_processor_version_request::ProcessorFlags::FoundationModelTuningOptions(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
     /// to hold a `CustomDocumentExtractionOptions`.
     ///
@@ -9003,6 +8997,23 @@ impl TrainProcessorVersionRequest {
             )
         );
         self
+    }
+
+    /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
+    /// if it holds a `FoundationModelTuningOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn foundation_model_tuning_options(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::train_processor_version_request::FoundationModelTuningOptions,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.processor_flags.as_ref().and_then(|v| match v {
+            crate::model::train_processor_version_request::ProcessorFlags::FoundationModelTuningOptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
@@ -9281,6 +9292,7 @@ pub mod train_processor_version_request {
         /// values are between 0.1 and 10. If not provided, recommended learning rate
         /// will be used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub learning_rate_multiplier: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10304,12 +10316,6 @@ impl ListEvaluationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListEvaluationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [evaluations][crate::model::ListEvaluationsResponse::evaluations].
     pub fn set_evaluations<T, V>(mut self, v: T) -> Self
     where
@@ -10318,6 +10324,12 @@ impl ListEvaluationsResponse {
     {
         use std::iter::Iterator;
         self.evaluations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListEvaluationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -10385,17 +10397,6 @@ impl DocumentSchema {
         self
     }
 
-    /// Sets the value of [metadata][crate::model::DocumentSchema::metadata].
-    pub fn set_metadata<
-        T: std::convert::Into<std::option::Option<crate::model::document_schema::Metadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = v.into();
-        self
-    }
-
     /// Sets the value of [entity_types][crate::model::DocumentSchema::entity_types].
     pub fn set_entity_types<T, V>(mut self, v: T) -> Self
     where
@@ -10404,6 +10405,17 @@ impl DocumentSchema {
     {
         use std::iter::Iterator;
         self.entity_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::DocumentSchema::metadata].
+    pub fn set_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::document_schema::Metadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.metadata = v.into();
         self
     }
 }
@@ -11095,6 +11107,18 @@ impl Evaluation {
         self
     }
 
+    /// Sets the value of [entity_metrics][crate::model::Evaluation::entity_metrics].
+    pub fn set_entity_metrics<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
+    {
+        use std::iter::Iterator;
+        self.entity_metrics = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [kms_key_name][crate::model::Evaluation::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
@@ -11107,18 +11131,6 @@ impl Evaluation {
         v: T,
     ) -> Self {
         self.kms_key_version_name = v.into();
-        self
-    }
-
-    /// Sets the value of [entity_metrics][crate::model::Evaluation::entity_metrics].
-    pub fn set_entity_metrics<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::evaluation::MultiConfidenceMetrics>,
-    {
-        use std::iter::Iterator;
-        self.entity_metrics = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -11206,14 +11218,17 @@ pub mod evaluation {
     pub struct Metrics {
         /// The calculated precision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub precision: f32,
 
         /// The calculated recall.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub recall: f32,
 
         /// The calculated f1 score.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub f1_score: f32,
 
         /// The amount of occurrences in predicted documents.
@@ -11341,6 +11356,7 @@ pub mod evaluation {
     pub struct ConfidenceLevelMetrics {
         /// The confidence level.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence_level: f32,
 
         /// The metrics at the specific confidence level.
@@ -11399,21 +11415,25 @@ pub mod evaluation {
         /// The calculated area under the precision recall curve (AUPRC), computed by
         /// integrating over all confidence thresholds.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub auprc: f32,
 
         /// The Estimated Calibration Error (ECE) of the confidence of the predicted
         /// entities.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub estimated_calibration_error: f32,
 
         /// The AUPRC for metrics with fuzzy matching disabled, i.e., exact matching
         /// only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub auprc_exact: f32,
 
         /// The ECE for the predicted entities with fuzzy matching disabled, i.e.,
         /// exact matching only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub estimated_calibration_error_exact: f32,
 
         /// The metrics type for the label.
@@ -11426,6 +11446,28 @@ pub mod evaluation {
     impl MultiConfidenceMetrics {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [confidence_level_metrics][crate::model::evaluation::MultiConfidenceMetrics::confidence_level_metrics].
+        pub fn set_confidence_level_metrics<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>,
+        {
+            use std::iter::Iterator;
+            self.confidence_level_metrics = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [confidence_level_metrics_exact][crate::model::evaluation::MultiConfidenceMetrics::confidence_level_metrics_exact].
+        pub fn set_confidence_level_metrics_exact<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>,
+        {
+            use std::iter::Iterator;
+            self.confidence_level_metrics_exact = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [auprc][crate::model::evaluation::MultiConfidenceMetrics::auprc].
@@ -11463,28 +11505,6 @@ pub mod evaluation {
             v: T,
         ) -> Self {
             self.metrics_type = v.into();
-            self
-        }
-
-        /// Sets the value of [confidence_level_metrics][crate::model::evaluation::MultiConfidenceMetrics::confidence_level_metrics].
-        pub fn set_confidence_level_metrics<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>,
-        {
-            use std::iter::Iterator;
-            self.confidence_level_metrics = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [confidence_level_metrics_exact][crate::model::evaluation::MultiConfidenceMetrics::confidence_level_metrics_exact].
-        pub fn set_confidence_level_metrics_exact<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::evaluation::ConfidenceLevelMetrics>,
-        {
-            use std::iter::Iterator;
-            self.confidence_level_metrics_exact = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -11689,10 +11709,12 @@ impl wkt::message::Message for Vertex {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate (starts from the top of the image).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12321,6 +12343,20 @@ pub mod processor_version {
             })
         }
 
+        /// Sets the value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
+        /// to hold a `FoundationGenAiModelInfo`.
+        ///
+        /// Note that all the setters affecting `model_info` are
+        /// mutually exclusive.
+        pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self{
+            self.model_info = std::option::Option::Some(
+                crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(
+                    v.into()
+                )
+            );
+            self
+        }
+
         /// The value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
         /// if it holds a `CustomGenAiModelInfo`, `None` if the field is not set or
         /// holds a different branch.
@@ -12336,20 +12372,6 @@ pub mod processor_version {
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::CustomGenAiModelInfo(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
-        /// to hold a `FoundationGenAiModelInfo`.
-        ///
-        /// Note that all the setters affecting `model_info` are
-        /// mutually exclusive.
-        pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self{
-            self.model_info = std::option::Option::Some(
-                crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(
-                    v.into()
-                )
-            );
-            self
         }
 
         /// Sets the value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
@@ -13100,6 +13122,17 @@ impl Processor {
         self
     }
 
+    /// Sets the value of [processor_version_aliases][crate::model::Processor::processor_version_aliases].
+    pub fn set_processor_version_aliases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ProcessorVersionAlias>,
+    {
+        use std::iter::Iterator;
+        self.processor_version_aliases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [process_endpoint][crate::model::Processor::process_endpoint].
     pub fn set_process_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -13133,17 +13166,6 @@ impl Processor {
     /// Sets the value of [satisfies_pzi][crate::model::Processor::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [processor_version_aliases][crate::model::Processor::processor_version_aliases].
-    pub fn set_processor_version_aliases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProcessorVersionAlias>,
-    {
-        use std::iter::Iterator;
-        self.processor_version_aliases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13399,6 +13421,17 @@ impl ProcessorType {
         self
     }
 
+    /// Sets the value of [available_locations][crate::model::ProcessorType::available_locations].
+    pub fn set_available_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::processor_type::LocationInfo>,
+    {
+        use std::iter::Iterator;
+        self.available_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [allow_creation][crate::model::ProcessorType::allow_creation].
     pub fn set_allow_creation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_creation = v.into();
@@ -13411,17 +13444,6 @@ impl ProcessorType {
         v: T,
     ) -> Self {
         self.launch_stage = v.into();
-        self
-    }
-
-    /// Sets the value of [available_locations][crate::model::ProcessorType::available_locations].
-    pub fn set_available_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::processor_type::LocationInfo>,
-    {
-        use std::iter::Iterator;
-        self.available_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 

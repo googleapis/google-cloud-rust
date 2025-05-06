@@ -99,6 +99,19 @@ pub mod translation_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
         pub fn set_mime_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.mime_type = v.into();
@@ -152,19 +165,6 @@ pub mod translation_service {
             v: T,
         ) -> Self {
             self.0.request.transliteration_config = v.into();
-            self
-        }
-
-        /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_contents<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -226,12 +226,6 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
-        pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.source_language_code = v.into();
-            self
-        }
-
         /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
         ///
         /// This is a **required** field for requests.
@@ -242,6 +236,12 @@ pub mod translation_service {
         {
             use std::iter::Iterator;
             self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
+        pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.source_language_code = v.into();
             self
         }
     }
@@ -504,6 +504,17 @@ pub mod translation_service {
             self
         }
 
+        /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [customized_attribution][crate::model::TranslateDocumentRequest::customized_attribution].
         pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.customized_attribution = v.into();
@@ -525,17 +536,6 @@ pub mod translation_service {
         /// Sets the value of [enable_rotation_correction][crate::model::TranslateDocumentRequest::enable_rotation_correction].
         pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_rotation_correction = v.into();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -591,7 +591,7 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchTranslateResponse, crate::model::BatchTranslateMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchTranslateResponse,
                 crate::model::BatchTranslateMetadata,
             >;
@@ -619,7 +619,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
@@ -638,17 +638,6 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
-            self
-        }
-
         /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
         ///
         /// This is a **required** field for requests.
@@ -659,6 +648,17 @@ pub mod translation_service {
         {
             use std::iter::Iterator;
             self.0.request.target_language_codes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
+        pub fn set_models<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -675,14 +675,14 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
-        pub fn set_models<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.output_config = v.into();
             self
         }
 
@@ -762,7 +762,7 @@ pub mod translation_service {
             crate::model::BatchTranslateDocumentResponse,
             crate::model::BatchTranslateDocumentMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchTranslateDocumentResponse,
                 crate::model::BatchTranslateDocumentMetadata,
             >;
@@ -790,7 +790,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
@@ -806,37 +806,6 @@ pub mod translation_service {
         /// This is a **required** field for requests.
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
-            self
-        }
-
-        /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_output_config<
-            T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.output_config = v.into();
-            self
-        }
-
-        /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
-        pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.customized_attribution = v.into();
-            self
-        }
-
-        /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
-        pub fn set_enable_shadow_removal_native_pdf<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.enable_shadow_removal_native_pdf = v.into();
-            self
-        }
-
-        /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
-        pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.enable_rotation_correction = v.into();
             self
         }
 
@@ -863,6 +832,19 @@ pub mod translation_service {
         {
             use std::iter::Iterator;
             self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_output_config<
+            T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.output_config = v.into();
             self
         }
 
@@ -897,6 +879,24 @@ pub mod translation_service {
         {
             self.0.request.format_conversions =
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
+        pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.customized_attribution = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
+        pub fn set_enable_shadow_removal_native_pdf<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.enable_shadow_removal_native_pdf = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
+        pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.enable_rotation_correction = v.into();
             self
         }
     }
@@ -949,8 +949,10 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::Glossary, crate::model::CreateGlossaryMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Glossary, crate::model::CreateGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Glossary,
+                crate::model::CreateGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -975,7 +977,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
@@ -1046,8 +1048,10 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Glossary, crate::model::UpdateGlossaryMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Glossary,
+                crate::model::UpdateGlossaryMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1072,7 +1076,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
@@ -1271,7 +1275,7 @@ pub mod translation_service {
             self,
         ) -> impl lro::Poller<crate::model::DeleteGlossaryResponse, crate::model::DeleteGlossaryMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeleteGlossaryResponse,
                 crate::model::DeleteGlossaryMetadata,
             >;
@@ -1299,7 +1303,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
@@ -1649,8 +1653,10 @@ pub mod translation_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Dataset, crate::model::CreateDatasetMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Dataset, crate::model::CreateDatasetMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Dataset,
+                crate::model::CreateDatasetMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1675,7 +1681,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
@@ -1864,7 +1870,8 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteDatasetMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1889,7 +1896,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
@@ -2210,6 +2217,19 @@ pub mod translation_service {
             self
         }
 
+        /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_content<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.content = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
         pub fn set_reference_sentence_config<
             T: Into<
@@ -2233,19 +2253,6 @@ pub mod translation_service {
             v: T,
         ) -> Self {
             self.0.request.glossary_config = v.into();
-            self
-        }
-
-        /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_content<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.content = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2647,7 +2654,7 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `import_data`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDataMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2672,7 +2679,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
@@ -2740,7 +2747,7 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `export_data`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ExportDataMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2765,7 +2772,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
@@ -2917,7 +2924,8 @@ pub mod translation_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata> {
-            type Operation = lro::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2942,7 +2950,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
@@ -3137,7 +3145,8 @@ pub mod translation_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteModelMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3162,7 +3171,7 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].

@@ -109,7 +109,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +134,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
@@ -426,7 +426,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
+                lro::internal::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -451,7 +451,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [field][crate::model::UpdateFieldRequest::field].
@@ -603,7 +603,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportDocumentsResponse,
                 crate::model::ExportDocumentsMetadata,
             >;
@@ -631,7 +631,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportDocumentsRequest::name].
@@ -639,21 +639,6 @@ pub mod firestore_admin {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
-        pub fn set_output_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.output_uri_prefix = v.into();
-            self
-        }
-
-        /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
-        pub fn set_snapshot_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot_time = v.into();
             self
         }
 
@@ -668,6 +653,12 @@ pub mod firestore_admin {
             self
         }
 
+        /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
+        pub fn set_output_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.output_uri_prefix = v.into();
+            self
+        }
+
         /// Sets the value of [namespace_ids][crate::model::ExportDocumentsRequest::namespace_ids].
         pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
         where
@@ -676,6 +667,15 @@ pub mod firestore_admin {
         {
             use std::iter::Iterator;
             self.0.request.namespace_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+        pub fn set_snapshot_time<T: Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.snapshot_time = v.into();
             self
         }
     }
@@ -725,7 +725,8 @@ pub mod firestore_admin {
 
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDocumentsMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -750,7 +751,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ImportDocumentsRequest::name].
@@ -758,12 +759,6 @@ pub mod firestore_admin {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
-        pub fn set_input_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.input_uri_prefix = v.into();
             self
         }
 
@@ -775,6 +770,12 @@ pub mod firestore_admin {
         {
             use std::iter::Iterator;
             self.0.request.collection_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
+        pub fn set_input_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.input_uri_prefix = v.into();
             self
         }
 
@@ -843,7 +844,7 @@ pub mod firestore_admin {
             crate::model::BulkDeleteDocumentsResponse,
             crate::model::BulkDeleteDocumentsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDeleteDocumentsResponse,
                 crate::model::BulkDeleteDocumentsMetadata,
             >;
@@ -871,7 +872,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::BulkDeleteDocumentsRequest::name].
@@ -953,8 +954,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -979,7 +982,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -1158,8 +1161,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1184,7 +1189,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
@@ -1256,8 +1261,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::DeleteDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::DeleteDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1282,7 +1289,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatabaseRequest::name].
@@ -1849,8 +1856,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1875,7 +1884,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].

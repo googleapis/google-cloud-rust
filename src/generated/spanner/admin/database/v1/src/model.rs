@@ -282,6 +282,17 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [referencing_databases][crate::model::Backup::referencing_databases].
+    pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referencing_databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
     pub fn set_encryption_info<
         T: std::convert::Into<std::option::Option<crate::model::EncryptionInfo>>,
@@ -290,6 +301,17 @@ impl Backup {
         v: T,
     ) -> Self {
         self.encryption_info = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_information][crate::model::Backup::encryption_information].
+    pub fn set_encryption_information<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        use std::iter::Iterator;
+        self.encryption_information = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -302,12 +324,34 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [referencing_backups][crate::model::Backup::referencing_backups].
+    pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referencing_backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [max_expire_time][crate::model::Backup::max_expire_time].
     pub fn set_max_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
     ) -> Self {
         self.max_expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_schedules][crate::model::Backup::backup_schedules].
+    pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -326,50 +370,6 @@ impl Backup {
         v: T,
     ) -> Self {
         self.oldest_version_time = v.into();
-        self
-    }
-
-    /// Sets the value of [referencing_databases][crate::model::Backup::referencing_databases].
-    pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.referencing_databases = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [encryption_information][crate::model::Backup::encryption_information].
-    pub fn set_encryption_information<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EncryptionInfo>,
-    {
-        use std::iter::Iterator;
-        self.encryption_information = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [referencing_backups][crate::model::Backup::referencing_backups].
-    pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.referencing_backups = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [backup_schedules][crate::model::Backup::backup_schedules].
-    pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1182,12 +1182,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -1196,6 +1190,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1408,12 +1408,6 @@ impl ListBackupOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [operations][crate::model::ListBackupOperationsResponse::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -1422,6 +1416,12 @@ impl ListBackupOperationsResponse {
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2313,21 +2313,6 @@ impl BackupSchedule {
         })
     }
 
-    /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
-    /// if it holds a `IncrementalBackupSpec`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn incremental_backup_spec(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IncrementalBackupSpec>> {
-        #[allow(unreachable_patterns)]
-        self.backup_type_spec.as_ref().and_then(|v| match v {
-            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
     /// to hold a `FullBackupSpec`.
     ///
@@ -2343,6 +2328,21 @@ impl BackupSchedule {
             crate::model::backup_schedule::BackupTypeSpec::FullBackupSpec(v.into()),
         );
         self
+    }
+
+    /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
+    /// if it holds a `IncrementalBackupSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn incremental_backup_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IncrementalBackupSpec>> {
+        #[allow(unreachable_patterns)]
+        self.backup_type_spec.as_ref().and_then(|v| match v {
+            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
@@ -2696,12 +2696,6 @@ impl ListBackupSchedulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupSchedulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_schedules][crate::model::ListBackupSchedulesResponse::backup_schedules].
     pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
     where
@@ -2710,6 +2704,12 @@ impl ListBackupSchedulesResponse {
     {
         use std::iter::Iterator;
         self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupSchedulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3357,6 +3357,17 @@ impl Database {
         self
     }
 
+    /// Sets the value of [encryption_info][crate::model::Database::encryption_info].
+    pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        use std::iter::Iterator;
+        self.encryption_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [version_retention_period][crate::model::Database::version_retention_period].
     pub fn set_version_retention_period<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3399,17 +3410,6 @@ impl Database {
     /// Sets the value of [reconciling][crate::model::Database::reconciling].
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
-        self
-    }
-
-    /// Sets the value of [encryption_info][crate::model::Database::encryption_info].
-    pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EncryptionInfo>,
-    {
-        use std::iter::Iterator;
-        self.encryption_info = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3666,12 +3666,6 @@ impl ListDatabasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
@@ -3680,6 +3674,12 @@ impl ListDatabasesResponse {
     {
         use std::iter::Iterator;
         self.databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3787,6 +3787,17 @@ impl CreateDatabaseRequest {
         self
     }
 
+    /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+    pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.extra_statements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::EncryptionConfig>>,
@@ -3810,17 +3821,6 @@ impl CreateDatabaseRequest {
     /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
-        self
-    }
-
-    /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
-    pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.extra_statements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4128,6 +4128,17 @@ impl UpdateDatabaseDdlRequest {
         self
     }
 
+    /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
+    pub fn set_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.statements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
@@ -4137,17 +4148,6 @@ impl UpdateDatabaseDdlRequest {
     /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
-        self
-    }
-
-    /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
-    pub fn set_statements<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.statements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4289,12 +4289,6 @@ impl UpdateDatabaseDdlMetadata {
         self
     }
 
-    /// Sets the value of [throttled][crate::model::UpdateDatabaseDdlMetadata::throttled].
-    pub fn set_throttled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.throttled = v.into();
-        self
-    }
-
     /// Sets the value of [statements][crate::model::UpdateDatabaseDdlMetadata::statements].
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
@@ -4314,6 +4308,12 @@ impl UpdateDatabaseDdlMetadata {
     {
         use std::iter::Iterator;
         self.commit_timestamps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [throttled][crate::model::UpdateDatabaseDdlMetadata::throttled].
+    pub fn set_throttled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.throttled = v.into();
         self
     }
 
@@ -4450,12 +4450,6 @@ impl GetDatabaseDdlResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
-    pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.proto_descriptors = v.into();
-        self
-    }
-
     /// Sets the value of [statements][crate::model::GetDatabaseDdlResponse::statements].
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
@@ -4464,6 +4458,12 @@ impl GetDatabaseDdlResponse {
     {
         use std::iter::Iterator;
         self.statements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
+    pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.proto_descriptors = v.into();
         self
     }
 }
@@ -4632,12 +4632,6 @@ impl ListDatabaseOperationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatabaseOperationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [operations][crate::model::ListDatabaseOperationsResponse::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -4646,6 +4640,12 @@ impl ListDatabaseOperationsResponse {
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatabaseOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5410,12 +5410,6 @@ impl ListDatabaseRolesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatabaseRolesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [database_roles][crate::model::ListDatabaseRolesResponse::database_roles].
     pub fn set_database_roles<T, V>(mut self, v: T) -> Self
     where
@@ -5424,6 +5418,12 @@ impl ListDatabaseRolesResponse {
     {
         use std::iter::Iterator;
         self.database_roles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatabaseRolesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5490,12 +5490,6 @@ impl AddSplitPointsRequest {
         self
     }
 
-    /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
-    pub fn set_initiator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.initiator = v.into();
-        self
-    }
-
     /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
     pub fn set_split_points<T, V>(mut self, v: T) -> Self
     where
@@ -5504,6 +5498,12 @@ impl AddSplitPointsRequest {
     {
         use std::iter::Iterator;
         self.split_points = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+    pub fn set_initiator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.initiator = v.into();
         self
     }
 }
@@ -5586,15 +5586,6 @@ impl SplitPoints {
         self
     }
 
-    /// Sets the value of [expire_time][crate::model::SplitPoints::expire_time].
-    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expire_time = v.into();
-        self
-    }
-
     /// Sets the value of [keys][crate::model::SplitPoints::keys].
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
@@ -5603,6 +5594,15 @@ impl SplitPoints {
     {
         use std::iter::Iterator;
         self.keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::SplitPoints::expire_time].
+    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expire_time = v.into();
         self
     }
 }

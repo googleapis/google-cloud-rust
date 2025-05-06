@@ -164,6 +164,29 @@ impl Registration {
         self
     }
 
+    /// Sets the value of [issues][crate::model::Registration::issues].
+    pub fn set_issues<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::registration::Issue>,
+    {
+        use std::iter::Iterator;
+        self.issues = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Registration::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [management_settings][crate::model::Registration::management_settings].
     pub fn set_management_settings<
         T: std::convert::Into<std::option::Option<crate::model::ManagementSettings>>,
@@ -208,17 +231,6 @@ impl Registration {
         self
     }
 
-    /// Sets the value of [issues][crate::model::Registration::issues].
-    pub fn set_issues<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::registration::Issue>,
-    {
-        use std::iter::Iterator;
-        self.issues = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [supported_privacy][crate::model::Registration::supported_privacy].
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
@@ -227,18 +239,6 @@ impl Registration {
     {
         use std::iter::Iterator;
         self.supported_privacy = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Registration::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -826,21 +826,6 @@ impl DnsSettings {
         })
     }
 
-    /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
-    /// if it holds a `GoogleDomainsDns`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn google_domains_dns(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>> {
-        #[allow(unreachable_patterns)]
-        self.dns_provider.as_ref().and_then(|v| match v {
-            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [dns_provider][crate::model::DnsSettings::dns_provider]
     /// to hold a `CustomDns`.
     ///
@@ -855,6 +840,21 @@ impl DnsSettings {
         self.dns_provider =
             std::option::Option::Some(crate::model::dns_settings::DnsProvider::CustomDns(v.into()));
         self
+    }
+
+    /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
+    /// if it holds a `GoogleDomainsDns`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_domains_dns(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>> {
+        #[allow(unreachable_patterns)]
+        self.dns_provider.as_ref().and_then(|v| match v {
+            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dns_provider][crate::model::DnsSettings::dns_provider]
@@ -977,15 +977,6 @@ pub mod dns_settings {
             std::default::Default::default()
         }
 
-        /// Sets the value of [ds_state][crate::model::dns_settings::GoogleDomainsDns::ds_state].
-        pub fn set_ds_state<T: std::convert::Into<crate::model::dns_settings::DsState>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ds_state = v.into();
-            self
-        }
-
         /// Sets the value of [name_servers][crate::model::dns_settings::GoogleDomainsDns::name_servers].
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
@@ -994,6 +985,15 @@ pub mod dns_settings {
         {
             use std::iter::Iterator;
             self.name_servers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ds_state][crate::model::dns_settings::GoogleDomainsDns::ds_state].
+        pub fn set_ds_state<T: std::convert::Into<crate::model::dns_settings::DsState>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ds_state = v.into();
             self
         }
 
@@ -2094,21 +2094,6 @@ impl RegisterDomainRequest {
         self
     }
 
-    /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
-        self
-    }
-
-    /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
-    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.validate_only = v.into();
-        self
-    }
-
     /// Sets the value of [domain_notices][crate::model::RegisterDomainRequest::domain_notices].
     pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
     where
@@ -2128,6 +2113,21 @@ impl RegisterDomainRequest {
     {
         use std::iter::Iterator;
         self.contact_notices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.yearly_price = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 }
@@ -2285,6 +2285,17 @@ impl TransferDomainRequest {
         self
     }
 
+    /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
+    pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ContactNotice>,
+    {
+        use std::iter::Iterator;
+        self.contact_notices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
     pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
         mut self,
@@ -2308,17 +2319,6 @@ impl TransferDomainRequest {
     /// Sets the value of [validate_only][crate::model::TransferDomainRequest::validate_only].
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
-        self
-    }
-
-    /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
-    pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactNotice>,
-    {
-        use std::iter::Iterator;
-        self.contact_notices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2432,12 +2432,6 @@ impl ListRegistrationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRegistrationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [registrations][crate::model::ListRegistrationsResponse::registrations].
     pub fn set_registrations<T, V>(mut self, v: T) -> Self
     where
@@ -2446,6 +2440,12 @@ impl ListRegistrationsResponse {
     {
         use std::iter::Iterator;
         self.registrations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRegistrationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2762,12 +2762,6 @@ impl ConfigureContactSettingsRequest {
         self
     }
 
-    /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
-    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.validate_only = v.into();
-        self
-    }
-
     /// Sets the value of [contact_notices][crate::model::ConfigureContactSettingsRequest::contact_notices].
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
@@ -2776,6 +2770,12 @@ impl ConfigureContactSettingsRequest {
     {
         use std::iter::Iterator;
         self.contact_notices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 }
@@ -2971,15 +2971,6 @@ impl RegisterParameters {
         self
     }
 
-    /// Sets the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
-        self
-    }
-
     /// Sets the value of [supported_privacy][crate::model::RegisterParameters::supported_privacy].
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
@@ -2999,6 +2990,15 @@ impl RegisterParameters {
     {
         use std::iter::Iterator;
         self.domain_notices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
+    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.yearly_price = v.into();
         self
     }
 }
@@ -3219,24 +3219,6 @@ impl TransferParameters {
         self
     }
 
-    /// Sets the value of [transfer_lock_state][crate::model::TransferParameters::transfer_lock_state].
-    pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transfer_lock_state = v.into();
-        self
-    }
-
-    /// Sets the value of [yearly_price][crate::model::TransferParameters::yearly_price].
-    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.yearly_price = v.into();
-        self
-    }
-
     /// Sets the value of [name_servers][crate::model::TransferParameters::name_servers].
     pub fn set_name_servers<T, V>(mut self, v: T) -> Self
     where
@@ -3248,6 +3230,15 @@ impl TransferParameters {
         self
     }
 
+    /// Sets the value of [transfer_lock_state][crate::model::TransferParameters::transfer_lock_state].
+    pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transfer_lock_state = v.into();
+        self
+    }
+
     /// Sets the value of [supported_privacy][crate::model::TransferParameters::supported_privacy].
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
@@ -3256,6 +3247,15 @@ impl TransferParameters {
     {
         use std::iter::Iterator;
         self.supported_privacy = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [yearly_price][crate::model::TransferParameters::yearly_price].
+    pub fn set_yearly_price<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.yearly_price = v.into();
         self
     }
 }

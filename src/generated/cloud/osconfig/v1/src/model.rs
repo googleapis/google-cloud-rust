@@ -95,15 +95,6 @@ impl Inventory {
         self
     }
 
-    /// Sets the value of [update_time][crate::model::Inventory::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [items][crate::model::Inventory::items].
     pub fn set_items<T, K, V>(mut self, v: T) -> Self
     where
@@ -113,6 +104,15 @@ impl Inventory {
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Inventory::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -355,22 +355,6 @@ pub mod inventory {
             })
         }
 
-        /// The value of [details][crate::model::inventory::Item::details]
-        /// if it holds a `AvailablePackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn available_package(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::SoftwarePackage>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::item::Details::AvailablePackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [details][crate::model::inventory::Item::details]
         /// to hold a `InstalledPackage`.
         ///
@@ -386,6 +370,22 @@ pub mod inventory {
                 crate::model::inventory::item::Details::InstalledPackage(v.into()),
             );
             self
+        }
+
+        /// The value of [details][crate::model::inventory::Item::details]
+        /// if it holds a `AvailablePackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn available_package(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::SoftwarePackage>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::item::Details::AvailablePackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [details][crate::model::inventory::Item::details]
@@ -744,134 +744,6 @@ pub mod inventory {
             })
         }
 
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `AptPackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn apt_package(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::AptPackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `ZypperPackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn zypper_package(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::ZypperPackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `GoogetPackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn googet_package(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::GoogetPackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `ZypperPatch`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn zypper_patch(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::ZypperPatch>> {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::ZypperPatch(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `WuaPackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn wua_package(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::WindowsUpdatePackage>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::WuaPackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `QfePackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn qfe_package(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::QfePackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `CosPackage`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn cos_package(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::CosPackage(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// if it holds a `WindowsApplication`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn windows_application(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::WindowsApplication>>
-        {
-            #[allow(unreachable_patterns)]
-            self.details.as_ref().and_then(|v| match v {
-                crate::model::inventory::software_package::Details::WindowsApplication(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
         /// to hold a `YumPackage`.
         ///
@@ -887,6 +759,22 @@ pub mod inventory {
                 crate::model::inventory::software_package::Details::YumPackage(v.into()),
             );
             self
+        }
+
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `AptPackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn apt_package(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::AptPackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -906,6 +794,22 @@ pub mod inventory {
             self
         }
 
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `ZypperPackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn zypper_package(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::ZypperPackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
         /// to hold a `ZypperPackage`.
         ///
@@ -921,6 +825,22 @@ pub mod inventory {
                 crate::model::inventory::software_package::Details::ZypperPackage(v.into()),
             );
             self
+        }
+
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `GoogetPackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn googet_package(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::GoogetPackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -940,6 +860,21 @@ pub mod inventory {
             self
         }
 
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `ZypperPatch`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn zypper_patch(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::ZypperPatch>> {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::ZypperPatch(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
         /// to hold a `ZypperPatch`.
         ///
@@ -957,6 +892,22 @@ pub mod inventory {
             self
         }
 
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `WuaPackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn wua_package(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::WindowsUpdatePackage>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::WuaPackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
         /// to hold a `WuaPackage`.
         ///
@@ -972,6 +923,23 @@ pub mod inventory {
                 crate::model::inventory::software_package::Details::WuaPackage(v.into()),
             );
             self
+        }
+
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `QfePackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn qfe_package(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::QfePackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -993,6 +961,22 @@ pub mod inventory {
             self
         }
 
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `CosPackage`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn cos_package(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::CosPackage(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
         /// to hold a `CosPackage`.
         ///
@@ -1008,6 +992,22 @@ pub mod inventory {
                 crate::model::inventory::software_package::Details::CosPackage(v.into()),
             );
             self
+        }
+
+        /// The value of [details][crate::model::inventory::SoftwarePackage::details]
+        /// if it holds a `WindowsApplication`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn windows_application(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::WindowsApplication>>
+        {
+            #[allow(unreachable_patterns)]
+            self.details.as_ref().and_then(|v| match v {
+                crate::model::inventory::software_package::Details::WindowsApplication(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -1272,35 +1272,6 @@ pub mod inventory {
             self
         }
 
-        /// Sets the value of [support_url][crate::model::inventory::WindowsUpdatePackage::support_url].
-        pub fn set_support_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.support_url = v.into();
-            self
-        }
-
-        /// Sets the value of [update_id][crate::model::inventory::WindowsUpdatePackage::update_id].
-        pub fn set_update_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.update_id = v.into();
-            self
-        }
-
-        /// Sets the value of [revision_number][crate::model::inventory::WindowsUpdatePackage::revision_number].
-        pub fn set_revision_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.revision_number = v.into();
-            self
-        }
-
-        /// Sets the value of [last_deployment_change_time][crate::model::inventory::WindowsUpdatePackage::last_deployment_change_time].
-        pub fn set_last_deployment_change_time<
-            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.last_deployment_change_time = v.into();
-            self
-        }
-
         /// Sets the value of [categories][crate::model::inventory::WindowsUpdatePackage::categories].
         pub fn set_categories<T, V>(mut self, v: T) -> Self
         where
@@ -1325,6 +1296,12 @@ pub mod inventory {
             self
         }
 
+        /// Sets the value of [support_url][crate::model::inventory::WindowsUpdatePackage::support_url].
+        pub fn set_support_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.support_url = v.into();
+            self
+        }
+
         /// Sets the value of [more_info_urls][crate::model::inventory::WindowsUpdatePackage::more_info_urls].
         pub fn set_more_info_urls<T, V>(mut self, v: T) -> Self
         where
@@ -1333,6 +1310,29 @@ pub mod inventory {
         {
             use std::iter::Iterator;
             self.more_info_urls = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [update_id][crate::model::inventory::WindowsUpdatePackage::update_id].
+        pub fn set_update_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.update_id = v.into();
+            self
+        }
+
+        /// Sets the value of [revision_number][crate::model::inventory::WindowsUpdatePackage::revision_number].
+        pub fn set_revision_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.revision_number = v.into();
+            self
+        }
+
+        /// Sets the value of [last_deployment_change_time][crate::model::inventory::WindowsUpdatePackage::last_deployment_change_time].
+        pub fn set_last_deployment_change_time<
+            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_deployment_change_time = v.into();
             self
         }
     }
@@ -1698,12 +1698,6 @@ impl ListInventoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInventoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [inventories][crate::model::ListInventoriesResponse::inventories].
     pub fn set_inventories<T, V>(mut self, v: T) -> Self
     where
@@ -1712,6 +1706,12 @@ impl ListInventoriesResponse {
     {
         use std::iter::Iterator;
         self.inventories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInventoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1805,12 +1805,6 @@ impl OSPolicy {
         self
     }
 
-    /// Sets the value of [allow_no_resource_group_match][crate::model::OSPolicy::allow_no_resource_group_match].
-    pub fn set_allow_no_resource_group_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.allow_no_resource_group_match = v.into();
-        self
-    }
-
     /// Sets the value of [resource_groups][crate::model::OSPolicy::resource_groups].
     pub fn set_resource_groups<T, V>(mut self, v: T) -> Self
     where
@@ -1819,6 +1813,12 @@ impl OSPolicy {
     {
         use std::iter::Iterator;
         self.resource_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [allow_no_resource_group_match][crate::model::OSPolicy::allow_no_resource_group_match].
+    pub fn set_allow_no_resource_group_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_no_resource_group_match = v.into();
         self
     }
 }
@@ -1957,55 +1957,6 @@ pub mod os_policy {
             })
         }
 
-        /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// if it holds a `Repository`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn repository(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.resource_type.as_ref().and_then(|v| match v {
-                crate::model::os_policy::resource::ResourceType::Repository(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// if it holds a `Exec`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn exec(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::ExecResource>>
-        {
-            #[allow(unreachable_patterns)]
-            self.resource_type.as_ref().and_then(|v| match v {
-                crate::model::os_policy::resource::ResourceType::Exec(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// if it holds a `File`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn file(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::FileResource>>
-        {
-            #[allow(unreachable_patterns)]
-            self.resource_type.as_ref().and_then(|v| match v {
-                crate::model::os_policy::resource::ResourceType::File(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// to hold a `Pkg`.
         ///
@@ -2021,6 +1972,23 @@ pub mod os_policy {
                 crate::model::os_policy::resource::ResourceType::Pkg(v.into()),
             );
             self
+        }
+
+        /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
+        /// if it holds a `Repository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn repository(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.resource_type.as_ref().and_then(|v| match v {
+                crate::model::os_policy::resource::ResourceType::Repository(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
@@ -2042,6 +2010,22 @@ pub mod os_policy {
             self
         }
 
+        /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
+        /// if it holds a `Exec`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn exec(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::ExecResource>>
+        {
+            #[allow(unreachable_patterns)]
+            self.resource_type.as_ref().and_then(|v| match v {
+                crate::model::os_policy::resource::ResourceType::Exec(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// to hold a `Exec`.
         ///
@@ -2057,6 +2041,22 @@ pub mod os_policy {
                 crate::model::os_policy::resource::ResourceType::Exec(v.into()),
             );
             self
+        }
+
+        /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
+        /// if it holds a `File`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn file(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::FileResource>>
+        {
+            #[allow(unreachable_patterns)]
+            self.resource_type.as_ref().and_then(|v| match v {
+                crate::model::os_policy::resource::ResourceType::File(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
@@ -2154,35 +2154,6 @@ pub mod os_policy {
                 })
             }
 
-            /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
-            /// if it holds a `Gcs`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn gcs(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::file::Gcs>>
-            {
-                #[allow(unreachable_patterns)]
-                self.r#type.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::file::Type::Gcs(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
-            /// if it holds a `LocalPath`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn local_path(&self) -> std::option::Option<&std::string::String> {
-                #[allow(unreachable_patterns)]
-                self.r#type.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::file::Type::LocalPath(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// to hold a `Remote`.
             ///
@@ -2202,6 +2173,22 @@ pub mod os_policy {
                 self
             }
 
+            /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
+            /// if it holds a `Gcs`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn gcs(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::file::Gcs>>
+            {
+                #[allow(unreachable_patterns)]
+                self.r#type.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::file::Type::Gcs(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// to hold a `Gcs`.
             ///
@@ -2217,6 +2204,19 @@ pub mod os_policy {
                     crate::model::os_policy::resource::file::Type::Gcs(v.into()),
                 );
                 self
+            }
+
+            /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
+            /// if it holds a `LocalPath`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn local_path(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.r#type.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::file::Type::LocalPath(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [r#type][crate::model::os_policy::resource::File::r#type]
@@ -2437,108 +2437,6 @@ pub mod os_policy {
                 })
             }
 
-            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// if it holds a `Deb`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn deb(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.system_package.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Deb(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// if it holds a `Yum`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn yum(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.system_package.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Yum(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// if it holds a `Zypper`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn zypper(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Zypper>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.system_package.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Zypper(
-                        v,
-                    ) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// if it holds a `Rpm`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn rpm(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.system_package.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Rpm(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// if it holds a `Googet`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn googet(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::os_policy::resource::package_resource::GooGet>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.system_package.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Googet(
-                        v,
-                    ) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// if it holds a `Msi`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn msi(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
-            > {
-                #[allow(unreachable_patterns)]
-                self.system_package.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Msi(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// to hold a `Apt`.
             ///
@@ -2558,6 +2456,23 @@ pub mod os_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
+            /// if it holds a `Deb`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn deb(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.system_package.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::package_resource::SystemPackage::Deb(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
@@ -2581,6 +2496,23 @@ pub mod os_policy {
                 self
             }
 
+            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
+            /// if it holds a `Yum`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn yum(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.system_package.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::package_resource::SystemPackage::Yum(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// to hold a `Yum`.
             ///
@@ -2600,6 +2532,23 @@ pub mod os_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
+            /// if it holds a `Zypper`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn zypper(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Zypper>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.system_package.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::package_resource::SystemPackage::Zypper(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
@@ -2625,6 +2574,23 @@ pub mod os_policy {
                 self
             }
 
+            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
+            /// if it holds a `Rpm`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn rpm(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.system_package.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::package_resource::SystemPackage::Rpm(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// to hold a `Rpm`.
             ///
@@ -2644,6 +2610,23 @@ pub mod os_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
+            /// if it holds a `Googet`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn googet(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::os_policy::resource::package_resource::GooGet>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.system_package.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::package_resource::SystemPackage::Googet(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
@@ -2667,6 +2650,23 @@ pub mod os_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
+            /// if it holds a `Msi`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn msi(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.system_package.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::package_resource::SystemPackage::Msi(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
@@ -3237,63 +3237,6 @@ pub mod os_policy {
                 })
             }
 
-            /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// if it holds a `Yum`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn yum(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::os_policy::resource::repository_resource::YumRepository,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.repository.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::repository_resource::Repository::Yum(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// if it holds a `Zypper`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn zypper(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::os_policy::resource::repository_resource::ZypperRepository,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.repository.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::repository_resource::Repository::Zypper(
-                        v,
-                    ) => std::option::Option::Some(v),
-                    _ => std::option::Option::None,
-                })
-            }
-
-            /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// if it holds a `Goo`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn goo(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::os_policy::resource::repository_resource::GooRepository,
-                >,
-            > {
-                #[allow(unreachable_patterns)]
-                self.repository.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::repository_resource::Repository::Goo(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// to hold a `Apt`.
             ///
@@ -3315,6 +3258,25 @@ pub mod os_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
+            /// if it holds a `Yum`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn yum(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::os_policy::resource::repository_resource::YumRepository,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.repository.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::repository_resource::Repository::Yum(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
@@ -3340,6 +3302,25 @@ pub mod os_policy {
                 self
             }
 
+            /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
+            /// if it holds a `Zypper`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn zypper(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::os_policy::resource::repository_resource::ZypperRepository,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.repository.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::repository_resource::Repository::Zypper(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// to hold a `Zypper`.
             ///
@@ -3352,6 +3333,25 @@ pub mod os_policy {
                     ),
                 );
                 self
+            }
+
+            /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
+            /// if it holds a `Goo`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn goo(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::os_policy::resource::repository_resource::GooRepository,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.repository.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::repository_resource::Repository::Goo(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
@@ -3449,15 +3449,6 @@ pub mod os_policy {
                     self
                 }
 
-                /// Sets the value of [gpg_key][crate::model::os_policy::resource::repository_resource::AptRepository::gpg_key].
-                pub fn set_gpg_key<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.gpg_key = v.into();
-                    self
-                }
-
                 /// Sets the value of [components][crate::model::os_policy::resource::repository_resource::AptRepository::components].
                 pub fn set_components<T, V>(mut self, v: T) -> Self
                 where
@@ -3466,6 +3457,15 @@ pub mod os_policy {
                 {
                     use std::iter::Iterator;
                     self.components = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [gpg_key][crate::model::os_policy::resource::repository_resource::AptRepository::gpg_key].
+                pub fn set_gpg_key<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.gpg_key = v.into();
                     self
                 }
             }
@@ -3984,6 +3984,17 @@ pub mod os_policy {
                     std::default::Default::default()
                 }
 
+                /// Sets the value of [args][crate::model::os_policy::resource::exec_resource::Exec::args].
+                pub fn set_args<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<std::string::String>,
+                {
+                    use std::iter::Iterator;
+                    self.args = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
                 /// Sets the value of [interpreter][crate::model::os_policy::resource::exec_resource::Exec::interpreter].
                 pub fn set_interpreter<
                     T: std::convert::Into<
@@ -4003,17 +4014,6 @@ pub mod os_policy {
                     v: T,
                 ) -> Self {
                     self.output_file_path = v.into();
-                    self
-                }
-
-                /// Sets the value of [args][crate::model::os_policy::resource::exec_resource::Exec::args].
-                pub fn set_args<T, V>(mut self, v: T) -> Self
-                where
-                    T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
-                {
-                    use std::iter::Iterator;
-                    self.args = v.into_iter().map(|i| i.into()).collect();
                     self
                 }
 
@@ -4051,19 +4051,6 @@ pub mod os_policy {
                     })
                 }
 
-                /// The value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
-                /// if it holds a `Script`, `None` if the field is not set or
-                /// holds a different branch.
-                pub fn script(&self) -> std::option::Option<&std::string::String> {
-                    #[allow(unreachable_patterns)]
-                    self.source.as_ref().and_then(|v| match v {
-                        crate::model::os_policy::resource::exec_resource::exec::Source::Script(
-                            v,
-                        ) => std::option::Option::Some(v),
-                        _ => std::option::Option::None,
-                    })
-                }
-
                 /// Sets the value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
                 /// to hold a `File`.
                 ///
@@ -4081,6 +4068,19 @@ pub mod os_policy {
                         ),
                     );
                     self
+                }
+
+                /// The value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
+                /// if it holds a `Script`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn script(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.source.as_ref().and_then(|v| match v {
+                        crate::model::os_policy::resource::exec_resource::exec::Source::Script(
+                            v,
+                        ) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
                 }
 
                 /// Sets the value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
@@ -4377,19 +4377,6 @@ pub mod os_policy {
                 })
             }
 
-            /// The value of [source][crate::model::os_policy::resource::FileResource::source]
-            /// if it holds a `Content`, `None` if the field is not set or
-            /// holds a different branch.
-            pub fn content(&self) -> std::option::Option<&std::string::String> {
-                #[allow(unreachable_patterns)]
-                self.source.as_ref().and_then(|v| match v {
-                    crate::model::os_policy::resource::file_resource::Source::Content(v) => {
-                        std::option::Option::Some(v)
-                    }
-                    _ => std::option::Option::None,
-                })
-            }
-
             /// Sets the value of [source][crate::model::os_policy::resource::FileResource::source]
             /// to hold a `File`.
             ///
@@ -4405,6 +4392,19 @@ pub mod os_policy {
                     crate::model::os_policy::resource::file_resource::Source::File(v.into()),
                 );
                 self
+            }
+
+            /// The value of [source][crate::model::os_policy::resource::FileResource::source]
+            /// if it holds a `Content`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn content(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.source.as_ref().and_then(|v| match v {
+                    crate::model::os_policy::resource::file_resource::Source::Content(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
             }
 
             /// Sets the value of [source][crate::model::os_policy::resource::FileResource::source]
@@ -4961,12 +4961,6 @@ impl ListOSPolicyAssignmentReportsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentReportsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [os_policy_assignment_reports][crate::model::ListOSPolicyAssignmentReportsResponse::os_policy_assignment_reports].
     pub fn set_os_policy_assignment_reports<T, V>(mut self, v: T) -> Self
     where
@@ -4975,6 +4969,12 @@ impl ListOSPolicyAssignmentReportsResponse {
     {
         use std::iter::Iterator;
         self.os_policy_assignment_reports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentReportsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5073,6 +5073,17 @@ impl OSPolicyAssignmentReport {
         self
     }
 
+    /// Sets the value of [os_policy_compliances][crate::model::OSPolicyAssignmentReport::os_policy_compliances].
+    pub fn set_os_policy_compliances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::os_policy_assignment_report::OSPolicyCompliance>,
+    {
+        use std::iter::Iterator;
+        self.os_policy_compliances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [update_time][crate::model::OSPolicyAssignmentReport::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -5085,17 +5096,6 @@ impl OSPolicyAssignmentReport {
     /// Sets the value of [last_run_id][crate::model::OSPolicyAssignmentReport::last_run_id].
     pub fn set_last_run_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_run_id = v.into();
-        self
-    }
-
-    /// Sets the value of [os_policy_compliances][crate::model::OSPolicyAssignmentReport::os_policy_compliances].
-    pub fn set_os_policy_compliances<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::os_policy_assignment_report::OSPolicyCompliance>,
-    {
-        use std::iter::Iterator;
-        self.os_policy_compliances = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5267,6 +5267,17 @@ pub mod os_policy_assignment_report {
                 self
             }
 
+            /// Sets the value of [config_steps][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::config_steps].
+            pub fn set_config_steps<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep>
+            {
+                use std::iter::Iterator;
+                self.config_steps = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [compliance_state][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::compliance_state].
             pub fn set_compliance_state<T: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ComplianceState>>(mut self, v: T) -> Self{
                 self.compliance_state = v.into();
@@ -5279,17 +5290,6 @@ pub mod os_policy_assignment_report {
                 v: T,
             ) -> Self {
                 self.compliance_state_reason = v.into();
-                self
-            }
-
-            /// Sets the value of [config_steps][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::config_steps].
-            pub fn set_config_steps<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep>
-            {
-                use std::iter::Iterator;
-                self.config_steps = v.into_iter().map(|i| i.into()).collect();
                 self
             }
 
@@ -6000,6 +6000,17 @@ impl OSPolicyAssignment {
         self
     }
 
+    /// Sets the value of [os_policies][crate::model::OSPolicyAssignment::os_policies].
+    pub fn set_os_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::OSPolicy>,
+    {
+        use std::iter::Iterator;
+        self.os_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [instance_filter][crate::model::OSPolicyAssignment::instance_filter].
     pub fn set_instance_filter<
         T: std::convert::Into<std::option::Option<crate::model::os_policy_assignment::InstanceFilter>>,
@@ -6075,17 +6086,6 @@ impl OSPolicyAssignment {
     /// Sets the value of [uid][crate::model::OSPolicyAssignment::uid].
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
-        self
-    }
-
-    /// Sets the value of [os_policies][crate::model::OSPolicyAssignment::os_policies].
-    pub fn set_os_policies<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OSPolicy>,
-    {
-        use std::iter::Iterator;
-        self.os_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7119,12 +7119,6 @@ impl ListOSPolicyAssignmentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [os_policy_assignments][crate::model::ListOSPolicyAssignmentsResponse::os_policy_assignments].
     pub fn set_os_policy_assignments<T, V>(mut self, v: T) -> Self
     where
@@ -7133,6 +7127,12 @@ impl ListOSPolicyAssignmentsResponse {
     {
         use std::iter::Iterator;
         self.os_policy_assignments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7235,12 +7235,6 @@ impl ListOSPolicyAssignmentRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [os_policy_assignments][crate::model::ListOSPolicyAssignmentRevisionsResponse::os_policy_assignments].
     pub fn set_os_policy_assignments<T, V>(mut self, v: T) -> Self
     where
@@ -7249,6 +7243,12 @@ impl ListOSPolicyAssignmentRevisionsResponse {
     {
         use std::iter::Iterator;
         self.os_policy_assignments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7350,17 +7350,6 @@ impl FixedOrPercent {
         })
     }
 
-    /// The value of [mode][crate::model::FixedOrPercent::mode]
-    /// if it holds a `Percent`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn percent(&self) -> std::option::Option<&i32> {
-        #[allow(unreachable_patterns)]
-        self.mode.as_ref().and_then(|v| match v {
-            crate::model::fixed_or_percent::Mode::Percent(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [mode][crate::model::FixedOrPercent::mode]
     /// to hold a `Fixed`.
     ///
@@ -7370,6 +7359,17 @@ impl FixedOrPercent {
         self.mode =
             std::option::Option::Some(crate::model::fixed_or_percent::Mode::Fixed(v.into()));
         self
+    }
+
+    /// The value of [mode][crate::model::FixedOrPercent::mode]
+    /// if it holds a `Percent`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn percent(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.mode.as_ref().and_then(|v| match v {
+            crate::model::fixed_or_percent::Mode::Percent(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [mode][crate::model::FixedOrPercent::mode]
@@ -7596,21 +7596,6 @@ impl PatchDeployment {
         })
     }
 
-    /// The value of [schedule][crate::model::PatchDeployment::schedule]
-    /// if it holds a `RecurringSchedule`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn recurring_schedule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringSchedule>> {
-        #[allow(unreachable_patterns)]
-        self.schedule.as_ref().and_then(|v| match v {
-            crate::model::patch_deployment::Schedule::RecurringSchedule(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [schedule][crate::model::PatchDeployment::schedule]
     /// to hold a `OneTimeSchedule`.
     ///
@@ -7626,6 +7611,21 @@ impl PatchDeployment {
             crate::model::patch_deployment::Schedule::OneTimeSchedule(v.into()),
         );
         self
+    }
+
+    /// The value of [schedule][crate::model::PatchDeployment::schedule]
+    /// if it holds a `RecurringSchedule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn recurring_schedule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringSchedule>> {
+        #[allow(unreachable_patterns)]
+        self.schedule.as_ref().and_then(|v| match v {
+            crate::model::patch_deployment::Schedule::RecurringSchedule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [schedule][crate::model::PatchDeployment::schedule]
@@ -7978,19 +7978,6 @@ impl RecurringSchedule {
         })
     }
 
-    /// The value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
-    /// if it holds a `Monthly`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn monthly(&self) -> std::option::Option<&std::boxed::Box<crate::model::MonthlySchedule>> {
-        #[allow(unreachable_patterns)]
-        self.schedule_config.as_ref().and_then(|v| match v {
-            crate::model::recurring_schedule::ScheduleConfig::Monthly(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
     /// to hold a `Weekly`.
     ///
@@ -8004,6 +7991,19 @@ impl RecurringSchedule {
             crate::model::recurring_schedule::ScheduleConfig::Weekly(v.into()),
         );
         self
+    }
+
+    /// The value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
+    /// if it holds a `Monthly`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn monthly(&self) -> std::option::Option<&std::boxed::Box<crate::model::MonthlySchedule>> {
+        #[allow(unreachable_patterns)]
+        self.schedule_config.as_ref().and_then(|v| match v {
+            crate::model::recurring_schedule::ScheduleConfig::Monthly(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
@@ -8268,17 +8268,6 @@ impl MonthlySchedule {
         })
     }
 
-    /// The value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
-    /// if it holds a `MonthDay`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn month_day(&self) -> std::option::Option<&i32> {
-        #[allow(unreachable_patterns)]
-        self.day_of_month.as_ref().and_then(|v| match v {
-            crate::model::monthly_schedule::DayOfMonth::MonthDay(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
     /// to hold a `WeekDayOfMonth`.
     ///
@@ -8294,6 +8283,17 @@ impl MonthlySchedule {
             crate::model::monthly_schedule::DayOfMonth::WeekDayOfMonth(v.into()),
         );
         self
+    }
+
+    /// The value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
+    /// if it holds a `MonthDay`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn month_day(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.day_of_month.as_ref().and_then(|v| match v {
+            crate::model::monthly_schedule::DayOfMonth::MonthDay(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
@@ -8573,12 +8573,6 @@ impl ListPatchDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPatchDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [patch_deployments][crate::model::ListPatchDeploymentsResponse::patch_deployments].
     pub fn set_patch_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -8587,6 +8581,12 @@ impl ListPatchDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.patch_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPatchDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9006,12 +9006,6 @@ impl ListPatchJobInstanceDetailsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPatchJobInstanceDetailsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [patch_job_instance_details][crate::model::ListPatchJobInstanceDetailsResponse::patch_job_instance_details].
     pub fn set_patch_job_instance_details<T, V>(mut self, v: T) -> Self
     where
@@ -9020,6 +9014,12 @@ impl ListPatchJobInstanceDetailsResponse {
     {
         use std::iter::Iterator;
         self.patch_job_instance_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPatchJobInstanceDetailsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9214,12 +9214,6 @@ impl ListPatchJobsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPatchJobsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [patch_jobs][crate::model::ListPatchJobsResponse::patch_jobs].
     pub fn set_patch_jobs<T, V>(mut self, v: T) -> Self
     where
@@ -9228,6 +9222,12 @@ impl ListPatchJobsResponse {
     {
         use std::iter::Iterator;
         self.patch_jobs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPatchJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -9322,6 +9322,7 @@ pub struct PatchJob {
     /// Reflects the overall progress of the patch job in the range of
     /// 0.0 being no progress to 100.0 being complete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub percent_complete: f64,
 
     /// Output only. Name of the patch deployment that created this patch job.
@@ -11207,15 +11208,6 @@ impl ExecStepConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of [interpreter][crate::model::ExecStepConfig::interpreter].
-    pub fn set_interpreter<T: std::convert::Into<crate::model::exec_step_config::Interpreter>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.interpreter = v.into();
-        self
-    }
-
     /// Sets the value of [allowed_success_codes][crate::model::ExecStepConfig::allowed_success_codes].
     pub fn set_allowed_success_codes<T, V>(mut self, v: T) -> Self
     where
@@ -11224,6 +11216,15 @@ impl ExecStepConfig {
     {
         use std::iter::Iterator;
         self.allowed_success_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [interpreter][crate::model::ExecStepConfig::interpreter].
+    pub fn set_interpreter<T: std::convert::Into<crate::model::exec_step_config::Interpreter>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.interpreter = v.into();
         self
     }
 
@@ -11254,6 +11255,18 @@ impl ExecStepConfig {
         })
     }
 
+    /// Sets the value of [executable][crate::model::ExecStepConfig::executable]
+    /// to hold a `LocalPath`.
+    ///
+    /// Note that all the setters affecting `executable` are
+    /// mutually exclusive.
+    pub fn set_local_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.executable = std::option::Option::Some(
+            crate::model::exec_step_config::Executable::LocalPath(v.into()),
+        );
+        self
+    }
+
     /// The value of [executable][crate::model::ExecStepConfig::executable]
     /// if it holds a `GcsObject`, `None` if the field is not set or
     /// holds a different branch.
@@ -11265,18 +11278,6 @@ impl ExecStepConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [executable][crate::model::ExecStepConfig::executable]
-    /// to hold a `LocalPath`.
-    ///
-    /// Note that all the setters affecting `executable` are
-    /// mutually exclusive.
-    pub fn set_local_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.executable = std::option::Option::Some(
-            crate::model::exec_step_config::Executable::LocalPath(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [executable][crate::model::ExecStepConfig::executable]
@@ -11919,15 +11920,6 @@ impl VulnerabilityReport {
         self
     }
 
-    /// Sets the value of [update_time][crate::model::VulnerabilityReport::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
     /// Sets the value of [vulnerabilities][crate::model::VulnerabilityReport::vulnerabilities].
     pub fn set_vulnerabilities<T, V>(mut self, v: T) -> Self
     where
@@ -11936,6 +11928,15 @@ impl VulnerabilityReport {
     {
         use std::iter::Iterator;
         self.vulnerabilities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::VulnerabilityReport::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
         self
     }
 }
@@ -12016,24 +12017,6 @@ pub mod vulnerability_report {
             self
         }
 
-        /// Sets the value of [create_time][crate::model::vulnerability_report::Vulnerability::create_time].
-        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.create_time = v.into();
-            self
-        }
-
-        /// Sets the value of [update_time][crate::model::vulnerability_report::Vulnerability::update_time].
-        pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.update_time = v.into();
-            self
-        }
-
         /// Sets the value of [installed_inventory_item_ids][crate::model::vulnerability_report::Vulnerability::installed_inventory_item_ids].
         #[deprecated]
         pub fn set_installed_inventory_item_ids<T, V>(mut self, v: T) -> Self
@@ -12055,6 +12038,24 @@ pub mod vulnerability_report {
         {
             use std::iter::Iterator;
             self.available_inventory_item_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [create_time][crate::model::vulnerability_report::Vulnerability::create_time].
+        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.create_time = v.into();
+            self
+        }
+
+        /// Sets the value of [update_time][crate::model::vulnerability_report::Vulnerability::update_time].
+        pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.update_time = v.into();
             self
         }
 
@@ -12097,6 +12098,7 @@ pub mod vulnerability_report {
             /// The CVSS V2 score of this vulnerability. CVSS V2 score is on a scale of
             /// 0 - 10 where 0 indicates low severity and 10 indicates high severity.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub cvss_v2_score: f32,
 
             /// The full description of the CVSSv3 for this vulnerability from NVD.
@@ -12457,12 +12459,6 @@ impl ListVulnerabilityReportsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVulnerabilityReportsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vulnerability_reports][crate::model::ListVulnerabilityReportsResponse::vulnerability_reports].
     pub fn set_vulnerability_reports<T, V>(mut self, v: T) -> Self
     where
@@ -12471,6 +12467,12 @@ impl ListVulnerabilityReportsResponse {
     {
         use std::iter::Iterator;
         self.vulnerability_reports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVulnerabilityReportsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -12505,16 +12507,19 @@ pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     /// <https://www.first.org/cvss/specification-document#Base-Metrics>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub base_score: f32,
 
     /// The Exploitability sub-score equation is derived from the Base
     /// Exploitability metrics.
     /// <https://www.first.org/cvss/specification-document#2-1-Exploitability-Metrics>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub exploitability_score: f32,
 
     /// The Impact sub-score equation is derived from the Base Impact metrics.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub impact_score: f32,
 
     /// This metric reflects the context by which vulnerability exploitation is

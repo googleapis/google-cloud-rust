@@ -221,7 +221,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -246,7 +247,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeRequest::parent].
@@ -315,7 +316,7 @@ pub mod tpu {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -340,7 +341,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNodeRequest::name].
@@ -397,7 +398,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -422,7 +424,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopNodeRequest::name].
@@ -479,7 +481,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -504,7 +507,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartNodeRequest::name].
@@ -561,7 +564,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -586,7 +590,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
@@ -781,8 +785,10 @@ pub mod tpu {
             self,
         ) -> impl lro::Poller<crate::model::QueuedResource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::QueuedResource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::QueuedResource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -807,7 +813,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateQueuedResourceRequest::parent].
@@ -888,7 +894,7 @@ pub mod tpu {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_queued_resource`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -913,7 +919,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteQueuedResourceRequest::name].
@@ -986,8 +992,10 @@ pub mod tpu {
             self,
         ) -> impl lro::Poller<crate::model::QueuedResource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::QueuedResource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::QueuedResource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1012,7 +1020,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetQueuedResourceRequest::name].

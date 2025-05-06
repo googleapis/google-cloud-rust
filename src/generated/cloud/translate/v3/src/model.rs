@@ -350,12 +350,6 @@ impl ListAdaptiveMtDatasetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtDatasetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [adaptive_mt_datasets][crate::model::ListAdaptiveMtDatasetsResponse::adaptive_mt_datasets].
     pub fn set_adaptive_mt_datasets<T, V>(mut self, v: T) -> Self
     where
@@ -364,6 +358,12 @@ impl ListAdaptiveMtDatasetsResponse {
     {
         use std::iter::Iterator;
         self.adaptive_mt_datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtDatasetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -442,6 +442,17 @@ impl AdaptiveMtTranslateRequest {
         self
     }
 
+    /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
+    pub fn set_content<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.content = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
     pub fn set_reference_sentence_config<
         T: std::convert::Into<
@@ -467,17 +478,6 @@ impl AdaptiveMtTranslateRequest {
         v: T,
     ) -> Self {
         self.glossary_config = v.into();
-        self
-    }
-
-    /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
-    pub fn set_content<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.content = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -612,6 +612,19 @@ pub mod adaptive_mt_translate_request {
             std::default::Default::default()
         }
 
+        /// Sets the value of [reference_sentence_pair_lists][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::reference_sentence_pair_lists].
+        pub fn set_reference_sentence_pair_lists<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
+                >,
+        {
+            use std::iter::Iterator;
+            self.reference_sentence_pair_lists = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [source_language_code][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::source_language_code].
         pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -627,19 +640,6 @@ pub mod adaptive_mt_translate_request {
             v: T,
         ) -> Self {
             self.target_language_code = v.into();
-            self
-        }
-
-        /// Sets the value of [reference_sentence_pair_lists][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::reference_sentence_pair_lists].
-        pub fn set_reference_sentence_pair_lists<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
-                >,
-        {
-            use std::iter::Iterator;
-            self.reference_sentence_pair_lists = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -775,12 +775,6 @@ impl AdaptiveMtTranslateResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [language_code][crate::model::AdaptiveMtTranslateResponse::language_code].
-    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.language_code = v.into();
-        self
-    }
-
     /// Sets the value of [translations][crate::model::AdaptiveMtTranslateResponse::translations].
     pub fn set_translations<T, V>(mut self, v: T) -> Self
     where
@@ -789,6 +783,12 @@ impl AdaptiveMtTranslateResponse {
     {
         use std::iter::Iterator;
         self.translations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::AdaptiveMtTranslateResponse::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
         self
     }
 
@@ -1016,21 +1016,6 @@ impl ImportAdaptiveMtFileRequest {
         })
     }
 
-    /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
-    /// if it holds a `GcsInputSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gcs_input_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
     /// to hold a `FileInputSource`.
     ///
@@ -1046,6 +1031,21 @@ impl ImportAdaptiveMtFileRequest {
             crate::model::import_adaptive_mt_file_request::Source::FileInputSource(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
+    /// if it holds a `GcsInputSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_input_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
@@ -1209,12 +1209,6 @@ impl ListAdaptiveMtFilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtFilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [adaptive_mt_files][crate::model::ListAdaptiveMtFilesResponse::adaptive_mt_files].
     pub fn set_adaptive_mt_files<T, V>(mut self, v: T) -> Self
     where
@@ -1223,6 +1217,12 @@ impl ListAdaptiveMtFilesResponse {
     {
         use std::iter::Iterator;
         self.adaptive_mt_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtFilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1408,12 +1408,6 @@ impl ListAdaptiveMtSentencesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtSentencesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [adaptive_mt_sentences][crate::model::ListAdaptiveMtSentencesResponse::adaptive_mt_sentences].
     pub fn set_adaptive_mt_sentences<T, V>(mut self, v: T) -> Self
     where
@@ -1422,6 +1416,12 @@ impl ListAdaptiveMtSentencesResponse {
     {
         use std::iter::Iterator;
         self.adaptive_mt_sentences = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtSentencesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2131,12 +2131,6 @@ impl ListDatasetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [datasets][crate::model::ListDatasetsResponse::datasets].
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
@@ -2145,6 +2139,12 @@ impl ListDatasetsResponse {
     {
         use std::iter::Iterator;
         self.datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2378,12 +2378,6 @@ impl ListExamplesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExamplesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [examples][crate::model::ListExamplesResponse::examples].
     pub fn set_examples<T, V>(mut self, v: T) -> Self
     where
@@ -2392,6 +2386,12 @@ impl ListExamplesResponse {
     {
         use std::iter::Iterator;
         self.examples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExamplesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2928,12 +2928,6 @@ impl ListModelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [models][crate::model::ListModelsResponse::models].
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
@@ -2942,6 +2936,12 @@ impl ListModelsResponse {
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3432,19 +3432,6 @@ impl GlossaryEntry {
         })
     }
 
-    /// The value of [data][crate::model::GlossaryEntry::data]
-    /// if it holds a `TermsSet`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn terms_set(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::glossary_entry::Data::TermsSet(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data][crate::model::GlossaryEntry::data]
     /// to hold a `TermsPair`.
     ///
@@ -3459,6 +3446,19 @@ impl GlossaryEntry {
         self.data =
             std::option::Option::Some(crate::model::glossary_entry::Data::TermsPair(v.into()));
         self
+    }
+
+    /// The value of [data][crate::model::GlossaryEntry::data]
+    /// if it holds a `TermsSet`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn terms_set(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::glossary_entry::Data::TermsSet(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data][crate::model::GlossaryEntry::data]
@@ -3769,6 +3769,17 @@ impl TranslateTextRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
+    pub fn set_contents<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.contents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
@@ -3824,17 +3835,6 @@ impl TranslateTextRequest {
         v: T,
     ) -> Self {
         self.transliteration_config = v.into();
-        self
-    }
-
-    /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
-    pub fn set_contents<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.contents = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -4044,15 +4044,6 @@ impl RomanizeTextRequest {
         self
     }
 
-    /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
-    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_language_code = v.into();
-        self
-    }
-
     /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
     pub fn set_contents<T, V>(mut self, v: T) -> Self
     where
@@ -4061,6 +4052,15 @@ impl RomanizeTextRequest {
     {
         use std::iter::Iterator;
         self.contents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
+    pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_language_code = v.into();
         self
     }
 }
@@ -4328,6 +4328,7 @@ pub struct DetectedLanguage {
 
     /// The confidence of the detection result for this language.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4991,6 +4992,18 @@ impl DocumentInputConfig {
         })
     }
 
+    /// Sets the value of [source][crate::model::DocumentInputConfig::source]
+    /// to hold a `Content`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::document_input_config::Source::Content(v.into()),
+        );
+        self
+    }
+
     /// The value of [source][crate::model::DocumentInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -5002,18 +5015,6 @@ impl DocumentInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::DocumentInputConfig::source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::document_input_config::Source::Content(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [source][crate::model::DocumentInputConfig::source]
@@ -5399,6 +5400,18 @@ impl TranslateDocumentRequest {
         self
     }
 
+    /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [customized_attribution][crate::model::TranslateDocumentRequest::customized_attribution].
     pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -5426,18 +5439,6 @@ impl TranslateDocumentRequest {
     /// Sets the value of [enable_rotation_correction][crate::model::TranslateDocumentRequest::enable_rotation_correction].
     pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_rotation_correction = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5482,6 +5483,17 @@ impl DocumentTranslation {
         std::default::Default::default()
     }
 
+    /// Sets the value of [byte_stream_outputs][crate::model::DocumentTranslation::byte_stream_outputs].
+    pub fn set_byte_stream_outputs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<::bytes::Bytes>,
+    {
+        use std::iter::Iterator;
+        self.byte_stream_outputs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [mime_type][crate::model::DocumentTranslation::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
@@ -5494,17 +5506,6 @@ impl DocumentTranslation {
         v: T,
     ) -> Self {
         self.detected_language_code = v.into();
-        self
-    }
-
-    /// Sets the value of [byte_stream_outputs][crate::model::DocumentTranslation::byte_stream_outputs].
-    pub fn set_byte_stream_outputs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<::bytes::Bytes>,
-    {
-        use std::iter::Iterator;
-        self.byte_stream_outputs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5700,17 +5701,6 @@ impl BatchTranslateTextRequest {
         self
     }
 
-    /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
-        self
-    }
-
     /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
     pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
     where
@@ -5719,6 +5709,18 @@ impl BatchTranslateTextRequest {
     {
         use std::iter::Iterator;
         self.target_language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
+    pub fn set_models<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5733,15 +5735,14 @@ impl BatchTranslateTextRequest {
         self
     }
 
-    /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
-    pub fn set_models<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
+    pub fn set_output_config<
+        T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_config = v.into();
         self
     }
 
@@ -6335,19 +6336,6 @@ impl Glossary {
         })
     }
 
-    /// The value of [languages][crate::model::Glossary::languages]
-    /// if it holds a `LanguageCodesSet`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn language_codes_set(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodesSet>> {
-        #[allow(unreachable_patterns)]
-        self.languages.as_ref().and_then(|v| match v {
-            crate::model::glossary::Languages::LanguageCodesSet(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [languages][crate::model::Glossary::languages]
     /// to hold a `LanguagePair`.
     ///
@@ -6362,6 +6350,19 @@ impl Glossary {
         self.languages =
             std::option::Option::Some(crate::model::glossary::Languages::LanguagePair(v.into()));
         self
+    }
+
+    /// The value of [languages][crate::model::Glossary::languages]
+    /// if it holds a `LanguageCodesSet`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn language_codes_set(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodesSet>> {
+        #[allow(unreachable_patterns)]
+        self.languages.as_ref().and_then(|v| match v {
+            crate::model::glossary::Languages::LanguageCodesSet(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [languages][crate::model::Glossary::languages]
@@ -6758,12 +6759,6 @@ impl ListGlossariesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGlossariesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [glossaries][crate::model::ListGlossariesResponse::glossaries].
     pub fn set_glossaries<T, V>(mut self, v: T) -> Self
     where
@@ -6772,6 +6767,12 @@ impl ListGlossariesResponse {
     {
         use std::iter::Iterator;
         self.glossaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGlossariesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6941,12 +6942,6 @@ impl ListGlossaryEntriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListGlossaryEntriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [glossary_entries][crate::model::ListGlossaryEntriesResponse::glossary_entries].
     pub fn set_glossary_entries<T, V>(mut self, v: T) -> Self
     where
@@ -6955,6 +6950,12 @@ impl ListGlossaryEntriesResponse {
     {
         use std::iter::Iterator;
         self.glossary_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGlossaryEntriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7917,41 +7918,6 @@ impl BatchTranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
-    pub fn set_output_config<
-        T: std::convert::Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_config = v.into();
-        self
-    }
-
-    /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
-    pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.customized_attribution = v.into();
-        self
-    }
-
-    /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
-    pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enable_shadow_removal_native_pdf = v.into();
-        self
-    }
-
-    /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
-    pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.enable_rotation_correction = v.into();
-        self
-    }
-
     /// Sets the value of [target_language_codes][crate::model::BatchTranslateDocumentRequest::target_language_codes].
     pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
     where
@@ -7971,6 +7937,17 @@ impl BatchTranslateDocumentRequest {
     {
         use std::iter::Iterator;
         self.input_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
+    pub fn set_output_config<
+        T: std::convert::Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_config = v.into();
         self
     }
 
@@ -8007,6 +7984,30 @@ impl BatchTranslateDocumentRequest {
     {
         use std::iter::Iterator;
         self.format_conversions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
+    pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customized_attribution = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
+    pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enable_shadow_removal_native_pdf = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
+    pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_rotation_correction = v.into();
         self
     }
 }

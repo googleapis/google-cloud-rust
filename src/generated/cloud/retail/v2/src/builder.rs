@@ -112,7 +112,7 @@ pub mod analytics_service {
             self,
         ) -> impl lro::Poller<crate::model::ExportAnalyticsMetricsResponse, crate::model::ExportMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportAnalyticsMetricsResponse,
                 crate::model::ExportMetadata,
             >;
@@ -140,7 +140,7 @@ pub mod analytics_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [catalog][crate::model::ExportAnalyticsMetricsRequest::catalog].
@@ -1267,6 +1267,17 @@ pub mod completion_service {
             self
         }
 
+        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [device_type][crate::model::CompleteQueryRequest::device_type].
         pub fn set_device_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.device_type = v.into();
@@ -1294,17 +1305,6 @@ pub mod completion_service {
         /// Sets the value of [entity][crate::model::CompleteQueryRequest::entity].
         pub fn set_entity<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.entity = v.into();
-            self
-        }
-
-        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
-        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1360,7 +1360,7 @@ pub mod completion_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportCompletionDataResponse, crate::model::ImportMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportCompletionDataResponse,
                 crate::model::ImportMetadata,
             >;
@@ -1388,7 +1388,7 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportCompletionDataRequest::parent].
@@ -2620,7 +2620,8 @@ pub mod model_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata> {
-            type Operation = lro::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2645,7 +2646,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
@@ -3043,8 +3044,10 @@ pub mod model_service {
             self,
         ) -> impl lro::Poller<crate::model::TuneModelResponse, crate::model::TuneModelMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TuneModelResponse, crate::model::TuneModelMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TuneModelResponse,
+                crate::model::TuneModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3069,7 +3072,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TuneModelRequest::name].
@@ -3913,7 +3916,7 @@ pub mod product_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeProductsResponse, crate::model::PurgeProductsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeProductsResponse,
                 crate::model::PurgeProductsMetadata,
             >;
@@ -3941,7 +3944,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
@@ -4015,8 +4018,10 @@ pub mod product_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportProductsResponse, crate::model::ImportMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ImportProductsResponse, crate::model::ImportMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ImportProductsResponse,
+                crate::model::ImportMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4041,7 +4046,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportProductsRequest::parent].
@@ -4154,7 +4159,7 @@ pub mod product_service {
             self,
         ) -> impl lro::Poller<crate::model::SetInventoryResponse, crate::model::SetInventoryMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SetInventoryResponse,
                 crate::model::SetInventoryMetadata,
             >;
@@ -4182,7 +4187,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [inventory][crate::model::SetInventoryRequest::inventory].
@@ -4268,7 +4273,7 @@ pub mod product_service {
             crate::model::AddFulfillmentPlacesResponse,
             crate::model::AddFulfillmentPlacesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddFulfillmentPlacesResponse,
                 crate::model::AddFulfillmentPlacesMetadata,
             >;
@@ -4296,7 +4301,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::AddFulfillmentPlacesRequest::product].
@@ -4315,18 +4320,6 @@ pub mod product_service {
             self
         }
 
-        /// Sets the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
-        pub fn set_add_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.add_time = v.into();
-            self
-        }
-
-        /// Sets the value of [allow_missing][crate::model::AddFulfillmentPlacesRequest::allow_missing].
-        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.allow_missing = v.into();
-            self
-        }
-
         /// Sets the value of [place_ids][crate::model::AddFulfillmentPlacesRequest::place_ids].
         ///
         /// This is a **required** field for requests.
@@ -4337,6 +4330,18 @@ pub mod product_service {
         {
             use std::iter::Iterator;
             self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
+        pub fn set_add_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+            self.0.request.add_time = v.into();
+            self
+        }
+
+        /// Sets the value of [allow_missing][crate::model::AddFulfillmentPlacesRequest::allow_missing].
+        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.allow_missing = v.into();
             self
         }
     }
@@ -4396,7 +4401,7 @@ pub mod product_service {
             crate::model::RemoveFulfillmentPlacesResponse,
             crate::model::RemoveFulfillmentPlacesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemoveFulfillmentPlacesResponse,
                 crate::model::RemoveFulfillmentPlacesMetadata,
             >;
@@ -4424,7 +4429,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::RemoveFulfillmentPlacesRequest::product].
@@ -4443,6 +4448,19 @@ pub mod product_service {
             self
         }
 
+        /// Sets the value of [place_ids][crate::model::RemoveFulfillmentPlacesRequest::place_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [remove_time][crate::model::RemoveFulfillmentPlacesRequest::remove_time].
         pub fn set_remove_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -4455,19 +4473,6 @@ pub mod product_service {
         /// Sets the value of [allow_missing][crate::model::RemoveFulfillmentPlacesRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
-            self
-        }
-
-        /// Sets the value of [place_ids][crate::model::RemoveFulfillmentPlacesRequest::place_ids].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4525,7 +4530,7 @@ pub mod product_service {
             crate::model::AddLocalInventoriesResponse,
             crate::model::AddLocalInventoriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddLocalInventoriesResponse,
                 crate::model::AddLocalInventoriesMetadata,
             >;
@@ -4553,7 +4558,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::AddLocalInventoriesRequest::product].
@@ -4561,6 +4566,19 @@ pub mod product_service {
         /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.product = v.into();
+            self
+        }
+
+        /// Sets the value of [local_inventories][crate::model::AddLocalInventoriesRequest::local_inventories].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::LocalInventory>,
+        {
+            use std::iter::Iterator;
+            self.0.request.local_inventories = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -4579,19 +4597,6 @@ pub mod product_service {
         /// Sets the value of [allow_missing][crate::model::AddLocalInventoriesRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
-            self
-        }
-
-        /// Sets the value of [local_inventories][crate::model::AddLocalInventoriesRequest::local_inventories].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::LocalInventory>,
-        {
-            use std::iter::Iterator;
-            self.0.request.local_inventories = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4649,7 +4654,7 @@ pub mod product_service {
             crate::model::RemoveLocalInventoriesResponse,
             crate::model::RemoveLocalInventoriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemoveLocalInventoriesResponse,
                 crate::model::RemoveLocalInventoriesMetadata,
             >;
@@ -4677,7 +4682,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::RemoveLocalInventoriesRequest::product].
@@ -4685,6 +4690,19 @@ pub mod product_service {
         /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.product = v.into();
+            self
+        }
+
+        /// Sets the value of [place_ids][crate::model::RemoveLocalInventoriesRequest::place_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -4700,19 +4718,6 @@ pub mod product_service {
         /// Sets the value of [allow_missing][crate::model::RemoveLocalInventoriesRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
-            self
-        }
-
-        /// Sets the value of [place_ids][crate::model::RemoveLocalInventoriesRequest::place_ids].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_place_ids<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.place_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5027,6 +5032,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
         #[deprecated]
         pub fn set_dynamic_facet_spec<
@@ -5061,6 +5077,28 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [variant_rollup_keys][crate::model::SearchRequest::variant_rollup_keys].
+        pub fn set_variant_rollup_keys<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.variant_rollup_keys = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
+        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [search_mode][crate::model::SearchRequest::search_mode].
         pub fn set_search_mode<T: Into<crate::model::search_request::SearchMode>>(
             mut self,
@@ -5078,6 +5116,17 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.personalization_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::SearchRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -5117,50 +5166,6 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.tile_navigation_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
-        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::FacetSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [variant_rollup_keys][crate::model::SearchRequest::variant_rollup_keys].
-        pub fn set_variant_rollup_keys<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.variant_rollup_keys = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
-        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [labels][crate::model::SearchRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -6166,8 +6171,10 @@ pub mod user_event_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeUserEventsResponse, crate::model::PurgeMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PurgeUserEventsResponse, crate::model::PurgeMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PurgeUserEventsResponse,
+                crate::model::PurgeMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6192,7 +6199,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeUserEventsRequest::parent].
@@ -6269,7 +6276,7 @@ pub mod user_event_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportUserEventsResponse, crate::model::ImportMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportUserEventsResponse,
                 crate::model::ImportMetadata,
             >;
@@ -6297,7 +6304,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportUserEventsRequest::parent].
@@ -6384,7 +6391,7 @@ pub mod user_event_service {
             crate::model::RejoinUserEventsResponse,
             crate::model::RejoinUserEventsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RejoinUserEventsResponse,
                 crate::model::RejoinUserEventsMetadata,
             >;
@@ -6412,7 +6419,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RejoinUserEventsRequest::parent].

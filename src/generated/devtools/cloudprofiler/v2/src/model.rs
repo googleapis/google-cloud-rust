@@ -283,15 +283,6 @@ impl Profile {
         self
     }
 
-    /// Sets the value of [start_time][crate::model::Profile::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::Profile::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -301,6 +292,15 @@ impl Profile {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::Profile::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
         self
     }
 }
@@ -478,6 +478,17 @@ impl ListProfilesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [profiles][crate::model::ListProfilesResponse::profiles].
+    pub fn set_profiles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Profile>,
+    {
+        use std::iter::Iterator;
+        self.profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -487,17 +498,6 @@ impl ListProfilesResponse {
     /// Sets the value of [skipped_profiles][crate::model::ListProfilesResponse::skipped_profiles].
     pub fn set_skipped_profiles<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.skipped_profiles = v.into();
-        self
-    }
-
-    /// Sets the value of [profiles][crate::model::ListProfilesResponse::profiles].
-    pub fn set_profiles<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Profile>,
-    {
-        use std::iter::Iterator;
-        self.profiles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

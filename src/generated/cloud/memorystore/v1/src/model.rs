@@ -160,6 +160,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Instance::state].
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -220,6 +232,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [discovery_endpoints][crate::model::Instance::discovery_endpoints].
+    pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DiscoveryEndpoint>,
+    {
+        use std::iter::Iterator;
+        self.discovery_endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [node_type][crate::model::Instance::node_type].
     pub fn set_node_type<T: std::convert::Into<crate::model::instance::NodeType>>(
         mut self,
@@ -243,6 +266,18 @@ impl Instance {
     /// Sets the value of [engine_version][crate::model::Instance::engine_version].
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
+        self
+    }
+
+    /// Sets the value of [engine_configs][crate::model::Instance::engine_configs].
+    pub fn set_engine_configs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.engine_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -275,23 +310,6 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [mode][crate::model::Instance::mode].
-    pub fn set_mode<T: std::convert::Into<crate::model::instance::Mode>>(mut self, v: T) -> Self {
-        self.mode = v.into();
-        self
-    }
-
-    /// Sets the value of [discovery_endpoints][crate::model::Instance::discovery_endpoints].
-    pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DiscoveryEndpoint>,
-    {
-        use std::iter::Iterator;
-        self.discovery_endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [psc_auto_connections][crate::model::Instance::psc_auto_connections].
     pub fn set_psc_auto_connections<T, V>(mut self, v: T) -> Self
     where
@@ -314,27 +332,9 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [engine_configs][crate::model::Instance::engine_configs].
-    pub fn set_engine_configs<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.engine_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [mode][crate::model::Instance::mode].
+    pub fn set_mode<T: std::convert::Into<crate::model::instance::Mode>>(mut self, v: T) -> Self {
+        self.mode = v.into();
         self
     }
 }
@@ -576,21 +576,6 @@ pub mod instance {
             })
         }
 
-        /// The value of [connection][crate::model::instance::ConnectionDetail::connection]
-        /// if it holds a `PscConnection`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn psc_connection(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::PscConnection>> {
-            #[allow(unreachable_patterns)]
-            self.connection.as_ref().and_then(|v| match v {
-                crate::model::instance::connection_detail::Connection::PscConnection(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [connection][crate::model::instance::ConnectionDetail::connection]
         /// to hold a `PscAutoConnection`.
         ///
@@ -606,6 +591,21 @@ pub mod instance {
                 crate::model::instance::connection_detail::Connection::PscAutoConnection(v.into()),
             );
             self
+        }
+
+        /// The value of [connection][crate::model::instance::ConnectionDetail::connection]
+        /// if it holds a `PscConnection`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn psc_connection(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::PscConnection>> {
+            #[allow(unreachable_patterns)]
+            self.connection.as_ref().and_then(|v| match v {
+                crate::model::instance::connection_detail::Connection::PscConnection(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [connection][crate::model::instance::ConnectionDetail::connection]
@@ -2323,6 +2323,7 @@ pub mod persistence_config {
 pub struct NodeConfig {
     /// Output only. Memory size in GB of the node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub size_gb: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2640,12 +2641,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -2654,6 +2649,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

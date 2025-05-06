@@ -96,27 +96,6 @@ impl Api {
         self
     }
 
-    /// Sets the value of [version][crate::Api::version].
-    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.version = v.into();
-        self
-    }
-
-    /// Sets the value of [source_context][crate::Api::source_context].
-    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_context = v.into();
-        self
-    }
-
-    /// Sets the value of [syntax][crate::Api::syntax].
-    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
-        self
-    }
-
     /// Sets the value of [methods][crate::Api::methods].
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
@@ -139,6 +118,21 @@ impl Api {
         self
     }
 
+    /// Sets the value of [version][crate::Api::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [source_context][crate::Api::source_context].
+    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_context = v.into();
+        self
+    }
+
     /// Sets the value of [mixins][crate::Api::mixins].
     pub fn set_mixins<T, V>(mut self, v: T) -> Self
     where
@@ -147,6 +141,12 @@ impl Api {
     {
         use std::iter::Iterator;
         self.mixins = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [syntax][crate::Api::syntax].
+    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
         self
     }
 }
@@ -235,12 +235,6 @@ impl Method {
         self
     }
 
-    /// Sets the value of [syntax][crate::Method::syntax].
-    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
-        self
-    }
-
     /// Sets the value of [options][crate::Method::options].
     pub fn set_options<T, V>(mut self, v: T) -> Self
     where
@@ -249,6 +243,12 @@ impl Method {
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [syntax][crate::Method::syntax].
+    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
         self
     }
 }
@@ -508,38 +508,6 @@ impl FileDescriptorProto {
         self
     }
 
-    /// Sets the value of [options][crate::FileDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::FileOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
-    /// Sets the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
-    pub fn set_source_code_info<
-        T: std::convert::Into<std::option::Option<crate::SourceCodeInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_code_info = v.into();
-        self
-    }
-
-    /// Sets the value of [syntax][crate::FileDescriptorProto::syntax].
-    pub fn set_syntax<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
-        self
-    }
-
-    /// Sets the value of [edition][crate::FileDescriptorProto::edition].
-    pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
-        self.edition = v.into();
-        self
-    }
-
     /// Sets the value of [dependency][crate::FileDescriptorProto::dependency].
     pub fn set_dependency<T, V>(mut self, v: T) -> Self
     where
@@ -616,6 +584,38 @@ impl FileDescriptorProto {
         self.extension = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [options][crate::FileDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::FileOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
+        self
+    }
+
+    /// Sets the value of [source_code_info][crate::FileDescriptorProto::source_code_info].
+    pub fn set_source_code_info<
+        T: std::convert::Into<std::option::Option<crate::SourceCodeInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_code_info = v.into();
+        self
+    }
+
+    /// Sets the value of [syntax][crate::FileDescriptorProto::syntax].
+    pub fn set_syntax<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
+        self
+    }
+
+    /// Sets the value of [edition][crate::FileDescriptorProto::edition].
+    pub fn set_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
+        self.edition = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for FileDescriptorProto {
@@ -674,15 +674,6 @@ impl DescriptorProto {
     /// Sets the value of [name][crate::DescriptorProto::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
-        self
-    }
-
-    /// Sets the value of [options][crate::DescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::MessageOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
         self
     }
 
@@ -749,6 +740,15 @@ impl DescriptorProto {
     {
         use std::iter::Iterator;
         self.oneof_decl = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::DescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::MessageOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
         self
     }
 
@@ -915,26 +915,6 @@ impl ExtensionRangeOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of [features][crate::ExtensionRangeOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
-        self
-    }
-
-    /// Sets the value of [verification][crate::ExtensionRangeOptions::verification].
-    pub fn set_verification<
-        T: std::convert::Into<crate::extension_range_options::VerificationState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.verification = v.into();
-        self
-    }
-
     /// Sets the value of [uninterpreted_option][crate::ExtensionRangeOptions::uninterpreted_option].
     pub fn set_uninterpreted_option<T, V>(mut self, v: T) -> Self
     where
@@ -954,6 +934,26 @@ impl ExtensionRangeOptions {
     {
         use std::iter::Iterator;
         self.declaration = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [features][crate::ExtensionRangeOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [verification][crate::ExtensionRangeOptions::verification].
+    pub fn set_verification<
+        T: std::convert::Into<crate::extension_range_options::VerificationState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.verification = v.into();
         self
     }
 }
@@ -1793,15 +1793,6 @@ impl EnumDescriptorProto {
         self
     }
 
-    /// Sets the value of [options][crate::EnumDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::EnumOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
     /// Sets the value of [value][crate::EnumDescriptorProto::value].
     pub fn set_value<T, V>(mut self, v: T) -> Self
     where
@@ -1810,6 +1801,15 @@ impl EnumDescriptorProto {
     {
         use std::iter::Iterator;
         self.value = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::EnumDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::EnumOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
         self
     }
 
@@ -1975,15 +1975,6 @@ impl ServiceDescriptorProto {
         self
     }
 
-    /// Sets the value of [options][crate::ServiceDescriptorProto::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::ServiceOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
     /// Sets the value of [method][crate::ServiceDescriptorProto::method].
     pub fn set_method<T, V>(mut self, v: T) -> Self
     where
@@ -1992,6 +1983,15 @@ impl ServiceDescriptorProto {
     {
         use std::iter::Iterator;
         self.method = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::ServiceDescriptorProto::options].
+    pub fn set_options<T: std::convert::Into<std::option::Option<crate::ServiceOptions>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.options = v.into();
         self
     }
 }
@@ -2854,26 +2854,6 @@ impl FieldOptions {
         self
     }
 
-    /// Sets the value of [features][crate::FieldOptions::features].
-    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.features = v.into();
-        self
-    }
-
-    /// Sets the value of [feature_support][crate::FieldOptions::feature_support].
-    pub fn set_feature_support<
-        T: std::convert::Into<std::option::Option<crate::field_options::FeatureSupport>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.feature_support = v.into();
-        self
-    }
-
     /// Sets the value of [targets][crate::FieldOptions::targets].
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
@@ -2893,6 +2873,26 @@ impl FieldOptions {
     {
         use std::iter::Iterator;
         self.edition_defaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [features][crate::FieldOptions::features].
+    pub fn set_features<T: std::convert::Into<std::option::Option<crate::FeatureSet>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.features = v.into();
+        self
+    }
+
+    /// Sets the value of [feature_support][crate::FieldOptions::feature_support].
+    pub fn set_feature_support<
+        T: std::convert::Into<std::option::Option<crate::field_options::FeatureSupport>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.feature_support = v.into();
         self
     }
 
@@ -4133,6 +4133,7 @@ pub struct UninterpretedOption {
     pub negative_int_value: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub double_value: f64,
 
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
@@ -4149,6 +4150,17 @@ pub struct UninterpretedOption {
 impl UninterpretedOption {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::UninterpretedOption::name].
+    pub fn set_name<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::uninterpreted_option::NamePart>,
+    {
+        use std::iter::Iterator;
+        self.name = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [identifier_value][crate::UninterpretedOption::identifier_value].
@@ -4187,17 +4199,6 @@ impl UninterpretedOption {
     /// Sets the value of [aggregate_value][crate::UninterpretedOption::aggregate_value].
     pub fn set_aggregate_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aggregate_value = v.into();
-        self
-    }
-
-    /// Sets the value of [name][crate::UninterpretedOption::name].
-    pub fn set_name<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::uninterpreted_option::NamePart>,
-    {
-        use std::iter::Iterator;
-        self.name = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5162,6 +5163,17 @@ impl FeatureSetDefaults {
         std::default::Default::default()
     }
 
+    /// Sets the value of [defaults][crate::FeatureSetDefaults::defaults].
+    pub fn set_defaults<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::feature_set_defaults::FeatureSetEditionDefault>,
+    {
+        use std::iter::Iterator;
+        self.defaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [minimum_edition][crate::FeatureSetDefaults::minimum_edition].
     pub fn set_minimum_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
         self.minimum_edition = v.into();
@@ -5171,17 +5183,6 @@ impl FeatureSetDefaults {
     /// Sets the value of [maximum_edition][crate::FeatureSetDefaults::maximum_edition].
     pub fn set_maximum_edition<T: std::convert::Into<crate::Edition>>(mut self, v: T) -> Self {
         self.maximum_edition = v.into();
-        self
-    }
-
-    /// Sets the value of [defaults][crate::FeatureSetDefaults::defaults].
-    pub fn set_defaults<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::feature_set_defaults::FeatureSetEditionDefault>,
-    {
-        use std::iter::Iterator;
-        self.defaults = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5450,24 +5451,6 @@ pub mod source_code_info {
             std::default::Default::default()
         }
 
-        /// Sets the value of [leading_comments][crate::source_code_info::Location::leading_comments].
-        pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.leading_comments = v.into();
-            self
-        }
-
-        /// Sets the value of [trailing_comments][crate::source_code_info::Location::trailing_comments].
-        pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.trailing_comments = v.into();
-            self
-        }
-
         /// Sets the value of [path][crate::source_code_info::Location::path].
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
@@ -5487,6 +5470,24 @@ pub mod source_code_info {
         {
             use std::iter::Iterator;
             self.span = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [leading_comments][crate::source_code_info::Location::leading_comments].
+        pub fn set_leading_comments<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.leading_comments = v.into();
+            self
+        }
+
+        /// Sets the value of [trailing_comments][crate::source_code_info::Location::trailing_comments].
+        pub fn set_trailing_comments<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.trailing_comments = v.into();
             self
         }
 
@@ -5590,6 +5591,17 @@ pub mod generated_code_info {
             std::default::Default::default()
         }
 
+        /// Sets the value of [path][crate::generated_code_info::Annotation::path].
+        pub fn set_path<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i32>,
+        {
+            use std::iter::Iterator;
+            self.path = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [source_file][crate::generated_code_info::Annotation::source_file].
         pub fn set_source_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_file = v.into();
@@ -5616,17 +5628,6 @@ pub mod generated_code_info {
             v: T,
         ) -> Self {
             self.semantic = v.into();
-            self
-        }
-
-        /// Sets the value of [path][crate::generated_code_info::Annotation::path].
-        pub fn set_path<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i32>,
-        {
-            use std::iter::Iterator;
-            self.path = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5862,27 +5863,6 @@ impl Type {
         self
     }
 
-    /// Sets the value of [source_context][crate::Type::source_context].
-    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_context = v.into();
-        self
-    }
-
-    /// Sets the value of [syntax][crate::Type::syntax].
-    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
-        self
-    }
-
-    /// Sets the value of [edition][crate::Type::edition].
-    pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.edition = v.into();
-        self
-    }
-
     /// Sets the value of [fields][crate::Type::fields].
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
@@ -5913,6 +5893,27 @@ impl Type {
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [source_context][crate::Type::source_context].
+    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_context = v.into();
+        self
+    }
+
+    /// Sets the value of [syntax][crate::Type::syntax].
+    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
+        self
+    }
+
+    /// Sets the value of [edition][crate::Type::edition].
+    pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.edition = v.into();
         self
     }
 }
@@ -6023,6 +6024,17 @@ impl Field {
         self
     }
 
+    /// Sets the value of [options][crate::Field::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [json_name][crate::Field::json_name].
     pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.json_name = v.into();
@@ -6032,17 +6044,6 @@ impl Field {
     /// Sets the value of [default_value][crate::Field::default_value].
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_value = v.into();
-        self
-    }
-
-    /// Sets the value of [options][crate::Field::options].
-    pub fn set_options<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::Option>,
-    {
-        use std::iter::Iterator;
-        self.options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6486,27 +6487,6 @@ impl Enum {
         self
     }
 
-    /// Sets the value of [source_context][crate::Enum::source_context].
-    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_context = v.into();
-        self
-    }
-
-    /// Sets the value of [syntax][crate::Enum::syntax].
-    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
-        self
-    }
-
-    /// Sets the value of [edition][crate::Enum::edition].
-    pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.edition = v.into();
-        self
-    }
-
     /// Sets the value of [enumvalue][crate::Enum::enumvalue].
     pub fn set_enumvalue<T, V>(mut self, v: T) -> Self
     where
@@ -6526,6 +6506,27 @@ impl Enum {
     {
         use std::iter::Iterator;
         self.options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [source_context][crate::Enum::source_context].
+    pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_context = v.into();
+        self
+    }
+
+    /// Sets the value of [syntax][crate::Enum::syntax].
+    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
+        self
+    }
+
+    /// Sets the value of [edition][crate::Enum::edition].
+    pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.edition = v.into();
         self
     }
 }

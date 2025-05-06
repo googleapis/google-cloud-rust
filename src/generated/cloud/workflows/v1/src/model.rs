@@ -236,6 +236,18 @@ impl Workflow {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Workflow::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [service_account][crate::model::Workflow::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -268,6 +280,18 @@ impl Workflow {
         self
     }
 
+    /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
+    pub fn set_user_env_vars<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_env_vars = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [execution_history_level][crate::model::Workflow::execution_history_level].
     pub fn set_execution_history_level<
         T: std::convert::Into<crate::model::ExecutionHistoryLevel>,
@@ -276,15 +300,6 @@ impl Workflow {
         v: T,
     ) -> Self {
         self.execution_history_level = v.into();
-        self
-    }
-
-    /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
-    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key_version = v.into();
         self
     }
 
@@ -310,27 +325,12 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Workflow::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
-    pub fn set_user_env_vars<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.user_env_vars = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
+    pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.crypto_key_version = v.into();
         self
     }
 
@@ -987,12 +987,6 @@ impl ListWorkflowsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workflows][crate::model::ListWorkflowsResponse::workflows].
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
@@ -1001,6 +995,12 @@ impl ListWorkflowsResponse {
     {
         use std::iter::Iterator;
         self.workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1409,12 +1409,6 @@ impl ListWorkflowRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [workflows][crate::model::ListWorkflowRevisionsResponse::workflows].
     pub fn set_workflows<T, V>(mut self, v: T) -> Self
     where
@@ -1423,6 +1417,12 @@ impl ListWorkflowRevisionsResponse {
     {
         use std::iter::Iterator;
         self.workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

@@ -57,23 +57,19 @@ impl {{Codec.Name}} {
     pub fn new() -> Self {
         std::default::Default::default()
     }
-    {{#Codec.SingularFields}}
+    {{#Codec.BasicFields}}
 
     /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
+    {{#Singular}}
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Codec.FieldName}} = v.into();
         self
     }
-    {{/Codec.SingularFields}}
-    {{#Codec.RepeatedFields}}
-
-    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
-    {{#Deprecated}}
-    #[deprecated]
-    {{/Deprecated}}
+    {{/Singular}}
+    {{#Repeated}}
     pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -83,13 +79,8 @@ impl {{Codec.Name}} {
         self.{{Codec.FieldName}} = v.into_iter().map(|i| i.into()).collect();
         self
     }
-    {{/Codec.RepeatedFields}}
-    {{#Codec.MapFields}}
-
-    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
-    {{#Deprecated}}
-    #[deprecated]
-    {{/Deprecated}}
+    {{/Repeated}}
+    {{#Map}}
     pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -100,7 +91,8 @@ impl {{Codec.Name}} {
         self.{{Codec.FieldName}} = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
-    {{/Codec.MapFields}}
+    {{/Map}}
+    {{/Codec.BasicFields}}
     {{#OneOfs}}
 
     /// Sets the value of [{{Codec.FieldName}}][{{Codec.StructQualifiedName}}::{{Codec.SetterName}}].
@@ -128,8 +120,6 @@ impl {{Codec.Name}} {
             _ => std::option::Option::None,
         })
     }
-    {{/Fields}}
-    {{#Codec.SingularFields}}
 
     /// Sets the value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
     /// to hold a `{{Codec.BranchName}}`.
@@ -139,6 +129,7 @@ impl {{Codec.Name}} {
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
+    {{#Singular}}
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Group.Codec.FieldName}} = std::option::Option::Some(
             {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
@@ -147,16 +138,8 @@ impl {{Codec.Name}} {
         );
         self
     }
-    {{/Codec.SingularFields}}
-    {{#Codec.RepeatedFields}}
-
-    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
-    ///
-    /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-    /// mutually exclusive.
-    {{#Deprecated}}
-    #[deprecated]
-    {{/Deprecated}}
+    {{/Singular}}
+    {{#Repeated}}
     pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -170,16 +153,8 @@ impl {{Codec.Name}} {
         );
         self
     }
-    {{/Codec.RepeatedFields}}
-    {{#Codec.MapFields}}
-
-    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
-    ///
-    /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
-    /// mutually exclusive.
-    {{#Deprecated}}
-    #[deprecated]
-    {{/Deprecated}}
+    {{/Repeated}}
+    {{#Map}}
     pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -194,7 +169,8 @@ impl {{Codec.Name}} {
         );
         self
     }
-    {{/Codec.MapFields}}
+    {{/Map}}
+    {{/Fields}}
     {{/OneOfs}}
 }
 {{^Codec.HasSyntheticFields}}

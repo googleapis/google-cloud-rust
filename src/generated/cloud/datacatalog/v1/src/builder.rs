@@ -1831,7 +1831,7 @@ pub mod data_catalog {
             self,
         ) -> impl lro::Poller<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReconcileTagsResponse,
                 crate::model::ReconcileTagsMetadata,
             >;
@@ -1859,7 +1859,7 @@ pub mod data_catalog {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ReconcileTagsRequest::parent].
@@ -2224,7 +2224,7 @@ pub mod data_catalog {
             self,
         ) -> impl lro::Poller<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportEntriesResponse,
                 crate::model::ImportEntriesMetadata,
             >;
@@ -2252,7 +2252,7 @@ pub mod data_catalog {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportEntriesRequest::parent].

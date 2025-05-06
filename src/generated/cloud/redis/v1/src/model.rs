@@ -325,6 +325,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [location_id][crate::model::Instance::location_id].
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
@@ -406,6 +418,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [redis_configs][crate::model::Instance::redis_configs].
+    pub fn set_redis_configs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.redis_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [tier][crate::model::Instance::tier].
     pub fn set_tier<T: std::convert::Into<crate::model::instance::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
@@ -451,6 +475,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [server_ca_certs][crate::model::Instance::server_ca_certs].
+    pub fn set_server_ca_certs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TlsCertificate>,
+    {
+        use std::iter::Iterator;
+        self.server_ca_certs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [transit_encryption_mode][crate::model::Instance::transit_encryption_mode].
     pub fn set_transit_encryption_mode<
         T: std::convert::Into<crate::model::instance::TransitEncryptionMode>,
@@ -487,6 +522,17 @@ impl Instance {
     /// Sets the value of [replica_count][crate::model::Instance::replica_count].
     pub fn set_replica_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.replica_count = v.into();
+        self
+    }
+
+    /// Sets the value of [nodes][crate::model::Instance::nodes].
+    pub fn set_nodes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NodeInfo>,
+    {
+        use std::iter::Iterator;
+        self.nodes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -533,37 +579,6 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [maintenance_version][crate::model::Instance::maintenance_version].
-    pub fn set_maintenance_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.maintenance_version = v.into();
-        self
-    }
-
-    /// Sets the value of [server_ca_certs][crate::model::Instance::server_ca_certs].
-    pub fn set_server_ca_certs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TlsCertificate>,
-    {
-        use std::iter::Iterator;
-        self.server_ca_certs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [nodes][crate::model::Instance::nodes].
-    pub fn set_nodes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeInfo>,
-    {
-        use std::iter::Iterator;
-        self.nodes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [suspension_reasons][crate::model::Instance::suspension_reasons].
     pub fn set_suspension_reasons<T, V>(mut self, v: T) -> Self
     where
@@ -575,6 +590,15 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [maintenance_version][crate::model::Instance::maintenance_version].
+    pub fn set_maintenance_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maintenance_version = v.into();
+        self
+    }
+
     /// Sets the value of [available_maintenance_versions][crate::model::Instance::available_maintenance_versions].
     pub fn set_available_maintenance_versions<T, V>(mut self, v: T) -> Self
     where
@@ -583,30 +607,6 @@ impl Instance {
     {
         use std::iter::Iterator;
         self.available_maintenance_versions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [redis_configs][crate::model::Instance::redis_configs].
-    pub fn set_redis_configs<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.redis_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2369,12 +2369,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -2383,6 +2377,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

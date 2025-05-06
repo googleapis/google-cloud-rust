@@ -209,6 +209,28 @@ impl DataSet {
         self
     }
 
+    /// Sets the value of [data_names][crate::model::DataSet::data_names].
+    pub fn set_data_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.data_names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_sources][crate::model::DataSet::data_sources].
+    pub fn set_data_sources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataSource>,
+    {
+        use std::iter::Iterator;
+        self.data_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::DataSet::state].
     pub fn set_state<T: std::convert::Into<crate::model::data_set::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -230,28 +252,6 @@ impl DataSet {
         v: T,
     ) -> Self {
         self.ttl = v.into();
-        self
-    }
-
-    /// Sets the value of [data_names][crate::model::DataSet::data_names].
-    pub fn set_data_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.data_names = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [data_sources][crate::model::DataSet::data_sources].
-    pub fn set_data_sources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataSource>,
-    {
-        use std::iter::Iterator;
-        self.data_sources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -497,39 +497,6 @@ impl EventDimension {
         })
     }
 
-    /// The value of [value][crate::model::EventDimension::value]
-    /// if it holds a `LongVal`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn long_val(&self) -> std::option::Option<&i64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::event_dimension::Value::LongVal(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::EventDimension::value]
-    /// if it holds a `BoolVal`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bool_val(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::event_dimension::Value::BoolVal(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [value][crate::model::EventDimension::value]
-    /// if it holds a `DoubleVal`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn double_val(&self) -> std::option::Option<&f64> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::event_dimension::Value::DoubleVal(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::EventDimension::value]
     /// to hold a `StringVal`.
     ///
@@ -539,6 +506,17 @@ impl EventDimension {
         self.value =
             std::option::Option::Some(crate::model::event_dimension::Value::StringVal(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::EventDimension::value]
+    /// if it holds a `LongVal`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn long_val(&self) -> std::option::Option<&i64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::event_dimension::Value::LongVal(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::EventDimension::value]
@@ -552,6 +530,17 @@ impl EventDimension {
         self
     }
 
+    /// The value of [value][crate::model::EventDimension::value]
+    /// if it holds a `BoolVal`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bool_val(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::event_dimension::Value::BoolVal(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [value][crate::model::EventDimension::value]
     /// to hold a `BoolVal`.
     ///
@@ -561,6 +550,17 @@ impl EventDimension {
         self.value =
             std::option::Option::Some(crate::model::event_dimension::Value::BoolVal(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::EventDimension::value]
+    /// if it holds a `DoubleVal`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn double_val(&self) -> std::option::Option<&f64> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::event_dimension::Value::DoubleVal(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::EventDimension::value]
@@ -661,6 +661,17 @@ impl Event {
         std::default::Default::default()
     }
 
+    /// Sets the value of [dimensions][crate::model::Event::dimensions].
+    pub fn set_dimensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventDimension>,
+    {
+        use std::iter::Iterator;
+        self.dimensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [group_id][crate::model::Event::group_id].
     pub fn set_group_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.group_id = v.into();
@@ -673,17 +684,6 @@ impl Event {
         v: T,
     ) -> Self {
         self.event_time = v.into();
-        self
-    }
-
-    /// Sets the value of [dimensions][crate::model::Event::dimensions].
-    pub fn set_dimensions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventDimension>,
-    {
-        use std::iter::Iterator;
-        self.dimensions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -737,12 +737,6 @@ impl AppendEventsRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
-    pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.dataset = v.into();
-        self
-    }
-
     /// Sets the value of [events][crate::model::AppendEventsRequest::events].
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
@@ -751,6 +745,12 @@ impl AppendEventsRequest {
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
+    pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dataset = v.into();
         self
     }
 }
@@ -951,12 +951,6 @@ impl ListDataSetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDataSetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [datasets][crate::model::ListDataSetsResponse::datasets].
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
@@ -965,6 +959,12 @@ impl ListDataSetsResponse {
     {
         use std::iter::Iterator;
         self.datasets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataSetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1046,17 +1046,6 @@ impl PinnedDimension {
         })
     }
 
-    /// The value of [value][crate::model::PinnedDimension::value]
-    /// if it holds a `BoolVal`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bool_val(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::model::pinned_dimension::Value::BoolVal(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [value][crate::model::PinnedDimension::value]
     /// to hold a `StringVal`.
     ///
@@ -1066,6 +1055,17 @@ impl PinnedDimension {
         self.value =
             std::option::Option::Some(crate::model::pinned_dimension::Value::StringVal(v.into()));
         self
+    }
+
+    /// The value of [value][crate::model::PinnedDimension::value]
+    /// if it holds a `BoolVal`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bool_val(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.value.as_ref().and_then(|v| match v {
+            crate::model::pinned_dimension::Value::BoolVal(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [value][crate::model::PinnedDimension::value]
@@ -1138,6 +1138,7 @@ pub struct ForecastParams {
     ///
     /// If unspecified, it defaults to 0.000001.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub noise_threshold: std::option::Option<f64>,
 
     /// Optional. Specifying any known seasonality/periodicity in the time series
@@ -1395,6 +1396,7 @@ pub struct TimeseriesPoint {
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.granularity]: crate::model::TimeseriesParams::granularity
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub value: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1483,11 +1485,13 @@ pub struct EvaluatedSlice {
     ///
     /// [google.cloud.timeseriesinsights.v1.QueryDataSetRequest.detection_time]: crate::model::QueryDataSetRequest::detection_time
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub detection_point_actual: std::option::Option<f64>,
 
     /// The expected value at the detection time, which is obtained by forecasting
     /// on the historical time series.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub detection_point_forecast: std::option::Option<f64>,
 
     /// How much our forecast model expects the detection point actual will
@@ -1502,6 +1506,7 @@ pub struct EvaluatedSlice {
     ///
     /// The expected deviation is always positive.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub expected_deviation: std::option::Option<f64>,
 
     /// Summarizes how significant the change between the actual and forecasted
@@ -1535,6 +1540,7 @@ pub struct EvaluatedSlice {
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.status]: crate::model::EvaluatedSlice::status
     /// [google.cloud.timeseriesinsights.v1.ForecastParams.noise_threshold]: crate::model::ForecastParams::noise_threshold
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub anomaly_score: std::option::Option<f64>,
 
     /// The actual values in the `[`
@@ -1597,6 +1603,17 @@ impl EvaluatedSlice {
         std::default::Default::default()
     }
 
+    /// Sets the value of [dimensions][crate::model::EvaluatedSlice::dimensions].
+    pub fn set_dimensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PinnedDimension>,
+    {
+        use std::iter::Iterator;
+        self.dimensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [detection_point_actual][crate::model::EvaluatedSlice::detection_point_actual].
     pub fn set_detection_point_actual<T: std::convert::Into<std::option::Option<f64>>>(
         mut self,
@@ -1657,17 +1674,6 @@ impl EvaluatedSlice {
         v: T,
     ) -> Self {
         self.status = v.into();
-        self
-    }
-
-    /// Sets the value of [dimensions][crate::model::EvaluatedSlice::dimensions].
-    pub fn set_dimensions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PinnedDimension>,
-    {
-        use std::iter::Iterator;
-        self.dimensions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2375,6 +2381,17 @@ impl EvaluateSliceRequest {
         self
     }
 
+    /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
+    pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PinnedDimension>,
+    {
+        use std::iter::Iterator;
+        self.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
     pub fn set_detection_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2403,17 +2420,6 @@ impl EvaluateSliceRequest {
         v: T,
     ) -> Self {
         self.forecast_params = v.into();
-        self
-    }
-
-    /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
-    pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PinnedDimension>,
-    {
-        use std::iter::Iterator;
-        self.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

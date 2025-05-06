@@ -209,12 +209,6 @@ impl ListClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -223,6 +217,12 @@ impl ListClustersResponse {
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -538,12 +538,6 @@ impl ListBackupCollectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupCollectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_collections][crate::model::ListBackupCollectionsResponse::backup_collections].
     pub fn set_backup_collections<T, V>(mut self, v: T) -> Self
     where
@@ -552,6 +546,12 @@ impl ListBackupCollectionsResponse {
     {
         use std::iter::Iterator;
         self.backup_collections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupCollectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -711,12 +711,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -725,6 +719,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1069,6 +1069,7 @@ pub struct Cluster {
     /// Output only. Precise value of redis memory size in GB for the entire
     /// cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub precise_size_gb: std::option::Option<f64>,
 
     /// Optional. This config will be used to determine how the customer wants us
@@ -1204,6 +1205,39 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [psc_configs][crate::model::Cluster::psc_configs].
+    pub fn set_psc_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PscConfig>,
+    {
+        use std::iter::Iterator;
+        self.psc_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [discovery_endpoints][crate::model::Cluster::discovery_endpoints].
+    pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DiscoveryEndpoint>,
+    {
+        use std::iter::Iterator;
+        self.discovery_endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [psc_connections][crate::model::Cluster::psc_connections].
+    pub fn set_psc_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PscConnection>,
+    {
+        use std::iter::Iterator;
+        self.psc_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state_info][crate::model::Cluster::state_info].
     pub fn set_state_info<
         T: std::convert::Into<std::option::Option<crate::model::cluster::StateInfo>>,
@@ -1229,6 +1263,18 @@ impl Cluster {
         v: T,
     ) -> Self {
         self.persistence_config = v.into();
+        self
+    }
+
+    /// Sets the value of [redis_configs][crate::model::Cluster::redis_configs].
+    pub fn set_redis_configs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.redis_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1294,6 +1340,28 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [psc_service_attachments][crate::model::Cluster::psc_service_attachments].
+    pub fn set_psc_service_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PscServiceAttachment>,
+    {
+        use std::iter::Iterator;
+        self.psc_service_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [cluster_endpoints][crate::model::Cluster::cluster_endpoints].
+    pub fn set_cluster_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClusterEndpoint>,
+    {
+        use std::iter::Iterator;
+        self.cluster_endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [backup_collection][crate::model::Cluster::backup_collection].
     pub fn set_backup_collection<
         T: std::convert::Into<std::option::Option<std::string::String>>,
@@ -1336,73 +1404,6 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of [psc_configs][crate::model::Cluster::psc_configs].
-    pub fn set_psc_configs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PscConfig>,
-    {
-        use std::iter::Iterator;
-        self.psc_configs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [discovery_endpoints][crate::model::Cluster::discovery_endpoints].
-    pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DiscoveryEndpoint>,
-    {
-        use std::iter::Iterator;
-        self.discovery_endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [psc_connections][crate::model::Cluster::psc_connections].
-    pub fn set_psc_connections<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PscConnection>,
-    {
-        use std::iter::Iterator;
-        self.psc_connections = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [psc_service_attachments][crate::model::Cluster::psc_service_attachments].
-    pub fn set_psc_service_attachments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PscServiceAttachment>,
-    {
-        use std::iter::Iterator;
-        self.psc_service_attachments = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [cluster_endpoints][crate::model::Cluster::cluster_endpoints].
-    pub fn set_cluster_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClusterEndpoint>,
-    {
-        use std::iter::Iterator;
-        self.cluster_endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [redis_configs][crate::model::Cluster::redis_configs].
-    pub fn set_redis_configs<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.redis_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [import_sources][crate::model::Cluster::import_sources].
     ///
     /// Note that all the setters affecting `import_sources` are mutually
@@ -1430,21 +1431,6 @@ impl Cluster {
         })
     }
 
-    /// The value of [import_sources][crate::model::Cluster::import_sources]
-    /// if it holds a `ManagedBackupSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn managed_backup_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::ManagedBackupSource>> {
-        #[allow(unreachable_patterns)]
-        self.import_sources.as_ref().and_then(|v| match v {
-            crate::model::cluster::ImportSources::ManagedBackupSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [import_sources][crate::model::Cluster::import_sources]
     /// to hold a `GcsSource`.
     ///
@@ -1459,6 +1445,21 @@ impl Cluster {
         self.import_sources =
             std::option::Option::Some(crate::model::cluster::ImportSources::GcsSource(v.into()));
         self
+    }
+
+    /// The value of [import_sources][crate::model::Cluster::import_sources]
+    /// if it holds a `ManagedBackupSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn managed_backup_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::ManagedBackupSource>> {
+        #[allow(unreachable_patterns)]
+        self.import_sources.as_ref().and_then(|v| match v {
+            crate::model::cluster::ImportSources::ManagedBackupSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [import_sources][crate::model::Cluster::import_sources]
@@ -2354,6 +2355,17 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [backup_files][crate::model::Backup::backup_files].
+    pub fn set_backup_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupFile>,
+    {
+        use std::iter::Iterator;
+        self.backup_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [node_type][crate::model::Backup::node_type].
     pub fn set_node_type<T: std::convert::Into<crate::model::NodeType>>(mut self, v: T) -> Self {
         self.node_type = v.into();
@@ -2401,17 +2413,6 @@ impl Backup {
     /// Sets the value of [uid][crate::model::Backup::uid].
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
-        self
-    }
-
-    /// Sets the value of [backup_files][crate::model::Backup::backup_files].
-    pub fn set_backup_files<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupFile>,
-    {
-        use std::iter::Iterator;
-        self.backup_files = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2886,6 +2887,17 @@ impl CrossClusterReplicationConfig {
         self
     }
 
+    /// Sets the value of [secondary_clusters][crate::model::CrossClusterReplicationConfig::secondary_clusters].
+    pub fn set_secondary_clusters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
+    {
+        use std::iter::Iterator;
+        self.secondary_clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [update_time][crate::model::CrossClusterReplicationConfig::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2905,17 +2917,6 @@ impl CrossClusterReplicationConfig {
         v: T,
     ) -> Self {
         self.membership = v.into();
-        self
-    }
-
-    /// Sets the value of [secondary_clusters][crate::model::CrossClusterReplicationConfig::secondary_clusters].
-    pub fn set_secondary_clusters<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
-    {
-        use std::iter::Iterator;
-        self.secondary_clusters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3645,21 +3646,6 @@ impl ConnectionDetail {
         })
     }
 
-    /// The value of [connection][crate::model::ConnectionDetail::connection]
-    /// if it holds a `PscConnection`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn psc_connection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PscConnection>> {
-        #[allow(unreachable_patterns)]
-        self.connection.as_ref().and_then(|v| match v {
-            crate::model::connection_detail::Connection::PscConnection(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connection][crate::model::ConnectionDetail::connection]
     /// to hold a `PscAutoConnection`.
     ///
@@ -3675,6 +3661,21 @@ impl ConnectionDetail {
             crate::model::connection_detail::Connection::PscAutoConnection(v.into()),
         );
         self
+    }
+
+    /// The value of [connection][crate::model::ConnectionDetail::connection]
+    /// if it holds a `PscConnection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn psc_connection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PscConnection>> {
+        #[allow(unreachable_patterns)]
+        self.connection.as_ref().and_then(|v| match v {
+            crate::model::connection_detail::Connection::PscConnection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connection][crate::model::ConnectionDetail::connection]
@@ -5182,6 +5183,17 @@ impl EncryptionInfo {
         self
     }
 
+    /// Sets the value of [kms_key_versions][crate::model::EncryptionInfo::kms_key_versions].
+    pub fn set_kms_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [kms_key_primary_state][crate::model::EncryptionInfo::kms_key_primary_state].
     pub fn set_kms_key_primary_state<
         T: std::convert::Into<crate::model::encryption_info::KmsKeyState>,
@@ -5199,17 +5211,6 @@ impl EncryptionInfo {
         v: T,
     ) -> Self {
         self.last_update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [kms_key_versions][crate::model::EncryptionInfo::kms_key_versions].
-    pub fn set_kms_key_versions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.kms_key_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

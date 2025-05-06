@@ -396,6 +396,10 @@ func fieldFormatter(typez api.Typez) string {
 		api.SFIXED64_TYPE,
 		api.SINT64_TYPE:
 		return "serde_with::DisplayFromStr"
+	case api.FLOAT_TYPE:
+		return "wkt::internal::F32"
+	case api.DOUBLE_TYPE:
+		return "wkt::internal::F64"
 	case api.BYTES_TYPE:
 		return "serde_with::base64::Base64"
 	default:
@@ -451,6 +455,10 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 		formatter = fieldFormatter(api.UINT64_TYPE)
 	case ".google.protobuf.Int64Value":
 		formatter = fieldFormatter(api.INT64_TYPE)
+	case ".google.protobuf.FloatValue":
+		formatter = fieldFormatter(api.FLOAT_TYPE)
+	case ".google.protobuf.DoubleValue":
+		formatter = fieldFormatter(api.DOUBLE_TYPE)
 	default:
 		return attributes
 	}
@@ -477,9 +485,7 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 	}
 	attributes := fieldBaseAttributes(f)
 	switch f.Typez {
-	case api.DOUBLE_TYPE,
-		api.FLOAT_TYPE,
-		api.INT32_TYPE,
+	case api.INT32_TYPE,
 		api.FIXED32_TYPE,
 		api.BOOL_TYPE,
 		api.STRING_TYPE,
@@ -501,7 +507,9 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.FIXED64_TYPE,
 		api.SFIXED64_TYPE,
 		api.SINT64_TYPE,
-		api.BYTES_TYPE:
+		api.BYTES_TYPE,
+		api.FLOAT_TYPE,
+		api.DOUBLE_TYPE:
 		formatter := fieldFormatter(f.Typez)
 		if f.Optional {
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)

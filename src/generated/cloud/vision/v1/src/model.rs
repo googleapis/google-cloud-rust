@@ -87,10 +87,12 @@ impl wkt::message::Message for Vertex {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -183,14 +185,17 @@ impl wkt::message::Message for BoundingPoly {
 pub struct Position {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     /// Z coordinate (or depth).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub z: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -648,25 +653,30 @@ pub struct FaceAnnotation {
     /// of the face relative to the image vertical about the axis perpendicular to
     /// the face. Range [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub roll_angle: f32,
 
     /// Yaw angle, which indicates the leftward/rightward angle that the face is
     /// pointing relative to the vertical plane perpendicular to the image. Range
     /// [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub pan_angle: f32,
 
     /// Pitch angle, which indicates the upwards/downwards angle that the face is
     /// pointing relative to the image's horizontal plane. Range [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub tilt_angle: f32,
 
     /// Detection confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub detection_confidence: f32,
 
     /// Face landmarking confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub landmarking_confidence: f32,
 
     /// Joy likelihood.
@@ -718,6 +728,17 @@ impl FaceAnnotation {
         v: T,
     ) -> Self {
         self.fd_bounding_poly = v.into();
+        self
+    }
+
+    /// Sets the value of [landmarks][crate::model::FaceAnnotation::landmarks].
+    pub fn set_landmarks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::face_annotation::Landmark>,
+    {
+        use std::iter::Iterator;
+        self.landmarks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -811,17 +832,6 @@ impl FaceAnnotation {
         v: T,
     ) -> Self {
         self.headwear_likelihood = v.into();
-        self
-    }
-
-    /// Sets the value of [landmarks][crate::model::FaceAnnotation::landmarks].
-    pub fn set_landmarks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::face_annotation::Landmark>,
-    {
-        use std::iter::Iterator;
-        self.landmarks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1393,6 +1403,7 @@ pub struct EntityAnnotation {
 
     /// Overall score of the result. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// **Deprecated. Use `score` instead.**
@@ -1401,6 +1412,7 @@ pub struct EntityAnnotation {
     /// this field represents the confidence that there is a tower in the query
     /// image. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     #[deprecated]
     pub confidence: f32,
 
@@ -1410,6 +1422,7 @@ pub struct EntityAnnotation {
     /// detected distant towering building, even though the confidence that
     /// there is a tower in each image may be the same. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub topicality: f32,
 
     /// Image region to which this entity belongs. Not produced
@@ -1538,6 +1551,7 @@ pub struct LocalizedObjectAnnotation {
 
     /// Score of the result. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// Image region to which this object belongs. This must be populated.
@@ -1734,11 +1748,13 @@ pub struct ColorInfo {
 
     /// Image-specific score for this color. Value in range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// The fraction of pixels the color occupies in the image.
     /// Value in range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub pixel_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1865,11 +1881,13 @@ pub struct CropHint {
 
     /// Confidence of this being a salient region.  Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Fraction of importance of this salient region with respect to the original
     /// image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub importance_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1961,6 +1979,7 @@ pub struct CropHintsParams {
     /// limited to a maximum of 16; any aspect ratios provided after the 16th are
     /// ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
     pub aspect_ratios: std::vec::Vec<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2140,6 +2159,17 @@ impl ImageContext {
         self
     }
 
+    /// Sets the value of [language_hints][crate::model::ImageContext::language_hints].
+    pub fn set_language_hints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.language_hints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [crop_hints_params][crate::model::ImageContext::crop_hints_params].
     pub fn set_crop_hints_params<
         T: std::convert::Into<std::option::Option<crate::model::CropHintsParams>>,
@@ -2181,17 +2211,6 @@ impl ImageContext {
         v: T,
     ) -> Self {
         self.text_detection_params = v.into();
-        self
-    }
-
-    /// Sets the value of [language_hints][crate::model::ImageContext::language_hints].
-    pub fn set_language_hints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.language_hints = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2239,17 +2258,6 @@ impl AnnotateImageRequest {
         self
     }
 
-    /// Sets the value of [image_context][crate::model::AnnotateImageRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
-        self
-    }
-
     /// Sets the value of [features][crate::model::AnnotateImageRequest::features].
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
@@ -2258,6 +2266,17 @@ impl AnnotateImageRequest {
     {
         use std::iter::Iterator;
         self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [image_context][crate::model::AnnotateImageRequest::image_context].
+    pub fn set_image_context<
+        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_context = v.into();
         self
     }
 }
@@ -2390,6 +2409,72 @@ impl AnnotateImageResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [face_annotations][crate::model::AnnotateImageResponse::face_annotations].
+    pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FaceAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.face_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [landmark_annotations][crate::model::AnnotateImageResponse::landmark_annotations].
+    pub fn set_landmark_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.landmark_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [logo_annotations][crate::model::AnnotateImageResponse::logo_annotations].
+    pub fn set_logo_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.logo_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [label_annotations][crate::model::AnnotateImageResponse::label_annotations].
+    pub fn set_label_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.label_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [localized_object_annotations][crate::model::AnnotateImageResponse::localized_object_annotations].
+    pub fn set_localized_object_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LocalizedObjectAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.localized_object_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [text_annotations][crate::model::AnnotateImageResponse::text_annotations].
+    pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityAnnotation>,
+    {
+        use std::iter::Iterator;
+        self.text_annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
     pub fn set_full_text_annotation<
         T: std::convert::Into<std::option::Option<crate::model::TextAnnotation>>,
@@ -2475,72 +2560,6 @@ impl AnnotateImageResponse {
         self.context = v.into();
         self
     }
-
-    /// Sets the value of [face_annotations][crate::model::AnnotateImageResponse::face_annotations].
-    pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FaceAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.face_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [landmark_annotations][crate::model::AnnotateImageResponse::landmark_annotations].
-    pub fn set_landmark_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.landmark_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [logo_annotations][crate::model::AnnotateImageResponse::logo_annotations].
-    pub fn set_logo_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.logo_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [label_annotations][crate::model::AnnotateImageResponse::label_annotations].
-    pub fn set_label_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.label_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [localized_object_annotations][crate::model::AnnotateImageResponse::localized_object_annotations].
-    pub fn set_localized_object_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LocalizedObjectAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.localized_object_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [text_annotations][crate::model::AnnotateImageResponse::text_annotations].
-    pub fn set_text_annotations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityAnnotation>,
-    {
-        use std::iter::Iterator;
-        self.text_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for AnnotateImageResponse {
@@ -2592,12 +2611,6 @@ impl BatchAnnotateImagesRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
     /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
@@ -2606,6 +2619,12 @@ impl BatchAnnotateImagesRequest {
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
         self
     }
 
@@ -2720,17 +2739,6 @@ impl AnnotateFileRequest {
         self
     }
 
-    /// Sets the value of [image_context][crate::model::AnnotateFileRequest::image_context].
-    pub fn set_image_context<
-        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image_context = v.into();
-        self
-    }
-
     /// Sets the value of [features][crate::model::AnnotateFileRequest::features].
     pub fn set_features<T, V>(mut self, v: T) -> Self
     where
@@ -2739,6 +2747,17 @@ impl AnnotateFileRequest {
     {
         use std::iter::Iterator;
         self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [image_context][crate::model::AnnotateFileRequest::image_context].
+    pub fn set_image_context<
+        T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_context = v.into();
         self
     }
 
@@ -2805,6 +2824,17 @@ impl AnnotateFileResponse {
         self
     }
 
+    /// Sets the value of [responses][crate::model::AnnotateFileResponse::responses].
+    pub fn set_responses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AnnotateImageResponse>,
+    {
+        use std::iter::Iterator;
+        self.responses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [total_pages][crate::model::AnnotateFileResponse::total_pages].
     pub fn set_total_pages<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
@@ -2817,17 +2847,6 @@ impl AnnotateFileResponse {
         v: T,
     ) -> Self {
         self.error = v.into();
-        self
-    }
-
-    /// Sets the value of [responses][crate::model::AnnotateFileResponse::responses].
-    pub fn set_responses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AnnotateImageResponse>,
-    {
-        use std::iter::Iterator;
-        self.responses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2882,12 +2901,6 @@ impl BatchAnnotateFilesRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
     /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
@@ -2896,6 +2909,12 @@ impl BatchAnnotateFilesRequest {
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
         self
     }
 
@@ -2998,6 +3017,17 @@ impl AsyncAnnotateFileRequest {
         self
     }
 
+    /// Sets the value of [features][crate::model::AsyncAnnotateFileRequest::features].
+    pub fn set_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Feature>,
+    {
+        use std::iter::Iterator;
+        self.features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [image_context][crate::model::AsyncAnnotateFileRequest::image_context].
     pub fn set_image_context<
         T: std::convert::Into<std::option::Option<crate::model::ImageContext>>,
@@ -3017,17 +3047,6 @@ impl AsyncAnnotateFileRequest {
         v: T,
     ) -> Self {
         self.output_config = v.into();
-        self
-    }
-
-    /// Sets the value of [features][crate::model::AsyncAnnotateFileRequest::features].
-    pub fn set_features<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Feature>,
-    {
-        use std::iter::Iterator;
-        self.features = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3122,6 +3141,17 @@ impl AsyncBatchAnnotateImagesRequest {
         std::default::Default::default()
     }
 
+    /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AnnotateImageRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
@@ -3136,17 +3166,6 @@ impl AsyncBatchAnnotateImagesRequest {
     /// Sets the value of [parent][crate::model::AsyncBatchAnnotateImagesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
-        self
-    }
-
-    /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
-    pub fn set_requests<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AnnotateImageRequest>,
-    {
-        use std::iter::Iterator;
-        self.requests = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3250,12 +3269,6 @@ impl AsyncBatchAnnotateFilesRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
-    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.parent = v.into();
-        self
-    }
-
     /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
@@ -3264,6 +3277,12 @@ impl AsyncBatchAnnotateFilesRequest {
     {
         use std::iter::Iterator;
         self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
         self
     }
 
@@ -3810,12 +3829,6 @@ impl ProductSearchParams {
         self
     }
 
-    /// Sets the value of [filter][crate::model::ProductSearchParams::filter].
-    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.filter = v.into();
-        self
-    }
-
     /// Sets the value of [product_categories][crate::model::ProductSearchParams::product_categories].
     pub fn set_product_categories<T, V>(mut self, v: T) -> Self
     where
@@ -3824,6 +3837,12 @@ impl ProductSearchParams {
     {
         use std::iter::Iterator;
         self.product_categories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ProductSearchParams::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
         self
     }
 }
@@ -3922,6 +3941,7 @@ pub mod product_search_results {
         /// A confidence level on the match, ranging from 0 (no confidence) to
         /// 1 (full confidence).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// The resource name of the image from the product that is the closest match
@@ -3988,6 +4008,7 @@ pub mod product_search_results {
 
         /// Score of the result. Range [0, 1].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4552,12 +4573,6 @@ impl ListProductsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [products][crate::model::ListProductsResponse::products].
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
@@ -4566,6 +4581,12 @@ impl ListProductsResponse {
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4853,12 +4874,6 @@ impl ListProductSetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductSetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [product_sets][crate::model::ListProductSetsResponse::product_sets].
     pub fn set_product_sets<T, V>(mut self, v: T) -> Self
     where
@@ -4867,6 +4882,12 @@ impl ListProductSetsResponse {
     {
         use std::iter::Iterator;
         self.product_sets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductSetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5167,6 +5188,17 @@ impl ListReferenceImagesResponse {
         std::default::Default::default()
     }
 
+    /// Sets the value of [reference_images][crate::model::ListReferenceImagesResponse::reference_images].
+    pub fn set_reference_images<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReferenceImage>,
+    {
+        use std::iter::Iterator;
+        self.reference_images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [page_size][crate::model::ListReferenceImagesResponse::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -5176,17 +5208,6 @@ impl ListReferenceImagesResponse {
     /// Sets the value of [next_page_token][crate::model::ListReferenceImagesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
-        self
-    }
-
-    /// Sets the value of [reference_images][crate::model::ListReferenceImagesResponse::reference_images].
-    pub fn set_reference_images<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReferenceImage>,
-    {
-        use std::iter::Iterator;
-        self.reference_images = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5457,12 +5478,6 @@ impl ListProductsInProductSetResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProductsInProductSetResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [products][crate::model::ListProductsInProductSetResponse::products].
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
@@ -5471,6 +5486,12 @@ impl ListProductsInProductSetResponse {
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProductsInProductSetResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6127,19 +6148,6 @@ impl PurgeProductsRequest {
         })
     }
 
-    /// The value of [target][crate::model::PurgeProductsRequest::target]
-    /// if it holds a `DeleteOrphanProducts`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn delete_orphan_products(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::purge_products_request::Target::DeleteOrphanProducts(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
     /// to hold a `ProductSetPurgeConfig`.
     ///
@@ -6155,6 +6163,19 @@ impl PurgeProductsRequest {
             crate::model::purge_products_request::Target::ProductSetPurgeConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [target][crate::model::PurgeProductsRequest::target]
+    /// if it holds a `DeleteOrphanProducts`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_orphan_products(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::purge_products_request::Target::DeleteOrphanProducts(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
@@ -6226,12 +6247,6 @@ impl TextAnnotation {
         std::default::Default::default()
     }
 
-    /// Sets the value of [text][crate::model::TextAnnotation::text].
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.text = v.into();
-        self
-    }
-
     /// Sets the value of [pages][crate::model::TextAnnotation::pages].
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
@@ -6240,6 +6255,12 @@ impl TextAnnotation {
     {
         use std::iter::Iterator;
         self.pages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [text][crate::model::TextAnnotation::text].
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
         self
     }
 }
@@ -6269,6 +6290,7 @@ pub mod text_annotation {
 
         /// Confidence of detected language. Range [0, 1].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6535,17 +6557,6 @@ pub mod text_annotation {
             std::default::Default::default()
         }
 
-        /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
-        pub fn set_detected_break<
-            T: std::convert::Into<std::option::Option<crate::model::text_annotation::DetectedBreak>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.detected_break = v.into();
-            self
-        }
-
         /// Sets the value of [detected_languages][crate::model::text_annotation::TextProperty::detected_languages].
         pub fn set_detected_languages<T, V>(mut self, v: T) -> Self
         where
@@ -6554,6 +6565,17 @@ pub mod text_annotation {
         {
             use std::iter::Iterator;
             self.detected_languages = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
+        pub fn set_detected_break<
+            T: std::convert::Into<std::option::Option<crate::model::text_annotation::DetectedBreak>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detected_break = v.into();
             self
         }
     }
@@ -6591,6 +6613,7 @@ pub struct Page {
 
     /// Confidence of the OCR results on the page. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6625,12 +6648,6 @@ impl Page {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::Page::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
     /// Sets the value of [blocks][crate::model::Page::blocks].
     pub fn set_blocks<T, V>(mut self, v: T) -> Self
     where
@@ -6639,6 +6656,12 @@ impl Page {
     {
         use std::iter::Iterator;
         self.blocks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::Page::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 }
@@ -6696,6 +6719,7 @@ pub struct Block {
 
     /// Confidence of the OCR results on the block. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6729,6 +6753,17 @@ impl Block {
         self
     }
 
+    /// Sets the value of [paragraphs][crate::model::Block::paragraphs].
+    pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Paragraph>,
+    {
+        use std::iter::Iterator;
+        self.paragraphs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [block_type][crate::model::Block::block_type].
     pub fn set_block_type<T: std::convert::Into<crate::model::block::BlockType>>(
         mut self,
@@ -6741,17 +6776,6 @@ impl Block {
     /// Sets the value of [confidence][crate::model::Block::confidence].
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
-        self
-    }
-
-    /// Sets the value of [paragraphs][crate::model::Block::paragraphs].
-    pub fn set_paragraphs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Paragraph>,
-    {
-        use std::iter::Iterator;
-        self.paragraphs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6956,6 +6980,7 @@ pub struct Paragraph {
 
     /// Confidence of the OCR results for the paragraph. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6989,12 +7014,6 @@ impl Paragraph {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::Paragraph::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
     /// Sets the value of [words][crate::model::Paragraph::words].
     pub fn set_words<T, V>(mut self, v: T) -> Self
     where
@@ -7003,6 +7022,12 @@ impl Paragraph {
     {
         use std::iter::Iterator;
         self.words = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::Paragraph::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 }
@@ -7049,6 +7074,7 @@ pub struct Word {
 
     /// Confidence of the OCR results for the word. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7082,12 +7108,6 @@ impl Word {
         self
     }
 
-    /// Sets the value of [confidence][crate::model::Word::confidence].
-    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.confidence = v.into();
-        self
-    }
-
     /// Sets the value of [symbols][crate::model::Word::symbols].
     pub fn set_symbols<T, V>(mut self, v: T) -> Self
     where
@@ -7096,6 +7116,12 @@ impl Word {
     {
         use std::iter::Iterator;
         self.symbols = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [confidence][crate::model::Word::confidence].
+    pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.confidence = v.into();
         self
     }
 }
@@ -7141,6 +7167,7 @@ pub struct Symbol {
 
     /// Confidence of the OCR results for the symbol. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7327,6 +7354,7 @@ pub mod web_detection {
         /// Overall relevancy score for the entity.
         /// Not normalized and not comparable across different image queries.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// Canonical description of the entity, in English.
@@ -7379,6 +7407,7 @@ pub mod web_detection {
 
         /// (Deprecated) Overall relevancy score for the image.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7421,6 +7450,7 @@ pub mod web_detection {
 
         /// (Deprecated) Overall relevancy score for the web page.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// Title for the web page, may contain HTML markups.

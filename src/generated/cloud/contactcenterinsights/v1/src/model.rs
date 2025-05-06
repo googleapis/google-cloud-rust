@@ -159,17 +159,6 @@ impl CalculateStatsResponse {
         self
     }
 
-    /// Sets the value of [conversation_count_time_series][crate::model::CalculateStatsResponse::conversation_count_time_series].
-    pub fn set_conversation_count_time_series<
-        T: std::convert::Into<std::option::Option<crate::model::calculate_stats_response::TimeSeries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.conversation_count_time_series = v.into();
-        self
-    }
-
     /// Sets the value of [smart_highlighter_matches][crate::model::CalculateStatsResponse::smart_highlighter_matches].
     pub fn set_smart_highlighter_matches<T, K, V>(mut self, v: T) -> Self
     where
@@ -217,6 +206,17 @@ impl CalculateStatsResponse {
     {
         use std::iter::Iterator;
         self.issue_matches_stats = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [conversation_count_time_series][crate::model::CalculateStatsResponse::conversation_count_time_series].
+    pub fn set_conversation_count_time_series<
+        T: std::convert::Into<std::option::Option<crate::model::calculate_stats_response::TimeSeries>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conversation_count_time_series = v.into();
         self
     }
 }
@@ -783,12 +783,6 @@ impl ListConversationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConversationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [conversations][crate::model::ListConversationsResponse::conversations].
     pub fn set_conversations<T, V>(mut self, v: T) -> Self
     where
@@ -797,6 +791,12 @@ impl ListConversationsResponse {
     {
         use std::iter::Iterator;
         self.conversations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConversationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1594,6 +1594,17 @@ impl IngestConversationsMetadata {
         self
     }
 
+    /// Sets the value of [partial_errors][crate::model::IngestConversationsMetadata::partial_errors].
+    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [ingest_conversations_stats][crate::model::IngestConversationsMetadata::ingest_conversations_stats].
     pub fn set_ingest_conversations_stats<
         T: std::convert::Into<
@@ -1606,17 +1617,6 @@ impl IngestConversationsMetadata {
         v: T,
     ) -> Self {
         self.ingest_conversations_stats = v.into();
-        self
-    }
-
-    /// Sets the value of [partial_errors][crate::model::IngestConversationsMetadata::partial_errors].
-    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
-    {
-        use std::iter::Iterator;
-        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1857,12 +1857,6 @@ impl ListAnalysesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAnalysesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [analyses][crate::model::ListAnalysesResponse::analyses].
     pub fn set_analyses<T, V>(mut self, v: T) -> Self
     where
@@ -1871,6 +1865,12 @@ impl ListAnalysesResponse {
     {
         use std::iter::Iterator;
         self.analyses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAnalysesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1976,6 +1976,7 @@ pub struct BulkAnalyzeConversationsRequest {
     /// Required. Percentage of selected conversation to analyze, between
     /// [0, 100].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub analysis_percentage: f32,
 
     /// To select the annotators to run and the phrase matchers to use
@@ -4203,12 +4204,6 @@ impl ListPhraseMatchersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPhraseMatchersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [phrase_matchers][crate::model::ListPhraseMatchersResponse::phrase_matchers].
     pub fn set_phrase_matchers<T, V>(mut self, v: T) -> Self
     where
@@ -4217,6 +4212,12 @@ impl ListPhraseMatchersResponse {
     {
         use std::iter::Iterator;
         self.phrase_matchers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPhraseMatchersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4683,12 +4684,6 @@ impl ListAnalysisRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAnalysisRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [analysis_rules][crate::model::ListAnalysisRulesResponse::analysis_rules].
     pub fn set_analysis_rules<T, V>(mut self, v: T) -> Self
     where
@@ -4697,6 +4692,12 @@ impl ListAnalysisRulesResponse {
     {
         use std::iter::Iterator;
         self.analysis_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAnalysisRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5055,12 +5056,6 @@ impl ListViewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [views][crate::model::ListViewsResponse::views].
     pub fn set_views<T, V>(mut self, v: T) -> Self
     where
@@ -5069,6 +5064,12 @@ impl ListViewsResponse {
     {
         use std::iter::Iterator;
         self.views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -5235,55 +5236,6 @@ impl Dimension {
         })
     }
 
-    /// The value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
-    /// if it holds a `AgentDimensionMetadata`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn agent_dimension_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dimension::AgentDimensionMetadata>>
-    {
-        #[allow(unreachable_patterns)]
-        self.dimension_metadata.as_ref().and_then(|v| match v {
-            crate::model::dimension::DimensionMetadata::AgentDimensionMetadata(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
-    /// if it holds a `QaQuestionDimensionMetadata`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn qa_question_dimension_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dimension::QaQuestionDimensionMetadata>>
-    {
-        #[allow(unreachable_patterns)]
-        self.dimension_metadata.as_ref().and_then(|v| match v {
-            crate::model::dimension::DimensionMetadata::QaQuestionDimensionMetadata(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
-    /// if it holds a `QaQuestionAnswerDimensionMetadata`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn qa_question_answer_dimension_metadata(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::dimension::QaQuestionAnswerDimensionMetadata>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.dimension_metadata.as_ref().and_then(|v| match v {
-            crate::model::dimension::DimensionMetadata::QaQuestionAnswerDimensionMetadata(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
     /// to hold a `IssueDimensionMetadata`.
     ///
@@ -5299,6 +5251,22 @@ impl Dimension {
             crate::model::dimension::DimensionMetadata::IssueDimensionMetadata(v.into()),
         );
         self
+    }
+
+    /// The value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
+    /// if it holds a `AgentDimensionMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn agent_dimension_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dimension::AgentDimensionMetadata>>
+    {
+        #[allow(unreachable_patterns)]
+        self.dimension_metadata.as_ref().and_then(|v| match v {
+            crate::model::dimension::DimensionMetadata::AgentDimensionMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
@@ -5318,6 +5286,22 @@ impl Dimension {
         self
     }
 
+    /// The value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
+    /// if it holds a `QaQuestionDimensionMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn qa_question_dimension_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dimension::QaQuestionDimensionMetadata>>
+    {
+        #[allow(unreachable_patterns)]
+        self.dimension_metadata.as_ref().and_then(|v| match v {
+            crate::model::dimension::DimensionMetadata::QaQuestionDimensionMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
     /// to hold a `QaQuestionDimensionMetadata`.
     ///
@@ -5333,6 +5317,23 @@ impl Dimension {
             crate::model::dimension::DimensionMetadata::QaQuestionDimensionMetadata(v.into()),
         );
         self
+    }
+
+    /// The value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
+    /// if it holds a `QaQuestionAnswerDimensionMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn qa_question_answer_dimension_metadata(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::dimension::QaQuestionAnswerDimensionMetadata>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.dimension_metadata.as_ref().and_then(|v| match v {
+            crate::model::dimension::DimensionMetadata::QaQuestionAnswerDimensionMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dimension_metadata][crate::model::Dimension::dimension_metadata]
@@ -5877,15 +5878,6 @@ impl QueryMetricsRequest {
         self
     }
 
-    /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-    pub fn set_measure_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.measure_mask = v.into();
-        self
-    }
-
     /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
@@ -5894,6 +5886,15 @@ impl QueryMetricsRequest {
     {
         use std::iter::Iterator;
         self.dimensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+    pub fn set_measure_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.measure_mask = v.into();
         self
     }
 }
@@ -6130,17 +6131,6 @@ impl QueryMetricsResponse {
         self
     }
 
-    /// Sets the value of [macro_average_slice][crate::model::QueryMetricsResponse::macro_average_slice].
-    pub fn set_macro_average_slice<
-        T: std::convert::Into<std::option::Option<crate::model::query_metrics_response::Slice>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.macro_average_slice = v.into();
-        self
-    }
-
     /// Sets the value of [slices][crate::model::QueryMetricsResponse::slices].
     pub fn set_slices<T, V>(mut self, v: T) -> Self
     where
@@ -6149,6 +6139,17 @@ impl QueryMetricsResponse {
     {
         use std::iter::Iterator;
         self.slices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [macro_average_slice][crate::model::QueryMetricsResponse::macro_average_slice].
+    pub fn set_macro_average_slice<
+        T: std::convert::Into<std::option::Option<crate::model::query_metrics_response::Slice>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.macro_average_slice = v.into();
         self
     }
 }
@@ -6203,6 +6204,17 @@ pub mod query_metrics_response {
             std::default::Default::default()
         }
 
+        /// Sets the value of [dimensions][crate::model::query_metrics_response::Slice::dimensions].
+        pub fn set_dimensions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Dimension>,
+        {
+            use std::iter::Iterator;
+            self.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [total][crate::model::query_metrics_response::Slice::total].
         pub fn set_total<
             T: std::convert::Into<
@@ -6226,17 +6238,6 @@ pub mod query_metrics_response {
             v: T,
         ) -> Self {
             self.time_series = v.into();
-            self
-        }
-
-        /// Sets the value of [dimensions][crate::model::query_metrics_response::Slice::dimensions].
-        pub fn set_dimensions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Dimension>,
-        {
-            use std::iter::Iterator;
-            self.dimensions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -6367,6 +6368,7 @@ pub mod query_metrics_response {
 
                 /// The average silence percentage.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_silence_percentage: std::option::Option<f32>,
 
                 /// The average duration.
@@ -6375,23 +6377,28 @@ pub mod query_metrics_response {
 
                 /// The average turn count.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_turn_count: std::option::Option<f32>,
 
                 /// The average agent's sentiment score.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_agent_sentiment_score: std::option::Option<f32>,
 
                 /// The average client's sentiment score.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_client_sentiment_score: std::option::Option<f32>,
 
                 /// The average customer satisfaction rating.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub average_customer_satisfaction_rating: std::option::Option<f64>,
 
                 /// Average QA normalized score.
                 /// Will exclude 0's in average calculation.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub average_qa_normalized_score: std::option::Option<f64>,
 
                 /// Average QA normalized score for all the tags.
@@ -6403,6 +6410,7 @@ pub mod query_metrics_response {
                 /// Will be only populated if the request specifies a dimension of
                 /// QA_QUESTION_ID.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub average_qa_question_normalized_score: std::option::Option<f64>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6498,17 +6506,6 @@ pub mod query_metrics_response {
                     self
                 }
 
-                /// Sets the value of [average_qa_question_normalized_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_qa_question_normalized_score].
-                pub fn set_average_qa_question_normalized_score<
-                    T: std::convert::Into<std::option::Option<f64>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.average_qa_question_normalized_score = v.into();
-                    self
-                }
-
                 /// Sets the value of [qa_tag_scores][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::qa_tag_scores].
                 pub fn set_qa_tag_scores<T, V>(mut self, v: T) -> Self
                 where
@@ -6517,6 +6514,17 @@ pub mod query_metrics_response {
                 {
                     use std::iter::Iterator;
                     self.qa_tag_scores = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [average_qa_question_normalized_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_qa_question_normalized_score].
+                pub fn set_average_qa_question_normalized_score<
+                    T: std::convert::Into<std::option::Option<f64>>,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.average_qa_question_normalized_score = v.into();
                     self
                 }
             }
@@ -6546,6 +6554,7 @@ pub mod query_metrics_response {
 
                     /// Average tag normalized score per tag.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub average_tag_normalized_score: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6827,12 +6836,6 @@ impl ListQaQuestionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListQaQuestionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [qa_questions][crate::model::ListQaQuestionsResponse::qa_questions].
     pub fn set_qa_questions<T, V>(mut self, v: T) -> Self
     where
@@ -6841,6 +6844,12 @@ impl ListQaQuestionsResponse {
     {
         use std::iter::Iterator;
         self.qa_questions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQaQuestionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7359,6 +7368,7 @@ pub struct TuneQaScorecardRevisionMetadata {
     /// between 0 and 1 where 0 indicates the job has not started i.e. 0% and 1
     /// indicates the job has completed i.e. 100%.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub tuning_completion_ratio: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7399,12 +7409,6 @@ impl TuneQaScorecardRevisionMetadata {
         self
     }
 
-    /// Sets the value of [tuning_completion_ratio][crate::model::TuneQaScorecardRevisionMetadata::tuning_completion_ratio].
-    pub fn set_tuning_completion_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.tuning_completion_ratio = v.into();
-        self
-    }
-
     /// Sets the value of [qa_question_dataset_validation_results][crate::model::TuneQaScorecardRevisionMetadata::qa_question_dataset_validation_results].
     pub fn set_qa_question_dataset_validation_results<T, V>(mut self, v: T) -> Self
     where
@@ -7426,6 +7430,12 @@ impl TuneQaScorecardRevisionMetadata {
     {
         use std::iter::Iterator;
         self.qa_question_dataset_tuning_metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tuning_completion_ratio][crate::model::TuneQaScorecardRevisionMetadata::tuning_completion_ratio].
+    pub fn set_tuning_completion_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.tuning_completion_ratio = v.into();
         self
     }
 }
@@ -7476,12 +7486,6 @@ pub mod tune_qa_scorecard_revision_metadata {
             self
         }
 
-        /// Sets the value of [valid_feedback_labels_count][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult::valid_feedback_labels_count].
-        pub fn set_valid_feedback_labels_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.valid_feedback_labels_count = v.into();
-            self
-        }
-
         /// Sets the value of [dataset_validation_warnings][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult::dataset_validation_warnings].
         pub fn set_dataset_validation_warnings<T, V>(mut self, v: T) -> Self
         where
@@ -7490,6 +7494,12 @@ pub mod tune_qa_scorecard_revision_metadata {
         {
             use std::iter::Iterator;
             self.dataset_validation_warnings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [valid_feedback_labels_count][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult::valid_feedback_labels_count].
+        pub fn set_valid_feedback_labels_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.valid_feedback_labels_count = v.into();
             self
         }
     }
@@ -7559,6 +7569,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         pub struct Metrics {
             /// Accuracy of the question's dataset.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub accuracy: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7774,12 +7785,6 @@ impl ListQaScorecardsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListQaScorecardsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [qa_scorecards][crate::model::ListQaScorecardsResponse::qa_scorecards].
     pub fn set_qa_scorecards<T, V>(mut self, v: T) -> Self
     where
@@ -7788,6 +7793,12 @@ impl ListQaScorecardsResponse {
     {
         use std::iter::Iterator;
         self.qa_scorecards = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQaScorecardsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7907,12 +7918,6 @@ impl ListQaScorecardRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListQaScorecardRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [qa_scorecard_revisions][crate::model::ListQaScorecardRevisionsResponse::qa_scorecard_revisions].
     pub fn set_qa_scorecard_revisions<T, V>(mut self, v: T) -> Self
     where
@@ -7921,6 +7926,12 @@ impl ListQaScorecardRevisionsResponse {
     {
         use std::iter::Iterator;
         self.qa_scorecard_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQaScorecardRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8110,12 +8121,6 @@ impl ListFeedbackLabelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListFeedbackLabelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [feedback_labels][crate::model::ListFeedbackLabelsResponse::feedback_labels].
     pub fn set_feedback_labels<T, V>(mut self, v: T) -> Self
     where
@@ -8124,6 +8129,12 @@ impl ListFeedbackLabelsResponse {
     {
         use std::iter::Iterator;
         self.feedback_labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFeedbackLabelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8365,12 +8376,6 @@ impl ListAllFeedbackLabelsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAllFeedbackLabelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [feedback_labels][crate::model::ListAllFeedbackLabelsResponse::feedback_labels].
     pub fn set_feedback_labels<T, V>(mut self, v: T) -> Self
     where
@@ -8379,6 +8384,12 @@ impl ListAllFeedbackLabelsResponse {
     {
         use std::iter::Iterator;
         self.feedback_labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAllFeedbackLabelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8797,6 +8808,17 @@ impl BulkUploadFeedbackLabelsMetadata {
         self
     }
 
+    /// Sets the value of [partial_errors][crate::model::BulkUploadFeedbackLabelsMetadata::partial_errors].
+    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [upload_stats][crate::model::BulkUploadFeedbackLabelsMetadata::upload_stats].
     pub fn set_upload_stats<
         T: std::convert::Into<
@@ -8809,17 +8831,6 @@ impl BulkUploadFeedbackLabelsMetadata {
         v: T,
     ) -> Self {
         self.upload_stats = v.into();
-        self
-    }
-
-    /// Sets the value of [partial_errors][crate::model::BulkUploadFeedbackLabelsMetadata::partial_errors].
-    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
-    {
-        use std::iter::Iterator;
-        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9534,6 +9545,17 @@ impl BulkDownloadFeedbackLabelsMetadata {
         self
     }
 
+    /// Sets the value of [partial_errors][crate::model::BulkDownloadFeedbackLabelsMetadata::partial_errors].
+    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [download_stats][crate::model::BulkDownloadFeedbackLabelsMetadata::download_stats].
     pub fn set_download_stats<
         T: std::convert::Into<
@@ -9546,17 +9568,6 @@ impl BulkDownloadFeedbackLabelsMetadata {
         v: T,
     ) -> Self {
         self.download_stats = v.into();
-        self
-    }
-
-    /// Sets the value of [partial_errors][crate::model::BulkDownloadFeedbackLabelsMetadata::partial_errors].
-    pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
-    {
-        use std::iter::Iterator;
-        self.partial_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9810,6 +9821,18 @@ impl Conversation {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Conversation::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [quality_metadata][crate::model::Conversation::quality_metadata].
     pub fn set_quality_metadata<
         T: std::convert::Into<std::option::Option<crate::model::conversation::QualityMetadata>>,
@@ -9886,15 +9909,6 @@ impl Conversation {
         self
     }
 
-    /// Sets the value of [obfuscated_user_id][crate::model::Conversation::obfuscated_user_id].
-    pub fn set_obfuscated_user_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.obfuscated_user_id = v.into();
-        self
-    }
-
     /// Sets the value of [runtime_annotations][crate::model::Conversation::runtime_annotations].
     pub fn set_runtime_annotations<T, V>(mut self, v: T) -> Self
     where
@@ -9903,18 +9917,6 @@ impl Conversation {
     {
         use std::iter::Iterator;
         self.runtime_annotations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Conversation::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -9927,6 +9929,15 @@ impl Conversation {
     {
         use std::iter::Iterator;
         self.dialogflow_intents = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [obfuscated_user_id][crate::model::Conversation::obfuscated_user_id].
+    pub fn set_obfuscated_user_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.obfuscated_user_id = v.into();
         self
     }
 
@@ -9998,17 +10009,6 @@ impl Conversation {
         })
     }
 
-    /// The value of [expiration][crate::model::Conversation::expiration]
-    /// if it holds a `Ttl`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
-        #[allow(unreachable_patterns)]
-        self.expiration.as_ref().and_then(|v| match v {
-            crate::model::conversation::Expiration::Ttl(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [expiration][crate::model::Conversation::expiration]
     /// to hold a `ExpireTime`.
     ///
@@ -10021,6 +10021,17 @@ impl Conversation {
         self.expiration =
             std::option::Option::Some(crate::model::conversation::Expiration::ExpireTime(v.into()));
         self
+    }
+
+    /// The value of [expiration][crate::model::Conversation::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::conversation::Expiration::Ttl(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [expiration][crate::model::Conversation::expiration]
@@ -10314,6 +10325,7 @@ pub mod conversation {
             /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
             /// segment. A default value of 0.0 indicates that the value is unset.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             /// A list of the word-specific information for each word in the segment.
@@ -10375,6 +10387,19 @@ pub mod conversation {
                 self
             }
 
+            /// Sets the value of [words][crate::model::conversation::transcript::TranscriptSegment::words].
+            pub fn set_words<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::conversation::transcript::transcript_segment::WordInfo,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.words = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
             /// Sets the value of [language_code][crate::model::conversation::transcript::TranscriptSegment::language_code].
             pub fn set_language_code<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -10417,19 +10442,6 @@ pub mod conversation {
                 self.sentiment = v.into();
                 self
             }
-
-            /// Sets the value of [words][crate::model::conversation::transcript::TranscriptSegment::words].
-            pub fn set_words<T, V>(mut self, v: T) -> Self
-            where
-                T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<
-                        crate::model::conversation::transcript::transcript_segment::WordInfo,
-                    >,
-            {
-                use std::iter::Iterator;
-                self.words = v.into_iter().map(|i| i.into()).collect();
-                self
-            }
         }
 
         impl wkt::message::Message for TranscriptSegment {
@@ -10466,6 +10478,7 @@ pub mod conversation {
                 /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
                 /// word. A default value of 0.0 indicates that the value is unset.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub confidence: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10854,21 +10867,6 @@ impl ConversationDataSource {
         })
     }
 
-    /// The value of [source][crate::model::ConversationDataSource::source]
-    /// if it holds a `DialogflowSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dialogflow_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::conversation_data_source::Source::DialogflowSource(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::ConversationDataSource::source]
     /// to hold a `GcsSource`.
     ///
@@ -10882,6 +10880,21 @@ impl ConversationDataSource {
             crate::model::conversation_data_source::Source::GcsSource(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::ConversationDataSource::source]
+    /// if it holds a `DialogflowSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dialogflow_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::conversation_data_source::Source::DialogflowSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::ConversationDataSource::source]
@@ -11156,28 +11169,6 @@ pub mod analysis_result {
             std::default::Default::default()
         }
 
-        /// Sets the value of [silence][crate::model::analysis_result::CallAnalysisMetadata::silence].
-        pub fn set_silence<
-            T: std::convert::Into<std::option::Option<crate::model::ConversationLevelSilence>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.silence = v.into();
-            self
-        }
-
-        /// Sets the value of [issue_model_result][crate::model::analysis_result::CallAnalysisMetadata::issue_model_result].
-        pub fn set_issue_model_result<
-            T: std::convert::Into<std::option::Option<crate::model::IssueModelResult>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.issue_model_result = v.into();
-            self
-        }
-
         /// Sets the value of [annotations][crate::model::analysis_result::CallAnalysisMetadata::annotations].
         pub fn set_annotations<T, V>(mut self, v: T) -> Self
         where
@@ -11186,6 +11177,18 @@ pub mod analysis_result {
         {
             use std::iter::Iterator;
             self.annotations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [entities][crate::model::analysis_result::CallAnalysisMetadata::entities].
+        pub fn set_entities<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::Entity>,
+        {
+            use std::iter::Iterator;
+            self.entities = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -11200,26 +11203,14 @@ pub mod analysis_result {
             self
         }
 
-        /// Sets the value of [qa_scorecard_results][crate::model::analysis_result::CallAnalysisMetadata::qa_scorecard_results].
-        pub fn set_qa_scorecard_results<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::QaScorecardResult>,
-        {
-            use std::iter::Iterator;
-            self.qa_scorecard_results = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [entities][crate::model::analysis_result::CallAnalysisMetadata::entities].
-        pub fn set_entities<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<crate::model::Entity>,
-        {
-            use std::iter::Iterator;
-            self.entities = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [silence][crate::model::analysis_result::CallAnalysisMetadata::silence].
+        pub fn set_silence<
+            T: std::convert::Into<std::option::Option<crate::model::ConversationLevelSilence>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.silence = v.into();
             self
         }
 
@@ -11244,6 +11235,28 @@ pub mod analysis_result {
         {
             use std::iter::Iterator;
             self.phrase_matchers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [issue_model_result][crate::model::analysis_result::CallAnalysisMetadata::issue_model_result].
+        pub fn set_issue_model_result<
+            T: std::convert::Into<std::option::Option<crate::model::IssueModelResult>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.issue_model_result = v.into();
+            self
+        }
+
+        /// Sets the value of [qa_scorecard_results][crate::model::analysis_result::CallAnalysisMetadata::qa_scorecard_results].
+        pub fn set_qa_scorecard_results<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::QaScorecardResult>,
+        {
+            use std::iter::Iterator;
+            self.qa_scorecard_results = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -11407,6 +11420,17 @@ impl FeedbackLabel {
         })
     }
 
+    /// Sets the value of [label_type][crate::model::FeedbackLabel::label_type]
+    /// to hold a `Label`.
+    ///
+    /// Note that all the setters affecting `label_type` are
+    /// mutually exclusive.
+    pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.label_type =
+            std::option::Option::Some(crate::model::feedback_label::LabelType::Label(v.into()));
+        self
+    }
+
     /// The value of [label_type][crate::model::FeedbackLabel::label_type]
     /// if it holds a `QaAnswerLabel`, `None` if the field is not set or
     /// holds a different branch.
@@ -11420,17 +11444,6 @@ impl FeedbackLabel {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [label_type][crate::model::FeedbackLabel::label_type]
-    /// to hold a `Label`.
-    ///
-    /// Note that all the setters affecting `label_type` are
-    /// mutually exclusive.
-    pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.label_type =
-            std::option::Option::Some(crate::model::feedback_label::LabelType::Label(v.into()));
-        self
     }
 
     /// Sets the value of [label_type][crate::model::FeedbackLabel::label_type]
@@ -11533,6 +11546,7 @@ pub struct ConversationLevelSilence {
 
     /// Percentage of the total conversation spent in silence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub silence_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11579,6 +11593,7 @@ pub struct IssueAssignment {
     /// Score indicating the likelihood of the issue assignment.
     /// currently bounded on [0,1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub score: f64,
 
     /// Immutable. Display name of the assigned issue. This field is set at time of
@@ -11709,95 +11724,6 @@ impl CallAnnotation {
         })
     }
 
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `SentimentData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sentiment_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SentimentData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::SentimentData(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `SilenceData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn silence_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::SilenceData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::SilenceData(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `HoldData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn hold_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::HoldData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::HoldData(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `EntityMentionData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn entity_mention_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityMentionData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::EntityMentionData(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `IntentMatchData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn intent_match_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IntentMatchData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::IntentMatchData(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `PhraseMatchData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn phrase_match_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PhraseMatchData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::PhraseMatchData(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::CallAnnotation::data]
-    /// if it holds a `IssueMatchData`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn issue_match_data(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IssueMatchData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::call_annotation::Data::IssueMatchData(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data][crate::model::CallAnnotation::data]
     /// to hold a `InterruptionData`.
     ///
@@ -11813,6 +11739,19 @@ impl CallAnnotation {
             crate::model::call_annotation::Data::InterruptionData(v.into()),
         );
         self
+    }
+
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `SentimentData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sentiment_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SentimentData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::SentimentData(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data][crate::model::CallAnnotation::data]
@@ -11831,6 +11770,17 @@ impl CallAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `SilenceData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn silence_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::SilenceData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::SilenceData(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::CallAnnotation::data]
     /// to hold a `SilenceData`.
     ///
@@ -11845,6 +11795,17 @@ impl CallAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `HoldData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn hold_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::HoldData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::HoldData(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::CallAnnotation::data]
     /// to hold a `HoldData`.
     ///
@@ -11857,6 +11818,21 @@ impl CallAnnotation {
         self.data =
             std::option::Option::Some(crate::model::call_annotation::Data::HoldData(v.into()));
         self
+    }
+
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `EntityMentionData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn entity_mention_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityMentionData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::EntityMentionData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data][crate::model::CallAnnotation::data]
@@ -11876,6 +11852,19 @@ impl CallAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `IntentMatchData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn intent_match_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IntentMatchData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::IntentMatchData(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::CallAnnotation::data]
     /// to hold a `IntentMatchData`.
     ///
@@ -11893,6 +11882,19 @@ impl CallAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `PhraseMatchData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn phrase_match_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PhraseMatchData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::PhraseMatchData(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::CallAnnotation::data]
     /// to hold a `PhraseMatchData`.
     ///
@@ -11908,6 +11910,19 @@ impl CallAnnotation {
             crate::model::call_annotation::Data::PhraseMatchData(v.into()),
         );
         self
+    }
+
+    /// The value of [data][crate::model::CallAnnotation::data]
+    /// if it holds a `IssueMatchData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn issue_match_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IssueMatchData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::call_annotation::Data::IssueMatchData(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data][crate::model::CallAnnotation::data]
@@ -12088,6 +12103,7 @@ pub struct Entity {
     /// Scores closer to 0 are less salient, while scores closer to 1.0 are highly
     /// salient.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub salience: f32,
 
     /// The aggregate sentiment expressed for this entity in the conversation.
@@ -12115,6 +12131,18 @@ impl Entity {
         self
     }
 
+    /// Sets the value of [metadata][crate::model::Entity::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [salience][crate::model::Entity::salience].
     pub fn set_salience<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.salience = v.into();
@@ -12129,18 +12157,6 @@ impl Entity {
         v: T,
     ) -> Self {
         self.sentiment = v.into();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::Entity::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -12832,10 +12848,12 @@ pub struct SentimentData {
     /// A non-negative number from 0 to infinity which represents the abolute
     /// magnitude of sentiment regardless of score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub magnitude: f32,
 
     /// The sentiment score between -1.0 (negative) and 1.0 (positive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13476,15 +13494,6 @@ impl Issue {
         self
     }
 
-    /// Sets the value of [display_description][crate::model::Issue::display_description].
-    pub fn set_display_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.display_description = v.into();
-        self
-    }
-
     /// Sets the value of [sample_utterances][crate::model::Issue::sample_utterances].
     pub fn set_sample_utterances<T, V>(mut self, v: T) -> Self
     where
@@ -13493,6 +13502,15 @@ impl Issue {
     {
         use std::iter::Iterator;
         self.sample_utterances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [display_description][crate::model::Issue::display_description].
+    pub fn set_display_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.display_description = v.into();
         self
     }
 }
@@ -13750,6 +13768,17 @@ impl PhraseMatcher {
         self
     }
 
+    /// Sets the value of [phrase_match_rule_groups][crate::model::PhraseMatcher::phrase_match_rule_groups].
+    pub fn set_phrase_match_rule_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PhraseMatchRuleGroup>,
+    {
+        use std::iter::Iterator;
+        self.phrase_match_rule_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [activation_update_time][crate::model::PhraseMatcher::activation_update_time].
     pub fn set_activation_update_time<
         T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
@@ -13776,17 +13805,6 @@ impl PhraseMatcher {
         v: T,
     ) -> Self {
         self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [phrase_match_rule_groups][crate::model::PhraseMatcher::phrase_match_rule_groups].
-    pub fn set_phrase_match_rule_groups<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PhraseMatchRuleGroup>,
-    {
-        use std::iter::Iterator;
-        self.phrase_match_rule_groups = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -14433,6 +14451,19 @@ impl Settings {
         self
     }
 
+    /// Sets the value of [pubsub_notification_settings][crate::model::Settings::pubsub_notification_settings].
+    pub fn set_pubsub_notification_settings<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pubsub_notification_settings =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [analysis_config][crate::model::Settings::analysis_config].
     pub fn set_analysis_config<
         T: std::convert::Into<std::option::Option<crate::model::settings::AnalysisConfig>>,
@@ -14465,19 +14496,6 @@ impl Settings {
         self.speech_config = v.into();
         self
     }
-
-    /// Sets the value of [pubsub_notification_settings][crate::model::Settings::pubsub_notification_settings].
-    pub fn set_pubsub_notification_settings<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.pubsub_notification_settings =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Settings {
@@ -14500,11 +14518,13 @@ pub mod settings {
         /// Percentage of conversations created using Dialogflow runtime integration
         /// to analyze automatically, between [0, 100].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub runtime_integration_analysis_percentage: f64,
 
         /// Percentage of conversations created using the UploadConversation endpoint
         /// to analyze automatically, between [0, 100].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub upload_conversation_analysis_percentage: f64,
 
         /// To select the annotators to run and the phrase matchers to use
@@ -14603,6 +14623,7 @@ pub struct AnalysisRule {
     /// are sampled in a determenestic way. The original runtime_percentage &
     /// upload percentage will be replaced by defining filters on the conversation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub analysis_percentage: f64,
 
     /// If true, apply this rule to conversations. Otherwise, this rule is
@@ -14972,76 +14993,6 @@ impl RuntimeAnnotation {
         })
     }
 
-    /// The value of [data][crate::model::RuntimeAnnotation::data]
-    /// if it holds a `FaqAnswer`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn faq_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::FaqAnswerData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::runtime_annotation::Data::FaqAnswer(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::RuntimeAnnotation::data]
-    /// if it holds a `SmartReply`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn smart_reply(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SmartReplyData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::runtime_annotation::Data::SmartReply(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::RuntimeAnnotation::data]
-    /// if it holds a `SmartComposeSuggestion`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn smart_compose_suggestion(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SmartComposeSuggestionData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::runtime_annotation::Data::SmartComposeSuggestion(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::RuntimeAnnotation::data]
-    /// if it holds a `DialogflowInteraction`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn dialogflow_interaction(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowInteractionData>> {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::runtime_annotation::Data::DialogflowInteraction(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data][crate::model::RuntimeAnnotation::data]
-    /// if it holds a `ConversationSummarizationSuggestion`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn conversation_summarization_suggestion(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ConversationSummarizationSuggestionData>>
-    {
-        #[allow(unreachable_patterns)]
-        self.data.as_ref().and_then(|v| match v {
-            crate::model::runtime_annotation::Data::ConversationSummarizationSuggestion(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data][crate::model::RuntimeAnnotation::data]
     /// to hold a `ArticleSuggestion`.
     ///
@@ -15059,6 +15010,17 @@ impl RuntimeAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::RuntimeAnnotation::data]
+    /// if it holds a `FaqAnswer`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn faq_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::FaqAnswerData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::runtime_annotation::Data::FaqAnswer(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::RuntimeAnnotation::data]
     /// to hold a `FaqAnswer`.
     ///
@@ -15073,6 +15035,19 @@ impl RuntimeAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::RuntimeAnnotation::data]
+    /// if it holds a `SmartReply`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn smart_reply(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SmartReplyData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::runtime_annotation::Data::SmartReply(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::RuntimeAnnotation::data]
     /// to hold a `SmartReply`.
     ///
@@ -15085,6 +15060,21 @@ impl RuntimeAnnotation {
         self.data =
             std::option::Option::Some(crate::model::runtime_annotation::Data::SmartReply(v.into()));
         self
+    }
+
+    /// The value of [data][crate::model::RuntimeAnnotation::data]
+    /// if it holds a `SmartComposeSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn smart_compose_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SmartComposeSuggestionData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::runtime_annotation::Data::SmartComposeSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data][crate::model::RuntimeAnnotation::data]
@@ -15104,6 +15094,21 @@ impl RuntimeAnnotation {
         self
     }
 
+    /// The value of [data][crate::model::RuntimeAnnotation::data]
+    /// if it holds a `DialogflowInteraction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dialogflow_interaction(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowInteractionData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::runtime_annotation::Data::DialogflowInteraction(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data][crate::model::RuntimeAnnotation::data]
     /// to hold a `DialogflowInteraction`.
     ///
@@ -15119,6 +15124,22 @@ impl RuntimeAnnotation {
             crate::model::runtime_annotation::Data::DialogflowInteraction(v.into()),
         );
         self
+    }
+
+    /// The value of [data][crate::model::RuntimeAnnotation::data]
+    /// if it holds a `ConversationSummarizationSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn conversation_summarization_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ConversationSummarizationSuggestionData>>
+    {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::runtime_annotation::Data::ConversationSummarizationSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data][crate::model::RuntimeAnnotation::data]
@@ -15595,6 +15616,7 @@ pub struct ArticleSuggestionData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence_score: f32,
 
     /// Map that contains metadata about the Article Suggestion and the document
@@ -15641,18 +15663,6 @@ impl ArticleSuggestionData {
         self
     }
 
-    /// Sets the value of [query_record][crate::model::ArticleSuggestionData::query_record].
-    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query_record = v.into();
-        self
-    }
-
-    /// Sets the value of [source][crate::model::ArticleSuggestionData::source].
-    pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::ArticleSuggestionData::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -15662,6 +15672,18 @@ impl ArticleSuggestionData {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [query_record][crate::model::ArticleSuggestionData::query_record].
+    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query_record = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::ArticleSuggestionData::source].
+    pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = v.into();
         self
     }
 }
@@ -15686,6 +15708,7 @@ pub struct FaqAnswerData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence_score: f32,
 
     /// The corresponding FAQ question.
@@ -15736,18 +15759,6 @@ impl FaqAnswerData {
         self
     }
 
-    /// Sets the value of [query_record][crate::model::FaqAnswerData::query_record].
-    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query_record = v.into();
-        self
-    }
-
-    /// Sets the value of [source][crate::model::FaqAnswerData::source].
-    pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::FaqAnswerData::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -15757,6 +15768,18 @@ impl FaqAnswerData {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [query_record][crate::model::FaqAnswerData::query_record].
+    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query_record = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::FaqAnswerData::source].
+    pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = v.into();
         self
     }
 }
@@ -15781,6 +15804,7 @@ pub struct SmartReplyData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub confidence_score: f64,
 
     /// Map that contains metadata about the Smart Reply and the document from
@@ -15815,12 +15839,6 @@ impl SmartReplyData {
         self
     }
 
-    /// Sets the value of [query_record][crate::model::SmartReplyData::query_record].
-    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query_record = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::SmartReplyData::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -15830,6 +15848,12 @@ impl SmartReplyData {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [query_record][crate::model::SmartReplyData::query_record].
+    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query_record = v.into();
         self
     }
 }
@@ -15854,6 +15878,7 @@ pub struct SmartComposeSuggestionData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub confidence_score: f64,
 
     /// Map that contains metadata about the Smart Compose suggestion and the
@@ -15888,12 +15913,6 @@ impl SmartComposeSuggestionData {
         self
     }
 
-    /// Sets the value of [query_record][crate::model::SmartComposeSuggestionData::query_record].
-    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query_record = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::SmartComposeSuggestionData::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -15903,6 +15922,12 @@ impl SmartComposeSuggestionData {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [query_record][crate::model::SmartComposeSuggestionData::query_record].
+    pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query_record = v.into();
         self
     }
 }
@@ -15927,6 +15952,7 @@ pub struct DialogflowInteractionData {
     /// The confidence of the match ranging from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15978,6 +16004,7 @@ pub struct ConversationSummarizationSuggestionData {
 
     /// The confidence score of the summarization.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// A map that contains metadata about the summarization and the document
@@ -16012,9 +16039,33 @@ impl ConversationSummarizationSuggestionData {
         self
     }
 
+    /// Sets the value of [text_sections][crate::model::ConversationSummarizationSuggestionData::text_sections].
+    pub fn set_text_sections<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.text_sections = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [confidence][crate::model::ConversationSummarizationSuggestionData::confidence].
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::ConversationSummarizationSuggestionData::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -16030,30 +16081,6 @@ impl ConversationSummarizationSuggestionData {
         v: T,
     ) -> Self {
         self.conversation_model = v.into();
-        self
-    }
-
-    /// Sets the value of [text_sections][crate::model::ConversationSummarizationSuggestionData::text_sections].
-    pub fn set_text_sections<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.text_sections = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [metadata][crate::model::ConversationSummarizationSuggestionData::metadata].
-    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -16153,19 +16180,6 @@ impl ConversationParticipant {
         })
     }
 
-    /// The value of [participant][crate::model::ConversationParticipant::participant]
-    /// if it holds a `UserId`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn user_id(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.participant.as_ref().and_then(|v| match v {
-            crate::model::conversation_participant::Participant::UserId(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [participant][crate::model::ConversationParticipant::participant]
     /// to hold a `DialogflowParticipantName`.
     ///
@@ -16181,6 +16195,19 @@ impl ConversationParticipant {
             ),
         );
         self
+    }
+
+    /// The value of [participant][crate::model::ConversationParticipant::participant]
+    /// if it holds a `UserId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.participant.as_ref().and_then(|v| match v {
+            crate::model::conversation_participant::Participant::UserId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [participant][crate::model::ConversationParticipant::participant]
@@ -16540,6 +16567,17 @@ impl AnnotatorSelector {
         self
     }
 
+    /// Sets the value of [phrase_matchers][crate::model::AnnotatorSelector::phrase_matchers].
+    pub fn set_phrase_matchers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.phrase_matchers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [run_sentiment_annotator][crate::model::AnnotatorSelector::run_sentiment_annotator].
     pub fn set_run_sentiment_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_sentiment_annotator = v.into();
@@ -16561,6 +16599,17 @@ impl AnnotatorSelector {
     /// Sets the value of [run_issue_model_annotator][crate::model::AnnotatorSelector::run_issue_model_annotator].
     pub fn set_run_issue_model_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_issue_model_annotator = v.into();
+        self
+    }
+
+    /// Sets the value of [issue_models][crate::model::AnnotatorSelector::issue_models].
+    pub fn set_issue_models<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.issue_models = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -16597,28 +16646,6 @@ impl AnnotatorSelector {
         v: T,
     ) -> Self {
         self.qa_config = v.into();
-        self
-    }
-
-    /// Sets the value of [phrase_matchers][crate::model::AnnotatorSelector::phrase_matchers].
-    pub fn set_phrase_matchers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.phrase_matchers = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [issue_models][crate::model::AnnotatorSelector::issue_models].
-    pub fn set_issue_models<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.issue_models = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -16685,21 +16712,6 @@ pub mod annotator_selector {
             })
         }
 
-        /// The value of [model_source][crate::model::annotator_selector::SummarizationConfig::model_source]
-        /// if it holds a `SummarizationModel`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn summarization_model(
-            &self,
-        ) -> std::option::Option<
-            &crate::model::annotator_selector::summarization_config::SummarizationModel,
-        > {
-            #[allow(unreachable_patterns)]
-            self.model_source.as_ref().and_then(|v| match v {
-                crate::model::annotator_selector::summarization_config::ModelSource::SummarizationModel(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [model_source][crate::model::annotator_selector::SummarizationConfig::model_source]
         /// to hold a `ConversationProfile`.
         ///
@@ -16715,6 +16727,21 @@ pub mod annotator_selector {
                 )
             );
             self
+        }
+
+        /// The value of [model_source][crate::model::annotator_selector::SummarizationConfig::model_source]
+        /// if it holds a `SummarizationModel`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn summarization_model(
+            &self,
+        ) -> std::option::Option<
+            &crate::model::annotator_selector::summarization_config::SummarizationModel,
+        > {
+            #[allow(unreachable_patterns)]
+            self.model_source.as_ref().and_then(|v| match v {
+                crate::model::annotator_selector::summarization_config::ModelSource::SummarizationModel(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [model_source][crate::model::annotator_selector::SummarizationConfig::model_source]
@@ -17154,6 +17181,28 @@ impl QaQuestion {
         self
     }
 
+    /// Sets the value of [answer_choices][crate::model::QaQuestion::answer_choices].
+    pub fn set_answer_choices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::qa_question::AnswerChoice>,
+    {
+        use std::iter::Iterator;
+        self.answer_choices = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::QaQuestion::tags].
+    pub fn set_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [order][crate::model::QaQuestion::order].
     pub fn set_order<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.order = v.into();
@@ -17179,28 +17228,6 @@ impl QaQuestion {
         v: T,
     ) -> Self {
         self.tuning_metadata = v.into();
-        self
-    }
-
-    /// Sets the value of [answer_choices][crate::model::QaQuestion::answer_choices].
-    pub fn set_answer_choices<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::qa_question::AnswerChoice>,
-    {
-        use std::iter::Iterator;
-        self.answer_choices = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [tags][crate::model::QaQuestion::tags].
-    pub fn set_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -17229,6 +17256,7 @@ pub mod qa_question {
         /// Numerical score of the answer, used for generating the overall score of
         /// a QaScorecardResult. If the answer uses na_value, this field is unused.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// The answer value may be one of a few different types.
@@ -17285,6 +17313,18 @@ pub mod qa_question {
             })
         }
 
+        /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
+        /// to hold a `StrValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_str_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::qa_question::answer_choice::Value::StrValue(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::qa_question::AnswerChoice::value]
         /// if it holds a `NumValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -17296,6 +17336,18 @@ pub mod qa_question {
                 }
                 _ => std::option::Option::None,
             })
+        }
+
+        /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
+        /// to hold a `NumValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_num_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::qa_question::answer_choice::Value::NumValue(v.into()),
+            );
+            self
         }
 
         /// The value of [value][crate::model::qa_question::AnswerChoice::value]
@@ -17311,6 +17363,18 @@ pub mod qa_question {
             })
         }
 
+        /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
+        /// to hold a `BoolValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::qa_question::answer_choice::Value::BoolValue(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::qa_question::AnswerChoice::value]
         /// if it holds a `NaValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -17322,42 +17386,6 @@ pub mod qa_question {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
-        /// to hold a `StrValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_str_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::qa_question::answer_choice::Value::StrValue(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
-        /// to hold a `NumValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_num_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::qa_question::answer_choice::Value::NumValue(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
-        /// to hold a `BoolValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::qa_question::answer_choice::Value::BoolValue(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [value][crate::model::qa_question::AnswerChoice::value]
@@ -17412,6 +17440,7 @@ pub mod qa_question {
         /// Output only. Accuracy of the model. Measures the percentage of correct
         /// answers the model gave on the test set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub accuracy: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17474,15 +17503,6 @@ pub mod qa_question {
             self
         }
 
-        /// Sets the value of [tuning_error][crate::model::qa_question::TuningMetadata::tuning_error].
-        pub fn set_tuning_error<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.tuning_error = v.into();
-            self
-        }
-
         /// Sets the value of [dataset_validation_warnings][crate::model::qa_question::TuningMetadata::dataset_validation_warnings].
         pub fn set_dataset_validation_warnings<T, V>(mut self, v: T) -> Self
         where
@@ -17491,6 +17511,15 @@ pub mod qa_question {
         {
             use std::iter::Iterator;
             self.dataset_validation_warnings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [tuning_error][crate::model::qa_question::TuningMetadata::tuning_error].
+        pub fn set_tuning_error<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.tuning_error = v.into();
             self
         }
     }
@@ -17650,15 +17679,6 @@ impl QaScorecardRevision {
         self
     }
 
-    /// Sets the value of [state][crate::model::QaScorecardRevision::state].
-    pub fn set_state<T: std::convert::Into<crate::model::qa_scorecard_revision::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
-        self
-    }
-
     /// Sets the value of [alternate_ids][crate::model::QaScorecardRevision::alternate_ids].
     pub fn set_alternate_ids<T, V>(mut self, v: T) -> Self
     where
@@ -17667,6 +17687,15 @@ impl QaScorecardRevision {
     {
         use std::iter::Iterator;
         self.alternate_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::QaScorecardRevision::state].
+    pub fn set_state<T: std::convert::Into<crate::model::qa_scorecard_revision::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
         self
     }
 }
@@ -17966,15 +17995,18 @@ pub mod qa_answer {
 
         /// Output only. Numerical score of the answer.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// Output only. The maximum potential score of the question.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub potential_score: std::option::Option<f64>,
 
         /// Output only. Normalized score of the questions. Calculated as score /
         /// potential_score.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_score: std::option::Option<f64>,
 
         /// The answer value may be one of a few different types.
@@ -18047,6 +18079,18 @@ pub mod qa_answer {
             })
         }
 
+        /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
+        /// to hold a `StrValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_str_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::qa_answer::answer_value::Value::StrValue(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::qa_answer::AnswerValue::value]
         /// if it holds a `NumValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -18058,6 +18102,18 @@ pub mod qa_answer {
                 }
                 _ => std::option::Option::None,
             })
+        }
+
+        /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
+        /// to hold a `NumValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_num_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::qa_answer::answer_value::Value::NumValue(v.into()),
+            );
+            self
         }
 
         /// The value of [value][crate::model::qa_answer::AnswerValue::value]
@@ -18073,6 +18129,18 @@ pub mod qa_answer {
             })
         }
 
+        /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
+        /// to hold a `BoolValue`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::qa_answer::answer_value::Value::BoolValue(v.into()),
+            );
+            self
+        }
+
         /// The value of [value][crate::model::qa_answer::AnswerValue::value]
         /// if it holds a `NaValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -18084,42 +18152,6 @@ pub mod qa_answer {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
-        /// to hold a `StrValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_str_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::qa_answer::answer_value::Value::StrValue(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
-        /// to hold a `NumValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_num_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::qa_answer::answer_value::Value::NumValue(v.into()),
-            );
-            self
-        }
-
-        /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
-        /// to hold a `BoolValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::qa_answer::answer_value::Value::BoolValue(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [value][crate::model::qa_answer::AnswerValue::value]
@@ -18393,16 +18425,19 @@ pub struct QaScorecardResult {
     /// The overall numerical score of the result, incorporating any manual edits
     /// if they exist.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub score: std::option::Option<f64>,
 
     /// The maximum potential overall score of the scorecard. Any questions
     /// answered using `na_value` are excluded from this calculation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub potential_score: std::option::Option<f64>,
 
     /// The normalized score, which is the score divided by the potential score.
     /// Any manual edits are included if they exist.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub normalized_score: std::option::Option<f64>,
 
     /// Collection of tags and their scores.
@@ -18458,6 +18493,17 @@ impl QaScorecardResult {
         self
     }
 
+    /// Sets the value of [qa_answers][crate::model::QaScorecardResult::qa_answers].
+    pub fn set_qa_answers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QaAnswer>,
+    {
+        use std::iter::Iterator;
+        self.qa_answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [score][crate::model::QaScorecardResult::score].
     pub fn set_score<T: std::convert::Into<std::option::Option<f64>>>(mut self, v: T) -> Self {
         self.score = v.into();
@@ -18479,17 +18525,6 @@ impl QaScorecardResult {
         v: T,
     ) -> Self {
         self.normalized_score = v.into();
-        self
-    }
-
-    /// Sets the value of [qa_answers][crate::model::QaScorecardResult::qa_answers].
-    pub fn set_qa_answers<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QaAnswer>,
-    {
-        use std::iter::Iterator;
-        self.qa_answers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -18539,14 +18574,17 @@ pub mod qa_scorecard_result {
 
         /// The score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// The potential score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub potential_score: std::option::Option<f64>,
 
         /// The normalized score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_score: std::option::Option<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18608,15 +18646,18 @@ pub mod qa_scorecard_result {
 
         /// The overall numerical score of the result.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// The maximum potential overall score of the scorecard. Any questions
         /// answered using `na_value` are excluded from this calculation.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub potential_score: std::option::Option<f64>,
 
         /// The normalized score, which is the score divided by the potential score.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_score: std::option::Option<f64>,
 
         /// Collection of tags and their scores.

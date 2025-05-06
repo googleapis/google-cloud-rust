@@ -104,19 +104,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
-    /// if it holds a `ConnectionProfileName`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn connection_profile_name(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.target.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
     /// to hold a `ConnectionProfile`.
     ///
@@ -132,6 +119,19 @@ impl DiscoverConnectionProfileRequest {
             crate::model::discover_connection_profile_request::Target::ConnectionProfile(v.into()),
         );
         self
+    }
+
+    /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
+    /// if it holds a `ConnectionProfileName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn connection_profile_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
@@ -180,6 +180,18 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
+    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
+    /// to hold a `FullHierarchy`.
+    ///
+    /// Note that all the setters affecting `hierarchy` are
+    /// mutually exclusive.
+    pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.hierarchy = std::option::Option::Some(
+            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
+        );
+        self
+    }
+
     /// The value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
     /// if it holds a `HierarchyDepth`, `None` if the field is not set or
     /// holds a different branch.
@@ -191,18 +203,6 @@ impl DiscoverConnectionProfileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
-    /// to hold a `FullHierarchy`.
-    ///
-    /// Note that all the setters affecting `hierarchy` are
-    /// mutually exclusive.
-    pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.hierarchy = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
@@ -246,49 +246,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// to hold a `OracleRdbms`.
     ///
@@ -304,6 +261,19 @@ impl DiscoverConnectionProfileRequest {
         self
     }
 
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// to hold a `MysqlRdbms`.
     ///
@@ -317,6 +287,21 @@ impl DiscoverConnectionProfileRequest {
             crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v.into()),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
@@ -336,6 +321,21 @@ impl DiscoverConnectionProfileRequest {
             ),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
@@ -455,49 +455,6 @@ impl DiscoverConnectionProfileResponse {
         })
     }
 
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
-        #[allow(unreachable_patterns)]
-        self.data_object.as_ref().and_then(|v| match v {
-            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// to hold a `OracleRdbms`.
     ///
@@ -513,6 +470,19 @@ impl DiscoverConnectionProfileResponse {
         self
     }
 
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `MysqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// to hold a `MysqlRdbms`.
     ///
@@ -526,6 +496,21 @@ impl DiscoverConnectionProfileResponse {
             crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v.into()),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
@@ -545,6 +530,21 @@ impl DiscoverConnectionProfileResponse {
             ),
         );
         self
+    }
+
+    /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
+    /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_rdbms(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+        #[allow(unreachable_patterns)]
+        self.data_object.as_ref().and_then(|v| match v {
+            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
@@ -672,12 +672,6 @@ impl FetchStaticIpsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [static_ips][crate::model::FetchStaticIpsResponse::static_ips].
     pub fn set_static_ips<T, V>(mut self, v: T) -> Self
     where
@@ -686,6 +680,12 @@ impl FetchStaticIpsResponse {
     {
         use std::iter::Iterator;
         self.static_ips = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchStaticIpsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -802,12 +802,6 @@ impl ListConnectionProfilesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [connection_profiles][crate::model::ListConnectionProfilesResponse::connection_profiles].
     pub fn set_connection_profiles<T, V>(mut self, v: T) -> Self
     where
@@ -816,6 +810,12 @@ impl ListConnectionProfilesResponse {
     {
         use std::iter::Iterator;
         self.connection_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListConnectionProfilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1243,12 +1243,6 @@ impl ListStreamsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListStreamsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [streams][crate::model::ListStreamsResponse::streams].
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
@@ -1257,6 +1251,12 @@ impl ListStreamsResponse {
     {
         use std::iter::Iterator;
         self.streams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListStreamsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1928,12 +1928,6 @@ impl ListStreamObjectsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListStreamObjectsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [stream_objects][crate::model::ListStreamObjectsResponse::stream_objects].
     pub fn set_stream_objects<T, V>(mut self, v: T) -> Self
     where
@@ -1942,6 +1936,12 @@ impl ListStreamObjectsResponse {
     {
         use std::iter::Iterator;
         self.stream_objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListStreamObjectsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -2288,12 +2288,6 @@ impl ListPrivateConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [private_connections][crate::model::ListPrivateConnectionsResponse::private_connections].
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
@@ -2302,6 +2296,12 @@ impl ListPrivateConnectionsResponse {
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2619,12 +2619,6 @@ impl ListRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [routes][crate::model::ListRoutesResponse::routes].
     pub fn set_routes<T, V>(mut self, v: T) -> Self
     where
@@ -2633,6 +2627,12 @@ impl ListRoutesResponse {
     {
         use std::iter::Iterator;
         self.routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2840,6 +2840,18 @@ impl OracleProfile {
         self
     }
 
+    /// Sets the value of [connection_attributes][crate::model::OracleProfile::connection_attributes].
+    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [oracle_ssl_config][crate::model::OracleProfile::oracle_ssl_config].
     pub fn set_oracle_ssl_config<
         T: std::convert::Into<std::option::Option<crate::model::OracleSslConfig>>,
@@ -2868,18 +2880,6 @@ impl OracleProfile {
         v: T,
     ) -> Self {
         self.secret_manager_stored_password = v.into();
-        self
-    }
-
-    /// Sets the value of [connection_attributes][crate::model::OracleProfile::connection_attributes].
-    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2969,6 +2969,18 @@ impl OracleAsmConfig {
         self
     }
 
+    /// Sets the value of [connection_attributes][crate::model::OracleAsmConfig::connection_attributes].
+    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [oracle_ssl_config][crate::model::OracleAsmConfig::oracle_ssl_config].
     pub fn set_oracle_ssl_config<
         T: std::convert::Into<std::option::Option<crate::model::OracleSslConfig>>,
@@ -2986,18 +2998,6 @@ impl OracleAsmConfig {
         v: T,
     ) -> Self {
         self.secret_manager_stored_password = v.into();
-        self
-    }
-
-    /// Sets the value of [connection_attributes][crate::model::OracleAsmConfig::connection_attributes].
-    pub fn set_connection_attributes<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.connection_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3353,23 +3353,6 @@ impl SalesforceProfile {
         })
     }
 
-    /// The value of [credentials][crate::model::SalesforceProfile::credentials]
-    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn oauth2_client_credentials(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.credentials.as_ref().and_then(|v| match v {
-            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
     /// to hold a `UserCredentials`.
     ///
@@ -3385,6 +3368,23 @@ impl SalesforceProfile {
             crate::model::salesforce_profile::Credentials::UserCredentials(v.into()),
         );
         self
+    }
+
+    /// The value of [credentials][crate::model::SalesforceProfile::credentials]
+    /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth2_client_credentials(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.credentials.as_ref().and_then(|v| match v {
+            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
@@ -3752,6 +3752,18 @@ impl ForwardSshTunnelConnectivity {
         })
     }
 
+    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
+    /// to hold a `Password`.
+    ///
+    /// Note that all the setters affecting `authentication_method` are
+    /// mutually exclusive.
+    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.authentication_method = std::option::Option::Some(
+            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
+        );
+        self
+    }
+
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `PrivateKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -3763,18 +3775,6 @@ impl ForwardSshTunnelConnectivity {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
-    /// to hold a `Password`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
@@ -3938,6 +3938,18 @@ impl PrivateConnection {
         self
     }
 
+    /// Sets the value of [labels][crate::model::PrivateConnection::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::PrivateConnection::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -3988,18 +4000,6 @@ impl PrivateConnection {
         v: T,
     ) -> Self {
         self.vpc_peering_config = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::PrivateConnection::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4273,6 +4273,18 @@ impl Route {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Route::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Route::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4291,18 +4303,6 @@ impl Route {
     /// Sets the value of [destination_port][crate::model::Route::destination_port].
     pub fn set_destination_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.destination_port = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Route::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4504,23 +4504,6 @@ impl PostgresqlSslConfig {
         })
     }
 
-    /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
-    /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn server_and_client_verification(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.encryption_setting.as_ref().and_then(|v| match v {
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// to hold a `ServerVerification`.
     ///
@@ -4538,6 +4521,23 @@ impl PostgresqlSslConfig {
             crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(v.into()),
         );
         self
+    }
+
+    /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
+    /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn server_and_client_verification(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.encryption_setting.as_ref().and_then(|v| match v {
+            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
@@ -4777,6 +4777,18 @@ impl ConnectionProfile {
         self
     }
 
+    /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::ConnectionProfile::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4798,18 +4810,6 @@ impl ConnectionProfile {
         v: T,
     ) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::ConnectionProfile::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -4842,94 +4842,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `GcsProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gcs_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::GcsProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `MysqlProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::MysqlProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `BigqueryProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bigquery_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::BigqueryProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `PostgresqlProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::PostgresqlProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `SqlServerProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::SqlServerProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [profile][crate::model::ConnectionProfile::profile]
-    /// if it holds a `SalesforceProfile`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
-        #[allow(unreachable_patterns)]
-        self.profile.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Profile::SalesforceProfile(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `OracleProfile`.
     ///
@@ -4947,6 +4859,19 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `GcsProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::GcsProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `GcsProfile`.
     ///
@@ -4962,6 +4887,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `MysqlProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::MysqlProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `MysqlProfile`.
     ///
@@ -4975,6 +4915,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::Profile::MysqlProfile(v.into()),
         );
         self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `BigqueryProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::BigqueryProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
@@ -4994,6 +4949,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `PostgresqlProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::PostgresqlProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `PostgresqlProfile`.
     ///
@@ -5011,6 +4981,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SqlServerProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SqlServerProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
     /// to hold a `SqlServerProfile`.
     ///
@@ -5026,6 +5011,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::Profile::SqlServerProfile(v.into()),
         );
         self
+    }
+
+    /// The value of [profile][crate::model::ConnectionProfile::profile]
+    /// if it holds a `SalesforceProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Profile::SalesforceProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
@@ -5074,36 +5074,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn forward_ssh_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn private_connectivity(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
-        #[allow(unreachable_patterns)]
-        self.connectivity.as_ref().and_then(|v| match v {
-            crate::model::connection_profile::Connectivity::PrivateConnectivity(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// to hold a `StaticServiceIpConnectivity`.
     ///
@@ -5121,6 +5091,21 @@ impl ConnectionProfile {
         self
     }
 
+    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
+    /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn forward_ssh_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// to hold a `ForwardSshConnectivity`.
     ///
@@ -5136,6 +5121,21 @@ impl ConnectionProfile {
             crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v.into()),
         );
         self
+    }
+
+    /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
+    /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn private_connectivity(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
+        #[allow(unreachable_patterns)]
+        self.connectivity.as_ref().and_then(|v| match v {
+            crate::model::connection_profile::Connectivity::PrivateConnectivity(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
@@ -5555,22 +5555,6 @@ impl OracleSourceConfig {
         })
     }
 
-    /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
-    /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn stream_large_objects(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>
-    {
-        #[allow(unreachable_patterns)]
-        self.large_objects_handling.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// to hold a `DropLargeObjects`.
     ///
@@ -5586,6 +5570,22 @@ impl OracleSourceConfig {
             crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(v.into()),
         );
         self
+    }
+
+    /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
+    /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn stream_large_objects(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>
+    {
+        #[allow(unreachable_patterns)]
+        self.large_objects_handling.as_ref().and_then(|v| match v {
+            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
@@ -5634,22 +5634,6 @@ impl OracleSourceConfig {
         })
     }
 
-    /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
-    /// if it holds a `BinaryLogParser`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn binary_log_parser(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>
-    {
-        #[allow(unreachable_patterns)]
-        self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// to hold a `LogMiner`.
     ///
@@ -5665,6 +5649,22 @@ impl OracleSourceConfig {
             crate::model::oracle_source_config::CdcMethod::LogMiner(v.into()),
         );
         self
+    }
+
+    /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
+    /// if it holds a `BinaryLogParser`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn binary_log_parser(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cdc_method.as_ref().and_then(|v| match v {
+            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
@@ -5818,6 +5818,20 @@ pub mod oracle_source_config {
             })
         }
 
+        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
+        /// to hold a `OracleAsmLogFileAccess`.
+        ///
+        /// Note that all the setters affecting `log_file_access` are
+        /// mutually exclusive.
+        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
+            self.log_file_access = std::option::Option::Some(
+                crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
+                    v.into()
+                )
+            );
+            self
+        }
+
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `LogFileDirectories`, `None` if the field is not set or
         /// holds a different branch.
@@ -5833,20 +5847,6 @@ pub mod oracle_source_config {
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::LogFileDirectories(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
-        /// to hold a `OracleAsmLogFileAccess`.
-        ///
-        /// Note that all the setters affecting `log_file_access` are
-        /// mutually exclusive.
-        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
-            self.log_file_access = std::option::Option::Some(
-                crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
-                    v.into()
-                )
-            );
-            self
         }
 
         /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
@@ -6654,21 +6654,6 @@ impl SqlServerSourceConfig {
         })
     }
 
-    /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
-    /// if it holds a `ChangeTables`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn change_tables(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
-        #[allow(unreachable_patterns)]
-        self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// to hold a `TransactionLogs`.
     ///
@@ -6684,6 +6669,21 @@ impl SqlServerSourceConfig {
             crate::model::sql_server_source_config::CdcMethod::TransactionLogs(v.into()),
         );
         self
+    }
+
+    /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
+    /// if it holds a `ChangeTables`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn change_tables(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
+        #[allow(unreachable_patterns)]
+        self.cdc_method.as_ref().and_then(|v| match v {
+            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
@@ -7119,19 +7119,6 @@ impl MysqlSourceConfig {
         })
     }
 
-    /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
-    /// if it holds a `Gtid`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn gtid(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
-        #[allow(unreachable_patterns)]
-        self.cdc_method.as_ref().and_then(|v| match v {
-            crate::model::mysql_source_config::CdcMethod::Gtid(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// to hold a `BinaryLogPosition`.
     ///
@@ -7147,6 +7134,19 @@ impl MysqlSourceConfig {
             crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(v.into()),
         );
         self
+    }
+
+    /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
+    /// if it holds a `Gtid`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gtid(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
+        #[allow(unreachable_patterns)]
+        self.cdc_method.as_ref().and_then(|v| match v {
+            crate::model::mysql_source_config::CdcMethod::Gtid(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
@@ -7501,66 +7501,6 @@ impl SourceConfig {
         })
     }
 
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `PostgresqlSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_source_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
-        #[allow(unreachable_patterns)]
-        self.source_stream_config.as_ref().and_then(|v| match v {
-            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `OracleSourceConfig`.
     ///
@@ -7576,6 +7516,21 @@ impl SourceConfig {
             crate::model::source_config::SourceStreamConfig::OracleSourceConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
@@ -7595,6 +7550,21 @@ impl SourceConfig {
         self
     }
 
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `PostgresqlSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `PostgresqlSourceConfig`.
     ///
@@ -7612,6 +7582,21 @@ impl SourceConfig {
         self
     }
 
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// to hold a `SqlServerSourceConfig`.
     ///
@@ -7627,6 +7612,21 @@ impl SourceConfig {
             crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
+    /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_source_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
+        #[allow(unreachable_patterns)]
+        self.source_stream_config.as_ref().and_then(|v| match v {
+            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
@@ -8101,21 +8101,6 @@ impl GcsDestinationConfig {
         })
     }
 
-    /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
-    /// if it holds a `JsonFileFormat`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn json_file_format(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
-        #[allow(unreachable_patterns)]
-        self.file_format.as_ref().and_then(|v| match v {
-            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// to hold a `AvroFileFormat`.
     ///
@@ -8131,6 +8116,21 @@ impl GcsDestinationConfig {
             crate::model::gcs_destination_config::FileFormat::AvroFileFormat(v.into()),
         );
         self
+    }
+
+    /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
+    /// if it holds a `JsonFileFormat`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn json_file_format(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
+        #[allow(unreachable_patterns)]
+        self.file_format.as_ref().and_then(|v| match v {
+            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format]
@@ -8263,23 +8263,6 @@ impl BigQueryDestinationConfig {
         })
     }
 
-    /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
-    /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn source_hierarchy_datasets(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.dataset_config.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
-                v,
-            ) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// to hold a `SingleTargetDataset`.
     ///
@@ -8299,6 +8282,23 @@ impl BigQueryDestinationConfig {
             ),
         );
         self
+    }
+
+    /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
+    /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_hierarchy_datasets(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.dataset_config.as_ref().and_then(|v| match v {
+            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
@@ -8356,22 +8356,6 @@ impl BigQueryDestinationConfig {
         })
     }
 
-    /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
-    /// if it holds a `AppendOnly`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn append_only(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>
-    {
-        #[allow(unreachable_patterns)]
-        self.write_mode.as_ref().and_then(|v| match v {
-            crate::model::big_query_destination_config::WriteMode::AppendOnly(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// to hold a `Merge`.
     ///
@@ -8387,6 +8371,22 @@ impl BigQueryDestinationConfig {
             crate::model::big_query_destination_config::WriteMode::Merge(v.into()),
         );
         self
+    }
+
+    /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
+    /// if it holds a `AppendOnly`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn append_only(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>
+    {
+        #[allow(unreachable_patterns)]
+        self.write_mode.as_ref().and_then(|v| match v {
+            crate::model::big_query_destination_config::WriteMode::AppendOnly(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
@@ -9051,19 +9051,6 @@ impl DestinationConfig {
             })
     }
 
-    /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
-    /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn bigquery_destination_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
-        #[allow(unreachable_patterns)]
-        self.destination_stream_config.as_ref().and_then(|v| match v {
-            crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// to hold a `GcsDestinationConfig`.
     ///
@@ -9081,6 +9068,19 @@ impl DestinationConfig {
             ),
         );
         self
+    }
+
+    /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
+    /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_destination_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
+        #[allow(unreachable_patterns)]
+        self.destination_stream_config.as_ref().and_then(|v| match v {
+            crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
@@ -9224,6 +9224,18 @@ impl Stream {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Stream::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [display_name][crate::model::Stream::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -9255,6 +9267,17 @@ impl Stream {
     /// Sets the value of [state][crate::model::Stream::state].
     pub fn set_state<T: std::convert::Into<crate::model::stream::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::Stream::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Error>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -9296,29 +9319,6 @@ impl Stream {
         self
     }
 
-    /// Sets the value of [errors][crate::model::Stream::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Stream::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy].
     ///
     /// Note that all the setters affecting `backfill_strategy` are mutually
@@ -9346,19 +9346,6 @@ impl Stream {
         })
     }
 
-    /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
-    /// if it holds a `BackfillNone`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn backfill_none(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
-        #[allow(unreachable_patterns)]
-        self.backfill_strategy.as_ref().and_then(|v| match v {
-            crate::model::stream::BackfillStrategy::BackfillNone(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// to hold a `BackfillAll`.
     ///
@@ -9374,6 +9361,19 @@ impl Stream {
             crate::model::stream::BackfillStrategy::BackfillAll(v.into()),
         );
         self
+    }
+
+    /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
+    /// if it holds a `BackfillNone`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backfill_none(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
+        #[allow(unreachable_patterns)]
+        self.backfill_strategy.as_ref().and_then(|v| match v {
+            crate::model::stream::BackfillStrategy::BackfillNone(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy]
@@ -9457,58 +9457,6 @@ pub mod stream {
             })
         }
 
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn mysql_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `PostgresqlExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn postgresql_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn sql_server_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn salesforce_excluded_objects(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
-            #[allow(unreachable_patterns)]
-            self.excluded_objects.as_ref().and_then(|v| match v {
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `OracleExcludedObjects`.
         ///
@@ -9526,6 +9474,19 @@ pub mod stream {
                 ),
             );
             self
+        }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn mysql_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
@@ -9547,6 +9508,19 @@ pub mod stream {
             self
         }
 
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `PostgresqlExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn postgresql_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `PostgresqlExcludedObjects`.
         ///
@@ -9566,6 +9540,19 @@ pub mod stream {
             self
         }
 
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sql_server_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// to hold a `SqlServerExcludedObjects`.
         ///
@@ -9583,6 +9570,19 @@ pub mod stream {
                 )
             );
             self
+        }
+
+        /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
+        /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn salesforce_excluded_objects(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
+            #[allow(unreachable_patterns)]
+            self.excluded_objects.as_ref().and_then(|v| match v {
+                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
@@ -9920,6 +9920,17 @@ impl StreamObject {
         self
     }
 
+    /// Sets the value of [errors][crate::model::StreamObject::errors].
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Error>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [backfill_job][crate::model::StreamObject::backfill_job].
     pub fn set_backfill_job<
         T: std::convert::Into<std::option::Option<crate::model::BackfillJob>>,
@@ -9939,17 +9950,6 @@ impl StreamObject {
         v: T,
     ) -> Self {
         self.source_object = v.into();
-        self
-    }
-
-    /// Sets the value of [errors][crate::model::StreamObject::errors].
-    pub fn set_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Error>,
-    {
-        use std::iter::Iterator;
-        self.errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -10013,74 +10013,6 @@ impl SourceObjectIdentifier {
         })
     }
 
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn mysql_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `PostgresqlIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn postgresql_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sql_server_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn salesforce_identifier(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
-    > {
-        #[allow(unreachable_patterns)]
-        self.source_identifier.as_ref().and_then(|v| match v {
-            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `OracleIdentifier`.
     ///
@@ -10100,6 +10032,23 @@ impl SourceObjectIdentifier {
         self
     }
 
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mysql_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `MysqlIdentifier`.
     ///
@@ -10117,6 +10066,23 @@ impl SourceObjectIdentifier {
             crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v.into()),
         );
         self
+    }
+
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `PostgresqlIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn postgresql_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
@@ -10140,6 +10106,23 @@ impl SourceObjectIdentifier {
         self
     }
 
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_server_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// to hold a `SqlServerIdentifier`.
     ///
@@ -10157,6 +10140,23 @@ impl SourceObjectIdentifier {
             crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v.into()),
         );
         self
+    }
+
+    /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
+    /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn salesforce_identifier(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source_identifier.as_ref().and_then(|v| match v {
+            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
@@ -10981,12 +10981,6 @@ impl Validation {
         self
     }
 
-    /// Sets the value of [code][crate::model::Validation::code].
-    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.code = v.into();
-        self
-    }
-
     /// Sets the value of [message][crate::model::Validation::message].
     pub fn set_message<T, V>(mut self, v: T) -> Self
     where
@@ -10995,6 +10989,12 @@ impl Validation {
     {
         use std::iter::Iterator;
         self.message = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [code][crate::model::Validation::code].
+    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code = v.into();
         self
     }
 }
@@ -11202,12 +11202,6 @@ impl ValidationMessage {
         self
     }
 
-    /// Sets the value of [code][crate::model::ValidationMessage::code].
-    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.code = v.into();
-        self
-    }
-
     /// Sets the value of [metadata][crate::model::ValidationMessage::metadata].
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -11217,6 +11211,12 @@ impl ValidationMessage {
     {
         use std::iter::Iterator;
         self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [code][crate::model::ValidationMessage::code].
+    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code = v.into();
         self
     }
 }
@@ -11416,38 +11416,6 @@ impl CdcStrategy {
         })
     }
 
-    /// The value of [start_position][crate::model::CdcStrategy::start_position]
-    /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn next_available_start_position(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>
-    {
-        #[allow(unreachable_patterns)]
-        self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [start_position][crate::model::CdcStrategy::start_position]
-    /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn specific_start_position(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>
-    {
-        #[allow(unreachable_patterns)]
-        self.start_position.as_ref().and_then(|v| match v {
-            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
     /// to hold a `MostRecentStartPosition`.
     ///
@@ -11465,6 +11433,22 @@ impl CdcStrategy {
         self
     }
 
+    /// The value of [start_position][crate::model::CdcStrategy::start_position]
+    /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn next_available_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>
+    {
+        #[allow(unreachable_patterns)]
+        self.start_position.as_ref().and_then(|v| match v {
+            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
     /// to hold a `NextAvailableStartPosition`.
     ///
@@ -11480,6 +11464,22 @@ impl CdcStrategy {
             crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v.into()),
         );
         self
+    }
+
+    /// The value of [start_position][crate::model::CdcStrategy::start_position]
+    /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn specific_start_position(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>
+    {
+        #[allow(unreachable_patterns)]
+        self.start_position.as_ref().and_then(|v| match v {
+            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
@@ -11609,45 +11609,6 @@ pub mod cdc_strategy {
             })
         }
 
-        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// if it holds a `OracleScnPosition`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn oracle_scn_position(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
-            #[allow(unreachable_patterns)]
-            self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// if it holds a `SqlServerLsnPosition`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn sql_server_lsn_position(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
-            #[allow(unreachable_patterns)]
-            self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn mysql_gtid_position(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
-            #[allow(unreachable_patterns)]
-            self.position.as_ref().and_then(|v| match v {
-                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// to hold a `MysqlLogPosition`.
         ///
@@ -11665,6 +11626,19 @@ pub mod cdc_strategy {
                 ),
             );
             self
+        }
+
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `OracleScnPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn oracle_scn_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
@@ -11686,6 +11660,19 @@ pub mod cdc_strategy {
             self
         }
 
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `SqlServerLsnPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sql_server_lsn_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// to hold a `SqlServerLsnPosition`.
         ///
@@ -11703,6 +11690,19 @@ pub mod cdc_strategy {
                 ),
             );
             self
+        }
+
+        /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
+        /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn mysql_gtid_position(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
+            #[allow(unreachable_patterns)]
+            self.position.as_ref().and_then(|v| match v {
+                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]

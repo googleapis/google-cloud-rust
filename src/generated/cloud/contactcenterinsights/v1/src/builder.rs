@@ -179,7 +179,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::Conversation, crate::model::UploadConversationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Conversation,
                 crate::model::UploadConversationMetadata,
             >;
@@ -207,7 +207,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
@@ -568,7 +568,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Analysis,
                 crate::model::CreateAnalysisOperationMetadata,
             >;
@@ -596,7 +596,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
@@ -848,7 +848,7 @@ pub mod contact_center_insights {
             crate::model::BulkAnalyzeConversationsResponse,
             crate::model::BulkAnalyzeConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkAnalyzeConversationsResponse,
                 crate::model::BulkAnalyzeConversationsMetadata,
             >;
@@ -876,7 +876,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
@@ -970,7 +970,7 @@ pub mod contact_center_insights {
             crate::model::BulkDeleteConversationsResponse,
             crate::model::BulkDeleteConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDeleteConversationsResponse,
                 crate::model::BulkDeleteConversationsMetadata,
             >;
@@ -998,7 +998,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
@@ -1081,7 +1081,7 @@ pub mod contact_center_insights {
             crate::model::IngestConversationsResponse,
             crate::model::IngestConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::IngestConversationsResponse,
                 crate::model::IngestConversationsMetadata,
             >;
@@ -1109,7 +1109,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
@@ -1273,7 +1273,7 @@ pub mod contact_center_insights {
             crate::model::ExportInsightsDataResponse,
             crate::model::ExportInsightsDataMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportInsightsDataResponse,
                 crate::model::ExportInsightsDataMetadata,
             >;
@@ -1301,7 +1301,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
@@ -1420,8 +1420,10 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::IssueModel,
+                crate::model::CreateIssueModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1446,7 +1448,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
@@ -1675,7 +1677,8 @@ pub mod contact_center_insights {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteIssueModelMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1700,7 +1703,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
@@ -1765,7 +1768,7 @@ pub mod contact_center_insights {
             crate::model::DeployIssueModelResponse,
             crate::model::DeployIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeployIssueModelResponse,
                 crate::model::DeployIssueModelMetadata,
             >;
@@ -1793,7 +1796,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
@@ -1858,7 +1861,7 @@ pub mod contact_center_insights {
             crate::model::UndeployIssueModelResponse,
             crate::model::UndeployIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeployIssueModelResponse,
                 crate::model::UndeployIssueModelMetadata,
             >;
@@ -1886,7 +1889,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
@@ -1951,7 +1954,7 @@ pub mod contact_center_insights {
             crate::model::ExportIssueModelResponse,
             crate::model::ExportIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportIssueModelResponse,
                 crate::model::ExportIssueModelMetadata,
             >;
@@ -1979,7 +1982,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
@@ -2075,7 +2078,7 @@ pub mod contact_center_insights {
             crate::model::ImportIssueModelResponse,
             crate::model::ImportIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportIssueModelResponse,
                 crate::model::ImportIssueModelMetadata,
             >;
@@ -2103,7 +2106,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
@@ -3271,7 +3274,7 @@ pub mod contact_center_insights {
             crate::model::InitializeEncryptionSpecResponse,
             crate::model::InitializeEncryptionSpecMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InitializeEncryptionSpecResponse,
                 crate::model::InitializeEncryptionSpecMetadata,
             >;
@@ -3299,7 +3302,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
@@ -3641,7 +3644,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::QueryMetricsResponse,
                 crate::model::QueryMetricsMetadata,
             >;
@@ -3669,7 +3672,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
@@ -3699,15 +3702,6 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
-            self
-        }
-
         /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
@@ -3716,6 +3710,15 @@ pub mod contact_center_insights {
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.measure_mask = v.into();
             self
         }
     }
@@ -4509,7 +4512,7 @@ pub mod contact_center_insights {
             crate::model::TuneQaScorecardRevisionResponse,
             crate::model::TuneQaScorecardRevisionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TuneQaScorecardRevisionResponse,
                 crate::model::TuneQaScorecardRevisionMetadata,
             >;
@@ -4537,7 +4540,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
@@ -5264,7 +5267,7 @@ pub mod contact_center_insights {
             crate::model::BulkUploadFeedbackLabelsResponse,
             crate::model::BulkUploadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkUploadFeedbackLabelsResponse,
                 crate::model::BulkUploadFeedbackLabelsMetadata,
             >;
@@ -5292,7 +5295,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
@@ -5396,7 +5399,7 @@ pub mod contact_center_insights {
             crate::model::BulkDownloadFeedbackLabelsResponse,
             crate::model::BulkDownloadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDownloadFeedbackLabelsResponse,
                 crate::model::BulkDownloadFeedbackLabelsMetadata,
             >;
@@ -5424,7 +5427,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].

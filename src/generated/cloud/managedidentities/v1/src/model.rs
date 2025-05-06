@@ -377,12 +377,6 @@ impl ListDomainsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDomainsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [domains][crate::model::ListDomainsResponse::domains].
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
@@ -391,6 +385,12 @@ impl ListDomainsResponse {
     {
         use std::iter::Iterator;
         self.domains = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDomainsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -840,12 +840,46 @@ impl Domain {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Domain::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [authorized_networks][crate::model::Domain::authorized_networks].
+    pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [reserved_ip_range][crate::model::Domain::reserved_ip_range].
     pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.reserved_ip_range = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::Domain::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -891,28 +925,6 @@ impl Domain {
         self
     }
 
-    /// Sets the value of [authorized_networks][crate::model::Domain::authorized_networks].
-    pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [locations][crate::model::Domain::locations].
-    pub fn set_locations<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.locations = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [trusts][crate::model::Domain::trusts].
     pub fn set_trusts<T, V>(mut self, v: T) -> Self
     where
@@ -921,18 +933,6 @@ impl Domain {
     {
         use std::iter::Iterator;
         self.trusts = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Domain::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1213,6 +1213,17 @@ impl Trust {
         self
     }
 
+    /// Sets the value of [target_dns_ip_addresses][crate::model::Trust::target_dns_ip_addresses].
+    pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_dns_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [trust_handshake_secret][crate::model::Trust::trust_handshake_secret].
     pub fn set_trust_handshake_secret<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1263,17 +1274,6 @@ impl Trust {
         v: T,
     ) -> Self {
         self.last_trust_heartbeat_time = v.into();
-        self
-    }
-
-    /// Sets the value of [target_dns_ip_addresses][crate::model::Trust::target_dns_ip_addresses].
-    pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.target_dns_ip_addresses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

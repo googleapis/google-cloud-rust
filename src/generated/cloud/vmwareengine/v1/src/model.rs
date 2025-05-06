@@ -183,12 +183,6 @@ impl ListPrivateCloudsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrivateCloudsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [private_clouds][crate::model::ListPrivateCloudsResponse::private_clouds].
     pub fn set_private_clouds<T, V>(mut self, v: T) -> Self
     where
@@ -197,6 +191,12 @@ impl ListPrivateCloudsResponse {
     {
         use std::iter::Iterator;
         self.private_clouds = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrivateCloudsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -710,12 +710,6 @@ impl ListClustersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -724,6 +718,12 @@ impl ListClustersResponse {
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1113,12 +1113,6 @@ impl ListNodesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNodesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [nodes][crate::model::ListNodesResponse::nodes].
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
@@ -1127,6 +1121,12 @@ impl ListNodesResponse {
     {
         use std::iter::Iterator;
         self.nodes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNodesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1337,12 +1337,6 @@ impl ListExternalAddressesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExternalAddressesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [external_addresses][crate::model::ListExternalAddressesResponse::external_addresses].
     pub fn set_external_addresses<T, V>(mut self, v: T) -> Self
     where
@@ -1351,6 +1345,12 @@ impl ListExternalAddressesResponse {
     {
         use std::iter::Iterator;
         self.external_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExternalAddressesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1482,12 +1482,6 @@ impl FetchNetworkPolicyExternalAddressesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::FetchNetworkPolicyExternalAddressesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [external_addresses][crate::model::FetchNetworkPolicyExternalAddressesResponse::external_addresses].
     pub fn set_external_addresses<T, V>(mut self, v: T) -> Self
     where
@@ -1496,6 +1490,12 @@ impl FetchNetworkPolicyExternalAddressesResponse {
     {
         use std::iter::Iterator;
         self.external_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchNetworkPolicyExternalAddressesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1901,12 +1901,6 @@ impl ListSubnetsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSubnetsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [subnets][crate::model::ListSubnetsResponse::subnets].
     pub fn set_subnets<T, V>(mut self, v: T) -> Self
     where
@@ -1915,6 +1909,12 @@ impl ListSubnetsResponse {
     {
         use std::iter::Iterator;
         self.subnets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSubnetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2193,12 +2193,6 @@ impl ListExternalAccessRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListExternalAccessRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [external_access_rules][crate::model::ListExternalAccessRulesResponse::external_access_rules].
     pub fn set_external_access_rules<T, V>(mut self, v: T) -> Self
     where
@@ -2207,6 +2201,12 @@ impl ListExternalAccessRulesResponse {
     {
         use std::iter::Iterator;
         self.external_access_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExternalAccessRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2674,12 +2674,6 @@ impl ListLoggingServersResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLoggingServersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [logging_servers][crate::model::ListLoggingServersResponse::logging_servers].
     pub fn set_logging_servers<T, V>(mut self, v: T) -> Self
     where
@@ -2688,6 +2682,12 @@ impl ListLoggingServersResponse {
     {
         use std::iter::Iterator;
         self.logging_servers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLoggingServersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3244,12 +3244,6 @@ impl ListNodeTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNodeTypesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [node_types][crate::model::ListNodeTypesResponse::node_types].
     pub fn set_node_types<T, V>(mut self, v: T) -> Self
     where
@@ -3258,6 +3252,12 @@ impl ListNodeTypesResponse {
     {
         use std::iter::Iterator;
         self.node_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNodeTypesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3607,12 +3607,6 @@ impl ListHcxActivationKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListHcxActivationKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [hcx_activation_keys][crate::model::ListHcxActivationKeysResponse::hcx_activation_keys].
     pub fn set_hcx_activation_keys<T, V>(mut self, v: T) -> Self
     where
@@ -3621,6 +3615,12 @@ impl ListHcxActivationKeysResponse {
     {
         use std::iter::Iterator;
         self.hcx_activation_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHcxActivationKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4407,12 +4407,6 @@ impl ListNetworkPeeringsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNetworkPeeringsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [network_peerings][crate::model::ListNetworkPeeringsResponse::network_peerings].
     pub fn set_network_peerings<T, V>(mut self, v: T) -> Self
     where
@@ -4421,6 +4415,12 @@ impl ListNetworkPeeringsResponse {
     {
         use std::iter::Iterator;
         self.network_peerings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNetworkPeeringsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4561,12 +4561,6 @@ impl ListPeeringRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPeeringRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [peering_routes][crate::model::ListPeeringRoutesResponse::peering_routes].
     pub fn set_peering_routes<T, V>(mut self, v: T) -> Self
     where
@@ -4575,6 +4569,12 @@ impl ListPeeringRoutesResponse {
     {
         use std::iter::Iterator;
         self.peering_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPeeringRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4747,12 +4747,6 @@ impl ListNetworkPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNetworkPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [network_policies][crate::model::ListNetworkPoliciesResponse::network_policies].
     pub fn set_network_policies<T, V>(mut self, v: T) -> Self
     where
@@ -4761,6 +4755,12 @@ impl ListNetworkPoliciesResponse {
     {
         use std::iter::Iterator;
         self.network_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNetworkPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -5229,12 +5229,6 @@ impl ListManagementDnsZoneBindingsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListManagementDnsZoneBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [management_dns_zone_bindings][crate::model::ListManagementDnsZoneBindingsResponse::management_dns_zone_bindings].
     pub fn set_management_dns_zone_bindings<T, V>(mut self, v: T) -> Self
     where
@@ -5243,6 +5237,12 @@ impl ListManagementDnsZoneBindingsResponse {
     {
         use std::iter::Iterator;
         self.management_dns_zone_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListManagementDnsZoneBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6063,12 +6063,6 @@ impl ListVmwareEngineNetworksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVmwareEngineNetworksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [vmware_engine_networks][crate::model::ListVmwareEngineNetworksResponse::vmware_engine_networks].
     pub fn set_vmware_engine_networks<T, V>(mut self, v: T) -> Self
     where
@@ -6077,6 +6071,12 @@ impl ListVmwareEngineNetworksResponse {
     {
         use std::iter::Iterator;
         self.vmware_engine_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVmwareEngineNetworksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6397,12 +6397,6 @@ impl ListPrivateConnectionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [private_connections][crate::model::ListPrivateConnectionsResponse::private_connections].
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
@@ -6411,6 +6405,12 @@ impl ListPrivateConnectionsResponse {
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6679,12 +6679,6 @@ impl ListPrivateConnectionPeeringRoutesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionPeeringRoutesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [peering_routes][crate::model::ListPrivateConnectionPeeringRoutesResponse::peering_routes].
     pub fn set_peering_routes<T, V>(mut self, v: T) -> Self
     where
@@ -6693,6 +6687,12 @@ impl ListPrivateConnectionPeeringRoutesResponse {
     {
         use std::iter::Iterator;
         self.peering_routes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionPeeringRoutesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -7370,17 +7370,6 @@ pub mod private_cloud {
             self
         }
 
-        /// Sets the value of [stretched_cluster_config][crate::model::private_cloud::ManagementCluster::stretched_cluster_config].
-        pub fn set_stretched_cluster_config<
-            T: std::convert::Into<std::option::Option<crate::model::StretchedClusterConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.stretched_cluster_config = v.into();
-            self
-        }
-
         /// Sets the value of [node_type_configs][crate::model::private_cloud::ManagementCluster::node_type_configs].
         pub fn set_node_type_configs<T, K, V>(mut self, v: T) -> Self
         where
@@ -7390,6 +7379,17 @@ pub mod private_cloud {
         {
             use std::iter::Iterator;
             self.node_type_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [stretched_cluster_config][crate::model::private_cloud::ManagementCluster::stretched_cluster_config].
+        pub fn set_stretched_cluster_config<
+            T: std::convert::Into<std::option::Option<crate::model::StretchedClusterConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.stretched_cluster_config = v.into();
             self
         }
     }
@@ -7811,17 +7811,6 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of [stretched_cluster_config][crate::model::Cluster::stretched_cluster_config].
-    pub fn set_stretched_cluster_config<
-        T: std::convert::Into<std::option::Option<crate::model::StretchedClusterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.stretched_cluster_config = v.into();
-        self
-    }
-
     /// Sets the value of [node_type_configs][crate::model::Cluster::node_type_configs].
     pub fn set_node_type_configs<T, K, V>(mut self, v: T) -> Self
     where
@@ -7831,6 +7820,17 @@ impl Cluster {
     {
         use std::iter::Iterator;
         self.node_type_configs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [stretched_cluster_config][crate::model::Cluster::stretched_cluster_config].
+    pub fn set_stretched_cluster_config<
+        T: std::convert::Into<std::option::Option<crate::model::StretchedClusterConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.stretched_cluster_config = v.into();
         self
     }
 }
@@ -8924,21 +8924,6 @@ impl ExternalAccessRule {
         self
     }
 
-    /// Sets the value of [state][crate::model::ExternalAccessRule::state].
-    pub fn set_state<T: std::convert::Into<crate::model::external_access_rule::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [uid][crate::model::ExternalAccessRule::uid].
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uid = v.into();
-        self
-    }
-
     /// Sets the value of [source_ip_ranges][crate::model::ExternalAccessRule::source_ip_ranges].
     pub fn set_source_ip_ranges<T, V>(mut self, v: T) -> Self
     where
@@ -8980,6 +8965,21 @@ impl ExternalAccessRule {
     {
         use std::iter::Iterator;
         self.destination_ports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::ExternalAccessRule::state].
+    pub fn set_state<T: std::convert::Into<crate::model::external_access_rule::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::ExternalAccessRule::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
         self
     }
 }
@@ -9042,6 +9042,18 @@ pub mod external_access_rule {
             })
         }
 
+        /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
+        /// to hold a `IpAddress`.
+        ///
+        /// Note that all the setters affecting `ip_range` are
+        /// mutually exclusive.
+        pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.ip_range = std::option::Option::Some(
+                crate::model::external_access_rule::ip_range::IpRange::IpAddress(v.into()),
+            );
+            self
+        }
+
         /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
         /// if it holds a `IpAddressRange`, `None` if the field is not set or
         /// holds a different branch.
@@ -9053,31 +9065,6 @@ pub mod external_access_rule {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
-        /// if it holds a `ExternalAddress`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn external_address(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.ip_range.as_ref().and_then(|v| match v {
-                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
-        /// to hold a `IpAddress`.
-        ///
-        /// Note that all the setters affecting `ip_range` are
-        /// mutually exclusive.
-        pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::IpAddress(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
@@ -9093,6 +9080,19 @@ pub mod external_access_rule {
                 crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(v.into()),
             );
             self
+        }
+
+        /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
+        /// if it holds a `ExternalAddress`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn external_address(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.ip_range.as_ref().and_then(|v| match v {
+                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
@@ -9938,12 +9938,6 @@ impl NodeType {
         self
     }
 
-    /// Sets the value of [kind][crate::model::NodeType::kind].
-    pub fn set_kind<T: std::convert::Into<crate::model::node_type::Kind>>(mut self, v: T) -> Self {
-        self.kind = v.into();
-        self
-    }
-
     /// Sets the value of [available_custom_core_counts][crate::model::NodeType::available_custom_core_counts].
     pub fn set_available_custom_core_counts<T, V>(mut self, v: T) -> Self
     where
@@ -9952,6 +9946,12 @@ impl NodeType {
     {
         use std::iter::Iterator;
         self.available_custom_core_counts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::NodeType::kind].
+    pub fn set_kind<T: std::convert::Into<crate::model::node_type::Kind>>(mut self, v: T) -> Self {
+        self.kind = v.into();
         self
     }
 
@@ -11182,6 +11182,18 @@ impl AutoscalingSettings {
         std::default::Default::default()
     }
 
+    /// Sets the value of [autoscaling_policies][crate::model::AutoscalingSettings::autoscaling_policies].
+    pub fn set_autoscaling_policies<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::autoscaling_settings::AutoscalingPolicy>,
+    {
+        use std::iter::Iterator;
+        self.autoscaling_policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [min_cluster_node_count][crate::model::AutoscalingSettings::min_cluster_node_count].
     pub fn set_min_cluster_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_cluster_node_count = v.into();
@@ -11200,18 +11212,6 @@ impl AutoscalingSettings {
         v: T,
     ) -> Self {
         self.cool_down_period = v.into();
-        self
-    }
-
-    /// Sets the value of [autoscaling_policies][crate::model::AutoscalingSettings::autoscaling_policies].
-    pub fn set_autoscaling_policies<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::autoscaling_settings::AutoscalingPolicy>,
-    {
-        use std::iter::Iterator;
-        self.autoscaling_policies = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -12970,6 +12970,18 @@ impl ManagementDnsZoneBinding {
         })
     }
 
+    /// Sets the value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
+    /// to hold a `VpcNetwork`.
+    ///
+    /// Note that all the setters affecting `bind_network` are
+    /// mutually exclusive.
+    pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.bind_network = std::option::Option::Some(
+            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v.into()),
+        );
+        self
+    }
+
     /// The value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
     /// if it holds a `VmwareEngineNetwork`, `None` if the field is not set or
     /// holds a different branch.
@@ -12981,18 +12993,6 @@ impl ManagementDnsZoneBinding {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
-    /// to hold a `VpcNetwork`.
-    ///
-    /// Note that all the setters affecting `bind_network` are
-    /// mutually exclusive.
-    pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.bind_network = std::option::Option::Some(
-            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
@@ -13286,6 +13286,17 @@ impl VmwareEngineNetwork {
         self
     }
 
+    /// Sets the value of [vpc_networks][crate::model::VmwareEngineNetwork::vpc_networks].
+    pub fn set_vpc_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::vmware_engine_network::VpcNetwork>,
+    {
+        use std::iter::Iterator;
+        self.vpc_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::VmwareEngineNetwork::state].
     pub fn set_state<T: std::convert::Into<crate::model::vmware_engine_network::State>>(
         mut self,
@@ -13313,17 +13324,6 @@ impl VmwareEngineNetwork {
     /// Sets the value of [etag][crate::model::VmwareEngineNetwork::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
-        self
-    }
-
-    /// Sets the value of [vpc_networks][crate::model::VmwareEngineNetwork::vpc_networks].
-    pub fn set_vpc_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vmware_engine_network::VpcNetwork>,
-    {
-        use std::iter::Iterator;
-        self.vpc_networks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -14884,17 +14884,6 @@ impl Principal {
         })
     }
 
-    /// The value of [principal][crate::model::Principal::principal]
-    /// if it holds a `ServiceAccount`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn service_account(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.principal.as_ref().and_then(|v| match v {
-            crate::model::principal::Principal::ServiceAccount(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [principal][crate::model::Principal::principal]
     /// to hold a `User`.
     ///
@@ -14904,6 +14893,17 @@ impl Principal {
         self.principal =
             std::option::Option::Some(crate::model::principal::Principal::User(v.into()));
         self
+    }
+
+    /// The value of [principal][crate::model::Principal::principal]
+    /// if it holds a `ServiceAccount`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service_account(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.principal.as_ref().and_then(|v| match v {
+            crate::model::principal::Principal::ServiceAccount(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [principal][crate::model::Principal::principal]

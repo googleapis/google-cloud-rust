@@ -84,15 +84,6 @@ impl GenerateAccessTokenRequest {
         self
     }
 
-    /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-    pub fn set_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lifetime = v.into();
-        self
-    }
-
     /// Sets the value of [delegates][crate::model::GenerateAccessTokenRequest::delegates].
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
@@ -112,6 +103,15 @@ impl GenerateAccessTokenRequest {
     {
         use std::iter::Iterator;
         self.scope = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+    pub fn set_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.lifetime = v.into();
         self
     }
 }
@@ -212,12 +212,6 @@ impl SignBlobRequest {
         self
     }
 
-    /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-    pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.payload = v.into();
-        self
-    }
-
     /// Sets the value of [delegates][crate::model::SignBlobRequest::delegates].
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
@@ -226,6 +220,12 @@ impl SignBlobRequest {
     {
         use std::iter::Iterator;
         self.delegates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
+    pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.payload = v.into();
         self
     }
 }
@@ -322,12 +322,6 @@ impl SignJwtRequest {
         self
     }
 
-    /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
-    pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.payload = v.into();
-        self
-    }
-
     /// Sets the value of [delegates][crate::model::SignJwtRequest::delegates].
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
@@ -336,6 +330,12 @@ impl SignJwtRequest {
     {
         use std::iter::Iterator;
         self.delegates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+    pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.payload = v.into();
         self
     }
 }
@@ -437,6 +437,17 @@ impl GenerateIdTokenRequest {
         self
     }
 
+    /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
+    pub fn set_delegates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.delegates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
@@ -446,17 +457,6 @@ impl GenerateIdTokenRequest {
     /// Sets the value of [include_email][crate::model::GenerateIdTokenRequest::include_email].
     pub fn set_include_email<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_email = v.into();
-        self
-    }
-
-    /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
-    pub fn set_delegates<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.delegates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

@@ -199,6 +199,18 @@ impl Deployment {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Deployment::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Deployment::state].
     pub fn set_state<T: std::convert::Into<crate::model::deployment::State>>(
         mut self,
@@ -249,6 +261,17 @@ impl Deployment {
     /// Sets the value of [delete_logs][crate::model::Deployment::delete_logs].
     pub fn set_delete_logs<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delete_logs = v.into();
+        self
+    }
+
+    /// Sets the value of [tf_errors][crate::model::Deployment::tf_errors].
+    pub fn set_tf_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TerraformError>,
+    {
+        use std::iter::Iterator;
+        self.tf_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -328,29 +351,6 @@ impl Deployment {
         v: T,
     ) -> Self {
         self.quota_validation = v.into();
-        self
-    }
-
-    /// Sets the value of [tf_errors][crate::model::Deployment::tf_errors].
-    pub fn set_tf_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TerraformError>,
-    {
-        use std::iter::Iterator;
-        self.tf_errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Deployment::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -993,17 +993,6 @@ impl TerraformBlueprint {
         })
     }
 
-    /// The value of [source][crate::model::TerraformBlueprint::source]
-    /// if it holds a `GitSource`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
-        #[allow(unreachable_patterns)]
-        self.source.as_ref().and_then(|v| match v {
-            crate::model::terraform_blueprint::Source::GitSource(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [source][crate::model::TerraformBlueprint::source]
     /// to hold a `GcsSource`.
     ///
@@ -1014,6 +1003,17 @@ impl TerraformBlueprint {
             crate::model::terraform_blueprint::Source::GcsSource(v.into()),
         );
         self
+    }
+
+    /// The value of [source][crate::model::TerraformBlueprint::source]
+    /// if it holds a `GitSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::terraform_blueprint::Source::GitSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [source][crate::model::TerraformBlueprint::source]
@@ -1328,12 +1328,6 @@ impl ListDeploymentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
@@ -1342,6 +1336,12 @@ impl ListDeploymentsResponse {
     {
         use std::iter::Iterator;
         self.deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1539,12 +1539,6 @@ impl ListRevisionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRevisionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [revisions][crate::model::ListRevisionsResponse::revisions].
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
@@ -1553,6 +1547,12 @@ impl ListRevisionsResponse {
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRevisionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2133,21 +2133,6 @@ impl OperationMetadata {
         })
     }
 
-    /// The value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
-    /// if it holds a `PreviewMetadata`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn preview_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PreviewOperationMetadata>> {
-        #[allow(unreachable_patterns)]
-        self.resource_metadata.as_ref().and_then(|v| match v {
-            crate::model::operation_metadata::ResourceMetadata::PreviewMetadata(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
     /// to hold a `DeploymentMetadata`.
     ///
@@ -2163,6 +2148,21 @@ impl OperationMetadata {
             crate::model::operation_metadata::ResourceMetadata::DeploymentMetadata(v.into()),
         );
         self
+    }
+
+    /// The value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
+    /// if it holds a `PreviewMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn preview_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PreviewOperationMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.resource_metadata.as_ref().and_then(|v| match v {
+            crate::model::operation_metadata::ResourceMetadata::PreviewMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
@@ -2401,6 +2401,17 @@ impl Revision {
         self
     }
 
+    /// Sets the value of [tf_errors][crate::model::Revision::tf_errors].
+    pub fn set_tf_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TerraformError>,
+    {
+        use std::iter::Iterator;
+        self.tf_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [error_logs][crate::model::Revision::error_logs].
     pub fn set_error_logs<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_logs = v.into();
@@ -2455,17 +2466,6 @@ impl Revision {
         v: T,
     ) -> Self {
         self.quota_validation = v.into();
-        self
-    }
-
-    /// Sets the value of [tf_errors][crate::model::Revision::tf_errors].
-    pub fn set_tf_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TerraformError>,
-    {
-        use std::iter::Iterator;
-        self.tf_errors = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3446,6 +3446,18 @@ impl Resource {
         self
     }
 
+    /// Sets the value of [cai_assets][crate::model::Resource::cai_assets].
+    pub fn set_cai_assets<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ResourceCAIInfo>,
+    {
+        use std::iter::Iterator;
+        self.cai_assets = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [intent][crate::model::Resource::intent].
     pub fn set_intent<T: std::convert::Into<crate::model::resource::Intent>>(
         mut self,
@@ -3458,18 +3470,6 @@ impl Resource {
     /// Sets the value of [state][crate::model::Resource::state].
     pub fn set_state<T: std::convert::Into<crate::model::resource::State>>(mut self, v: T) -> Self {
         self.state = v.into();
-        self
-    }
-
-    /// Sets the value of [cai_assets][crate::model::Resource::cai_assets].
-    pub fn set_cai_assets<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::ResourceCAIInfo>,
-    {
-        use std::iter::Iterator;
-        self.cai_assets = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4029,12 +4029,6 @@ impl ListResourcesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListResourcesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::ListResourcesResponse::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -4043,6 +4037,12 @@ impl ListResourcesResponse {
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListResourcesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4629,6 +4629,18 @@ impl Preview {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Preview::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Preview::state].
     pub fn set_state<T: std::convert::Into<crate::model::preview::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4700,6 +4712,17 @@ impl Preview {
         self
     }
 
+    /// Sets the value of [tf_errors][crate::model::Preview::tf_errors].
+    pub fn set_tf_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TerraformError>,
+    {
+        use std::iter::Iterator;
+        self.tf_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [error_logs][crate::model::Preview::error_logs].
     pub fn set_error_logs<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_logs = v.into();
@@ -4737,29 +4760,6 @@ impl Preview {
         v: T,
     ) -> Self {
         self.tf_version_constraint = v.into();
-        self
-    }
-
-    /// Sets the value of [tf_errors][crate::model::Preview::tf_errors].
-    pub fn set_tf_errors<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TerraformError>,
-    {
-        use std::iter::Iterator;
-        self.tf_errors = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Preview::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5866,12 +5866,6 @@ impl ListPreviewsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListPreviewsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [previews][crate::model::ListPreviewsResponse::previews].
     pub fn set_previews<T, V>(mut self, v: T) -> Self
     where
@@ -5880,6 +5874,12 @@ impl ListPreviewsResponse {
     {
         use std::iter::Iterator;
         self.previews = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPreviewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6232,12 +6232,6 @@ impl ListTerraformVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListTerraformVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [terraform_versions][crate::model::ListTerraformVersionsResponse::terraform_versions].
     pub fn set_terraform_versions<T, V>(mut self, v: T) -> Self
     where
@@ -6246,6 +6240,12 @@ impl ListTerraformVersionsResponse {
     {
         use std::iter::Iterator;
         self.terraform_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTerraformVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

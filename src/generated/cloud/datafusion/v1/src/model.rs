@@ -128,12 +128,6 @@ impl Version {
         self
     }
 
-    /// Sets the value of [r#type][crate::model::Version::type].
-    pub fn set_type<T: std::convert::Into<crate::model::version::Type>>(mut self, v: T) -> Self {
-        self.r#type = v.into();
-        self
-    }
-
     /// Sets the value of [available_features][crate::model::Version::available_features].
     pub fn set_available_features<T, V>(mut self, v: T) -> Self
     where
@@ -142,6 +136,12 @@ impl Version {
     {
         use std::iter::Iterator;
         self.available_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::Version::type].
+    pub fn set_type<T: std::convert::Into<crate::model::version::Type>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
         self
     }
 }
@@ -851,6 +851,30 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::model::Instance::options].
+    pub fn set_options<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -915,6 +939,17 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [available_version][crate::model::Instance::available_version].
+    pub fn set_available_version<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Version>,
+    {
+        use std::iter::Iterator;
+        self.available_version = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [api_endpoint][crate::model::Instance::api_endpoint].
     pub fn set_api_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_endpoint = v.into();
@@ -924,6 +959,17 @@ impl Instance {
     /// Sets the value of [gcs_bucket][crate::model::Instance::gcs_bucket].
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [accelerators][crate::model::Instance::accelerators].
+    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Accelerator>,
+    {
+        use std::iter::Iterator;
+        self.accelerators = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -971,28 +1017,6 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [available_version][crate::model::Instance::available_version].
-    pub fn set_available_version<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Version>,
-    {
-        use std::iter::Iterator;
-        self.available_version = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [accelerators][crate::model::Instance::accelerators].
-    pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Accelerator>,
-    {
-        use std::iter::Iterator;
-        self.accelerators = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [disabled_reason][crate::model::Instance::disabled_reason].
     pub fn set_disabled_reason<T, V>(mut self, v: T) -> Self
     where
@@ -1001,30 +1025,6 @@ impl Instance {
     {
         use std::iter::Iterator;
         self.disabled_reason = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [options][crate::model::Instance::options].
-    pub fn set_options<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1607,12 +1607,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -1621,6 +1615,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1746,12 +1746,6 @@ impl ListAvailableVersionsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListAvailableVersionsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [available_versions][crate::model::ListAvailableVersionsResponse::available_versions].
     pub fn set_available_versions<T, V>(mut self, v: T) -> Self
     where
@@ -1760,6 +1754,12 @@ impl ListAvailableVersionsResponse {
     {
         use std::iter::Iterator;
         self.available_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAvailableVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }

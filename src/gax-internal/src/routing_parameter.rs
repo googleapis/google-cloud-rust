@@ -85,16 +85,13 @@ pub fn value<'h>(
 ///     "bucket=projects%2F_%2Fbuckets%2Fd&source_bucket=projects%2F_%2Fbuckets%2Fs");
 /// ```
 pub fn format(matches: &[Option<(&str, &str)>]) -> String {
-    let matches: Vec<_> = matches.iter().flatten().collect();
-    if matches.is_empty() {
-        return String::new();
-    }
-    let mut i = matches.into_iter();
-    let s = i
-        .next()
+    matches
+        .iter()
+        .flatten()
         .map(|(k, v)| format!("{}={}", enc(k), enc(v)))
-        .unwrap();
-    i.fold(s, |s, (k, v)| s + &format!("&{}={}", enc(k), enc(v)))
+        .fold(String::new(), |acc, v| {
+            if acc.is_empty() { v } else { acc + "&" + &v }
+        })
 }
 
 /// Represents a segment in the routing parameter path templates.

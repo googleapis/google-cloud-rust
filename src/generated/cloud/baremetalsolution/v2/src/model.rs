@@ -316,57 +316,15 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [interactive_serial_console_enabled][crate::model::Instance::interactive_serial_console_enabled].
-    pub fn set_interactive_serial_console_enabled<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.interactive_serial_console_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [os_image][crate::model::Instance::os_image].
-    pub fn set_os_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.os_image = v.into();
-        self
-    }
-
-    /// Sets the value of [pod][crate::model::Instance::pod].
-    pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pod = v.into();
-        self
-    }
-
-    /// Sets the value of [network_template][crate::model::Instance::network_template].
-    pub fn set_network_template<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.network_template = v.into();
-        self
-    }
-
-    /// Sets the value of [login_info][crate::model::Instance::login_info].
-    pub fn set_login_info<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.login_info = v.into();
-        self
-    }
-
-    /// Sets the value of [workload_profile][crate::model::Instance::workload_profile].
-    pub fn set_workload_profile<T: std::convert::Into<crate::model::WorkloadProfile>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workload_profile = v.into();
-        self
-    }
-
-    /// Sets the value of [firmware_version][crate::model::Instance::firmware_version].
-    pub fn set_firmware_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firmware_version = v.into();
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -403,6 +361,36 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [interactive_serial_console_enabled][crate::model::Instance::interactive_serial_console_enabled].
+    pub fn set_interactive_serial_console_enabled<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.interactive_serial_console_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [os_image][crate::model::Instance::os_image].
+    pub fn set_os_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.os_image = v.into();
+        self
+    }
+
+    /// Sets the value of [pod][crate::model::Instance::pod].
+    pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pod = v.into();
+        self
+    }
+
+    /// Sets the value of [network_template][crate::model::Instance::network_template].
+    pub fn set_network_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_template = v.into();
+        self
+    }
+
     /// Sets the value of [logical_interfaces][crate::model::Instance::logical_interfaces].
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
@@ -414,15 +402,27 @@ impl Instance {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Instance::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [login_info][crate::model::Instance::login_info].
+    pub fn set_login_info<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.login_info = v.into();
+        self
+    }
+
+    /// Sets the value of [workload_profile][crate::model::Instance::workload_profile].
+    pub fn set_workload_profile<T: std::convert::Into<crate::model::WorkloadProfile>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workload_profile = v.into();
+        self
+    }
+
+    /// Sets the value of [firmware_version][crate::model::Instance::firmware_version].
+    pub fn set_firmware_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.firmware_version = v.into();
         self
     }
 }
@@ -728,12 +728,6 @@ impl ListInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -742,6 +736,12 @@ impl ListInstancesResponse {
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2134,12 +2134,6 @@ impl ListLunsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListLunsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [luns][crate::model::ListLunsResponse::luns].
     pub fn set_luns<T, V>(mut self, v: T) -> Self
     where
@@ -2148,6 +2142,12 @@ impl ListLunsResponse {
     {
         use std::iter::Iterator;
         self.luns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListLunsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2323,6 +2323,17 @@ impl Network {
         self
     }
 
+    /// Sets the value of [mac_address][crate::model::Network::mac_address].
+    pub fn set_mac_address<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.mac_address = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Network::state].
     pub fn set_state<T: std::convert::Into<crate::model::network::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -2350,38 +2361,21 @@ impl Network {
         self
     }
 
-    /// Sets the value of [services_cidr][crate::model::Network::services_cidr].
-    pub fn set_services_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.services_cidr = v.into();
-        self
-    }
-
-    /// Sets the value of [pod][crate::model::Network::pod].
-    pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pod = v.into();
-        self
-    }
-
-    /// Sets the value of [jumbo_frames_enabled][crate::model::Network::jumbo_frames_enabled].
-    pub fn set_jumbo_frames_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.jumbo_frames_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [gateway_ip][crate::model::Network::gateway_ip].
-    pub fn set_gateway_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.gateway_ip = v.into();
-        self
-    }
-
-    /// Sets the value of [mac_address][crate::model::Network::mac_address].
-    pub fn set_mac_address<T, V>(mut self, v: T) -> Self
+    /// Sets the value of [labels][crate::model::Network::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
-        T: std::iter::IntoIterator<Item = V>,
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
         V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
-        self.mac_address = v.into_iter().map(|i| i.into()).collect();
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [services_cidr][crate::model::Network::services_cidr].
+    pub fn set_services_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.services_cidr = v.into();
         self
     }
 
@@ -2396,6 +2390,12 @@ impl Network {
         self
     }
 
+    /// Sets the value of [pod][crate::model::Network::pod].
+    pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pod = v.into();
+        self
+    }
+
     /// Sets the value of [mount_points][crate::model::Network::mount_points].
     pub fn set_mount_points<T, V>(mut self, v: T) -> Self
     where
@@ -2407,15 +2407,15 @@ impl Network {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Network::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [jumbo_frames_enabled][crate::model::Network::jumbo_frames_enabled].
+    pub fn set_jumbo_frames_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.jumbo_frames_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [gateway_ip][crate::model::Network::gateway_ip].
+    pub fn set_gateway_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.gateway_ip = v.into();
         self
     }
 }
@@ -2853,6 +2853,7 @@ pub mod vrf {
     pub struct QosPolicy {
         /// The bandwidth permitted by the QOS policy, in gbps.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub bandwidth_gbps: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3147,6 +3148,17 @@ impl LogicalInterface {
         std::default::Default::default()
     }
 
+    /// Sets the value of [logical_network_interfaces][crate::model::LogicalInterface::logical_network_interfaces].
+    pub fn set_logical_network_interfaces<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::logical_interface::LogicalNetworkInterface>,
+    {
+        use std::iter::Iterator;
+        self.logical_network_interfaces = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [name][crate::model::LogicalInterface::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3157,17 +3169,6 @@ impl LogicalInterface {
     #[deprecated]
     pub fn set_interface_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.interface_index = v.into();
-        self
-    }
-
-    /// Sets the value of [logical_network_interfaces][crate::model::LogicalInterface::logical_network_interfaces].
-    pub fn set_logical_network_interfaces<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logical_interface::LogicalNetworkInterface>,
-    {
-        use std::iter::Iterator;
-        self.logical_network_interfaces = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3381,12 +3382,6 @@ impl ListNetworksResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNetworksResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [networks][crate::model::ListNetworksResponse::networks].
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
@@ -3395,6 +3390,12 @@ impl ListNetworksResponse {
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNetworksResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3796,21 +3797,6 @@ impl NfsShare {
         self
     }
 
-    /// Sets the value of [requested_size_gib][crate::model::NfsShare::requested_size_gib].
-    pub fn set_requested_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.requested_size_gib = v.into();
-        self
-    }
-
-    /// Sets the value of [storage_type][crate::model::NfsShare::storage_type].
-    pub fn set_storage_type<T: std::convert::Into<crate::model::nfs_share::StorageType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.storage_type = v.into();
-        self
-    }
-
     /// Sets the value of [allowed_clients][crate::model::NfsShare::allowed_clients].
     pub fn set_allowed_clients<T, V>(mut self, v: T) -> Self
     where
@@ -3831,6 +3817,21 @@ impl NfsShare {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [requested_size_gib][crate::model::NfsShare::requested_size_gib].
+    pub fn set_requested_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.requested_size_gib = v.into();
+        self
+    }
+
+    /// Sets the value of [storage_type][crate::model::NfsShare::storage_type].
+    pub fn set_storage_type<T: std::convert::Into<crate::model::nfs_share::StorageType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.storage_type = v.into();
         self
     }
 }
@@ -4493,12 +4494,6 @@ impl ListNfsSharesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListNfsSharesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [nfs_shares][crate::model::ListNfsSharesResponse::nfs_shares].
     pub fn set_nfs_shares<T, V>(mut self, v: T) -> Self
     where
@@ -4507,6 +4502,12 @@ impl ListNfsSharesResponse {
     {
         use std::iter::Iterator;
         self.nfs_shares = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListNfsSharesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4879,12 +4880,6 @@ impl ListOSImagesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListOSImagesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [os_images][crate::model::ListOSImagesResponse::os_images].
     pub fn set_os_images<T, V>(mut self, v: T) -> Self
     where
@@ -4893,6 +4888,12 @@ impl ListOSImagesResponse {
     {
         use std::iter::Iterator;
         self.os_images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListOSImagesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4998,6 +4999,39 @@ impl ProvisioningConfig {
         self
     }
 
+    /// Sets the value of [instances][crate::model::ProvisioningConfig::instances].
+    pub fn set_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InstanceConfig>,
+    {
+        use std::iter::Iterator;
+        self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [networks][crate::model::ProvisioningConfig::networks].
+    pub fn set_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::NetworkConfig>,
+    {
+        use std::iter::Iterator;
+        self.networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [volumes][crate::model::ProvisioningConfig::volumes].
+    pub fn set_volumes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VolumeConfig>,
+    {
+        use std::iter::Iterator;
+        self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [ticket_id][crate::model::ProvisioningConfig::ticket_id].
     pub fn set_ticket_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ticket_id = v.into();
@@ -5068,39 +5102,6 @@ impl ProvisioningConfig {
     /// Sets the value of [custom_id][crate::model::ProvisioningConfig::custom_id].
     pub fn set_custom_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_id = v.into();
-        self
-    }
-
-    /// Sets the value of [instances][crate::model::ProvisioningConfig::instances].
-    pub fn set_instances<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InstanceConfig>,
-    {
-        use std::iter::Iterator;
-        self.instances = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [networks][crate::model::ProvisioningConfig::networks].
-    pub fn set_networks<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
-    {
-        use std::iter::Iterator;
-        self.networks = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [volumes][crate::model::ProvisioningConfig::volumes].
-    pub fn set_volumes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeConfig>,
-    {
-        use std::iter::Iterator;
-        self.volumes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5531,6 +5532,18 @@ impl ProvisioningQuota {
         })
     }
 
+    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
+    /// to hold a `ServerCount`.
+    ///
+    /// Note that all the setters affecting `availability` are
+    /// mutually exclusive.
+    pub fn set_server_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.availability = std::option::Option::Some(
+            crate::model::provisioning_quota::Availability::ServerCount(v.into()),
+        );
+        self
+    }
+
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `NetworkBandwidth`, `None` if the field is not set or
     /// holds a different branch.
@@ -5544,6 +5557,18 @@ impl ProvisioningQuota {
         })
     }
 
+    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
+    /// to hold a `NetworkBandwidth`.
+    ///
+    /// Note that all the setters affecting `availability` are
+    /// mutually exclusive.
+    pub fn set_network_bandwidth<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.availability = std::option::Option::Some(
+            crate::model::provisioning_quota::Availability::NetworkBandwidth(v.into()),
+        );
+        self
+    }
+
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `StorageGib`, `None` if the field is not set or
     /// holds a different branch.
@@ -5555,30 +5580,6 @@ impl ProvisioningQuota {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
-    /// to hold a `ServerCount`.
-    ///
-    /// Note that all the setters affecting `availability` are
-    /// mutually exclusive.
-    pub fn set_server_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::ServerCount(v.into()),
-        );
-        self
-    }
-
-    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
-    /// to hold a `NetworkBandwidth`.
-    ///
-    /// Note that all the setters affecting `availability` are
-    /// mutually exclusive.
-    pub fn set_network_bandwidth<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::NetworkBandwidth(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
@@ -5846,12 +5847,6 @@ impl ListProvisioningQuotasResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListProvisioningQuotasResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [provisioning_quotas][crate::model::ListProvisioningQuotasResponse::provisioning_quotas].
     pub fn set_provisioning_quotas<T, V>(mut self, v: T) -> Self
     where
@@ -5860,6 +5855,12 @@ impl ListProvisioningQuotasResponse {
     {
         use std::iter::Iterator;
         self.provisioning_quotas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListProvisioningQuotasResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -6381,27 +6382,6 @@ impl VolumeConfig {
         self
     }
 
-    /// Sets the value of [user_note][crate::model::VolumeConfig::user_note].
-    pub fn set_user_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.user_note = v.into();
-        self
-    }
-
-    /// Sets the value of [gcp_service][crate::model::VolumeConfig::gcp_service].
-    pub fn set_gcp_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.gcp_service = v.into();
-        self
-    }
-
-    /// Sets the value of [performance_tier][crate::model::VolumeConfig::performance_tier].
-    pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.performance_tier = v.into();
-        self
-    }
-
     /// Sets the value of [lun_ranges][crate::model::VolumeConfig::lun_ranges].
     pub fn set_lun_ranges<T, V>(mut self, v: T) -> Self
     where
@@ -6432,6 +6412,27 @@ impl VolumeConfig {
     {
         use std::iter::Iterator;
         self.nfs_exports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [user_note][crate::model::VolumeConfig::user_note].
+    pub fn set_user_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_note = v.into();
+        self
+    }
+
+    /// Sets the value of [gcp_service][crate::model::VolumeConfig::gcp_service].
+    pub fn set_gcp_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.gcp_service = v.into();
+        self
+    }
+
+    /// Sets the value of [performance_tier][crate::model::VolumeConfig::performance_tier].
+    pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.performance_tier = v.into();
         self
     }
 }
@@ -6593,6 +6594,18 @@ pub mod volume_config {
             })
         }
 
+        /// Sets the value of [client][crate::model::volume_config::NfsExport::client]
+        /// to hold a `MachineId`.
+        ///
+        /// Note that all the setters affecting `client` are
+        /// mutually exclusive.
+        pub fn set_machine_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.client = std::option::Option::Some(
+                crate::model::volume_config::nfs_export::Client::MachineId(v.into()),
+            );
+            self
+        }
+
         /// The value of [client][crate::model::volume_config::NfsExport::client]
         /// if it holds a `Cidr`, `None` if the field is not set or
         /// holds a different branch.
@@ -6604,18 +6617,6 @@ pub mod volume_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [client][crate::model::volume_config::NfsExport::client]
-        /// to hold a `MachineId`.
-        ///
-        /// Note that all the setters affecting `client` are
-        /// mutually exclusive.
-        pub fn set_machine_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.client = std::option::Option::Some(
-                crate::model::volume_config::nfs_export::Client::MachineId(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [client][crate::model::volume_config::NfsExport::client]
@@ -7146,6 +7147,17 @@ impl NetworkConfig {
         self
     }
 
+    /// Sets the value of [vlan_attachments][crate::model::NetworkConfig::vlan_attachments].
+    pub fn set_vlan_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::network_config::IntakeVlanAttachment>,
+    {
+        use std::iter::Iterator;
+        self.vlan_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cidr][crate::model::NetworkConfig::cidr].
     pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr = v.into();
@@ -7182,17 +7194,6 @@ impl NetworkConfig {
     /// Sets the value of [jumbo_frames_enabled][crate::model::NetworkConfig::jumbo_frames_enabled].
     pub fn set_jumbo_frames_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.jumbo_frames_enabled = v.into();
-        self
-    }
-
-    /// Sets the value of [vlan_attachments][crate::model::NetworkConfig::vlan_attachments].
-    pub fn set_vlan_attachments<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::network_config::IntakeVlanAttachment>,
-    {
-        use std::iter::Iterator;
-        self.vlan_attachments = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8023,12 +8024,6 @@ impl ListSSHKeysResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSSHKeysResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [ssh_keys][crate::model::ListSSHKeysResponse::ssh_keys].
     pub fn set_ssh_keys<T, V>(mut self, v: T) -> Self
     where
@@ -8037,6 +8032,12 @@ impl ListSSHKeysResponse {
     {
         use std::iter::Iterator;
         self.ssh_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSSHKeysResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -8373,6 +8374,18 @@ impl Volume {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Volume::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [snapshot_enabled][crate::model::Volume::snapshot_enabled].
     pub fn set_snapshot_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.snapshot_enabled = v.into();
@@ -8433,12 +8446,6 @@ impl Volume {
         self
     }
 
-    /// Sets the value of [attached][crate::model::Volume::attached].
-    pub fn set_attached<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.attached = v.into();
-        self
-    }
-
     /// Sets the value of [instances][crate::model::Volume::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -8450,15 +8457,9 @@ impl Volume {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Volume::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+    /// Sets the value of [attached][crate::model::Volume::attached].
+    pub fn set_attached<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.attached = v.into();
         self
     }
 }
@@ -9368,12 +9369,6 @@ impl ListVolumesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volumes][crate::model::ListVolumesResponse::volumes].
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
@@ -9382,6 +9377,12 @@ impl ListVolumesResponse {
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -9927,12 +9928,6 @@ impl ListVolumeSnapshotsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumeSnapshotsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volume_snapshots][crate::model::ListVolumeSnapshotsResponse::volume_snapshots].
     pub fn set_volume_snapshots<T, V>(mut self, v: T) -> Self
     where
@@ -9941,6 +9936,12 @@ impl ListVolumeSnapshotsResponse {
     {
         use std::iter::Iterator;
         self.volume_snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumeSnapshotsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 

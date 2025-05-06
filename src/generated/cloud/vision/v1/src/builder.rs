@@ -102,12 +102,6 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
         ///
         /// This is a **required** field for requests.
@@ -118,6 +112,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -174,12 +174,6 @@ pub mod image_annotator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
         /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
         ///
         /// This is a **required** field for requests.
@@ -190,6 +184,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -260,7 +260,7 @@ pub mod image_annotator {
             crate::model::AsyncBatchAnnotateImagesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateImagesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -288,7 +288,20 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_requests<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AnnotateImageRequest>,
+        {
+            use std::iter::Iterator;
+            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
@@ -305,19 +318,6 @@ pub mod image_annotator {
         /// Sets the value of [parent][crate::model::AsyncBatchAnnotateImagesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_requests<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AnnotateImageRequest>,
-        {
-            use std::iter::Iterator;
-            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -388,7 +388,7 @@ pub mod image_annotator {
             crate::model::AsyncBatchAnnotateFilesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateFilesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -416,13 +416,7 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
-        }
-
-        /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
@@ -435,6 +429,12 @@ pub mod image_annotator {
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
             self
         }
 
@@ -1640,7 +1640,7 @@ pub mod product_search {
             crate::model::ImportProductSetsResponse,
             crate::model::BatchOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportProductSetsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1668,7 +1668,7 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
@@ -1738,7 +1738,8 @@ pub mod product_search {
 
         /// Creates a [Poller][lro::Poller] to work with `purge_products`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::BatchOperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1763,7 +1764,7 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].

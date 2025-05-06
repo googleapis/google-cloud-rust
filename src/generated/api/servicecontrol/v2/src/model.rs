@@ -100,12 +100,6 @@ impl CheckRequest {
         self
     }
 
-    /// Sets the value of [flags][crate::model::CheckRequest::flags].
-    pub fn set_flags<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.flags = v.into();
-        self
-    }
-
     /// Sets the value of [resources][crate::model::CheckRequest::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
@@ -114,6 +108,12 @@ impl CheckRequest {
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [flags][crate::model::CheckRequest::flags].
+    pub fn set_flags<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.flags = v.into();
         self
     }
 }

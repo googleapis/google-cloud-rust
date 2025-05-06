@@ -133,12 +133,6 @@ impl ListActiveDirectoriesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListActiveDirectoriesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [active_directories][crate::model::ListActiveDirectoriesResponse::active_directories].
     pub fn set_active_directories<T, V>(mut self, v: T) -> Self
     where
@@ -147,6 +141,12 @@ impl ListActiveDirectoriesResponse {
     {
         use std::iter::Iterator;
         self.active_directories = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListActiveDirectoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -549,6 +549,39 @@ impl ActiveDirectory {
         self
     }
 
+    /// Sets the value of [backup_operators][crate::model::ActiveDirectory::backup_operators].
+    pub fn set_backup_operators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.backup_operators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [administrators][crate::model::ActiveDirectory::administrators].
+    pub fn set_administrators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.administrators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [security_operators][crate::model::ActiveDirectory::security_operators].
+    pub fn set_security_operators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.security_operators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [kdc_hostname][crate::model::ActiveDirectory::kdc_hostname].
     pub fn set_kdc_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kdc_hostname = v.into();
@@ -585,45 +618,6 @@ impl ActiveDirectory {
         self
     }
 
-    /// Sets the value of [state_details][crate::model::ActiveDirectory::state_details].
-    pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.state_details = v.into();
-        self
-    }
-
-    /// Sets the value of [backup_operators][crate::model::ActiveDirectory::backup_operators].
-    pub fn set_backup_operators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.backup_operators = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [administrators][crate::model::ActiveDirectory::administrators].
-    pub fn set_administrators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.administrators = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [security_operators][crate::model::ActiveDirectory::security_operators].
-    pub fn set_security_operators<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.security_operators = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::ActiveDirectory::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -633,6 +627,12 @@ impl ActiveDirectory {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state_details][crate::model::ActiveDirectory::state_details].
+    pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state_details = v.into();
         self
     }
 }
@@ -948,6 +948,18 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Backup::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [chain_storage_bytes][crate::model::Backup::chain_storage_bytes].
     pub fn set_chain_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.chain_storage_bytes = v.into();
@@ -963,18 +975,6 @@ impl Backup {
     /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Backup::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1401,12 +1401,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -1415,6 +1409,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -1755,15 +1755,6 @@ impl BackupPolicy {
         self
     }
 
-    /// Sets the value of [state][crate::model::BackupPolicy::state].
-    pub fn set_state<T: std::convert::Into<crate::model::backup_policy::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::BackupPolicy::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -1773,6 +1764,15 @@ impl BackupPolicy {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BackupPolicy::state].
+    pub fn set_state<T: std::convert::Into<crate::model::backup_policy::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
         self
     }
 }
@@ -2139,12 +2139,6 @@ impl ListBackupPoliciesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_policies][crate::model::ListBackupPoliciesResponse::backup_policies].
     pub fn set_backup_policies<T, V>(mut self, v: T) -> Self
     where
@@ -2153,6 +2147,12 @@ impl ListBackupPoliciesResponse {
     {
         use std::iter::Iterator;
         self.backup_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2655,12 +2655,6 @@ impl ListBackupVaultsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupVaultsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_vaults][crate::model::ListBackupVaultsResponse::backup_vaults].
     pub fn set_backup_vaults<T, V>(mut self, v: T) -> Self
     where
@@ -2669,6 +2663,12 @@ impl ListBackupVaultsResponse {
     {
         use std::iter::Iterator;
         self.backup_vaults = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupVaultsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3144,12 +3144,6 @@ impl ListKmsConfigsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListKmsConfigsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [kms_configs][crate::model::ListKmsConfigsResponse::kms_configs].
     pub fn set_kms_configs<T, V>(mut self, v: T) -> Self
     where
@@ -3158,6 +3152,12 @@ impl ListKmsConfigsResponse {
     {
         use std::iter::Iterator;
         self.kms_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListKmsConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3549,18 +3549,6 @@ impl KmsConfig {
         self
     }
 
-    /// Sets the value of [instructions][crate::model::KmsConfig::instructions].
-    pub fn set_instructions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.instructions = v.into();
-        self
-    }
-
-    /// Sets the value of [service_account][crate::model::KmsConfig::service_account].
-    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.service_account = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::KmsConfig::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -3570,6 +3558,18 @@ impl KmsConfig {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [instructions][crate::model::KmsConfig::instructions].
+    pub fn set_instructions<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instructions = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account][crate::model::KmsConfig::service_account].
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_account = v.into();
         self
     }
 }
@@ -3883,12 +3883,6 @@ impl ListQuotaRulesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListQuotaRulesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [quota_rules][crate::model::ListQuotaRulesResponse::quota_rules].
     pub fn set_quota_rules<T, V>(mut self, v: T) -> Self
     where
@@ -3897,6 +3891,12 @@ impl ListQuotaRulesResponse {
     {
         use std::iter::Iterator;
         self.quota_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListQuotaRulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4849,6 +4849,18 @@ impl Replication {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Replication::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::Replication::description].
     pub fn set_description<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
@@ -4903,18 +4915,6 @@ impl Replication {
         v: T,
     ) -> Self {
         self.hybrid_replication_type = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Replication::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5878,12 +5878,6 @@ impl ListReplicationsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListReplicationsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [replications][crate::model::ListReplicationsResponse::replications].
     pub fn set_replications<T, V>(mut self, v: T) -> Self
     where
@@ -5892,6 +5886,12 @@ impl ListReplicationsResponse {
     {
         use std::iter::Iterator;
         self.replications = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListReplicationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6366,15 +6366,6 @@ impl EstablishPeeringRequest {
         self
     }
 
-    /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
-    pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.peer_volume_name = v.into();
-        self
-    }
-
     /// Sets the value of [peer_ip_addresses][crate::model::EstablishPeeringRequest::peer_ip_addresses].
     pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
     where
@@ -6383,6 +6374,15 @@ impl EstablishPeeringRequest {
     {
         use std::iter::Iterator;
         self.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+    pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peer_volume_name = v.into();
         self
     }
 }
@@ -6529,12 +6529,6 @@ impl ListSnapshotsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
@@ -6543,6 +6537,12 @@ impl ListSnapshotsResponse {
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -6778,6 +6778,7 @@ pub struct Snapshot {
 
     /// Output only. Current storage usage for the snapshot in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub used_bytes: f64,
 
     /// Output only. The time when the snapshot was created.
@@ -7154,12 +7155,6 @@ impl ListStoragePoolsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListStoragePoolsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [storage_pools][crate::model::ListStoragePoolsResponse::storage_pools].
     pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
     where
@@ -7168,6 +7163,12 @@ impl ListStoragePoolsResponse {
     {
         use std::iter::Iterator;
         self.storage_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListStoragePoolsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -7556,6 +7557,18 @@ impl StoragePool {
         self
     }
 
+    /// Sets the value of [labels][crate::model::StoragePool::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [network][crate::model::StoragePool::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -7635,18 +7648,6 @@ impl StoragePool {
     /// Sets the value of [satisfies_pzi][crate::model::StoragePool::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::StoragePool::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -7975,12 +7976,6 @@ impl ListVolumesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volumes][crate::model::ListVolumesResponse::volumes].
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
@@ -7989,6 +7984,12 @@ impl ListVolumesResponse {
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -8338,6 +8339,7 @@ pub struct Volume {
     /// Optional. Snap_reserve specifies percentage of volume storage reserved for
     /// snapshot storage. Default is 0 percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub snap_reserve: f64,
 
     /// Optional. Snapshot_directory if enabled (true) the volume will contain a
@@ -8511,12 +8513,57 @@ impl Volume {
         self
     }
 
+    /// Sets the value of [protocols][crate::model::Volume::protocols].
+    pub fn set_protocols<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Protocols>,
+    {
+        use std::iter::Iterator;
+        self.protocols = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [smb_settings][crate::model::Volume::smb_settings].
+    pub fn set_smb_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SMBSettings>,
+    {
+        use std::iter::Iterator;
+        self.smb_settings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mount_options][crate::model::Volume::mount_options].
+    pub fn set_mount_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MountOption>,
+    {
+        use std::iter::Iterator;
+        self.mount_options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [unix_permissions][crate::model::Volume::unix_permissions].
     pub fn set_unix_permissions<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.unix_permissions = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Volume::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -8628,6 +8675,17 @@ impl Volume {
         self
     }
 
+    /// Sets the value of [restricted_actions][crate::model::Volume::restricted_actions].
+    pub fn set_restricted_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestrictedAction>,
+    {
+        use std::iter::Iterator;
+        self.restricted_actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [large_capacity][crate::model::Volume::large_capacity].
     pub fn set_large_capacity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.large_capacity = v.into();
@@ -8677,62 +8735,6 @@ impl Volume {
         v: T,
     ) -> Self {
         self.hybrid_replication_parameters = v.into();
-        self
-    }
-
-    /// Sets the value of [protocols][crate::model::Volume::protocols].
-    pub fn set_protocols<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Protocols>,
-    {
-        use std::iter::Iterator;
-        self.protocols = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [smb_settings][crate::model::Volume::smb_settings].
-    pub fn set_smb_settings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SMBSettings>,
-    {
-        use std::iter::Iterator;
-        self.smb_settings = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [mount_options][crate::model::Volume::mount_options].
-    pub fn set_mount_options<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MountOption>,
-    {
-        use std::iter::Iterator;
-        self.mount_options = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [restricted_actions][crate::model::Volume::restricted_actions].
-    pub fn set_restricted_actions<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RestrictedAction>,
-    {
-        use std::iter::Iterator;
-        self.restricted_actions = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Volume::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -9248,11 +9250,13 @@ impl wkt::message::Message for SnapshotPolicy {
 pub struct HourlySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9294,15 +9298,18 @@ impl wkt::message::Message for HourlySchedule {
 pub struct DailySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     /// Set the hour to start the snapshot (0-23), defaults to midnight (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub hour: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9351,15 +9358,18 @@ impl wkt::message::Message for DailySchedule {
 pub struct WeeklySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     /// Set the hour to start the snapshot (0-23), defaults to midnight (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub hour: std::option::Option<f64>,
 
     /// Set the day or days of the week to make a snapshot. Accepts a comma
@@ -9421,15 +9431,18 @@ impl wkt::message::Message for WeeklySchedule {
 pub struct MonthlySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     /// Set the hour to start the snapshot (0-23), defaults to midnight (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub hour: std::option::Option<f64>,
 
     /// Set the day or days of the month to make a snapshot (1-31). Accepts a
@@ -9600,6 +9613,18 @@ impl RestoreParameters {
         })
     }
 
+    /// Sets the value of [source][crate::model::RestoreParameters::source]
+    /// to hold a `SourceSnapshot`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::restore_parameters::Source::SourceSnapshot(v.into()),
+        );
+        self
+    }
+
     /// The value of [source][crate::model::RestoreParameters::source]
     /// if it holds a `SourceBackup`, `None` if the field is not set or
     /// holds a different branch.
@@ -9611,18 +9636,6 @@ impl RestoreParameters {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::RestoreParameters::source]
-    /// to hold a `SourceSnapshot`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_parameters::Source::SourceSnapshot(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [source][crate::model::RestoreParameters::source]
@@ -9702,6 +9715,17 @@ impl BackupConfig {
         std::default::Default::default()
     }
 
+    /// Sets the value of [backup_policies][crate::model::BackupConfig::backup_policies].
+    pub fn set_backup_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.backup_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [backup_vault][crate::model::BackupConfig::backup_vault].
     pub fn set_backup_vault<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_vault = v.into();
@@ -9723,17 +9747,6 @@ impl BackupConfig {
         v: T,
     ) -> Self {
         self.backup_chain_bytes = v.into();
-        self
-    }
-
-    /// Sets the value of [backup_policies][crate::model::BackupConfig::backup_policies].
-    pub fn set_backup_policies<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.backup_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -10016,6 +10029,17 @@ impl HybridReplicationParameters {
         self
     }
 
+    /// Sets the value of [peer_ip_addresses][crate::model::HybridReplicationParameters::peer_ip_addresses].
+    pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [cluster_location][crate::model::HybridReplicationParameters::cluster_location].
     pub fn set_cluster_location<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -10028,17 +10052,6 @@ impl HybridReplicationParameters {
     /// Sets the value of [description][crate::model::HybridReplicationParameters::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
-        self
-    }
-
-    /// Sets the value of [peer_ip_addresses][crate::model::HybridReplicationParameters::peer_ip_addresses].
-    pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 

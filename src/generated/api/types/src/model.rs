@@ -241,6 +241,16 @@ impl JwtLocation {
         })
     }
 
+    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
+    /// to hold a `Header`.
+    ///
+    /// Note that all the setters affecting `r#in` are
+    /// mutually exclusive.
+    pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Header(v.into()));
+        self
+    }
+
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Query`, `None` if the field is not set or
     /// holds a different branch.
@@ -252,6 +262,16 @@ impl JwtLocation {
         })
     }
 
+    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
+    /// to hold a `Query`.
+    ///
+    /// Note that all the setters affecting `r#in` are
+    /// mutually exclusive.
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Query(v.into()));
+        self
+    }
+
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Cookie`, `None` if the field is not set or
     /// holds a different branch.
@@ -261,26 +281,6 @@ impl JwtLocation {
             crate::model::jwt_location::In::Cookie(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
-    /// to hold a `Header`.
-    ///
-    /// Note that all the setters affecting `r#in` are
-    /// mutually exclusive.
-    pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Header(v.into()));
-        self
-    }
-
-    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
-    /// to hold a `Query`.
-    ///
-    /// Note that all the setters affecting `r#in` are
-    /// mutually exclusive.
-    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Query(v.into()));
-        self
     }
 
     /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
@@ -685,16 +685,19 @@ pub struct BackendRule {
     /// The number of seconds to wait for a response from a request. The default
     /// varies based on the request protocol and deployment environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub deadline: f64,
 
     /// Deprecated, do not use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     #[deprecated]
     pub min_deadline: f64,
 
     /// The number of seconds to wait for the completion of a long running
     /// operation. The default is no deadline.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub operation_deadline: f64,
 
     pub path_translation: crate::model::backend_rule::PathTranslation,
@@ -844,6 +847,18 @@ impl BackendRule {
         })
     }
 
+    /// Sets the value of [authentication][crate::model::BackendRule::authentication]
+    /// to hold a `JwtAudience`.
+    ///
+    /// Note that all the setters affecting `authentication` are
+    /// mutually exclusive.
+    pub fn set_jwt_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.authentication = std::option::Option::Some(
+            crate::model::backend_rule::Authentication::JwtAudience(v.into()),
+        );
+        self
+    }
+
     /// The value of [authentication][crate::model::BackendRule::authentication]
     /// if it holds a `DisableAuth`, `None` if the field is not set or
     /// holds a different branch.
@@ -855,18 +870,6 @@ impl BackendRule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication][crate::model::BackendRule::authentication]
-    /// to hold a `JwtAudience`.
-    ///
-    /// Note that all the setters affecting `authentication` are
-    /// mutually exclusive.
-    pub fn set_jwt_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication = std::option::Option::Some(
-            crate::model::backend_rule::Authentication::JwtAudience(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [authentication][crate::model::BackendRule::authentication]
@@ -1284,17 +1287,6 @@ impl CommonLanguageSettings {
         self
     }
 
-    /// Sets the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
-    pub fn set_selective_gapic_generation<
-        T: std::convert::Into<std::option::Option<crate::model::SelectiveGapicGeneration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.selective_gapic_generation = v.into();
-        self
-    }
-
     /// Sets the value of [destinations][crate::model::CommonLanguageSettings::destinations].
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
@@ -1303,6 +1295,17 @@ impl CommonLanguageSettings {
     {
         use std::iter::Iterator;
         self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
+    pub fn set_selective_gapic_generation<
+        T: std::convert::Into<std::option::Option<crate::model::SelectiveGapicGeneration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.selective_gapic_generation = v.into();
         self
     }
 }
@@ -1559,6 +1562,17 @@ impl Publishing {
         std::default::Default::default()
     }
 
+    /// Sets the value of [method_settings][crate::model::Publishing::method_settings].
+    pub fn set_method_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MethodSettings>,
+    {
+        use std::iter::Iterator;
+        self.method_settings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [new_issue_uri][crate::model::Publishing::new_issue_uri].
     pub fn set_new_issue_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_issue_uri = v.into();
@@ -1586,6 +1600,17 @@ impl Publishing {
         self
     }
 
+    /// Sets the value of [codeowner_github_teams][crate::model::Publishing::codeowner_github_teams].
+    pub fn set_codeowner_github_teams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.codeowner_github_teams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [doc_tag_prefix][crate::model::Publishing::doc_tag_prefix].
     pub fn set_doc_tag_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.doc_tag_prefix = v.into();
@@ -1598,6 +1623,17 @@ impl Publishing {
         v: T,
     ) -> Self {
         self.organization = v.into();
+        self
+    }
+
+    /// Sets the value of [library_settings][crate::model::Publishing::library_settings].
+    pub fn set_library_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClientLibrarySettings>,
+    {
+        use std::iter::Iterator;
+        self.library_settings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1616,39 +1652,6 @@ impl Publishing {
         v: T,
     ) -> Self {
         self.rest_reference_documentation_uri = v.into();
-        self
-    }
-
-    /// Sets the value of [method_settings][crate::model::Publishing::method_settings].
-    pub fn set_method_settings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MethodSettings>,
-    {
-        use std::iter::Iterator;
-        self.method_settings = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [codeowner_github_teams][crate::model::Publishing::codeowner_github_teams].
-    pub fn set_codeowner_github_teams<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.codeowner_github_teams = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [library_settings][crate::model::Publishing::library_settings].
-    pub fn set_library_settings<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClientLibrarySettings>,
-    {
-        use std::iter::Iterator;
-        self.library_settings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1715,17 +1718,6 @@ impl JavaSettings {
         self
     }
 
-    /// Sets the value of [common][crate::model::JavaSettings::common].
-    pub fn set_common<
-        T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.common = v.into();
-        self
-    }
-
     /// Sets the value of [service_class_names][crate::model::JavaSettings::service_class_names].
     pub fn set_service_class_names<T, K, V>(mut self, v: T) -> Self
     where
@@ -1735,6 +1727,17 @@ impl JavaSettings {
     {
         use std::iter::Iterator;
         self.service_class_names = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [common][crate::model::JavaSettings::common].
+    pub fn set_common<
+        T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.common = v.into();
         self
     }
 }
@@ -2051,6 +2054,30 @@ impl DotnetSettings {
         self
     }
 
+    /// Sets the value of [renamed_services][crate::model::DotnetSettings::renamed_services].
+    pub fn set_renamed_services<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.renamed_services = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [renamed_resources][crate::model::DotnetSettings::renamed_resources].
+    pub fn set_renamed_resources<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.renamed_resources = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [ignored_resources][crate::model::DotnetSettings::ignored_resources].
     pub fn set_ignored_resources<T, V>(mut self, v: T) -> Self
     where
@@ -2081,30 +2108,6 @@ impl DotnetSettings {
     {
         use std::iter::Iterator;
         self.handwritten_signatures = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [renamed_services][crate::model::DotnetSettings::renamed_services].
-    pub fn set_renamed_services<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.renamed_services = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
-    /// Sets the value of [renamed_resources][crate::model::DotnetSettings::renamed_resources].
-    pub fn set_renamed_resources<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.renamed_resources = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2329,6 +2332,7 @@ pub mod method_settings {
         /// reaches max_poll_delay.
         /// Default value: 1.5.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub poll_delay_multiplier: f32,
 
         /// Maximum time between two subsequent poll requests.
@@ -2421,12 +2425,6 @@ impl SelectiveGapicGeneration {
         std::default::Default::default()
     }
 
-    /// Sets the value of [generate_omitted_as_internal][crate::model::SelectiveGapicGeneration::generate_omitted_as_internal].
-    pub fn set_generate_omitted_as_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.generate_omitted_as_internal = v.into();
-        self
-    }
-
     /// Sets the value of [methods][crate::model::SelectiveGapicGeneration::methods].
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
@@ -2435,6 +2433,12 @@ impl SelectiveGapicGeneration {
     {
         use std::iter::Iterator;
         self.methods = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [generate_omitted_as_internal][crate::model::SelectiveGapicGeneration::generate_omitted_as_internal].
+    pub fn set_generate_omitted_as_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.generate_omitted_as_internal = v.into();
         self
     }
 }
@@ -3108,6 +3112,7 @@ pub struct Distribution {
     /// The arithmetic mean of the values in the population. If `count` is zero
     /// then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub mean: f64,
 
     /// The sum of squared deviations from the mean of the values in the
@@ -3122,6 +3127,7 @@ pub struct Distribution {
     ///
     /// If `count` is zero then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub sum_of_squared_deviation: f64,
 
     /// If specified, contains the range of the population values. The field
@@ -3248,10 +3254,12 @@ pub mod distribution {
     pub struct Range {
         /// The minimum of the population values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub min: f64,
 
         /// The maximum of the population values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub max: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3347,40 +3355,6 @@ pub mod distribution {
             })
         }
 
-        /// The value of [options][crate::model::distribution::BucketOptions::options]
-        /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn exponential_buckets(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.options.as_ref().and_then(|v| match v {
-                crate::model::distribution::bucket_options::Options::ExponentialBuckets(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// The value of [options][crate::model::distribution::BucketOptions::options]
-        /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn explicit_buckets(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.options.as_ref().and_then(|v| match v {
-                crate::model::distribution::bucket_options::Options::ExplicitBuckets(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [options][crate::model::distribution::BucketOptions::options]
         /// to hold a `LinearBuckets`.
         ///
@@ -3396,6 +3370,23 @@ pub mod distribution {
                 crate::model::distribution::bucket_options::Options::LinearBuckets(v.into()),
             );
             self
+        }
+
+        /// The value of [options][crate::model::distribution::BucketOptions::options]
+        /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn exponential_buckets(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.options.as_ref().and_then(|v| match v {
+                crate::model::distribution::bucket_options::Options::ExponentialBuckets(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [options][crate::model::distribution::BucketOptions::options]
@@ -3415,6 +3406,23 @@ pub mod distribution {
                 crate::model::distribution::bucket_options::Options::ExponentialBuckets(v.into()),
             );
             self
+        }
+
+        /// The value of [options][crate::model::distribution::BucketOptions::options]
+        /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn explicit_buckets(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.options.as_ref().and_then(|v| match v {
+                crate::model::distribution::bucket_options::Options::ExplicitBuckets(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [options][crate::model::distribution::BucketOptions::options]
@@ -3469,10 +3477,12 @@ pub mod distribution {
 
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub width: f64,
 
             /// Lower bound of the first bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub offset: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3530,10 +3540,12 @@ pub mod distribution {
 
             /// Must be greater than 1.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub growth_factor: f64,
 
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub scale: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3588,6 +3600,7 @@ pub mod distribution {
         pub struct Explicit {
             /// The values must be monotonically increasing.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
             pub bounds: std::vec::Vec<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3646,6 +3659,7 @@ pub mod distribution {
         /// Value of the exemplar point. This value determines to which bucket the
         /// exemplar belongs.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub value: f64,
 
         /// The observation (sampling) time of the above value.
@@ -3800,6 +3814,28 @@ impl Documentation {
         self
     }
 
+    /// Sets the value of [pages][crate::model::Documentation::pages].
+    pub fn set_pages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Page>,
+    {
+        use std::iter::Iterator;
+        self.pages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::Documentation::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DocumentationRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [documentation_root_url][crate::model::Documentation::documentation_root_url].
     pub fn set_documentation_root_url<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3821,28 +3857,6 @@ impl Documentation {
     /// Sets the value of [overview][crate::model::Documentation::overview].
     pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.overview = v.into();
-        self
-    }
-
-    /// Sets the value of [pages][crate::model::Documentation::pages].
-    pub fn set_pages<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Page>,
-    {
-        use std::iter::Iterator;
-        self.pages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [rules][crate::model::Documentation::rules].
-    pub fn set_rules<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DocumentationRule>,
-    {
-        use std::iter::Iterator;
-        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4055,6 +4069,17 @@ impl Endpoint {
         self
     }
 
+    /// Sets the value of [aliases][crate::model::Endpoint::aliases].
+    pub fn set_aliases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.aliases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [target][crate::model::Endpoint::target].
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
@@ -4064,17 +4089,6 @@ impl Endpoint {
     /// Sets the value of [allow_cors][crate::model::Endpoint::allow_cors].
     pub fn set_allow_cors<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_cors = v.into();
-        self
-    }
-
-    /// Sets the value of [aliases][crate::model::Endpoint::aliases].
-    pub fn set_aliases<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.aliases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4381,15 +4395,6 @@ impl Http {
         std::default::Default::default()
     }
 
-    /// Sets the value of [fully_decode_reserved_expansion][crate::model::Http::fully_decode_reserved_expansion].
-    pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fully_decode_reserved_expansion = v.into();
-        self
-    }
-
     /// Sets the value of [rules][crate::model::Http::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -4398,6 +4403,15 @@ impl Http {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [fully_decode_reserved_expansion][crate::model::Http::fully_decode_reserved_expansion].
+    pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.fully_decode_reserved_expansion = v.into();
         self
     }
 }
@@ -4797,6 +4811,16 @@ impl HttpRule {
         })
     }
 
+    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
+    /// to hold a `Get`.
+    ///
+    /// Note that all the setters affecting `pattern` are
+    /// mutually exclusive.
+    pub fn set_get<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Get(v.into()));
+        self
+    }
+
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Put`, `None` if the field is not set or
     /// holds a different branch.
@@ -4806,6 +4830,16 @@ impl HttpRule {
             crate::model::http_rule::Pattern::Put(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
+    }
+
+    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
+    /// to hold a `Put`.
+    ///
+    /// Note that all the setters affecting `pattern` are
+    /// mutually exclusive.
+    pub fn set_put<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Put(v.into()));
+        self
     }
 
     /// The value of [pattern][crate::model::HttpRule::pattern]
@@ -4819,6 +4853,16 @@ impl HttpRule {
         })
     }
 
+    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
+    /// to hold a `Post`.
+    ///
+    /// Note that all the setters affecting `pattern` are
+    /// mutually exclusive.
+    pub fn set_post<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Post(v.into()));
+        self
+    }
+
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Delete`, `None` if the field is not set or
     /// holds a different branch.
@@ -4828,58 +4872,6 @@ impl HttpRule {
             crate::model::http_rule::Pattern::Delete(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [pattern][crate::model::HttpRule::pattern]
-    /// if it holds a `Patch`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn patch(&self) -> std::option::Option<&std::string::String> {
-        #[allow(unreachable_patterns)]
-        self.pattern.as_ref().and_then(|v| match v {
-            crate::model::http_rule::Pattern::Patch(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [pattern][crate::model::HttpRule::pattern]
-    /// if it holds a `Custom`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomHttpPattern>> {
-        #[allow(unreachable_patterns)]
-        self.pattern.as_ref().and_then(|v| match v {
-            crate::model::http_rule::Pattern::Custom(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Get`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_get<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Get(v.into()));
-        self
-    }
-
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Put`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_put<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Put(v.into()));
-        self
-    }
-
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Post`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_post<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Post(v.into()));
-        self
     }
 
     /// Sets the value of [pattern][crate::model::HttpRule::pattern]
@@ -4893,6 +4885,17 @@ impl HttpRule {
         self
     }
 
+    /// The value of [pattern][crate::model::HttpRule::pattern]
+    /// if it holds a `Patch`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn patch(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.pattern.as_ref().and_then(|v| match v {
+            crate::model::http_rule::Pattern::Patch(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [pattern][crate::model::HttpRule::pattern]
     /// to hold a `Patch`.
     ///
@@ -4901,6 +4904,17 @@ impl HttpRule {
     pub fn set_patch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Patch(v.into()));
         self
+    }
+
+    /// The value of [pattern][crate::model::HttpRule::pattern]
+    /// if it holds a `Custom`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomHttpPattern>> {
+        #[allow(unreachable_patterns)]
+        self.pattern.as_ref().and_then(|v| match v {
+            crate::model::http_rule::Pattern::Custom(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [pattern][crate::model::HttpRule::pattern]
@@ -5346,6 +5360,17 @@ impl LogDescriptor {
         self
     }
 
+    /// Sets the value of [labels][crate::model::LogDescriptor::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LabelDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [description][crate::model::LogDescriptor::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -5355,17 +5380,6 @@ impl LogDescriptor {
     /// Sets the value of [display_name][crate::model::LogDescriptor::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::LogDescriptor::labels].
-    pub fn set_labels<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelDescriptor>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5749,6 +5763,17 @@ impl MetricDescriptor {
         self
     }
 
+    /// Sets the value of [labels][crate::model::MetricDescriptor::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LabelDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [metric_kind][crate::model::MetricDescriptor::metric_kind].
     pub fn set_metric_kind<T: std::convert::Into<crate::model::metric_descriptor::MetricKind>>(
         mut self,
@@ -5804,17 +5829,6 @@ impl MetricDescriptor {
         v: T,
     ) -> Self {
         self.launch_stage = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::MetricDescriptor::labels].
-    pub fn set_labels<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelDescriptor>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -6534,15 +6548,6 @@ impl MonitoredResourceDescriptor {
         self
     }
 
-    /// Sets the value of [launch_stage][crate::model::MonitoredResourceDescriptor::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.launch_stage = v.into();
-        self
-    }
-
     /// Sets the value of [labels][crate::model::MonitoredResourceDescriptor::labels].
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
@@ -6551,6 +6556,15 @@ impl MonitoredResourceDescriptor {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [launch_stage][crate::model::MonitoredResourceDescriptor::launch_stage].
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.launch_stage = v.into();
         self
     }
 }
@@ -7344,12 +7358,6 @@ impl QuotaLimit {
         self
     }
 
-    /// Sets the value of [display_name][crate::model::QuotaLimit::display_name].
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
-        self
-    }
-
     /// Sets the value of [values][crate::model::QuotaLimit::values].
     pub fn set_values<T, K, V>(mut self, v: T) -> Self
     where
@@ -7359,6 +7367,12 @@ impl QuotaLimit {
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::QuotaLimit::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 }
@@ -7536,6 +7550,17 @@ impl ResourceDescriptor {
         self
     }
 
+    /// Sets the value of [pattern][crate::model::ResourceDescriptor::pattern].
+    pub fn set_pattern<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pattern = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [name_field][crate::model::ResourceDescriptor::name_field].
     pub fn set_name_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name_field = v.into();
@@ -7560,17 +7585,6 @@ impl ResourceDescriptor {
     /// Sets the value of [singular][crate::model::ResourceDescriptor::singular].
     pub fn set_singular<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.singular = v.into();
-        self
-    }
-
-    /// Sets the value of [pattern][crate::model::ResourceDescriptor::pattern].
-    pub fn set_pattern<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.pattern = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8724,6 +8738,39 @@ impl Service {
         self
     }
 
+    /// Sets the value of [apis][crate::model::Service::apis].
+    pub fn set_apis<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Api>,
+    {
+        use std::iter::Iterator;
+        self.apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [types][crate::model::Service::types].
+    pub fn set_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Type>,
+    {
+        use std::iter::Iterator;
+        self.types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enums][crate::model::Service::enums].
+    pub fn set_enums<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Enum>,
+    {
+        use std::iter::Iterator;
+        self.enums = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [documentation][crate::model::Service::documentation].
     pub fn set_documentation<
         T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
@@ -8791,12 +8838,56 @@ impl Service {
         self
     }
 
+    /// Sets the value of [endpoints][crate::model::Service::endpoints].
+    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Endpoint>,
+    {
+        use std::iter::Iterator;
+        self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [control][crate::model::Service::control].
     pub fn set_control<T: std::convert::Into<std::option::Option<crate::model::Control>>>(
         mut self,
         v: T,
     ) -> Self {
         self.control = v.into();
+        self
+    }
+
+    /// Sets the value of [logs][crate::model::Service::logs].
+    pub fn set_logs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LogDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.logs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metrics][crate::model::Service::metrics].
+    pub fn set_metrics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MetricDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [monitored_resources][crate::model::Service::monitored_resources].
+    pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MonitoredResourceDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -8862,83 +8953,6 @@ impl Service {
         v: T,
     ) -> Self {
         self.config_version = v.into();
-        self
-    }
-
-    /// Sets the value of [apis][crate::model::Service::apis].
-    pub fn set_apis<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Api>,
-    {
-        use std::iter::Iterator;
-        self.apis = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [types][crate::model::Service::types].
-    pub fn set_types<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Type>,
-    {
-        use std::iter::Iterator;
-        self.types = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [enums][crate::model::Service::enums].
-    pub fn set_enums<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Enum>,
-    {
-        use std::iter::Iterator;
-        self.enums = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [endpoints][crate::model::Service::endpoints].
-    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Endpoint>,
-    {
-        use std::iter::Iterator;
-        self.endpoints = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [logs][crate::model::Service::logs].
-    pub fn set_logs<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogDescriptor>,
-    {
-        use std::iter::Iterator;
-        self.logs = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [metrics][crate::model::Service::metrics].
-    pub fn set_metrics<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricDescriptor>,
-    {
-        use std::iter::Iterator;
-        self.metrics = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [monitored_resources][crate::model::Service::monitored_resources].
-    pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MonitoredResourceDescriptor>,
-    {
-        use std::iter::Iterator;
-        self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9220,15 +9234,6 @@ impl Usage {
         std::default::Default::default()
     }
 
-    /// Sets the value of [producer_notification_channel][crate::model::Usage::producer_notification_channel].
-    pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.producer_notification_channel = v.into();
-        self
-    }
-
     /// Sets the value of [requirements][crate::model::Usage::requirements].
     pub fn set_requirements<T, V>(mut self, v: T) -> Self
     where
@@ -9248,6 +9253,15 @@ impl Usage {
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [producer_notification_channel][crate::model::Usage::producer_notification_channel].
+    pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.producer_notification_channel = v.into();
         self
     }
 }

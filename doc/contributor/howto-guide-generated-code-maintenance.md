@@ -7,10 +7,8 @@ when the generator changes.
 
 ## Prerequisites
 
-The generator uses the protobuf compiler, `protoc`, with the `--retain_options`
-flag.
-
-Ensure that you have `protoc` installed and that its version is >= v23.0.
+The generator and its unit tests use `protoc`, the Protobuf compiler. Ensure you
+have `protoc >= v23.0` installed and it is found via your `$PATH`.
 
 ```bash
 protoc --version
@@ -64,8 +62,8 @@ git commit -m "feat(${library}): generate library"
 We may need to customize the target or source directory for some generated
 libraries. For example, you may need to leave room for other crates in the same
 directory. In this case you cannot use `rust-generate` and need to manually
-provide the source and output directories to the `generate` subcommand.
-We will use `google/api` as an example.
+provide the source and output directories to the `generate` subcommand. We will
+use `google/api` as an example.
 
 ```bash
 cargo new --lib --vcs none src/generated/api/types
@@ -129,8 +127,8 @@ go -C generator/ run ./cmd/sidekick refresh \
 ## The Glorious Future
 
 Someday `sidekick` will be stable enough that (a) it will not be part of the
-`google-cloud-rust` repository, and we will be able to install it. At that
-point we will be able to say:
+`google-cloud-rust` repository, and we will be able to install it. At that point
+we will be able to say:
 
 ```bash
 go install github.com/googleapis/google-cloud-generator/sidekick@v1.0.0

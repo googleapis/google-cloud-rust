@@ -298,21 +298,6 @@ impl VerifyAttestationRequest {
         })
     }
 
-    /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
-    /// if it holds a `SevSnpAttestation`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn sev_snp_attestation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SevSnpAttestation>> {
-        #[allow(unreachable_patterns)]
-        self.tee_attestation.as_ref().and_then(|v| match v {
-            crate::model::verify_attestation_request::TeeAttestation::SevSnpAttestation(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
     /// to hold a `TdCcel`.
     ///
@@ -326,6 +311,21 @@ impl VerifyAttestationRequest {
             crate::model::verify_attestation_request::TeeAttestation::TdCcel(v.into()),
         );
         self
+    }
+
+    /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
+    /// if it holds a `SevSnpAttestation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sev_snp_attestation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SevSnpAttestation>> {
+        #[allow(unreachable_patterns)]
+        self.tee_attestation.as_ref().and_then(|v| match v {
+            crate::model::verify_attestation_request::TeeAttestation::SevSnpAttestation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
@@ -620,12 +620,6 @@ impl TokenOptions {
         self
     }
 
-    /// Sets the value of [token_type][crate::model::TokenOptions::token_type].
-    pub fn set_token_type<T: std::convert::Into<crate::model::TokenType>>(mut self, v: T) -> Self {
-        self.token_type = v.into();
-        self
-    }
-
     /// Sets the value of [nonce][crate::model::TokenOptions::nonce].
     pub fn set_nonce<T, V>(mut self, v: T) -> Self
     where
@@ -634,6 +628,12 @@ impl TokenOptions {
     {
         use std::iter::Iterator;
         self.nonce = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [token_type][crate::model::TokenOptions::token_type].
+    pub fn set_token_type<T: std::convert::Into<crate::model::TokenType>>(mut self, v: T) -> Self {
+        self.token_type = v.into();
         self
     }
 
@@ -874,6 +874,17 @@ impl TpmAttestation {
         std::default::Default::default()
     }
 
+    /// Sets the value of [quotes][crate::model::TpmAttestation::quotes].
+    pub fn set_quotes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::tpm_attestation::Quote>,
+    {
+        use std::iter::Iterator;
+        self.quotes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [tcg_event_log][crate::model::TpmAttestation::tcg_event_log].
     pub fn set_tcg_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.tcg_event_log = v.into();
@@ -889,17 +900,6 @@ impl TpmAttestation {
     /// Sets the value of [ak_cert][crate::model::TpmAttestation::ak_cert].
     pub fn set_ak_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ak_cert = v.into();
-        self
-    }
-
-    /// Sets the value of [quotes][crate::model::TpmAttestation::quotes].
-    pub fn set_quotes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::tpm_attestation::Quote>,
-    {
-        use std::iter::Iterator;
-        self.quotes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -967,18 +967,6 @@ pub mod tpm_attestation {
             self
         }
 
-        /// Sets the value of [raw_quote][crate::model::tpm_attestation::Quote::raw_quote].
-        pub fn set_raw_quote<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.raw_quote = v.into();
-            self
-        }
-
-        /// Sets the value of [raw_signature][crate::model::tpm_attestation::Quote::raw_signature].
-        pub fn set_raw_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.raw_signature = v.into();
-            self
-        }
-
         /// Sets the value of [pcr_values][crate::model::tpm_attestation::Quote::pcr_values].
         pub fn set_pcr_values<T, K, V>(mut self, v: T) -> Self
         where
@@ -988,6 +976,18 @@ pub mod tpm_attestation {
         {
             use std::iter::Iterator;
             self.pcr_values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [raw_quote][crate::model::tpm_attestation::Quote::raw_quote].
+        pub fn set_raw_quote<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.raw_quote = v.into();
+            self
+        }
+
+        /// Sets the value of [raw_signature][crate::model::tpm_attestation::Quote::raw_signature].
+        pub fn set_raw_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.raw_signature = v.into();
             self
         }
     }

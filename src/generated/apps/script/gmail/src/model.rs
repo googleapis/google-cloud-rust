@@ -88,26 +88,6 @@ impl GmailAddOnManifest {
         self
     }
 
-    /// Sets the value of [compose_trigger][crate::model::GmailAddOnManifest::compose_trigger].
-    pub fn set_compose_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::ComposeTrigger>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.compose_trigger = v.into();
-        self
-    }
-
-    /// Sets the value of [authorization_check_function][crate::model::GmailAddOnManifest::authorization_check_function].
-    pub fn set_authorization_check_function<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_check_function = v.into();
-        self
-    }
-
     /// Sets the value of [contextual_triggers][crate::model::GmailAddOnManifest::contextual_triggers].
     pub fn set_contextual_triggers<T, V>(mut self, v: T) -> Self
     where
@@ -127,6 +107,26 @@ impl GmailAddOnManifest {
     {
         use std::iter::Iterator;
         self.universal_actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [compose_trigger][crate::model::GmailAddOnManifest::compose_trigger].
+    pub fn set_compose_trigger<
+        T: std::convert::Into<std::option::Option<crate::model::ComposeTrigger>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compose_trigger = v.into();
+        self
+    }
+
+    /// Sets the value of [authorization_check_function][crate::model::GmailAddOnManifest::authorization_check_function].
+    pub fn set_authorization_check_function<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authorization_check_function = v.into();
         self
     }
 }
@@ -194,6 +194,18 @@ impl UniversalAction {
         })
     }
 
+    /// Sets the value of [action_type][crate::model::UniversalAction::action_type]
+    /// to hold a `OpenLink`.
+    ///
+    /// Note that all the setters affecting `action_type` are
+    /// mutually exclusive.
+    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action_type = std::option::Option::Some(
+            crate::model::universal_action::ActionType::OpenLink(v.into()),
+        );
+        self
+    }
+
     /// The value of [action_type][crate::model::UniversalAction::action_type]
     /// if it holds a `RunFunction`, `None` if the field is not set or
     /// holds a different branch.
@@ -205,18 +217,6 @@ impl UniversalAction {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action_type][crate::model::UniversalAction::action_type]
-    /// to hold a `OpenLink`.
-    ///
-    /// Note that all the setters affecting `action_type` are
-    /// mutually exclusive.
-    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action_type = std::option::Option::Some(
-            crate::model::universal_action::ActionType::OpenLink(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [action_type][crate::model::UniversalAction::action_type]
@@ -281,15 +281,6 @@ impl ComposeTrigger {
         std::default::Default::default()
     }
 
-    /// Sets the value of [draft_access][crate::model::ComposeTrigger::draft_access].
-    pub fn set_draft_access<T: std::convert::Into<crate::model::compose_trigger::DraftAccess>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.draft_access = v.into();
-        self
-    }
-
     /// Sets the value of [actions][crate::model::ComposeTrigger::actions].
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
@@ -298,6 +289,15 @@ impl ComposeTrigger {
     {
         use std::iter::Iterator;
         self.actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [draft_access][crate::model::ComposeTrigger::draft_access].
+    pub fn set_draft_access<T: std::convert::Into<crate::model::compose_trigger::DraftAccess>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.draft_access = v.into();
         self
     }
 }

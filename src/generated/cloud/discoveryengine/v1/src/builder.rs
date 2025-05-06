@@ -189,7 +189,7 @@ pub mod completion_service {
             crate::model::ImportSuggestionDenyListEntriesResponse,
             crate::model::ImportSuggestionDenyListEntriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportSuggestionDenyListEntriesResponse,
                 crate::model::ImportSuggestionDenyListEntriesMetadata,
             >;
@@ -217,7 +217,7 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportSuggestionDenyListEntriesRequest::parent].
@@ -330,7 +330,7 @@ pub mod completion_service {
             crate::model::PurgeSuggestionDenyListEntriesResponse,
             crate::model::PurgeSuggestionDenyListEntriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeSuggestionDenyListEntriesResponse,
                 crate::model::PurgeSuggestionDenyListEntriesMetadata,
             >;
@@ -358,7 +358,7 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeSuggestionDenyListEntriesRequest::parent].
@@ -425,7 +425,7 @@ pub mod completion_service {
             crate::model::ImportCompletionSuggestionsResponse,
             crate::model::ImportCompletionSuggestionsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportCompletionSuggestionsResponse,
                 crate::model::ImportCompletionSuggestionsMetadata,
             >;
@@ -453,7 +453,7 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportCompletionSuggestionsRequest::parent].
@@ -590,7 +590,7 @@ pub mod completion_service {
             crate::model::PurgeCompletionSuggestionsResponse,
             crate::model::PurgeCompletionSuggestionsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeCompletionSuggestionsResponse,
                 crate::model::PurgeCompletionSuggestionsMetadata,
             >;
@@ -618,7 +618,7 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeCompletionSuggestionsRequest::parent].
@@ -1474,6 +1474,17 @@ pub mod conversational_search_service {
             self
         }
 
+        /// Sets the value of [user_labels][crate::model::ConverseConversationRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of [summary_spec][crate::model::ConverseConversationRequest::summary_spec].
         pub fn set_summary_spec<
             T: Into<
@@ -1501,17 +1512,6 @@ pub mod conversational_search_service {
             v: T,
         ) -> Self {
             self.0.request.boost_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [user_labels][crate::model::ConverseConversationRequest::user_labels].
-        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -1967,17 +1967,6 @@ pub mod conversational_search_service {
             self
         }
 
-        /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
-        pub fn set_end_user_spec<
-            T: Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.end_user_spec = v.into();
-            self
-        }
-
         /// Sets the value of [user_labels][crate::model::AnswerQueryRequest::user_labels].
         pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -1986,6 +1975,17 @@ pub mod conversational_search_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+        pub fn set_end_user_spec<
+            T: Into<std::option::Option<crate::model::answer_query_request::EndUserSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.end_user_spec = v.into();
             self
         }
     }
@@ -2620,8 +2620,10 @@ pub mod data_store_service {
             self,
         ) -> impl lro::Poller<crate::model::DataStore, crate::model::CreateDataStoreMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DataStore, crate::model::CreateDataStoreMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DataStore,
+                crate::model::CreateDataStoreMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2646,7 +2648,7 @@ pub mod data_store_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataStoreRequest::parent].
@@ -2861,7 +2863,8 @@ pub mod data_store_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_store`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteDataStoreMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteDataStoreMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteDataStoreMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2886,7 +2889,7 @@ pub mod data_store_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataStoreRequest::name].
@@ -3536,7 +3539,7 @@ pub mod document_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportDocumentsResponse, crate::model::ImportDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportDocumentsResponse,
                 crate::model::ImportDocumentsMetadata,
             >;
@@ -3564,7 +3567,7 @@ pub mod document_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportDocumentsRequest::parent].
@@ -3818,7 +3821,7 @@ pub mod document_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeDocumentsResponse, crate::model::PurgeDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeDocumentsResponse,
                 crate::model::PurgeDocumentsMetadata,
             >;
@@ -3846,7 +3849,7 @@ pub mod document_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeDocumentsRequest::parent].
@@ -4268,7 +4271,7 @@ pub mod engine_service {
             self,
         ) -> impl lro::Poller<crate::model::Engine, crate::model::CreateEngineMetadata> {
             type Operation =
-                lro::Operation<crate::model::Engine, crate::model::CreateEngineMetadata>;
+                lro::internal::Operation<crate::model::Engine, crate::model::CreateEngineMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4293,7 +4296,7 @@ pub mod engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEngineRequest::parent].
@@ -4369,7 +4372,8 @@ pub mod engine_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_engine`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteEngineMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteEngineMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteEngineMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4394,7 +4398,7 @@ pub mod engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEngineRequest::name].
@@ -4886,6 +4890,17 @@ pub mod grounded_generation_service {
             self
         }
 
+        /// Sets the value of [contents][crate::model::GenerateGroundedContentRequest::contents].
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::GroundedGenerationContent>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [generation_spec][crate::model::GenerateGroundedContentRequest::generation_spec].
         pub fn set_generation_spec<
             T: Into<
@@ -4911,17 +4926,6 @@ pub mod grounded_generation_service {
             v: T,
         ) -> Self {
             self.0.request.grounding_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [contents][crate::model::GenerateGroundedContentRequest::contents].
-        pub fn set_contents<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::GroundedGenerationContent>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -4989,17 +4993,6 @@ pub mod grounded_generation_service {
             self
         }
 
-        /// Sets the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
-        pub fn set_grounding_spec<
-            T: Into<std::option::Option<crate::model::CheckGroundingSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grounding_spec = v.into();
-            self
-        }
-
         /// Sets the value of [facts][crate::model::CheckGroundingRequest::facts].
         pub fn set_facts<T, V>(mut self, v: T) -> Self
         where
@@ -5008,6 +5001,17 @@ pub mod grounded_generation_service {
         {
             use std::iter::Iterator;
             self.0.request.facts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [grounding_spec][crate::model::CheckGroundingRequest::grounding_spec].
+        pub fn set_grounding_spec<
+            T: Into<std::option::Option<crate::model::CheckGroundingSpec>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.grounding_spec = v.into();
             self
         }
 
@@ -5306,8 +5310,10 @@ pub mod project_service {
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::ProvisionProjectMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Project, crate::model::ProvisionProjectMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Project,
+                crate::model::ProvisionProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5332,7 +5338,7 @@ pub mod project_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ProvisionProjectRequest::name].
@@ -5656,12 +5662,6 @@ pub mod rank_service {
             self
         }
 
-        /// Sets the value of [ignore_record_details_in_response][crate::model::RankRequest::ignore_record_details_in_response].
-        pub fn set_ignore_record_details_in_response<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_record_details_in_response = v.into();
-            self
-        }
-
         /// Sets the value of [records][crate::model::RankRequest::records].
         ///
         /// This is a **required** field for requests.
@@ -5672,6 +5672,12 @@ pub mod rank_service {
         {
             use std::iter::Iterator;
             self.0.request.records = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [ignore_record_details_in_response][crate::model::RankRequest::ignore_record_details_in_response].
+        pub fn set_ignore_record_details_in_response<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_record_details_in_response = v.into();
             self
         }
 
@@ -6418,7 +6424,7 @@ pub mod schema_service {
             self,
         ) -> impl lro::Poller<crate::model::Schema, crate::model::CreateSchemaMetadata> {
             type Operation =
-                lro::Operation<crate::model::Schema, crate::model::CreateSchemaMetadata>;
+                lro::internal::Operation<crate::model::Schema, crate::model::CreateSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6443,7 +6449,7 @@ pub mod schema_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSchemaRequest::parent].
@@ -6522,7 +6528,7 @@ pub mod schema_service {
             self,
         ) -> impl lro::Poller<crate::model::Schema, crate::model::UpdateSchemaMetadata> {
             type Operation =
-                lro::Operation<crate::model::Schema, crate::model::UpdateSchemaMetadata>;
+                lro::internal::Operation<crate::model::Schema, crate::model::UpdateSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6547,7 +6553,7 @@ pub mod schema_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [schema][crate::model::UpdateSchemaRequest::schema].
@@ -6613,7 +6619,8 @@ pub mod schema_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_schema`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSchemaMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteSchemaMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6638,7 +6645,7 @@ pub mod schema_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRequest::name].
@@ -6990,6 +6997,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
+        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::SearchRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -7023,6 +7041,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
         pub fn set_boost_spec<
             T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
@@ -7031,6 +7060,17 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.boost_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::SearchRequest::params].
+        pub fn set_params<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7076,6 +7116,17 @@ pub mod search_service {
         /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
         pub fn set_safe_search<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.safe_search = v.into();
+            self
+        }
+
+        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7137,50 +7188,6 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_score_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
-        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
-        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::FacetSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [params][crate::model::SearchRequest::params].
-        pub fn set_params<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<wkt::Value>,
-        {
-            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
-
-        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
-        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -7293,6 +7300,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
+        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::SearchRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -7326,6 +7344,17 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::FacetSpec>,
+        {
+            use std::iter::Iterator;
+            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
         pub fn set_boost_spec<
             T: Into<std::option::Option<crate::model::search_request::BoostSpec>>,
@@ -7334,6 +7363,17 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.boost_spec = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::SearchRequest::params].
+        pub fn set_params<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<wkt::Value>,
+        {
+            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7379,6 +7419,17 @@ pub mod search_service {
         /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
         pub fn set_safe_search<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.safe_search = v.into();
+            self
+        }
+
+        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -7440,50 +7491,6 @@ pub mod search_service {
             v: T,
         ) -> Self {
             self.0.request.relevance_score_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [data_store_specs][crate::model::SearchRequest::data_store_specs].
-        pub fn set_data_store_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::DataStoreSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.data_store_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
-        pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::search_request::FacetSpec>,
-        {
-            use std::iter::Iterator;
-            self.0.request.facet_specs = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [params][crate::model::SearchRequest::params].
-        pub fn set_params<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<wkt::Value>,
-        {
-            self.0.request.params = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-            self
-        }
-
-        /// Sets the value of [user_labels][crate::model::SearchRequest::user_labels].
-        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -7773,7 +7780,7 @@ pub mod search_tuning_service {
             crate::model::TrainCustomModelResponse,
             crate::model::TrainCustomModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TrainCustomModelResponse,
                 crate::model::TrainCustomModelMetadata,
             >;
@@ -7801,7 +7808,7 @@ pub mod search_tuning_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [data_store][crate::model::TrainCustomModelRequest::data_store].
@@ -8542,8 +8549,10 @@ pub mod site_search_engine_service {
             self,
         ) -> impl lro::Poller<crate::model::TargetSite, crate::model::CreateTargetSiteMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetSite, crate::model::CreateTargetSiteMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetSite,
+                crate::model::CreateTargetSiteMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8568,7 +8577,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetSiteRequest::parent].
@@ -8644,7 +8653,7 @@ pub mod site_search_engine_service {
             crate::model::BatchCreateTargetSitesResponse,
             crate::model::BatchCreateTargetSiteMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateTargetSitesResponse,
                 crate::model::BatchCreateTargetSiteMetadata,
             >;
@@ -8672,7 +8681,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateTargetSitesRequest::parent].
@@ -8795,8 +8804,10 @@ pub mod site_search_engine_service {
             self,
         ) -> impl lro::Poller<crate::model::TargetSite, crate::model::UpdateTargetSiteMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetSite, crate::model::UpdateTargetSiteMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetSite,
+                crate::model::UpdateTargetSiteMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8821,7 +8832,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [target_site][crate::model::UpdateTargetSiteRequest::target_site].
@@ -8886,7 +8897,8 @@ pub mod site_search_engine_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTargetSiteMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteTargetSiteMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteTargetSiteMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8911,7 +8923,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetSiteRequest::name].
@@ -9044,8 +9056,10 @@ pub mod site_search_engine_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Sitemap, crate::model::CreateSitemapMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Sitemap, crate::model::CreateSitemapMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Sitemap,
+                crate::model::CreateSitemapMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9070,7 +9084,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSitemapRequest::parent].
@@ -9138,7 +9152,8 @@ pub mod site_search_engine_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_sitemap`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSitemapMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteSitemapMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteSitemapMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -9163,7 +9178,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSitemapRequest::name].
@@ -9288,7 +9303,7 @@ pub mod site_search_engine_service {
             crate::model::EnableAdvancedSiteSearchResponse,
             crate::model::EnableAdvancedSiteSearchMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableAdvancedSiteSearchResponse,
                 crate::model::EnableAdvancedSiteSearchMetadata,
             >;
@@ -9316,7 +9331,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [site_search_engine][crate::model::EnableAdvancedSiteSearchRequest::site_search_engine].
@@ -9383,7 +9398,7 @@ pub mod site_search_engine_service {
             crate::model::DisableAdvancedSiteSearchResponse,
             crate::model::DisableAdvancedSiteSearchMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableAdvancedSiteSearchResponse,
                 crate::model::DisableAdvancedSiteSearchMetadata,
             >;
@@ -9411,7 +9426,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [site_search_engine][crate::model::DisableAdvancedSiteSearchRequest::site_search_engine].
@@ -9471,7 +9486,7 @@ pub mod site_search_engine_service {
             self,
         ) -> impl lro::Poller<crate::model::RecrawlUrisResponse, crate::model::RecrawlUrisMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RecrawlUrisResponse,
                 crate::model::RecrawlUrisMetadata,
             >;
@@ -9499,7 +9514,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [site_search_engine][crate::model::RecrawlUrisRequest::site_search_engine].
@@ -9507,12 +9522,6 @@ pub mod site_search_engine_service {
         /// This is a **required** field for requests.
         pub fn set_site_search_engine<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.site_search_engine = v.into();
-            self
-        }
-
-        /// Sets the value of [site_credential][crate::model::RecrawlUrisRequest::site_credential].
-        pub fn set_site_credential<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.site_credential = v.into();
             self
         }
 
@@ -9526,6 +9535,12 @@ pub mod site_search_engine_service {
         {
             use std::iter::Iterator;
             self.0.request.uris = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [site_credential][crate::model::RecrawlUrisRequest::site_credential].
+        pub fn set_site_credential<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.site_credential = v.into();
             self
         }
     }
@@ -9583,7 +9598,7 @@ pub mod site_search_engine_service {
             crate::model::BatchVerifyTargetSitesResponse,
             crate::model::BatchVerifyTargetSitesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchVerifyTargetSitesResponse,
                 crate::model::BatchVerifyTargetSitesMetadata,
             >;
@@ -9611,7 +9626,7 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchVerifyTargetSitesRequest::parent].
@@ -10118,7 +10133,7 @@ pub mod user_event_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeUserEventsResponse, crate::model::PurgeUserEventsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeUserEventsResponse,
                 crate::model::PurgeUserEventsMetadata,
             >;
@@ -10146,7 +10161,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeUserEventsRequest::parent].
@@ -10225,7 +10240,7 @@ pub mod user_event_service {
             crate::model::ImportUserEventsResponse,
             crate::model::ImportUserEventsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportUserEventsResponse,
                 crate::model::ImportUserEventsMetadata,
             >;
@@ -10253,7 +10268,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportUserEventsRequest::parent].

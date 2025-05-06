@@ -272,6 +272,18 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Backup::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [delete_lock_days][crate::model::Backup::delete_lock_days].
     pub fn set_delete_lock_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.delete_lock_days = v.into();
@@ -407,18 +419,6 @@ impl Backup {
         self
     }
 
-    /// Sets the value of [labels][crate::model::Backup::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
-        self
-    }
-
     /// Sets the value of [backup_scope][crate::model::Backup::backup_scope].
     ///
     /// Note that all the setters affecting `backup_scope` are mutually
@@ -444,6 +444,17 @@ impl Backup {
         })
     }
 
+    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
+    /// to hold a `AllNamespaces`.
+    ///
+    /// Note that all the setters affecting `backup_scope` are
+    /// mutually exclusive.
+    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.backup_scope =
+            std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
+        self
+    }
+
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -457,32 +468,6 @@ impl Backup {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [backup_scope][crate::model::Backup::backup_scope]
-    /// if it holds a `SelectedApplications`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn selected_applications(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
-        #[allow(unreachable_patterns)]
-        self.backup_scope.as_ref().and_then(|v| match v {
-            crate::model::backup::BackupScope::SelectedApplications(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
-    /// to hold a `AllNamespaces`.
-    ///
-    /// Note that all the setters affecting `backup_scope` are
-    /// mutually exclusive.
-    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.backup_scope =
-            std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
-        self
     }
 
     /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
@@ -500,6 +485,21 @@ impl Backup {
             crate::model::backup::BackupScope::SelectedNamespaces(v.into()),
         );
         self
+    }
+
+    /// The value of [backup_scope][crate::model::Backup::backup_scope]
+    /// if it holds a `SelectedApplications`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn selected_applications(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+        #[allow(unreachable_patterns)]
+        self.backup_scope.as_ref().and_then(|v| match v {
+            crate::model::backup::BackupScope::SelectedApplications(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
@@ -628,6 +628,18 @@ pub mod backup {
             })
         }
 
+        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
+        /// to hold a `GkeVersion`.
+        ///
+        /// Note that all the setters affecting `platform_version` are
+        /// mutually exclusive.
+        pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.platform_version = std::option::Option::Some(
+                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
+            );
+            self
+        }
+
         /// The value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
         /// if it holds a `AnthosVersion`, `None` if the field is not set or
         /// holds a different branch.
@@ -639,18 +651,6 @@ pub mod backup {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
-        /// to hold a `GkeVersion`.
-        ///
-        /// Note that all the setters affecting `platform_version` are
-        /// mutually exclusive.
-        pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.platform_version = std::option::Option::Some(
-                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
@@ -1035,6 +1035,18 @@ impl BackupPlan {
         self
     }
 
+    /// Sets the value of [labels][crate::model::BackupPlan::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [backup_schedule][crate::model::BackupPlan::backup_schedule].
     pub fn set_backup_schedule<
         T: std::convert::Into<std::option::Option<crate::model::backup_plan::Schedule>>,
@@ -1099,18 +1111,6 @@ impl BackupPlan {
     /// Sets the value of [rpo_risk_reason][crate::model::BackupPlan::rpo_risk_reason].
     pub fn set_rpo_risk_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rpo_risk_reason = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::BackupPlan::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1426,6 +1426,18 @@ pub mod backup_plan {
             })
         }
 
+        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
+        /// to hold a `AllNamespaces`.
+        ///
+        /// Note that all the setters affecting `backup_scope` are
+        /// mutually exclusive.
+        pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.backup_scope = std::option::Option::Some(
+                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
+            );
+            self
+        }
+
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
         /// holds a different branch.
@@ -1439,33 +1451,6 @@ pub mod backup_plan {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// if it holds a `SelectedApplications`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn selected_applications(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
-            #[allow(unreachable_patterns)]
-            self.backup_scope.as_ref().and_then(|v| match v {
-                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// to hold a `AllNamespaces`.
-        ///
-        /// Note that all the setters affecting `backup_scope` are
-        /// mutually exclusive.
-        pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
@@ -1483,6 +1468,21 @@ pub mod backup_plan {
                 crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(v.into()),
             );
             self
+        }
+
+        /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
+        /// if it holds a `SelectedApplications`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn selected_applications(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+            #[allow(unreachable_patterns)]
+            self.backup_scope.as_ref().and_then(|v| match v {
+                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
@@ -1841,32 +1841,6 @@ impl ExclusionWindow {
         })
     }
 
-    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// if it holds a `Daily`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn daily(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::exclusion_window::Recurrence::Daily(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// if it holds a `DaysOfWeek`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn days_of_week(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
-        #[allow(unreachable_patterns)]
-        self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::exclusion_window::Recurrence::DaysOfWeek(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// to hold a `SingleOccurrenceDate`.
     ///
@@ -1884,6 +1858,17 @@ impl ExclusionWindow {
         self
     }
 
+    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
+    /// if it holds a `Daily`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn daily(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.recurrence.as_ref().and_then(|v| match v {
+            crate::model::exclusion_window::Recurrence::Daily(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// to hold a `Daily`.
     ///
@@ -1893,6 +1878,21 @@ impl ExclusionWindow {
         self.recurrence =
             std::option::Option::Some(crate::model::exclusion_window::Recurrence::Daily(v.into()));
         self
+    }
+
+    /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
+    /// if it holds a `DaysOfWeek`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn days_of_week(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
+        #[allow(unreachable_patterns)]
+        self.recurrence.as_ref().and_then(|v| match v {
+            crate::model::exclusion_window::Recurrence::DaysOfWeek(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
@@ -2571,12 +2571,6 @@ impl ListBackupPlansResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backup_plans][crate::model::ListBackupPlansResponse::backup_plans].
     pub fn set_backup_plans<T, V>(mut self, v: T) -> Self
     where
@@ -2585,6 +2579,12 @@ impl ListBackupPlansResponse {
     {
         use std::iter::Iterator;
         self.backup_plans = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -2935,12 +2935,6 @@ impl ListBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
@@ -2949,6 +2943,12 @@ impl ListBackupsResponse {
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3237,12 +3237,6 @@ impl ListVolumeBackupsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumeBackupsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volume_backups][crate::model::ListVolumeBackupsResponse::volume_backups].
     pub fn set_volume_backups<T, V>(mut self, v: T) -> Self
     where
@@ -3251,6 +3245,12 @@ impl ListVolumeBackupsResponse {
     {
         use std::iter::Iterator;
         self.volume_backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumeBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -3493,12 +3493,6 @@ impl ListRestorePlansResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRestorePlansResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [restore_plans][crate::model::ListRestorePlansResponse::restore_plans].
     pub fn set_restore_plans<T, V>(mut self, v: T) -> Self
     where
@@ -3507,6 +3501,12 @@ impl ListRestorePlansResponse {
     {
         use std::iter::Iterator;
         self.restore_plans = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestorePlansResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -3874,12 +3874,6 @@ impl ListRestoresResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListRestoresResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [restores][crate::model::ListRestoresResponse::restores].
     pub fn set_restores<T, V>(mut self, v: T) -> Self
     where
@@ -3888,6 +3882,12 @@ impl ListRestoresResponse {
     {
         use std::iter::Iterator;
         self.restores = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoresResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
@@ -4187,12 +4187,6 @@ impl ListVolumeRestoresResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of [next_page_token][crate::model::ListVolumeRestoresResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
-    }
-
     /// Sets the value of [volume_restores][crate::model::ListVolumeRestoresResponse::volume_restores].
     pub fn set_volume_restores<T, V>(mut self, v: T) -> Self
     where
@@ -4201,6 +4195,12 @@ impl ListVolumeRestoresResponse {
     {
         use std::iter::Iterator;
         self.volume_restores = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListVolumeRestoresResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -4517,6 +4517,18 @@ impl Restore {
         self
     }
 
+    /// Sets the value of [labels][crate::model::Restore::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [state][crate::model::Restore::state].
     pub fn set_state<T: std::convert::Into<crate::model::restore::State>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -4585,18 +4597,6 @@ impl Restore {
     {
         use std::iter::Iterator;
         self.volume_data_restore_policy_overrides = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::Restore::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4962,17 +4962,6 @@ impl RestoreConfig {
         self
     }
 
-    /// Sets the value of [restore_order][crate::model::RestoreConfig::restore_order].
-    pub fn set_restore_order<
-        T: std::convert::Into<std::option::Option<crate::model::restore_config::RestoreOrder>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restore_order = v.into();
-        self
-    }
-
     /// Sets the value of [substitution_rules][crate::model::RestoreConfig::substitution_rules].
     pub fn set_substitution_rules<T, V>(mut self, v: T) -> Self
     where
@@ -5003,6 +4992,17 @@ impl RestoreConfig {
     {
         use std::iter::Iterator;
         self.volume_data_restore_policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [restore_order][crate::model::RestoreConfig::restore_order].
+    pub fn set_restore_order<
+        T: std::convert::Into<std::option::Option<crate::model::restore_config::RestoreOrder>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_order = v.into();
         self
     }
 
@@ -5037,6 +5037,18 @@ impl RestoreConfig {
             })
     }
 
+    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// to hold a `AllNamespaces`.
+    ///
+    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
+    /// mutually exclusive.
+    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.namespaced_resource_restore_scope = std::option::Option::Some(
+            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
+        );
+        self
+    }
+
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -5048,59 +5060,6 @@ impl RestoreConfig {
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedNamespaces(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// if it holds a `SelectedApplications`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn selected_applications(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
-        #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
-            crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// if it holds a `NoNamespaces`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn no_namespaces(&self) -> std::option::Option<&bool> {
-        #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope
-            .as_ref()
-            .and_then(|v| match v {
-                crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-    }
-
-    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn excluded_namespaces(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
-        #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
-            crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `AllNamespaces`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -5122,6 +5081,19 @@ impl RestoreConfig {
         self
     }
 
+    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// if it holds a `SelectedApplications`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn selected_applications(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+        #[allow(unreachable_patterns)]
+        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
+            crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// to hold a `SelectedApplications`.
     ///
@@ -5141,6 +5113,21 @@ impl RestoreConfig {
         self
     }
 
+    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// if it holds a `NoNamespaces`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn no_namespaces(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.namespaced_resource_restore_scope
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+    }
+
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// to hold a `NoNamespaces`.
     ///
@@ -5151,6 +5138,19 @@ impl RestoreConfig {
             crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v.into()),
         );
         self
+    }
+
+    /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
+    /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn excluded_namespaces(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+        #[allow(unreachable_patterns)]
+        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
+            crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -5296,18 +5296,6 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [all_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::all_group_kinds].
-        pub fn set_all_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.all_group_kinds = v.into();
-            self
-        }
-
-        /// Sets the value of [no_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::no_group_kinds].
-        pub fn set_no_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.no_group_kinds = v.into();
-            self
-        }
-
         /// Sets the value of [selected_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::selected_group_kinds].
         pub fn set_selected_group_kinds<T, V>(mut self, v: T) -> Self
         where
@@ -5327,6 +5315,18 @@ pub mod restore_config {
         {
             use std::iter::Iterator;
             self.excluded_group_kinds = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [all_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::all_group_kinds].
+        pub fn set_all_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.all_group_kinds = v.into();
+            self
+        }
+
+        /// Sets the value of [no_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::no_group_kinds].
+        pub fn set_no_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.no_group_kinds = v.into();
             self
         }
     }
@@ -5400,6 +5400,28 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
+        /// Sets the value of [target_namespaces][crate::model::restore_config::SubstitutionRule::target_namespaces].
+        pub fn set_target_namespaces<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.target_namespaces = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [target_group_kinds][crate::model::restore_config::SubstitutionRule::target_group_kinds].
+        pub fn set_target_group_kinds<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::restore_config::GroupKind>,
+        {
+            use std::iter::Iterator;
+            self.target_group_kinds = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [target_json_path][crate::model::restore_config::SubstitutionRule::target_json_path].
         pub fn set_target_json_path<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -5421,28 +5443,6 @@ pub mod restore_config {
         /// Sets the value of [new_value][crate::model::restore_config::SubstitutionRule::new_value].
         pub fn set_new_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.new_value = v.into();
-            self
-        }
-
-        /// Sets the value of [target_namespaces][crate::model::restore_config::SubstitutionRule::target_namespaces].
-        pub fn set_target_namespaces<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.target_namespaces = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [target_group_kinds][crate::model::restore_config::SubstitutionRule::target_group_kinds].
-        pub fn set_target_group_kinds<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::GroupKind>,
-        {
-            use std::iter::Iterator;
-            self.target_group_kinds = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5746,12 +5746,6 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of [json_path][crate::model::restore_config::ResourceFilter::json_path].
-        pub fn set_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.json_path = v.into();
-            self
-        }
-
         /// Sets the value of [namespaces][crate::model::restore_config::ResourceFilter::namespaces].
         pub fn set_namespaces<T, V>(mut self, v: T) -> Self
         where
@@ -5771,6 +5765,12 @@ pub mod restore_config {
         {
             use std::iter::Iterator;
             self.group_kinds = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [json_path][crate::model::restore_config::ResourceFilter::json_path].
+        pub fn set_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.json_path = v.into();
             self
         }
     }
@@ -5817,6 +5817,17 @@ pub mod restore_config {
             std::default::Default::default()
         }
 
+        /// Sets the value of [field_actions][crate::model::restore_config::TransformationRule::field_actions].
+        pub fn set_field_actions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::restore_config::TransformationRuleAction>,
+        {
+            use std::iter::Iterator;
+            self.field_actions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [resource_filter][crate::model::restore_config::TransformationRule::resource_filter].
         pub fn set_resource_filter<
             T: std::convert::Into<std::option::Option<crate::model::restore_config::ResourceFilter>>,
@@ -5831,17 +5842,6 @@ pub mod restore_config {
         /// Sets the value of [description][crate::model::restore_config::TransformationRule::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
-            self
-        }
-
-        /// Sets the value of [field_actions][crate::model::restore_config::TransformationRule::field_actions].
-        pub fn set_field_actions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::TransformationRuleAction>,
-        {
-            use std::iter::Iterator;
-            self.field_actions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -6925,6 +6925,18 @@ impl RestorePlan {
         self
     }
 
+    /// Sets the value of [labels][crate::model::RestorePlan::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::RestorePlan::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -6943,18 +6955,6 @@ impl RestorePlan {
     /// Sets the value of [state_reason][crate::model::RestorePlan::state_reason].
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
-        self
-    }
-
-    /// Sets the value of [labels][crate::model::RestorePlan::labels].
-    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = (K, V)>,
-        K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
