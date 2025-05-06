@@ -63,7 +63,7 @@ impl CreateResource {
         self,
     ) -> impl google_cloud_lro::Poller<super::model::Resource, super::model::CreateResourceMetadata>
     {
-        type Operation = google_cloud_lro::Operation<
+        type Operation = google_cloud_lro::internal::Operation<
             super::model::Resource,
             super::model::CreateResourceMetadata,
         >;
@@ -90,7 +90,12 @@ impl CreateResource {
             let op = self.send().await?;
             Ok(Operation::new(op))
         };
-        google_cloud_lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        google_cloud_lro::internal::new_poller(
+            polling_error_policy,
+            polling_backoff_policy,
+            start,
+            query,
+        )
     }
 }
 

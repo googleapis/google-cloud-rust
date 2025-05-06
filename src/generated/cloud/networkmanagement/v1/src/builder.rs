@@ -251,8 +251,10 @@ pub mod reachability_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectivityTest, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectivityTest, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectivityTest,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -277,7 +279,7 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectivityTestRequest::parent].
@@ -359,8 +361,10 @@ pub mod reachability_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectivityTest, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectivityTest, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectivityTest,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -385,7 +389,7 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
@@ -462,8 +466,10 @@ pub mod reachability_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectivityTest, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectivityTest, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectivityTest,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -488,7 +494,7 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RerunConnectivityTestRequest::name].
@@ -548,7 +554,7 @@ pub mod reachability_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connectivity_test`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -573,7 +579,7 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectivityTestRequest::name].
@@ -1371,8 +1377,10 @@ pub mod vpc_flow_logs_service {
             self,
         ) -> impl lro::Poller<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VpcFlowLogsConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1397,7 +1405,7 @@ pub mod vpc_flow_logs_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVpcFlowLogsConfigRequest::parent].
@@ -1483,8 +1491,10 @@ pub mod vpc_flow_logs_service {
             self,
         ) -> impl lro::Poller<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VpcFlowLogsConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1509,7 +1519,7 @@ pub mod vpc_flow_logs_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
@@ -1587,7 +1597,7 @@ pub mod vpc_flow_logs_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vpc_flow_logs_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1612,7 +1622,7 @@ pub mod vpc_flow_logs_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVpcFlowLogsConfigRequest::name].

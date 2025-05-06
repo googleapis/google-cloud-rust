@@ -102,7 +102,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `create_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -127,7 +127,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
@@ -364,7 +364,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `update_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -389,7 +389,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
@@ -453,7 +453,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -478,7 +478,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
@@ -539,7 +539,7 @@ pub mod api_keys {
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_key`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -564,7 +564,7 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteKeyRequest::name].

@@ -876,7 +876,7 @@ pub mod batch_controller {
             self,
         ) -> impl lro::Poller<crate::model::Batch, crate::model::BatchOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Batch, crate::model::BatchOperationMetadata>;
+                lro::internal::Operation<crate::model::Batch, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -901,7 +901,7 @@ pub mod batch_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBatchRequest::parent].
@@ -1630,8 +1630,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1656,7 +1658,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
@@ -1750,8 +1752,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1776,7 +1780,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
@@ -1889,8 +1893,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1915,7 +1921,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::StopClusterRequest::project_id].
@@ -2003,8 +2009,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2029,7 +2037,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::StartClusterRequest::project_id].
@@ -2116,7 +2124,8 @@ pub mod cluster_controller {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::ClusterOperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ClusterOperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ClusterOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2141,7 +2150,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
@@ -2380,7 +2389,7 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::DiagnoseClusterResults, crate::model::ClusterOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DiagnoseClusterResults,
                 crate::model::ClusterOperationMetadata,
             >;
@@ -2408,7 +2417,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DiagnoseClusterRequest::project_id].
@@ -3064,7 +3073,7 @@ pub mod job_controller {
 
         /// Creates a [Poller][lro::Poller] to work with `submit_job_as_operation`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Job, crate::model::JobMetadata> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::JobMetadata>;
+            type Operation = lro::internal::Operation<crate::model::Job, crate::model::JobMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3089,7 +3098,7 @@ pub mod job_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::SubmitJobRequest::project_id].
@@ -4011,8 +4020,10 @@ pub mod node_group_controller {
             self,
         ) -> impl lro::Poller<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NodeGroup,
+                crate::model::NodeGroupOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4037,7 +4048,7 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeGroupRequest::parent].
@@ -4120,8 +4131,10 @@ pub mod node_group_controller {
             self,
         ) -> impl lro::Poller<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NodeGroup,
+                crate::model::NodeGroupOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4146,7 +4159,7 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResizeNodeGroupRequest::name].
@@ -5505,8 +5518,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5531,7 +5546,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionRequest::parent].
@@ -5746,8 +5761,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5772,7 +5789,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TerminateSessionRequest::name].
@@ -5838,8 +5855,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5864,7 +5883,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionRequest::name].
@@ -6515,7 +6534,7 @@ pub mod workflow_template_service {
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_workflow_template`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::WorkflowMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6540,7 +6559,7 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::InstantiateWorkflowTemplateRequest::name].
@@ -6625,7 +6644,7 @@ pub mod workflow_template_service {
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_inline_workflow_template`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::WorkflowMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6650,7 +6669,7 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::InstantiateInlineWorkflowTemplateRequest::parent].

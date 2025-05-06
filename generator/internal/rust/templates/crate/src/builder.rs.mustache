@@ -144,7 +144,7 @@ pub mod {{Codec.ModuleName}} {
             self
         ) -> impl lro::Poller<{{Codec.ResponseType}}, {{Codec.MetadataType}}>
         {
-            type Operation = lro::Operation<{{Codec.ResponseType}}, {{Codec.MetadataType}}>;
+            type Operation = lro::internal::Operation<{{Codec.ResponseType}}, {{Codec.MetadataType}}>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -169,7 +169,7 @@ pub mod {{Codec.ModuleName}} {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
         {{/OperationInfo}}
         {{#InputType.Codec.BasicFields}}

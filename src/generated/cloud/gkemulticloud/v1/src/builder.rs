@@ -112,8 +112,10 @@ pub mod attached_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AttachedCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AttachedCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -138,7 +140,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachedClusterRequest::parent].
@@ -226,8 +228,10 @@ pub mod attached_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AttachedCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AttachedCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -252,7 +256,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
@@ -335,8 +339,10 @@ pub mod attached_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AttachedCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AttachedCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -361,7 +367,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportAttachedClusterRequest::parent].
@@ -587,7 +593,7 @@ pub mod attached_clusters {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_attached_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -612,7 +618,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachedClusterRequest::name].
@@ -1218,7 +1224,7 @@ pub mod aws_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1243,7 +1249,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsClusterRequest::parent].
@@ -1331,7 +1337,7 @@ pub mod aws_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1356,7 +1362,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
@@ -1557,7 +1563,7 @@ pub mod aws_clusters {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aws_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1582,7 +1588,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsClusterRequest::name].
@@ -1830,8 +1836,10 @@ pub mod aws_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AwsNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AwsNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1856,7 +1864,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsNodePoolRequest::parent].
@@ -1943,8 +1951,10 @@ pub mod aws_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AwsNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AwsNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1969,7 +1979,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
@@ -2053,8 +2063,10 @@ pub mod aws_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AwsNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AwsNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2079,7 +2091,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RollbackAwsNodePoolUpdateRequest::name].
@@ -2269,7 +2281,7 @@ pub mod aws_clusters {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aws_node_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2294,7 +2306,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsNodePoolRequest::name].
@@ -2810,8 +2822,10 @@ pub mod azure_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AzureClient, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AzureClient, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureClient,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2836,7 +2850,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClientRequest::parent].
@@ -3045,7 +3059,7 @@ pub mod azure_clusters {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_client`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3070,7 +3084,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClientRequest::name].
@@ -3144,8 +3158,10 @@ pub mod azure_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AzureCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3170,7 +3186,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClusterRequest::parent].
@@ -3257,8 +3273,10 @@ pub mod azure_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AzureCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3283,7 +3301,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
@@ -3487,7 +3505,7 @@ pub mod azure_clusters {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_cluster`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3512,7 +3530,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClusterRequest::name].
@@ -3763,8 +3781,10 @@ pub mod azure_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AzureNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3789,7 +3809,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureNodePoolRequest::parent].
@@ -3877,8 +3897,10 @@ pub mod azure_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AzureNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3903,7 +3925,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
@@ -4110,7 +4132,7 @@ pub mod azure_clusters {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_node_pool`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4135,7 +4157,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureNodePoolRequest::name].

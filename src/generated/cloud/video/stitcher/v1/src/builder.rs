@@ -108,7 +108,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -133,7 +134,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
@@ -342,7 +343,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cdn_key`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -367,7 +368,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCdnKeyRequest::name].
@@ -426,7 +427,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -451,7 +453,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
@@ -1013,7 +1015,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1038,7 +1041,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
@@ -1255,7 +1258,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1280,7 +1284,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
@@ -1351,7 +1355,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_slate`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1376,7 +1380,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSlateRequest::name].
@@ -1547,7 +1551,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1572,7 +1576,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
@@ -1790,7 +1794,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_live_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1815,7 +1819,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLiveConfigRequest::name].
@@ -1878,7 +1882,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1903,7 +1907,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
@@ -1977,7 +1981,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2002,7 +2006,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
@@ -2217,7 +2221,7 @@ pub mod video_stitcher_service {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vod_config`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2242,7 +2246,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVodConfigRequest::name].
@@ -2302,7 +2306,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2327,7 +2331,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].

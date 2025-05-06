@@ -109,7 +109,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::EnableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -137,7 +137,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableServiceRequest::name].
@@ -195,7 +195,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::DisableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -223,7 +223,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableServiceRequest::name].
@@ -424,7 +424,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::BatchEnableServicesResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchEnableServicesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -452,7 +452,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].

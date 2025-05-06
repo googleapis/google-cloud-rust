@@ -245,8 +245,10 @@ pub mod app_gateways_service {
             self,
         ) -> impl lro::Poller<crate::model::AppGateway, crate::model::AppGatewayOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AppGateway, crate::model::AppGatewayOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AppGateway,
+                crate::model::AppGatewayOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -271,7 +273,7 @@ pub mod app_gateways_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAppGatewayRequest::parent].
@@ -362,7 +364,8 @@ pub mod app_gateways_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::AppGatewayOperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::AppGatewayOperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::AppGatewayOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -387,7 +390,7 @@ pub mod app_gateways_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAppGatewayRequest::name].

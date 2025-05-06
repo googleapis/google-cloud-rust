@@ -301,7 +301,7 @@ pub mod fleet_routing {
             self,
         ) -> impl lro::Poller<crate::model::BatchOptimizeToursResponse, crate::model::AsyncModelMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchOptimizeToursResponse,
                 crate::model::AsyncModelMetadata,
             >;
@@ -329,7 +329,7 @@ pub mod fleet_routing {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchOptimizeToursRequest::parent].

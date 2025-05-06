@@ -656,7 +656,8 @@ pub mod executions {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_execution`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Execution, crate::model::Execution> {
-            type Operation = lro::Operation<crate::model::Execution, crate::model::Execution>;
+            type Operation =
+                lro::internal::Operation<crate::model::Execution, crate::model::Execution>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -681,7 +682,7 @@ pub mod executions {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
@@ -750,7 +751,8 @@ pub mod executions {
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_execution`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Execution, crate::model::Execution> {
-            type Operation = lro::Operation<crate::model::Execution, crate::model::Execution>;
+            type Operation =
+                lro::internal::Operation<crate::model::Execution, crate::model::Execution>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -775,7 +777,7 @@ pub mod executions {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelExecutionRequest::name].
@@ -1126,7 +1128,7 @@ pub mod jobs {
 
         /// Creates a [Poller][lro::Poller] to work with `create_job`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Job, crate::model::Job> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::Job>;
+            type Operation = lro::internal::Operation<crate::model::Job, crate::model::Job>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1151,7 +1153,7 @@ pub mod jobs {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
@@ -1351,7 +1353,7 @@ pub mod jobs {
 
         /// Creates a [Poller][lro::Poller] to work with `update_job`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Job, crate::model::Job> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::Job>;
+            type Operation = lro::internal::Operation<crate::model::Job, crate::model::Job>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1376,7 +1378,7 @@ pub mod jobs {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
@@ -1443,7 +1445,7 @@ pub mod jobs {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_job`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Job, crate::model::Job> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::Job>;
+            type Operation = lro::internal::Operation<crate::model::Job, crate::model::Job>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1468,7 +1470,7 @@ pub mod jobs {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
@@ -1535,7 +1537,8 @@ pub mod jobs {
 
         /// Creates a [Poller][lro::Poller] to work with `run_job`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Execution, crate::model::Execution> {
-            type Operation = lro::Operation<crate::model::Execution, crate::model::Execution>;
+            type Operation =
+                lro::internal::Operation<crate::model::Execution, crate::model::Execution>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1560,7 +1563,7 @@ pub mod jobs {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RunJobRequest::name].
@@ -2225,7 +2228,8 @@ pub mod revisions {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_revision`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Revision, crate::model::Revision> {
-            type Operation = lro::Operation<crate::model::Revision, crate::model::Revision>;
+            type Operation =
+                lro::internal::Operation<crate::model::Revision, crate::model::Revision>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2250,7 +2254,7 @@ pub mod revisions {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRevisionRequest::name].
@@ -2601,7 +2605,7 @@ pub mod services {
 
         /// Creates a [Poller][lro::Poller] to work with `create_service`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Service, crate::model::Service> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::Service>;
+            type Operation = lro::internal::Operation<crate::model::Service, crate::model::Service>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2626,7 +2630,7 @@ pub mod services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -2829,7 +2833,7 @@ pub mod services {
 
         /// Creates a [Poller][lro::Poller] to work with `update_service`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Service, crate::model::Service> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::Service>;
+            type Operation = lro::internal::Operation<crate::model::Service, crate::model::Service>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2854,7 +2858,7 @@ pub mod services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
@@ -2933,7 +2937,7 @@ pub mod services {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Service, crate::model::Service> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::Service>;
+            type Operation = lro::internal::Operation<crate::model::Service, crate::model::Service>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2958,7 +2962,7 @@ pub mod services {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
