@@ -30,7 +30,7 @@ rust-version.workspace = true
 async-trait.workspace = true
 bytes.workspace      = true
 gax                  = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi                 = { workspace = true, features = ["_internal_http_client"] }
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 gtype.workspace      = true
 lazy_static.workspace = true
 location.workspace   = true
