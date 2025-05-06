@@ -334,6 +334,7 @@ pub struct BasicYarnAutoscalingConfig {
     ///
     /// Bounds: [0.0, 1.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub scale_up_factor: f64,
 
     /// Required. Fraction of average YARN pending memory in the last cooldown
@@ -347,6 +348,7 @@ pub struct BasicYarnAutoscalingConfig {
     ///
     /// Bounds: [0.0, 1.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub scale_down_factor: f64,
 
     /// Optional. Minimum scale-up threshold as a fraction of total cluster size
@@ -357,6 +359,7 @@ pub struct BasicYarnAutoscalingConfig {
     ///
     /// Bounds: [0.0, 1.0]. Default: 0.0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub scale_up_min_worker_fraction: f64,
 
     /// Optional. Minimum scale-down threshold as a fraction of total cluster size
@@ -367,6 +370,7 @@ pub struct BasicYarnAutoscalingConfig {
     ///
     /// Bounds: [0.0, 1.0]. Default: 0.0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub scale_down_min_worker_fraction: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3944,6 +3948,7 @@ pub struct StartupConfig {
     /// are not available. This will include instance creation, agent registration,
     /// and service registration (if enabled).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub required_registration_fraction: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

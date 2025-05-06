@@ -1138,6 +1138,7 @@ pub struct ForecastParams {
     ///
     /// If unspecified, it defaults to 0.000001.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub noise_threshold: std::option::Option<f64>,
 
     /// Optional. Specifying any known seasonality/periodicity in the time series
@@ -1395,6 +1396,7 @@ pub struct TimeseriesPoint {
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.granularity]: crate::model::TimeseriesParams::granularity
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub value: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1483,11 +1485,13 @@ pub struct EvaluatedSlice {
     ///
     /// [google.cloud.timeseriesinsights.v1.QueryDataSetRequest.detection_time]: crate::model::QueryDataSetRequest::detection_time
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub detection_point_actual: std::option::Option<f64>,
 
     /// The expected value at the detection time, which is obtained by forecasting
     /// on the historical time series.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub detection_point_forecast: std::option::Option<f64>,
 
     /// How much our forecast model expects the detection point actual will
@@ -1502,6 +1506,7 @@ pub struct EvaluatedSlice {
     ///
     /// The expected deviation is always positive.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub expected_deviation: std::option::Option<f64>,
 
     /// Summarizes how significant the change between the actual and forecasted
@@ -1535,6 +1540,7 @@ pub struct EvaluatedSlice {
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.status]: crate::model::EvaluatedSlice::status
     /// [google.cloud.timeseriesinsights.v1.ForecastParams.noise_threshold]: crate::model::ForecastParams::noise_threshold
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub anomaly_score: std::option::Option<f64>,
 
     /// The actual values in the `[`

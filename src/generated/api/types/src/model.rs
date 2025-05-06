@@ -685,16 +685,19 @@ pub struct BackendRule {
     /// The number of seconds to wait for a response from a request. The default
     /// varies based on the request protocol and deployment environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub deadline: f64,
 
     /// Deprecated, do not use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     #[deprecated]
     pub min_deadline: f64,
 
     /// The number of seconds to wait for the completion of a long running
     /// operation. The default is no deadline.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub operation_deadline: f64,
 
     pub path_translation: crate::model::backend_rule::PathTranslation,
@@ -3109,6 +3112,7 @@ pub struct Distribution {
     /// The arithmetic mean of the values in the population. If `count` is zero
     /// then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub mean: f64,
 
     /// The sum of squared deviations from the mean of the values in the
@@ -3123,6 +3127,7 @@ pub struct Distribution {
     ///
     /// If `count` is zero then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub sum_of_squared_deviation: f64,
 
     /// If specified, contains the range of the population values. The field
@@ -3249,10 +3254,12 @@ pub mod distribution {
     pub struct Range {
         /// The minimum of the population values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub min: f64,
 
         /// The maximum of the population values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub max: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3470,10 +3477,12 @@ pub mod distribution {
 
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub width: f64,
 
             /// Lower bound of the first bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub offset: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3531,10 +3540,12 @@ pub mod distribution {
 
             /// Must be greater than 1.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub growth_factor: f64,
 
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub scale: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3589,6 +3600,7 @@ pub mod distribution {
         pub struct Explicit {
             /// The values must be monotonically increasing.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
             pub bounds: std::vec::Vec<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3647,6 +3659,7 @@ pub mod distribution {
         /// Value of the exemplar point. This value determines to which bucket the
         /// exemplar belongs.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub value: f64,
 
         /// The observation (sampling) time of the above value.

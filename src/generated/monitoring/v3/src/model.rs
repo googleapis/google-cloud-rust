@@ -972,6 +972,7 @@ pub mod alert_policy {
 
             /// A value against which to compare the time series.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub threshold_value: f64,
 
             /// The amount of time that a time series must violate the
@@ -9755,6 +9756,7 @@ pub struct ServiceLevelObjective {
     /// The fraction of service that must be good in order for this objective to be
     /// met. `0 < goal <= 0.9999`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub goal: f64,
 
     /// Labels which have been used to annotate the service-level objective. Label
@@ -10468,10 +10470,12 @@ pub mod basic_sli {
 pub struct Range {
     /// Range minimum.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub min: f64,
 
     /// Range maximum.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub max: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10954,6 +10958,7 @@ pub mod windows_based_sli {
     pub struct PerformanceThreshold {
         /// If window `performance >= threshold`, the window is counted as good.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub threshold: f64,
 
         /// The means, either a request-based SLI or a basic SLI, by which to compute

@@ -1064,6 +1064,7 @@ pub struct PricingInfo {
     /// defaults to 1.0.
     /// Example: USD * currency_conversion_rate = JPY
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub currency_conversion_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1154,6 +1155,7 @@ pub struct PricingExpression {
     /// the display_quantity is "1000" then the recommended way of displaying the
     /// pricing info is "0.10 USD per 1000 GB"
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub display_quantity: f64,
 
     /// The list of tiered rates for this pricing. The total cost is computed by
@@ -1183,6 +1185,7 @@ pub struct PricingExpression {
     /// start_usage_amount * base_unit_conversion_factor = start_usage_amount in
     /// base_unit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub base_unit_conversion_factor: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1269,6 +1272,7 @@ pub mod pricing_expression {
         /// Example: start_usage_amount of 10 indicates that the usage will be priced
         /// at the unit_price after the first 10 usage_units.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub start_usage_amount: f64,
 
         /// The price per unit of usage.

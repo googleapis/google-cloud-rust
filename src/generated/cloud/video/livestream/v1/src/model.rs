@@ -776,6 +776,7 @@ pub mod preprocessing_config {
         ///   Amazon Echo
         /// - 0 disables normalization. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub lufs: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1025,6 +1026,7 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. Minimum value is 10,000.
@@ -1082,6 +1084,7 @@ pub mod video_stream {
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -1491,6 +1494,7 @@ pub mod audio_stream {
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub gain_db: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2892,10 +2896,12 @@ pub mod channel {
 pub struct NormalizedCoordinate {
     /// Optional. Normalized x coordinate. Valid range is [0.0, 1.0]. Default is 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub x: f64,
 
     /// Optional. Normalized y coordinate. Valid range is [0.0, 1.0]. Default is 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub y: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2934,10 +2940,12 @@ impl wkt::message::Message for NormalizedCoordinate {
 pub struct NormalizedResolution {
     /// Optional. Normalized width. Valid range is [0.0, 1.0]. Default is 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub w: f64,
 
     /// Optional. Normalized height. Valid range is [0.0, 1.0]. Default is 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub h: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2999,6 +3007,7 @@ pub struct StaticOverlay {
     /// default) to `0.0` (transparent), exclusive. Set this to a value greater
     /// than `0.0`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub opacity: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3629,6 +3638,7 @@ pub struct VideoFormat {
 
     /// The frame rate of the input video stream.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub frame_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

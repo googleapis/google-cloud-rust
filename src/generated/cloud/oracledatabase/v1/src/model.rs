@@ -277,11 +277,13 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The amount of storage currently being used for user and system
     /// data, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub actual_used_data_storage_size_tb: f64,
 
     /// Output only. The amount of storage currently allocated for the database
     /// tables and billed for, rounded up in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub allocated_storage_size_tb: f64,
 
     /// Output only. The details for the Oracle APEX Application Development.
@@ -6202,10 +6204,12 @@ pub struct CloudExadataInfrastructureProperties {
 
     /// Output only. Size, in terabytes, of the DATA disk group.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub data_storage_size_tb: f64,
 
     /// Output only. The total available DATA disk group size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub max_data_storage_tb: f64,
 
     /// Output only. The requested number of additional storage servers activated
@@ -8383,6 +8387,7 @@ pub struct OperationMetadata {
     /// Output only. An estimated percentage of the operation that has been
     /// completed at a given moment of time, between 0 and 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub percent_complete: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9577,6 +9582,7 @@ pub struct CloudVmClusterProperties {
 
     /// Optional. The data disk group size to be allocated in TBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub data_storage_size_tb: f64,
 
     /// Optional. The type of redundancy.

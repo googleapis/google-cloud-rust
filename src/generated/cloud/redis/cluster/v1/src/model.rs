@@ -1069,6 +1069,7 @@ pub struct Cluster {
     /// Output only. Precise value of redis memory size in GB for the entire
     /// cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub precise_size_gb: std::option::Option<f64>,
 
     /// Optional. This config will be used to determine how the customer wants us

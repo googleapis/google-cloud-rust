@@ -349,6 +349,7 @@ pub struct AttackExposure {
     /// this finding is to remediate. The higher the score, the more important it
     /// is to remediate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub score: f64,
 
     /// The most recent time the attack exposure was updated on this finding.
@@ -1615,6 +1616,7 @@ pub struct Requests {
     /// allowed traffic. For 'Allowed traffic spike', the ratio is the allowed
     /// traffic in the short term divided by allowed traffic in the long term.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub ratio: f64,
 
     /// Allowed RPS (requests per second) in the short term.
@@ -1682,6 +1684,7 @@ pub struct AdaptiveProtection {
     /// documentation](https://cloud.google.com/armor/docs/adaptive-protection-overview#configure-alert-tuning)
     /// for further explanation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub confidence: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6218,6 +6221,7 @@ pub mod indicator {
                 /// The percentage of memory page hashes in the signature
                 /// that were matched.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub percent_pages_matched: f64,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14823,6 +14827,7 @@ pub struct ToxicCombination {
     /// of this toxic combination. The score is a measure of how much this toxic
     /// combination exposes one or more high-value resources to potential attack.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub attack_exposure_score: f64,
 
     /// List of resource names of findings associated with this toxic combination.
@@ -14898,6 +14903,7 @@ pub struct ValuedResource {
     /// Exposed score for this valued resource. A value of 0 means no exposure was
     /// detected exposure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub exposed_score: f64,
 
     /// List of resource value configurations' metadata used to determine the value
@@ -15742,6 +15748,7 @@ impl wkt::message::Message for Reference {
 pub struct Cvssv3 {
     /// The base score is a function of the base metric scores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub base_score: f64,
 
     /// Base Metrics

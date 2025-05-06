@@ -72,10 +72,12 @@ pub struct DataSourceParameter {
 
     /// For integer and double values specifies minimum allowed value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub min_value: std::option::Option<wkt::DoubleValue>,
 
     /// For integer and double values specifies maximum allowed value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub max_value: std::option::Option<wkt::DoubleValue>,
 
     /// Deprecated. This field has no effect.

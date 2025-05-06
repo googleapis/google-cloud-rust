@@ -6770,6 +6770,7 @@ pub mod structured_query {
         /// * For EUCLIDEAN, COSINE: WHERE distance <= distance_threshold
         /// * For DOT_PRODUCT:       WHERE distance >= distance_threshold
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub distance_threshold: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -738,6 +738,7 @@ pub struct OptimizeToursRequest {
     /// the speed applied to compute travel times. Its value must be at least 1.0
     /// meters/seconds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub geodesic_meters_per_second: std::option::Option<f64>,
 
     /// Truncates the number of validation errors returned. These errors are
@@ -1288,6 +1289,7 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     #[deprecated]
     pub total_cost: f64,
 
@@ -1422,10 +1424,12 @@ pub mod optimize_tours_response {
         /// TransitionAttributes that are only reported in an aggregated way as of
         /// 2022/01.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
         pub costs: std::collections::HashMap<std::string::String, f64>,
 
         /// Total cost of the solution. The sum of all values in the costs map.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub total_cost: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1736,6 +1740,7 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub global_duration_cost_per_hour: f64,
 
     /// Specifies duration and distance matrices used in the model. If this field
@@ -2145,6 +2150,7 @@ pub mod shipment_model {
             /// distances in the model, this can be left empty; otherwise it must have
             /// as many elements as `durations`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
             pub meters: std::vec::Vec<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2548,6 +2554,7 @@ pub struct Shipment {
     /// *IMPORTANT*: If this penalty is not specified, it is considered infinite,
     /// i.e. the shipment must be completed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub penalty_cost: std::option::Option<f64>,
 
     /// The set of vehicles that may perform this shipment. If empty, all vehicles
@@ -2568,6 +2575,7 @@ pub struct Shipment {
     /// These costs must be in the same unit as `penalty_cost` and must not be
     /// negative. Leave this field empty, if there are no such costs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
     pub costs_per_vehicle: std::vec::Vec<f64>,
 
     /// Indices of the vehicles to which `costs_per_vehicle` applies. If non-empty,
@@ -2595,6 +2603,7 @@ pub struct Shipment {
     /// As of 2017/10, detours are only supported when travel durations do not
     /// depend on vehicles.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub pickup_to_delivery_relative_detour_limit: std::option::Option<f64>,
 
     /// Specifies the maximum absolute detour time compared to the shortest path
@@ -2896,6 +2905,7 @@ pub mod shipment {
         /// shipment. This cost must be in the same unit as `Shipment.penalty_cost`
         /// and must not be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub cost: f64,
 
         /// Load demands of this visit request. This is just like
@@ -3741,6 +3751,7 @@ pub struct Vehicle {
     ///
     /// See also `extra_visit_duration_for_visit_type` below.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub travel_duration_multiple: std::option::Option<f64>,
 
     /// Unloading policy enforced on the vehicle.
@@ -3768,6 +3779,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_hour: f64,
 
     /// Cost per traveled hour of the vehicle route. This cost is applied only to
@@ -3777,6 +3789,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_traveled_hour: f64,
 
     /// Cost per kilometer of the vehicle route. This cost is applied to the
@@ -3787,10 +3800,12 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_kilometer: f64,
 
     /// Fixed cost applied if this vehicle is used to handle a shipment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub fixed_cost: f64,
 
     /// This field only applies to vehicles when their route does not serve any
@@ -4248,6 +4263,7 @@ pub mod vehicle {
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.soft_max_load]: crate::model::vehicle::LoadLimit::soft_max_load
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub cost_per_unit_above_soft_max: f64,
 
         /// The acceptable load interval of the vehicle at the start of the route.
@@ -4421,6 +4437,7 @@ pub mod vehicle {
         ///
         /// The cost must be nonnegative.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub cost_per_hour_after_soft_max: std::option::Option<f64>,
 
         /// A soft limit not enforcing a maximum duration limit, but when violated
@@ -4449,6 +4466,7 @@ pub mod vehicle {
         ///
         /// The cost must be nonnegative.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub cost_per_square_hour_after_quadratic_soft_max: std::option::Option<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4850,6 +4868,7 @@ pub struct TimeWindow {
     /// This cost must be positive, and the field can only be set if
     /// soft_start_time has been set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_hour_before_soft_start_time: std::option::Option<f64>,
 
     /// A cost per hour added to other costs in the model if the event occurs after
@@ -4864,6 +4883,7 @@ pub struct TimeWindow {
     /// This cost must be positive, and the field can only be set if
     /// `soft_end_time` has been set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_hour_after_soft_end_time: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5080,6 +5100,7 @@ pub struct DistanceLimit {
     ///
     /// This cost is not supported in `route_distance_limit`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_kilometer_below_soft_max: std::option::Option<f64>,
 
     /// Cost per kilometer incurred if distance is above `soft_max_meters` limit.
@@ -5093,6 +5114,7 @@ pub struct DistanceLimit {
     ///
     /// The cost must be nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_kilometer_above_soft_max: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5195,6 +5217,7 @@ pub struct TransitionAttributes {
     /// as all other costs in the model and must not be negative. It is applied on
     /// top of all other existing costs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost: f64,
 
     /// Specifies a cost per kilometer applied to the distance traveled while
@@ -5204,6 +5227,7 @@ pub struct TransitionAttributes {
     ///
     /// [google.cloud.optimization.v1.Vehicle.cost_per_kilometer]: crate::model::Vehicle::cost_per_kilometer
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cost_per_kilometer: f64,
 
     /// Specifies a limit on the distance traveled while performing this
@@ -5872,10 +5896,12 @@ pub struct ShipmentRoute {
     /// detail here with the exception of costs related to TransitionAttributes
     /// that are only reported in an aggregated way as of 2022/01.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     pub route_costs: std::collections::HashMap<std::string::String, f64>,
 
     /// Total cost of the route. The sum of all costs in the cost map.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub route_total_cost: f64,
 
     /// Deprecated: Use
@@ -6399,6 +6425,7 @@ pub mod shipment_route {
 
         /// Distance traveled during the transition.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub travel_distance_meters: f64,
 
         /// When traffic is requested via
@@ -6755,6 +6782,7 @@ pub mod shipment_route {
 
         /// Distance traveled during the step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub distance_meters: f64,
 
         /// When traffic is requested via
@@ -7268,6 +7296,7 @@ pub struct AggregatedMetrics {
 
     /// Total travel distance for a route or a solution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub travel_distance_meters: f64,
 
     /// Maximum load achieved over the entire route (resp. solution), for each of
@@ -7292,6 +7321,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.costs]: crate::model::optimize_tours_response::Metrics::costs
     /// [google.cloud.optimization.v1.ShipmentRoute.route_costs]: crate::model::ShipmentRoute::route_costs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     #[deprecated]
     pub costs: std::collections::HashMap<std::string::String, f64>,
 
@@ -7304,6 +7334,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     #[deprecated]
     pub total_cost: f64,
 

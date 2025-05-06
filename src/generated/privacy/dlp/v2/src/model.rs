@@ -8139,6 +8139,7 @@ pub mod analyze_data_source_risk_details {
             /// same quasi-identifier values, and an estimated 100 people in the entire
             /// population with these values, then δ is 0.15.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub estimated_probability: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8191,10 +8192,12 @@ pub mod analyze_data_source_risk_details {
 
             /// Between 0 and 1.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub min_probability: f64,
 
             /// Always greater than or equal to min_probability.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub max_probability: f64,
 
             /// Number of records within these probability bounds.
@@ -10935,6 +10938,7 @@ pub struct FixedSizeBucketingConfig {
     /// following buckets would be used: -10, 10-20, 20-30, 30-40, 40-50, 50-60,
     /// 60-70, 70-80, 80-89, 89+. Precision up to 2 decimals works.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub bucket_size: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28912,6 +28916,7 @@ pub struct ColumnDataProfile {
     /// free-form or natural language text.
     /// Range in 0-1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub free_text_score: f64,
 
     /// The data type of a given column.
