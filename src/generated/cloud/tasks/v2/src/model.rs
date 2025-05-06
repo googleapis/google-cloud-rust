@@ -1368,6 +1368,7 @@ pub struct RateLimits {
     /// [rate in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#rate).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub max_dispatches_per_second: f64,
 
     /// Output only. The max burst size.
@@ -1651,6 +1652,7 @@ pub struct StackdriverLoggingConfig {
     /// This field may contain any value between 0.0 and 1.0, inclusive.
     /// 0.0 is the default and means that no operations are logged.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub sampling_ratio: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

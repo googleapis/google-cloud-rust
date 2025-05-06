@@ -3388,12 +3388,14 @@ pub struct SynthesizeSpeechConfig {
     /// is half as fast. If unset(0.0), defaults to the native 1.0 speed. Any other
     /// values < 0.25 or > 4.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub speaking_rate: f64,
 
     /// Optional. Speaking pitch, in the range [-20.0, 20.0]. 20 means increase 20
     /// semitones from the original pitch. -20 means decrease 20 semitones from the
     /// original pitch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pitch: f64,
 
     /// Optional. Volume gain (in dB) of the normal native volume supported by the
@@ -3405,6 +3407,7 @@ pub struct SynthesizeSpeechConfig {
     /// to exceed +10 (dB) as there's usually no effective increase in loudness for
     /// any value greater than that.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub volume_gain_db: f64,
 
     /// Optional. An identifier which selects 'audio effects' profiles that are
@@ -19843,6 +19846,7 @@ pub struct InferenceParameter {
     /// Low temperature = less random. High temperature = more random.
     /// If unset (or 0), uses a default value of 0.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub temperature: std::option::Option<f64>,
 
     /// Optional. Top-k changes how the model selects tokens for output. A top-k of
@@ -19866,6 +19870,7 @@ pub struct InferenceParameter {
     /// Specify a lower value for less random responses and a higher value for more
     /// random responses. Acceptable value is [0.0, 1.0], default to 0.95.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub top_p: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

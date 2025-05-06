@@ -912,12 +912,14 @@ pub struct AudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub speaking_rate: f64,
 
     /// Optional. Input only. Speaking pitch, in the range [-20.0, 20.0]. 20 means
     /// increase 20 semitones from the original pitch. -20 means decrease 20
     /// semitones from the original pitch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pitch: f64,
 
     /// Optional. Input only. Volume gain (in dB) of the normal native volume
@@ -929,6 +931,7 @@ pub struct AudioConfig {
     /// Strongly recommend not to exceed +10 (dB) as there's usually no effective
     /// increase in loudness for any value greater than that.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub volume_gain_db: f64,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. When this is
@@ -1292,6 +1295,7 @@ pub struct StreamingAudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub speaking_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1785,6 +1789,7 @@ pub struct SynthesizeLongAudioMetadata {
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub progress_percentage: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

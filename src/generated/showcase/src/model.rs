@@ -65,6 +65,7 @@ pub struct RepeatRequest {
     pub f_int64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub f_double: f64,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -75,6 +76,7 @@ pub struct RepeatRequest {
     pub p_int64: std::option::Option<i64>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub p_double: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -349,6 +351,7 @@ pub struct ComplianceData {
     pub f_fixed64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub f_double: f64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -374,6 +377,7 @@ pub struct ComplianceData {
     pub p_int32: std::option::Option<i32>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub p_double: std::option::Option<f64>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -731,6 +735,7 @@ pub struct ComplianceDataChild {
     pub f_float: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub f_double: f64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -749,6 +754,7 @@ pub struct ComplianceDataChild {
     pub p_float: std::option::Option<f32>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub p_double: std::option::Option<f64>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -869,6 +875,7 @@ pub struct ComplianceDataGrandchild {
     pub f_string: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub f_double: f64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -2283,6 +2290,7 @@ pub struct User {
 
     /// The height of the user in feet.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub height_feet: std::option::Option<f64>,
 
     /// The nickname of the user.

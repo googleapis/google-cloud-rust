@@ -412,14 +412,17 @@ pub struct Distribution {
     /// The arithmetic mean of the samples in the distribution. If `count` is
     /// zero then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub mean: f64,
 
     /// The minimum of the population of values. Ignored if `count` is zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub minimum: f64,
 
     /// The maximum of the population of values. Ignored if `count` is zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub maximum: f64,
 
     /// The sum of squared deviations from the mean:
@@ -427,6 +430,7 @@ pub struct Distribution {
     /// where each x_i is a sample values. If `count` is zero then this field
     /// must be zero, otherwise validation of the request fails.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub sum_of_squared_deviation: f64,
 
     /// The number of samples in each histogram bucket. `bucket_counts` are
@@ -674,12 +678,14 @@ pub mod distribution {
         /// where i ranges from 1 to num_finite_buckets, inclusive.
         /// Must be strictly positive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub width: f64,
 
         /// The i'th linear bucket covers the interval
         /// [offset + (i-1) * width, offset + i * width)
         /// where i ranges from 1 to num_finite_buckets, inclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub offset: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -733,6 +739,7 @@ pub mod distribution {
         /// where i ranges from 1 to num_finite_buckets inclusive.
         /// Must be larger than 1.0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub growth_factor: f64,
 
         /// The i'th exponential bucket covers the interval
@@ -740,6 +747,7 @@ pub mod distribution {
         /// where i ranges from 1 to num_finite_buckets inclusive.
         /// Must be > 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub scale: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -798,6 +806,7 @@ pub mod distribution {
         /// 0 < i < bound_size()            bound[i-1]     bound[i]
         /// i == bound_size() (overflow)    bound[i-1]     +inf
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
         pub bounds: std::vec::Vec<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

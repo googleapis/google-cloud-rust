@@ -2323,6 +2323,7 @@ pub mod persistence_config {
 pub struct NodeConfig {
     /// Output only. Memory size in GB of the node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub size_gb: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

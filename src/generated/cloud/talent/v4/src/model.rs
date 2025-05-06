@@ -119,6 +119,7 @@ pub struct Location {
     ///
     /// [google.type.LatLng]: gtype::model::LatLng
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub radius_miles: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1095,6 +1096,7 @@ pub mod compensation_info {
         /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.unit]: crate::model::compensation_info::CompensationEntry::unit
         /// [google.cloud.talent.v4.Job.employment_types]: crate::model::Job::employment_types
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub expected_units_per_year: std::option::Option<wkt::DoubleValue>,
 
         /// Compensation amount. It could be a fixed amount or a floating range.
@@ -4086,6 +4088,7 @@ pub struct LocationFilter {
     /// identified as a city or smaller. This field is ignored if the location
     /// being searched for is a state or larger.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub distance_in_miles: f64,
 
     /// Allows the client to return jobs without a
