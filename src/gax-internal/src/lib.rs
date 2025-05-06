@@ -25,33 +25,25 @@
 //! changed without notice.
 
 #[cfg(feature = "_internal_common")]
-#[doc(hidden)]
 pub mod api_header;
 
 #[cfg(feature = "_internal_common")]
-#[doc(hidden)]
 pub mod path_parameter;
 
 #[cfg(feature = "_internal_http_client")]
-#[doc(hidden)]
 pub mod query_parameter;
 
 #[cfg(feature = "_internal_http_client")]
-#[doc(hidden)]
 pub mod http;
 
 #[cfg(feature = "_internal_grpc_client")]
-#[doc(hidden)]
 pub mod grpc;
 
 #[cfg(feature = "_internal_grpc_client")]
-#[doc(hidden)]
 pub mod prost;
 
 #[cfg(feature = "_internal_common")]
-#[doc(hidden)]
 pub mod options;
 
 #[cfg(feature = "_internal_common")]
-#[doc(hidden)]
 pub mod routing_parameter;
