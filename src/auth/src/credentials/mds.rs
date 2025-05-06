@@ -492,7 +492,7 @@ mod test {
         // Trim out 'http://' from the endpoint provided by the fake server
         let _e = ScopedEnv::set(
             super::GCE_METADATA_HOST_ENV_VAR,
-            &endpoint.strip_prefix("http://").unwrap_or(&endpoint),
+            endpoint.strip_prefix("http://").unwrap_or(&endpoint),
         );
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
