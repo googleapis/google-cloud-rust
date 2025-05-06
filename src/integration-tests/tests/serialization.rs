@@ -50,12 +50,16 @@ mod serialization {
             "temperature": 9876.5_f32
         });
         assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(generation_config, rt);
         let generation_config = generation_config.set_temperature(f32::INFINITY);
         let got = serde_json::to_value(&generation_config)?;
         let want = serde_json::json!({
             "temperature": "Infinity"
         });
         assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(generation_config, rt);
         Ok(())
     }
 
@@ -68,12 +72,16 @@ mod serialization {
             "samplingRate": 53_f64
         });
         assert_eq!(got, want);
-        let logging_config = logging_config.set_sampling_rate(f64::NAN);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(logging_config, rt);
+        let logging_config = logging_config.set_sampling_rate(f64::INFINITY);
         let got = serde_json::to_value(&logging_config)?;
         let want = serde_json::json!({
-            "samplingRate": "NaN"
+            "samplingRate": "Infinity"
         });
         assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(logging_config, rt);
         Ok(())
     }
 
@@ -86,6 +94,8 @@ mod serialization {
             "successfulCount": "5"
         });
         assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(completion_stats, rt);
         Ok(())
     }
 
