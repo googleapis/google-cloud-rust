@@ -30,7 +30,9 @@ mod driver {
             .with_attempt_limit(5)
     }
 
-    #[test_case(bigquery::client::DatasetService::builder().with_retry_policy(retry_policy()).with_tracing(); "with retry enabled")]
+    #[test_case(bigquery::client::DatasetService::builder(); "default")]
+    #[test_case(bigquery::client::DatasetService::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(bigquery::client::DatasetService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery(
         builder: bigquery::builder::dataset_service::ClientBuilder,
@@ -88,9 +90,9 @@ mod driver {
             .map_err(report)
     }
 
-    // #[test_case(sql::client::SqlInstancesService::builder().with_retry_policy(retry_policy()).with_tracing(); "with retry enabled")]
+    #[test_case(sql::client::SqlInstancesService::builder(); "default")]
     #[test_case(sql::client::SqlInstancesService::builder().with_tracing(); "with tracing enabled")]
-    // #[test_case(sql::client::SqlInstancesService::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(sql::client::SqlInstancesService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_sql(
         builder: sql::builder::sql_instances_service::ClientBuilder,
