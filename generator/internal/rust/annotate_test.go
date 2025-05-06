@@ -232,17 +232,26 @@ func TestOneOfAnnotations(t *testing.T) {
 		Repeated: false,
 		IsOneOf:  true,
 	}
+	integer_field := &api.Field{
+		Name:     "oneof_field_integer",
+		JSONName: "oneofFieldInteger",
+		ID:       ".test.Message.oneof_field_integer",
+		Typez:    api.INT64_TYPE,
+		Repeated: false,
+		IsOneOf:  true,
+	}
+	// TODO: add boxed field.
 	group := &api.OneOf{
 		Name:          "type",
 		ID:            ".test.Message.type",
 		Documentation: "Say something clever about this oneof.",
-		Fields:        []*api.Field{singular, repeated, map_field},
+		Fields:        []*api.Field{singular, repeated, map_field, integer_field},
 	}
 	message := &api.Message{
 		Name:    "Message",
 		ID:      ".test.Message",
 		Package: "test",
-		Fields:  []*api.Field{singular, repeated, map_field},
+		Fields:  []*api.Field{singular, repeated, map_field, integer_field},
 		OneOfs:  []*api.OneOf{group},
 	}
 	key_field := &api.Field{Name: "key", Typez: api.INT32_TYPE}
@@ -279,14 +288,12 @@ func TestOneOfAnnotations(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(&fieldAnnotations{
-		FieldName:     "oneof_field",
-		SetterName:    "oneof_field",
-		BranchName:    "OneofField",
-		FQMessageName: "crate::model::Message",
-		DocLines:      nil,
-		Attributes: []string{
-			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
-		},
+		FieldName:          "oneof_field",
+		SetterName:         "oneof_field",
+		BranchName:         "OneofField",
+		FQMessageName:      "crate::model::Message",
+		DocLines:           nil,
+		Attributes:         []string{},
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
 		AddQueryParameter:  `let builder = req.oneof_field().iter().fold(builder, |builder, p| builder.query(&[("oneofField", p)]));`,
@@ -297,14 +304,12 @@ func TestOneOfAnnotations(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(&fieldAnnotations{
-		FieldName:     "oneof_field_repeated",
-		SetterName:    "oneof_field_repeated",
-		BranchName:    "OneofFieldRepeated",
-		FQMessageName: "crate::model::Message",
-		DocLines:      nil,
-		Attributes: []string{
-			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-		},
+		FieldName:          "oneof_field_repeated",
+		SetterName:         "oneof_field_repeated",
+		BranchName:         "OneofFieldRepeated",
+		FQMessageName:      "crate::model::Message",
+		DocLines:           nil,
+		Attributes:         []string{},
 		FieldType:          "std::vec::Vec<std::string::String>",
 		PrimitiveFieldType: "std::string::String",
 		AddQueryParameter:  `let builder = req.oneof_field_repeated().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldRepeated", p)]));`,
@@ -315,14 +320,12 @@ func TestOneOfAnnotations(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(&fieldAnnotations{
-		FieldName:     "oneof_field_map",
-		SetterName:    "oneof_field_map",
-		BranchName:    "OneofFieldMap",
-		FQMessageName: "crate::model::Message",
-		DocLines:      nil,
-		Attributes: []string{
-			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-		},
+		FieldName:          "oneof_field_map",
+		SetterName:         "oneof_field_map",
+		BranchName:         "OneofFieldMap",
+		FQMessageName:      "crate::model::Message",
+		DocLines:           nil,
+		Attributes:         []string{},
 		FieldType:          "std::collections::HashMap<i32,i32>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,i32>",
 		AddQueryParameter:  `let builder = req.oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
@@ -332,6 +335,22 @@ func TestOneOfAnnotations(t *testing.T) {
 		ValueField:         value_field,
 		IsBoxed:            true,
 	}, map_field.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:          "oneof_field_integer",
+		SetterName:         "oneof_field_integer",
+		BranchName:         "OneofFieldInteger",
+		FQMessageName:      "crate::model::Message",
+		DocLines:           nil,
+		Attributes:         []string{`#[serde_as(as = "serde_with::DisplayFromStr")]`},
+		FieldType:          "i64",
+		PrimitiveFieldType: "i64",
+		AddQueryParameter:  `let builder = req.oneof_field_integer().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldInteger", p)]));`,
+		KeyType:            "",
+		ValueType:          "",
+	}, integer_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }

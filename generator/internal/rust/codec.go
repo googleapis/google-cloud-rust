@@ -464,6 +464,9 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	}
 	// A few message types require ad-hoc treatment. Most are just managed with
 	// the default handler.
+	if f.IsOneOf && f.Typez == api.MESSAGE_TYPE {
+		return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::boxed::Box<%s>")]`, formatter))
+	}
 	if f.Optional {
 		return append(
 			attributes,
@@ -494,14 +497,14 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.SINT32_TYPE,
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
+		if f.IsOneOf {
+			return attributes
+		}
 		if f.Optional {
 			return append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
 		}
 		if f.Repeated {
 			return append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-		}
-		if f.IsOneOf {
-			return attributes
 		}
 		return append(attributes, fieldSkipAttributes(f)...)
 
@@ -514,6 +517,9 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.FLOAT_TYPE,
 		api.DOUBLE_TYPE:
 		formatter := fieldFormatter(f.Typez)
+		if f.IsOneOf {
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
+		}
 		if f.Optional {
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
@@ -522,16 +528,15 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
 		}
-		if f.IsOneOf {
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
-		}
 		attributes = append(attributes, fieldSkipAttributes(f)...)
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 
 	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
 			// map<> field types require special treatment.
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
+			if !f.IsOneOf {
+				attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
+			}
 			var key, value *api.Field
 			for _, f := range message.Fields {
 				switch f.Name {
