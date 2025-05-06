@@ -19,7 +19,7 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasServices}}
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use crate::Result;
 
@@ -27,7 +27,7 @@ use crate::Result;
 {{#Codec.Services}}
 /// Implements a [{{Codec.Name}}](super::stub::{{Codec.Name}}) decorator for logging and tracing.
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone, Debug)]
 pub struct {{Codec.Name}}<T>
@@ -36,7 +36,7 @@ where T: super::stub::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl<T> {{Codec.Name}}<T>
 where T: super::stub::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
@@ -46,7 +46,7 @@ where T: super::stub::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl<T> super::stub::{{Codec.Name}} for {{Codec.Name}}<T>
 where T: super::stub::{{Codec.Name}} + std::fmt::Debug + Send + Sync {

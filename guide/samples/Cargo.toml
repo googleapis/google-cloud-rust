@@ -55,7 +55,7 @@ path = "../../src/generated/cloud/secretmanager/v1"
 [dependencies.google-cloud-aiplatform-v1]
 version          = "0.3"
 default-features = false
-features         = ["prediction_service"]
+features         = ["prediction-service"]
 # ANCHOR_END: aiplatform
 path = "../../src/generated/cloud/aiplatform/v1"
 

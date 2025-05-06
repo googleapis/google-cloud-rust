@@ -87,6 +87,10 @@ type serviceAnnotations struct {
 	SkipBuilderDocs bool
 }
 
+func (a *serviceAnnotations) FeatureName() string {
+	return strcase.ToKebab(a.ModuleName)
+}
+
 func (a *messageAnnotation) MultiFeatureGates() bool {
 	return len(a.FeatureGates) > 1
 }
@@ -362,7 +366,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 	var allFeatures []string
 	for _, service := range ann.Services {
 		svcAnn := service.Codec.(*serviceAnnotations)
-		allFeatures = append(allFeatures, svcAnn.ModuleName)
+		allFeatures = append(allFeatures, svcAnn.FeatureName())
 		deps := api.FindServiceDependencies(model, service.ID)
 		for _, id := range deps.Enums {
 			enum, ok := model.State.EnumByID[id]
@@ -371,7 +375,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 				continue
 			}
 			annotation := enum.Codec.(*enumAnnotation)
-			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 			slices.Sort(annotation.FeatureGates)
 			annotation.FeatureGatesOp = "any"
 		}
@@ -382,7 +386,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 				continue
 			}
 			annotation := msg.Codec.(*messageAnnotation)
-			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 			slices.Sort(annotation.FeatureGates)
 			annotation.FeatureGatesOp = "any"
 			for _, one := range msg.OneOfs {
@@ -390,7 +394,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 					continue
 				}
 				annotation := one.Codec.(*oneOfAnnotation)
-				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 				slices.Sort(annotation.FeatureGates)
 				annotation.FeatureGatesOp = "any"
 			}
