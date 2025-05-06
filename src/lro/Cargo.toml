@@ -26,6 +26,10 @@ repository.workspace   = true
 rust-version.workspace = true
 
 [package.metadata.docs.rs]
+# Enable functionality that depend on the [futures::stream::Stream] trait. This
+# functionality may change as the trait is stabilized.
+#
+# [futures::stream::Stream]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
 features = ["unstable-stream"]
 
 [dependencies]

@@ -14,6 +14,8 @@
 
 //! Types and functions to make LROs easier to use and to require less boilerplate.
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 use gax::Result;
 use gax::error::Error;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
@@ -57,7 +59,21 @@ mod sealed {
     pub trait Poller {}
 }
 
-/// The trait implemented by LRO helpers.
+/// Automatically polls long-running operations.
+/// 
+/// Occasionally, a Google Cloud service may need to expose a method that takes
+/// a significant amount of time to complete. In these situations, it is often
+/// a poor user experience to simply block while the task runs. Such services
+/// return a long-running operation, a type of promise that can be polled until
+/// it completes successfully.
+/// 
+/// Polling these operations can be tedious. The application needs to
+/// periodically make RPCs, extract the result from the response, and may need
+/// to implement a stream to return metadata representing any progress in the
+/// RPC.
+/// 
+/// The Google Cloud client libraries for Rust return implementations of this
+/// trait to simplify working with these long-running operations.
 ///
 /// # Parameters
 /// * `R` - the response type, that is, the type of response included when the
@@ -71,8 +87,9 @@ pub trait Poller<R, M>: Send + sealed::Poller {
     /// Poll the long-running operation until it completes.
     fn until_done(self) -> impl Future<Output = Result<R>> + Send;
 
-    /// Convert a poller to a [futures::Stream].
+    /// Convert a poller to a [Stream][futures::Stream].
     #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
 }
 
