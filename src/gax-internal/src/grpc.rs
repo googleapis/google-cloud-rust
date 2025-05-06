@@ -27,10 +27,8 @@ use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[doc(hidden)]
 pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 
-#[doc(hidden)]
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,

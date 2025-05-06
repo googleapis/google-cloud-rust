@@ -26,6 +26,11 @@ license.workspace      = true
 repository.workspace   = true
 rust-version.workspace = true
 
+[package.metadata.docs.rs]
+# Disable all features during document generation. All the types in this crate
+# are implementation details, and subject to change without notice.
+features = []
+
 [features]
 _internal_http_client = [
   "_internal_common",

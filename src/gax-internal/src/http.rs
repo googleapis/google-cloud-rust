@@ -27,7 +27,6 @@ use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
 use std::sync::Arc;
 
-#[doc(hidden)]
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
@@ -247,7 +246,6 @@ impl ReqwestClient {
     }
 }
 
-#[doc(hidden)]
 #[derive(serde::Serialize)]
 pub struct NoBody {}
 
