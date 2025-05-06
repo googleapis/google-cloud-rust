@@ -40,14 +40,17 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlBackupRunsService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlBackupRunsDeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlBackupRunsService::get].
@@ -55,8 +58,12 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlBackupRunsGetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BackupRun>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupRun>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupRun>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupRun>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlBackupRunsService::insert].
@@ -64,8 +71,12 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlBackupRunsInsertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlBackupRunsService::list].
@@ -73,8 +84,12 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlBackupRunsListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }
 
@@ -90,14 +105,17 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlConnectService::get_connect_settings].
     fn get_connect_settings(
         &self,
         _req: crate::model::GetConnectSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ConnectSettings>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ConnectSettings>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ConnectSettings>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ConnectSettings>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SqlConnectService::generate_ephemeral_cert].
@@ -105,8 +123,14 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateEphemeralCertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateEphemeralCertResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }
 
@@ -122,14 +146,17 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlDatabasesService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlDatabasesDeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlDatabasesService::get].
@@ -137,8 +164,12 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlDatabasesGetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Database>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Database>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Database>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Database>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlDatabasesService::insert].
@@ -146,8 +177,12 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlDatabasesInsertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlDatabasesService::list].
@@ -155,8 +190,12 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlDatabasesListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DatabasesListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DatabasesListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DatabasesListResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::DatabasesListResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlDatabasesService::patch].
@@ -164,8 +203,12 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlDatabasesService::update].
@@ -173,8 +216,12 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }
 
@@ -190,14 +237,17 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlFlagsService::list].
     fn list(
         &self,
         _req: crate::model::SqlFlagsListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::FlagsListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::FlagsListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FlagsListResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::FlagsListResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }
 
@@ -213,14 +263,17 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlInstancesService::add_server_ca].
     fn add_server_ca(
         &self,
         _req: crate::model::SqlInstancesAddServerCaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::clone].
@@ -228,8 +281,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesCloneRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::delete].
@@ -237,8 +294,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesDeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::demote_master].
@@ -246,8 +307,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesDemoteMasterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::demote].
@@ -255,8 +320,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesDemoteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::export].
@@ -264,8 +333,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesExportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::failover].
@@ -273,8 +346,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesFailoverRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::reencrypt].
@@ -282,8 +359,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesReencryptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::get].
@@ -291,8 +372,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesGetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::DatabaseInstance>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DatabaseInstance>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DatabaseInstance>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DatabaseInstance>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SqlInstancesService::import].
@@ -300,8 +385,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesImportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::insert].
@@ -309,8 +398,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesInsertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::list].
@@ -318,8 +411,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::InstancesListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::InstancesListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstancesListResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::InstancesListResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlInstancesService::list_server_cas].
@@ -327,8 +424,14 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesListServerCasRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::InstancesListServerCasResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::InstancesListServerCasResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstancesListServerCasResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::InstancesListServerCasResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlInstancesService::patch].
@@ -336,8 +439,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesPatchRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::promote_replica].
@@ -345,8 +452,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesPromoteReplicaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::switchover].
@@ -354,8 +465,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesSwitchoverRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::reset_ssl_config].
@@ -363,8 +478,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesResetSslConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::restart].
@@ -372,8 +491,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesRestartRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::restore_backup].
@@ -381,8 +504,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesRestoreBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::rotate_server_ca].
@@ -390,8 +517,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesRotateServerCaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::start_replica].
@@ -399,8 +530,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesStartReplicaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::stop_replica].
@@ -408,8 +543,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesStopReplicaRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::truncate_log].
@@ -417,8 +556,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesTruncateLogRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::update].
@@ -426,8 +569,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesUpdateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::create_ephemeral].
@@ -435,8 +582,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SslCert>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SslCert>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SslCert>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SslCert>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::reschedule_maintenance].
@@ -444,8 +595,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::verify_external_sync_settings].
@@ -453,8 +608,18 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<
+                    crate::model::SqlInstancesVerifyExternalSyncSettingsResponse,
+                >,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlInstancesService::start_external_sync].
@@ -462,8 +627,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesStartExternalSyncRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::perform_disk_shrink].
@@ -471,8 +640,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::get_disk_shrink_config].
@@ -480,8 +653,16 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlInstancesService::reset_replica_size].
@@ -489,8 +670,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesResetReplicaSizeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlInstancesService::get_latest_recovery_time].
@@ -498,8 +683,16 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlInstancesService::acquire_ssrs_lease].
@@ -507,8 +700,16 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlInstancesService::release_ssrs_lease].
@@ -516,8 +717,16 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 }
 
@@ -533,14 +742,17 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlOperationsService::get].
     fn get(
         &self,
         _req: crate::model::SqlOperationsGetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlOperationsService::list].
@@ -548,8 +760,12 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlOperationsListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::OperationsListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::OperationsListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OperationsListResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::OperationsListResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlOperationsService::cancel].
@@ -558,7 +774,9 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SqlOperationsCancelRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }
 
@@ -574,14 +792,17 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlSslCertsService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlSslCertsDeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlSslCertsService::get].
@@ -589,8 +810,12 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlSslCertsGetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SslCert>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SslCert>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SslCert>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SslCert>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlSslCertsService::insert].
@@ -598,8 +823,12 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlSslCertsInsertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SqlSslCertsService::list].
@@ -607,8 +836,12 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlSslCertsListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }
 
@@ -624,14 +857,17 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlTiersService::list].
     fn list(
         &self,
         _req: crate::model::SqlTiersListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TiersListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TiersListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TiersListResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TiersListResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }
 
@@ -647,14 +883,17 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
-
     /// Implements [super::client::SqlUsersService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlUsersDeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlUsersService::get].
@@ -662,8 +901,12 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlUsersGetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::User>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::User>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::User>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::User>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlUsersService::insert].
@@ -671,8 +914,12 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlUsersInsertRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SqlUsersService::list].
@@ -680,8 +927,12 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlUsersListRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::UsersListResponse>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::UsersListResponse>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::UsersListResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::UsersListResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SqlUsersService::update].
@@ -689,8 +940,11 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SqlUsersUpdateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Operation>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }
-
