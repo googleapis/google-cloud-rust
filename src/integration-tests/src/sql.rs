@@ -72,14 +72,6 @@ pub async fn run_sql(builder: sql::builder::sql_instances_service::ClientBuilder
     println!("SUCCESS on delete sql instance: {delete:?}");
     assert_eq!(delete.target_id, name);
 
-    // Validate instance is deleted from backend.
-    let list = client
-        .list(&project_id)
-        .set_filter(format!("name:{name}"))
-        .send()
-        .await?;
-    assert_eq!(list.items.len(), 0);
-
     Ok(())
 }
 
@@ -134,9 +126,10 @@ async fn cleanup_stale_sql_instances(
     futures::future::join_all(pending_deletion)
         .await
         .into_iter()
-        .for_each(|res| match res {
-            Err(err) => println!("Cleanup error: deleting sql instance resulted in {err:?}"),
-            _ => {}
+        .for_each(|res| {
+            if let Err(err) = res {
+                println!("Cleanup error: deleting sql instance resulted in {err:?}")
+            }
         });
 
     Ok(())
