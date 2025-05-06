@@ -1118,6 +1118,7 @@ pub mod rollout {
         /// Key is the service configuration ID, Value is the traffic percentage
         /// which must be greater than 0.0 and the sum must equal to 100.0.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
         pub percentages: std::collections::HashMap<std::string::String, f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

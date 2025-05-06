@@ -3421,6 +3421,7 @@ pub struct Threshold {
     /// The value of the threshold. The value should be defined in the native scale
     /// of the metric.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub value: f64,
 
     /// The state color for this threshold. Color is not allowed in a XyChart.
@@ -4377,11 +4378,13 @@ pub mod scorecard {
         /// The lower bound for this gauge chart. The value of the chart should
         /// always be greater than or equal to this.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub lower_bound: f64,
 
         /// The upper bound for this gauge chart. The value of the chart should
         /// always be less than or equal to this.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub upper_bound: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

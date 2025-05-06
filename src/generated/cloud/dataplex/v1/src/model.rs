@@ -9223,12 +9223,14 @@ pub mod data_profile_result {
             pub struct ProfileInfo {
                 /// Ratio of rows with null value against total scanned rows.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub null_ratio: f64,
 
                 /// Ratio of rows with distinct values against total scanned rows.
                 /// Not available for complex non-groupable field type, including RECORD,
                 /// ARRAY, GEOGRAPHY, and JSON, as well as fields with REPEATABLE mode.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub distinct_ratio: f64,
 
                 /// The list of top N non-null values, frequency and ratio with which
@@ -9397,6 +9399,7 @@ pub mod data_profile_result {
 
                     /// Average length of non-null values in the scanned data.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub average_length: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9444,11 +9447,13 @@ pub mod data_profile_result {
                     /// Average of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub average: f64,
 
                     /// Standard deviation of non-null values in the scanned data. NaN, if
                     /// the field has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub standard_deviation: f64,
 
                     /// Minimum of non-null values in the scanned data. NaN, if the field
@@ -9544,16 +9549,19 @@ pub mod data_profile_result {
                     /// Average of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub average: f64,
 
                     /// Standard deviation of non-null values in the scanned data. NaN, if
                     /// the field has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub standard_deviation: f64,
 
                     /// Minimum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub min: f64,
 
                     /// A quartile divides the number of data points into four parts, or
@@ -9568,11 +9576,13 @@ pub mod data_profile_result {
                     /// Here, the quartiles is provided as an ordered list of quartile
                     /// values for the scanned data, occurring in order Q1, median, Q3.
                     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
                     pub quartiles: std::vec::Vec<f64>,
 
                     /// Maximum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub max: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9649,6 +9659,7 @@ pub mod data_profile_result {
                     /// Ratio of the corresponding value in the field against the total
                     /// number of rows in the scanned data.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub ratio: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10776,6 +10787,7 @@ pub struct DataQualityRuleResult {
     ///
     /// This field is only valid for row-level type rules.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pass_ratio: f64,
 
     /// Output only. The query to find rows that did not pass this rule.
@@ -10996,6 +11008,7 @@ pub struct DataQualityRule {
     ///
     /// This field is only valid for row-level type rules.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub threshold: f64,
 
     /// Optional. A mutable name for the rule.
@@ -20097,6 +20110,7 @@ pub struct DataQualityScanRuleResult {
 
     /// The passing threshold ([0.0, 100.0]) of the data quality rule.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub threshold_percent: f64,
 
     /// The result of the data quality rule.

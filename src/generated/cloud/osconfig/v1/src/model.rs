@@ -9322,6 +9322,7 @@ pub struct PatchJob {
     /// Reflects the overall progress of the patch job in the range of
     /// 0.0 being no progress to 100.0 being complete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub percent_complete: f64,
 
     /// Output only. Name of the patch deployment that created this patch job.

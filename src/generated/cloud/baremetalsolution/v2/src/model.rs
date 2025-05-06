@@ -2853,6 +2853,7 @@ pub mod vrf {
     pub struct QosPolicy {
         /// The bandwidth permitted by the QOS policy, in gbps.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub bandwidth_gbps: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

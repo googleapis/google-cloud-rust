@@ -6778,6 +6778,7 @@ pub struct Snapshot {
 
     /// Output only. Current storage usage for the snapshot in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub used_bytes: f64,
 
     /// Output only. The time when the snapshot was created.
@@ -8338,6 +8339,7 @@ pub struct Volume {
     /// Optional. Snap_reserve specifies percentage of volume storage reserved for
     /// snapshot storage. Default is 0 percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub snap_reserve: f64,
 
     /// Optional. Snapshot_directory if enabled (true) the volume will contain a
@@ -9248,11 +9250,13 @@ impl wkt::message::Message for SnapshotPolicy {
 pub struct HourlySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9294,15 +9298,18 @@ impl wkt::message::Message for HourlySchedule {
 pub struct DailySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     /// Set the hour to start the snapshot (0-23), defaults to midnight (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub hour: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9351,15 +9358,18 @@ impl wkt::message::Message for DailySchedule {
 pub struct WeeklySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     /// Set the hour to start the snapshot (0-23), defaults to midnight (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub hour: std::option::Option<f64>,
 
     /// Set the day or days of the week to make a snapshot. Accepts a comma
@@ -9421,15 +9431,18 @@ impl wkt::message::Message for WeeklySchedule {
 pub struct MonthlySchedule {
     /// The maximum number of Snapshots to keep for the hourly schedule
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub snapshots_to_keep: std::option::Option<f64>,
 
     /// Set the minute of the hour to start the snapshot (0-59), defaults to the
     /// top of the hour (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub minute: std::option::Option<f64>,
 
     /// Set the hour to start the snapshot (0-23), defaults to midnight (0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub hour: std::option::Option<f64>,
 
     /// Set the day or days of the month to make a snapshot (1-31). Accepts a

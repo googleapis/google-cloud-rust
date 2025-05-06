@@ -12387,6 +12387,7 @@ pub struct DoubleComparisonFilter {
 
     /// Required. Double compare value to be used
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub value: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

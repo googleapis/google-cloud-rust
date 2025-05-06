@@ -96,6 +96,7 @@ pub struct TransactionEvent {
     /// exists. For example, a refund event where $5.00 was refunded. Currency is
     /// obtained from the original transaction data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub value: f64,
 
     /// Optional. Timestamp when this transaction event occurred; otherwise assumed
@@ -2072,11 +2073,13 @@ pub struct TransactionData {
 
     /// Optional. The decimal value of the transaction in the specified currency.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub value: f64,
 
     /// Optional. The value of shipping in the specified currency. 0 for free or no
     /// shipping.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub shipping_value: f64,
 
     /// Optional. Destination address if this transaction involves shipping a
@@ -2434,6 +2437,7 @@ pub mod transaction_data {
         /// Optional. The value per item that the user is paying, in the transaction
         /// currency, after discounts.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub value: f64,
 
         /// Optional. The quantity of this item that is being purchased.

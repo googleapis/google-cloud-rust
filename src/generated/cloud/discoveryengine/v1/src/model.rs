@@ -56,6 +56,7 @@ pub struct Answer {
     /// A score in the range of [0, 1] describing how grounded the answer is by the
     /// reference chunks.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub grounding_score: std::option::Option<f64>,
 
     /// Citations.
@@ -373,6 +374,7 @@ pub mod answer {
         /// Higher value means that the claim is better supported by the reference
         /// chunks.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub grounding_score: std::option::Option<f64>,
 
         /// Indicates that this claim required grounding check. When the
@@ -2303,6 +2305,7 @@ pub struct Chunk {
     ///
     /// [google.cloud.discoveryengine.v1.SearchResponse]: crate::model::SearchResponse
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub relevance_score: std::option::Option<f64>,
 
     /// Metadata of the document from the current chunk.
@@ -2810,6 +2813,7 @@ pub struct CustomAttribute {
     /// [google.cloud.discoveryengine.v1.CustomAttribute.numbers]: crate::model::CustomAttribute::numbers
     /// [google.cloud.discoveryengine.v1.CustomAttribute.text]: crate::model::CustomAttribute::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
     pub numbers: std::vec::Vec<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2933,6 +2937,7 @@ impl wkt::message::Message for UserInfo {
 pub struct DoubleList {
     /// Double values.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
     pub values: std::vec::Vec<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3250,6 +3255,7 @@ pub struct CompletionSuggestion {
 
     /// The score of this suggestion within its group.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub group_score: f64,
 
     /// Alternative matching phrases for this suggestion.
@@ -9294,6 +9300,7 @@ pub struct CustomTuningModel {
 
     /// The metrics of the trained model.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     pub metrics: std::collections::HashMap<std::string::String, f64>,
 
     /// Currently this is only populated if the model state is
@@ -16132,6 +16139,7 @@ pub struct CheckGroundingSpec {
     /// threshold may lead to more but somewhat weaker citations. If unset, the
     /// threshold will default to 0.6.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub citation_threshold: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28003,6 +28011,7 @@ pub struct TrainCustomModelResponse {
 
     /// The metrics of the trained model.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     pub metrics: std::collections::HashMap<std::string::String, f64>,
 
     /// Fully qualified name of the CustomTuningModel.

@@ -6392,11 +6392,13 @@ pub mod query_metrics_response {
 
                 /// The average customer satisfaction rating.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub average_customer_satisfaction_rating: std::option::Option<f64>,
 
                 /// Average QA normalized score.
                 /// Will exclude 0's in average calculation.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub average_qa_normalized_score: std::option::Option<f64>,
 
                 /// Average QA normalized score for all the tags.
@@ -6408,6 +6410,7 @@ pub mod query_metrics_response {
                 /// Will be only populated if the request specifies a dimension of
                 /// QA_QUESTION_ID.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub average_qa_question_normalized_score: std::option::Option<f64>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6551,6 +6554,7 @@ pub mod query_metrics_response {
 
                     /// Average tag normalized score per tag.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F64")]
                     pub average_tag_normalized_score: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7364,6 +7368,7 @@ pub struct TuneQaScorecardRevisionMetadata {
     /// between 0 and 1 where 0 indicates the job has not started i.e. 0% and 1
     /// indicates the job has completed i.e. 100%.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub tuning_completion_ratio: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7564,6 +7569,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         pub struct Metrics {
             /// Accuracy of the question's dataset.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub accuracy: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11587,6 +11593,7 @@ pub struct IssueAssignment {
     /// Score indicating the likelihood of the issue assignment.
     /// currently bounded on [0,1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub score: f64,
 
     /// Immutable. Display name of the assigned issue. This field is set at time of
@@ -14511,11 +14518,13 @@ pub mod settings {
         /// Percentage of conversations created using Dialogflow runtime integration
         /// to analyze automatically, between [0, 100].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub runtime_integration_analysis_percentage: f64,
 
         /// Percentage of conversations created using the UploadConversation endpoint
         /// to analyze automatically, between [0, 100].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub upload_conversation_analysis_percentage: f64,
 
         /// To select the annotators to run and the phrase matchers to use
@@ -14614,6 +14623,7 @@ pub struct AnalysisRule {
     /// are sampled in a determenestic way. The original runtime_percentage &
     /// upload percentage will be replaced by defining filters on the conversation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub analysis_percentage: f64,
 
     /// If true, apply this rule to conversations. Otherwise, this rule is
@@ -15794,6 +15804,7 @@ pub struct SmartReplyData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub confidence_score: f64,
 
     /// Map that contains metadata about the Smart Reply and the document from
@@ -15867,6 +15878,7 @@ pub struct SmartComposeSuggestionData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub confidence_score: f64,
 
     /// Map that contains metadata about the Smart Compose suggestion and the
@@ -17244,6 +17256,7 @@ pub mod qa_question {
         /// Numerical score of the answer, used for generating the overall score of
         /// a QaScorecardResult. If the answer uses na_value, this field is unused.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// The answer value may be one of a few different types.
@@ -17427,6 +17440,7 @@ pub mod qa_question {
         /// Output only. Accuracy of the model. Measures the percentage of correct
         /// answers the model gave on the test set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub accuracy: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17981,15 +17995,18 @@ pub mod qa_answer {
 
         /// Output only. Numerical score of the answer.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// Output only. The maximum potential score of the question.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub potential_score: std::option::Option<f64>,
 
         /// Output only. Normalized score of the questions. Calculated as score /
         /// potential_score.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_score: std::option::Option<f64>,
 
         /// The answer value may be one of a few different types.
@@ -18408,16 +18425,19 @@ pub struct QaScorecardResult {
     /// The overall numerical score of the result, incorporating any manual edits
     /// if they exist.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub score: std::option::Option<f64>,
 
     /// The maximum potential overall score of the scorecard. Any questions
     /// answered using `na_value` are excluded from this calculation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub potential_score: std::option::Option<f64>,
 
     /// The normalized score, which is the score divided by the potential score.
     /// Any manual edits are included if they exist.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub normalized_score: std::option::Option<f64>,
 
     /// Collection of tags and their scores.
@@ -18554,14 +18574,17 @@ pub mod qa_scorecard_result {
 
         /// The score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// The potential score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub potential_score: std::option::Option<f64>,
 
         /// The normalized score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_score: std::option::Option<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18623,15 +18646,18 @@ pub mod qa_scorecard_result {
 
         /// The overall numerical score of the result.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub score: std::option::Option<f64>,
 
         /// The maximum potential overall score of the scorecard. Any questions
         /// answered using `na_value` are excluded from this calculation.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub potential_score: std::option::Option<f64>,
 
         /// The normalized score, which is the score divided by the potential score.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_score: std::option::Option<f64>,
 
         /// Collection of tags and their scores.

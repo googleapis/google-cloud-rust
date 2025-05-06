@@ -2876,12 +2876,14 @@ pub struct SynthesizeSpeechConfig {
     /// 0.5 is half as fast. If unset(0.0), defaults to the native 1.0 speed. Any
     /// other values < 0.25 or > 4.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub speaking_rate: f64,
 
     /// Optional. Speaking pitch, in the range [-20.0, 20.0]. 20 means increase 20
     /// semitones from the original pitch. -20 means decrease 20 semitones from the
     /// original pitch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pitch: f64,
 
     /// Optional. Volume gain (in dB) of the normal native volume supported by the
@@ -2893,6 +2895,7 @@ pub struct SynthesizeSpeechConfig {
     /// to exceed +10 (dB) as there's usually no effective increase in loudness for
     /// any value greater than that.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub volume_gain_db: f64,
 
     /// Optional. An identifier which selects 'audio effects' profiles that are
@@ -8694,19 +8697,23 @@ pub mod experiment {
             /// The confidence level used to construct the interval, i.e. there is X%
             /// chance that the true value is within this interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub confidence_level: f64,
 
             /// The percent change between an experiment metric's value and the value
             /// for its control.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub ratio: f64,
 
             /// Lower bound of the interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub lower_bound: f64,
 
             /// Upper bound of the interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub upper_bound: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

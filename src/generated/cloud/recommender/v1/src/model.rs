@@ -1836,6 +1836,7 @@ pub struct SustainabilityProjection {
     /// Chose kg_c_o2e so that the name renders correctly in camelCase (kgCO2e).
     #[serde(rename = "kgCO2e")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub kg_c_o2e: f64,
 
     /// Duration for which this sustainability applies.

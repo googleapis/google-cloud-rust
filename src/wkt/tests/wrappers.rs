@@ -22,7 +22,10 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Helper {
+    #[serde_as(as = "Option<wkt::internal::F64>")]
     pub field_double: Option<wkt::DoubleValue>,
+    #[serde_as(as = "Option<wkt::internal::F64>")]
+    pub field_double_neg_inf: Option<wkt::DoubleValue>,
     #[serde_as(as = "Option<wkt::internal::F32>")]
     pub field_float: Option<wkt::FloatValue>,
     #[serde_as(as = "Option<wkt::internal::F32>")]
@@ -45,6 +48,7 @@ pub struct Helper {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Repeated {
+    #[serde_as(as = "Vec<wkt::internal::F64>")]
     pub field_double: Vec<wkt::DoubleValue>,
     #[serde_as(as = "Vec<wkt::internal::F32>")]
     pub field_float: Vec<wkt::FloatValue>,
@@ -64,6 +68,7 @@ pub struct Repeated {
 fn serialize_in_struct() -> Result {
     let input = Helper {
         field_double: Some(42.0_f64),
+        field_double_neg_inf: Some(f64::NEG_INFINITY),
         field_float: Some(42.0_f32),
         field_float_inf: Some(f32::INFINITY),
         field_int64: Some(42),
@@ -79,6 +84,7 @@ fn serialize_in_struct() -> Result {
     let json = serde_json::to_value(&input)?;
     let want = json!({
         "fieldDouble": 42_f64,
+        "fieldDoubleNegInf": "-Infinity",
         "fieldFloat":  42_f32,
         "fieldFloatInf": "Infinity",
         "fieldInt64":  "42",
@@ -99,7 +105,7 @@ fn serialize_in_struct() -> Result {
 #[test]
 fn serialize_in_repeated() -> Result {
     let input = Repeated {
-        field_double: vec![42.0_f64],
+        field_double: vec![42.0_f64, f64::NEG_INFINITY],
         field_float: vec![42.0_f32, f32::INFINITY],
         field_int64: vec![42_i64],
         field_uint64: vec![42_u64],
@@ -113,7 +119,7 @@ fn serialize_in_repeated() -> Result {
     };
     let json = serde_json::to_value(&input)?;
     let want = json!({
-        "fieldDouble":  [42_f64],
+        "fieldDouble":  [42_f64, "-Infinity"],
         "fieldFloat":   [42_f32, "Infinity"],
         "fieldInt64":   ["42"],
         "fieldUint64":  ["42"],

@@ -1731,6 +1731,7 @@ pub struct NodeNetworkConfig {
     /// The ratio is Usage/[Total number of IPs in the secondary range],
     /// Usage=numNodes*numZones*podIPsPerNode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub pod_ipv4_range_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5469,6 +5470,7 @@ pub struct IPAllocationPolicy {
     /// pod. The ratio is Usage/[Total number of IPs in the secondary range],
     /// Usage=numNodes*numZones*podIPsPerNode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub default_pod_ipv4_range_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9134,6 +9136,7 @@ pub struct RangeInfo {
 
     /// Output only. The utilization of the range.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -4123,6 +4123,7 @@ pub struct CustomAttribute {
     /// [google.cloud.retail.v2.CustomAttribute.numbers]: crate::model::CustomAttribute::numbers
     /// [google.cloud.retail.v2.CustomAttribute.text]: crate::model::CustomAttribute::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
     pub numbers: std::vec::Vec<f64>,
 
     /// This field is normally ignored unless
@@ -17098,6 +17099,7 @@ pub mod search_response {
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.return_min_max]: crate::model::search_request::facet_spec::FacetKey::return_min_max
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.interval]: crate::model::search_response::facet::FacetValue::facet_value
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub min_value: f64,
 
             /// The maximum value in the
@@ -17109,6 +17111,7 @@ pub mod search_response {
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.return_min_max]: crate::model::search_request::facet_spec::FacetKey::return_min_max
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.interval]: crate::model::search_response::facet::FacetValue::facet_value
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub max_value: f64,
 
             /// A facet value which contains values.

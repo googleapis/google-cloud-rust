@@ -6658,6 +6658,7 @@ pub struct TrafficSplit {
     /// Up to two decimal place precision is supported for IP-based splits and
     /// up to three decimal places is supported for cookie-based splits.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
     pub allocations: std::collections::HashMap<std::string::String, f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8077,6 +8078,7 @@ pub struct CpuUtilization {
     /// Target CPU utilization ratio to maintain when scaling. Must be between 0
     /// and 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub target_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8295,10 +8297,12 @@ impl wkt::message::Message for NetworkUtilization {
 pub struct StandardSchedulerSettings {
     /// Target CPU utilization ratio to maintain when scaling.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub target_cpu_utilization: f64,
 
     /// Target throughput utilization ratio to maintain when scaling
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub target_throughput_utilization: f64,
 
     /// Minimum number of instances to run for this version. Set to zero to disable
@@ -8470,6 +8474,7 @@ pub struct Volume {
 
     /// Volume size in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub size_gb: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8514,14 +8519,17 @@ impl wkt::message::Message for Volume {
 pub struct Resources {
     /// Number of CPU cores needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cpu: f64,
 
     /// Disk size (GB) needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub disk_gb: f64,
 
     /// Memory (GB) needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub memory_gb: f64,
 
     /// User specified volumes.

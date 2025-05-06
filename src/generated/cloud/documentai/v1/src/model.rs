@@ -1937,10 +1937,12 @@ pub mod document {
                 ///
                 /// [google.cloud.documentai.v1.Document.Page.Token.StyleInfo.font_size]: crate::model::document::page::token::StyleInfo::font_size
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub pixel_font_size: f64,
 
                 /// Letter spacing in points.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F64")]
                 pub letter_spacing: f64,
 
                 /// Name or style of the font.
