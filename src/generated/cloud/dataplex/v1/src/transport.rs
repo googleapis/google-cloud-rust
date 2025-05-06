@@ -592,7 +592,7 @@ impl super::stub::CatalogService for CatalogService {
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("scope", &req.scope)]);
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 

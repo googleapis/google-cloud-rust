@@ -672,7 +672,7 @@ impl super::stub::DatasetService for DatasetService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -698,7 +698,7 @@ impl super::stub::DatasetService for DatasetService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -781,7 +781,7 @@ impl super::stub::DatasetService for DatasetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -814,7 +814,7 @@ impl super::stub::DatasetService for DatasetService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1088,7 +1088,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1114,7 +1114,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1197,7 +1197,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1230,7 +1230,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1577,7 +1577,7 @@ impl super::stub::EndpointService for EndpointService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1603,7 +1603,7 @@ impl super::stub::EndpointService for EndpointService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1686,7 +1686,7 @@ impl super::stub::EndpointService for EndpointService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1719,7 +1719,7 @@ impl super::stub::EndpointService for EndpointService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1873,7 +1873,7 @@ impl super::stub::EvaluationService for EvaluationService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1899,7 +1899,7 @@ impl super::stub::EvaluationService for EvaluationService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1982,7 +1982,7 @@ impl super::stub::EvaluationService for EvaluationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2015,7 +2015,7 @@ impl super::stub::EvaluationService for EvaluationService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -2444,7 +2444,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2470,7 +2470,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2553,7 +2553,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2586,7 +2586,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2760,7 +2760,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2786,7 +2786,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2869,7 +2869,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2902,7 +2902,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -3289,7 +3289,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -3315,7 +3315,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -3398,7 +3398,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -3431,7 +3431,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -3605,7 +3605,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -3631,7 +3631,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -3714,7 +3714,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -3747,7 +3747,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -4373,7 +4373,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -4399,7 +4399,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -4482,7 +4482,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -4515,7 +4515,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -4771,7 +4771,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -4797,7 +4797,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -4880,7 +4880,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -4913,7 +4913,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -5141,7 +5141,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -5167,7 +5167,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -5250,7 +5250,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -5283,7 +5283,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -5604,7 +5604,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -5630,7 +5630,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -5713,7 +5713,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -5746,7 +5746,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -6035,7 +6035,7 @@ impl super::stub::IndexService for IndexService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -6061,7 +6061,7 @@ impl super::stub::IndexService for IndexService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -6144,7 +6144,7 @@ impl super::stub::IndexService for IndexService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -6177,7 +6177,7 @@ impl super::stub::IndexService for IndexService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7113,7 +7113,7 @@ impl super::stub::JobService for JobService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7139,7 +7139,7 @@ impl super::stub::JobService for JobService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7222,7 +7222,7 @@ impl super::stub::JobService for JobService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -7255,7 +7255,7 @@ impl super::stub::JobService for JobService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7429,7 +7429,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7455,7 +7455,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7538,7 +7538,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -7571,7 +7571,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -7731,7 +7731,7 @@ impl super::stub::MatchService for MatchService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7757,7 +7757,7 @@ impl super::stub::MatchService for MatchService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -7840,7 +7840,7 @@ impl super::stub::MatchService for MatchService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -7873,7 +7873,7 @@ impl super::stub::MatchService for MatchService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -8722,7 +8722,7 @@ impl super::stub::MetadataService for MetadataService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -8748,7 +8748,7 @@ impl super::stub::MetadataService for MetadataService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -8831,7 +8831,7 @@ impl super::stub::MetadataService for MetadataService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -8864,7 +8864,7 @@ impl super::stub::MetadataService for MetadataService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -9038,7 +9038,7 @@ impl super::stub::MigrationService for MigrationService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -9064,7 +9064,7 @@ impl super::stub::MigrationService for MigrationService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -9147,7 +9147,7 @@ impl super::stub::MigrationService for MigrationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -9180,7 +9180,7 @@ impl super::stub::MigrationService for MigrationService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -9337,7 +9337,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -9363,7 +9363,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -9446,7 +9446,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -9479,7 +9479,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -10032,7 +10032,7 @@ impl super::stub::ModelService for ModelService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -10058,7 +10058,7 @@ impl super::stub::ModelService for ModelService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -10141,7 +10141,7 @@ impl super::stub::ModelService for ModelService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -10174,7 +10174,7 @@ impl super::stub::ModelService for ModelService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -10668,7 +10668,7 @@ impl super::stub::NotebookService for NotebookService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -10694,7 +10694,7 @@ impl super::stub::NotebookService for NotebookService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -10777,7 +10777,7 @@ impl super::stub::NotebookService for NotebookService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -10810,7 +10810,7 @@ impl super::stub::NotebookService for NotebookService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -11080,7 +11080,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -11106,7 +11106,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -11189,7 +11189,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -11222,7 +11222,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -11624,7 +11624,7 @@ impl super::stub::PipelineService for PipelineService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -11650,7 +11650,7 @@ impl super::stub::PipelineService for PipelineService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -11733,7 +11733,7 @@ impl super::stub::PipelineService for PipelineService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -11766,7 +11766,7 @@ impl super::stub::PipelineService for PipelineService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12020,7 +12020,7 @@ impl super::stub::PredictionService for PredictionService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12046,7 +12046,7 @@ impl super::stub::PredictionService for PredictionService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12129,7 +12129,7 @@ impl super::stub::PredictionService for PredictionService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -12162,7 +12162,7 @@ impl super::stub::PredictionService for PredictionService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -12299,7 +12299,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12325,7 +12325,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12408,7 +12408,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -12441,7 +12441,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -12681,7 +12681,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12707,7 +12707,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -12790,7 +12790,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -12823,7 +12823,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -13121,7 +13121,7 @@ impl super::stub::ScheduleService for ScheduleService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -13147,7 +13147,7 @@ impl super::stub::ScheduleService for ScheduleService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -13230,7 +13230,7 @@ impl super::stub::ScheduleService for ScheduleService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -13263,7 +13263,7 @@ impl super::stub::ScheduleService for ScheduleService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -13522,7 +13522,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -13548,7 +13548,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -13631,7 +13631,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -13664,7 +13664,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -14500,7 +14500,7 @@ impl super::stub::TensorboardService for TensorboardService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -14526,7 +14526,7 @@ impl super::stub::TensorboardService for TensorboardService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -14609,7 +14609,7 @@ impl super::stub::TensorboardService for TensorboardService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -14642,7 +14642,7 @@ impl super::stub::TensorboardService for TensorboardService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -14988,7 +14988,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15014,7 +15014,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15097,7 +15097,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -15130,7 +15130,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15324,7 +15324,7 @@ impl super::stub::VertexRagService for VertexRagService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15350,7 +15350,7 @@ impl super::stub::VertexRagService for VertexRagService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15433,7 +15433,7 @@ impl super::stub::VertexRagService for VertexRagService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -15466,7 +15466,7 @@ impl super::stub::VertexRagService for VertexRagService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -15880,7 +15880,7 @@ impl super::stub::VizierService for VizierService {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15906,7 +15906,7 @@ impl super::stub::VizierService for VizierService {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("permissions", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -15989,7 +15989,7 @@ impl super::stub::VizierService for VizierService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -16022,7 +16022,7 @@ impl super::stub::VizierService for VizierService {
                 v.add(builder, "timeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
