@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-// use gax::error::Error;
-// use rand::{Rng, distr::Alphanumeric};
+use crate::{Error, RandomChars, Result};
+use rand::Rng;
+use sql::model;
 
-pub async fn run_sql(
-    builder: sql::builder::sql_instances_service::ClientBuilder,
-) -> Result<()> {
+pub async fn run_sql(builder: sql::builder::sql_instances_service::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -34,12 +32,112 @@ pub async fn run_sql(
     };
 
     let project_id = crate::project_id()?;
-    let client = builder.build().await?;
+    let name = random_sql_instance_name(&project_id);
+    let client: sql::client::SqlInstancesService = builder.build().await?;
 
-    let insert: sql::model::Operation = client.insert(project_id).send().await?;
-    println!("INSERT SQL Instance = {insert:?}");
+    cleanup_stale_sql_instances(&client, &project_id).await?;
 
-    // let list = client.list(project_id).send().await?;
+    println!("\nTesting insert sql instance");
+    let insert = client
+        .insert(&project_id)
+        .set_body(
+            model::DatabaseInstance::new().set_name(&name).set_settings(
+                model::Settings::new()
+                    .set_tier("db-f1-micro")
+                    .set_user_labels([(INSTANCE_LABEL, "true")]),
+            ),
+        )
+        .send()
+        .await?;
+    println!("SUCCESS on insert sql instance: {insert:?}");
+    assert_eq!(insert.target_id, name);
+
+    println!("Testing get sql instance");
+    let get = client.get(&project_id, &name).send().await?;
+    println!("SUCCESS on get sql instance: {get:?}");
+    assert_eq!(get.name, name);
+
+    println!("Testing list sql instances");
+    let list = client
+        .list(&project_id)
+        .set_filter(format!("name:{name}"))
+        .send()
+        .await?;
+    println!("SUCCESS on list sql instance: {list:?}");
+    assert_eq!(list.items.len(), 1);
+    assert!(list.items.into_iter().any(|v| v.name.eq(&name)));
+
+    println!("Testing delete sql instance");
+    let delete = client.delete(&project_id, &name).send().await?;
+    println!("SUCCESS on delete sql instance: {delete:?}");
+    assert_eq!(delete.target_id, name);
+
+    // Validate instance is deleted from backend.
+    let list = client
+        .list(&project_id)
+        .set_filter(format!("name:{name}"))
+        .send()
+        .await?;
+    assert_eq!(list.items.len(), 0);
+
+    Ok(())
+}
+
+const PREFIX: &str = "rust-sdk-testing-";
+const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+pub const INSTANCE_NAME_LENGTH: usize = 98;
+const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
+
+fn random_sql_instance_name(project_id: &str) -> String {
+    let distr = RandomChars { chars: CHARSET };
+    let rand_suffix: String = rand::rng()
+        .sample_iter(distr)
+        .take(INSTANCE_NAME_LENGTH - project_id.len() - PREFIX.len() - 1) // project-ID:instance-ID <= 98
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{rand_suffix}")
+}
+
+async fn cleanup_stale_sql_instances(
+    client: &sql::client::SqlInstancesService,
+    project_id: &str,
+) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(Error::other)?;
+    // let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = stale_deadline - Duration::from_secs(1);
+
+    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let instances = client
+        .list(project_id)
+        .set_filter(format!(
+            "name:{PREFIX}* AND settings.userLabels.{INSTANCE_LABEL}:true"
+        ))
+        .send()
+        .await?;
+
+    let pending_deletion = instances
+        .items
+        .into_iter()
+        .filter_map(|instance| {
+            if instance.create_time? < stale_deadline {
+                Some(client.delete(project_id, instance.name).send())
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+
+    futures::future::join_all(pending_deletion)
+        .await
+        .into_iter()
+        .for_each(|res| match res {
+            Err(err) => println!("Cleanup error: deleting sql instance resulted in {err:?}"),
+            _ => {}
+        });
 
     Ok(())
 }
