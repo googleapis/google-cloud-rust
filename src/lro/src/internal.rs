@@ -12,20 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Implementation details for the LRO helpers used from other traits.
+//! This module contains common implementation details for generated code.
+//!
+//! It is not part of the public API of this crate. Types and functions in this
+//! module may be changed or removed without warnings. Applications should not
+//! use any types contained within.
 
 use super::{Poller, PollingBackoffPolicy, PollingErrorPolicy, PollingResult, Result};
 use std::sync::Arc;
 use std::time::Instant;
 
-#[doc(hidden)]
 pub type Operation<R, M> = super::details::Operation<R, M>;
 
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
 ///
 /// This is intended as an implementation detail of the generated clients.
 /// Applications should have no need to create or use this struct.
-#[doc(hidden)]
 pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
