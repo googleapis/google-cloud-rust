@@ -43,10 +43,10 @@ wkt.workspace         = true
 unstable-stream = ["dep:futures", "dep:pin-project"]
 
 [dev-dependencies]
-axum       = "0.8"
-reqwest    = "0.12"
-serde_json = "1"
-tokio      = { version = "1", features = ["test-util"] }
+axum.workspace = true
+reqwest        = "0.12"
+serde_json     = "1"
+tokio          = { version = "1", features = ["test-util"] }
 # Local dependencies
 auth.workspace = true
 gaxi.workspace = true

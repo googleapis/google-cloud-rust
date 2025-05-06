@@ -274,6 +274,7 @@ incremental = false
 
 [workspace.dependencies]
 anyhow           = "1"
+axum             = { version = "0.8" }
 async-trait      = { version = "0.1" }
 bytes            = { version = "1", default-features = false, features = ["serde"] }
 http             = { version = "1", default-features = false }

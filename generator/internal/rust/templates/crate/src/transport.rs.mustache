@@ -97,8 +97,17 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{/Codec.QueryParams}}
         self.inner.execute(
             builder,
-            {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
-            {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
+            {{#PathInfo.Codec.HasBody}}
+            Some(req{{Codec.BodyAccessor}}),
+            {{/PathInfo.Codec.HasBody}}
+            {{^PathInfo.Codec.HasBody}}
+            {{#PathInfo.Codec.RequiresContentLength}}
+            Some(gaxi::http::NoBody),
+            {{/PathInfo.Codec.RequiresContentLength}}
+            {{^PathInfo.Codec.RequiresContentLength}}
+            None::<gaxi::http::NoBody>,
+            {{/PathInfo.Codec.RequiresContentLength}}
+            {{/PathInfo.Codec.HasBody}}
             options,
         ).await
         {{#ReturnsEmpty}}

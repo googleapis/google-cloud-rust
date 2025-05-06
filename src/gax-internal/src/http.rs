@@ -247,7 +247,7 @@ impl ReqwestClient {
 }
 
 #[derive(serde::Serialize)]
-pub struct NoBody {}
+pub struct NoBody;
 
 const SENSITIVE_HEADER: &str = "[sensitive]";
 
