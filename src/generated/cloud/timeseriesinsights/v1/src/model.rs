@@ -600,11 +600,11 @@ pub mod event_dimension {
         /// supported.
         StringVal(std::string::String),
         /// Long representation.
-        LongVal(i64),
+        LongVal(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// Bool representation.
         BoolVal(bool),
         /// Double representation.
-        DoubleVal(f64),
+        DoubleVal(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 }
 

@@ -5660,7 +5660,7 @@ pub mod backup_appliance_lock_info {
         /// The image name that depends on this Backup.
         BackupImage(std::string::String),
         /// The SLA on the backup/recovery appliance that owns the lock.
-        SlaId(i64),
+        SlaId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
     }
 }
 

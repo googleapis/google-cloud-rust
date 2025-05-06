@@ -3594,7 +3594,7 @@ pub mod scaling_config {
         InstanceSize(crate::model::scaling_config::InstanceSize),
         /// Scaling factor, increments of 0.1 for values less than 1.0, and
         /// increments of 1.0 for values greater than 1.0.
-        ScalingFactor(f32),
+        ScalingFactor(#[serde_as(as = "wkt::internal::F32")] f32),
     }
 }
 

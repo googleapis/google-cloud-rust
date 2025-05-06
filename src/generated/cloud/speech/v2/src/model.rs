@@ -2951,7 +2951,7 @@ pub mod recognize_request {
         /// whereas JSON representations use base64.
         ///
         /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
-        Content(::bytes::Bytes),
+        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// URI that points to a file that contains audio data bytes as specified in
         /// [RecognitionConfig][google.cloud.speech.v2.RecognitionConfig]. The file
         /// must not be compressed (for example, gzip). Currently, only Google Cloud
@@ -3693,7 +3693,7 @@ pub mod streaming_recognize_request {
         StreamingConfig(std::boxed::Box<crate::model::StreamingRecognitionConfig>),
         /// Inline audio bytes to be Recognized.
         /// Maximum size for this field is 15 KB per request.
-        Audio(::bytes::Bytes),
+        Audio(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 

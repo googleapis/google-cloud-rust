@@ -1891,7 +1891,7 @@ pub mod export_agent_response {
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportAgentRequest]: crate::model::ExportAgentRequest
-        AgentContent(::bytes::Bytes),
+        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Commit SHA of the git push. This field is populated if
         /// `git_destination` is specified in
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
@@ -2240,7 +2240,7 @@ pub mod restore_agent_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         AgentUri(std::string::String),
         /// Uncompressed raw byte content for agent.
-        AgentContent(::bytes::Bytes),
+        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Setting for restoring from a git branch
         GitSource(std::boxed::Box<crate::model::restore_agent_request::GitSource>),
     }
@@ -8907,9 +8907,9 @@ pub mod experiment {
             #[non_exhaustive]
             pub enum Value {
                 /// Ratio value of a metric.
-                Ratio(f64),
+                Ratio(#[serde_as(as = "wkt::internal::F64")] f64),
                 /// Count value of a metric.
-                Count(f64),
+                Count(#[serde_as(as = "wkt::internal::F64")] f64),
             }
         }
 
@@ -11732,7 +11732,7 @@ pub mod import_flow_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         FlowUri(std::string::String),
         /// Uncompressed raw byte content for flow.
-        FlowContent(::bytes::Bytes),
+        FlowContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -11986,7 +11986,7 @@ pub mod export_flow_response {
         /// [google.cloud.dialogflow.cx.v3.ExportFlowRequest]: crate::model::ExportFlowRequest
         FlowUri(std::string::String),
         /// Uncompressed raw byte content for flow.
-        FlowContent(::bytes::Bytes),
+        FlowContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -17609,7 +17609,7 @@ pub mod response_message {
             pub enum Content {
                 /// Raw audio synthesized from the Dialogflow agent's response using
                 /// the output config specified in the request.
-                Audio(::bytes::Bytes),
+                Audio(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
                 /// Client-specific URI that points to an audio clip accessible to the
                 /// client. Dialogflow does not impose any validation on it.
                 Uri(std::string::String),
@@ -27016,7 +27016,7 @@ pub mod import_test_cases_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         GcsUri(std::string::String),
         /// Uncompressed raw byte content for test cases.
-        Content(::bytes::Bytes),
+        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -27534,7 +27534,7 @@ pub mod export_test_cases_response {
         /// [google.cloud.dialogflow.cx.v3.ExportTestCasesRequest]: crate::model::ExportTestCasesRequest
         GcsUri(std::string::String),
         /// Uncompressed raw byte content for test cases.
-        Content(::bytes::Bytes),
+        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 

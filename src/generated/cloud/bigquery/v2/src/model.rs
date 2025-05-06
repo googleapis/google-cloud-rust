@@ -7653,7 +7653,7 @@ pub mod model {
                 pub enum Value {
                     /// The numerical feature value. This is the centroid value for this
                     /// feature.
-                    NumericalValue(std::boxed::Box<wkt::DoubleValue>),
+                    NumericalValue(#[serde_as(as = "std::option::Option<wkt::internal::F64>")]std::boxed::Box<wkt::DoubleValue>),
                     /// The categorical feature value.
                     CategoricalValue(std::boxed::Box<crate::model::model::clustering_metrics::cluster::feature_value::CategoricalValue>),
                 }

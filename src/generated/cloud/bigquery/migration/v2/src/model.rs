@@ -1724,11 +1724,11 @@ pub mod typed_value {
         /// A Boolean value: `true` or `false`.
         BoolValue(bool),
         /// A 64-bit integer. Its range is approximately `+/-9.2x10^18`.
-        Int64Value(i64),
+        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A 64-bit double-precision floating-point number. Its magnitude
         /// is approximately `+/-10^(+/-300)` and it has 16 significant digits of
         /// precision.
-        DoubleValue(f64),
+        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// A variable-length string value.
         StringValue(std::string::String),
         /// A distribution value.
@@ -4487,7 +4487,7 @@ pub mod literal {
         /// Literal string data.
         LiteralString(std::string::String),
         /// Literal byte data.
-        LiteralBytes(::bytes::Bytes),
+        LiteralBytes(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 

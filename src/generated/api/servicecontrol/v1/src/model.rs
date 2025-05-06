@@ -1691,9 +1691,9 @@ pub mod metric_value {
         /// A boolean value.
         BoolValue(bool),
         /// A signed 64-bit integer value.
-        Int64Value(i64),
+        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A double precision floating point value.
-        DoubleValue(f64),
+        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// A text string value.
         StringValue(std::string::String),
         /// A distribution value.

@@ -4543,9 +4543,9 @@ pub mod interval {
     #[non_exhaustive]
     pub enum Min {
         /// Inclusive lower bound.
-        Minimum(f64),
+        Minimum(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Exclusive lower bound.
-        ExclusiveMinimum(f64),
+        ExclusiveMinimum(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 
     /// The upper bound of the interval. If neither of the max fields are set, then
@@ -4558,9 +4558,9 @@ pub mod interval {
     #[non_exhaustive]
     pub enum Max {
         /// Inclusive upper bound.
-        Maximum(f64),
+        Maximum(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Exclusive upper bound.
-        ExclusiveMaximum(f64),
+        ExclusiveMaximum(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 }
 

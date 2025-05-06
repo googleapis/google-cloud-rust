@@ -1412,7 +1412,7 @@ pub mod threat_info {
             /// A decimal representation of confidence in the range of 0
             /// to 1 where 0 indicates no confidence and 1 indicates
             /// complete confidence.
-            Score(f32),
+            Score(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Enum representation of confidence.
             Level(crate::model::threat_info::confidence::ConfidenceLevel),
         }

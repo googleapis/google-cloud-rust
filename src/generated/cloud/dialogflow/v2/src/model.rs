@@ -1083,7 +1083,7 @@ pub mod export_agent_response {
         /// only if `agent_uri` is specified in `ExportAgentRequest`.
         AgentUri(std::string::String),
         /// Zip compressed raw byte content for agent.
-        AgentContent(::bytes::Bytes),
+        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -1209,7 +1209,7 @@ pub mod import_agent_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         AgentUri(std::string::String),
         /// Zip compressed raw byte content for agent.
-        AgentContent(::bytes::Bytes),
+        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -1335,7 +1335,7 @@ pub mod restore_agent_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         AgentUri(std::string::String),
         /// Zip compressed raw byte content for agent.
-        AgentContent(::bytes::Bytes),
+        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -14982,7 +14982,7 @@ pub mod document {
         ContentUri(std::string::String),
         /// The raw content of the document. This field is only permitted for
         /// EXTRACTIVE_QA and FAQ knowledge types.
-        RawContent(::bytes::Bytes),
+        RawContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -27489,7 +27489,7 @@ pub mod streaming_analyze_content_request {
         /// The input audio content to be recognized. Must be sent if `audio_config`
         /// is set in the first message. The complete audio over all streaming
         /// messages must not exceed 1 minute.
-        InputAudio(::bytes::Bytes),
+        InputAudio(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// The UTF-8 encoded natural language text to be processed. Must be sent if
         /// `text_config` is set in the first message. Text length must not exceed
         /// 256 bytes for virtual agent interactions. The `input_text` field can be

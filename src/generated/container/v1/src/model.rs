@@ -10148,9 +10148,9 @@ pub mod operation_progress {
         #[non_exhaustive]
         pub enum Value {
             /// For metrics with integer value.
-            IntValue(i64),
+            IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
             /// For metrics with floating point value.
-            DoubleValue(f64),
+            DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// For metrics with custom values (ratios, visual progress, etc.).
             StringValue(std::string::String),
         }
@@ -12988,7 +12988,7 @@ pub mod blue_green_settings {
         pub enum UpdateBatchSize {
             /// Percentage of the blue pool nodes to drain in a batch.
             /// The range of this field should be (0.0, 1.0].
-            BatchPercentage(f32),
+            BatchPercentage(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Number of blue nodes to drain in a batch.
             BatchNodeCount(i32),
         }

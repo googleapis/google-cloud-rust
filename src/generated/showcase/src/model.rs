@@ -3198,7 +3198,7 @@ pub mod blurb {
         /// The textual content of this blurb.
         Text(std::string::String),
         /// The image content of this blurb.
-        Image(::bytes::Bytes),
+        Image(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 
     /// (-- aip.dev/not-precedent: This is designed for testing non-slash

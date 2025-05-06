@@ -2814,7 +2814,7 @@ pub mod entry {
         /// The type of the entry.
         ///
         /// For details, see [`EntryType`](#entrytype).
-        Type(crate::model::EntryType),
+        Type(#[serde(rename = "type")] crate::model::EntryType),
         /// Custom entry type that doesn't match any of the values allowed for input
         /// and listed in the `EntryType` enum.
         ///
@@ -11933,7 +11933,7 @@ pub mod tag_field {
     #[non_exhaustive]
     pub enum Kind {
         /// The value of a tag field with a double type.
-        DoubleValue(f64),
+        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// The value of a tag field with a string type.
         ///
         /// The maximum length is 2000 UTF-8 characters.

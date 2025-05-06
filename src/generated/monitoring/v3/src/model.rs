@@ -888,7 +888,7 @@ pub mod alert_policy {
                 Count(i32),
                 /// The percentage of time series that must fail the
                 /// predicate for the condition to be triggered.
-                Percent(f64),
+                Percent(#[serde_as(as = "wkt::internal::F64")] f64),
             }
         }
 
@@ -3542,11 +3542,11 @@ pub mod typed_value {
         /// A Boolean value: `true` or `false`.
         BoolValue(bool),
         /// A 64-bit integer. Its range is approximately &plusmn;9.2x10\<sup\>18\</sup\>.
-        Int64Value(i64),
+        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A 64-bit double-precision floating-point number. Its magnitude
         /// is approximately &plusmn;10\<sup\>&plusmn;300\</sup\> and it has 16
         /// significant digits of precision.
-        DoubleValue(f64),
+        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// A variable-length string value.
         StringValue(std::string::String),
         /// A distribution value.
@@ -5787,7 +5787,7 @@ pub mod label_value {
         /// A bool label value.
         BoolValue(bool),
         /// An int64 label value.
-        Int64Value(i64),
+        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A string label value.
         StringValue(std::string::String),
     }

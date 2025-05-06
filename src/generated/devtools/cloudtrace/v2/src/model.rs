@@ -1360,7 +1360,7 @@ pub mod attribute_value {
         /// A string up to 256 bytes long.
         StringValue(std::boxed::Box<crate::model::TruncatableString>),
         /// A 64-bit signed integer.
-        IntValue(i64),
+        IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A Boolean value represented by `true` or `false`.
         BoolValue(bool),
     }

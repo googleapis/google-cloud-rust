@@ -17420,7 +17420,7 @@ pub mod qa_question {
             /// String value.
             StrValue(std::string::String),
             /// Numerical value.
-            NumValue(f64),
+            NumValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// Boolean value.
             BoolValue(bool),
             /// A value of "Not Applicable (N/A)". If provided, this field may only
@@ -18186,7 +18186,7 @@ pub mod qa_answer {
             /// String value.
             StrValue(std::string::String),
             /// Numerical value.
-            NumValue(f64),
+            NumValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// Boolean value.
             BoolValue(bool),
             /// A value of "Not Applicable (N/A)". Should only ever be `true`.

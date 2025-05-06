@@ -5057,7 +5057,7 @@ pub mod document_input_config {
     #[non_exhaustive]
     pub enum Source {
         /// Document's content represented as a stream of bytes.
-        Content(::bytes::Bytes),
+        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Google Cloud Storage location. This must be a single file.
         /// For example: gs://example_bucket/example_file.pdf
         GcsSource(std::boxed::Box<crate::model::GcsSource>),

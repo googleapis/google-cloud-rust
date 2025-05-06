@@ -3229,7 +3229,7 @@ pub mod drop_row_range_request {
     pub enum Target {
         /// Delete all rows that start with this row key prefix. Prefix cannot be
         /// zero length.
-        RowKeyPrefix(::bytes::Bytes),
+        RowKeyPrefix(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Delete all rows in the table. Setting this to false is a no-op.
         DeleteAllDataFromTable(bool),
     }

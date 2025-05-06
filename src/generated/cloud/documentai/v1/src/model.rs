@@ -3325,7 +3325,7 @@ pub mod document {
                 /// Integer value.
                 IntegerValue(i32),
                 /// Float value.
-                FloatValue(f32),
+                FloatValue(#[serde_as(as = "wkt::internal::F32")] f32),
             }
         }
     }
@@ -5426,7 +5426,7 @@ pub mod document {
         /// Optional. Inline document content, represented as a stream of bytes.
         /// Note: As with all `bytes` fields, protobuffers use a pure binary
         /// representation, whereas JSON representations use base64.
-        Content(::bytes::Bytes),
+        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 

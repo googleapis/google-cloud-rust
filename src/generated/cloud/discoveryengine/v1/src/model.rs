@@ -2754,9 +2754,9 @@ pub mod interval {
     #[non_exhaustive]
     pub enum Min {
         /// Inclusive lower bound.
-        Minimum(f64),
+        Minimum(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Exclusive lower bound.
-        ExclusiveMinimum(f64),
+        ExclusiveMinimum(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 
     /// The upper bound of the interval. If neither of the max fields are
@@ -2769,9 +2769,9 @@ pub mod interval {
     #[non_exhaustive]
     pub enum Max {
         /// Inclusive upper bound.
-        Maximum(f64),
+        Maximum(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Exclusive upper bound.
-        ExclusiveMaximum(f64),
+        ExclusiveMaximum(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 }
 
@@ -3393,10 +3393,10 @@ pub mod completion_suggestion {
     pub enum RankingInfo {
         /// Global score of this suggestion. Control how this suggestion would be
         /// scored / ranked.
-        GlobalScore(f64),
+        GlobalScore(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Frequency of this suggestion. Will be used to rank suggestions when score
         /// is not available.
-        Frequency(i64),
+        Frequency(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
     }
 }
 
@@ -4681,7 +4681,7 @@ pub mod control {
         pub enum BoostSpec {
             /// Optional. Strength of the boost, which should be in [-1, 1]. Negative
             /// boost means demotion. Default is 0.0 (No-op).
-            FixedBoost(f32),
+            FixedBoost(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Optional. Complex specification for custom ranking based on customer
             /// defined attribute value.
             InterpolationBoostSpec(
@@ -11240,7 +11240,7 @@ pub mod document {
             /// example, `abc123!?$*&()'-=@~` should be represented as
             /// `YWJjMTIzIT8kKiYoKSctPUB+` in JSON. See
             /// <https://developers.google.com/protocol-buffers/docs/proto3#json>.
-            RawBytes(::bytes::Bytes),
+            RawBytes(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
             /// The URI of the content. Only Cloud Storage URIs (e.g.
             /// `gs://bucket-name/path/to/file`) are supported. The maximum file size
             /// is 2.5 MB for text-based formats, 200 MB for other formats.
@@ -28774,9 +28774,9 @@ pub mod serving_config {
         pub enum DemoteContentWatched {
             /// Specifies the content watched percentage threshold for demotion.
             /// Threshold value must be between [0, 1.0] inclusive.
-            ContentWatchedPercentageThreshold(f32),
+            ContentWatchedPercentageThreshold(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Specifies the content watched minutes threshold for demotion.
-            ContentWatchedSecondsThreshold(f32),
+            ContentWatchedSecondsThreshold(#[serde_as(as = "wkt::internal::F32")] f32),
         }
     }
 

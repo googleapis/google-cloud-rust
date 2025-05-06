@@ -8620,9 +8620,9 @@ pub mod value {
     #[non_exhaustive]
     pub enum Type {
         /// integer
-        IntegerValue(i64),
+        IntegerValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// float
-        FloatValue(f64),
+        FloatValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// string
         StringValue(std::string::String),
         /// boolean
@@ -18389,9 +18389,9 @@ pub mod data_profile_location {
     #[non_exhaustive]
     pub enum Location {
         /// The ID of an organization to scan.
-        OrganizationId(i64),
+        OrganizationId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// The ID of the folder within an organization to scan.
-        FolderId(i64),
+        FolderId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
     }
 }
 
@@ -23885,9 +23885,9 @@ pub mod discovery_starting_location {
     #[non_exhaustive]
     pub enum Location {
         /// The ID of an organization to scan.
-        OrganizationId(i64),
+        OrganizationId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// The ID of the folder within an organization to be scanned.
-        FolderId(i64),
+        FolderId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
     }
 }
 
@@ -35774,7 +35774,7 @@ pub mod key {
             /// The auto-allocated ID of the entity.
             /// Never equal to zero. Values less than zero are discouraged and may not
             /// be supported in the future.
-            Id(i64),
+            Id(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
             /// The name of the entity.
             /// A name matching regex `__.*__` is reserved/read-only.
             /// A name must not be more than 1500 bytes when UTF-8 encoded.
