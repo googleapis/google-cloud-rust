@@ -54,5 +54,5 @@ pub mod retry_policy;
 pub mod retry_throttler;
 
 #[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod retry_loop_internal;
