@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.1.0"
+version     = "0.2.0"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -32,8 +32,8 @@ rust-version.workspace = true
 features = []
 
 [features]
-_internal_http_client = [
-  "_internal_common",
+_internal-http-client = [
+  "_internal-common",
   "dep:auth",
   "dep:reqwest",
   "dep:rpc",
@@ -42,8 +42,8 @@ _internal_http_client = [
   "dep:tokio",
   "gax/unstable-sdk-client",
 ]
-_internal_grpc_client = [
-  "_internal_common",
+_internal-grpc-client = [
+  "_internal-common",
   "dep:auth",
   "dep:gax",
   "dep:prost",
@@ -54,7 +54,7 @@ _internal_grpc_client = [
   "dep:tonic",
   "dep:wkt",
 ]
-_internal_common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
+_internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
 
 [dependencies]
 bytes            = { version = "1", features = ["serde"] }

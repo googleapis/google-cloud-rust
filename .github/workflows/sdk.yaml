@@ -112,9 +112,9 @@ jobs:
           echo "==== google-cloud-gax-internal ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_common
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_http_client
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_grpc_client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-common
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-grpc-client
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
           cargo clippy --no-deps --package google-cloud-gax-internal --all-features --all-targets --profile=test -- --deny warnings

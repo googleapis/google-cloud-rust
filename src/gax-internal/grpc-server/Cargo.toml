@@ -35,7 +35,7 @@ tonic            = { workspace = true, default-features = true }
 # Local dependencies
 auth = { path = "../../auth", package = "google-cloud-auth" }
 gax  = { path = "../../gax", package = "google-cloud-gax" }
-gaxi = { path = "../../gax-internal", package = "google-cloud-gax-internal", features = ["_internal_grpc_client"] }
+gaxi = { path = "../../gax-internal", package = "google-cloud-gax-internal", features = ["_internal-grpc-client"] }
 
 [build-dependencies]
 tonic-build = { workspace = true, optional = true }
