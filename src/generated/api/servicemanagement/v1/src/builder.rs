@@ -263,7 +263,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
@@ -348,7 +348,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
@@ -436,7 +436,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
@@ -732,7 +732,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
@@ -980,7 +980,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].

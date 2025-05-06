@@ -457,7 +457,7 @@ pub mod text_to_speech_long_audio_synthesize {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::SynthesizeLongAudioRequest::parent].

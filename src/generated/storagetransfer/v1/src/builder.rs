@@ -548,7 +548,7 @@ pub mod storage_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [job_name][crate::model::RunTransferJobRequest::job_name].
