@@ -19,7 +19,9 @@
 //! This is a local service to the VM (or pod) which (as the name implies) provides
 //! metadata information about the VM. The service also provides access
 //! tokens associated with the [default service account] for the corresponding
-//! VM. The default host name of the metadata service is `metadata.google.internal`.
+//! VM.
+//!
+//! The default host name of the metadata service is `metadata.google.internal`.
 //! If you would like to use a different hostname, you can set it using the
 //! `GCE_METADATA_HOST` environment variable.
 //!
@@ -488,7 +490,10 @@ mod test {
         .await;
 
         // Trim out 'http://' from the endpoint provided by the fake server
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &endpoint[7..]);
+        let _e = ScopedEnv::set(
+            super::GCE_METADATA_HOST_ENV_VAR,
+            &endpoint.strip_prefix("http://").unwrap_or(&endpoint),
+        );
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
             .build()
