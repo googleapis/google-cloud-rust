@@ -21,7 +21,7 @@ pub async fn run_query(builder: bigquery::client::ClientBuilder) -> Result<()> {
     let client = builder.build().await?;
 
     let mut query = client
-        .start_query(project_id.as_str(), "SELECT 17 as foo".to_string())
+        .start_query_from_sql(project_id.as_str(), "SELECT 17 as foo".to_string())
         .await?;
 
     query.wait().await?;

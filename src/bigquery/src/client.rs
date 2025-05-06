@@ -62,17 +62,45 @@ impl QueryClient {
     ///     Ok(())
     /// }
     /// ```
-    pub async fn start_query(&self, project_id: &str, sql: String) -> gax::Result<QueryResult> {
+    pub async fn start_query_from_sql(
+        &self,
+        project_id: &str,
+        sql: String,
+    ) -> gax::Result<QueryResult> {
+        let req = bigquery_v2::model::QueryRequest::new().set_query(sql);
+        let query_result = self.start_query(project_id, req).await?;
+        Ok(query_result)
+    }
+
+    /// Start a QueryRequest and returns a QueryResult handler to monitor progress.
+    ///
+    /// # Parameters
+    /// * `sql` - Query to run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::QueryClient;
+    /// async fn example(client: &QueryClient) -> gax::Result<()> {
+    ///     client.start_query("SELECT 17 as foo").send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub async fn start_query(
+        &self,
+        project_id: &str,
+        req: bigquery_v2::model::QueryRequest,
+    ) -> gax::Result<QueryResult> {
         let res = self
             .job_service
             .query(project_id)
-            .set_query_request(bigquery_v2::model::QueryRequest::new().set_query(sql))
+            .set_query_request(req)
             .send()
             .await?;
 
         let mut query_result: QueryResult<'_> = QueryResult {
             inner: self,
             project_id: project_id.to_owned(),
+            schema: None,
             query_id: None,
             page_token: String::default(),
             job_id: String::default(),
@@ -80,19 +108,7 @@ impl QueryClient {
             completed: false,
             cached_rows: Vec::new(),
         };
-        if let Some(job_complete) = res.job_complete {
-            if job_complete {
-                if let Some(job_ref) = res.job_reference {
-                    query_result.job_id = job_ref.job_id.to_owned();
-                    if let Some(location) = job_ref.location {
-                        query_result.location = location;
-                    }
-                }
-                query_result.completed = job_complete;
-            }
-            query_result.page_token = res.page_token;
-            query_result.cached_rows = res.rows;
-        }
+        query_result.consume_query_response(res);
 
         Ok(query_result)
     }
@@ -103,8 +119,10 @@ impl QueryClient {
     }
 }
 
+#[derive(Debug)]
 pub struct QueryResult<'a> {
     pub(crate) inner: &'a QueryClient,
+    pub schema: Option<bigquery_v2::model::TableSchema>,
     pub project_id: String,
     pub location: String,
     pub page_token: String,
@@ -147,16 +165,38 @@ impl QueryResult<'_> {
             .get_query_results(self.project_id.to_owned().as_str(), self.job_id.as_str())
     }
 
-    pub(crate) async fn poll_job(&mut self) -> gax::Result<bool> {
-        let res = self.get_query_results().set_max_results(0).send().await?;
-
+    pub(crate) fn consume_query_response(&mut self, res: bigquery_v2::model::QueryResponse) {
         if let Some(job_complete) = res.job_complete {
             if job_complete {
+                if let Some(job_ref) = res.job_reference {
+                    self.job_id = job_ref.job_id.to_owned();
+                    if let Some(location) = job_ref.location {
+                        self.location = location;
+                    }
+                }
                 self.completed = job_complete;
-                return Ok(job_complete);
+            }
+            self.schema = res.schema;
+            self.page_token = res.page_token;
+            self.cached_rows = res.rows;
+            if res.query_id != "" {
+                self.query_id = Some(res.query_id);
             }
         }
-        return Ok(false);
+    }
+
+    pub(crate) async fn poll_job(&mut self) -> gax::Result<bool> {
+        let res = self.get_query_results().set_max_results(0).send().await?;
+        self.consume_query_response(
+            bigquery_v2::model::QueryResponse::new()
+                .set_job_complete(res.job_complete)
+                .set_job_reference(res.job_reference)
+                .set_total_rows(res.total_rows)
+                .set_rows(res.rows)
+                .set_schema(res.schema)
+                .set_page_token(res.page_token),
+        );
+        return Ok(self.completed);
     }
 }
 
