@@ -996,6 +996,7 @@ pub mod answer {
         }
 
         /// Search result content.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1510,6 +1511,7 @@ pub mod answer {
             }
 
             /// The action.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -2749,6 +2751,7 @@ pub mod interval {
     ///
     /// This field must be not larger than max.
     /// Otherwise, an `INVALID_ARGUMENT` error is returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2764,6 +2767,7 @@ pub mod interval {
     ///
     /// This field must be not smaller than min.
     /// Otherwise, an `INVALID_ARGUMENT` error is returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3387,6 +3391,7 @@ pub mod completion_suggestion {
     use super::*;
 
     /// Ranking metrics of this suggestion.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4675,6 +4680,7 @@ pub mod control {
         }
 
         /// Constant value boost or custom ranking based boost specifications.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4876,6 +4882,7 @@ pub mod control {
     /// Actions are restricted by Vertical and Solution
     ///
     /// Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5696,6 +5703,7 @@ pub mod conversation_message {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8073,6 +8081,7 @@ pub mod answer_query_request {
                 }
 
                 /// Search result content.
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -8087,6 +8096,7 @@ pub mod answer_query_request {
 
         /// Search parameters to control the search behavior.
         /// Or provide search result list to generate answer.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -8803,6 +8813,7 @@ pub mod answer_query_request {
             }
 
             /// Search result content.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -11228,6 +11239,7 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -11321,6 +11333,7 @@ pub mod document {
     ///
     /// [google.cloud.discoveryengine.v1.Document.json_data]: crate::model::Document::data
     /// [google.cloud.discoveryengine.v1.Document.struct_data]: crate::model::Document::data
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11587,6 +11600,7 @@ pub mod document_processing_config {
         }
 
         /// Additional configs that defines the behavior of the chunking.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -11837,6 +11851,7 @@ pub mod document_processing_config {
         }
 
         /// Configs for document processing types.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12555,6 +12570,7 @@ pub mod batch_get_documents_metadata_request {
         /// Matcher for the [Document][google.cloud.discoveryengine.v1.Document]s.
         ///
         /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12824,6 +12840,7 @@ pub mod batch_get_documents_metadata_response {
             /// [Document][google.cloud.discoveryengine.v1.Document].
             ///
             /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -13643,6 +13660,7 @@ pub mod engine {
     }
 
     /// Additional config specs that defines the behavior of the engine.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13664,6 +13682,7 @@ pub mod engine {
     }
 
     /// Engine metadata to monitor the status of the engine.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14275,6 +14294,7 @@ pub mod grounded_generation_content {
         use super::*;
 
         /// Holder of data. It only supports text for now.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -15135,6 +15155,7 @@ pub mod generate_grounded_content_request {
         }
 
         /// Sources.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -16879,6 +16900,7 @@ pub mod big_query_source {
 
     /// BigQuery table partition info. Leave this empty if the BigQuery table
     /// is not partitioned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17978,6 +18000,7 @@ pub mod import_error_config {
     use super::*;
 
     /// Required. Errors destination.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -18193,6 +18216,7 @@ pub mod import_user_events_request {
     }
 
     /// Required - The desired input source of the user event data.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19118,6 +19142,7 @@ pub mod import_documents_request {
     }
 
     /// Required. The source of the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19371,6 +19396,7 @@ pub mod import_suggestion_deny_list_entries_request {
     }
 
     /// The source of the updated SuggestionDenyList.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19720,6 +19746,7 @@ pub mod import_completion_suggestions_request {
     }
 
     /// The source of the autocomplete suggestions.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20566,6 +20593,7 @@ pub mod purge_error_config {
     use super::*;
 
     /// Required. Errors destination.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20782,6 +20810,7 @@ pub mod purge_documents_request {
     }
 
     /// The desired input source for the purging documents based on document IDs.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22359,6 +22388,7 @@ pub mod schema {
     ///
     /// [google.cloud.discoveryengine.v1.Schema.json_schema]: crate::model::Schema::schema
     /// [google.cloud.discoveryengine.v1.Schema.struct_schema]: crate::model::Schema::schema
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23528,6 +23558,7 @@ pub mod search_request {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -26808,6 +26839,7 @@ pub mod search_response {
             use super::*;
 
             /// A facet value which contains values.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -27968,6 +28000,7 @@ pub mod train_custom_model_request {
     }
 
     /// Model training input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -28768,6 +28801,7 @@ pub mod serving_config {
         /// Specify the threshold for demoting watched content, the threshold can be
         /// either percentage or minutes value.
         /// This must be set for `media-complete` event type.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -28825,6 +28859,7 @@ pub mod serving_config {
     }
 
     /// Industry vertical specific config.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -29290,6 +29325,7 @@ pub mod query {
     use super::*;
 
     /// Query content.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -29611,6 +29647,7 @@ pub mod target_site {
         }
 
         /// Failure reason.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -30193,6 +30230,7 @@ pub mod sitemap {
     use super::*;
 
     /// Supported feed sources.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -31203,6 +31241,7 @@ pub mod fetch_sitemaps_request {
         /// Matcher for the [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s.
         ///
         /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -33560,6 +33599,7 @@ pub mod document_info {
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
     /// [google.cloud.discoveryengine.v1.DocumentInfo.id]: crate::model::DocumentInfo::document_descriptor
     /// [google.cloud.discoveryengine.v1.DocumentInfo.name]: crate::model::DocumentInfo::document_descriptor
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

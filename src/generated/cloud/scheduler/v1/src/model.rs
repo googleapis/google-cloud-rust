@@ -979,6 +979,7 @@ pub mod job {
     /// Required.
     ///
     /// Delivery settings containing destination and parameters.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1358,6 +1359,7 @@ pub mod http_target {
     /// will be overridden.
     ///
     /// [google.cloud.scheduler.v1.HttpTarget.headers]: crate::model::HttpTarget::headers
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

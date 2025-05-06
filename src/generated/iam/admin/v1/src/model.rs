@@ -3330,6 +3330,7 @@ pub mod lint_policy_request {
     use super::*;
 
     /// Required. The Cloud IAM object to be linted.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

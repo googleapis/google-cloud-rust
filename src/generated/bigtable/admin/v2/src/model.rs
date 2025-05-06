@@ -2700,6 +2700,7 @@ pub mod restore_table_request {
     use super::*;
 
     /// Required. The source from which to restore.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2859,6 +2860,7 @@ pub mod restore_table_metadata {
     /// [RestoreTableRequest][google.bigtable.admin.v2.RestoreTableRequest].
     ///
     /// [google.bigtable.admin.v2.RestoreTableRequest]: crate::model::RestoreTableRequest
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3223,6 +3225,7 @@ pub mod drop_row_range_request {
     use super::*;
 
     /// Delete all rows or by prefix.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3919,6 +3922,7 @@ pub mod modify_column_families_request {
         use super::*;
 
         /// Column family modifications.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4151,6 +4155,7 @@ pub mod check_consistency_request {
 
     /// Which type of read needs to consistently observe which type of write?
     /// Default: `standard_read_remote_writes`
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7004,6 +7009,7 @@ pub mod cluster {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7429,6 +7435,7 @@ pub mod app_profile {
         /// under *most* circumstances, without sacrificing availability. Consistency
         /// is *not* guaranteed, as requests might still fail over between clusters
         /// in the event of errors or latency.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -7840,6 +7847,7 @@ pub mod app_profile {
 
     /// The routing policy for all read/write requests that use this app profile.
     /// A value must be explicitly set.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7853,6 +7861,7 @@ pub mod app_profile {
     }
 
     /// Options for isolating this app profile's traffic from other use cases.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8189,6 +8198,7 @@ pub mod restore_info {
     use super::*;
 
     /// Information about the source used to restore the table.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9059,6 +9069,7 @@ pub mod table {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9442,6 +9453,7 @@ pub mod authorized_view {
     }
 
     /// The type of this AuthorizedView.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9729,6 +9741,7 @@ pub mod gc_rule {
     }
 
     /// Garbage collection rules.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11283,6 +11296,7 @@ pub mod r#type {
             }
 
             /// Which encoding to use.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -11516,6 +11530,7 @@ pub mod r#type {
             }
 
             /// Which encoding to use.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -11768,6 +11783,7 @@ pub mod r#type {
             }
 
             /// Which encoding to use.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -11977,6 +11993,7 @@ pub mod r#type {
             use super::*;
 
             /// Which encoding to use.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -12419,6 +12436,7 @@ pub mod r#type {
             }
 
             /// Which encoding to use.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -12846,6 +12864,7 @@ pub mod r#type {
         }
 
         /// Which aggregator function to use. The configured types must match.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12864,6 +12883,7 @@ pub mod r#type {
     }
 
     /// The kind of type that this represents.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

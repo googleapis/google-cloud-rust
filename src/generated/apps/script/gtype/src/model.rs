@@ -456,6 +456,7 @@ pub mod universal_action_extension_point {
 
     /// Required. The action type supported on a universal action menu item. It
     /// could be either a link to open or an endpoint to execute.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

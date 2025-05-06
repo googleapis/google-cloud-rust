@@ -9122,6 +9122,7 @@ pub mod external_access_rule {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -13179,6 +13180,7 @@ pub mod management_dns_zone_binding {
     /// Required. The relative resource name of the network to bind to the
     /// management DNS zone. This network can be a consumer VPC network or a
     /// VMware engine network.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14932,6 +14934,7 @@ pub mod principal {
     /// The consumer provided user/service account which needs to be
     /// granted permission to DNS bind with the intranet VPC corresponding to the
     /// consumer project.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

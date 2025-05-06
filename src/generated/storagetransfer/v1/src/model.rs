@@ -1512,6 +1512,7 @@ pub mod aws_s_3_data {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1910,6 +1911,7 @@ pub mod aws_s_3_compatible_data {
     /// Specifies the metadata of the S3 compatible data provider. Each provider
     /// may contain some attributes that do not apply to all S3-compatible data
     /// providers. When not specified, S3CompatibleMetadata is used by default.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3523,6 +3525,7 @@ pub mod transfer_spec {
     use super::*;
 
     /// The write sink for the data.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3534,6 +3537,7 @@ pub mod transfer_spec {
     }
 
     /// The read source of the data.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3554,6 +3558,7 @@ pub mod transfer_spec {
         HdfsDataSource(std::boxed::Box<crate::model::HdfsData>),
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3728,6 +3733,7 @@ pub mod replication_spec {
     use super::*;
 
     /// The data source to be replicated.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3737,6 +3743,7 @@ pub mod replication_spec {
     }
 
     /// The destination for replicated objects.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

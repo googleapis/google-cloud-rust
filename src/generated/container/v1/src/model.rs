@@ -3063,6 +3063,7 @@ pub mod containerd_config {
             /// Certificate access config. The following are supported:
             ///
             /// - GCPSecretManagerCertificateConfig
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -10143,6 +10144,7 @@ pub mod operation_progress {
         use super::*;
 
         /// Strictly one of the values is required.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12982,6 +12984,7 @@ pub mod blue_green_settings {
         use super::*;
 
         /// Blue pool size to drain in a batch.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12995,6 +12998,7 @@ pub mod blue_green_settings {
     }
 
     /// The rollout policy controls the general rollout progress of blue-green.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14520,6 +14524,7 @@ pub mod maintenance_window {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14636,6 +14641,7 @@ pub mod time_window {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

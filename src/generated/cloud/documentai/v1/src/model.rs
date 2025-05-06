@@ -3303,6 +3303,7 @@ pub mod document {
             /// Must match entity type defined in schema if
             /// known. If this field is present, the `text` field could also be
             /// populated.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -4396,6 +4397,7 @@ pub mod document {
         }
 
         /// Who/what made the change
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5080,6 +5082,7 @@ pub mod document {
                 }
             }
 
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -5414,6 +5417,7 @@ pub mod document {
     }
 
     /// Original source document from the user.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5707,6 +5711,7 @@ pub mod batch_documents_input_config {
 
     /// The source. Make sure that the caller of the API has storage.objects.get
     /// access to the buckets.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5914,6 +5919,7 @@ pub mod document_output_config {
     }
 
     /// The destination of the results.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6509,6 +6515,7 @@ pub mod process_options {
     ///
     /// [google.cloud.documentai.v1.Document.Page.page_number]: crate::model::document::Page::page_number
     /// [google.cloud.documentai.v1.DocumentProcessorService.ProcessDocument]: crate::client::DocumentProcessorService::process_document
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6751,6 +6758,7 @@ pub mod process_request {
     use super::*;
 
     /// The document payload.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9323,6 +9331,7 @@ pub mod train_processor_version_request {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9796,6 +9805,7 @@ pub mod review_document_request {
     }
 
     /// The document payload.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10863,6 +10873,7 @@ pub mod document_schema {
             }
         }
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12648,6 +12659,7 @@ pub mod processor_version {
 
         /// The processor version is either a pretrained Google-managed foundation
         /// model or a custom Generative AI model created by the user.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

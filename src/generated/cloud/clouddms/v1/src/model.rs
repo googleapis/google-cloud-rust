@@ -824,6 +824,7 @@ pub mod generate_ssh_script_request {
     use super::*;
 
     /// The VM configuration
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2528,6 +2529,7 @@ pub mod apply_conversion_workspace_request {
     use super::*;
 
     /// Which destination to use when applying the conversion workspace.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2830,6 +2832,7 @@ pub mod seed_conversion_workspace_request {
     /// The input to be used for seeding the conversion workspace. The input can
     /// either be from the source or destination databases and it can be provided
     /// through a connection profile or a DDL file.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4312,6 +4315,7 @@ pub mod postgre_sql_connection_profile {
     use super::*;
 
     /// Connectivity options used to establish a connection to the database server.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4556,6 +4560,7 @@ pub mod oracle_connection_profile {
     use super::*;
 
     /// Connectivity options used to establish a connection to the database server.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4816,6 +4821,7 @@ pub mod sql_acl_entry {
     use super::*;
 
     /// The access control entry entry expiration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6582,6 +6588,7 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7904,6 +7911,7 @@ pub mod migration_job {
     }
 
     /// The connectivity method.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8444,6 +8452,7 @@ pub mod connection_profile {
     }
 
     /// The connection profile definition.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9207,6 +9216,7 @@ pub mod private_connection {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10024,6 +10034,7 @@ pub mod background_job_log_entry {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10767,6 +10778,7 @@ pub mod mapping_rule {
     }
 
     /// The rule specific details.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11344,6 +11356,7 @@ pub mod multi_column_datatype_change {
     use super::*;
 
     /// Filter on source column parameters.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11625,6 +11638,7 @@ pub mod conditional_column_set_value {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11988,6 +12002,7 @@ pub mod value_transformation {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12004,6 +12019,7 @@ pub mod value_transformation {
         DoubleComparison(std::boxed::Box<crate::model::DoubleComparisonFilter>),
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12525,6 +12541,7 @@ pub mod apply_hash {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13160,6 +13177,7 @@ pub mod database_entity {
     }
 
     /// The specific body for each entity type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

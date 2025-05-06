@@ -313,6 +313,7 @@ pub mod exclusion_rule {
     use super::*;
 
     /// Exclusion rule types.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -438,6 +439,7 @@ pub mod inspection_rule {
     use super::*;
 
     /// Inspection rule types.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1316,6 +1318,7 @@ pub mod content_item {
     use super::*;
 
     /// Data of the item either in the byte array or UTF-8 string form, or table.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1981,6 +1984,7 @@ pub mod content_location {
     use super::*;
 
     /// Type of the container within the file with location of the finding.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2084,6 +2088,7 @@ pub mod metadata_location {
 
     /// Label of the piece of metadata containing the finding, for example -
     /// latitude, author, caption.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2765,6 +2770,7 @@ pub mod redact_image_request {
         use super::*;
 
         /// Type of information to redact from images.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3683,6 +3689,7 @@ pub mod output_storage_config {
     }
 
     /// Output storage types.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4100,6 +4107,7 @@ pub mod data_profile_big_query_row_schema {
     use super::*;
 
     /// Data profile type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4253,6 +4261,7 @@ pub mod action_details {
     use super::*;
 
     /// Summary of what occurred in the actions.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5539,6 +5548,7 @@ pub mod info_type_category {
     }
 
     /// Categories of infotypes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5903,6 +5913,7 @@ pub mod quasi_id {
     /// Semantic tag that identifies what a column contains, to determine which
     /// statistical model to use to estimate the reidentifiability of each
     /// value. [required]
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6712,6 +6723,7 @@ pub mod privacy_metric {
             /// Semantic tag that identifies what a column contains, to determine which
             /// statistical model to use to estimate the reidentifiability of each
             /// value. [required]
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -6936,6 +6948,7 @@ pub mod privacy_metric {
     }
 
     /// Types of analysis.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8305,6 +8318,7 @@ pub mod analyze_data_source_risk_details {
     }
 
     /// Values associated with this metric.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8615,6 +8629,7 @@ pub mod value {
     use super::*;
 
     /// Value types
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8709,6 +8724,7 @@ pub mod quote_info {
     use super::*;
 
     /// Object representation of the quote.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8990,6 +9006,7 @@ pub mod deidentify_config {
     use super::*;
 
     /// Type of transformation
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9310,6 +9327,7 @@ pub mod image_transformations {
         }
 
         /// Part of the image to transform.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -9509,6 +9527,7 @@ pub mod transformation_error_handling {
     }
 
     /// How transformation errors should be handled.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9962,6 +9981,7 @@ pub mod primitive_transformation {
     use super::*;
 
     /// Type of transformation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10466,6 +10486,7 @@ pub mod replace_dictionary_config {
     use super::*;
 
     /// Type of dictionary.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10785,6 +10806,7 @@ pub mod chars_to_ignore {
     }
 
     /// Type of characters to skip.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11481,6 +11503,7 @@ pub mod crypto_replace_ffx_fpe_config {
     }
 
     /// Choose an alphabet which the data being transformed will be made up of.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11640,6 +11663,7 @@ pub mod crypto_key {
     use super::*;
 
     /// Sources of crypto keys.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11894,6 +11918,7 @@ pub mod date_shift_config {
 
     /// Method for calculating shift that takes context into consideration. If
     /// set, must also set context. Can only be applied to table items.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12159,6 +12184,7 @@ pub mod field_transformation {
     use super::*;
 
     /// Transformation to apply. [required]
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12646,6 +12672,7 @@ pub mod record_condition {
         }
 
         /// Expression types.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -13337,6 +13364,7 @@ pub mod transformation_location {
     use super::*;
 
     /// Location type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13539,6 +13567,7 @@ pub mod transformation_details_storage_config {
     use super::*;
 
     /// Location to store the transformation summary.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13629,6 +13658,7 @@ pub mod schedule {
     use super::*;
 
     /// Type of schedule.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14369,6 +14399,7 @@ pub mod job_trigger {
         use super::*;
 
         /// What event needs to occur for a new job to be started.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -14523,6 +14554,7 @@ pub mod job_trigger {
     }
 
     /// The configuration details for the specific type of job to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15085,6 +15117,7 @@ pub mod action {
         use super::*;
 
         /// Where to store the output.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -15150,6 +15183,7 @@ pub mod action {
     }
 
     /// Extra events to execute after the job has finished.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16362,6 +16396,7 @@ pub mod create_dlp_job_request {
     use super::*;
 
     /// The configuration details for the specific type of job to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17462,6 +17497,7 @@ pub mod data_profile_action {
             use super::*;
 
             /// The type of condition on which attaching the tag will be predicated.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -17552,6 +17588,7 @@ pub mod data_profile_action {
             use super::*;
 
             /// The format of the tag value.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -17713,6 +17750,7 @@ pub mod data_profile_action {
     }
 
     /// Type of action to execute when a profile is generated.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17964,6 +18002,7 @@ pub mod data_profile_finding_location {
     /// Additional location details that may be provided for some types of
     /// profiles. At this time, only findings for table data profiles include such
     /// details.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -18384,6 +18423,7 @@ pub mod data_profile_location {
     use super::*;
 
     /// The location to be scanned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19048,6 +19088,7 @@ pub mod discovery_target {
     use super::*;
 
     /// A target to match against for Discovery.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19224,6 +19265,7 @@ pub mod big_query_discovery_target {
     /// The generation rule includes the logic on how frequently
     /// to update the data profiles. If not specified, discovery will re-run and
     /// update no more than once a month if new columns appear in the table.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19415,6 +19457,7 @@ pub mod discovery_big_query_filter {
     /// within the location being profiled. The first filter to match will be
     /// applied, regardless of the condition. If none is set, will default to
     /// `other_tables`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19518,6 +19561,7 @@ pub mod big_query_table_collection {
 
     /// Maximum of 100 entries.
     /// The first filter containing a pattern that matches a table will be used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19722,6 +19766,7 @@ pub mod discovery_big_query_conditions {
     /// The type of BigQuery tables to scan. If nothing is set the default
     /// behavior is to scan only tables of type TABLE and to give errors
     /// for all unsupported tables.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20102,6 +20147,7 @@ pub mod cloud_sql_discovery_target {
     use super::*;
 
     /// Type of schedule.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20265,6 +20311,7 @@ pub mod discovery_cloud_sql_filter {
     /// other database resources within the location being profiled. The first
     /// filter to match will be applied, regardless of the condition. If none is
     /// set, will default to `others`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20365,6 +20412,7 @@ pub mod database_resource_collection {
 
     /// The first filter containing a pattern that matches a database resource will
     /// be used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -21376,6 +21424,7 @@ pub mod cloud_storage_discovery_target {
     use super::*;
 
     /// How often and when to update profiles.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -21539,6 +21588,7 @@ pub mod discovery_cloud_storage_filter {
     /// other buckets within the location being profiled. The first
     /// filter to match will be applied, regardless of the condition. If none is
     /// set, will default to `others`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -21638,6 +21688,7 @@ pub mod file_store_collection {
 
     /// The first filter containing a pattern that matches a file store will
     /// be used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -21766,6 +21817,7 @@ pub mod file_store_regex {
     use super::*;
 
     /// The type of resource regex to use.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22444,6 +22496,7 @@ pub mod discovery_file_store_conditions {
     use super::*;
 
     /// File store specific conditions.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22615,6 +22668,7 @@ pub mod other_cloud_discovery_target {
     use super::*;
 
     /// Type of cadence.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22772,6 +22826,7 @@ pub mod discovery_other_cloud_filter {
     /// Whether the filter applies to a specific set of resources or all
     /// other resources. The first filter to match will be applied, regardless of
     /// the condition. Defaults to `others` if none is set.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22869,6 +22924,7 @@ pub mod other_cloud_resource_collection {
     use super::*;
 
     /// The first filter containing a pattern that matches a resource will be used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23003,6 +23059,7 @@ pub mod other_cloud_resource_regex {
     use super::*;
 
     /// The type of resource regex to use.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23180,6 +23237,7 @@ pub mod other_cloud_single_resource_reference {
     use super::*;
 
     /// The resource to scan.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23361,6 +23419,7 @@ pub mod discovery_other_cloud_conditions {
     use super::*;
 
     /// The conditions to apply.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23880,6 +23939,7 @@ pub mod discovery_starting_location {
     use super::*;
 
     /// The location to be scanned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24065,6 +24125,7 @@ pub mod other_cloud_discovery_starting_location {
         use super::*;
 
         /// The scope of this starting location.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -24081,6 +24142,7 @@ pub mod other_cloud_discovery_starting_location {
     }
 
     /// The other cloud starting location for discovery.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24257,6 +24319,7 @@ pub mod vertex_dataset_discovery_target {
     use super::*;
 
     /// Type of schedule.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24418,6 +24481,7 @@ pub mod discovery_vertex_dataset_filter {
     /// other datasets within the location being profiled. The first
     /// filter to match will be applied, regardless of the condition. If none is
     /// set, this field defaults to `others`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24515,6 +24579,7 @@ pub mod vertex_dataset_collection {
     use super::*;
 
     /// The pattern used to filter dataset resources.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -25144,6 +25209,7 @@ pub mod dlp_job {
     }
 
     /// Job details.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -26023,6 +26089,7 @@ pub mod large_custom_dictionary_config {
     use super::*;
 
     /// Source of the dictionary.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -26228,6 +26295,7 @@ pub mod stored_info_type_config {
     use super::*;
 
     /// Stored infotype types.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -26319,6 +26387,7 @@ pub mod stored_info_type_stats {
     use super::*;
 
     /// Stat types
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -31005,6 +31074,7 @@ pub mod data_profile_pub_sub_condition {
         use super::*;
 
         /// The value for the condition to trigger.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -31956,6 +32026,7 @@ pub mod connection {
     use super::*;
 
     /// Type of connection.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -32327,6 +32398,7 @@ pub mod cloud_sql_properties {
     }
 
     /// How to authenticate to the instance.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -32671,6 +32743,7 @@ pub mod file_cluster_type {
     }
 
     /// File cluster type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -33559,6 +33632,7 @@ pub mod custom_info_type {
         }
 
         /// The potential places the data can be read from.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -33881,6 +33955,7 @@ pub mod custom_info_type {
             use super::*;
 
             /// How the likelihood will be modified.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -33991,6 +34066,7 @@ pub mod custom_info_type {
         }
 
         /// Type of hotword rule.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -34129,6 +34205,7 @@ pub mod custom_info_type {
     }
 
     /// Type of custom detector.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -35388,6 +35465,7 @@ pub mod storage_config {
     }
 
     /// Type of storage system to inspect.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -35767,6 +35845,7 @@ pub mod key {
         use super::*;
 
         /// The type of ID.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -35898,6 +35977,7 @@ pub mod record_key {
     use super::*;
 
     /// Type of key
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

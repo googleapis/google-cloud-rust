@@ -1923,6 +1923,7 @@ pub mod backup_rule {
 
     /// The schedule that defines the automated backup workloads for this
     /// `BackupRule`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4717,6 +4718,7 @@ pub mod data_source {
 
     /// The source resource that is represented by this DataSource. It can be a
     /// Google Cloud resource, or one backed up by a Backup Appliance.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5035,6 +5037,7 @@ pub mod backup_config_info {
     }
 
     /// Configuration Info has the resource format-specific configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5342,6 +5345,7 @@ pub mod data_source_gcp_resource {
     use super::*;
 
     /// gcp_Properties has properties of the Google Cloud Resource.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5651,6 +5655,7 @@ pub mod backup_appliance_lock_info {
     use super::*;
 
     /// The information about this lock.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5789,6 +5794,7 @@ pub mod backup_lock {
     use super::*;
 
     /// Metadata about the owner and reason for the lock.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6476,6 +6482,7 @@ pub mod backup {
     }
 
     /// Workload specific backup properties.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6491,6 +6498,7 @@ pub mod backup {
     }
 
     /// Configuration Info has the resource format-specific configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7962,6 +7970,7 @@ pub mod restore_backup_request {
     use super::*;
 
     /// The target environment for the restore operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7973,6 +7982,7 @@ pub mod restore_backup_request {
     }
 
     /// The property overrides for the instance being restored.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8096,6 +8106,7 @@ pub mod target_resource {
     use super::*;
 
     /// Minimum details to identify the restored resource.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9500,6 +9511,7 @@ pub mod customer_encryption_key {
     use super::*;
 
     /// The key to use for encryption.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

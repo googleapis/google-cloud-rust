@@ -1150,6 +1150,7 @@ pub mod workstation_config {
         }
 
         /// Type of host that will be used for the workstation's runtime.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1517,6 +1518,7 @@ pub mod workstation_config {
         }
 
         /// How a persistent directory should be implemented.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3665,6 +3667,7 @@ pub mod generate_access_token_request {
     use super::*;
 
     /// Desired expiration or lifetime of the access token.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

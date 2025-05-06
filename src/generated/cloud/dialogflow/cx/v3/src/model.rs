@@ -971,6 +971,7 @@ pub mod agent {
         }
 
         /// The git settings to specific systems.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1876,6 +1877,7 @@ pub mod export_agent_response {
     use super::*;
 
     /// The exported agent.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2225,6 +2227,7 @@ pub mod restore_agent_request {
     }
 
     /// Required. The agent to restore.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5904,6 +5907,7 @@ pub mod export_entity_types_request {
     }
 
     /// The destination to export.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6042,6 +6046,7 @@ pub mod export_entity_types_response {
     use super::*;
 
     /// Exported entity types can be either in cloud storage or local download.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6404,6 +6409,7 @@ pub mod import_entity_types_request {
     }
 
     /// Required. The entity types to import.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8621,6 +8627,7 @@ pub mod experiment {
 
         /// The variants of the experiment. We currently only support single variant
         /// experiment.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -8902,6 +8909,7 @@ pub mod experiment {
             use super::*;
 
             /// The actual value of the metric.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -9620,6 +9628,7 @@ pub mod variants_history {
 
     /// The variants updated. We currently only support single variant
     /// experiment.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11717,6 +11726,7 @@ pub mod import_flow_request {
     }
 
     /// Required. The flow to import.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11975,6 +11985,7 @@ pub mod export_flow_response {
     use super::*;
 
     /// The exported flow.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12431,6 +12442,7 @@ pub mod fulfillment {
                 use super::*;
 
                 /// Either a message is returned or additional cases to be evaluated.
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -14552,6 +14564,7 @@ pub mod import_intents_request {
     }
 
     /// Required. The intents to import.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15000,6 +15013,7 @@ pub mod export_intents_request {
     }
 
     /// The destination to export.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15126,6 +15140,7 @@ pub mod export_intents_response {
     use super::*;
 
     /// The exported intents.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15833,6 +15848,7 @@ pub mod event_handler {
     /// another flow in the same agent.
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRoute]: crate::model::TransitionRoute
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16046,6 +16062,7 @@ pub mod transition_route {
     /// another flow in the same agent.
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRoute]: crate::model::TransitionRoute
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16663,6 +16680,7 @@ pub mod knowledge_connector_settings {
     /// or another flow in the same agent.
     ///
     /// [google.cloud.dialogflow.cx.v3.KnowledgeConnectorSettings]: crate::model::KnowledgeConnectorSettings
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17353,6 +17371,7 @@ pub mod response_message {
         use super::*;
 
         /// The source, which is either plain text or SSML.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -17603,6 +17622,7 @@ pub mod response_message {
             use super::*;
 
             /// Content of the segment.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -17699,6 +17719,7 @@ pub mod response_message {
         use super::*;
 
         /// Endpoint to transfer the call to.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -17888,6 +17909,7 @@ pub mod response_message {
     }
 
     /// Required. The rich response message.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19402,6 +19424,7 @@ pub mod security_settings {
     /// Specifies how data is retained. Note that even if the data is
     /// purged due to retention policy, we may still hold it in backup storage for
     /// a few days without allowing direct readings.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20661,6 +20684,7 @@ pub mod streaming_detect_intent_response {
     use super::*;
 
     /// The output response.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22234,6 +22258,7 @@ pub mod query_input {
     use super::*;
 
     /// Required. The input specification.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -22750,6 +22775,7 @@ pub mod query_result {
     use super::*;
 
     /// The original conversational query.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23547,6 +23573,7 @@ pub mod match_intent_response {
     use super::*;
 
     /// The original conversational query.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -25262,6 +25289,7 @@ pub mod transition_coverage {
         use super::*;
 
         /// A TransitionNode can be either a page or a flow.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -25446,6 +25474,7 @@ pub mod transition_coverage {
         use super::*;
 
         /// The detailed transition.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -26088,6 +26117,7 @@ pub mod calculate_coverage_response {
     use super::*;
 
     /// The type of coverage requested.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -27001,6 +27031,7 @@ pub mod import_test_cases_request {
     use super::*;
 
     /// Required. The source to import.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -27404,6 +27435,7 @@ pub mod export_test_cases_request {
     }
 
     /// The destination to export.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -27523,6 +27555,7 @@ pub mod export_test_cases_response {
     use super::*;
 
     /// The exported test cases.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -30473,6 +30506,7 @@ pub mod webhook {
     }
 
     /// Required. The webhook configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -31356,6 +31390,7 @@ pub mod webhook_request {
     }
 
     /// The original conversational query.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -31748,6 +31783,7 @@ pub mod webhook_response {
     /// The target to transition to. This can be set optionally to indicate an
     /// immediate transition to a different page in the same host flow, or a
     /// different flow in the same agent.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

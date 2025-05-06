@@ -666,6 +666,7 @@ pub mod url_map {
     }
 
     /// Type of handler for this URL pattern.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4111,6 +4112,7 @@ pub mod audit_data {
     /// simple Get, List or Delete methods because all significant information
     /// (resource name, number of returned elements for List operations) is already
     /// included in parent audit log message.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6488,6 +6490,7 @@ pub mod operation_metadata_v_1 {
 
     /// Metadata specific to the type of operation in progress.
     /// @OutputOnly
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7532,6 +7535,7 @@ pub mod version {
     /// Controls how instances are created, scaled, and reaped.
     ///
     /// Defaults to `AutomaticScaling`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8851,6 +8855,7 @@ pub mod entrypoint {
     use super::*;
 
     /// The command to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

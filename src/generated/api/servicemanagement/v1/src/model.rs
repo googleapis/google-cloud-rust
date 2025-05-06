@@ -1337,6 +1337,7 @@ pub mod rollout {
     /// Strategy that defines which versions of service configurations should be
     /// pushed
     /// and how they should be used at runtime.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

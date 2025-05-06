@@ -725,6 +725,7 @@ pub mod migration_task {
     }
 
     /// The details of the task.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1142,6 +1143,7 @@ pub mod migration_task_result {
     use super::*;
 
     /// Details specific to the task type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1717,6 +1719,7 @@ pub mod typed_value {
     use super::*;
 
     /// The typed value field.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2462,6 +2465,7 @@ pub mod translation_config_details {
     use super::*;
 
     /// The chosen path where the source for input files will be found.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2471,6 +2475,7 @@ pub mod translation_config_details {
     }
 
     /// The chosen path where the destination for output files will be found.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2481,6 +2486,7 @@ pub mod translation_config_details {
 
     /// The mapping of full SQL object names from their current state to the
     /// desired output.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3044,6 +3050,7 @@ pub mod dialect {
     use super::*;
 
     /// The possible dialect options that this message represents.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4335,6 +4342,7 @@ pub mod source_spec {
     use super::*;
 
     /// The specific source SQL.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4480,6 +4488,7 @@ pub mod literal {
     use super::*;
 
     /// The literal SQL contents.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

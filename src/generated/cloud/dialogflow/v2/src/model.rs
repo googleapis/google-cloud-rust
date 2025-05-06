@@ -1075,6 +1075,7 @@ pub mod export_agent_response {
     use super::*;
 
     /// The exported agent.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1195,6 +1196,7 @@ pub mod import_agent_request {
     use super::*;
 
     /// Required. The agent to import.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1321,6 +1323,7 @@ pub mod restore_agent_request {
     use super::*;
 
     /// Required. The agent to restore.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1529,6 +1532,7 @@ pub mod answer_record {
     use super::*;
 
     /// The record for this answer.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2036,6 +2040,7 @@ pub mod answer_feedback {
     }
 
     /// Normally, detail feedback is provided when answer is not fully correct.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2930,6 +2935,7 @@ pub mod agent_assistant_record {
     use super::*;
 
     /// Output only. The agent assist answer.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6511,6 +6517,7 @@ pub mod generate_stateless_suggestion_request {
     use super::*;
 
     /// Generator.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8164,6 +8171,7 @@ pub mod input_config {
     use super::*;
 
     /// Required. Where the data is from.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9126,6 +9134,7 @@ pub mod conversation_event {
     }
 
     /// Payload of conversation event.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9667,6 +9676,7 @@ pub mod conversation_model {
     /// Required.
     /// The model metadata that is specific to the problem type.
     /// Must match the metadata type of the dataset used to train the model.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9837,6 +9847,7 @@ pub mod conversation_model_evaluation {
     use super::*;
 
     /// Metrics details.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10076,6 +10087,7 @@ pub mod evaluation_config {
     }
 
     /// Specific configurations for different models in order to do evaluation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13209,6 +13221,7 @@ pub mod human_agent_assistant_config {
         }
 
         /// Source of query.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -13627,6 +13640,7 @@ pub mod human_agent_handoff_config {
     }
 
     /// Required. Specifies which agent service to connect for human agent handoff.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14966,6 +14980,7 @@ pub mod document {
     }
 
     /// Required. The source of this document.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15355,6 +15370,7 @@ pub mod import_documents_request {
     ///
     /// Dialogflow supports up to 350 documents in each request. If you try to
     /// import more, Dialogflow will return an error.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15687,6 +15703,7 @@ pub mod reload_document_request {
     /// Reloading from a new document source is allowed for smart messaging
     /// documents only. If you want to update the source for other document types,
     /// please delete the existing document and create a new one instead.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15815,6 +15832,7 @@ pub mod export_document_request {
     use super::*;
 
     /// Required. The destination for the export.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16103,6 +16121,7 @@ pub mod knowledge_operation_metadata {
     }
 
     /// Additional metadata for the Knowledge operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17260,6 +17279,7 @@ pub mod batch_update_entity_types_request {
     ///
     /// * If `name` is specified, we update an existing entity type.
     /// * If `name` is not specified, we create a new entity type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -18936,6 +18956,7 @@ pub mod fulfillment {
     }
 
     /// Required. The fulfillment configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19823,6 +19844,7 @@ pub mod few_shot_example {
     use super::*;
 
     /// Instruction list of this few_shot example.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20512,6 +20534,7 @@ pub mod generator {
     use super::*;
 
     /// Required. Input context of the generator.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20525,6 +20548,7 @@ pub mod generator {
     /// The foundation model to use for generating suggestions. If a foundation
     /// model isn't specified here, a model specifically tuned for the feature
     /// type (and version when applicable) will be used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20766,6 +20790,7 @@ pub mod generator_suggestion {
     use super::*;
 
     /// The suggestion could be one of the many types
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -23322,6 +23347,7 @@ pub mod intent {
                 use super::*;
 
                 /// Image to show with the media card.
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -24560,6 +24586,7 @@ pub mod intent {
         }
 
         /// Required. The rich response message.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -25346,6 +25373,7 @@ pub mod batch_update_intents_request {
     use super::*;
 
     /// The source of the intent batch.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -26858,6 +26886,7 @@ pub mod analyze_content_request {
     use super::*;
 
     /// Required. The input content.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -27471,6 +27500,7 @@ pub mod streaming_analyze_content_request {
     use super::*;
 
     /// The input config.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -27482,6 +27512,7 @@ pub mod streaming_analyze_content_request {
     }
 
     /// The input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -28969,6 +29000,7 @@ pub mod intent_suggestion {
     use super::*;
 
     /// The name of the intent.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -29100,6 +29132,7 @@ pub mod dialogflow_assist_answer {
     use super::*;
 
     /// Result from DetectIntent for one matched intent.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -29365,6 +29398,7 @@ pub mod suggestion_result {
     use super::*;
 
     /// Different type of suggestion response.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -30181,6 +30215,7 @@ pub mod knowledge_assist_answer {
         }
 
         /// Source of result.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -30731,6 +30766,7 @@ pub mod query_input {
     use super::*;
 
     /// Required. The input specification.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

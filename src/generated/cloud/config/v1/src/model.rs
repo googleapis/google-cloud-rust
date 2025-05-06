@@ -920,6 +920,7 @@ pub mod deployment {
     }
 
     /// Blueprint to deploy.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1045,6 +1046,7 @@ pub mod terraform_blueprint {
 
     /// Location of the source configs.
     /// Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2196,6 +2198,7 @@ pub mod operation_metadata {
 
     /// Ephemeral metadata about the state of an operation for a particular
     /// resource.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2957,6 +2960,7 @@ pub mod revision {
     }
 
     /// Blueprint that was deployed.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5303,6 +5307,7 @@ pub mod preview {
     }
 
     /// Blueprint to preview.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

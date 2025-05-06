@@ -396,6 +396,7 @@ pub mod import_apt_artifacts_request {
     use super::*;
 
     /// The source location of the package binaries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -498,6 +499,7 @@ pub mod import_apt_artifacts_error_info {
     use super::*;
 
     /// The source that was not imported.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3816,6 +3818,7 @@ pub mod cleanup_policy {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4320,6 +4323,7 @@ pub mod remote_repository_config {
             }
         }
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4618,6 +4622,7 @@ pub mod remote_repository_config {
         }
 
         /// Address of the remote repository.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4924,6 +4929,7 @@ pub mod remote_repository_config {
         }
 
         /// Address of the remote repository.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5229,6 +5235,7 @@ pub mod remote_repository_config {
         }
 
         /// Address of the remote repository
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5535,6 +5542,7 @@ pub mod remote_repository_config {
         }
 
         /// Address of the remote repository.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5912,6 +5920,7 @@ pub mod remote_repository_config {
         }
 
         /// Address of the remote repository.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6312,6 +6321,7 @@ pub mod remote_repository_config {
         }
 
         /// Address of the remote repository.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6365,6 +6375,7 @@ pub mod remote_repository_config {
     }
 
     /// Settings specific to the remote repository.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7703,6 +7714,7 @@ pub mod repository {
     }
 
     /// Repository-specific configurations.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7717,6 +7729,7 @@ pub mod repository {
 
     /// Repository configuration specific to the Mode value being selected (Remote
     /// or Virtual)
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10545,6 +10558,7 @@ pub mod import_yum_artifacts_request {
     use super::*;
 
     /// The source location of the package binaries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10647,6 +10661,7 @@ pub mod import_yum_artifacts_error_info {
     use super::*;
 
     /// The source that was not imported.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

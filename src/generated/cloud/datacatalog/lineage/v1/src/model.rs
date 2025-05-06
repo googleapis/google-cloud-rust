@@ -2086,6 +2086,7 @@ pub mod search_links_request {
     use super::*;
 
     /// The asset for which you want to retrieve links.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

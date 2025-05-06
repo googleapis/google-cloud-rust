@@ -418,6 +418,7 @@ pub mod delivery_pipeline {
     use super::*;
 
     /// The ordering configuration of the `DeliveryPipeline`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -700,6 +701,7 @@ pub mod strategy {
     use super::*;
 
     /// Deployment strategy details.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -968,6 +970,7 @@ pub mod canary {
     use super::*;
 
     /// The mode to use for the canary deployment strategy.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1583,6 +1586,7 @@ pub mod kubernetes_config {
     }
 
     /// The service definition configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1784,6 +1788,7 @@ pub mod runtime_config {
     use super::*;
 
     /// The runtime configuration details.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3094,6 +3099,7 @@ pub mod target {
 
     /// Destination to which the Skaffold configuration is applied during a
     /// rollout.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3455,6 +3461,7 @@ pub mod execution_config {
     }
 
     /// Details of the environment.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4522,6 +4529,7 @@ pub mod custom_target_type {
     use super::*;
 
     /// Defines the `CustomTargetType` renderer and deployer.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4903,6 +4911,7 @@ pub mod skaffold_modules {
     }
 
     /// The source that contains the Skaffold Config modules.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5961,6 +5970,7 @@ pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8324,6 +8334,7 @@ pub mod target_artifact {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10260,6 +10271,7 @@ pub mod phase {
     }
 
     /// The job composition of this Phase.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10818,6 +10830,7 @@ pub mod job {
     }
 
     /// The type of Job.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12368,6 +12381,7 @@ pub mod job_run {
     }
 
     /// The `JobRun` type and the information for that type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14277,6 +14291,7 @@ pub mod automation_rule {
     use super::*;
 
     /// The configuration of the Automation rule.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14787,6 +14802,7 @@ pub mod repair_phase_config {
     use super::*;
 
     /// The repair phase to perform.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15006,6 +15022,7 @@ pub mod automation_rule_condition {
     use super::*;
 
     /// Details specific to the automation rule type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16105,6 +16122,7 @@ pub mod automation_run {
     }
 
     /// The operation that the `AutomationRun` will perform.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16487,6 +16505,7 @@ pub mod repair_phase {
     use super::*;
 
     /// The `RepairPhase` type and the information for that type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

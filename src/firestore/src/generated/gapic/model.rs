@@ -330,6 +330,7 @@ pub mod precondition {
     use super::*;
 
     /// The type of precondition.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -581,6 +582,7 @@ pub mod transaction_options {
 
         /// The consistency mode for this transaction. If not set, defaults to strong
         /// consistency.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -604,6 +606,7 @@ pub mod transaction_options {
     }
 
     /// The mode of the transaction.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1040,6 +1043,7 @@ pub mod value {
     use super::*;
 
     /// Must have a value set.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1352,6 +1356,7 @@ pub mod get_document_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1599,6 +1604,7 @@ pub mod list_documents_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2110,6 +2116,7 @@ pub mod batch_get_documents_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2283,6 +2290,7 @@ pub mod batch_get_documents_response {
 
     /// A single result.
     /// This can be empty if the server is just returning a transaction.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2777,6 +2785,7 @@ pub mod run_query_request {
     use super::*;
 
     /// The query to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2796,6 +2805,7 @@ pub mod run_query_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2995,6 +3005,7 @@ pub mod run_query_response {
     /// The continuation mode for the query. If present, it indicates the current
     /// query response stream has finished. This can be set with or without a
     /// `document` present, but when set, no more results are returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3236,6 +3247,7 @@ pub mod run_aggregation_query_request {
     use super::*;
 
     /// The query to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3254,6 +3266,7 @@ pub mod run_aggregation_query_request {
     }
 
     /// The consistency mode for the query, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3588,6 +3601,7 @@ pub mod partition_query_request {
     use super::*;
 
     /// The query to partition.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3610,6 +3624,7 @@ pub mod partition_query_request {
 
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4036,6 +4051,7 @@ pub mod listen_request {
     use super::*;
 
     /// The supported target changes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4258,6 +4274,7 @@ pub mod listen_response {
     use super::*;
 
     /// The supported responses.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4676,6 +4693,7 @@ pub mod target {
         use super::*;
 
         /// The query to run.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4695,6 +4713,7 @@ pub mod target {
     }
 
     /// The type of target to listen to.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4725,6 +4744,7 @@ pub mod target {
     /// If specified, only the matching Documents that have been updated AFTER the
     /// `resume_token` or `read_time` will be returned. Otherwise, all matching
     /// Documents are returned before any subsequent changes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5141,6 +5161,7 @@ pub mod list_collection_ids_request {
 
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5782,6 +5803,7 @@ pub mod structured_query {
         use super::*;
 
         /// The type of filter.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6576,6 +6598,7 @@ pub mod structured_query {
         }
 
         /// The argument to the filter.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -7614,6 +7637,7 @@ pub mod structured_aggregation_query {
         }
 
         /// The type of aggregation to perform, required.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -7655,6 +7679,7 @@ pub mod structured_aggregation_query {
     }
 
     /// The base query to aggregate over.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8123,6 +8148,7 @@ pub mod write {
     use super::*;
 
     /// The operation to execute.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8588,6 +8614,7 @@ pub mod document_transform {
         }
 
         /// The transformation to apply on the field.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

@@ -1397,6 +1397,7 @@ pub mod object_metadata_report_options {
     use super::*;
 
     /// Filter options for storage systems.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1406,6 +1407,7 @@ pub mod object_metadata_report_options {
     }
 
     /// Options on destination for storage systems.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1655,6 +1657,7 @@ pub mod report_config {
     use super::*;
 
     /// Format in which report will be published.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1666,6 +1669,7 @@ pub mod report_config {
     }
 
     /// Configuration options for report contents.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

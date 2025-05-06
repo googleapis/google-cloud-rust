@@ -2486,6 +2486,7 @@ pub mod crypto_key {
     }
 
     /// Controls the rate of automatic rotation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6615,6 +6616,7 @@ pub mod import_crypto_key_version_request {
     /// instead.
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9577,6 +9579,7 @@ pub mod digest {
     use super::*;
 
     /// Required. The message digest.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

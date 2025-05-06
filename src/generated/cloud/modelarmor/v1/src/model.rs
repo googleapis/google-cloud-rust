@@ -1485,6 +1485,7 @@ pub mod sdp_filter_settings {
     use super::*;
 
     /// Either of Sensitive Data Protection basic or advanced configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2314,6 +2315,7 @@ pub mod filter_result {
     /// Encapsulates one of responsible AI, Sensitive Data Protection, Prompt
     /// Injection and Jailbreak, Malicious URI, CSAM, Virus Scan related filter
     /// results.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2596,6 +2598,7 @@ pub mod sdp_filter_result {
     use super::*;
 
     /// Either of Sensitive Data Protection Inspect result or Deidentify result.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2797,6 +2800,7 @@ pub mod data_item {
     use super::*;
 
     /// Either of text or bytes data.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

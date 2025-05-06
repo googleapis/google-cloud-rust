@@ -834,6 +834,7 @@ pub mod repo_source {
 
     /// A revision within the Cloud Source Repository must be specified in
     /// one of these ways.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -973,6 +974,7 @@ pub mod source {
 
     /// Location of the source.
     /// At least one source needs to be provided for the deployment to succeed.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1466,6 +1468,7 @@ pub mod build_config {
     }
 
     /// This controls when security patches are applied to the runtime environment.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

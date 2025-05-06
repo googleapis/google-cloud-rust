@@ -879,6 +879,7 @@ pub mod alert_policy {
             use super::*;
 
             /// A type of trigger.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -2138,6 +2139,7 @@ pub mod alert_policy {
             }
 
             /// The schedule indicates how often the query should be run.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -2155,6 +2157,7 @@ pub mod alert_policy {
             }
 
             /// The test to be run against the SQL result set.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -2326,6 +2329,7 @@ pub mod alert_policy {
         }
 
         /// Only one of the following condition types will be specified.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3535,6 +3539,7 @@ pub mod typed_value {
     use super::*;
 
     /// The typed value field.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4748,6 +4753,7 @@ pub mod list_groups_request {
     /// An optional filter consisting of a single group name.  The filters limit
     /// the groups returned based on their parent-child relationship with the
     /// specified group. If no filter is specified, all groups are returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5780,6 +5786,7 @@ pub mod label_value {
     use super::*;
 
     /// The label value can be a bool, int64, or string.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9695,6 +9702,7 @@ pub mod service {
     }
 
     /// REQUIRED. Service-identifying atoms specifying the underlying service.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10044,6 +10052,7 @@ pub mod service_level_objective {
     }
 
     /// The time period over which the objective will be evaluated.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10212,6 +10221,7 @@ pub mod service_level_indicator {
     /// Service level indicators can be grouped by whether the "unit" of service
     /// being measured is based on counts of good requests or on counts of good
     /// time windows
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10449,6 +10459,7 @@ pub mod basic_sli {
     }
 
     /// This SLI can be evaluated on the basis of availability or latency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10617,6 +10628,7 @@ pub mod request_based_sli {
     use super::*;
 
     /// The means to compute a ratio of `good_service` to `total_service`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11078,6 +11090,7 @@ pub mod windows_based_sli {
 
         /// The means, either a request-based SLI or a basic SLI, by which to compute
         /// performance over a window.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -11140,6 +11153,7 @@ pub mod windows_based_sli {
     }
 
     /// The criterion to use for evaluating window goodness.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12770,6 +12784,7 @@ pub mod synthetic_monitor_target {
     }
 
     /// Specifies a Synthetic Monitor's execution stack.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13885,6 +13900,7 @@ pub mod uptime_check_config {
             }
 
             /// Either a specific value or a class of status codes.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -14345,6 +14361,7 @@ pub mod uptime_check_config {
         /// This field is optional and should be set only by users interested in
         /// an authenticated uptime check.
         /// Do not set both `auth_method` and `auth_info`.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -14909,6 +14926,7 @@ pub mod uptime_check_config {
         /// Certain `ContentMatcherOption` types require additional information.
         /// `MATCHES_JSON_PATH` or `NOT_MATCHES_JSON_PATH` require a
         /// `JsonPathMatcher`; not used for other options.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -15060,6 +15078,7 @@ pub mod uptime_check_config {
     }
 
     /// The resource the check is checking. Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15084,6 +15103,7 @@ pub mod uptime_check_config {
     }
 
     /// The type of Uptime check request.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

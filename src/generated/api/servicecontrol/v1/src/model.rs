@@ -859,6 +859,7 @@ pub mod distribution {
     /// lower bound of the smallest finite bucket; the lower bound of the
     /// overflow bucket is equal to the upper bound of the largest finite
     /// bucket.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1316,6 +1317,7 @@ pub mod log_entry {
     use super::*;
 
     /// The log entry payload, which can be one of multiple types.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1684,6 +1686,7 @@ pub mod metric_value {
     /// The value. The type of value used in the request must
     /// agree with the metric definition in the service configuration, otherwise
     /// the MetricValue is rejected.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

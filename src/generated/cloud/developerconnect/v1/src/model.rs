@@ -362,6 +362,7 @@ pub mod connection {
     use super::*;
 
     /// Configuration for the connection depending on the type of provider.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

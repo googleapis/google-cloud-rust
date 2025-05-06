@@ -1692,6 +1692,7 @@ pub mod dns_settings {
     }
 
     /// The DNS provider of the registration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

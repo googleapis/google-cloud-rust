@@ -1426,6 +1426,7 @@ pub mod automated_backup_policy {
     ///
     /// If not set, the schedule defaults to a weekly schedule with one backup
     /// per day and a start time chosen arbitrarily.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1441,6 +1442,7 @@ pub mod automated_backup_policy {
     /// policy; the retentions of existing backups remain unchanged.
     ///
     /// If no retention policy is set, a default of 14 days is used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2950,6 +2952,7 @@ pub mod cluster {
 
     /// In case of an imported cluster, this field contains information about the
     /// source this cluster was imported from.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5468,6 +5471,7 @@ pub mod supported_database_flag {
     }
 
     /// The restrictions on the flag value per type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6647,6 +6651,7 @@ pub mod restore_cluster_request {
 
     /// Required.
     /// The source to import from.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8163,6 +8168,7 @@ pub mod execute_sql_request {
 
     /// Oneof field to support other credential mechanisms in future like
     /// SecretManager etc.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9376,6 +9382,7 @@ pub mod operation_metadata {
     use super::*;
 
     /// Request specific metadata, if any.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

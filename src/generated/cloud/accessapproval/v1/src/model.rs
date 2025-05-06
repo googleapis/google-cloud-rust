@@ -443,6 +443,7 @@ pub mod signature_info {
     use super::*;
 
     /// How this signature may be verified.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -820,6 +821,7 @@ pub mod approval_request {
     use super::*;
 
     /// The current decision on the approval request.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

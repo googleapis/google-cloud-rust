@@ -2991,6 +2991,7 @@ pub mod object_tracking_annotation {
 
     /// Different representation of tracking info in non-streaming batch
     /// and streaming modes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

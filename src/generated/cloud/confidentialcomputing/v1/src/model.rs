@@ -359,6 +359,7 @@ pub mod verify_attestation_request {
 
     /// An optional tee attestation report, used to populate hardware rooted
     /// claims.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -817,6 +818,7 @@ pub mod token_options {
     }
 
     /// An optional additional configuration per token type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

@@ -5074,6 +5074,7 @@ pub mod remote_model_info {
     /// Remote services are services outside of BigQuery used by remote models for
     /// predictions. A remote service is backed by either an arbitrary endpoint or
     /// a selected remote service type, but not both.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7647,6 +7648,7 @@ pub mod model {
                 }
 
                 /// Value.
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -8289,6 +8291,7 @@ pub mod model {
         use super::*;
 
         /// Metrics.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -11486,6 +11489,7 @@ pub mod model {
         }
 
         /// Search space.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -11708,6 +11712,7 @@ pub mod model {
         }
 
         /// Search space.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -15563,6 +15568,7 @@ pub mod privacy_policy {
 
     /// Privacy policy associated with this requirement specification. Only one of
     /// the privacy methods is allowed per data source object.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19549,6 +19555,7 @@ pub mod standard_sql_data_type {
     }
 
     /// For complex types, the sub type information.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

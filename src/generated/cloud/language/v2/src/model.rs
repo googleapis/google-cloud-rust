@@ -281,6 +281,7 @@ pub mod document {
 
     /// The source of the document: a string containing the content or a
     /// Google Cloud Storage URI.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

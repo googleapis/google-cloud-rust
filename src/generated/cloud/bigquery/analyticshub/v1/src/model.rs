@@ -392,6 +392,7 @@ pub mod sharing_environment_config {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1122,6 +1123,7 @@ pub mod listing {
             #[allow(unused_imports)]
             use super::*;
 
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -1679,6 +1681,7 @@ pub mod listing {
     }
 
     /// Listing source.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2048,6 +2051,7 @@ pub mod subscription {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -2202,6 +2206,7 @@ pub mod subscription {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3045,6 +3050,7 @@ pub mod subscribe_listing_request {
     use super::*;
 
     /// Resulting destination of the listing that you subscribed to.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4576,6 +4582,7 @@ pub mod push_config {
     /// default to allow requests only from the Pub/Sub system, for example.
     /// This field is optional and should be set only by users interested in
     /// authenticated push.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4588,6 +4595,7 @@ pub mod push_config {
 
     /// The format of the delivered message to the push endpoint is defined by
     /// the chosen wrapper. When unset, `PubsubWrapper` is used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5001,6 +5009,7 @@ pub mod cloud_storage_config {
     }
 
     /// Defaults to text format.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5116,6 +5125,7 @@ pub mod message_transform {
     use super::*;
 
     /// The type of transform to apply to messages.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

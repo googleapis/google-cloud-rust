@@ -730,6 +730,7 @@ pub mod span {
 
         /// A `TimeEvent` can contain either an `Annotation` object or a
         /// `MessageEvent` object, but not both.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1353,6 +1354,7 @@ pub mod attribute_value {
     use super::*;
 
     /// The type of the value.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

@@ -606,6 +606,7 @@ pub mod repo_source {
 
     /// A revision within the Cloud Source Repository must be specified in
     /// one of these ways.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -836,6 +837,7 @@ pub mod source {
     use super::*;
 
     /// Location of source.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3087,6 +3089,7 @@ pub mod dependency {
         use super::*;
 
         /// The type of git source repo (url or dev connect).
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3101,6 +3104,7 @@ pub mod dependency {
     }
 
     /// The type of dependency to fetch.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5316,6 +5320,7 @@ pub mod git_repo_source {
     use super::*;
 
     /// The source of the SCM repo.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5328,6 +5333,7 @@ pub mod git_repo_source {
 
     /// The resource name of the enterprise config that should be applied
     /// to this source.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5656,6 +5662,7 @@ pub mod git_file_source {
     }
 
     /// The source of the SCM repo.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5669,6 +5676,7 @@ pub mod git_file_source {
 
     /// The resource name of the enterprise config that should be applied
     /// to this source.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6114,6 +6122,7 @@ pub mod build_trigger {
 
     /// Template describing the Build request to make when the trigger is matched.
     /// At least one of the template fields must be provided.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6406,6 +6415,7 @@ pub mod repository_event_config {
     }
 
     /// The types of filter to trigger a build.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6559,6 +6569,7 @@ pub mod git_hub_events_config {
 
     /// Filter describing the types of events to trigger a build.
     /// Currently supported event types: push, pull_request.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7011,6 +7022,7 @@ pub mod webhook_config {
     }
 
     /// Auth method specifies how the webhook authenticates with GCP.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7278,6 +7290,7 @@ pub mod pull_request_filter {
 
     /// Target refs to match.
     /// A target ref is the git reference where the pull request will be applied.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7392,6 +7405,7 @@ pub mod push_filter {
 
     /// Modified refs to match.
     /// A modified refs are the refs modified by a git push operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9596,6 +9610,7 @@ pub mod worker_pool {
     }
 
     /// Configuration for the `WorkerPool`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

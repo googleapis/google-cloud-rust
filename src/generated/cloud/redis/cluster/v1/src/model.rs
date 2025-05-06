@@ -918,6 +918,7 @@ pub mod export_backup_request {
     use super::*;
 
     /// Required. Specify destination to export a backup.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1616,6 +1617,7 @@ pub mod cluster {
             }
         }
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1848,6 +1850,7 @@ pub mod cluster {
     }
 
     /// The source to import from.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2145,6 +2148,7 @@ pub mod automated_backup_config {
     }
 
     /// The schedule of automated backups.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3711,6 +3715,7 @@ pub mod connection_detail {
     /// Connectivity Automation (auto-registered connection) during the cluster
     /// creation, or it could be created by customer themselves (user-registered
     /// connection).
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4128,6 +4133,7 @@ pub mod certificate_authority {
     }
 
     /// server ca information
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

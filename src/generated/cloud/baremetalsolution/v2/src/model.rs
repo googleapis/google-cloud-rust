@@ -5746,6 +5746,7 @@ pub mod provisioning_quota {
     }
 
     /// The quota of one asset type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5755,6 +5756,7 @@ pub mod provisioning_quota {
     }
 
     /// Available quantity based on asset type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6779,6 +6781,7 @@ pub mod volume_config {
         }
 
         /// A client object.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

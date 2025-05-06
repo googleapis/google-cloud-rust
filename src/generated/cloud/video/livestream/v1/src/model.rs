@@ -179,6 +179,7 @@ pub mod elementary_stream {
     use super::*;
 
     /// Required. Encoding of an audio, video, or text track.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1294,6 +1295,7 @@ pub mod video_stream {
         use super::*;
 
         /// GOP mode can be either by frame count or duration.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1319,6 +1321,7 @@ pub mod video_stream {
     }
 
     /// Codec settings.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1875,6 +1878,7 @@ pub mod timecode_config {
     /// For EMBEDDED_TIMECODE source only.
     /// Used to interpret the embedded timecode (which contains only the time part
     /// and no date). We assume all inputs are live.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4568,6 +4572,7 @@ pub mod event {
     }
 
     /// Required. Operation to be executed by this event.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4882,6 +4887,7 @@ pub mod clip {
         use super::*;
 
         /// The allowlist forms of a slice.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5501,6 +5507,7 @@ pub mod asset {
 
     /// The reference to the asset.
     /// The maximum size of the resource is 250 MB.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6010,6 +6017,7 @@ pub mod encryption {
     }
 
     /// Defines where content keys are stored.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6019,6 +6027,7 @@ pub mod encryption {
     }
 
     /// Encryption modes for HLS and MPEG-Dash.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

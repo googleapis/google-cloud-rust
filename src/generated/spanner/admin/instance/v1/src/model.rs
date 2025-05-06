@@ -1293,6 +1293,7 @@ pub mod replica_compute_capacity {
     /// The unit is selected based on the unit used to specify the instance size
     /// for non-autoscaling instances, or the unit used in autoscaling limit for
     /// autoscaling instances.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1577,6 +1578,7 @@ pub mod autoscaling_config {
         use super::*;
 
         /// The minimum compute capacity for the instance.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1592,6 +1594,7 @@ pub mod autoscaling_config {
         /// The maximum compute capacity for the instance. The maximum compute
         /// capacity should be less than or equal to 10X the minimum compute
         /// capacity.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4566,6 +4569,7 @@ pub mod instance_partition {
     /// more information, see
     /// [Compute capacity, nodes, and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
