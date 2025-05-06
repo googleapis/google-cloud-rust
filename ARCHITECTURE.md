@@ -45,7 +45,7 @@ More specifically, the functionality offered by these libraries include:
 - The libraries can be configured to log requests and responses, to help
   application developers troubleshoot their code.
 
-### The structure of a client
+## The structure of a client
 
 A client is a Rust `struct` that implements the customer-facing functions to
 make RPCs. Associated with each client there is a `Stub` trait.
@@ -65,9 +65,9 @@ There are basically three implementations of the `Stub`:
   transport.
 - Any mocks provided by the application for their own testing.
 
-### Pagination
+## Pagination
 
-When appropriate request builders implement a `paginator()` method. Instead of
+When appropriate, request builders implement a `paginator()` method. Instead of
 returning a single response for a request, these provide a stream of responses
 for paginated APIs (think `List*()`). The paginator basically holds the original
 stub and can chain requests using the page token returned in one response to get
@@ -76,9 +76,9 @@ the next page in the subsequent request.
 Paginators can also become an "item paginator", where the stream returns one
 element at a time, instead of one page at a time.
 
-### LRO Pollers
+## LRO Pollers
 
-When appropriate request builders implement a `poller()` method. Instead of
+When appropriate, request builders implement a `poller()` method. Instead of
 returning a single response for a request, these provide a stream of responses
 for long-running operations (think `Create*()` when the operation is very slow).
 Each item in the stream represents the status of the long-running operation,
@@ -91,9 +91,9 @@ polled periodically, with the period controlled by a policy. Likewise, the
 poller continues on recoverable errors, and a policy controls what errors should
 be treated as recoverable.
 
-### What these libraries do not do
+## What these libraries do not do
 
-#### No client-side validation
+### No client-side validation
 
 The client libraries only validate requests to the degree it is necessary to
 successfully send them. No attempt is made to verify the contents of the request
@@ -119,25 +119,22 @@ not work well:
   parameter may become optional. We think that breaking changes in such cases
   (e.g. removing the parameter from the function signature) are not the best
   experience.
-- Furthermore, from time to time these documentation hints are incorrect or
-  become outdated. We believe it is better to keep stable types and function
-  signatures when such changes happen.
 
 Likewise, there are a few parameters that are documented as "output only" or
 "immutable". Removing the setters for these parameters could be useful to avoid
 mistakes. However, the number of cases where this would change the client
 library is very small (maybe a dozen across thousands of functions). The
 additional complexity in the implementation, and some fields that are
-incorrectly documented discouraged us from pursuing any pruning of setters for
-these fields.
+incorrectly documented discouraged us from pursuing the setters for these
+fields.
 
-#### No automatic retries
+### No automatic retries
 
 The client libraries do not automatically enable retries. The application can
 provide a default retry policy that applies to all requests in a client, but
 must provide this policy as part of the client initialization.
 
-#### Localize error messages
+### Localize error messages
 
 The error messages (if any) are delivered without change from the service. If
 the service localizes the messages the client will provide these messages in the
@@ -165,8 +162,8 @@ hand-crafted code. The main directories are:
   policies. Most types in this crate are intended for use by application
   developers.
 - `src/gax-internal`: implementation details shared by multiple client
-  libraries. All types in this crate are **not** intended for application
-  developers to use.
+  libraries. Types in this crate are **not** intended for application developers
+  to use.
 - `src/lro`: support code for long-running operations.
 - `generator/`: the code generator, also known as `sidekick`.
 - `src/integration-tests`: the integration tests. These run against production
