@@ -29,6 +29,6 @@ pub enum {{Codec.EnumName}} {
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
-    {{Codec.BranchName}}({{{Codec.FieldType}}}),
+    {{Codec.BranchName}}({{#Codec.Attributes}}{{{.}}}{{/Codec.Attributes}}{{{Codec.FieldType}}}),
     {{/Fields}}
 }

@@ -90,6 +90,23 @@ mod serialization {
     }
 
     #[test]
+    fn serde_with_double_value() -> Result<()> {
+        let value = aiplatform::model::Value::default().set_double_value(53);
+        let got = serde_json::to_value(&value)?;
+        let want = serde_json::json!({
+            "doubleValue": 53_f64
+        });
+        assert_eq!(got, want);
+        let value = value.set_double_value(f64::NAN);
+        let got = serde_json::to_value(&value)?;
+        let want = serde_json::json!({
+            "doubleValue": "NaN"
+        });
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
     fn multiple_serde_attributes() -> Result<()> {
         let input = Test {
             f_bytes: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),

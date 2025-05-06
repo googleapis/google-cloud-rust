@@ -441,10 +441,10 @@ func fieldBaseAttributes(f *api.Field) []string {
 
 func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	// Message fields could be `Vec<..>`, and are always optional:
-	if f.Optional {
+	if f.Optional && !f.IsOneOf {
 		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
 	}
-	if f.Repeated {
+	if f.Repeated && !f.IsOneOf {
 		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 	}
 	var formatter string
@@ -500,6 +500,9 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		if f.Repeated {
 			return append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 		}
+		if f.IsOneOf {
+			return attributes
+		}
 		return append(attributes, fieldSkipAttributes(f)...)
 
 	case api.INT64_TYPE,
@@ -518,6 +521,9 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		if f.Repeated {
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
+		}
+		if f.IsOneOf {
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 		}
 		attributes = append(attributes, fieldSkipAttributes(f)...)
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
