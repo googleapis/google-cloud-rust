@@ -102,16 +102,16 @@ mod serialization {
     #[test]
     fn serde_with_oneof() -> Result<()> {
         // Integer Value
-        let value = firestore::model::value::ValueType::from_integer_value(0);
+        let value = aiplatform::model::FeatureValue::default().set_int64_value(0);
         let got = serde_json::to_value(&value)?;
         let want = serde_json::json!({
-            "integerValue": "0"
+            "int64Value": "0"
         });
         assert_eq!(got, want);
         let rt = serde_json::from_value(got)?;
         assert_eq!(value, rt);
         // Double Value
-        let value = firestore::model::value::ValueType::from_double_value(f64::INFINITY);
+        let value = value.set_double_value(f64::INFINITY);
         let got = serde_json::to_value(&value)?;
         let want = serde_json::json!({
             "doubleValue": "Infinity"
@@ -120,10 +120,12 @@ mod serialization {
         let rt = serde_json::from_value(got)?;
         assert_eq!(value, rt);
         // Bytes Value
-        let value = firestore::model::value::ValueType::from_bytes_value("Hello, world".as_bytes());
+        let value = value.set_bytes_value(bytes::Bytes::from(
+            "the quick brown fox jumps over the lazy dog",
+        ));
         let got = serde_json::to_value(&value)?;
         let want = serde_json::json!({
-            "bytesValue": "SGVsbG8sIHdvcmxk"
+            "bytesValue": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
         });
         assert_eq!(got, want);
         let rt = serde_json::from_value(got)?;
