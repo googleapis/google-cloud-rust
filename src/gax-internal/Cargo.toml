@@ -35,7 +35,10 @@ features = []
 _internal-http-client = [
   "_internal-common",
   "dep:auth",
+  "dep:bytes",
   "dep:gax",
+  "dep:http",
+  "dep:http-body-util",
   "dep:reqwest",
   "dep:rpc",
   "dep:serde",
@@ -45,7 +48,9 @@ _internal-http-client = [
 _internal-grpc-client = [
   "_internal-common",
   "dep:auth",
+  "dep:bytes",
   "dep:gax",
+  "dep:http",
   "dep:prost",
   "dep:prost-types",
   "dep:rpc",
@@ -57,17 +62,17 @@ _internal-grpc-client = [
 _internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
 
 [dependencies]
-bytes            = { version = "1", features = ["serde"] }
-http             = "1"
-http-body-util   = "0.1"
+bytes            = { workspace = true, optional = true, features = ["serde"] }
+http             = { workspace = true, optional = true, features = ["std"] }
+http-body-util   = { workspace = true, optional = true }
 percent-encoding = { workspace = true, optional = true }
 prost            = { workspace = true, optional = true }
 prost-types      = { workspace = true, optional = true }
-reqwest          = { version = "0.12", optional = true }
-serde            = { version = "1", optional = true }
-serde_json       = { version = "1", optional = true }
-thiserror        = { version = "2", optional = true }
-tokio            = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
+reqwest          = { workspace = true, optional = true }
+serde            = { workspace = true, optional = true }
+serde_json       = { workspace = true, optional = true }
+thiserror        = { workspace = true, optional = true }
+tokio            = { workspace = true, optional = true, features = ["macros", "rt-multi-thread"] }
 tonic            = { workspace = true, optional = true }
 # Local crates
 auth = { workspace = true, optional = true }
@@ -76,18 +81,18 @@ rpc  = { workspace = true, optional = true }
 wkt  = { workspace = true, optional = true }
 
 [dev-dependencies]
-anyhow.workspace    = true
-axum.workspace      = true
-bytes               = "1"
-mockall             = "0.13"
-scoped-env          = "2"
-serde_with          = "3"
-serial_test         = "3"
-test-case.workspace = true
-tokio               = { version = "1", features = ["test-util"] }
+anyhow.workspace      = true
+axum.workspace        = true
+bytes.workspace       = true
+mockall.workspace     = true
+scoped-env.workspace  = true
+serde_with.workspace  = true
+serial_test.workspace = true
+test-case.workspace   = true
+tokio                 = { workspace = true, features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }
 
 [build-dependencies]
-rustc_version = "0.4"
+rustc_version.workspace = true
