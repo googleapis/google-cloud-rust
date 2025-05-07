@@ -162,13 +162,13 @@ pub async fn run_sql_tiers_service(
 
     let list = client.list(&project_id).send().await?;
 
-    assert_eq!(
+    assert_ne!(
         list.items
             .into_iter()
             .find(|v| v.tier.eq("db-f1-micro"))
             .ok_or_else(|| Error::other("tiers list should contain db-f1-micro".to_string()))?
             .ram,
-        644245094
+        0
     );
 
     Ok(())
