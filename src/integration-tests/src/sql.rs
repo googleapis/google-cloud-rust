@@ -16,7 +16,9 @@ use crate::{Error, RandomChars, Result};
 use rand::Rng;
 use sql::model;
 
-pub async fn run_sql(builder: sql::builder::sql_instances_service::ClientBuilder) -> Result<()> {
+pub async fn run_sql_instances_service(
+    builder: sql::builder::sql_instances_service::ClientBuilder,
+) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -56,6 +58,10 @@ pub async fn run_sql(builder: sql::builder::sql_instances_service::ClientBuilder
     let get = client.get(&project_id, &name).send().await?;
     println!("SUCCESS on get sql instance: {get:?}");
     assert_eq!(get.name, name);
+    let settings = get
+        .settings
+        .ok_or_else(|| Error::other("settings should contain a value".to_string()))?;
+    assert_eq!(settings.tier, "db-f1-micro");
 
     println!("Testing list sql instances");
     let list = client
@@ -98,8 +104,7 @@ async fn cleanup_stale_sql_instances(
     let stale_deadline = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map_err(Error::other)?;
-    // let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = stale_deadline - Duration::from_secs(1);
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
 
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
@@ -131,6 +136,40 @@ async fn cleanup_stale_sql_instances(
                 println!("Cleanup error: deleting sql instance resulted in {err:?}")
             }
         });
+
+    Ok(())
+}
+
+pub async fn run_sql_tiers_service(
+    builder: sql::builder::sql_tiers_service::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let project_id = crate::project_id()?;
+    let client: sql::client::SqlTiersService = builder.build().await?;
+
+    let list = client.list(&project_id).send().await?;
+
+    assert_eq!(
+        list.items
+            .into_iter()
+            .find(|v| v.tier.eq("db-f1-micro"))
+            .ok_or_else(|| Error::other("tiers list should contain db-f1-micro".to_string()))?
+            .ram,
+        644245094
+    );
 
     Ok(())
 }
