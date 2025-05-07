@@ -35,12 +35,12 @@ features = []
 _internal-http-client = [
   "_internal-common",
   "dep:auth",
+  "dep:gax",
   "dep:reqwest",
   "dep:rpc",
   "dep:serde",
   "dep:serde_json",
   "dep:tokio",
-  "gax/unstable-sdk-client",
 ]
 _internal-grpc-client = [
   "_internal-common",
@@ -71,7 +71,7 @@ tokio            = { version = "1", features = ["macros", "rt-multi-thread"], op
 tonic            = { workspace = true, optional = true }
 # Local crates
 auth = { workspace = true, optional = true }
-gax  = { workspace = true, features = ["unstable-sdk-client"], optional = true }
+gax  = { workspace = true, optional = true }
 rpc  = { workspace = true, optional = true }
 wkt  = { workspace = true, optional = true }
 
