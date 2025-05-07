@@ -620,7 +620,9 @@ func (annotate *annotateModel) createFromJsonLine(field *api.Field, state *api.A
 		default:
 			return fmt.Sprintf("decodeMap(%s)%s", data, bang)
 		}
-	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE || field.Typez == api.SINT64_TYPE ||
+	case field.Typez == api.INT64_TYPE || 
+	    field.Typez == api.UINT64_TYPE || 
+	    field.Typez == api.SINT64_TYPE ||
 		field.Typez == api.FIXED64_TYPE || field.Typez == api.SFIXED64_TYPE:
 		return fmt.Sprintf("decodeInt64(%s)%s", data, bang)
 	case field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
