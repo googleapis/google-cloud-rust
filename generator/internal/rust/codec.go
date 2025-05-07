@@ -464,8 +464,8 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	}
 	// A few message types require ad-hoc treatment. Most are just managed with
 	// the default handler.
-	if f.IsOneOf && f.Typez == api.MESSAGE_TYPE {
-		return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::boxed::Box<%s>")]`, formatter))
+	if f.IsOneOf {
+		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, oneOfFieldTypeFormatter(f, false, formatter)))
 	}
 	if f.Optional {
 		return append(
@@ -568,15 +568,16 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 
 func oneOfFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	baseType := baseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	return oneOfFieldTypeFormatter(f, language.FieldIsMap(f, state), baseType)
+}
+
+func oneOfFieldTypeFormatter(f *api.Field, fieldIsMap bool, baseType string) string {
 	switch {
 	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", baseType)
 	case f.Typez == api.MESSAGE_TYPE:
-		if language.FieldIsMap(f, state) {
+		if fieldIsMap {
 			return baseType
-		}
-		if f.Optional {
-			return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 		}
 		return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 	case f.Optional:

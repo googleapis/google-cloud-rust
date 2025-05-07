@@ -237,21 +237,29 @@ func TestOneOfAnnotations(t *testing.T) {
 		JSONName: "oneofFieldInteger",
 		ID:       ".test.Message.oneof_field_integer",
 		Typez:    api.INT64_TYPE,
-		Repeated: false,
 		IsOneOf:  true,
 	}
-	// TODO: add boxed field.
+	boxed_field := &api.Field{
+		Name:     "oneof_field_boxed",
+		JSONName: "oneofFieldBoxed",
+		ID:       ".test.Message.oneof_field_boxed",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".google.protobuf.DoubleValue",
+		Optional: true,
+		IsOneOf:  true,
+	}
+
 	group := &api.OneOf{
 		Name:          "type",
 		ID:            ".test.Message.type",
 		Documentation: "Say something clever about this oneof.",
-		Fields:        []*api.Field{singular, repeated, map_field, integer_field},
+		Fields:        []*api.Field{singular, repeated, map_field, integer_field, boxed_field},
 	}
 	message := &api.Message{
 		Name:    "Message",
 		ID:      ".test.Message",
 		Package: "test",
-		Fields:  []*api.Field{singular, repeated, map_field, integer_field},
+		Fields:  []*api.Field{singular, repeated, map_field, integer_field, boxed_field},
 		OneOfs:  []*api.OneOf{group},
 	}
 	key_field := &api.Field{Name: "key", Typez: api.INT32_TYPE}
@@ -353,6 +361,24 @@ func TestOneOfAnnotations(t *testing.T) {
 	}, integer_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:          "oneof_field_boxed",
+		SetterName:         "oneof_field_boxed",
+		BranchName:         "OneofFieldBoxed",
+		FQMessageName:      "crate::model::Message",
+		DocLines:           nil,
+		Attributes:         []string{`#[serde_as(as = "std::boxed::Box<wkt::internal::F64>")]`},
+		FieldType:          "std::boxed::Box<>",
+		PrimitiveFieldType: "",
+		AddQueryParameter:  `let builder = req.oneof_field_boxed().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldBoxed") });`,
+		KeyType:            "",
+		ValueType:          "",
+		IsBoxed:            true,
+	}, boxed_field.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
 }
 
 func TestEnumAnnotations(t *testing.T) {
