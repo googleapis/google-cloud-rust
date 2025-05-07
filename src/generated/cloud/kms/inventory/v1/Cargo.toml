@@ -29,7 +29,7 @@ rust-version.workspace = true
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true
-gax                  = { workspace = true, features = ["unstable-sdk-client"] }
+gax.workspace        = true
 gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 kms.workspace        = true
 lazy_static.workspace = true
