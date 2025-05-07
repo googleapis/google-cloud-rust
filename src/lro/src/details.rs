@@ -147,7 +147,6 @@ where
 fn as_result<R, M>(op: Operation<R, M>) -> Result<R>
 where
     R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::de::DeserializeOwned,
 {
     if let Some(any) = op.response() {
         return any.try_into_message::<R>().map_err(Error::other);
@@ -160,7 +159,6 @@ where
 
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
 where
-    R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     op.metadata().and_then(|a| a.try_into_message::<M>().ok())

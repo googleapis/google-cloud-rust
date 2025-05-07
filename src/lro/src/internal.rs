@@ -51,6 +51,127 @@ where
     PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query)
 }
 
+/// Creates a new `impl Poller<(), M>` from the closures created by the generator.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to create or use this struct.
+pub fn new_unit_response_poller<MetadataType, S, SF, Q, QF>(
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    start: S,
+    query: Q,
+) -> impl Poller<(), MetadataType>
+where
+    MetadataType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<wkt::Empty, MetadataType>>> + Send + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<wkt::Empty, MetadataType>>> + Send + 'static,
+{
+    let poller = PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query);
+    UnitResponsePoller::new(poller)
+}
+
+/// Creates a new `impl Poller<(), M>` from the closures created by the generator.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to create or use this struct.
+pub fn new_unit_metadata_poller<ResponseType, S, SF, Q, QF>(
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    start: S,
+    query: Q,
+) -> impl Poller<ResponseType, ()>
+where
+    ResponseType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, wkt::Empty>>> + Send + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<ResponseType, wkt::Empty>>> + Send + 'static,
+{
+    let poller = PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query);
+    UnitMetadataPoller::new(poller)
+}
+
+struct UnitResponsePoller<P> {
+    poller: P,
+}
+
+impl<P> UnitResponsePoller<P> {
+    pub(crate) fn new(poller: P) -> Self {
+        Self { poller }
+    }
+}
+
+impl<P> super::sealed::Poller for UnitResponsePoller<P> {}
+
+impl<P, M> Poller<(), M> for UnitResponsePoller<P>
+where
+    P: Poller<wkt::Empty, M>,
+{
+    async fn poll(&mut self) -> Option<PollingResult<(), M>> {
+        self.poller.poll().await.map(self::map_polling_result)
+    }
+    async fn until_done(self) -> Result<()> {
+        match self.poller.until_done().await {
+            Err(e) => Err(e),
+            Ok(_) => Ok(()),
+        }
+    }
+    #[cfg(feature = "unstable-stream")]
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<(), M>> {
+        use futures::StreamExt;
+        self.poller.into_stream().map(self::map_polling_result)
+    }
+}
+
+struct UnitMetadataPoller<P> {
+    poller: P,
+}
+
+impl<P> UnitMetadataPoller<P> {
+    pub(crate) fn new(poller: P) -> Self {
+        Self { poller }
+    }
+}
+
+impl<P> super::sealed::Poller for UnitMetadataPoller<P> {}
+
+impl<P, R> Poller<R, ()> for UnitMetadataPoller<P>
+where
+    P: Poller<R, wkt::Empty>,
+{
+    async fn poll(&mut self) -> Option<PollingResult<R, ()>> {
+        self.poller.poll().await.map(self::map_polling_metadata)
+    }
+    async fn until_done(self) -> Result<R> {
+        self.poller.until_done().await
+    }
+    #[cfg(feature = "unstable-stream")]
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, ()>> {
+        use futures::StreamExt;
+        self.poller.into_stream().map(self::map_polling_metadata)
+    }
+}
+
+fn map_polling_result<M>(result: PollingResult<wkt::Empty, M>) -> PollingResult<(), M> {
+    match result {
+        PollingResult::Completed(r) => PollingResult::Completed(r.map(|_| ())),
+        PollingResult::InProgress(m) => PollingResult::InProgress(m),
+        PollingResult::PollingError(e) => PollingResult::PollingError(e),
+    }
+}
+
+fn map_polling_metadata<R>(result: PollingResult<R, wkt::Empty>) -> PollingResult<R, ()> {
+    match result {
+        PollingResult::Completed(r) => PollingResult::Completed(r),
+        PollingResult::InProgress(m) => PollingResult::InProgress(m.map(|_| ())),
+        PollingResult::PollingError(e) => PollingResult::PollingError(e),
+    }
+}
+
 /// An implementation of `Poller` based on closures.
 ///
 /// Thanks to this implementation, the code generator (`sidekick`) needs to
@@ -233,6 +354,9 @@ mod test {
     type MetadataType = wkt::Timestamp;
     type TestOperation = Operation<ResponseType, MetadataType>;
 
+    type EmptyResponseOperation = Operation<wkt::Empty, MetadataType>;
+    type EmptyMetadataOperation = Operation<ResponseType, wkt::Empty>;
+
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_flow() {
         let start = || async move {
@@ -384,6 +508,345 @@ mod test {
         assert_eq!(response, wkt::Duration::clamp(234, 0));
 
         Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_poll_basic_flow() {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyResponseOperation::new(op);
+            Ok::<EmptyResponseOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyResponseOperation::new(op);
+
+            Ok::<EmptyResponseOperation, Error>(op)
+        };
+
+        let mut poller = new_unit_response_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        );
+        let p0 = poller.poll().await;
+        match p0.unwrap() {
+            PollingResult::InProgress(m) => {
+                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p1 = poller.poll().await;
+        match p1.unwrap() {
+            PollingResult::Completed(Ok(_)) => {}
+            PollingResult::Completed(Err(e)) => {
+                panic!("{e}");
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p2 = poller.poll().await;
+        assert!(p2.is_none(), "{p2:?}");
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_poll_basic_stream() {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyResponseOperation::new(op);
+            Ok::<EmptyResponseOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyResponseOperation::new(op);
+
+            Ok::<EmptyResponseOperation, Error>(op)
+        };
+
+        use futures::StreamExt;
+        let mut stream = new_unit_response_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        )
+        .into_stream();
+        let mut stream = std::pin::pin!(stream);
+        let p0 = stream.next().await;
+        match p0.unwrap() {
+            PollingResult::InProgress(m) => {
+                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p1 = stream.next().await;
+        match p1.unwrap() {
+            PollingResult::Completed(Ok(_)) => {}
+            PollingResult::Completed(Err(e)) => {
+                panic!("{e}");
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p2 = stream.next().await;
+        assert!(p2.is_none(), "{p2:?}");
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_until_done_basic_flow() -> Result<()> {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyResponseOperation::new(op);
+            Ok::<EmptyResponseOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyResponseOperation::new(op);
+
+            Ok::<EmptyResponseOperation, Error>(op)
+        };
+
+        let poller = new_unit_response_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .clamp(),
+            ),
+            start,
+            query,
+        );
+        poller.until_done().await?;
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_metadata_poll_basic_flow() {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyMetadataOperation::new(op);
+            Ok::<EmptyMetadataOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 456))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyMetadataOperation::new(op);
+
+            Ok::<EmptyMetadataOperation, Error>(op)
+        };
+
+        let mut poller = new_unit_metadata_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        );
+        let p0 = poller.poll().await;
+        match p0.unwrap() {
+            PollingResult::InProgress(m) => {
+                assert_eq!(m, Some(()));
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p1 = poller.poll().await;
+        match p1.unwrap() {
+            PollingResult::Completed(Ok(_)) => {}
+            PollingResult::Completed(Err(e)) => {
+                panic!("{e}");
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p2 = poller.poll().await;
+        assert!(p2.is_none(), "{p2:?}");
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_metadata_poll_basic_stream() {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyMetadataOperation::new(op);
+            Ok::<EmptyMetadataOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 456))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyMetadataOperation::new(op);
+
+            Ok::<EmptyMetadataOperation, Error>(op)
+        };
+
+        use futures::StreamExt;
+        let mut stream = new_unit_metadata_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        )
+        .into_stream();
+        let mut stream = std::pin::pin!(stream);
+        let p0 = stream.next().await;
+        match p0.unwrap() {
+            PollingResult::InProgress(m) => {
+                assert_eq!(m, Some(()));
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p1 = stream.next().await;
+        match p1.unwrap() {
+            PollingResult::Completed(Ok(d)) => {
+                assert_eq!(d, wkt::Duration::clamp(123, 456));
+            }
+            PollingResult::Completed(Err(e)) => {
+                panic!("{e}");
+            }
+            r => {
+                panic!("{r:?}");
+            }
+        }
+
+        let p2 = stream.next().await;
+        assert!(p2.is_none(), "{p2:?}");
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_metadata_until_done_basic_flow() -> Result<()> {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyMetadataOperation::new(op);
+            Ok::<EmptyMetadataOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 456))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyMetadataOperation::new(op);
+
+            Ok::<EmptyMetadataOperation, Error>(op)
+        };
+
+        let poller = new_unit_metadata_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .clamp(),
+            ),
+            start,
+            query,
+        );
+        let d = poller.until_done().await?;
+        assert_eq!(d, wkt::Duration::clamp(123, 456));
+        Ok(())
+    }
+
+    #[test]
+    fn unit_result_map() {
+        use PollingResult::{Completed, InProgress, PollingError};
+        type TestResult = PollingResult<wkt::Empty, wkt::Timestamp>;
+        let got = map_polling_result(TestResult::Completed(Ok(wkt::Empty::default())));
+        assert!(matches!(got, Completed(Ok(_))));
+        let got = map_polling_result(TestResult::Completed(Err(Error::other("abc".to_string()))));
+        assert!(matches!(got, Completed(Err(e)) if e.kind() == gax::error::ErrorKind::Other));
+        let got = map_polling_result(TestResult::InProgress(None));
+        assert!(matches!(got, InProgress(None)));
+        let got = map_polling_result(TestResult::InProgress(Some(wkt::Timestamp::clamp(
+            123, 456,
+        ))));
+        assert!(matches!(got, InProgress(Some(t)) if t == wkt::Timestamp::clamp(123, 456)));
+        let got = map_polling_result(TestResult::PollingError(Error::other("abc".to_string())));
+        assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
+    }
+
+    #[test]
+    fn unit_metadata_map() {
+        use PollingResult::{Completed, InProgress, PollingError};
+        type TestResult = PollingResult<wkt::Duration, wkt::Empty>;
+        let got = map_polling_metadata(TestResult::Completed(Ok(wkt::Duration::clamp(123, 456))));
+        assert!(matches!(got, Completed(Ok(_))));
+        let got = map_polling_metadata(TestResult::Completed(Err(Error::other("abc".to_string()))));
+        assert!(matches!(got, Completed(Err(e)) if e.kind() == gax::error::ErrorKind::Other));
+        let got = map_polling_metadata(TestResult::InProgress(None));
+        assert!(matches!(got, InProgress(None)));
+        let got = map_polling_metadata(TestResult::InProgress(Some(wkt::Empty::default())));
+        assert!(matches!(got, InProgress(Some(_))));
+        let got = map_polling_metadata(TestResult::PollingError(Error::other("abc".to_string())));
+        assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
     }
 
     #[tokio::test(flavor = "multi_thread")]
