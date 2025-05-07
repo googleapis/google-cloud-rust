@@ -37,11 +37,12 @@ publish                = false
 [features]
 default = [
     {{#Codec.Services}}
-    "{{Codec.ModuleName}}",
+    "{{Codec.FeatureName}}",
     {{/Codec.Services}}
 ]
 {{#Codec.Services}}
-{{Codec.ModuleName}} = []
+# Enables `client::{{Codec.Name}}` and all the types it depends on.
+{{Codec.FeatureName}} = []
 {{/Codec.Services}}
 {{/Codec.PerServiceFeatures}}
 

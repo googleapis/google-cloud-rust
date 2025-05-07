@@ -21,7 +21,7 @@ limitations under the License.
 
 /// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[async_trait::async_trait]
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
@@ -48,7 +48,7 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
 
 /// All implementations of [super::{{Codec.Name}}] also implement [{{Codec.Name}}].
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[async_trait::async_trait]
 impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {

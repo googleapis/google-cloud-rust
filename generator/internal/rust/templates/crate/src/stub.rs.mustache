@@ -31,7 +31,7 @@ limitations under the License.
 #![allow(rustdoc::broken_intra_doc_links)]
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use gax::error::Error;
 
@@ -51,8 +51,8 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
-#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
+#[cfg(feature = "{{Codec.FeatureName}}")]
+#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.FeatureName}}")))]
 {{/Codec.PerServiceFeatures}}
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}

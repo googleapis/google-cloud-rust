@@ -20,8 +20,8 @@ limitations under the License.
 {{#Codec.Services}}
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
-#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
+#[cfg(feature = "{{Codec.FeatureName}}")]
+#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.FeatureName}}")))]
 {{/Codec.PerServiceFeatures}}
 pub mod {{Codec.ModuleName}} {
     use crate::Result;
