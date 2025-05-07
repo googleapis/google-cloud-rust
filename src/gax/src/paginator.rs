@@ -58,17 +58,17 @@ mod sealed {
 }
 
 /// Automatically streams pages in list RPCs.
-/// 
+///
 /// When listing large collections of items Google Cloud services typically
 /// break the responses in "pages", where each page contains a limited number
 /// of items, and a token to request the next page. The caller must
 /// repeatedly call the list RPC (using the token from the previous pag) to
 /// obtain additional items.
-/// 
+///
 /// Sequencing these calls can be tedious. The Google Cloud client libraries
 /// for Rust provide implementations of this trait to simplify the use of
 /// these paginated APIs.
-/// 
+///
 /// For more information on the RPCs with paginated responses see [AIP-4233].
 ///
 /// [AIP-4233]: https://google.aip.dev/client-libraries/4233
@@ -174,21 +174,21 @@ impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
 }
 
 /// Automatically stream items in list RPCs.
-/// 
+///
 /// When listing large collections of items Google Cloud services typically
 /// break the responses in "pages", where each page contains a subset of
 /// the items, and a token to request the next page. The caller must
 /// repeatedly call the list RPC using the token from the previous page.
-/// 
+///
 /// Sequencing these calls can be tedious. The Google Cloud client libraries
 /// for rust provide implementations of this trait to simplify the use of
 /// these paginated APIs.
-/// 
+///
 /// Many applications want to operate on one item at a time. The Google Cloud
 /// client libraries for Rust provide implementations of this trait that
 /// automatically iterate over each item and then fetch the next page, stopping
 /// when all the pages are processed.
-/// 
+///
 /// For more information on the RPCs with paginated responses see [AIP-4233].
 ///
 /// [AIP-4233]: https://google.aip.dev/client-libraries/4233

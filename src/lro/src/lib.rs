@@ -60,18 +60,18 @@ mod sealed {
 }
 
 /// Automatically polls long-running operations.
-/// 
+///
 /// Occasionally, a Google Cloud service may need to expose a method that takes
 /// a significant amount of time to complete. In these situations, it is often
 /// a poor user experience to simply block while the task runs. Such services
 /// return a long-running operation, a type of promise that can be polled until
 /// it completes successfully.
-/// 
+///
 /// Polling these operations can be tedious. The application needs to
 /// periodically make RPCs, extract the result from the response, and may need
 /// to implement a stream to return metadata representing any progress in the
 /// RPC.
-/// 
+///
 /// The Google Cloud client libraries for Rust return implementations of this
 /// trait to simplify working with these long-running operations.
 ///
