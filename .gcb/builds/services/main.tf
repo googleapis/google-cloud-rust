@@ -14,6 +14,18 @@
 
 variable "project" {}
 
+resource "google_project_service" "bigquery" {
+  project = var.project
+  service = "bigquery.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
 resource "google_project_service" "cloudbuild" {
   project = var.project
   service = "cloudbuild.googleapis.com"
@@ -77,6 +89,18 @@ resource "google_project_service" "speech" {
 resource "google_project_service" "storage" {
   project = var.project
   service = "storage.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "sqladmin" {
+  project = var.project
+  service = "sqladmin.googleapis.com"
 
   timeouts {
     create = "30m"
