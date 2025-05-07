@@ -264,10 +264,7 @@ impl MDSAccessTokenProvider {
     async fn get_service_account_info(&self) -> Result<ServiceAccountInfo> {
         let request = self
             .request_client
-            .prepare_request(
-                Method::GET,
-                format!("{}{}", self.request_client.endpoint(), MDS_DEFAULT_URI),
-            )
+            .prepare_request(Method::GET, MDS_DEFAULT_URI.to_string())
             .query(&[("recursive", "true")])
             .header(
                 METADATA_FLAVOR,
@@ -296,10 +293,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 
         let request = self
             .request_client
-            .prepare_request(
-                Method::GET,
-                format!("{}{}", self.request_client.endpoint(), MDS_DEFAULT_URI),
-            )
+            .prepare_request(Method::GET, format!("{}/token", MDS_DEFAULT_URI))
             .query(&[("scopes", scopes)])
             .header(
                 METADATA_FLAVOR,

@@ -80,10 +80,6 @@ impl Builder {
 }
 
 impl ReqwestClient {
-    pub fn endpoint(&self) -> String {
-        self.endpoint.clone()
-    }
-
     pub fn prepare_request(
         &self,
         method: reqwest::Method,
