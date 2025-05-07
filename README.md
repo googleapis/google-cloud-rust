@@ -17,11 +17,11 @@ client libraries for Rust.
 ## Non-public API
 
 Some crates export "public" types and functions that are intended only for use
-as implementation details of other crates. Chief amongst these are all the
-symbols exported by the `google-cloud-gax-internal` crate. As the name
-indicates, this crate is intended to hold internal-only types. No application
-should take a direct dependency on this crate or use their types in their
-application. We reserve the right to make changs to this crate without notice.
+as implementation details of other crates in this repository. Chief amongst
+these are all the symbols exported by the `google-cloud-gax-internal` crate. As
+the name indicates, this crate is intended to hold internal-only types. No
+application should take a direct dependency on this crate or use their types in
+their code. We reserve the right to make changes to this crate without notice.
 
 In other crates, any public symbol that is not part of the public API have the
 `#[doc(hidden)]` attribute set. This is conventional in Rust.

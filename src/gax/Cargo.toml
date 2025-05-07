@@ -53,7 +53,7 @@ tokio               = { version = "1", features = ["test-util"] }
 tokio-test          = "0.4"
 
 [features]
-# Enable functionality that depend on the [futures::stream::Stream] trait. This
+# Enable functionality that depends on the [futures::stream::Stream] trait. This
 # functionality may change as the trait is stabilized.
 #
 # [futures::stream::Stream]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
