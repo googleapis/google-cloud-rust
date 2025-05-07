@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_http_client"))]
+#[cfg(all(test, feature = "_internal-http-client"))]
 mod test {
     use google_cloud_gax_internal as gaxi;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;

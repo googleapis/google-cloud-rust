@@ -18,11 +18,12 @@ use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
 
-/// This module contains implementation details. It is not part of the public
-/// API. Types inside may be changed or removed without warnings. Applications
-/// should not use any types contained within.
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal {
+    //! This module contains implementation details. It is not part of the
+    //! public API. Types and functions in this module may be changed or removed
+    //! without warnings. Applications should not use any types contained
+    //! within.
     use super::*;
 
     /// Describes a type that can be iterated over asynchronously when used with

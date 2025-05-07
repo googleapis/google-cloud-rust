@@ -25,7 +25,6 @@ use std::time::Instant;
 ///
 /// This is intended as an implementation detail of the generated clients.
 /// Applications should have no need to create or use this struct.
-#[doc(hidden)]
 pub struct Operation<R, M> {
     inner: longrunning::model::Operation,
     response: std::marker::PhantomData<R>,

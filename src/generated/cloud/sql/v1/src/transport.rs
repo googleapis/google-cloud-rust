@@ -475,7 +475,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -796,7 +796,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             );
         let builder = builder.query(&[("failover", &req.failover)]);
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -831,7 +831,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 v.add(builder, "dbTimeout")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -856,7 +856,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -881,7 +881,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -952,7 +952,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -977,7 +977,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -1259,7 +1259,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 }
@@ -1354,7 +1354,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

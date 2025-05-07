@@ -50,7 +50,7 @@ pub enum PollingResult<R, M> {
     PollingError(Error),
 }
 
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal;
 
 mod sealed {

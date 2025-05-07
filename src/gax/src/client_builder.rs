@@ -287,7 +287,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     }
 }
 
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal {
     use super::*;
 
@@ -349,6 +349,10 @@ pub mod internal {
 
 #[doc(hidden)]
 pub mod examples {
+    //! This module contains helper types used in the rustdoc examples.
+    //!
+    //! The examples require relatively complex types to be useful.
+
     type Config = super::internal::ClientConfig<Credentials>;
     use super::Result;
 

@@ -23,10 +23,10 @@
 //! implementation of the Google Cloud Client Libraries for Rust.
 //!
 //! <div class="warning">
-//! All the types, traits, and functions defined in the <code>unstable-sdk-client</code>
-//! feature are <b>not</b> intended for general use. The APIs enabled by this
-//! feature will remain unstable for the foreseeable future, even if used in
-//! stable SDKs. We (the Google Cloud Client Libraries for Rust team) control both and will
+//! All the types, traits, and functions defined in any module with `internal`
+//! in its name are <b>not</b> intended for general use. Such symbols will
+//! remain unstable for the foreseeable future, even if used in stable SDKs.
+//! We (the Google Cloud Client Libraries for Rust team) control both and will
 //! change both if needed.
 //! </div>
 
@@ -53,6 +53,5 @@ pub mod polling_error_policy;
 pub mod retry_policy;
 pub mod retry_throttler;
 
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod retry_loop_internal;

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_grpc_client"))]
+#[cfg(all(test, feature = "_internal-grpc-client"))]
 mod test {
     use auth::credentials::testing::test_credentials;
     use gax::options::*;
