@@ -441,12 +441,7 @@ func fieldBaseAttributes(f *api.Field) []string {
 
 func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	// Message fields could be `Vec<..>`, and are always optional:
-	if f.Optional && !f.IsOneOf {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-	}
-	if f.Repeated && !f.IsOneOf {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-	}
+	attributes = wrapperFieldSkipSerializingAttributes(f, attributes)
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
@@ -480,6 +475,21 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	return append(
 		attributes,
 		fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
+}
+
+func wrapperFieldSkipSerializingAttributes(f *api.Field, attributes []string) []string {
+	// oneofs have explicit presence, and default values should be serialized:
+	// https://protobuf.dev/programming-guides/field_presence/.
+	if f.IsOneOf {
+		return attributes
+	}
+	if f.Optional {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
+	}
+	if f.Repeated && !f.IsOneOf {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
+	}
+	return attributes
 }
 
 func fieldAttributes(f *api.Field, state *api.APIState) []string {
