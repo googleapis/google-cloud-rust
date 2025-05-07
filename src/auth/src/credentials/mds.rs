@@ -54,13 +54,15 @@
 
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
-use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
+use crate::http::{Builder as ReqwestClientBuilder, ReqwestClient};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
-use bon::Builder;
+use gax::backoff_policy::BackoffPolicy;
+use gax::retry_policy::RetryPolicy;
+use gax::retry_throttler::SharedRetryThrottler;
 use http::header::{HeaderName, HeaderValue};
-use reqwest::Client;
+use reqwest::Method;
 use std::default::Default;
 use std::sync::Arc;
 use std::time::Duration;
@@ -97,6 +99,9 @@ pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: Option<SharedRetryThrottler>,
 }
 
 impl Builder {
@@ -160,14 +165,45 @@ impl Builder {
         self
     }
 
+    pub fn with_retry_policy(mut self, retry_policy: Arc<dyn RetryPolicy>) -> Self {
+        self.retry_policy = Some(retry_policy);
+        self
+    }
+
+    pub fn with_backoff_policy(mut self, backoff_policy: Arc<dyn BackoffPolicy>) -> Self {
+        self.backoff_policy = Some(backoff_policy);
+        self
+    }
+
+    pub fn with_retry_throttler(mut self, retry_throttler: SharedRetryThrottler) -> Self {
+        self.retry_throttler = Some(retry_throttler);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Result<Credentials> {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
+        let mut request_client_builder = ReqwestClientBuilder::new(endpoint);
 
-        let token_provider = MDSAccessTokenProvider::builder()
-            .endpoint(endpoint)
-            .maybe_scopes(self.scopes)
-            .build();
+        if let Some(retry_policy) = self.retry_policy {
+            request_client_builder = request_client_builder.with_retry_policy(retry_policy);
+        }
+
+        if let Some(retry_throttler) = self.retry_throttler {
+            request_client_builder = request_client_builder.with_retry_throttler(retry_throttler);
+        }
+
+        if let Some(backoff_policy) = self.backoff_policy {
+            request_client_builder = request_client_builder.with_backoff_policy(backoff_policy);
+        }
+
+        let request_client = request_client_builder.build();
+
+        let token_provider = MDSAccessTokenProvider {
+            request_client,
+            scopes: self.scopes,
+        };
+
         let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
 
         let mdsc = MDSCredentials {
@@ -203,14 +239,14 @@ where
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize, Default)]
 struct ServiceAccountInfo {
     email: String,
     scopes: Option<Vec<String>>,
     aliases: Option<Vec<String>>,
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize, Default)]
 struct MDSTokenResponse {
     access_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -218,71 +254,65 @@ struct MDSTokenResponse {
     token_type: String,
 }
 
-#[derive(Debug, Clone, Default, Builder)]
+#[derive(Debug, Clone)]
 struct MDSAccessTokenProvider {
-    #[builder(into)]
     scopes: Option<Vec<String>>,
-    #[builder(into)]
-    endpoint: String,
+    request_client: ReqwestClient,
 }
 
 impl MDSAccessTokenProvider {
-    async fn get_service_account_info(&self, client: &Client) -> Result<ServiceAccountInfo> {
-        let request = client
-            .get(format!("{}{}", self.endpoint, MDS_DEFAULT_URI))
+    async fn get_service_account_info(&self) -> Result<ServiceAccountInfo> {
+        let request = self
+            .request_client
+            .prepare_request(
+                Method::GET,
+                format!("{}{}", self.request_client.endpoint(), MDS_DEFAULT_URI),
+            )
             .query(&[("recursive", "true")])
             .header(
                 METADATA_FLAVOR,
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             );
 
-        let response = request.send().await.map_err(errors::retryable)?;
-
-        response
-            .json::<ServiceAccountInfo>()
-            .await
-            .map_err(errors::non_retryable)
+        let response = self
+            .request_client
+            .execute::<crate::http::NoBody, ServiceAccountInfo>(request, None)
+            .await?;
+        Ok(response.body().clone())
     }
 }
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let client = Client::new();
         // Determine scopes, fetching from metadata server if needed.
         let scopes = match &self.scopes {
             Some(s) => s.clone().join(","),
             None => {
-                let service_account_info = self.get_service_account_info(&client).await?;
+                let service_account_info = self.get_service_account_info().await?;
                 service_account_info.scopes.unwrap_or_default().join(",")
             }
         };
 
-        let request = client
-            .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
+        let request = self
+            .request_client
+            .prepare_request(
+                Method::GET,
+                format!("{}{}", self.request_client.endpoint(), MDS_DEFAULT_URI),
+            )
             .query(&[("scopes", scopes)])
             .header(
                 METADATA_FLAVOR,
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             );
 
-        let response = request.send().await.map_err(errors::retryable)?;
-        // Process the response
-        if !response.status().is_success() {
-            let status = response.status();
-            let body = response
-                .text()
-                .await
-                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
-            return Err(CredentialsError::from_str(
-                is_retryable(status),
-                format!("Failed to fetch token. {body}"),
-            ));
-        }
-        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::new(retryable, e)
-        })?;
+        let response = self
+            .request_client
+            .execute::<crate::http::NoBody, MDSTokenResponse>(request, None)
+            .await?
+            .body()
+            .clone();
+
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -300,6 +330,7 @@ mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
+    use crate::errors;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
@@ -476,10 +507,13 @@ mod test {
         )]))
         .await;
 
-        let request = Client::new();
-        let token_provider = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
+        let request_client = ReqwestClientBuilder::new(endpoint.clone()).build();
+        let token_provider = MDSAccessTokenProvider {
+            scopes: None,
+            request_client,
+        };
 
-        let result = token_provider.get_service_account_info(&request).await;
+        let result = token_provider.get_service_account_info().await;
 
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), service_account_info);
@@ -501,10 +535,13 @@ mod test {
         )]))
         .await;
 
-        let request = Client::new();
-        let token_provider = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
+        let request_client = ReqwestClientBuilder::new(endpoint.clone()).build();
+        let token_provider = MDSAccessTokenProvider {
+            scopes: None,
+            request_client,
+        };
 
-        let result = token_provider.get_service_account_info(&request).await;
+        let result = token_provider.get_service_account_info().await;
         assert!(result.is_err());
     }
 
