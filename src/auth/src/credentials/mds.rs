@@ -192,10 +192,26 @@ impl Builder {
             _ => self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string()),
         };
 
-        let token_provider = MDSAccessTokenProvider::builder()
-            .endpoint(endpoint)
-            .maybe_scopes(self.scopes)
-            .build();
+        let mut request_client_builder = ReqwestClientBuilder::new(endpoint);
+
+        if let Some(retry_policy) = self.retry_policy {
+            request_client_builder = request_client_builder.with_retry_policy(retry_policy);
+        }
+
+        if let Some(retry_throttler) = self.retry_throttler {
+            request_client_builder = request_client_builder.with_retry_throttler(retry_throttler);
+        }
+
+        if let Some(backoff_policy) = self.backoff_policy {
+            request_client_builder = request_client_builder.with_backoff_policy(backoff_policy);
+        }
+
+        let request_client = request_client_builder.build();
+
+        let token_provider = MDSAccessTokenProvider {
+            scopes: self.scopes,
+            request_client,
+        };
         let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
 
         let mdsc = MDSCredentials {

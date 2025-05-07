@@ -38,7 +38,7 @@ rustls-pemfile = "2"
 tokio          = { version = "1", features = ["fs"] }
 base64         = "0.22"
 # Local dependencies
-gax = { workspace = true, features = ["unstable-sdk-client"] }
+gax = { workspace = true }
 http-body-util = "0.1.3"
 
 [dev-dependencies]
