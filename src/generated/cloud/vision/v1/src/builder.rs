@@ -260,7 +260,7 @@ pub mod image_annotator {
             crate::model::AsyncBatchAnnotateImagesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateImagesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -288,7 +288,7 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
@@ -388,7 +388,7 @@ pub mod image_annotator {
             crate::model::AsyncBatchAnnotateFilesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AsyncBatchAnnotateFilesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -416,7 +416,7 @@ pub mod image_annotator {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
@@ -1640,7 +1640,7 @@ pub mod product_search {
             crate::model::ImportProductSetsResponse,
             crate::model::BatchOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportProductSetsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1668,7 +1668,7 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
@@ -1738,7 +1738,8 @@ pub mod product_search {
 
         /// Creates a [Poller][lro::Poller] to work with `purge_products`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::BatchOperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1763,7 +1764,7 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].

@@ -832,7 +832,8 @@ pub mod config_service_v_2 {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::LogBucket, crate::model::BucketMetadata> {
-            type Operation = lro::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -857,7 +858,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
@@ -935,7 +936,8 @@ pub mod config_service_v_2 {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::LogBucket, crate::model::BucketMetadata> {
-            type Operation = lro::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -960,7 +962,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
@@ -1874,7 +1876,8 @@ pub mod config_service_v_2 {
 
         /// Creates a [Poller][lro::Poller] to work with `create_link`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Link, crate::model::LinkMetadata> {
-            type Operation = lro::Operation<crate::model::Link, crate::model::LinkMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Link, crate::model::LinkMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1899,7 +1902,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLinkRequest::parent].
@@ -1972,7 +1975,7 @@ pub mod config_service_v_2 {
 
         /// Creates a [Poller][lro::Poller] to work with `delete_link`.
         pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::LinkMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::LinkMetadata>;
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::LinkMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1997,7 +2000,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLinkRequest::name].
@@ -2704,7 +2707,7 @@ pub mod config_service_v_2 {
             self,
         ) -> impl lro::Poller<crate::model::CopyLogEntriesResponse, crate::model::CopyLogEntriesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CopyLogEntriesResponse,
                 crate::model::CopyLogEntriesMetadata,
             >;
@@ -2732,7 +2735,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CopyLogEntriesRequest::name].

@@ -1038,7 +1038,7 @@ pub mod os_config_zonal_service {
             crate::model::OSPolicyAssignment,
             crate::model::OSPolicyAssignmentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::OSPolicyAssignment,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1066,7 +1066,7 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateOSPolicyAssignmentRequest::parent].
@@ -1154,7 +1154,7 @@ pub mod os_config_zonal_service {
             crate::model::OSPolicyAssignment,
             crate::model::OSPolicyAssignmentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::OSPolicyAssignment,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1182,7 +1182,7 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
@@ -1473,8 +1473,10 @@ pub mod os_config_zonal_service {
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::OSPolicyAssignmentOperationMetadata>
         {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::OSPolicyAssignmentOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::OSPolicyAssignmentOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1499,7 +1501,7 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteOSPolicyAssignmentRequest::name].

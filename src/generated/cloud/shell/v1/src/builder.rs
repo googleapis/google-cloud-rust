@@ -161,7 +161,7 @@ pub mod cloud_shell_service {
             crate::model::StartEnvironmentResponse,
             crate::model::StartEnvironmentMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::StartEnvironmentResponse,
                 crate::model::StartEnvironmentMetadata,
             >;
@@ -189,7 +189,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartEnvironmentRequest::name].
@@ -269,7 +269,7 @@ pub mod cloud_shell_service {
             crate::model::AuthorizeEnvironmentResponse,
             crate::model::AuthorizeEnvironmentMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizeEnvironmentResponse,
                 crate::model::AuthorizeEnvironmentMetadata,
             >;
@@ -297,7 +297,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::AuthorizeEnvironmentRequest::name].
@@ -376,7 +376,7 @@ pub mod cloud_shell_service {
             self,
         ) -> impl lro::Poller<crate::model::AddPublicKeyResponse, crate::model::AddPublicKeyMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddPublicKeyResponse,
                 crate::model::AddPublicKeyMetadata,
             >;
@@ -404,7 +404,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::AddPublicKeyRequest::environment].
@@ -468,7 +468,7 @@ pub mod cloud_shell_service {
             self,
         ) -> impl lro::Poller<crate::model::RemovePublicKeyResponse, crate::model::RemovePublicKeyMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemovePublicKeyResponse,
                 crate::model::RemovePublicKeyMetadata,
             >;
@@ -496,7 +496,7 @@ pub mod cloud_shell_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::RemovePublicKeyRequest::environment].

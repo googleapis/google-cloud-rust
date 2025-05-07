@@ -221,8 +221,10 @@ pub mod policies {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -247,7 +249,7 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -321,8 +323,10 @@ pub mod policies {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -347,7 +351,7 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
@@ -407,8 +411,10 @@ pub mod policies {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -433,7 +439,7 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].

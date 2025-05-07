@@ -30,6 +30,16 @@ mod driver {
             .with_attempt_limit(5)
     }
 
+    #[test_case(bigquery::client::DatasetService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_bigquery(
+        builder: bigquery::builder::dataset_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::bigquery::dataset_admin(builder)
+            .await
+            .map_err(report)
+    }
+
     #[test_case(firestore::client::Firestore::builder(); "default")]
     #[test_case(firestore::client::Firestore::builder().with_tracing(); "with tracing enabled")]
     #[test_case(firestore::client::Firestore::builder().with_retry_policy(retry_policy()); "with retry enabled")]
@@ -38,16 +48,6 @@ mod driver {
         builder: firestore::builder::firestore::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::firestore::basic(builder)
-            .await
-            .map_err(report)
-    }
-
-    #[test_case(bigquery::client::DatasetService::builder().with_retry_policy(retry_policy()).with_tracing(); "with retry enabled")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_bigquery(
-        builder: bigquery::builder::dataset_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        integration_tests::bigquery::dataset_admin(builder)
             .await
             .map_err(report)
     }
@@ -84,6 +84,26 @@ mod driver {
         builder: smo::builder::secret_manager_service::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::secret_manager::openapi_locational::run(builder)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(sql::client::SqlInstancesService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_sql(
+        builder: sql::builder::sql_instances_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::sql::run_sql_instances_service(builder)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(sql::client::SqlTiersService::builder().with_tracing().with_retry_policy(retry_policy()); "with [tracing, retry] enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_sql_tiers_service(
+        builder: sql::builder::sql_tiers_service::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::sql::run_sql_tiers_service(builder)
             .await
             .map_err(report)
     }

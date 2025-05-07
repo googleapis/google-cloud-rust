@@ -92,6 +92,7 @@ jobs:
             cargo "${sub}" --package google-cloud-wkt --no-default-features
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features chrono
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
+            cargo "${sub}" --package google-cloud-wkt --no-default-features --features _internal-semver
             cargo "${sub}" --package google-cloud-wkt --all-features
           done
           cargo clippy --no-deps --package google-cloud-wkt --all-features --all-targets --profile=test -- --deny warnings
@@ -100,7 +101,8 @@ jobs:
           echo "==== google-cloud-gax ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax --no-default-features
-            cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-sdk-client
+            cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-stream
+            cargo "${sub}" --package google-cloud-gax --no-default-features --features _internal-semver
             cargo "${sub}" --package google-cloud-gax --all-features
           done
           cargo clippy --no-deps --package google-cloud-gax --all-features --all-targets --profile=test -- --deny warnings
@@ -109,9 +111,9 @@ jobs:
           echo "==== google-cloud-gax-internal ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_common
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_http_client
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_grpc_client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-common
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-grpc-client
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
           cargo clippy --no-deps --package google-cloud-gax-internal --all-features --all-targets --profile=test -- --deny warnings
@@ -121,6 +123,7 @@ jobs:
           for sub in test doc; do
             cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features
             cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features unstable-stream
+            cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features _internal-semver
             cargo "${sub}" --profile=ci --package google-cloud-lro --all-features
           done
           cargo clippy --no-deps --package google-cloud-lro --all-features --all-targets --profile=test -- --deny warnings

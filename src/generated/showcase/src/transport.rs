@@ -440,7 +440,7 @@ impl super::stub::Compliance for Compliance {
             });
         let builder = builder.query(&[("continent", &req.continent)]);
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -643,7 +643,7 @@ impl super::stub::Compliance for Compliance {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1022,7 +1022,7 @@ impl super::stub::Echo for Echo {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1378,7 +1378,7 @@ impl super::stub::Identity for Identity {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1858,7 +1858,7 @@ impl super::stub::Messaging for Messaging {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2203,7 +2203,7 @@ impl super::stub::SequenceService for SequenceService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2334,7 +2334,7 @@ impl super::stub::Testing for Testing {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2408,7 +2408,7 @@ impl super::stub::Testing for Testing {
             .iter()
             .fold(builder, |builder, p| builder.query(&[("answers", p)]));
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 
@@ -2611,7 +2611,7 @@ impl super::stub::Testing for Testing {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

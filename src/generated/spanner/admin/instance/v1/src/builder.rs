@@ -239,7 +239,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::CreateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::CreateInstanceConfigMetadata,
             >;
@@ -267,7 +267,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
@@ -355,7 +355,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::UpdateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::UpdateInstanceConfigMetadata,
             >;
@@ -383,7 +383,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
@@ -845,8 +845,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -871,7 +873,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -950,8 +952,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -976,7 +980,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
@@ -1340,7 +1344,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::CreateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::CreateInstancePartitionMetadata,
             >;
@@ -1368,7 +1372,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
@@ -1514,7 +1518,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::UpdateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::UpdateInstancePartitionMetadata,
             >;
@@ -1542,7 +1546,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
@@ -1714,7 +1718,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MoveInstanceResponse, crate::model::MoveInstanceMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MoveInstanceResponse,
                 crate::model::MoveInstanceMetadata,
             >;
@@ -1742,7 +1746,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::MoveInstanceRequest::name].

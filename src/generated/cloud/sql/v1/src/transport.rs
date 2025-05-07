@@ -45,28 +45,24 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::DELETE,
-                format!("/v1/projects/{}/instances/{}/backupRuns/{}"
-                        , req.project
-                        , req.instance
-                        , req.id
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/backupRuns/{}",
+                    req.project, req.instance, req.id
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn get(
@@ -74,28 +70,24 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRun>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/backupRuns/{}"
-                        , req.project
-                        , req.instance
-                        , req.id
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/backupRuns/{}",
+                    req.project, req.instance, req.id
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn insert(
@@ -103,27 +95,22 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/backupRuns"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/backupRuns",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn list(
@@ -131,31 +118,27 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/backupRuns"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/backupRuns",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("maxResults", &req.max_results)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
-
 }
 
 /// Implements [SqlConnectService](super::stub::SqlConnectService) using a [gaxi::http::ReqwestClient].
@@ -185,28 +168,34 @@ impl super::stub::SqlConnectService for SqlConnectService {
         req: crate::model::GetConnectSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/connectSettings"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/connectSettings",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = req.read_time.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "readTime") });
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .read_time
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "readTime")
+            });
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn generate_ephemeral_cert(
@@ -214,29 +203,23 @@ impl super::stub::SqlConnectService for SqlConnectService {
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}:generateEphemeralCert"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}:generateEphemeralCert",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
     }
-
 }
 
 /// Implements [SqlDatabasesService](super::stub::SqlDatabasesService) using a [gaxi::http::ReqwestClient].
@@ -266,28 +249,24 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::DELETE,
-                format!("/v1/projects/{}/instances/{}/databases/{}"
-                        , req.project
-                        , req.instance
-                        , req.database
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/databases/{}",
+                    req.project, req.instance, req.database
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn get(
@@ -295,28 +274,24 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Database>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/databases/{}"
-                        , req.project
-                        , req.instance
-                        , req.database
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/databases/{}",
+                    req.project, req.instance, req.database
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn insert(
@@ -324,27 +299,22 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/databases"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/databases",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn list(
@@ -352,27 +322,24 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/databases"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/databases",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn patch(
@@ -380,28 +347,22 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::PATCH,
-                format!("/v1/projects/{}/instances/{}/databases/{}"
-                        , req.project
-                        , req.instance
-                        , req.database
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/databases/{}",
+                    req.project, req.instance, req.database
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn update(
@@ -409,30 +370,23 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::PUT,
-                format!("/v1/projects/{}/instances/{}/databases/{}"
-                        , req.project
-                        , req.instance
-                        , req.database
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/databases/{}",
+                    req.project, req.instance, req.database
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
-
 }
 
 /// Implements [SqlFlagsService](super::stub::SqlFlagsService) using a [gaxi::http::ReqwestClient].
@@ -462,27 +416,20 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                "/v1/flags".to_string()
-            )
+            .builder(reqwest::Method::GET, "/v1/flags".to_string())
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("databaseVersion", &req.database_version)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
-
 }
 
 /// Implements [SqlInstancesService](super::stub::SqlInstancesService) using a [gaxi::http::ReqwestClient].
@@ -512,27 +459,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/addServerCa"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/addServerCa",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn clone(
@@ -540,27 +484,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesCloneRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/clone"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/clone",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn delete(
@@ -568,27 +507,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::DELETE,
-                format!("/v1/projects/{}/instances/{}"
-                        , req.project
-                        , req.instance
-                )
+                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn demote_master(
@@ -596,27 +529,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/demoteMaster"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/demoteMaster",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn demote(
@@ -624,27 +552,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesDemoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/demote"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/demote",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn export(
@@ -652,27 +575,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesExportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/export"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/export",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn failover(
@@ -680,27 +598,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesFailoverRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/failover"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/failover",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn reencrypt(
@@ -708,27 +621,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesReencryptRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/reencrypt"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/reencrypt",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn get(
@@ -736,27 +644,21 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}"
-                        , req.project
-                        , req.instance
-                )
+                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn import(
@@ -764,27 +666,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesImportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/import"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/import",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn insert(
@@ -792,26 +689,19 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances"
-                        , req.project
-                )
+                format!("/v1/projects/{}/instances", req.project),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn list(
@@ -819,29 +709,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances"
-                        , req.project
-                )
+                format!("/v1/projects/{}/instances", req.project),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("maxResults", &req.max_results)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn list_server_cas(
@@ -849,27 +734,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesListServerCasRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/listServerCas"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/listServerCas",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn patch(
@@ -877,27 +759,19 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesPatchRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::PATCH,
-                format!("/v1/projects/{}/instances/{}"
-                        , req.project
-                        , req.instance
-                )
+                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn promote_replica(
@@ -905,28 +779,25 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/promoteReplica"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/promoteReplica",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("failover", &req.failover)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn switchover(
@@ -934,28 +805,34 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/switchover"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/switchover",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = req.db_timeout.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "dbTimeout") });
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .db_timeout
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "dbTimeout")
+            });
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn reset_ssl_config(
@@ -963,27 +840,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/resetSslConfig"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/resetSslConfig",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn restart(
@@ -991,27 +865,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRestartRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/restart"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/restart",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn restore_backup(
@@ -1019,27 +890,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/restoreBackup"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/restoreBackup",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn rotate_server_ca(
@@ -1047,27 +913,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/rotateServerCa"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/rotateServerCa",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn start_replica(
@@ -1075,27 +936,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/startReplica"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/startReplica",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn stop_replica(
@@ -1103,27 +961,24 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/stopReplica"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/stopReplica",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
 
     async fn truncate_log(
@@ -1131,27 +986,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/truncateLog"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/truncateLog",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn update(
@@ -1159,27 +1009,19 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::PUT,
-                format!("/v1/projects/{}/instances/{}"
-                        , req.project
-                        , req.instance
-                )
+                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn create_ephemeral(
@@ -1187,27 +1029,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/createEphemeral"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/createEphemeral",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn reschedule_maintenance(
@@ -1215,55 +1052,46 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/rescheduleMaintenance"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/rescheduleMaintenance",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn verify_external_sync_settings(
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>
+    {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/verifyExternalSyncSettings"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn start_external_sync(
@@ -1271,27 +1099,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/startExternalSync"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/startExternalSync",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn perform_disk_shrink(
@@ -1299,55 +1122,48 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/performDiskShrink"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/performDiskShrink",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn get_disk_shrink_config(
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
+    {
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/getDiskShrinkConfig"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn reset_replica_size(
@@ -1355,55 +1171,48 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/resetReplicaSize"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/resetReplicaSize",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_latest_recovery_time(
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>
+    {
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/getLatestRecoveryTime"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn acquire_ssrs_lease(
@@ -1411,27 +1220,22 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/acquireSsrsLease"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/acquireSsrsLease",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn release_ssrs_lease(
@@ -1439,29 +1243,25 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/releaseSsrsLease"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/releaseSsrsLease",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
     }
-
 }
 
 /// Implements [SqlOperationsService](super::stub::SqlOperationsService) using a [gaxi::http::ReqwestClient].
@@ -1491,27 +1291,21 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         req: crate::model::SqlOperationsGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/operations/{}"
-                        , req.project
-                        , req.operation
-                )
+                format!("/v1/projects/{}/operations/{}", req.project, req.operation),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn list(
@@ -1519,29 +1313,24 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         req: crate::model::SqlOperationsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/operations"
-                        , req.project
-                )
+                format!("/v1/projects/{}/operations", req.project),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("instance", &req.instance)]);
         let builder = builder.query(&[("maxResults", &req.max_results)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn cancel(
@@ -1549,33 +1338,29 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/operations/{}/cancel"
-                        , req.project
-                        , req.operation
-                )
+                format!(
+                    "/v1/projects/{}/operations/{}/cancel",
+                    req.project, req.operation
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
-        .map(|r: gax::response::Response<wkt::Empty>| {
-            let (parts, _) = r.into_parts();
-            gax::response::Response::from_parts(parts, ()) 
-        })
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(gaxi::http::NoBody), options)
+            .await
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
-
 }
 
 /// Implements [SqlSslCertsService](super::stub::SqlSslCertsService) using a [gaxi::http::ReqwestClient].
@@ -1605,28 +1390,24 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::DELETE,
-                format!("/v1/projects/{}/instances/{}/sslCerts/{}"
-                        , req.project
-                        , req.instance
-                        , req.sha1_fingerprint
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/sslCerts/{}",
+                    req.project, req.instance, req.sha1_fingerprint
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn get(
@@ -1634,28 +1415,24 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/sslCerts/{}"
-                        , req.project
-                        , req.instance
-                        , req.sha1_fingerprint
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/sslCerts/{}",
+                    req.project, req.instance, req.sha1_fingerprint
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn insert(
@@ -1663,27 +1440,22 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/sslCerts"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/sslCerts",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn list(
@@ -1691,29 +1463,25 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/sslCerts"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/sslCerts",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
-
 }
 
 /// Implements [SqlTiersService](super::stub::SqlTiersService) using a [gaxi::http::ReqwestClient].
@@ -1743,28 +1511,22 @@ impl super::stub::SqlTiersService for SqlTiersService {
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/tiers"
-                        , req.project
-                )
+                format!("/v1/projects/{}/tiers", req.project),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
-
 }
 
 /// Implements [SqlUsersService](super::stub::SqlUsersService) using a [gaxi::http::ReqwestClient].
@@ -1794,29 +1556,26 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::DELETE,
-                format!("/v1/projects/{}/instances/{}/users"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("host", &req.host)]);
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn get(
@@ -1824,29 +1583,25 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/users/{}"
-                        , req.project
-                        , req.instance
-                        , req.name
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/users/{}",
+                    req.project, req.instance, req.name
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("host", &req.host)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn insert(
@@ -1854,27 +1609,22 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            false,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::POST,
-                format!("/v1/projects/{}/instances/{}/users"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req.body), options).await
     }
 
     async fn list(
@@ -1882,27 +1632,24 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}/users"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
     }
 
     async fn update(
@@ -1910,30 +1657,23 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            true,
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
                 reqwest::Method::PUT,
-                format!("/v1/projects/{}/instances/{}/users"
-                        , req.project
-                        , req.instance
-                )
+                format!(
+                    "/v1/projects/{}/instances/{}/users",
+                    req.project, req.instance
+                ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder = builder.query(&[("host", &req.host)]);
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner.execute(
-            builder,
-            Some(req.body)
-            ,
-            options,
-        ).await
+        self.inner.execute(builder, Some(req.body), options).await
     }
-
 }
-
