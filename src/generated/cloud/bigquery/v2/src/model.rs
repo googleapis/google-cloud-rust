@@ -6579,22 +6579,27 @@ pub mod model {
     pub struct RegressionMetrics {
         /// Mean absolute error.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub mean_absolute_error: std::option::Option<wkt::DoubleValue>,
 
         /// Mean squared error.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub mean_squared_error: std::option::Option<wkt::DoubleValue>,
 
         /// Mean squared log error.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub mean_squared_log_error: std::option::Option<wkt::DoubleValue>,
 
         /// Median absolute error.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub median_absolute_error: std::option::Option<wkt::DoubleValue>,
 
         /// R^2 score. This corresponds to r2_score in ML.EVALUATE.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub r_squared: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6681,16 +6686,19 @@ pub mod model {
         /// positive actual labels. For multiclass this is a macro-averaged
         /// metric treating each class as a binary classifier.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub precision: std::option::Option<wkt::DoubleValue>,
 
         /// Recall is the fraction of actual positive labels that were given a
         /// positive prediction. For multiclass this is a macro-averaged metric.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub recall: std::option::Option<wkt::DoubleValue>,
 
         /// Accuracy is the fraction of predictions given the correct label. For
         /// multiclass this is a micro-averaged metric.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub accuracy: std::option::Option<wkt::DoubleValue>,
 
         /// Threshold at which the metrics are computed. For binary
@@ -6698,20 +6706,24 @@ pub mod model {
         /// For multi-class classification models this is the confidence
         /// threshold.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub threshold: std::option::Option<wkt::DoubleValue>,
 
         /// The F1 score is an average of recall and precision. For multiclass
         /// this is a macro-averaged metric.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub f1_score: std::option::Option<wkt::DoubleValue>,
 
         /// Logarithmic Loss. For multiclass this is a macro-averaged metric.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub log_loss: std::option::Option<wkt::DoubleValue>,
 
         /// Area Under a ROC Curve. For multiclass this is a macro-averaged
         /// metric.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub roc_auc: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6891,6 +6903,7 @@ pub mod model {
         pub struct BinaryConfusionMatrix {
             /// Threshold value used when computing each of the following metric.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub positive_class_threshold: std::option::Option<wkt::DoubleValue>,
 
             /// Number of true samples predicted as true.
@@ -6916,19 +6929,23 @@ pub mod model {
             /// The fraction of actual positive predictions that had positive actual
             /// labels.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub precision: std::option::Option<wkt::DoubleValue>,
 
             /// The fraction of actual positive labels that were given a positive
             /// prediction.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub recall: std::option::Option<wkt::DoubleValue>,
 
             /// The equally weighted average of recall and precision.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub f1_score: std::option::Option<wkt::DoubleValue>,
 
             /// The fraction of predictions given the correct label.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub accuracy: std::option::Option<wkt::DoubleValue>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7111,6 +7128,7 @@ pub mod model {
             /// Confidence threshold used when computing the entries of the
             /// confusion matrix.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub confidence_threshold: std::option::Option<wkt::DoubleValue>,
 
             /// One row per actual label.
@@ -7276,10 +7294,12 @@ pub mod model {
     pub struct ClusteringMetrics {
         /// Davies-Bouldin index.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub davies_bouldin_index: std::option::Option<wkt::DoubleValue>,
 
         /// Mean of squared distances between each sample to its cluster centroid.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub mean_squared_distance: std::option::Option<wkt::DoubleValue>,
 
         /// Information for all clusters.
@@ -7651,6 +7671,7 @@ pub mod model {
         /// Calculates a precision per user for all the items by ranking them and
         /// then averages all the precisions across all the users.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub mean_average_precision: std::option::Option<wkt::DoubleValue>,
 
         /// Similar to the mean squared error computed in regression and explicit
@@ -7658,17 +7679,20 @@ pub mod model {
         /// the output from evaluate is computed against a preference which is 1 or 0
         /// depending on if the rating exists or not.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub mean_squared_error: std::option::Option<wkt::DoubleValue>,
 
         /// A metric to determine the goodness of a ranking calculated from the
         /// predicted confidence by comparing it to an ideal rank measured by the
         /// original ratings.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub normalized_discounted_cumulative_gain: std::option::Option<wkt::DoubleValue>,
 
         /// Determines the goodness of a ranking by computing the percentile rank
         /// from the predicted confidence and dividing it by the original rank.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub average_rank: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7949,6 +7973,7 @@ pub mod model {
         /// Total percentage of variance explained by the selected principal
         /// components.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub total_explained_variance_ratio: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8433,14 +8458,17 @@ pub mod model {
     pub struct ArimaFittingMetrics {
         /// Log-likelihood.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub log_likelihood: std::option::Option<wkt::DoubleValue>,
 
         /// AIC.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub aic: std::option::Option<wkt::DoubleValue>,
 
         /// Variance.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub variance: std::option::Option<wkt::DoubleValue>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8556,6 +8584,7 @@ pub mod model {
 
             /// Attribution of feature.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub attribution: std::option::Option<wkt::DoubleValue>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9276,20 +9305,24 @@ pub mod model {
 
             /// Learning rate in training. Used only for iterative training algorithms.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub learn_rate: f64,
 
             /// L1 regularization coefficient.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub l1_regularization: std::option::Option<wkt::DoubleValue>,
 
             /// L2 regularization coefficient.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub l2_regularization: std::option::Option<wkt::DoubleValue>,
 
             /// When early_stop is true, stops training when accuracy improvement is
             /// less than 'min_relative_progress'. Used only for iterative training
             /// algorithms.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub min_relative_progress: std::option::Option<wkt::DoubleValue>,
 
             /// Whether to train a model from the last checkpoint.
@@ -9314,6 +9347,7 @@ pub mod model {
             /// Accurate to two decimal places.
             /// Default value is 0.2.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub data_split_eval_fraction: f64,
 
             /// The column to split data with. This column won't be used as a
@@ -9336,11 +9370,13 @@ pub mod model {
             /// Specifies the initial learning rate for the line search learn rate
             /// strategy.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub initial_learn_rate: f64,
 
             /// Weights associated with each label class, for rebalancing the
             /// training data. Only applicable for classification models.
             #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+            #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
             pub label_class_weights: std::collections::HashMap<std::string::String, f64>,
 
             /// User column specified for matrix factorization models.
@@ -9379,6 +9415,7 @@ pub mod model {
 
             /// Dropout probability for dnn models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub dropout: std::option::Option<wkt::DoubleValue>,
 
             /// Maximum depth of a tree for boosted tree models.
@@ -9389,10 +9426,12 @@ pub mod model {
             /// Subsample fraction of the training data to grow tree to prevent
             /// overfitting for boosted tree models.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub subsample: f64,
 
             /// Minimum split loss for boosted tree models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub min_split_loss: std::option::Option<wkt::DoubleValue>,
 
             /// Booster type for boosted tree models.
@@ -9421,15 +9460,18 @@ pub mod model {
             /// Subsample ratio of columns when constructing each tree for boosted tree
             /// models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub colsample_bytree: std::option::Option<wkt::DoubleValue>,
 
             /// Subsample ratio of columns for each level for boosted tree models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub colsample_bylevel: std::option::Option<wkt::DoubleValue>,
 
             /// Subsample ratio of columns for each node(split) for boosted tree
             /// models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub colsample_bynode: std::option::Option<wkt::DoubleValue>,
 
             /// Num factors specified for matrix factorization models.
@@ -9444,6 +9486,7 @@ pub mod model {
             /// Hyperparameter for matrix factoration when implicit feedback type is
             /// specified.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub wals_alpha: std::option::Option<wkt::DoubleValue>,
 
             /// The method used to initialize the centroids for kmeans algorithm.
@@ -9506,11 +9549,13 @@ pub mod model {
             /// training with limits. To see more details of the algorithm:
             /// <https://otexts.com/fpp2/limits.html>
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub forecast_limit_lower_bound: f64,
 
             /// The forecast limit upper bound that was used during ARIMA model
             /// training with limits.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub forecast_limit_upper_bound: f64,
 
             /// The number of periods ahead that need to be forecasted.
@@ -9606,6 +9651,7 @@ pub mod model {
             /// forecasting accuracy. You can use this option with
             /// `minTimeSeriesLength` but not with `maxTimeSeriesLength`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub time_series_length_fraction: f64,
 
             /// The minimum number of time points in a time series that are used in
@@ -9650,6 +9696,7 @@ pub mod model {
             /// The minimum ratio of cumulative explained variance that needs to be
             /// given by the PCA model.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub pca_explained_variance_ratio: f64,
 
             /// If true, scale the feature values by dividing the feature standard
@@ -9675,6 +9722,7 @@ pub mod model {
 
             /// Budget in hours for AutoML training.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub budget_hours: f64,
 
             /// Whether to standardize numerical features. Default to true.
@@ -9683,6 +9731,7 @@ pub mod model {
 
             /// L1 regularization coefficient to activations.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub l1_reg_activation: f64,
 
             /// The model registry.
@@ -9712,6 +9761,7 @@ pub mod model {
 
             /// The apriori support minimum. Applies to contribution analysis models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub min_apriori_support: std::option::Option<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10608,14 +10658,17 @@ pub mod model {
 
             /// Loss computed on the training data at the end of iteration.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub training_loss: std::option::Option<wkt::DoubleValue>,
 
             /// Loss computed on the eval data at the end of iteration.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub eval_loss: std::option::Option<wkt::DoubleValue>,
 
             /// Learn rate used for this iteration.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub learn_rate: f64,
 
             /// Information about top clusters for clustering models.
@@ -10755,6 +10808,7 @@ pub mod model {
                 /// Cluster radius, the average distance from centroid
                 /// to each point assigned to the cluster.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub cluster_radius: std::option::Option<wkt::DoubleValue>,
 
                 /// Cluster size, the total number of points assigned to the cluster.
@@ -10877,14 +10931,17 @@ pub mod model {
                 pub struct ArimaCoefficients {
                     /// Auto-regressive coefficients, an array of double.
                     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
                     pub auto_regressive_coefficients: std::vec::Vec<f64>,
 
                     /// Moving-average coefficients, an array of double.
                     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
                     pub moving_average_coefficients: std::vec::Vec<f64>,
 
                     /// Intercept coefficient, just a double not an array.
                     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                     pub intercept_coefficient: std::option::Option<wkt::DoubleValue>,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11140,15 +11197,18 @@ pub mod model {
                 /// Explained variance by this principal component, which is simply the
                 /// eigenvalue.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub explained_variance: std::option::Option<wkt::DoubleValue>,
 
                 /// Explained_variance over the total explained variance.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub explained_variance_ratio: std::option::Option<wkt::DoubleValue>,
 
                 /// The explained_variance is pre-ordered in the descending order to
                 /// compute the cumulative explained variance ratio.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
                 pub cumulative_explained_variance_ratio: std::option::Option<wkt::DoubleValue>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11345,10 +11405,12 @@ pub mod model {
         pub struct DoubleRange {
             /// Min value of the double parameter.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub min: std::option::Option<wkt::DoubleValue>,
 
             /// Max value of the double parameter.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
             pub max: std::option::Option<wkt::DoubleValue>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11393,6 +11455,7 @@ pub mod model {
         pub struct DoubleCandidates {
             /// Candidates for the double parameter in increasing order.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
             pub candidates: std::vec::Vec<wkt::DoubleValue>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12174,10 +12237,12 @@ pub mod model {
 
         /// Loss computed on the training data at the end of trial.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub training_loss: std::option::Option<wkt::DoubleValue>,
 
         /// Loss computed on the eval data at the end of trial.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub eval_loss: std::option::Option<wkt::DoubleValue>,
 
         /// Hyperparameter tuning evaluation metrics of this trial calculated on the
@@ -14991,6 +15056,7 @@ pub struct DifferentialPrivacyPolicy {
     /// less than or equal to this value. The epsilon parameter controls the amount
     /// of noise that is added to the groups — a higher epsilon means less noise.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub max_epsilon_per_query: std::option::Option<f64>,
 
     /// Optional. The delta value that is used per query. Delta represents the
@@ -14998,6 +15064,7 @@ pub struct DifferentialPrivacyPolicy {
     /// Indicates the risk associated with exposing aggregate rows in the result of
     /// a query.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub delta_per_query: std::option::Option<f64>,
 
     /// Optional. The maximum groups contributed value that is used per query.
@@ -15026,6 +15093,7 @@ pub struct DifferentialPrivacyPolicy {
     /// policy and can only be updated via ALTER VIEW or circumvented by creating a
     /// new view that can be queried with a fresh budget.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub epsilon_budget: std::option::Option<f64>,
 
     /// Optional. The total delta budget for all queries against the
@@ -15041,6 +15109,7 @@ pub struct DifferentialPrivacyPolicy {
     /// only be updated via ALTER VIEW or circumvented by creating a new view that
     /// can be queried with a fresh budget.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub delta_budget: std::option::Option<f64>,
 
     /// Output only. The epsilon budget remaining. If budget is exhausted, no more
@@ -15049,6 +15118,7 @@ pub struct DifferentialPrivacyPolicy {
     /// then the budget is refunded. In this case the amount of budget remaining
     /// can increase.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub epsilon_budget_remaining: std::option::Option<f64>,
 
     /// Output only. The delta budget remaining. If budget is exhausted, no more
@@ -15057,6 +15127,7 @@ pub struct DifferentialPrivacyPolicy {
     /// then the budget is refunded. In this case the amount of budget remaining
     /// can increase.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub delta_budget_remaining: std::option::Option<f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

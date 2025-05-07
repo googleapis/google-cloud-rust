@@ -112,7 +112,7 @@ pub mod analytics_service {
             self,
         ) -> impl lro::Poller<crate::model::ExportAnalyticsMetricsResponse, crate::model::ExportMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportAnalyticsMetricsResponse,
                 crate::model::ExportMetadata,
             >;
@@ -140,7 +140,7 @@ pub mod analytics_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [catalog][crate::model::ExportAnalyticsMetricsRequest::catalog].
@@ -1360,7 +1360,7 @@ pub mod completion_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportCompletionDataResponse, crate::model::ImportMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportCompletionDataResponse,
                 crate::model::ImportMetadata,
             >;
@@ -1388,7 +1388,7 @@ pub mod completion_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportCompletionDataRequest::parent].
@@ -2620,7 +2620,8 @@ pub mod model_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Model, crate::model::CreateModelMetadata> {
-            type Operation = lro::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::CreateModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2645,7 +2646,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
@@ -3043,8 +3044,10 @@ pub mod model_service {
             self,
         ) -> impl lro::Poller<crate::model::TuneModelResponse, crate::model::TuneModelMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TuneModelResponse, crate::model::TuneModelMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TuneModelResponse,
+                crate::model::TuneModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3069,7 +3072,7 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TuneModelRequest::name].
@@ -3913,7 +3916,7 @@ pub mod product_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeProductsResponse, crate::model::PurgeProductsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PurgeProductsResponse,
                 crate::model::PurgeProductsMetadata,
             >;
@@ -3941,7 +3944,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
@@ -4015,8 +4018,10 @@ pub mod product_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportProductsResponse, crate::model::ImportMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ImportProductsResponse, crate::model::ImportMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ImportProductsResponse,
+                crate::model::ImportMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4041,7 +4046,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportProductsRequest::parent].
@@ -4154,7 +4159,7 @@ pub mod product_service {
             self,
         ) -> impl lro::Poller<crate::model::SetInventoryResponse, crate::model::SetInventoryMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SetInventoryResponse,
                 crate::model::SetInventoryMetadata,
             >;
@@ -4182,7 +4187,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [inventory][crate::model::SetInventoryRequest::inventory].
@@ -4268,7 +4273,7 @@ pub mod product_service {
             crate::model::AddFulfillmentPlacesResponse,
             crate::model::AddFulfillmentPlacesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddFulfillmentPlacesResponse,
                 crate::model::AddFulfillmentPlacesMetadata,
             >;
@@ -4296,7 +4301,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::AddFulfillmentPlacesRequest::product].
@@ -4396,7 +4401,7 @@ pub mod product_service {
             crate::model::RemoveFulfillmentPlacesResponse,
             crate::model::RemoveFulfillmentPlacesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemoveFulfillmentPlacesResponse,
                 crate::model::RemoveFulfillmentPlacesMetadata,
             >;
@@ -4424,7 +4429,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::RemoveFulfillmentPlacesRequest::product].
@@ -4525,7 +4530,7 @@ pub mod product_service {
             crate::model::AddLocalInventoriesResponse,
             crate::model::AddLocalInventoriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddLocalInventoriesResponse,
                 crate::model::AddLocalInventoriesMetadata,
             >;
@@ -4553,7 +4558,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::AddLocalInventoriesRequest::product].
@@ -4649,7 +4654,7 @@ pub mod product_service {
             crate::model::RemoveLocalInventoriesResponse,
             crate::model::RemoveLocalInventoriesMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemoveLocalInventoriesResponse,
                 crate::model::RemoveLocalInventoriesMetadata,
             >;
@@ -4677,7 +4682,7 @@ pub mod product_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [product][crate::model::RemoveLocalInventoriesRequest::product].
@@ -6166,8 +6171,10 @@ pub mod user_event_service {
             self,
         ) -> impl lro::Poller<crate::model::PurgeUserEventsResponse, crate::model::PurgeMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PurgeUserEventsResponse, crate::model::PurgeMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PurgeUserEventsResponse,
+                crate::model::PurgeMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6192,7 +6199,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PurgeUserEventsRequest::parent].
@@ -6269,7 +6276,7 @@ pub mod user_event_service {
             self,
         ) -> impl lro::Poller<crate::model::ImportUserEventsResponse, crate::model::ImportMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportUserEventsResponse,
                 crate::model::ImportMetadata,
             >;
@@ -6297,7 +6304,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportUserEventsRequest::parent].
@@ -6384,7 +6391,7 @@ pub mod user_event_service {
             crate::model::RejoinUserEventsResponse,
             crate::model::RejoinUserEventsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RejoinUserEventsResponse,
                 crate::model::RejoinUserEventsMetadata,
             >;
@@ -6412,7 +6419,7 @@ pub mod user_event_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RejoinUserEventsRequest::parent].

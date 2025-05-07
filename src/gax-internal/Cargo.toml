@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.1.0"
+version     = "0.2.0"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -26,19 +26,24 @@ license.workspace      = true
 repository.workspace   = true
 rust-version.workspace = true
 
+[package.metadata.docs.rs]
+# Disable all features during document generation. All the types in this crate
+# are implementation details, and subject to change without notice.
+features = []
+
 [features]
-_internal_http_client = [
-  "_internal_common",
+_internal-http-client = [
+  "_internal-common",
   "dep:auth",
+  "dep:gax",
   "dep:reqwest",
   "dep:rpc",
   "dep:serde",
   "dep:serde_json",
   "dep:tokio",
-  "gax/unstable-sdk-client",
 ]
-_internal_grpc_client = [
-  "_internal_common",
+_internal-grpc-client = [
+  "_internal-common",
   "dep:auth",
   "dep:gax",
   "dep:prost",
@@ -49,7 +54,7 @@ _internal_grpc_client = [
   "dep:tonic",
   "dep:wkt",
 ]
-_internal_common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
+_internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
 
 [dependencies]
 bytes            = { version = "1", features = ["serde"] }
@@ -66,13 +71,13 @@ tokio            = { version = "1", features = ["macros", "rt-multi-thread"], op
 tonic            = { workspace = true, optional = true }
 # Local crates
 auth = { workspace = true, optional = true }
-gax  = { workspace = true, features = ["unstable-sdk-client"], optional = true }
+gax  = { workspace = true, optional = true }
 rpc  = { workspace = true, optional = true }
 wkt  = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace    = true
-axum                = "0.8"
+axum.workspace      = true
 bytes               = "1"
 mockall             = "0.13"
 scoped-env          = "2"

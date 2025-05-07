@@ -4133,6 +4133,7 @@ pub struct UninterpretedOption {
     pub negative_int_value: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub double_value: f64,
 
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]

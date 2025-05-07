@@ -2251,10 +2251,12 @@ pub mod overlay {
     pub struct NormalizedCoordinate {
         /// Normalized x coordinate.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub x: f64,
 
         /// Normalized y coordinate.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub y: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2306,6 +2308,7 @@ pub mod overlay {
         /// Target image opacity. Valid values are from  `1.0` (solid, default) to
         /// `0.0` (transparent), exclusive. Set this to a value greater than `0.0`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub alpha: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2952,18 +2955,21 @@ pub mod preprocessing_config {
         /// where -1 is fully desaturated and 1 is maximum saturation. 0 is no
         /// change. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub saturation: f64,
 
         /// Control black and white contrast of the video. Enter a value between -1
         /// and 1, where -1 is minimum contrast and 1 is maximum contrast. 0 is no
         /// change. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub contrast: f64,
 
         /// Control brightness of the video. Enter a value between -1 and 1, where -1
         /// is minimum brightness and 1 is maximum brightness. 0 is no change. The
         /// default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub brightness: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3011,6 +3017,7 @@ pub mod preprocessing_config {
         /// Set strength of the denoise. Enter a value between 0 and 1. The higher
         /// the value, the smoother the image. 0 is no denoising. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub strength: f64,
 
         /// Set the denoiser mode. The default is `standard`.
@@ -3062,6 +3069,7 @@ pub mod preprocessing_config {
         /// the value, the stronger the block removal. 0 is no deblocking. The
         /// default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub strength: f64,
 
         /// Enable deblocker. The default is `false`.
@@ -3114,6 +3122,7 @@ pub mod preprocessing_config {
         ///   as Amazon Echo
         /// * 0 disables normalization
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub lufs: f64,
 
         /// Enable boosting high frequency components. The default is `false`.
@@ -3738,6 +3747,7 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
@@ -3820,6 +3830,7 @@ pub mod video_stream {
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4119,6 +4130,7 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
@@ -4192,6 +4204,7 @@ pub mod video_stream {
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4497,6 +4510,7 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
@@ -4902,6 +4916,7 @@ pub mod audio_stream {
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub gain_db: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

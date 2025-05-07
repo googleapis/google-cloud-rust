@@ -175,7 +175,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
             );
         let builder = builder.query(&[("expression", &req.expression)]);
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 

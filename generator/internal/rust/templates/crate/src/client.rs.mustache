@@ -24,7 +24,7 @@ limitations under the License.
 {{/Codec.DisabledRustdocWarnings}}
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use crate::Result;
 {{/Codec.HasServices}}
@@ -74,8 +74,8 @@ use crate::Result;
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
-#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
+#[cfg(feature = "{{Codec.FeatureName}}")]
+#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.FeatureName}}")))]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone, Debug)]
 {{#Deprecated}}
@@ -86,7 +86,7 @@ pub struct {{Codec.Name}} {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
     /// Returns a builder for [{{Codec.Name}}].

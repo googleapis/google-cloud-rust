@@ -12386,6 +12386,7 @@ pub mod aggregation {
         /// equal to the final lower bound.
         /// You can define up to 20 lower bounds.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
         pub lower_bounds: std::vec::Vec<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12662,6 +12663,7 @@ pub mod aggregation_result {
     #[non_exhaustive]
     pub struct Sum {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F64")]
         pub value: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12743,10 +12745,12 @@ pub mod aggregation_result {
         pub struct Bucket {
             /// Lower bound - inclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub lower_bound: f64,
 
             /// Upper bound - exclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub upper_bound: f64,
 
             /// Count of items in the bucket.
@@ -13688,11 +13692,13 @@ pub struct VmwareEnginePreferences {
     /// CPU overcommit ratio.
     /// Acceptable values are between 1.0 and 8.0, with 0.1 increment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cpu_overcommit_ratio: f64,
 
     /// Memory overcommit ratio.
     /// Acceptable values are 1.0, 1.25, 1.5, 1.75 and 2.0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub memory_overcommit_ratio: f64,
 
     /// The Deduplication and Compression ratio is based on the logical (Used
@@ -13704,6 +13710,7 @@ pub struct VmwareEnginePreferences {
     /// deduplication and compression ratio is 3x. Acceptable values are
     /// between 1.0 and 4.0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub storage_deduplication_compression_ratio: f64,
 
     /// Commitment plan to consider when calculating costs for virtual machine
@@ -13936,6 +13943,7 @@ pub struct SoleTenancyPreferences {
     /// CPU overcommit ratio.
     /// Acceptable values are between 1.0 and 2.0 inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub cpu_overcommit_ratio: f64,
 
     /// Sole Tenancy nodes maintenance policy.
@@ -14527,6 +14535,7 @@ pub mod report_summary {
 
             /// The Y-axis value for this data point.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F64")]
             pub value: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

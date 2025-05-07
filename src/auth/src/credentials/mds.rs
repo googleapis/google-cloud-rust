@@ -21,6 +21,10 @@
 //! tokens associated with the [default service account] for the corresponding
 //! VM.
 //!
+//! The default host name of the metadata service is `metadata.google.internal`.
+//! If you would like to use a different hostname, you can set it using the
+//! `GCE_METADATA_HOST` environment variable.
+//!
 //! You can use this access token to securely authenticate with Google Cloud,
 //! without having to download secrets or other credentials. The types in this
 //! module allow you to retrieve these access tokens, and can be used with
@@ -71,6 +75,7 @@ const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal";
 const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
+const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
 
 #[derive(Debug)]
 struct MDSCredentials<T>
@@ -182,28 +187,15 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Result<Credentials> {
-        let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
-        let mut request_client_builder = ReqwestClientBuilder::new(endpoint);
-
-        if let Some(retry_policy) = self.retry_policy {
-            request_client_builder = request_client_builder.with_retry_policy(retry_policy);
-        }
-
-        if let Some(retry_throttler) = self.retry_throttler {
-            request_client_builder = request_client_builder.with_retry_throttler(retry_throttler);
-        }
-
-        if let Some(backoff_policy) = self.backoff_policy {
-            request_client_builder = request_client_builder.with_backoff_policy(backoff_policy);
-        }
-
-        let request_client = request_client_builder.build();
-
-        let token_provider = MDSAccessTokenProvider {
-            request_client,
-            scopes: self.scopes,
+        let endpoint = match std::env::var(GCE_METADATA_HOST_ENV_VAR) {
+            Ok(endpoint) => format!("http://{}", endpoint),
+            _ => self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string()),
         };
 
+        let token_provider = MDSAccessTokenProvider::builder()
+            .endpoint(endpoint)
+            .maybe_scopes(self.scopes)
+            .build();
         let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
 
         let mdsc = MDSCredentials {
@@ -331,8 +323,10 @@ mod test {
     use http::header::AUTHORIZATION;
     use reqwest::StatusCode;
     use reqwest::header::HeaderMap;
+    use scoped_env::ScopedEnv;
     use serde::Deserialize;
     use serde_json::Value;
+    use serial_test::{parallel, serial};
     use std::collections::HashMap;
     use std::error::Error;
     use std::sync::Mutex;
@@ -480,6 +474,47 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
+    async fn test_gce_metadata_host_env_var() {
+        let scopes = ["scope1".to_string(), "scope2".to_string()];
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+
+        let (endpoint, _server) = start(Handlers::from([(
+            format!("{}/token", MDS_DEFAULT_URI),
+            (
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
+                Arc::new(Mutex::new(0)),
+            ),
+        )]))
+        .await;
+
+        // Trim out 'http://' from the endpoint provided by the fake server
+        let _e = ScopedEnv::set(
+            super::GCE_METADATA_HOST_ENV_VAR,
+            endpoint.strip_prefix("http://").unwrap_or(&endpoint),
+        );
+        let mdsc = Builder::default()
+            .with_scopes(["scope1", "scope2"])
+            .build()
+            .unwrap();
+        let token = mdsc.token().await.unwrap();
+        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+
+        assert_eq!(token.token, "test-access-token");
+    }
+
+    #[tokio::test]
+    #[parallel]
     async fn get_default_service_account_info_success() {
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
@@ -514,6 +549,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_info_server_error() {
         let (endpoint, _server) = start(Handlers::from([(
             MDS_DEFAULT_URI.to_string(),
@@ -540,6 +576,7 @@ mod test {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success_with_quota_project() -> TestResult {
         let scopes = ["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
@@ -589,6 +626,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_caching() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
@@ -629,6 +667,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_provider_full() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
@@ -671,6 +710,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
         let scopes = vec!["scope 1".to_string(), "scope 2".to_string()];
         let service_account_info = ServiceAccountInfo {
@@ -731,6 +771,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_provider_partial() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
@@ -767,6 +808,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_provider_retryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
@@ -795,6 +837,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_provider_nonretryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
@@ -824,6 +867,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[parallel]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(

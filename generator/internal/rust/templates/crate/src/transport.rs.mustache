@@ -20,7 +20,7 @@ limitations under the License.
 {{#Codec.HasServices}}
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use crate::Result;
 #[allow(unused_imports)]
@@ -30,7 +30,7 @@ use gax::error::Error;
 {{#Codec.Services}}
 /// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a [gaxi::http::ReqwestClient].
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
@@ -38,7 +38,7 @@ pub struct {{Codec.Name}} {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
@@ -49,7 +49,7 @@ impl std::fmt::Debug for {{Codec.Name}} {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -59,7 +59,7 @@ impl {{Codec.Name}} {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
@@ -97,8 +97,17 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{/Codec.QueryParams}}
         self.inner.execute(
             builder,
-            {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
-            {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
+            {{#PathInfo.Codec.HasBody}}
+            Some(req{{Codec.BodyAccessor}}),
+            {{/PathInfo.Codec.HasBody}}
+            {{^PathInfo.Codec.HasBody}}
+            {{#PathInfo.Codec.RequiresContentLength}}
+            Some(gaxi::http::NoBody),
+            {{/PathInfo.Codec.RequiresContentLength}}
+            {{^PathInfo.Codec.RequiresContentLength}}
+            None::<gaxi::http::NoBody>,
+            {{/PathInfo.Codec.RequiresContentLength}}
+            {{/PathInfo.Codec.HasBody}}
             options,
         ).await
         {{#ReturnsEmpty}}

@@ -18,38 +18,38 @@
 #![allow(rustdoc::invalid_html_tags)]
 
 #[cfg(any(
-    feature = "dataset_service",
-    feature = "deployment_resource_pool_service",
-    feature = "endpoint_service",
-    feature = "evaluation_service",
-    feature = "feature_online_store_admin_service",
-    feature = "feature_online_store_service",
-    feature = "feature_registry_service",
-    feature = "featurestore_online_serving_service",
-    feature = "featurestore_service",
-    feature = "gen_ai_cache_service",
-    feature = "gen_ai_tuning_service",
-    feature = "index_endpoint_service",
-    feature = "index_service",
-    feature = "job_service",
-    feature = "llm_utility_service",
-    feature = "match_service",
-    feature = "metadata_service",
-    feature = "migration_service",
-    feature = "model_garden_service",
-    feature = "model_service",
-    feature = "notebook_service",
-    feature = "persistent_resource_service",
-    feature = "pipeline_service",
-    feature = "prediction_service",
-    feature = "reasoning_engine_execution_service",
-    feature = "reasoning_engine_service",
-    feature = "schedule_service",
-    feature = "specialist_pool_service",
-    feature = "tensorboard_service",
-    feature = "vertex_rag_data_service",
-    feature = "vertex_rag_service",
-    feature = "vizier_service",
+    feature = "dataset-service",
+    feature = "deployment-resource-pool-service",
+    feature = "endpoint-service",
+    feature = "evaluation-service",
+    feature = "feature-online-store-admin-service",
+    feature = "feature-online-store-service",
+    feature = "feature-registry-service",
+    feature = "featurestore-online-serving-service",
+    feature = "featurestore-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "index-endpoint-service",
+    feature = "index-service",
+    feature = "job-service",
+    feature = "llm-utility-service",
+    feature = "match-service",
+    feature = "metadata-service",
+    feature = "migration-service",
+    feature = "model-garden-service",
+    feature = "model-service",
+    feature = "notebook-service",
+    feature = "persistent-resource-service",
+    feature = "pipeline-service",
+    feature = "prediction-service",
+    feature = "reasoning-engine-execution-service",
+    feature = "reasoning-engine-service",
+    feature = "schedule-service",
+    feature = "specialist-pool-service",
+    feature = "tensorboard-service",
+    feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
+    feature = "vizier-service",
 ))]
 use crate::Result;
 
@@ -94,14 +94,14 @@ use crate::Result;
 /// create one and the reuse it.  You do not need to wrap `DatasetService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "dataset_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "dataset_service")))]
+#[cfg(feature = "dataset-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "dataset-service")))]
 #[derive(Clone, Debug)]
 pub struct DatasetService {
     inner: std::sync::Arc<dyn super::stub::dynamic::DatasetService>,
 }
 
-#[cfg(feature = "dataset_service")]
+#[cfg(feature = "dataset-service")]
 impl DatasetService {
     /// Returns a builder for [DatasetService].
     ///
@@ -557,14 +557,14 @@ impl DatasetService {
 /// create one and the reuse it.  You do not need to wrap `DeploymentResourcePoolService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "deployment_resource_pool_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "deployment_resource_pool_service")))]
+#[cfg(feature = "deployment-resource-pool-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "deployment-resource-pool-service")))]
 #[derive(Clone, Debug)]
 pub struct DeploymentResourcePoolService {
     inner: std::sync::Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>,
 }
 
-#[cfg(feature = "deployment_resource_pool_service")]
+#[cfg(feature = "deployment-resource-pool-service")]
 impl DeploymentResourcePoolService {
     /// Returns a builder for [DeploymentResourcePoolService].
     ///
@@ -872,14 +872,14 @@ impl DeploymentResourcePoolService {
 /// create one and the reuse it.  You do not need to wrap `EndpointService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "endpoint_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "endpoint_service")))]
+#[cfg(feature = "endpoint-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "endpoint-service")))]
 #[derive(Clone, Debug)]
 pub struct EndpointService {
     inner: std::sync::Arc<dyn super::stub::dynamic::EndpointService>,
 }
 
-#[cfg(feature = "endpoint_service")]
+#[cfg(feature = "endpoint-service")]
 impl EndpointService {
     /// Returns a builder for [EndpointService].
     ///
@@ -1232,14 +1232,14 @@ impl EndpointService {
 /// create one and the reuse it.  You do not need to wrap `EvaluationService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "evaluation_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "evaluation_service")))]
+#[cfg(feature = "evaluation-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "evaluation-service")))]
 #[derive(Clone, Debug)]
 pub struct EvaluationService {
     inner: std::sync::Arc<dyn super::stub::dynamic::EvaluationService>,
 }
 
-#[cfg(feature = "evaluation_service")]
+#[cfg(feature = "evaluation-service")]
 impl EvaluationService {
     /// Returns a builder for [EvaluationService].
     ///
@@ -1459,14 +1459,14 @@ impl EvaluationService {
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreAdminService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "feature_online_store_admin_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_admin_service")))]
+#[cfg(feature = "feature-online-store-admin-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "feature-online-store-admin-service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreAdminService {
     inner: std::sync::Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>,
 }
 
-#[cfg(feature = "feature_online_store_admin_service")]
+#[cfg(feature = "feature-online-store-admin-service")]
 impl FeatureOnlineStoreAdminService {
     /// Returns a builder for [FeatureOnlineStoreAdminService].
     ///
@@ -1878,14 +1878,14 @@ impl FeatureOnlineStoreAdminService {
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "feature_online_store_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_service")))]
+#[cfg(feature = "feature-online-store-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "feature-online-store-service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreService {
     inner: std::sync::Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>,
 }
 
-#[cfg(feature = "feature_online_store_service")]
+#[cfg(feature = "feature-online-store-service")]
 impl FeatureOnlineStoreService {
     /// Returns a builder for [FeatureOnlineStoreService].
     ///
@@ -2116,14 +2116,14 @@ impl FeatureOnlineStoreService {
 /// create one and the reuse it.  You do not need to wrap `FeatureRegistryService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "feature_registry_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "feature_registry_service")))]
+#[cfg(feature = "feature-registry-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "feature-registry-service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureRegistryService {
     inner: std::sync::Arc<dyn super::stub::dynamic::FeatureRegistryService>,
 }
 
-#[cfg(feature = "feature_registry_service")]
+#[cfg(feature = "feature-registry-service")]
 impl FeatureRegistryService {
     /// Returns a builder for [FeatureRegistryService].
     ///
@@ -2502,14 +2502,14 @@ impl FeatureRegistryService {
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreOnlineServingService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "featurestore_online_serving_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "featurestore_online_serving_service")))]
+#[cfg(feature = "featurestore-online-serving-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "featurestore-online-serving-service")))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreOnlineServingService {
     inner: std::sync::Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>,
 }
 
-#[cfg(feature = "featurestore_online_serving_service")]
+#[cfg(feature = "featurestore-online-serving-service")]
 impl FeaturestoreOnlineServingService {
     /// Returns a builder for [FeaturestoreOnlineServingService].
     ///
@@ -2753,14 +2753,14 @@ impl FeaturestoreOnlineServingService {
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "featurestore_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "featurestore_service")))]
+#[cfg(feature = "featurestore-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "featurestore-service")))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreService {
     inner: std::sync::Arc<dyn super::stub::dynamic::FeaturestoreService>,
 }
 
-#[cfg(feature = "featurestore_service")]
+#[cfg(feature = "featurestore-service")]
 impl FeaturestoreService {
     /// Returns a builder for [FeaturestoreService].
     ///
@@ -3314,14 +3314,14 @@ impl FeaturestoreService {
 /// create one and the reuse it.  You do not need to wrap `GenAiCacheService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "gen_ai_cache_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_cache_service")))]
+#[cfg(feature = "gen-ai-cache-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "gen-ai-cache-service")))]
 #[derive(Clone, Debug)]
 pub struct GenAiCacheService {
     inner: std::sync::Arc<dyn super::stub::dynamic::GenAiCacheService>,
 }
 
-#[cfg(feature = "gen_ai_cache_service")]
+#[cfg(feature = "gen-ai-cache-service")]
 impl GenAiCacheService {
     /// Returns a builder for [GenAiCacheService].
     ///
@@ -3577,14 +3577,14 @@ impl GenAiCacheService {
 /// create one and the reuse it.  You do not need to wrap `GenAiTuningService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "gen_ai_tuning_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_tuning_service")))]
+#[cfg(feature = "gen-ai-tuning-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "gen-ai-tuning-service")))]
 #[derive(Clone, Debug)]
 pub struct GenAiTuningService {
     inner: std::sync::Arc<dyn super::stub::dynamic::GenAiTuningService>,
 }
 
-#[cfg(feature = "gen_ai_tuning_service")]
+#[cfg(feature = "gen-ai-tuning-service")]
 impl GenAiTuningService {
     /// Returns a builder for [GenAiTuningService].
     ///
@@ -3866,14 +3866,14 @@ impl GenAiTuningService {
 /// create one and the reuse it.  You do not need to wrap `IndexEndpointService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "index_endpoint_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "index_endpoint_service")))]
+#[cfg(feature = "index-endpoint-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "index-endpoint-service")))]
 #[derive(Clone, Debug)]
 pub struct IndexEndpointService {
     inner: std::sync::Arc<dyn super::stub::dynamic::IndexEndpointService>,
 }
 
-#[cfg(feature = "index_endpoint_service")]
+#[cfg(feature = "index-endpoint-service")]
 impl IndexEndpointService {
     /// Returns a builder for [IndexEndpointService].
     ///
@@ -4208,14 +4208,14 @@ impl IndexEndpointService {
 /// create one and the reuse it.  You do not need to wrap `IndexService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "index_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "index_service")))]
+#[cfg(feature = "index-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "index-service")))]
 #[derive(Clone, Debug)]
 pub struct IndexService {
     inner: std::sync::Arc<dyn super::stub::dynamic::IndexService>,
 }
 
-#[cfg(feature = "index_service")]
+#[cfg(feature = "index-service")]
 impl IndexService {
     /// Returns a builder for [IndexService].
     ///
@@ -4513,14 +4513,14 @@ impl IndexService {
 /// create one and the reuse it.  You do not need to wrap `JobService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "job_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "job_service")))]
+#[cfg(feature = "job-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "job-service")))]
 #[derive(Clone, Debug)]
 pub struct JobService {
     inner: std::sync::Arc<dyn super::stub::dynamic::JobService>,
 }
 
-#[cfg(feature = "job_service")]
+#[cfg(feature = "job-service")]
 impl JobService {
     /// Returns a builder for [JobService].
     ///
@@ -5177,14 +5177,14 @@ impl JobService {
 /// create one and the reuse it.  You do not need to wrap `LlmUtilityService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "llm_utility_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "llm_utility_service")))]
+#[cfg(feature = "llm-utility-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "llm-utility-service")))]
 #[derive(Clone, Debug)]
 pub struct LlmUtilityService {
     inner: std::sync::Arc<dyn super::stub::dynamic::LlmUtilityService>,
 }
 
-#[cfg(feature = "llm_utility_service")]
+#[cfg(feature = "llm-utility-service")]
 impl LlmUtilityService {
     /// Returns a builder for [LlmUtilityService].
     ///
@@ -5413,14 +5413,14 @@ impl LlmUtilityService {
 /// create one and the reuse it.  You do not need to wrap `MatchService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "match_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "match_service")))]
+#[cfg(feature = "match-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "match-service")))]
 #[derive(Clone, Debug)]
 pub struct MatchService {
     inner: std::sync::Arc<dyn super::stub::dynamic::MatchService>,
 }
 
-#[cfg(feature = "match_service")]
+#[cfg(feature = "match-service")]
 impl MatchService {
     /// Returns a builder for [MatchService].
     ///
@@ -5642,14 +5642,14 @@ impl MatchService {
 /// create one and the reuse it.  You do not need to wrap `MetadataService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "metadata_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "metadata_service")))]
+#[cfg(feature = "metadata-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "metadata-service")))]
 #[derive(Clone, Debug)]
 pub struct MetadataService {
     inner: std::sync::Arc<dyn super::stub::dynamic::MetadataService>,
 }
 
-#[cfg(feature = "metadata_service")]
+#[cfg(feature = "metadata-service")]
 impl MetadataService {
     /// Returns a builder for [MetadataService].
     ///
@@ -6241,14 +6241,14 @@ impl MetadataService {
 /// create one and the reuse it.  You do not need to wrap `MigrationService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "migration_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "migration_service")))]
+#[cfg(feature = "migration-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "migration-service")))]
 #[derive(Clone, Debug)]
 pub struct MigrationService {
     inner: std::sync::Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
-#[cfg(feature = "migration_service")]
+#[cfg(feature = "migration-service")]
 impl MigrationService {
     /// Returns a builder for [MigrationService].
     ///
@@ -6489,14 +6489,14 @@ impl MigrationService {
 /// create one and the reuse it.  You do not need to wrap `ModelGardenService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "model_garden_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "model_garden_service")))]
+#[cfg(feature = "model-garden-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "model-garden-service")))]
 #[derive(Clone, Debug)]
 pub struct ModelGardenService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ModelGardenService>,
 }
 
-#[cfg(feature = "model_garden_service")]
+#[cfg(feature = "model-garden-service")]
 impl ModelGardenService {
     /// Returns a builder for [ModelGardenService].
     ///
@@ -6715,14 +6715,14 @@ impl ModelGardenService {
 /// create one and the reuse it.  You do not need to wrap `ModelService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "model_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "model_service")))]
+#[cfg(feature = "model-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "model-service")))]
 #[derive(Clone, Debug)]
 pub struct ModelService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ModelService>,
 }
 
-#[cfg(feature = "model_service")]
+#[cfg(feature = "model-service")]
 impl ModelService {
     /// Returns a builder for [ModelService].
     ///
@@ -7182,14 +7182,14 @@ impl ModelService {
 /// create one and the reuse it.  You do not need to wrap `NotebookService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "notebook_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "notebook_service")))]
+#[cfg(feature = "notebook-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "notebook-service")))]
 #[derive(Clone, Debug)]
 pub struct NotebookService {
     inner: std::sync::Arc<dyn super::stub::dynamic::NotebookService>,
 }
 
-#[cfg(feature = "notebook_service")]
+#[cfg(feature = "notebook-service")]
 impl NotebookService {
     /// Returns a builder for [NotebookService].
     ///
@@ -7633,14 +7633,14 @@ impl NotebookService {
 /// create one and the reuse it.  You do not need to wrap `PersistentResourceService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "persistent_resource_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "persistent_resource_service")))]
+#[cfg(feature = "persistent-resource-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "persistent-resource-service")))]
 #[derive(Clone, Debug)]
 pub struct PersistentResourceService {
     inner: std::sync::Arc<dyn super::stub::dynamic::PersistentResourceService>,
 }
 
-#[cfg(feature = "persistent_resource_service")]
+#[cfg(feature = "persistent-resource-service")]
 impl PersistentResourceService {
     /// Returns a builder for [PersistentResourceService].
     ///
@@ -7956,14 +7956,14 @@ impl PersistentResourceService {
 /// create one and the reuse it.  You do not need to wrap `PipelineService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "pipeline_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "pipeline_service")))]
+#[cfg(feature = "pipeline-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "pipeline-service")))]
 #[derive(Clone, Debug)]
 pub struct PipelineService {
     inner: std::sync::Arc<dyn super::stub::dynamic::PipelineService>,
 }
 
-#[cfg(feature = "pipeline_service")]
+#[cfg(feature = "pipeline-service")]
 impl PipelineService {
     /// Returns a builder for [PipelineService].
     ///
@@ -8364,14 +8364,14 @@ impl PipelineService {
 /// create one and the reuse it.  You do not need to wrap `PredictionService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "prediction_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "prediction_service")))]
+#[cfg(feature = "prediction-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "prediction-service")))]
 #[derive(Clone, Debug)]
 pub struct PredictionService {
     inner: std::sync::Arc<dyn super::stub::dynamic::PredictionService>,
 }
 
-#[cfg(feature = "prediction_service")]
+#[cfg(feature = "prediction-service")]
 impl PredictionService {
     /// Returns a builder for [PredictionService].
     ///
@@ -8664,14 +8664,14 @@ impl PredictionService {
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineExecutionService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "reasoning_engine_execution_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_execution_service")))]
+#[cfg(feature = "reasoning-engine-execution-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reasoning-engine-execution-service")))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineExecutionService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>,
 }
 
-#[cfg(feature = "reasoning_engine_execution_service")]
+#[cfg(feature = "reasoning-engine-execution-service")]
 impl ReasoningEngineExecutionService {
     /// Returns a builder for [ReasoningEngineExecutionService].
     ///
@@ -8894,14 +8894,14 @@ impl ReasoningEngineExecutionService {
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "reasoning_engine_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_service")))]
+#[cfg(feature = "reasoning-engine-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reasoning-engine-service")))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ReasoningEngineService>,
 }
 
-#[cfg(feature = "reasoning_engine_service")]
+#[cfg(feature = "reasoning-engine-service")]
 impl ReasoningEngineService {
     /// Returns a builder for [ReasoningEngineService].
     ///
@@ -9187,14 +9187,14 @@ impl ReasoningEngineService {
 /// create one and the reuse it.  You do not need to wrap `ScheduleService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "schedule_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "schedule_service")))]
+#[cfg(feature = "schedule-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "schedule-service")))]
 #[derive(Clone, Debug)]
 pub struct ScheduleService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ScheduleService>,
 }
 
-#[cfg(feature = "schedule_service")]
+#[cfg(feature = "schedule-service")]
 impl ScheduleService {
     /// Returns a builder for [ScheduleService].
     ///
@@ -9502,14 +9502,14 @@ impl ScheduleService {
 /// create one and the reuse it.  You do not need to wrap `SpecialistPoolService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "specialist_pool_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "specialist_pool_service")))]
+#[cfg(feature = "specialist-pool-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "specialist-pool-service")))]
 #[derive(Clone, Debug)]
 pub struct SpecialistPoolService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SpecialistPoolService>,
 }
 
-#[cfg(feature = "specialist_pool_service")]
+#[cfg(feature = "specialist-pool-service")]
 impl SpecialistPoolService {
     /// Returns a builder for [SpecialistPoolService].
     ///
@@ -9794,14 +9794,14 @@ impl SpecialistPoolService {
 /// create one and the reuse it.  You do not need to wrap `TensorboardService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "tensorboard_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "tensorboard_service")))]
+#[cfg(feature = "tensorboard-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "tensorboard-service")))]
 #[derive(Clone, Debug)]
 pub struct TensorboardService {
     inner: std::sync::Arc<dyn super::stub::dynamic::TensorboardService>,
 }
 
-#[cfg(feature = "tensorboard_service")]
+#[cfg(feature = "tensorboard-service")]
 impl TensorboardService {
     /// Returns a builder for [TensorboardService].
     ///
@@ -10349,14 +10349,14 @@ impl TensorboardService {
 /// create one and the reuse it.  You do not need to wrap `VertexRagDataService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "vertex_rag_data_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_data_service")))]
+#[cfg(feature = "vertex-rag-data-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "vertex-rag-data-service")))]
 #[derive(Clone, Debug)]
 pub struct VertexRagDataService {
     inner: std::sync::Arc<dyn super::stub::dynamic::VertexRagDataService>,
 }
 
-#[cfg(feature = "vertex_rag_data_service")]
+#[cfg(feature = "vertex-rag-data-service")]
 impl VertexRagDataService {
     /// Returns a builder for [VertexRagDataService].
     ///
@@ -10706,14 +10706,14 @@ impl VertexRagDataService {
 /// create one and the reuse it.  You do not need to wrap `VertexRagService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "vertex_rag_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_service")))]
+#[cfg(feature = "vertex-rag-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "vertex-rag-service")))]
 #[derive(Clone, Debug)]
 pub struct VertexRagService {
     inner: std::sync::Arc<dyn super::stub::dynamic::VertexRagService>,
 }
 
-#[cfg(feature = "vertex_rag_service")]
+#[cfg(feature = "vertex-rag-service")]
 impl VertexRagService {
     /// Returns a builder for [VertexRagService].
     ///
@@ -10957,14 +10957,14 @@ impl VertexRagService {
 /// create one and the reuse it.  You do not need to wrap `VizierService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-#[cfg(feature = "vizier_service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "vizier_service")))]
+#[cfg(feature = "vizier-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "vizier-service")))]
 #[derive(Clone, Debug)]
 pub struct VizierService {
     inner: std::sync::Arc<dyn super::stub::dynamic::VizierService>,
 }
 
-#[cfg(feature = "vizier_service")]
+#[cfg(feature = "vizier-service")]
 impl VizierService {
     /// Returns a builder for [VizierService].
     ///

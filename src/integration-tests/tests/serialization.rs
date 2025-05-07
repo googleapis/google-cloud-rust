@@ -42,6 +42,64 @@ mod serialization {
     }
 
     #[test]
+    fn serde_with_float() -> Result<()> {
+        let generation_config =
+            aiplatform::model::GenerationConfig::default().set_temperature(9876.5);
+        let got = serde_json::to_value(&generation_config)?;
+        let want = serde_json::json!({
+            "temperature": 9876.5_f32
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(generation_config, rt);
+        let generation_config = generation_config.set_temperature(f32::INFINITY);
+        let got = serde_json::to_value(&generation_config)?;
+        let want = serde_json::json!({
+            "temperature": "Infinity"
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(generation_config, rt);
+        Ok(())
+    }
+
+    #[test]
+    fn serde_with_double() -> Result<()> {
+        let logging_config =
+            aiplatform::model::PredictRequestResponseLoggingConfig::default().set_sampling_rate(53);
+        let got = serde_json::to_value(&logging_config)?;
+        let want = serde_json::json!({
+            "samplingRate": 53_f64
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(logging_config, rt);
+        let logging_config = logging_config.set_sampling_rate(f64::INFINITY);
+        let got = serde_json::to_value(&logging_config)?;
+        let want = serde_json::json!({
+            "samplingRate": "Infinity"
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(logging_config, rt);
+        Ok(())
+    }
+
+    #[test]
+    fn serde_with_i64() -> Result<()> {
+        let completion_stats =
+            aiplatform::model::CompletionStats::default().set_successful_count(5);
+        let got = serde_json::to_value(&completion_stats)?;
+        let want = serde_json::json!({
+            "successfulCount": "5"
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(completion_stats, rt);
+        Ok(())
+    }
+
+    #[test]
     fn multiple_serde_attributes() -> Result<()> {
         let input = Test {
             f_bytes: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),

@@ -105,8 +105,10 @@ pub mod autokey {
             self,
         ) -> impl lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::KeyHandle,
+                crate::model::CreateKeyHandleMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -131,7 +133,7 @@ pub mod autokey {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].

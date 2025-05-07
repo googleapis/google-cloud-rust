@@ -437,7 +437,7 @@ impl super::stub::Iam for Iam {
                 v.add(builder, "options")
             });
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, Some(gaxi::http::NoBody), options)
             .await
     }
 

@@ -18,19 +18,25 @@ use crate::Result;
 /// Implements a [SqlBackupRunsService](super::stub::SqlBackupRunsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlBackupRunsService<T>
-where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlBackupRunsService<T>
-where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlBackupRunsService for SqlBackupRunsService<T>
-where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn delete(
         &self,
@@ -66,25 +72,30 @@ where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         self.inner.list(req, options).await
     }
-
 }
 
 /// Implements a [SqlConnectService](super::stub::SqlConnectService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService<T>
-where T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlConnectService<T>
-where T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlConnectService for SqlConnectService<T>
-where T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get_connect_settings(
         &self,
@@ -102,25 +113,30 @@ where T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         self.inner.generate_ephemeral_cert(req, options).await
     }
-
 }
 
 /// Implements a [SqlDatabasesService](super::stub::SqlDatabasesService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlDatabasesService<T>
-where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlDatabasesService<T>
-where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlDatabasesService for SqlDatabasesService<T>
-where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn delete(
         &self,
@@ -174,25 +190,30 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
-
 }
 
 /// Implements a [SqlFlagsService](super::stub::SqlFlagsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlFlagsService<T>
-where T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlFlagsService<T>
-where T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlFlagsService for SqlFlagsService<T>
-where T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list(
         &self,
@@ -201,25 +222,30 @@ where T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
         self.inner.list(req, options).await
     }
-
 }
 
 /// Implements a [SqlInstancesService](super::stub::SqlInstancesService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlInstancesService<T>
-where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlInstancesService<T>
-where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlInstancesService for SqlInstancesService<T>
-where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn add_server_ca(
         &self,
@@ -459,7 +485,8 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>
+    {
         self.inner.verify_external_sync_settings(req, options).await
     }
 
@@ -486,7 +513,8 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
+    {
         self.inner.get_disk_shrink_config(req, options).await
     }
 
@@ -504,7 +532,8 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>
+    {
         self.inner.get_latest_recovery_time(req, options).await
     }
 
@@ -525,25 +554,30 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         self.inner.release_ssrs_lease(req, options).await
     }
-
 }
 
 /// Implements a [SqlOperationsService](super::stub::SqlOperationsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlOperationsService<T>
-where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlOperationsService<T>
-where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlOperationsService for SqlOperationsService<T>
-where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn get(
         &self,
@@ -570,25 +604,30 @@ where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel(req, options).await
     }
-
 }
 
 /// Implements a [SqlSslCertsService](super::stub::SqlSslCertsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlSslCertsService<T>
-where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlSslCertsService<T>
-where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlSslCertsService for SqlSslCertsService<T>
-where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn delete(
         &self,
@@ -624,25 +663,30 @@ where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         self.inner.list(req, options).await
     }
-
 }
 
 /// Implements a [SqlTiersService](super::stub::SqlTiersService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlTiersService<T>
-where T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlTiersService<T>
-where T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlTiersService for SqlTiersService<T>
-where T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn list(
         &self,
@@ -651,25 +695,30 @@ where T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
         self.inner.list(req, options).await
     }
-
 }
 
 /// Implements a [SqlUsersService](super::stub::SqlUsersService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlUsersService<T>
-where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync,
+{
     inner: T,
 }
 
 impl<T> SqlUsersService<T>
-where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync,
+{
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SqlUsersService for SqlUsersService<T>
-where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
+where
+    T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync,
+{
     #[tracing::instrument(ret)]
     async fn delete(
         &self,
@@ -714,6 +763,4 @@ where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
-
 }
-

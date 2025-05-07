@@ -109,7 +109,7 @@ pub mod assured_workloads_service {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::CreateWorkloadOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Workload,
                 crate::model::CreateWorkloadOperationMetadata,
             >;
@@ -137,7 +137,7 @@ pub mod assured_workloads_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].

@@ -14,10 +14,10 @@
 
 #[cfg(test)]
 mod test {
-    #[cfg(any(feature = "_internal_grpc_client", feature = "_internal_http_client"))]
+    #[cfg(any(feature = "_internal-grpc-client", feature = "_internal-http-client"))]
     const DEFAULT_ENDPOINT: &str = "https://kms.googleapis.com";
 
-    #[cfg(feature = "_internal_grpc_client")]
+    #[cfg(feature = "_internal-grpc-client")]
     mod grpc {
         use auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
@@ -67,7 +67,7 @@ mod test {
         }
     }
 
-    #[cfg(feature = "_internal_http_client")]
+    #[cfg(feature = "_internal-http-client")]
     mod http {
         use auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;

@@ -34,7 +34,7 @@ pub use crate::field_mask::*;
 // The generated code contains (and uses) deprecated code.
 #[allow(deprecated)]
 mod generated;
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal;
 pub use crate::generated::*;
 mod timestamp;

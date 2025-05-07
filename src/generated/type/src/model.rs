@@ -882,10 +882,12 @@ impl wkt::message::Message for Interval {
 pub struct LatLng {
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub latitude: f64,
 
     /// The longitude in degrees. It must be in the range [-180.0, +180.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub longitude: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1540,18 +1542,22 @@ impl wkt::message::Message for PostalAddress {
 pub struct Quaternion {
     /// The x component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub x: f64,
 
     /// The y component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub y: f64,
 
     /// The z component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub z: f64,
 
     /// The scalar component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F64")]
     pub w: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

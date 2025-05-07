@@ -16,18 +16,17 @@ limitations under the License.
 
 # How to initialize a client
 
-The Google Cloud Client Libraries for Rust use "clients" as the main
-abstraction to interface with specific services. Clients are implemented
-as Rust structs, with methods corresponding to each RPC offered by the
-service. In other words, to use a Google Cloud service using the Rust
-client libraries you need to first initialize a client.
+The Google Cloud Client Libraries for Rust use "clients" as the main abstraction
+to interface with specific services. Clients are implemented as Rust structs,
+with methods corresponding to each RPC offered by the service. In other words,
+to use a Google Cloud service using the Rust client libraries you need to first
+initialize a client.
 
 ## Prerequisites
 
-In this guide we will initialize a client and then use the client to make
-a simple RPC. To make this guide concrete, we will use the
-[Secret Manager API]. The same structure applies to any other service in
-Google Cloud.
+In this guide we will initialize a client and then use the client to make a
+simple RPC. To make this guide concrete, we will use the [Secret Manager API].
+The same structure applies to any other service in Google Cloud.
 
 We recommend you follow one of the "Getting Started" guides for Secret Manager
 before attempting to use the client library, such as how to [Create a secret].
@@ -41,8 +40,8 @@ login to configure the [Application Default Credentials] used in this guide.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:secretmanager}}

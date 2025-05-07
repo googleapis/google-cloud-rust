@@ -20,7 +20,7 @@ edition.workspace = true
 publish           = false
 
 [dependencies]
-axum            = "0.8"
+axum.workspace  = true
 bytes.workspace = true
 serde_json      = "1"
 tokio           = { version = "1", features = ["macros"] }
@@ -28,4 +28,4 @@ tokio           = { version = "1", features = ["macros"] }
 auth = { path = "../../auth", package = "google-cloud-auth" }
 gax  = { path = "../../gax", package = "google-cloud-gax" }
 rpc  = { path = "../../generated/rpc/types", package = "google-cloud-rpc" }
-gaxi = { path = "../../gax-internal", package = "google-cloud-gax-internal", features = ["_internal_http_client"] }
+gaxi = { path = "../../gax-internal", package = "google-cloud-gax-internal", features = ["_internal-http-client"] }

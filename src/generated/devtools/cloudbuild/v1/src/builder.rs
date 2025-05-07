@@ -109,7 +109,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +134,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBuildRequest::parent].
@@ -419,7 +419,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -444,7 +444,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RetryBuildRequest::name].
@@ -518,7 +518,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -543,7 +543,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ApproveBuildRequest::name].
@@ -965,7 +965,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::Build, crate::model::BuildOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
+                lro::internal::Operation<crate::model::Build, crate::model::BuildOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -990,7 +990,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RunBuildTriggerRequest::name].
@@ -1151,7 +1151,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::CreateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::CreateWorkerPoolOperationMetadata,
             >;
@@ -1179,7 +1179,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
@@ -1313,8 +1313,10 @@ pub mod cloud_build {
         pub fn poller(
             self,
         ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata> {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::DeleteWorkerPoolOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1339,7 +1341,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
@@ -1420,7 +1422,7 @@ pub mod cloud_build {
             self,
         ) -> impl lro::Poller<crate::model::WorkerPool, crate::model::UpdateWorkerPoolOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::WorkerPool,
                 crate::model::UpdateWorkerPoolOperationMetadata,
             >;
@@ -1448,7 +1450,7 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].

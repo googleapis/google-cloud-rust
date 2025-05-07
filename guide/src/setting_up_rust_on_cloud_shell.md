@@ -26,7 +26,8 @@ Cloud Shell is a great environment to run small examples and tests.
 
 ## Configure Rust
 
-1. [Cloud Shell] comes with [rustup] pre-installed. You can use it to install and configure the default version of Rust:
+1. [Cloud Shell] comes with [rustup] pre-installed. You can use it to install
+   and configure the default version of Rust:
 
    ```shell
    rustup default stable

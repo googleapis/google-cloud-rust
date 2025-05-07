@@ -923,7 +923,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchCreateJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -951,7 +951,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateJobsRequest::parent].
@@ -1127,7 +1127,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchUpdateJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchUpdateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1155,7 +1155,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateJobsRequest::parent].
@@ -1284,7 +1284,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchDeleteJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchDeleteJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1312,7 +1312,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteJobsRequest::parent].
