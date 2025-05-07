@@ -198,3 +198,76 @@ impl ReqwestClient {
 #[doc(hidden)]
 #[derive(serde::Serialize, Default)]
 pub(crate) struct NoBody {}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::error::Error;
+    use test_case::test_case;
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    #[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
+    pub struct Empty {}
+
+    #[tokio::test]
+    #[test_case(reqwest::StatusCode::BAD_REQUEST, r#"{"error": "bad request"}"#.to_string(); "non_retryable")]
+    #[test_case(reqwest::StatusCode::INTERNAL_SERVER_ERROR, r#"{"error": "internal error"}"#.to_string(); "retryable")]
+    async fn client_credential_error(code: reqwest::StatusCode, content: String) -> TestResult {
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(code)
+            .body(content.clone())?;
+        let response: reqwest::Response = http_resp.into();
+        let response = ReqwestClient::to_http_error::<()>(response).await;
+        assert!(response.is_err(), "{response:?}");
+        let err = response.err().unwrap();
+        let err = err.as_inner::<CredentialsError>().unwrap();
+        assert_eq!(err.is_retryable(), errors::is_retryable(code));
+
+        assert_eq!(err.source().unwrap().to_string(), content);
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[test_case(reqwest::StatusCode::OK, "{}"; "200 with empty object")]
+    #[test_case(reqwest::StatusCode::NO_CONTENT, "{}"; "204 with empty object")]
+    #[test_case(reqwest::StatusCode::NO_CONTENT, ""; "204 with empty content")]
+    async fn client_empty_content(code: reqwest::StatusCode, content: &str) -> TestResult {
+        let response = resp_from_code_content(code, content)?;
+        assert!(response.status().is_success());
+
+        let response = ReqwestClient::to_http_response::<Empty>(response).await;
+        assert!(response.is_ok());
+
+        let response = response.unwrap();
+        let body = response.into_body();
+        assert_eq!(body, Empty::default());
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[test_case(reqwest::StatusCode::OK, ""; "200 with empty content")]
+    async fn client_error_with_empty_content(
+        code: reqwest::StatusCode,
+        content: &str,
+    ) -> TestResult {
+        let response = resp_from_code_content(code, content)?;
+        assert!(response.status().is_success());
+
+        let response = ReqwestClient::to_http_response::<Empty>(response).await;
+        assert!(response.is_err());
+        Ok(())
+    }
+
+    fn resp_from_code_content(
+        code: reqwest::StatusCode,
+        content: &str,
+    ) -> http::Result<reqwest::Response> {
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(code)
+            .body(content.to_string())?;
+
+        let response: reqwest::Response = http_resp.into();
+        Ok(response)
+    }
+}

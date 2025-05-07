@@ -170,6 +170,25 @@ impl Builder {
         self
     }
 
+    /// Configure the retry policy.
+    ///
+    /// The retry policy controls how to handle [crate::errors::CredentialsError], 
+    /// sets limits on the number of attempts or the time trying to make attempts.
+    ///
+    /// ```
+    /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax as gax;
+    /// # use google_cloud_gax::Result;
+    /// # tokio_test::block_on(async {
+    /// use examples::Client; // Placeholder for examples
+    /// use gax::retry_policy;
+    /// use gax::retry_policy::RetryPolicyExt;
+    /// let client = Client::builder()
+    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .build().await?;
+    /// # Result::<()>::Ok(()) });
+    /// ```
+
     pub fn with_retry_policy(mut self, retry_policy: Arc<dyn RetryPolicy>) -> Self {
         self.retry_policy = Some(retry_policy);
         self
