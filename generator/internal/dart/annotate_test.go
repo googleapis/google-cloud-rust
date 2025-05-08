@@ -261,8 +261,20 @@ func TestBuildQueryLines(t *testing.T) {
 			&api.Field{Name: "int32", JSONName: "int32", Typez: api.INT32_TYPE},
 			[]string{"if (result.int32 != null) 'int32': '${result.int32}'"},
 		}, {
+			&api.Field{Name: "fixed32", JSONName: "fixed32", Typez: api.FIXED32_TYPE},
+			[]string{"if (result.fixed32 != null) 'fixed32': '${result.fixed32}'"},
+		}, {
+			&api.Field{Name: "sfixed32", JSONName: "sfixed32", Typez: api.SFIXED32_TYPE},
+			[]string{"if (result.sfixed32 != null) 'sfixed32': '${result.sfixed32}'"},
+		}, {
 			&api.Field{Name: "int64", JSONName: "int64", Typez: api.INT64_TYPE},
 			[]string{"if (result.int64 != null) 'int64': '${result.int64}'"},
+		}, {
+			&api.Field{Name: "fixed64", JSONName: "fixed64", Typez: api.FIXED64_TYPE},
+			[]string{"if (result.fixed64 != null) 'fixed64': '${result.fixed64}'"},
+		}, {
+			&api.Field{Name: "sfixed64", JSONName: "sfixed64", Typez: api.SFIXED64_TYPE},
+			[]string{"if (result.sfixed64 != null) 'sfixed64': '${result.sfixed64}'"},
 		}, {
 			&api.Field{Name: "double", JSONName: "double", Typez: api.DOUBLE_TYPE},
 			[]string{"if (result.double != null) 'double': '${result.double}'"},
@@ -285,8 +297,17 @@ func TestBuildQueryLines(t *testing.T) {
 			&api.Field{Name: "doubleList", JSONName: "doubleList", Typez: api.DOUBLE_TYPE, Repeated: true},
 			[]string{"if (result.doubleList != null) 'doubleList': result.doubleList!.map((e) => '$e')"},
 		}, {
-			&api.Field{Name: "stringList", JSONName: "stringList", Typez: api.STRING_TYPE},
+			&api.Field{Name: "stringList", JSONName: "stringList", Typez: api.STRING_TYPE, Repeated: true},
 			[]string{"if (result.stringList != null) 'stringList': result.stringList!"},
+		},
+
+		// bytes, repeated bytes
+		{
+			&api.Field{Name: "bytes", JSONName: "bytes", Typez: api.BYTES_TYPE},
+			[]string{"if (result.bytes != null) 'bytes': encodeBytes(result.bytes)!"},
+		}, {
+			&api.Field{Name: "bytesList", JSONName: "bytesList", Typez: api.BYTES_TYPE, Repeated: true},
+			[]string{"if (result.bytesList != null) 'bytesList': result.bytesList!.map((e) => encodeBytes(e)!)"},
 		},
 	} {
 		t.Run(test.field.Name, func(t *testing.T) {
