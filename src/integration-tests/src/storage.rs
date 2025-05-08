@@ -16,10 +16,92 @@ use crate::{Error, Result};
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::{ItemPaginator, Paginator};
+use gax::retry_policy::RetryPolicyExt;
 use std::time::Duration;
-use storage::model::Bucket;
+use storage_control::model::Bucket;
 
-pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
+pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+
+    let client = builder.build().await?;
+
+    tracing::info!("testing insert_object()");
+    let insert = client
+        .insert_object(
+            &bucket.name,
+            "quick.text",
+            "the quick brown fox jumps over the lazy dog",
+        )
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+
+    tracing::info!("testing read_object()");
+    let contents = client.read_object(&bucket.name, &insert.name).await?;
+    tracing::info!("success with contents={contents:?}");
+
+    control
+        .delete_object(&insert.bucket, &insert.name)
+        .set_generation(insert.generation)
+        .send()
+        .await?;
+    control.delete_bucket(&bucket.name).send().await?;
+
+    Ok(())
+}
+
+pub async fn create_test_bucket() -> gax::Result<(storage_control::client::Storage, Bucket)> {
+    let project_id = crate::project_id()?;
+    let client = storage_control::client::Storage::builder()
+        .with_tracing()
+        .with_backoff_policy(
+            gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_secs(2))
+                .with_maximum_delay(Duration::from_secs(8))
+                .build()?,
+        )
+        .with_retry_policy(
+            gax::retry_policy::AlwaysRetry
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(16)),
+        )
+        .build()
+        .await?;
+    cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = crate::random_bucket_id();
+
+    tracing::info!("\nTesting create_bucket()");
+    let create = client
+        .create_bucket("projects/_", bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_labels([("integration-test", "true")]),
+        )
+        .with_backoff_policy(test_backoff())
+        .send()
+        .await?;
+    tracing::info!("SUCCESS on create_bucket: {create:?}");
+    Ok((client, create))
+}
+
+pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -86,7 +168,7 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     Ok(())
 }
 
-async fn buckets_iam(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
+async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
@@ -119,7 +201,10 @@ async fn buckets_iam(client: &storage::client::Storage, bucket_name: &str) -> Re
     Ok(())
 }
 
-async fn cleanup_stale_buckets(client: &storage::client::Storage, project_id: &str) -> Result<()> {
+async fn cleanup_stale_buckets(
+    client: &storage_control::client::Storage,
+    project_id: &str,
+) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -160,7 +245,7 @@ async fn cleanup_stale_buckets(client: &storage::client::Storage, project_id: &s
     Ok(())
 }
 
-async fn cleanup_bucket(client: storage::client::Storage, name: String) -> Result<()> {
+async fn cleanup_bucket(client: storage_control::client::Storage, name: String) -> Result<()> {
     let mut objects = client
         .list_objects(&name)
         .set_versions(true)

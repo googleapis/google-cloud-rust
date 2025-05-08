@@ -108,13 +108,23 @@ mod driver {
             .map_err(report)
     }
 
-    #[test_case(storage::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(storage::client::Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(storage_control::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(storage_control::client::Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_storage_buckets(
-        builder: storage::client::ClientBuilder,
+    async fn run_storage_control_buckets(
+        builder: storage_control::client::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::storage::buckets(builder)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(storage::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_objects(
+        builder: storage::client::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::objects(builder)
             .await
             .map_err(report)
     }
@@ -139,10 +149,10 @@ mod driver {
             .map_err(report)
     }
 
-    #[test_case(storage::client::Storage::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(storage_control::client::Storage::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_check_code_for_grpc(
-        builder: storage::client::ClientBuilder,
+        builder: storage_control::client::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::error_details::check_code_for_grpc(builder)
             .await
