@@ -31,6 +31,7 @@ use crate::Result;
 {{#Codec.Services}}
 
 /// Implements a client for the {{Codec.APITitle}}.
+{{^Codec.HasVeneer}}
 ///
 /// # Example
 /// ```
@@ -73,6 +74,7 @@ use crate::Result;
 /// create one and the reuse it.  You do not need to wrap `{{Codec.Name}}` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+{{/Codec.HasVeneer}}
 {{#Codec.PerServiceFeatures}}
 #[cfg(feature = "{{Codec.FeatureName}}")]
 #[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.FeatureName}}")))]
@@ -89,6 +91,7 @@ pub struct {{Codec.Name}} {
 #[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
+    {{^Codec.HasVeneer}}
     /// Returns a builder for [{{Codec.Name}}].
     ///
     /// ```
@@ -100,6 +103,7 @@ impl {{Codec.Name}} {
     pub fn builder() -> super::builder::{{Codec.ModuleName}}::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::{{Codec.ModuleName}}::client::Factory)
     }
+    {{/Codec.HasVeneer}}
 
     /// Creates a new client from the provided stub.
     ///
