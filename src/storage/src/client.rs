@@ -36,7 +36,7 @@ pub use control::model::Object;
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://storage.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -45,7 +45,7 @@ pub use control::model::Object;
 /// # Pooling and Cloning
 ///
 /// `Storage` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Storage` in
+/// create one and then reuse it.  You do not need to wrap `Storage` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 ///
@@ -54,10 +54,6 @@ pub use control::model::Object;
 /// The Cloud Storage API allows applications to read and write data through
 /// the abstractions of buckets and objects. For a description of these
 /// abstractions please see <https://cloud.google.com/storage/docs>.
-///
-/// This client is used to perform metadata operations, such as creating
-/// buckets, deleting objects, listing objects, etc. It does not expose any
-/// functions to write or read data in objects.
 ///
 /// Resources are named as follows:
 ///
@@ -111,7 +107,7 @@ impl Storage {
     ///         .insert_object(
     ///             "projects/_/buckets/my-bucket",
     ///             "my-object",
-    ///             bytes::Bytes::from("the quick brown fox jumped over the lazy dog"),
+    ///             "the quick brown fox jumped over the lazy dog",
     ///         )
     ///         .await?;
     ///     println!("response details={response:?}");
