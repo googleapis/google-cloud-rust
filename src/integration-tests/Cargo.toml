@@ -53,6 +53,10 @@ package = "google-cloud-firestore"
 path    = "../../src/firestore"
 
 [dependencies.storage]
+package = "google-cloud-storage"
+path    = "../../src/storage"
+
+[dependencies.storage-control]
 package = "google-cloud-storage-control"
 path    = "../../src/storage-control"
 
