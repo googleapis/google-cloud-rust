@@ -115,10 +115,7 @@ where
         self.poller.poll().await.map(self::map_polling_result)
     }
     async fn until_done(self) -> Result<()> {
-        match self.poller.until_done().await {
-            Err(e) => Err(e),
-            Ok(_) => Ok(()),
-        }
+        self.poller.until_done().await.map(|_| ())
     }
     #[cfg(feature = "unstable-stream")]
     fn into_stream(self) -> impl futures::Stream<Item = PollingResult<(), M>> {
