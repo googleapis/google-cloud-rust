@@ -75,8 +75,8 @@
 ///   Note that object names can contain `/` characters, which are treated as
 ///   any other character (no special directory semantics).
 ///
-/// [with_endpoint()]: super::builder::storage::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::storage::ClientBuilder::with_credentials
+/// [with_endpoint()]: ClientBuilder::with_endpoint
+/// [with_credentials()]: ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
