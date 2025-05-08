@@ -17,7 +17,7 @@
 //! When listing large collections of items Google Cloud services typically
 //! break the responses in "pages", where each page contains a limited number
 //! of items, and a token to request the next page. The caller must
-//! repeatedly call the list RPC (using the token from the previous pag) to
+//! repeatedly call the list RPC (using the token from the previous page) to
 //! obtain additional items.
 //!
 //! Sequencing these calls can be tedious. The Google Cloud client libraries
