@@ -93,7 +93,7 @@ impl Storage {
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::Storage;
+    /// # use google_cloud_storage::client::Storage;
     /// let client = Storage::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
@@ -113,7 +113,6 @@ impl Storage {
     ///             "my-object",
     ///             bytes::Bytes::from("the quick brown fox jumped over the lazy dog"),
     ///         )
-    ///         .send()
     ///         .await?;
     ///     println!("response details={response:?}");
     ///     Ok(())
@@ -169,21 +168,19 @@ impl Storage {
         Ok(Object::from(response))
     }
 
-    /// A simple upload from a buffer.
+    /// A simple download into a buffer.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client
-    ///         .insert_object(
+    ///     let contents = client
+    ///         .read_object(
     ///             "projects/_/buckets/my-bucket",
     ///             "my-object",
-    ///             bytes::Bytes::from("the quick brown fox jumped over the lazy dog"),
     ///         )
-    ///         .send()
     ///         .await?;
-    ///     println!("response details={response:?}");
+    ///     println!("object contents={contents:?}");
     ///     Ok(())
     /// }
     /// ```
