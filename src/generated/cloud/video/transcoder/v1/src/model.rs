@@ -716,6 +716,7 @@ pub mod job {
     /// `job_config`, the API selects `templateId`; this template ID is set to
     /// `preset/web-hd` by default. When you use a `template_id` to create a job,
     /// the `Job.config` is populated by the `JobTemplate.config`.\<br\>
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1340,6 +1341,7 @@ pub mod elementary_stream {
     use super::*;
 
     /// Encoding of an audio, video, or text track.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1892,6 +1894,7 @@ pub mod manifest {
     }
 
     /// Specifies the manifest configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2173,6 +2176,7 @@ pub mod sprite_sheet {
     use super::*;
 
     /// Specify either total number of sprites or interval to create sprites.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2665,6 +2669,7 @@ pub mod overlay {
         use super::*;
 
         /// Animations can be static or fade, or they can end the previous animation.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3567,6 +3572,7 @@ pub mod preprocessing_config {
         }
 
         /// Specify the video deinterlacing filter. The default is `yadif`.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4078,6 +4084,7 @@ pub mod video_stream {
         use super::*;
 
         /// GOP mode can be either by frame count or duration.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4458,6 +4465,7 @@ pub mod video_stream {
         use super::*;
 
         /// GOP mode can be either by frame count or duration.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4714,6 +4722,7 @@ pub mod video_stream {
         use super::*;
 
         /// GOP mode can be either by frame count or duration.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4731,6 +4740,7 @@ pub mod video_stream {
     }
 
     /// Codec settings can be h264, h265, or vp9.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5659,6 +5669,7 @@ pub mod encryption {
     }
 
     /// Encryption mode can be either `aes` or `cenc`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5672,6 +5683,7 @@ pub mod encryption {
     }
 
     /// Defines where content keys are stored.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

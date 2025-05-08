@@ -855,6 +855,7 @@ pub mod database {
         }
 
         /// The source from which this database is derived.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1129,6 +1130,7 @@ pub mod database {
         }
 
         /// The method for encrypting the database.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4827,6 +4829,7 @@ pub mod index {
             }
 
             /// The type of index used.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -5100,6 +5103,7 @@ pub mod index {
         }
 
         /// How the field value is indexed.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -7144,6 +7148,7 @@ pub mod backup_schedule {
     use super::*;
 
     /// A oneof field to represent when backups will be taken.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7519,6 +7524,7 @@ pub mod user_creds {
     }
 
     /// Identity associated with this User Creds.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

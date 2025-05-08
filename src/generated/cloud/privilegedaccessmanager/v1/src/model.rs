@@ -256,6 +256,7 @@ pub mod check_onboarding_status_response {
             }
         }
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -637,6 +638,7 @@ pub mod entitlement {
 
         /// This is a required field and the user must explicitly opt out if a
         /// justification from the requester isn't mandatory.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -983,6 +985,7 @@ pub mod approval_workflow {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1326,6 +1329,7 @@ pub mod privileged_access {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3001,6 +3005,7 @@ pub mod grant {
                 }
             }
 
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -3355,6 +3360,7 @@ pub mod justification {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

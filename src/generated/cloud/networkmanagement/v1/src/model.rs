@@ -3624,6 +3624,7 @@ pub mod step {
     /// has no permission to view the configuration in this step, for non-final
     /// states a special state is populated (VIEWER_PERMISSION_MISSING), and for
     /// final state the configuration is cleared.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11545,6 +11546,7 @@ pub mod vpc_flow_logs_config {
     /// Reference to the resource of the config scope. That is, the scope from
     /// which traffic is logged. The target resource must belong to the same
     /// project as the configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

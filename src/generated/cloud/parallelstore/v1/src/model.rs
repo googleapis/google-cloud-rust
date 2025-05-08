@@ -1255,6 +1255,7 @@ pub mod import_data_request {
     use super::*;
 
     /// The source of the data being imported into the Parallelstore instance.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1264,6 +1265,7 @@ pub mod import_data_request {
     }
 
     /// The Parallelstore instance into which to import data.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1452,6 +1454,7 @@ pub mod export_data_request {
     use super::*;
 
     /// The Parallelstore instance to export from.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1461,6 +1464,7 @@ pub mod export_data_request {
     }
 
     /// The Cloud Storage bucket to export to.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2099,6 +2103,7 @@ pub mod transfer_operation_metadata {
     use super::*;
 
     /// The source of transfer operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2110,6 +2115,7 @@ pub mod transfer_operation_metadata {
     }
 
     /// The destination of transfer operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

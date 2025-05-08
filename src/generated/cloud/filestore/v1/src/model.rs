@@ -524,6 +524,7 @@ pub mod file_share_config {
 
     /// The source that this file share has been restored from. Empty if the file
     /// share is created from scratch.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1957,6 +1958,7 @@ pub mod instance {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -2947,6 +2949,7 @@ pub mod restore_instance_request {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

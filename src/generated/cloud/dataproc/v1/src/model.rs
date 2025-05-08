@@ -199,6 +199,7 @@ pub mod autoscaling_policy {
     use super::*;
 
     /// Autoscaling algorithm for policy.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -299,6 +300,7 @@ pub mod basic_autoscaling_algorithm {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1668,6 +1670,7 @@ pub mod batch {
     }
 
     /// The application/framework-specific portion of the batch configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1972,6 +1975,7 @@ pub mod spark_batch {
     /// main class name. To pass both a main jar and a main class in that jar, add
     /// the jar to `jar_file_uris`, and then specify the main class
     /// name in `main_class`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2711,6 +2715,7 @@ pub mod virtual_cluster_config {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5787,6 +5792,7 @@ pub mod lifecycle_config {
 
     /// Either the exact time the cluster should be deleted at or
     /// the cluster maximum age.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7866,6 +7872,7 @@ pub mod hadoop_job {
     /// either the jar file that contains the main class or the main class name.
     /// To specify both, add the jar file to `jar_file_uris`, and then specify
     /// the main class name in this property.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8092,6 +8099,7 @@ pub mod spark_job {
     ///
     /// [google.cloud.dataproc.v1.SparkJob.jar_file_uris]: crate::model::SparkJob::jar_file_uris
     /// [google.cloud.dataproc.v1.SparkJob.main_class]: crate::model::SparkJob::driver
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8473,6 +8481,7 @@ pub mod hive_job {
 
     /// Required. The sequence of Hive queries to execute, specified as either
     /// an HCFS file URI or a list of queries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8645,6 +8654,7 @@ pub mod spark_sql_job {
 
     /// Required. The sequence of Spark SQL queries to execute, specified as
     /// either an HCFS file URI or as a list of queries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8831,6 +8841,7 @@ pub mod pig_job {
 
     /// Required. The sequence of Pig queries to execute, specified as an HCFS
     /// file URI or a list of queries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9131,6 +9142,7 @@ pub mod presto_job {
 
     /// Required. The sequence of Presto queries to execute, specified as
     /// either an HCFS file URI or as a list of queries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9312,6 +9324,7 @@ pub mod trino_job {
 
     /// Required. The sequence of Trino queries to execute, specified as
     /// either an HCFS file URI or as a list of queries.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9510,6 +9523,7 @@ pub mod flink_job {
     ///
     /// [google.cloud.dataproc.v1.FlinkJob.jar_file_uris]: crate::model::FlinkJob::jar_file_uris
     /// [google.cloud.dataproc.v1.FlinkJob.main_class]: crate::model::FlinkJob::driver
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10769,6 +10783,7 @@ pub mod job {
     use super::*;
 
     /// Required. The application/framework-specific portion of the job.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -13500,6 +13515,7 @@ pub mod session_template {
     use super::*;
 
     /// The session configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14382,6 +14398,7 @@ pub mod session {
     }
 
     /// The session configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14962,6 +14979,7 @@ pub mod execution_config {
     use super::*;
 
     /// Network configuration for workload execution.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15524,6 +15542,7 @@ pub mod kubernetes_cluster_config {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16997,6 +17016,7 @@ pub mod workflow_template_placement {
 
     /// Required. Specifies where workflow executes; either on a managed
     /// cluster or an existing cluster chosen by labels.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17515,6 +17535,7 @@ pub mod ordered_job {
     use super::*;
 
     /// Required. The job definition.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -17778,6 +17799,7 @@ pub mod parameter_validation {
     use super::*;
 
     /// Required. The type of validation to be performed.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

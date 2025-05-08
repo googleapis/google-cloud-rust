@@ -118,6 +118,7 @@ pub mod input_config {
 
     /// The location of the input model in cloud storage.
     /// Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -220,6 +221,7 @@ pub mod output_config {
 
     /// The location of the output result in cloud storage.
     /// Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5431,6 +5433,7 @@ pub mod waypoint {
     use super::*;
 
     /// Different ways to represent a location.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8396,6 +8399,7 @@ pub mod optimize_tours_validation_error {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

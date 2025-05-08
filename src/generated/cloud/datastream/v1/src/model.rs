@@ -368,6 +368,7 @@ pub mod discover_connection_profile_request {
     use super::*;
 
     /// The connection profile on which to run discover.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -379,6 +380,7 @@ pub mod discover_connection_profile_request {
     }
 
     /// The depth of the retrieved hierarchy of data objects.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -391,6 +393,7 @@ pub mod discover_connection_profile_request {
     }
 
     /// The data object to populate with child data objects and metadata.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -579,6 +582,7 @@ pub mod discover_connection_profile_response {
     use super::*;
 
     /// The data object that has been enriched by the discover API call.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3571,6 +3575,7 @@ pub mod salesforce_profile {
     }
 
     /// Credentials for Salesforce connection.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3803,6 +3808,7 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4683,6 +4689,7 @@ pub mod postgresql_ssl_config {
     /// This captures various SSL mode supported by PostgreSQL, which includes
     /// TLS encryption with server verification, TLS encryption with both server
     /// and client verification and no TLS encryption.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5168,6 +5175,7 @@ pub mod connection_profile {
     use super::*;
 
     /// Connection configuration for the ConnectionProfile.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5189,6 +5197,7 @@ pub mod connection_profile {
     }
 
     /// Connectivity options used to establish a connection to the profile.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5955,6 +5964,7 @@ pub mod oracle_source_config {
         }
 
         /// Configuration to specify how the log file should be accessed.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5975,6 +5985,7 @@ pub mod oracle_source_config {
     }
 
     /// The configuration for handle Oracle large objects.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5986,6 +5997,7 @@ pub mod oracle_source_config {
     }
 
     /// Configuration to select the CDC method.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6716,6 +6728,7 @@ pub mod sql_server_source_config {
     use super::*;
 
     /// Configuration to select the CDC read method for the stream.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7222,6 +7235,7 @@ pub mod mysql_source_config {
     }
 
     /// The CDC method to use for the stream.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7659,6 +7673,7 @@ pub mod source_config {
     use super::*;
 
     /// Stream configuration that is specific to the data source type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8163,6 +8178,7 @@ pub mod gcs_destination_config {
     use super::*;
 
     /// File Format that the data should be written in.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8959,6 +8975,7 @@ pub mod big_query_destination_config {
     }
 
     /// Target dataset(s) configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8973,6 +8990,7 @@ pub mod big_query_destination_config {
         ),
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9115,6 +9133,7 @@ pub mod destination_config {
     use super::*;
 
     /// Stream configuration that is specific to the data destination type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9617,6 +9636,7 @@ pub mod stream {
         use super::*;
 
         /// List of objects to exclude.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -9835,6 +9855,7 @@ pub mod stream {
     }
 
     /// Stream backfill strategy.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10393,6 +10414,7 @@ pub mod source_object_identifier {
     }
 
     /// The identifier for an object in the data source.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11736,6 +11758,7 @@ pub mod cdc_strategy {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -11754,6 +11777,7 @@ pub mod cdc_strategy {
     /// The position to start reading from when starting, resuming, or recovering
     /// the stream.
     /// If not set, the system's default value will be used.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

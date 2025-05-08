@@ -9711,6 +9711,7 @@ pub mod policy_based_route {
     /// Target specifies network endpoints that this policy-based route applies to.
     /// If no target is specified, the PBR will be installed on all network
     /// endpoints (e.g. VMs, VPNs, and Interconnects) in the VPC.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9724,6 +9725,7 @@ pub mod policy_based_route {
         ),
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

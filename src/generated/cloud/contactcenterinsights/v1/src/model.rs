@@ -1507,6 +1507,7 @@ pub mod ingest_conversations_request {
 
     /// Configuration for an external data store containing objects that will
     /// be converted to conversations.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1517,6 +1518,7 @@ pub mod ingest_conversations_request {
     }
 
     /// Configuration for converting individual `source` objects to conversations.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2670,6 +2672,7 @@ pub mod export_insights_data_request {
     }
 
     /// Exporter destination.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3492,6 +3495,7 @@ pub mod export_issue_model_request {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3717,6 +3721,7 @@ pub mod import_issue_model_request {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5787,6 +5792,7 @@ pub mod dimension {
     }
 
     /// Output-only metadata about the dimension.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6593,6 +6599,7 @@ pub mod query_metrics_response {
             }
 
             /// The measure included in this data point.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -8711,6 +8718,7 @@ pub mod bulk_upload_feedback_labels_request {
 
     /// Configuration for an external data store containing objects that will
     /// be converted to FeedbackLabels.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9446,6 +9454,7 @@ pub mod bulk_download_feedback_labels_request {
 
     /// Configuration for an external data store to which the feedback labels
     /// will be written to.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10703,6 +10712,7 @@ pub mod conversation {
     }
 
     /// Metadata that applies to the conversation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10715,6 +10725,7 @@ pub mod conversation {
     /// duration from the time that the conversation creation request was received.
     /// Conversations with an expiration set will be removed up to 24 hours after
     /// the specified time.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10927,6 +10938,7 @@ pub mod conversation_data_source {
     use super::*;
 
     /// The source of the conversation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11268,6 +11280,7 @@ pub mod analysis_result {
     }
 
     /// Metadata discovered during analysis.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11476,6 +11489,7 @@ pub mod feedback_label {
     use super::*;
 
     /// Label type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11955,6 +11969,7 @@ pub mod call_annotation {
     use super::*;
 
     /// The data in the annotation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12062,6 +12077,7 @@ pub mod annotation_boundary {
     use super::*;
 
     /// A detailed boundary, which describes a more specific point.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14283,6 +14299,7 @@ pub mod phrase_match_rule_config {
     use super::*;
 
     /// The configuration of the phrase match rule.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15374,6 +15391,7 @@ pub mod runtime_annotation {
     }
 
     /// The data in the annotation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16380,6 +16398,7 @@ pub mod conversation_participant {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16915,6 +16934,7 @@ pub mod annotator_selector {
 
         /// Summarization must use either a preexisting conversation profile or one
         /// of the supported default models.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -17056,6 +17076,7 @@ pub mod annotator_selector {
         }
 
         /// Which scorecards should be scored.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -17413,6 +17434,7 @@ pub mod qa_question {
         use super::*;
 
         /// The answer value may be one of a few different types.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -17420,7 +17442,7 @@ pub mod qa_question {
             /// String value.
             StrValue(std::string::String),
             /// Numerical value.
-            NumValue(f64),
+            NumValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// Boolean value.
             BoolValue(bool),
             /// A value of "Not Applicable (N/A)". If provided, this field may only
@@ -18179,6 +18201,7 @@ pub mod qa_answer {
         use super::*;
 
         /// The answer value may be one of a few different types.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -18186,7 +18209,7 @@ pub mod qa_answer {
             /// String value.
             StrValue(std::string::String),
             /// Numerical value.
-            NumValue(f64),
+            NumValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// Boolean value.
             BoolValue(bool),
             /// A value of "Not Applicable (N/A)". Should only ever be `true`.

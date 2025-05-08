@@ -4481,6 +4481,7 @@ pub mod management_config {
 
     /// The configuration can be one of StandardManagementConfig
     /// and FullManagementConfig
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

@@ -670,6 +670,7 @@ pub mod data_policy {
     }
 
     /// Label that is bound to this data policy.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -680,6 +681,7 @@ pub mod data_policy {
     }
 
     /// The policy that is bound to this data policy.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1011,6 +1013,7 @@ pub mod data_masking_policy {
     }
 
     /// A masking expression to bind to the data masking rule.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

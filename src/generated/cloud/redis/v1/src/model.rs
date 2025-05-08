@@ -2839,6 +2839,7 @@ pub mod input_config {
     use super::*;
 
     /// Required. Specify source location of input data
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3010,6 +3011,7 @@ pub mod output_config {
     use super::*;
 
     /// Required. Specify destination location of output data
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

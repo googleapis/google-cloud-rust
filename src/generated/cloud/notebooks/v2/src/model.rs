@@ -647,6 +647,7 @@ pub mod vm_image {
     use super::*;
 
     /// The reference to an external Compute Engine VM image.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1527,6 +1528,7 @@ pub mod gce_setup {
     use super::*;
 
     /// Type of the image; can be one of VM image, or container image.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2185,6 +2187,7 @@ pub mod instance {
     use super::*;
 
     /// Setup for the Notebook instance.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

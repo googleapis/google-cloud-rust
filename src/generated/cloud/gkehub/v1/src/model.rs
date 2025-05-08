@@ -714,6 +714,7 @@ pub mod common_feature_spec {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -836,6 +837,7 @@ pub mod membership_feature_spec {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -938,6 +940,7 @@ pub mod membership_feature_state {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1196,6 +1199,7 @@ pub mod membership {
     use super::*;
 
     /// Type of resource represented by this Membership
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

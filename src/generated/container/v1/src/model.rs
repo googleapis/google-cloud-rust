@@ -3063,6 +3063,7 @@ pub mod containerd_config {
             /// Certificate access config. The following are supported:
             ///
             /// - GCPSecretManagerCertificateConfig
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -10143,14 +10144,15 @@ pub mod operation_progress {
         use super::*;
 
         /// Strictly one of the values is required.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub enum Value {
             /// For metrics with integer value.
-            IntValue(i64),
+            IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
             /// For metrics with floating point value.
-            DoubleValue(f64),
+            DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// For metrics with custom values (ratios, visual progress, etc.).
             StringValue(std::string::String),
         }
@@ -12982,19 +12984,21 @@ pub mod blue_green_settings {
         use super::*;
 
         /// Blue pool size to drain in a batch.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub enum UpdateBatchSize {
             /// Percentage of the blue pool nodes to drain in a batch.
             /// The range of this field should be (0.0, 1.0].
-            BatchPercentage(f32),
+            BatchPercentage(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Number of blue nodes to drain in a batch.
             BatchNodeCount(i32),
         }
     }
 
     /// The rollout policy controls the general rollout progress of blue-green.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14520,6 +14524,7 @@ pub mod maintenance_window {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14636,6 +14641,7 @@ pub mod time_window {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

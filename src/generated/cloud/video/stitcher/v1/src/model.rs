@@ -472,6 +472,7 @@ pub mod cdn_key {
     use super::*;
 
     /// Configuration associated with the CDN key.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1101,6 +1102,7 @@ pub mod companion {
     use super::*;
 
     /// Ad resource associated with the companion ad.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

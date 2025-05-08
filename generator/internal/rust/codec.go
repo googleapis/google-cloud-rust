@@ -408,6 +408,17 @@ func fieldFormatter(typez api.Typez) string {
 }
 
 func fieldSkipAttributes(f *api.Field) []string {
+	// oneofs have explicit presence, and default values should be serialized:
+	// https://protobuf.dev/programming-guides/field_presence/.
+	if f.IsOneOf {
+		return []string{}
+	}
+	if f.Optional {
+		return []string{`#[serde(skip_serializing_if = "std::option::Option::is_none")]`}
+	}
+	if f.Repeated {
+		return []string{`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`}
+	}
 	switch f.Typez {
 	case api.STRING_TYPE:
 		return []string{`#[serde(skip_serializing_if = "std::string::String::is_empty")]`}
@@ -441,12 +452,7 @@ func fieldBaseAttributes(f *api.Field) []string {
 
 func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	// Message fields could be `Vec<..>`, and are always optional:
-	if f.Optional {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-	}
-	if f.Repeated {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-	}
+	attributes = wrapperFieldSkipAttributes(f, attributes)
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
@@ -464,6 +470,9 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	}
 	// A few message types require ad-hoc treatment. Most are just managed with
 	// the default handler.
+	if f.IsOneOf {
+		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, oneOfFieldTypeFormatter(f, false, formatter)))
+	}
 	if f.Optional {
 		return append(
 			attributes,
@@ -477,6 +486,21 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	return append(
 		attributes,
 		fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
+}
+
+func wrapperFieldSkipAttributes(f *api.Field, attributes []string) []string {
+	// oneofs have explicit presence, and default values should be serialized:
+	// https://protobuf.dev/programming-guides/field_presence/.
+	if f.IsOneOf {
+		return attributes
+	}
+	if f.Optional {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
+	}
+	if f.Repeated && !f.IsOneOf {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
+	}
+	return attributes
 }
 
 func fieldAttributes(f *api.Field, state *api.APIState) []string {
@@ -494,12 +518,6 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.SINT32_TYPE,
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
-		if f.Optional {
-			return append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-		}
-		if f.Repeated {
-			return append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-		}
 		return append(attributes, fieldSkipAttributes(f)...)
 
 	case api.INT64_TYPE,
@@ -511,21 +529,21 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.FLOAT_TYPE,
 		api.DOUBLE_TYPE:
 		formatter := fieldFormatter(f.Typez)
+		attributes = append(attributes, fieldSkipAttributes(f)...)
 		if f.Optional {
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
 		}
 		if f.Repeated {
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
 		}
-		attributes = append(attributes, fieldSkipAttributes(f)...)
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 
 	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
 			// map<> field types require special treatment.
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
+			if !f.IsOneOf {
+				attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
+			}
 			var key, value *api.Field
 			for _, f := range message.Fields {
 				switch f.Name {
@@ -557,15 +575,16 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 
 func oneOfFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	baseType := baseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	return oneOfFieldTypeFormatter(f, language.FieldIsMap(f, state), baseType)
+}
+
+func oneOfFieldTypeFormatter(f *api.Field, fieldIsMap bool, baseType string) string {
 	switch {
 	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", baseType)
 	case f.Typez == api.MESSAGE_TYPE:
-		if language.FieldIsMap(f, state) {
+		if fieldIsMap {
 			return baseType
-		}
-		if f.Optional {
-			return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 		}
 		return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 	case f.Optional:

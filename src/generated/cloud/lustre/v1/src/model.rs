@@ -1022,6 +1022,7 @@ pub mod import_data_request {
 
     /// A Cloud Storage URI of a folder to import file data from, in the
     /// form of `gs://<bucket_name>/<path_inside_bucket>`
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1031,6 +1032,7 @@ pub mod import_data_request {
     }
 
     /// The destination of the data transfer.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1191,6 +1193,7 @@ pub mod export_data_request {
     use super::*;
 
     /// The source of the data transfer.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1200,6 +1203,7 @@ pub mod export_data_request {
     }
 
     /// The destination of the data transfer.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2008,6 +2012,7 @@ pub mod transfer_operation_metadata {
     use super::*;
 
     /// The source of transfer operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2019,6 +2024,7 @@ pub mod transfer_operation_metadata {
     }
 
     /// The destination of transfer operation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

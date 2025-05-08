@@ -367,6 +367,7 @@ pub mod channel {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5082,6 +5083,7 @@ pub mod pipeline {
         /// One of Protobuf, Avro, and JSON supported.
         /// This allows specification of what specific format
         /// messages are sent and received.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5809,6 +5811,7 @@ pub mod pipeline {
             }
 
             /// The type of authentication method.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -5836,6 +5839,7 @@ pub mod pipeline {
         }
 
         /// The destination identifier to which the request should be routed to.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6056,6 +6060,7 @@ pub mod pipeline {
         }
 
         /// The config of mediation.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6642,6 +6647,7 @@ pub mod destination {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6740,6 +6746,7 @@ pub mod transport {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

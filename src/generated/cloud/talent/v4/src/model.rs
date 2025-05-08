@@ -1249,6 +1249,7 @@ pub mod compensation_info {
         use super::*;
 
         /// Compensation amount. It could be a fixed amount or a floating range.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3266,6 +3267,7 @@ pub mod client_event {
     /// Required.
     ///
     /// The detail information of a specific event type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4897,6 +4899,7 @@ pub mod commute_filter {
     }
 
     /// Traffic factor to take into account while searching by commute.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

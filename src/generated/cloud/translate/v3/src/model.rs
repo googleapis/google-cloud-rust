@@ -1078,6 +1078,7 @@ pub mod import_adaptive_mt_file_request {
     use super::*;
 
     /// The source for the document.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1631,6 +1632,7 @@ pub mod dataset_input_config {
         /// Source of the file containing sentence pairs.
         /// Supported formats are tab-separated values (.tsv) and Translation Memory
         /// eXchange (.tmx) .
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1837,6 +1839,7 @@ pub mod dataset_output_config {
     use super::*;
 
     /// Required. Specify the output.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3583,6 +3586,7 @@ pub mod glossary_entry {
 
     /// The different data for the glossary types (Unidirectional, Equivalent term
     /// sets).
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4306,6 +4310,7 @@ pub mod detect_language_request {
     use super::*;
 
     /// Required. The source of the document from which to detect the language.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4699,6 +4704,7 @@ pub mod input_config {
     use super::*;
 
     /// Required. Specify the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4842,6 +4848,7 @@ pub mod output_config {
     use super::*;
 
     /// Required. The destination of output.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5052,12 +5059,13 @@ pub mod document_input_config {
     /// - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     ///   The input file size should be <= 20MB and the maximum page limit is 20 for
     /// - application/pdf
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Source {
         /// Document's content represented as a stream of bytes.
-        Content(::bytes::Bytes),
+        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Google Cloud Storage location. This must be a single file.
         /// For example: gs://example_bucket/example_file.pdf
         GcsSource(std::boxed::Box<crate::model::GcsSource>),
@@ -5171,6 +5179,7 @@ pub mod document_output_config {
     /// Whether a destination is provided or not, the translated documents will be
     /// returned within TranslateDocumentResponse.document_translation and
     /// TranslateDocumentResponse.glossary_document_translation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6187,6 +6196,7 @@ pub mod glossary_input_config {
     use super::*;
 
     /// Required. Specify the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6484,6 +6494,7 @@ pub mod glossary {
     }
 
     /// Languages supported by the glossary.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8092,6 +8103,7 @@ pub mod batch_document_input_config {
     use super::*;
 
     /// Specify the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8202,6 +8214,7 @@ pub mod batch_document_output_config {
 
     /// The destination of output. The destination directory provided must exist
     /// and be empty.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

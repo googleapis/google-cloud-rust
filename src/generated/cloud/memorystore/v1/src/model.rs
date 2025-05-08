@@ -475,6 +475,7 @@ pub mod instance {
             }
         }
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -640,6 +641,7 @@ pub mod instance {
         /// A PSC connection to an instance could either be created through Service
         /// Connectivity Automation (auto connection) during the cluster creation,
         /// or it could be created by customer themeslves (user-created connection).
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1524,6 +1526,7 @@ pub mod psc_auto_connection {
     use super::*;
 
     /// Ports of the exposed endpoint.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3148,6 +3151,7 @@ pub mod certificate_authority {
     }
 
     /// Information about the server certificate authority.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

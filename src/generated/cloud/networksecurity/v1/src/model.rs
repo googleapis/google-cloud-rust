@@ -470,6 +470,7 @@ pub mod authorization_policy {
                 #[allow(unused_imports)]
                 use super::*;
 
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -2090,6 +2091,7 @@ pub mod validation_ca {
     use super::*;
 
     /// The type of certificate provider which provides the CA certificate.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2252,6 +2254,7 @@ pub mod certificate_provider {
 
     /// The type of certificate provider which provides the certificates and
     /// private keys.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

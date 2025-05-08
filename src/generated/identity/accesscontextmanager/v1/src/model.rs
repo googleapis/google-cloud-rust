@@ -1722,6 +1722,7 @@ pub mod access_level {
     use super::*;
 
     /// Required. Describes the necessary conditions for the level to apply.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3062,6 +3063,7 @@ pub mod service_perimeter_config {
         use super::*;
 
         /// The API method name or Cloud IAM permission name to allow.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3252,6 +3254,7 @@ pub mod service_perimeter_config {
         /// Allowed ingress source. It can be one of [AccessLevel]
         /// [google.identity.accesscontextmanager.v1.AccessLevel] or Google
         /// Cloud resource.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

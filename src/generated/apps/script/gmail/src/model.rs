@@ -245,6 +245,7 @@ pub mod universal_action {
 
     /// The type of the action determines the behavior of Gmail when the user
     /// invokes the action.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -545,6 +546,7 @@ pub mod contextual_trigger {
 
     /// The type of trigger determines the conditions Gmail uses to show the
     /// add-on.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

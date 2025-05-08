@@ -590,6 +590,7 @@ pub mod event_dimension {
     ///
     /// **NOTE**: All entries of the dimension `name` must have the same `value`
     /// type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -600,11 +601,11 @@ pub mod event_dimension {
         /// supported.
         StringVal(std::string::String),
         /// Long representation.
-        LongVal(i64),
+        LongVal(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// Bool representation.
         BoolVal(bool),
         /// Double representation.
-        DoubleVal(f64),
+        DoubleVal(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 }
 
@@ -1095,6 +1096,7 @@ pub mod pinned_dimension {
     ///
     /// **NOTE**: The `value` type must match that in the data with the same
     /// `dimension` as name.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

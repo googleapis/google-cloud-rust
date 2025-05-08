@@ -844,6 +844,7 @@ pub mod data_access_label {
     /// Required.
     /// The definition of the data access label that determines which
     /// data gets tagged with this label.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1181,6 +1182,7 @@ pub mod data_access_label_reference {
     use super::*;
 
     /// The unique identifier for the label.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1505,6 +1507,7 @@ pub mod watchlist {
 
         /// Ways to populate entities in watchlist.
         /// Currently, only manual is supported.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

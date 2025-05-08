@@ -3906,6 +3906,7 @@ pub mod rule {
     }
 
     /// An action must be provided.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4538,14 +4539,15 @@ pub mod interval {
     ///
     /// This field must not be larger than max.
     /// Otherwise, an INVALID_ARGUMENT error is returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Min {
         /// Inclusive lower bound.
-        Minimum(f64),
+        Minimum(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Exclusive lower bound.
-        ExclusiveMinimum(f64),
+        ExclusiveMinimum(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 
     /// The upper bound of the interval. If neither of the max fields are set, then
@@ -4553,14 +4555,15 @@ pub mod interval {
     ///
     /// This field must be not smaller than min.
     /// Otherwise, an INVALID_ARGUMENT error is returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Max {
         /// Inclusive upper bound.
-        Maximum(f64),
+        Maximum(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Exclusive upper bound.
-        ExclusiveMaximum(f64),
+        ExclusiveMaximum(#[serde_as(as = "wkt::internal::F64")] f64),
     }
 }
 
@@ -5773,6 +5776,7 @@ pub mod control {
     /// A behavior/type must be specified on creation. Type cannot be changed once
     /// specified (e.g. A Rule control will always be a Rule control.). An
     /// INVALID_ARGUMENT will be returned if either condition is violated.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6310,6 +6314,7 @@ pub mod output_config {
     }
 
     /// The configuration of destination for holding output data.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6392,6 +6397,7 @@ pub mod export_errors_config {
     use super::*;
 
     /// Required. Errors destination.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7432,6 +7438,7 @@ pub mod big_query_source {
 
     /// BigQuery table partition info. Leave this empty if the BigQuery table
     /// is not partitioned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7595,6 +7602,7 @@ pub mod import_errors_config {
     use super::*;
 
     /// Required. Errors destination.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8159,6 +8167,7 @@ pub mod product_input_config {
     use super::*;
 
     /// Required. The source of the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8310,6 +8319,7 @@ pub mod user_event_input_config {
     use super::*;
 
     /// The source of the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8421,6 +8431,7 @@ pub mod completion_data_input_config {
     /// * `allowlist`:  One JSON allow suggestion per line.
     ///
     /// [google.cloud.retail.v2.BigQuerySource.data_schema]: crate::model::BigQuerySource::data_schema
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9215,6 +9226,7 @@ pub mod model {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -12049,6 +12061,7 @@ pub mod product {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -14174,6 +14187,7 @@ pub mod tile {
     use super::*;
 
     /// The attribute key and value for the tile.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16317,6 +16331,7 @@ pub mod search_request {
             }
 
             /// This field specifies the type of user answer.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -17234,6 +17249,7 @@ pub mod search_response {
             use super::*;
 
             /// A facet value which contains values.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -17702,6 +17718,7 @@ pub mod experiment_info {
     }
 
     /// Information associated with the specific experiment entity being recorded.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -19640,6 +19657,7 @@ pub mod collect_user_event_request {
 
     /// The rule that can convert the raw_json to a user event. It is needed
     /// only when the raw_json is set.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

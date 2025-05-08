@@ -437,6 +437,7 @@ pub mod policy_binding {
         use super::*;
 
         /// The different types of targets that can be bound to a policy.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
