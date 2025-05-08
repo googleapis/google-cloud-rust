@@ -146,7 +146,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
     ///
     /// Returns a [Token][crate::token::Token] for the current credentials.
     /// The underlying implementation refreshes the token as needed.
-    // TODO(#2036): After the return type is updated to return a cachable resource
+    // TODO(#2036): After the return type is updated to return a cacheable resource
     // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
     fn token(
         &self,
@@ -160,7 +160,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// sent with a request.
     ///
     /// The underlying implementation refreshes the token as needed.
-    // TODO(#2036): After the return type is updated to return a cachable resource
+    // TODO(#2036): After the return type is updated to return a cacheable resource
     // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
     fn headers(
         &self,
@@ -183,7 +183,7 @@ pub(crate) mod dynamic {
         /// Returns a [Token][crate::token::Token] for the current credentials.
         /// The underlying implementation refreshes the token as needed.
         ///
-        // TODO(#2036): After the return type is updated to return entity tag
+        // TODO(#2036): After the return type is updated to return cacheable resource
         // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
         async fn token(&self, extensions: Option<Extensions>) -> Result<crate::token::Token>;
 
@@ -194,7 +194,7 @@ pub(crate) mod dynamic {
         /// sent with a request.
         ///
         /// The underlying implementation refreshes the token as needed.
-        // TODO(#2036): After the return type is updated to return entity tag
+        // TODO(#2036): After the return type is updated to return cacheable resource
         // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
         async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap>;
 
