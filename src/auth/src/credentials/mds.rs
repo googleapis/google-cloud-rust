@@ -618,14 +618,6 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
-        let scopes = vec!["scope 1".to_string(), "scope 2".to_string()];
-        let service_account_info = ServiceAccountInfo {
-            email: "test@test.com".to_string(),
-            scopes: Some(scopes.clone()),
-            aliases: None,
-        };
-        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
-
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -633,32 +625,18 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
 
-        let (endpoint, _server) = start(Handlers::from([
+        let (endpoint, _server) = start(Handlers::from([(
+            format!("{}/token", MDS_DEFAULT_URI),
             (
-                MDS_DEFAULT_URI.to_string(),
-                (
-                    StatusCode::OK,
-                    service_account_info_json,
-                    TokenQueryParams {
-                        scopes: None,
-                        recursive: Some("true".to_string()),
-                    },
-                    Arc::new(Mutex::new(0)),
-                ),
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+                Arc::new(Mutex::new(0)),
             ),
-            (
-                format!("{}/token", MDS_DEFAULT_URI),
-                (
-                    StatusCode::OK,
-                    response_body,
-                    TokenQueryParams {
-                        scopes: Some(scopes.join(",")),
-                        recursive: None,
-                    },
-                    Arc::new(Mutex::new(0)),
-                ),
-            ),
-        ]))
+        )]))
         .await;
         println!("endpoint = {endpoint}");
 
