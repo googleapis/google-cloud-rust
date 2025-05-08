@@ -146,6 +146,8 @@ pub trait CredentialsProvider: std::fmt::Debug {
     ///
     /// Returns a [Token][crate::token::Token] for the current credentials.
     /// The underlying implementation refreshes the token as needed.
+    // TODO(#2036): After the return type is updated to return entity tag
+    // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
     fn token(
         &self,
         extensions: Option<Extensions>,
@@ -158,6 +160,8 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// sent with a request.
     ///
     /// The underlying implementation refreshes the token as needed.
+    // TODO(#2036): After the return type is updated to return entity tag
+    // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
     fn headers(
         &self,
         extensions: Option<Extensions>,
@@ -178,6 +182,9 @@ pub(crate) mod dynamic {
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
         /// The underlying implementation refreshes the token as needed.
+        ///
+        // TODO(#2036): After the return type is updated to return entity tag
+        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
         async fn token(&self, extensions: Option<Extensions>) -> Result<crate::token::Token>;
 
         /// Asynchronously constructs the auth headers.
@@ -187,6 +194,8 @@ pub(crate) mod dynamic {
         /// sent with a request.
         ///
         /// The underlying implementation refreshes the token as needed.
+        // TODO(#2036): After the return type is updated to return entity tag
+        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
         async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap>;
 
         /// Retrieves the universe domain associated with the credentials, if any.

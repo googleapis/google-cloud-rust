@@ -303,7 +303,7 @@ tokio-test    = { version = "0.4", default-features = false }
 rustc_version = { version = "0.4" }
 
 # Local packages used as dependencies
-auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
+auth                          = { version = "0.22", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.22", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.2", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.3", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
