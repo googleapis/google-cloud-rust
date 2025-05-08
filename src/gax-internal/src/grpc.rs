@@ -145,9 +145,7 @@ impl Client {
             .headers(None)
             .await
             .map_err(Error::authentication)?;
-        for (key, value) in auth_headers.iter() {
-            headers.append(key, value.clone());
-        }
+        headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)

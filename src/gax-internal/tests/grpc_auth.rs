@@ -22,6 +22,7 @@ mod test {
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
     use http::header::{HeaderName, HeaderValue};
+    use http::{Extensions, HeaderMap};
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -31,8 +32,8 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self, extensions: Option<http::Extensions>) -> AuthResult<Token>;
-            async fn headers(&self, extensions: Option<http::Extensions>) -> AuthResult<http::HeaderMap>;
+            async fn token(&self, extensions: Option<Extensions>) -> AuthResult<Token>;
+            async fn headers(&self, extensions: Option<Extensions>) -> AuthResult<HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -46,7 +47,7 @@ mod test {
         // 2. it gives us extra confidence that our interfaces are called
         let mut mock = MockCredentials::new();
         mock.expect_headers().return_once(|_extensions| {
-            Ok(http::HeaderMap::from_iter([
+            Ok(HeaderMap::from_iter([
                 (
                     HeaderName::from_static("auth-key-1"),
                     HeaderValue::from_static("auth-value-1"),
