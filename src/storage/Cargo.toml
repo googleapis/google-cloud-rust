@@ -36,10 +36,10 @@ serde_with.workspace  = true
 tracing.workspace     = true
 # Local crates
 auth.workspace = true
-control       = { package = "google-cloud-storage-control", path = "../storage-control" }
-gax.workspace = true
-gaxi          = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
-wkt.workspace = true
+control        = { package = "google-cloud-storage-control", path = "../storage-control" }
+gax.workspace  = true
+gaxi           = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+wkt.workspace  = true
 
 [dev-dependencies]
 tokio-test.workspace = true
