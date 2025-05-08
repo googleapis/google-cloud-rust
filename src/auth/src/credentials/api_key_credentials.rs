@@ -16,7 +16,7 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
 use crate::headers_util::build_api_key_headers;
 use crate::token::{Token, TokenProvider};
-use http::header::{HeaderName, HeaderValue};
+use http::{Extensions, HeaderMap};
 use std::sync::Arc;
 
 /// Configuration options for API key credentials.
@@ -87,7 +87,7 @@ impl std::fmt::Debug for ApiKeyTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for ApiKeyTokenProvider {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
         Ok(Token {
             token: self.api_key.clone(),
             token_type: String::new(),
@@ -111,12 +111,12 @@ impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self) -> Result<Token> {
-        self.token_provider.token().await
+    async fn token(&self, extensions: Option<Extensions>) -> Result<Token> {
+        self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let token = self.token().await?;
+    async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+        let token = self.token(extensions).await?;
         build_api_key_headers(&token, &self.quota_project_id)
     }
 }
@@ -126,6 +126,7 @@ mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
+    use http::HeaderValue;
     use scoped_env::ScopedEnv;
 
     const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
@@ -147,7 +148,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
             .await
             .unwrap();
-        let token = creds.token().await.unwrap();
+        let token = creds.token(None).await.unwrap();
         assert_eq!(
             token,
             Token {
@@ -157,16 +158,12 @@ mod test {
                 metadata: None,
             }
         );
-        let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
+        let headers = creds.headers(None).await.unwrap();
+        let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 
-        assert_eq!(
-            headers,
-            vec![HV {
-                header: API_KEY_HEADER_KEY.to_string(),
-                value: "test-api-key".to_string(),
-                is_sensitive: true,
-            }]
-        );
+        assert_eq!(headers.capacity(), 1);
+        assert_eq!(value, HeaderValue::from_str("test-api-key").unwrap());
+        assert!(value.is_sensitive());
     }
 
     #[tokio::test]
@@ -178,23 +175,15 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
-        let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
+        let headers = creds.headers(None).await.unwrap();
+        let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
+        let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(
-            headers,
-            vec![
-                HV {
-                    header: API_KEY_HEADER_KEY.to_string(),
-                    value: "test-api-key".to_string(),
-                    is_sensitive: true,
-                },
-                HV {
-                    header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "qp-option".to_string(),
-                    is_sensitive: false,
-                }
-            ]
-        );
+        assert_eq!(headers.capacity(), 2);
+        assert_eq!(api_key, HeaderValue::from_str("test-api-key").unwrap());
+        assert!(api_key.is_sensitive());
+        assert_eq!(quota_project, HeaderValue::from_str("qp-option").unwrap());
+        assert!(!quota_project.is_sensitive());
     }
 
     #[tokio::test]
@@ -205,22 +194,14 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
-        let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
+        let headers = creds.headers(None).await.unwrap();
+        let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
+        let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(
-            headers,
-            vec![
-                HV {
-                    header: API_KEY_HEADER_KEY.to_string(),
-                    value: "test-api-key".to_string(),
-                    is_sensitive: true,
-                },
-                HV {
-                    header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "qp-env".to_string(),
-                    is_sensitive: false,
-                }
-            ]
-        );
+        assert_eq!(headers.capacity(), 2);
+        assert_eq!(api_key, HeaderValue::from_str("test-api-key").unwrap());
+        assert!(api_key.is_sensitive());
+        assert_eq!(quota_project, HeaderValue::from_str("qp-option").unwrap());
+        assert!(!quota_project.is_sensitive());
     }
 }

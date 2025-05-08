@@ -52,7 +52,7 @@
 //!     // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
-//! let token = credentials.token().await?;
+//! let token = credentials.token(None).await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -72,7 +72,8 @@ use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use http::header::{CONTENT_TYPE, HeaderName, HeaderValue};
+use http::header::CONTENT_TYPE;
+use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::{Client, Method};
 use serde_json::Value;
 use std::sync::Arc;
@@ -247,7 +248,7 @@ impl std::fmt::Debug for UserTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
         let client = Client::new();
 
         // Make the request
@@ -310,12 +311,12 @@ impl<T> CredentialsProvider for UserCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self) -> Result<Token> {
-        self.token_provider.token().await
+    async fn token(&self, extensions: Option<Extensions>) -> Result<Token> {
+        self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let token = self.token().await?;
+    async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+        let token = self.token(extensions).await?;
         build_bearer_headers(&token, &self.quota_project_id)
     }
 }
@@ -474,13 +475,13 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|| Ok(expected_clone));
+            .return_once(|_extensions| Ok(expected_clone));
 
         let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
-        let actual = uc.token().await.unwrap();
+        let actual = uc.token(None).await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -489,13 +490,13 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
 
         let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.token().await.is_err());
+        assert!(uc.token(None).await.is_err());
     }
 
     #[tokio::test]
@@ -519,22 +520,21 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|_extensions| Ok(token));
 
         let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
-        let headers: Vec<HV> = HV::from(uc.headers().await.unwrap());
 
-        assert_eq!(
-            headers,
-            vec![HV {
-                header: AUTHORIZATION.to_string(),
-                value: "Bearer test-token".to_string(),
-                is_sensitive: true,
-            }]
-        );
+        let headers = uc.headers(None).await.unwrap();
+        let token = headers.get(AUTHORIZATION).unwrap();
+
+        assert_eq!(headers.capacity(), 1);
+        assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
+        assert!(token.is_sensitive());
     }
 
     #[tokio::test]
@@ -542,13 +542,13 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
 
         let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.headers().await.is_err());
+        assert!(uc.headers(None).await.is_err());
     }
 
     #[tokio::test]
@@ -561,28 +561,27 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token().times(1).return_once(|| Ok(token));
+        mock.expect_token()
+            .times(1)
+            .return_once(|_extensions| Ok(token));
 
         let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: Some("test-project".to_string()),
         };
-        let headers: Vec<HV> = HV::from(uc.headers().await.unwrap());
+
+        let headers = uc.headers(None).await.unwrap();
+        let token = headers.get(AUTHORIZATION).unwrap();
+        let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
+
+        assert_eq!(headers.capacity(), 2);
+        assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
+        assert!(token.is_sensitive());
         assert_eq!(
-            headers,
-            vec![
-                HV {
-                    header: AUTHORIZATION.to_string(),
-                    value: "Bearer test-token".to_string(),
-                    is_sensitive: true,
-                },
-                HV {
-                    header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "test-project".to_string(),
-                    is_sensitive: false,
-                }
-            ]
+            quota_project_header,
+            HeaderValue::from_str("test-project").unwrap()
         );
+        assert!(quota_project_header.is_sensitive());
     }
 
     #[test]
@@ -723,7 +722,7 @@ mod test {
             .build()?;
 
         let now = std::time::Instant::now();
-        let token = cred.token().await?;
+        let token = cred.token(None).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -763,22 +762,22 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers: Vec<HV> = HV::from(cred.headers().await.unwrap());
+        let headers = cred.headers(None).await.unwrap();
+        let token = headers.get(AUTHORIZATION).unwrap();
+        let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
+
+        assert_eq!(headers.capacity(), 2);
         assert_eq!(
-            headers,
-            vec![
-                HV {
-                    header: AUTHORIZATION.to_string(),
-                    value: "test-token-type test-access-token".to_string(),
-                    is_sensitive: true,
-                },
-                HV {
-                    header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "test-project".to_string(),
-                    is_sensitive: false,
-                }
-            ]
+            token,
+            HeaderValue::from_str("test-token-type test-access-token").unwrap()
         );
+        assert!(token.is_sensitive());
+        assert_eq!(
+            quota_project_header,
+            HeaderValue::from_str("test-project").unwrap()
+        );
+        assert!(quota_project_header.is_sensitive());
+
         Ok(())
     }
 
@@ -810,10 +809,10 @@ mod test {
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
 
-        let token = cred.token().await?;
+        let token = cred.token(None).await?;
         assert_eq!(token.token, "test-access-token");
 
-        let token = cred.token().await?;
+        let token = cred.token(None).await?;
         assert_eq!(token.token, "test-access-token");
 
         // Test that the inner token provider was called only
@@ -845,7 +844,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let token = uc.token().await?;
+        let token = uc.token(None).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -877,7 +876,7 @@ mod test {
         let uc = Builder::new(authorized_user)
             .with_token_uri(endpoint)
             .build()?;
-        let token = uc.token().await?;
+        let token = uc.token(None).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -910,7 +909,7 @@ mod test {
             .with_token_uri(endpoint)
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
-        let token = uc.token().await?;
+        let token = uc.token(None).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -936,7 +935,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.token().await.err().unwrap();
+        let e = uc.token(None).await.err().unwrap();
         assert!(e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("try again"), "{e}");
 
@@ -961,7 +960,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.token().await.err().unwrap();
+        let e = uc.token(None).await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("epic fail"), "{e}");
 
@@ -986,7 +985,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.token().await.err().unwrap();
+        let e = uc.token(None).await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
 
         Ok(())
