@@ -142,11 +142,11 @@ impl Client {
         let mut headers = headers;
         let auth_headers = self
             .credentials
-            .headers()
+            .headers(None)
             .await
             .map_err(Error::authentication)?;
-        for (key, value) in auth_headers.into_iter() {
-            headers.append(key, value);
+        for (key, value) in auth_headers.iter() {
+            headers.append(key, value.clone());
         }
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);

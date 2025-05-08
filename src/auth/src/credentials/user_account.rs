@@ -364,7 +364,6 @@ struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::credentials::test::HV;
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::token::test::MockTokenProvider;
     use axum::extract::Json;
@@ -532,7 +531,7 @@ mod test {
         let headers = uc.headers(None).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(headers.capacity(), 1);
+        assert_eq!(headers.len(), 1);
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
     }
@@ -574,14 +573,14 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 2);
+        assert_eq!(headers.len(), 2);
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
         assert_eq!(
             quota_project_header,
             HeaderValue::from_str("test-project").unwrap()
         );
-        assert!(quota_project_header.is_sensitive());
+        assert!(!quota_project_header.is_sensitive());
     }
 
     #[test]
@@ -766,7 +765,7 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 2);
+        assert_eq!(headers.len(), 2);
         assert_eq!(
             token,
             HeaderValue::from_str("test-token-type test-access-token").unwrap()
@@ -776,7 +775,7 @@ mod test {
             quota_project_header,
             HeaderValue::from_str("test-project").unwrap()
         );
-        assert!(quota_project_header.is_sensitive());
+        assert!(!quota_project_header.is_sensitive());
 
         Ok(())
     }

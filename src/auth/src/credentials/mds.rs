@@ -307,7 +307,6 @@ impl TokenProvider for MDSAccessTokenProvider {
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
@@ -404,7 +403,7 @@ mod test {
         let headers = mdsc.headers(None).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(headers.capacity(), 1);
+        assert_eq!(headers.len(), 1);
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
     }
@@ -593,7 +592,7 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 2);
+        assert_eq!(headers.len(), 2);
         assert_eq!(
             token,
             HeaderValue::from_str("test-token-type test-access-token").unwrap()
@@ -603,7 +602,7 @@ mod test {
             quota_project,
             HeaderValue::from_str("test-project").unwrap()
         );
-        assert!(quota_project.is_sensitive());
+        assert!(!quota_project.is_sensitive());
         Ok(())
     }
 

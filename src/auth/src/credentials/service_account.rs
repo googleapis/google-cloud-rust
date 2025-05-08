@@ -416,7 +416,7 @@ where
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{HV, b64_decode_to_json, generate_pkcs8_private_key};
+    use crate::credentials::test::{b64_decode_to_json, generate_pkcs8_private_key};
     use crate::token::test::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -521,7 +521,7 @@ mod test {
         let headers = sac.headers(None).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(headers.capacity(), 1);
+        assert_eq!(headers.len(), 1);
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
     }
@@ -551,14 +551,14 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 2);
+        assert_eq!(headers.len(), 2);
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
         assert_eq!(
             quota_project_header,
             HeaderValue::from_str(quota_project).unwrap()
         );
-        assert!(quota_project_header.is_sensitive());
+        assert!(!quota_project_header.is_sensitive());
     }
 
     #[tokio::test]

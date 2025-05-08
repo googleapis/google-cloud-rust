@@ -31,8 +31,8 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self) -> AuthResult<Token>;
-            async fn headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
+            async fn token(&self, extensions: Option<http::Extensions>) -> AuthResult<Token>;
+            async fn headers(&self, extensions: Option<http::Extensions>) -> AuthResult<http::HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -45,8 +45,8 @@ mod test {
         // 1. we can test that multiple headers are included in the request
         // 2. it gives us extra confidence that our interfaces are called
         let mut mock = MockCredentials::new();
-        mock.expect_headers().return_once(|| {
-            Ok(vec![
+        mock.expect_headers().return_once(|_extensions| {
+            Ok(http::HeaderMap::from_iter([
                 (
                     HeaderName::from_static("auth-key-1"),
                     HeaderValue::from_static("auth-value-1"),
@@ -55,7 +55,7 @@ mod test {
                     HeaderName::from_static("auth-key-2"),
                     HeaderValue::from_static("auth-value-2"),
                 ),
-            ])
+            ]))
         });
 
         let client = builder(endpoint)
@@ -83,7 +83,7 @@ mod test {
         let mut mock = MockCredentials::new();
         mock.expect_headers()
             .times(retry_count..)
-            .returning(|| Err(CredentialsError::from_str(true, "mock retryable error")));
+            .returning(|_extensions| Err(CredentialsError::from_str(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = builder(endpoint)
@@ -115,7 +115,7 @@ mod test {
         let (endpoint, _server) = start_echo_server().await?;
 
         let mut mock = MockCredentials::new();
-        mock.expect_headers().times(1).returning(|| {
+        mock.expect_headers().times(1).returning(|_extensions| {
             Err(CredentialsError::from_str(
                 false,
                 "mock non-retryable error",

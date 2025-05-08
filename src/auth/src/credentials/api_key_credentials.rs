@@ -125,7 +125,6 @@ where
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::HV;
     use http::HeaderValue;
     use scoped_env::ScopedEnv;
 
@@ -161,7 +160,7 @@ mod test {
         let headers = creds.headers(None).await.unwrap();
         let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 1);
+        assert_eq!(headers.len(), 1);
         assert_eq!(value, HeaderValue::from_str("test-api-key").unwrap());
         assert!(value.is_sensitive());
     }
@@ -179,7 +178,7 @@ mod test {
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 2);
+        assert_eq!(headers.len(), 2);
         assert_eq!(api_key, HeaderValue::from_str("test-api-key").unwrap());
         assert!(api_key.is_sensitive());
         assert_eq!(quota_project, HeaderValue::from_str("qp-option").unwrap());
@@ -198,10 +197,10 @@ mod test {
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.capacity(), 2);
+        assert_eq!(headers.len(), 2);
         assert_eq!(api_key, HeaderValue::from_str("test-api-key").unwrap());
         assert!(api_key.is_sensitive());
-        assert_eq!(quota_project, HeaderValue::from_str("qp-option").unwrap());
+        assert_eq!(quota_project, HeaderValue::from_str("qp-env").unwrap());
         assert!(!quota_project.is_sensitive());
     }
 }

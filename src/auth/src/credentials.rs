@@ -264,7 +264,7 @@ enum CredentialsSource {
 /// let creds = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token().await?;
+/// let token = creds.token(None).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -288,7 +288,7 @@ enum CredentialsSource {
 /// let creds = Builder::new(authorized_user)
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token().await?;
+/// let token = creds.token(None).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -629,7 +629,6 @@ pub mod testing {
 mod test {
     use super::*;
     use base64::Engine;
-    use http::{HeaderName, HeaderValue};
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
@@ -637,32 +636,6 @@ mod test {
     use test_case::test_case;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
-    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
-    pub struct HV {
-        pub header: String,
-        pub value: String,
-        pub is_sensitive: bool,
-    }
-
-    impl HV {
-        pub fn from(headers: Vec<(HeaderName, HeaderValue)>) -> Vec<HV> {
-            let mut hvs: Vec<HV> = headers
-                .into_iter()
-                .map(|(h, v)| HV {
-                    header: h.to_string(),
-                    value: v.to_str().unwrap().to_string(),
-                    is_sensitive: v.is_sensitive(),
-                })
-                .collect();
-
-            // We want to verify the contents of the headers. We do not care
-            // what order they are in.
-            hvs.sort();
-            hvs
-        }
-    }
 
     pub fn generate_pkcs8_private_key() -> String {
         let mut rng = rand::thread_rng();

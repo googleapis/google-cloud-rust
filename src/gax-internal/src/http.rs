@@ -127,8 +127,12 @@ impl ReqwestClient {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let auth_headers = self.cred.headers().await.map_err(Error::authentication)?;
-        for (key, value) in auth_headers.into_iter() {
+        let auth_headers = self
+            .cred
+            .headers(None)
+            .await
+            .map_err(Error::authentication)?;
+        for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }
         let response = builder.send().await.map_err(Error::io)?;
