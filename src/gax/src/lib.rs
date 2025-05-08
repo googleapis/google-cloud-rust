@@ -30,6 +30,8 @@
 //! change both if needed.
 //! </div>
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 /// An alias of [std::result::Result] where the error is always [Error][crate::error::Error].
 ///
 /// This is the result type used by all functions wrapping RPCs.
@@ -38,7 +40,6 @@ pub type Result<T> = std::result::Result<T, crate::error::Error>;
 /// The core error types used by generated clients.
 pub mod error;
 
-/// Defines some types and traits to convert and use List RPCs as a Stream.
 pub mod paginator;
 
 pub mod response;

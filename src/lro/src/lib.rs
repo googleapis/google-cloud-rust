@@ -13,6 +13,79 @@
 // limitations under the License.
 
 //! Types and functions to make LROs easier to use and to require less boilerplate.
+//!
+//! Occasionally, a Google Cloud service may need to expose a method that takes
+//! a significant amount of time to complete. In these situations, it is often
+//! a poor user experience to simply block while the task runs. Such services
+//! return a long-running operation, a type of promise that can be polled until
+//! it completes successfully.
+//!
+//! Polling these operations can be tedious. The application needs to
+//! periodically make RPCs, extract the result from the response, and may need
+//! to implement a stream to return metadata representing any progress in the
+//! RPC.
+//!
+//! The Google Cloud client libraries for Rust return implementations of this
+//! trait to simplify working with these long-running operations.
+//!
+//! # Example: automatically poll until completion
+//! ```no_run
+//! # use google_cloud_lro::{internal::Operation, Poller};
+//! # use serde::{Deserialize, Serialize};
+//! # use gax::Result;
+//! # use wkt::Timestamp as Response;
+//! # use wkt::Duration as Metadata;
+//! async fn start_lro() -> impl Poller<Response, Metadata> {
+//!     // ... details omitted ...
+//!     # async fn start() -> Result<Operation<Response, Metadata>> { panic!(); }
+//!     # async fn query(_: String) -> Result<Operation<Response, Metadata>> { panic!(); }
+//!     # google_cloud_lro::internal::new_poller(
+//!     #    std::sync::Arc::new(gax::polling_error_policy::AlwaysContinue),
+//!     #    std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default()),
+//!     #    start, query
+//!     # )
+//! }
+//! # tokio_test::block_on(async {
+//! let response = start_lro()
+//!     .await
+//!     .until_done()
+//!     .await?;
+//! println!("response = {response:?}");
+//! # gax::Result::<()>::Ok(()) });
+//! ```
+//!
+//! # Example: poll with metadata
+//! ```no_run
+//! # use google_cloud_lro::{internal::Operation, Poller, PollingResult};
+//! # use serde::{Deserialize, Serialize};
+//! # use gax::Result;
+//! # use wkt::Timestamp as Response;
+//! # use wkt::Duration as Metadata;
+//!
+//! async fn start_lro() -> impl Poller<Response, Metadata> {
+//!     // ... details omitted ...
+//!     # async fn start() -> Result<Operation<Response, Metadata>> { panic!(); }
+//!     # async fn query(_: String) -> Result<Operation<Response, Metadata>> { panic!(); }
+//!     # google_cloud_lro::internal::new_poller(
+//!     #    std::sync::Arc::new(gax::polling_error_policy::AlwaysContinue),
+//!     #    std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default()),
+//!     #    start, query
+//!     # )
+//! }
+//! # tokio_test::block_on(async {
+//! let mut poller = start_lro().await;
+//! while let Some(p) = poller.poll().await {
+//!     match p {
+//!         PollingResult::Completed(r) => { println!("LRO completed, response={r:?}"); }
+//!         PollingResult::InProgress(m) => { println!("LRO in progress, metadata={m:?}"); }
+//!         PollingResult::PollingError(e) => { println!("Transient error polling the LRO: {e}"); }
+//!     }
+//!     tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+//! }
+//! # gax::Result::<()>::Ok(()) });
+//! ```
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 use gax::Result;
 use gax::error::Error;
@@ -57,7 +130,7 @@ mod sealed {
     pub trait Poller {}
 }
 
-/// The trait implemented by LRO helpers.
+/// Automatically polls long-running operations.
 ///
 /// # Parameters
 /// * `R` - the response type, that is, the type of response included when the
@@ -71,8 +144,9 @@ pub trait Poller<R, M>: Send + sealed::Poller {
     /// Poll the long-running operation until it completes.
     fn until_done(self) -> impl Future<Output = Result<R>> + Send;
 
-    /// Convert a poller to a [futures::Stream].
+    /// Convert a poller to a [Stream][futures::Stream].
     #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
 }
 

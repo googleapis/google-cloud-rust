@@ -234,45 +234,22 @@ struct MDSAccessTokenProvider {
     endpoint: String,
 }
 
-impl MDSAccessTokenProvider {
-    async fn get_service_account_info(&self, client: &Client) -> Result<ServiceAccountInfo> {
-        let request = client
-            .get(format!("{}{}", self.endpoint, MDS_DEFAULT_URI))
-            .query(&[("recursive", "true")])
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            );
-
-        let response = request.send().await.map_err(errors::retryable)?;
-
-        response
-            .json::<ServiceAccountInfo>()
-            .await
-            .map_err(errors::non_retryable)
-    }
-}
-
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
         let client = Client::new();
-        // Determine scopes, fetching from metadata server if needed.
-        let scopes = match &self.scopes {
-            Some(s) => s.clone().join(","),
-            None => {
-                let service_account_info = self.get_service_account_info(&client).await?;
-                service_account_info.scopes.unwrap_or_default().join(",")
-            }
-        };
-
         let request = client
             .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
-            .query(&[("scopes", scopes)])
             .header(
                 METADATA_FLAVOR,
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             );
+        // Use the `scopes` option if set, otherwise let the MDS use the default
+        // scopes.
+        let scopes = self.scopes.as_ref().map(|v| v.join(","));
+        let request = scopes
+            .into_iter()
+            .fold(request, |r, s| r.query(&[("scopes", s)]));
 
         let response = request.send().await.map_err(errors::retryable)?;
         // Process the response
@@ -503,62 +480,6 @@ mod test {
 
     #[tokio::test]
     #[parallel]
-    async fn get_default_service_account_info_success() {
-        let service_account_info = ServiceAccountInfo {
-            email: "test@test.com".to_string(),
-            scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
-            aliases: None,
-        };
-        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
-        let (endpoint, _server) = start(Handlers::from([(
-            MDS_DEFAULT_URI.to_string(),
-            (
-                StatusCode::OK,
-                service_account_info_json,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: Some("true".to_string()),
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-
-        let request = Client::new();
-        let token_provider = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
-
-        let result = token_provider.get_service_account_info(&request).await;
-
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), service_account_info);
-    }
-
-    #[tokio::test]
-    #[parallel]
-    async fn get_service_account_info_server_error() {
-        let (endpoint, _server) = start(Handlers::from([(
-            MDS_DEFAULT_URI.to_string(),
-            (
-                StatusCode::SERVICE_UNAVAILABLE,
-                serde_json::to_value("try again").unwrap(),
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: Some("true".to_string()),
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-
-        let request = Client::new();
-        let token_provider = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
-
-        let result = token_provider.get_service_account_info(&request).await;
-        assert!(result.is_err());
-    }
-
-    #[tokio::test]
-    #[parallel]
     async fn headers_success_with_quota_project() -> TestResult {
         let scopes = ["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
@@ -693,14 +614,6 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
-        let scopes = vec!["scope 1".to_string(), "scope 2".to_string()];
-        let service_account_info = ServiceAccountInfo {
-            email: "test@test.com".to_string(),
-            scopes: Some(scopes.clone()),
-            aliases: None,
-        };
-        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
-
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -708,32 +621,18 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
 
-        let (endpoint, _server) = start(Handlers::from([
+        let (endpoint, _server) = start(Handlers::from([(
+            format!("{}/token", MDS_DEFAULT_URI),
             (
-                MDS_DEFAULT_URI.to_string(),
-                (
-                    StatusCode::OK,
-                    service_account_info_json,
-                    TokenQueryParams {
-                        scopes: None,
-                        recursive: Some("true".to_string()),
-                    },
-                    Arc::new(Mutex::new(0)),
-                ),
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+                Arc::new(Mutex::new(0)),
             ),
-            (
-                format!("{}/token", MDS_DEFAULT_URI),
-                (
-                    StatusCode::OK,
-                    response_body,
-                    TokenQueryParams {
-                        scopes: Some(scopes.join(",")),
-                        recursive: None,
-                    },
-                    Arc::new(Mutex::new(0)),
-                ),
-            ),
-        ]))
+        )]))
         .await;
         println!("endpoint = {endpoint}");
 
