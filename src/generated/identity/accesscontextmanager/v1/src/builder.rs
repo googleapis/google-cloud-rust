@@ -476,8 +476,7 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_access_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::AccessContextManagerOperationMetadata,
@@ -506,7 +505,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessPolicyRequest::name].
@@ -914,8 +918,7 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_access_level`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::AccessContextManagerOperationMetadata,
@@ -944,7 +947,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessLevelRequest::name].
@@ -1459,8 +1467,7 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_service_perimeter`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::AccessContextManagerOperationMetadata,
@@ -1489,7 +1496,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteServicePerimeterRequest::name].
@@ -2119,8 +2131,7 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_gcp_user_access_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::GcpUserAccessBindingOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::GcpUserAccessBindingOperationMetadata,
@@ -2149,7 +2160,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGcpUserAccessBindingRequest::name].

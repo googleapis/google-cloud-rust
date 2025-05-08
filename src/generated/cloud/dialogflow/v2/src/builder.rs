@@ -320,7 +320,7 @@ pub mod agents {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `train_agent`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -346,7 +346,12 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::TrainAgentRequest::parent].
@@ -489,7 +494,7 @@ pub mod agents {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_agent`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -515,7 +520,12 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::ImportAgentRequest::parent].
@@ -601,7 +611,7 @@ pub mod agents {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_agent`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -627,7 +637,12 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::RestoreAgentRequest::parent].
@@ -3763,7 +3778,7 @@ pub mod conversation_datasets {
         /// Creates a [Poller][lro::Poller] to work with `delete_conversation_dataset`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteConversationDatasetOperationMetadata>
+        ) -> impl lro::Poller<(), crate::model::DeleteConversationDatasetOperationMetadata>
         {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
@@ -3793,7 +3808,12 @@ pub mod conversation_datasets {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationDatasetRequest::name].
@@ -4553,8 +4573,7 @@ pub mod conversation_models {
         /// Creates a [Poller][lro::Poller] to work with `delete_conversation_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteConversationModelOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::DeleteConversationModelOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::DeleteConversationModelOperationMetadata,
@@ -4583,7 +4602,12 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationModelRequest::name].
@@ -4646,8 +4670,7 @@ pub mod conversation_models {
         /// Creates a [Poller][lro::Poller] to work with `deploy_conversation_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeployConversationModelOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::DeployConversationModelOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::DeployConversationModelOperationMetadata,
@@ -4676,7 +4699,12 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeployConversationModelRequest::name].
@@ -4739,7 +4767,7 @@ pub mod conversation_models {
         /// Creates a [Poller][lro::Poller] to work with `undeploy_conversation_model`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::UndeployConversationModelOperationMetadata>
+        ) -> impl lro::Poller<(), crate::model::UndeployConversationModelOperationMetadata>
         {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
@@ -4769,7 +4797,12 @@ pub mod conversation_models {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeployConversationModelRequest::name].
@@ -6698,9 +6731,7 @@ pub mod documents {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_document`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::KnowledgeOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::KnowledgeOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::KnowledgeOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -6727,7 +6758,12 @@ pub mod documents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDocumentRequest::name].
@@ -8464,7 +8500,7 @@ pub mod entity_types {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_entity_types`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -8490,7 +8526,12 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteEntityTypesRequest::parent].
@@ -8562,7 +8603,7 @@ pub mod entity_types {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_create_entities`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -8588,7 +8629,12 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateEntitiesRequest::parent].
@@ -8666,7 +8712,7 @@ pub mod entity_types {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_update_entities`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -8692,7 +8738,12 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateEntitiesRequest::parent].
@@ -8779,7 +8830,7 @@ pub mod entity_types {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_entities`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -8805,7 +8856,12 @@ pub mod entity_types {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteEntitiesRequest::parent].
@@ -11575,7 +11631,7 @@ pub mod intents {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_intents`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -11601,7 +11657,12 @@ pub mod intents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteIntentsRequest::parent].

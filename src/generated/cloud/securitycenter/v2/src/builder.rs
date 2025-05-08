@@ -173,9 +173,7 @@ pub mod security_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_mute_findings`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, wkt::Empty> {
+        pub fn poller(self) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, ()> {
             type Operation =
                 lro::internal::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -202,7 +200,12 @@ pub mod security_center {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_metadata_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BulkMuteFindingsRequest::parent].

@@ -2862,7 +2862,7 @@ pub mod data_store_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_store`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteDataStoreMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteDataStoreMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteDataStoreMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -2889,7 +2889,12 @@ pub mod data_store_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDataStoreRequest::name].
@@ -4371,7 +4376,7 @@ pub mod engine_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_engine`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteEngineMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteEngineMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteEngineMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -4398,7 +4403,12 @@ pub mod engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEngineRequest::name].
@@ -6618,7 +6628,7 @@ pub mod schema_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_schema`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSchemaMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteSchemaMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteSchemaMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -6645,7 +6655,12 @@ pub mod schema_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSchemaRequest::name].
@@ -8894,9 +8909,7 @@ pub mod site_search_engine_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target_site`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTargetSiteMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTargetSiteMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteTargetSiteMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -8923,7 +8936,12 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetSiteRequest::name].
@@ -9151,7 +9169,7 @@ pub mod site_search_engine_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_sitemap`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteSitemapMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteSitemapMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteSitemapMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -9178,7 +9196,12 @@ pub mod site_search_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSitemapRequest::name].

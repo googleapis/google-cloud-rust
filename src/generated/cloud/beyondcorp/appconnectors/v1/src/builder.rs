@@ -481,9 +481,7 @@ pub mod app_connectors_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_app_connector`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AppConnectorOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::AppConnectorOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::AppConnectorOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -510,7 +508,12 @@ pub mod app_connectors_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAppConnectorRequest::name].

@@ -1737,7 +1737,7 @@ pub mod product_search {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `purge_products`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::BatchOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1764,7 +1764,12 @@ pub mod product_search {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].

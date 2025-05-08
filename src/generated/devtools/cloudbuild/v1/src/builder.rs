@@ -1312,7 +1312,7 @@ pub mod cloud_build {
         /// Creates a [Poller][lro::Poller] to work with `delete_worker_pool`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteWorkerPoolOperationMetadata> {
+        ) -> impl lro::Poller<(), crate::model::DeleteWorkerPoolOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::DeleteWorkerPoolOperationMetadata,
@@ -1341,7 +1341,12 @@ pub mod cloud_build {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
