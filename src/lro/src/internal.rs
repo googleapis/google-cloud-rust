@@ -69,7 +69,7 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<wkt::Empty, MetadataType>>> + Send + 'static,
 {
-    let poller = PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query);
+    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitResponsePoller::new(poller)
 }
 
@@ -91,8 +91,28 @@ where
     Q: Fn(String) -> QF + Send + Sync + Clone,
     QF: std::future::Future<Output = Result<Operation<ResponseType, wkt::Empty>>> + Send + 'static,
 {
-    let poller = PollerImpl::new(polling_error_policy, polling_backoff_policy, start, query);
+    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
     UnitMetadataPoller::new(poller)
+}
+
+/// Creates a new `impl Poller<(), ()>` from the closures created by the generator.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to create or use this struct.
+pub fn new_unit_poller<S, SF, Q, QF>(
+    polling_error_policy: Arc<dyn PollingErrorPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    start: S,
+    query: Q,
+) -> impl Poller<(), ()>
+where
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<wkt::Empty, wkt::Empty>>> + Send + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<wkt::Empty, wkt::Empty>>> + Send + 'static,
+{
+    let poller = new_poller(polling_error_policy, polling_backoff_policy, start, query);
+    UnitResponsePoller::new(UnitMetadataPoller::new(poller))
 }
 
 struct UnitResponsePoller<P> {
@@ -828,6 +848,46 @@ mod test {
         assert!(matches!(got, InProgress(Some(t)) if t == wkt::Timestamp::clamp(123, 456)));
         let got = map_polling_result(TestResult::PollingError(Error::other("abc".to_string())));
         assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
+    }
+
+    // The other cases are already tested.
+    #[tokio::test(flavor = "multi_thread")]
+    async fn unit_both_until_done_basic_flow() -> Result<()> {
+        type EmptyOperation = Operation<wkt::Empty, wkt::Empty>;
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = EmptyOperation::new(op);
+            Ok::<EmptyOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Empty::default())
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any.into());
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = EmptyOperation::new(op);
+
+            Ok::<EmptyOperation, Error>(op)
+        };
+
+        let poller = new_unit_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .clamp(),
+            ),
+            start,
+            query,
+        );
+        poller.until_done().await?;
+        Ok(())
     }
 
     #[test]
