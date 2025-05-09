@@ -19,6 +19,8 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use std::time::Duration;
 use storage_control::model::Bucket;
+use storage_control::model::bucket::iam_config::UniformBucketLevelAccess;
+use storage_control::model::bucket::{HierarchicalNamespace, IamConfig};
 
 pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -128,7 +130,13 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
         .set_bucket(
             Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                .set_labels([("integration-test", "true")]),
+                .set_labels([("integration-test", "true")])
+                // We need to set these properties on the bucket to use it with
+                // the Folders API.
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
         )
         .with_backoff_policy(test_backoff())
         .send()
@@ -156,6 +164,7 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
     );
 
     buckets_iam(&client, &bucket_name).await?;
+    folders(&client, &bucket_name).await?;
 
     println!("\nTesting delete_bucket()");
     client.delete_bucket(bucket_name).send().await?;
@@ -193,6 +202,41 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
         .send()
         .await?;
     println!("SUCCESS on set_iam_policy = {policy:?}");
+
+    Ok(())
+}
+
+async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
+    let folder_name = format!("{bucket_name}/folders/test-folder");
+
+    println!("\nTesting create_folder()");
+    let create = client
+        .create_folder(bucket_name, "test-folder/")
+        .send()
+        .await?;
+    println!("SUCCESS on create_folder: {create:?}");
+    assert_eq!(create.name, folder_name);
+
+    println!("\nTesting get_folder()");
+    let get = client.get_folder(&folder_name).send().await?;
+    println!("SUCCESS on get_folder: {get:?}");
+    assert_eq!(get.name, folder_name);
+
+    println!("\nTesting list_folders()");
+    let mut folders = client.list_folders(bucket_name).paginator().await.items();
+    let mut folder_names = Vec::new();
+    while let Some(folder) = folders.next().await {
+        folder_names.push(folder?.name);
+    }
+    println!("SUCCESS on list_folders");
+    assert!(
+        folder_names.iter().any(|name| name == &folder_name),
+        "missing folder name {folder_name} in {folder_names:?}"
+    );
+
+    println!("\nTesting delete_folder()");
+    client.delete_folder(folder_name).send().await?;
+    println!("SUCCESS on delete_folder");
 
     Ok(())
 }
