@@ -207,7 +207,7 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
 }
 
 async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
-    let folder_name = format!("{bucket_name}/folders/test-folder");
+    let folder_name = format!("{bucket_name}/folders/test-folder/");
 
     println!("\nTesting create_folder()");
     let create = client
