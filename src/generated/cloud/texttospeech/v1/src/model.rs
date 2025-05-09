@@ -776,6 +776,7 @@ pub mod synthesis_input {
     use super::*;
 
     /// The input source, which is either plain text or SSML.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1482,6 +1483,7 @@ pub mod streaming_synthesis_input {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1612,6 +1614,7 @@ pub mod streaming_synthesize_request {
 
     /// The request to be sent, either a StreamingSynthesizeConfig or
     /// StreamingSynthesisInput.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

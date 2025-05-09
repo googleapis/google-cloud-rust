@@ -1921,6 +1921,7 @@ pub mod http_request {
     /// be overridden.
     ///
     /// [google.cloud.tasks.v2.HttpRequest.headers]: crate::model::HttpRequest::headers
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2877,6 +2878,7 @@ pub mod task {
     }
 
     /// Required. The message to send to the worker.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

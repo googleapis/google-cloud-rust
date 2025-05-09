@@ -4033,6 +4033,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-storage"
+version = "0.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-storage-control",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-storage-control"
 version = "0.0.0"
 dependencies = [
@@ -5002,6 +5021,7 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
  "google-cloud-sql-v1",
+ "google-cloud-storage",
  "google-cloud-storage-control",
  "google-cloud-telcoautomation-v1",
  "google-cloud-wkt",

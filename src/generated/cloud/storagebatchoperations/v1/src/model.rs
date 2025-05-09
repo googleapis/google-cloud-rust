@@ -961,6 +961,7 @@ pub mod job {
     }
 
     /// Specifies objects to be transformed.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -970,6 +971,7 @@ pub mod job {
     }
 
     /// Operation to be performed on the objects.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1149,6 +1151,7 @@ pub mod bucket_list {
         use super::*;
 
         /// Specifies objects to be transformed.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

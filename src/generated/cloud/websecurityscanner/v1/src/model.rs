@@ -1863,6 +1863,7 @@ pub mod scan_config {
             }
 
             /// Identity-Aware-Proxy (IAP) Authentication Configuration
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -1875,6 +1876,7 @@ pub mod scan_config {
 
         /// Required.
         /// Authentication configuration
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

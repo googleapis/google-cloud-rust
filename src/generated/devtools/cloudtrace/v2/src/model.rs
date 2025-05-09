@@ -730,6 +730,7 @@ pub mod span {
 
         /// A `TimeEvent` can contain either an `Annotation` object or a
         /// `MessageEvent` object, but not both.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1353,6 +1354,7 @@ pub mod attribute_value {
     use super::*;
 
     /// The type of the value.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1360,7 +1362,7 @@ pub mod attribute_value {
         /// A string up to 256 bytes long.
         StringValue(std::boxed::Box<crate::model::TruncatableString>),
         /// A 64-bit signed integer.
-        IntValue(i64),
+        IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A Boolean value represented by `true` or `false`.
         BoolValue(bool),
     }

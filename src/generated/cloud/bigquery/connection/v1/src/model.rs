@@ -646,6 +646,7 @@ pub mod connection {
     use super::*;
 
     /// Properties specific to the underlying data source.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1153,6 +1154,7 @@ pub mod aws_properties {
     use super::*;
 
     /// Authentication method chosen at connection creation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

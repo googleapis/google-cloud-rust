@@ -137,63 +137,10 @@ impl ReqwestClient {
         }
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
-            return Self::to_http_error(response).await;
+            return self::to_http_error(response).await;
         }
 
-        Self::to_http_response(response).await
-    }
-
-    async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
-        let status_code = response.status().as_u16();
-        let headers = Self::convert_headers(response.headers());
-        let body = response.bytes().await.map_err(Error::io)?;
-        let error = if let Ok(status) = gax::error::rpc::Status::try_from(&body) {
-            Error::rpc(
-                ServiceError::from(status)
-                    .with_headers(headers)
-                    .with_http_status_code(status_code),
-            )
-        } else {
-            Error::rpc(HttpError::new(status_code, headers, Some(body)))
-        };
-        Err(error)
-    }
-
-    async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
-        response: reqwest::Response,
-    ) -> Result<Response<O>> {
-        // 204 No Content has no body and throws EOF error if we try to parse with serde::json
-        let no_content_status = response.status() == reqwest::StatusCode::NO_CONTENT;
-        let response = http::Response::from(response);
-        let (parts, body) = response.into_parts();
-
-        let body = http_body_util::BodyExt::collect(body)
-            .await
-            .map_err(Error::io)?;
-
-        let response = match body.to_bytes() {
-            content if (content.is_empty() && no_content_status) => O::default(),
-            content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
-        };
-
-        Ok(Response::from_parts(
-            Parts::new().set_headers(parts.headers),
-            response,
-        ))
-    }
-
-    fn convert_headers(
-        header_map: &reqwest::header::HeaderMap,
-    ) -> std::collections::HashMap<String, String> {
-        let mut headers = std::collections::HashMap::new();
-        for (key, value) in header_map {
-            if value.is_sensitive() {
-                headers.insert(key.to_string(), SENSITIVE_HEADER.to_string());
-            } else if let Ok(value) = value.to_str() {
-                headers.insert(key.to_string(), value.to_string());
-            }
-        }
-        headers
+        self::to_http_response(response).await
     }
 
     fn get_retry_policy(
@@ -255,6 +202,59 @@ pub struct NoBody;
 
 const SENSITIVE_HEADER: &str = "[sensitive]";
 
+pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
+    let status_code = response.status().as_u16();
+    let headers = self::convert_headers(response.headers());
+    let body = response.bytes().await.map_err(Error::io)?;
+    let error = if let Ok(status) = gax::error::rpc::Status::try_from(&body) {
+        Error::rpc(
+            ServiceError::from(status)
+                .with_headers(headers)
+                .with_http_status_code(status_code),
+        )
+    } else {
+        Error::rpc(HttpError::new(status_code, headers, Some(body)))
+    };
+    Err(error)
+}
+
+async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
+    response: reqwest::Response,
+) -> Result<Response<O>> {
+    // 204 No Content has no body and throws EOF error if we try to parse with serde::json
+    let no_content_status = response.status() == reqwest::StatusCode::NO_CONTENT;
+    let response = http::Response::from(response);
+    let (parts, body) = response.into_parts();
+
+    let body = http_body_util::BodyExt::collect(body)
+        .await
+        .map_err(Error::io)?;
+
+    let response = match body.to_bytes() {
+        content if (content.is_empty() && no_content_status) => O::default(),
+        content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
+    };
+
+    Ok(Response::from_parts(
+        Parts::new().set_headers(parts.headers),
+        response,
+    ))
+}
+
+fn convert_headers(
+    header_map: &reqwest::header::HeaderMap,
+) -> std::collections::HashMap<String, String> {
+    let mut headers = std::collections::HashMap::new();
+    for (key, value) in header_map {
+        if value.is_sensitive() {
+            headers.insert(key.to_string(), SENSITIVE_HEADER.to_string());
+        } else if let Ok(value) = value.to_str() {
+            headers.insert(key.to_string(), value.to_string());
+        }
+    }
+    headers
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -268,7 +268,7 @@ mod test {
             .status(reqwest::StatusCode::OK)
             .body("")?;
         let response: reqwest::Response = http_resp.into();
-        let got = ReqwestClient::convert_headers(response.headers());
+        let got = super::convert_headers(response.headers());
         assert!(got.is_empty(), "{got:?}");
         Ok(())
     }
@@ -281,7 +281,7 @@ mod test {
             .status(reqwest::StatusCode::OK)
             .body("")?;
         let response: reqwest::Response = http_resp.into();
-        let got = ReqwestClient::convert_headers(response.headers());
+        let got = super::convert_headers(response.headers());
         let want = HashMap::from(
             [("content-type", "application/json"), ("x-test-k1", "v1")]
                 .map(|(k, v)| (k.to_string(), v.to_string())),
@@ -304,7 +304,7 @@ mod test {
             .status(reqwest::StatusCode::OK)
             .body("")?;
         let response: reqwest::Response = http_resp.into();
-        let got = ReqwestClient::convert_headers(response.headers());
+        let got = super::convert_headers(response.headers());
         let want = HashMap::from(
             [
                 ("content-type", "application/json"),
@@ -325,7 +325,7 @@ mod test {
             .body(r#"{"error": "bad request"}"#)?;
         let response: reqwest::Response = http_resp.into();
         assert!(response.status().is_client_error());
-        let response = ReqwestClient::to_http_error::<()>(response).await;
+        let response = super::to_http_error::<()>(response).await;
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
         let err = err.as_inner::<HttpError>().unwrap();
@@ -361,7 +361,7 @@ mod test {
             .body(body.to_string())?;
         let response: reqwest::Response = http_resp.into();
         assert!(response.status().is_client_error());
-        let response = ReqwestClient::to_http_error::<()>(response).await;
+        let response = super::to_http_error::<()>(response).await;
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
         let err = err.as_inner::<ServiceError>().unwrap();
@@ -390,7 +390,7 @@ mod test {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
-        let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
+        let response = super::to_http_response::<wkt::Empty>(response).await;
         assert!(response.is_ok());
 
         let response = response.unwrap();
@@ -408,7 +408,7 @@ mod test {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
-        let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
+        let response = super::to_http_response::<wkt::Empty>(response).await;
         assert!(response.is_err());
         Ok(())
     }

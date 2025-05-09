@@ -263,6 +263,7 @@ pub mod big_query_connection_spec {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -791,6 +792,7 @@ pub mod data_source {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1940,6 +1942,7 @@ pub mod lookup_entry_request {
 
     /// Required. A full name, SQL name, or a fully qualified name of a
     /// Google Cloud Platform resource.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2807,6 +2810,7 @@ pub mod entry {
     use super::*;
 
     /// Required. Entry type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2814,7 +2818,7 @@ pub mod entry {
         /// The type of the entry.
         ///
         /// For details, see [`EntryType`](#entrytype).
-        Type(crate::model::EntryType),
+        Type(#[serde(rename = "type")] crate::model::EntryType),
         /// Custom entry type that doesn't match any of the values allowed for input
         /// and listed in the `EntryType` enum.
         ///
@@ -2832,6 +2836,7 @@ pub mod entry {
     }
 
     /// The source system of the entry.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2854,6 +2859,7 @@ pub mod entry {
     /// System specification.
     /// Can be used as a complement for `spec`, when some metadata is relevant for
     /// all entries existing within given system
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2870,6 +2876,7 @@ pub mod entry {
     }
 
     /// Type specification.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2894,6 +2901,7 @@ pub mod entry {
     ///
     /// When extending the API with new types and systems, use this field instead
     /// of the legacy `type_spec`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3248,6 +3256,7 @@ pub mod database_table_spec {
         }
 
         /// Definition of the view.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -3949,6 +3958,7 @@ pub mod routine_spec {
     }
 
     /// Contains fields specific to the source system.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4037,6 +4047,7 @@ pub mod dataset_spec {
     use super::*;
 
     /// Fields specific to the source system.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4447,6 +4458,7 @@ pub mod service_spec {
     use super::*;
 
     /// System spec
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5109,6 +5121,7 @@ pub mod model_spec {
     use super::*;
 
     /// System spec
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7039,6 +7052,7 @@ pub mod import_entries_request {
     use super::*;
 
     /// Source of imported entries, e.g. dump stored in a Cloud Storage
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7528,6 +7542,7 @@ pub mod set_config_request {
     use super::*;
 
     /// The configuration field to set.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8082,6 +8097,7 @@ pub mod tagged_entry {
     use super::*;
 
     /// Required. Entry to be ingested.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8157,6 +8173,7 @@ pub mod dump_item {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8687,6 +8704,7 @@ pub mod physical_schema {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10069,6 +10087,7 @@ pub mod import_taxonomies_request {
     use super::*;
 
     /// Source taxonomies to import.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10292,6 +10311,7 @@ pub mod export_taxonomies_request {
     use super::*;
 
     /// Required. Export destination for taxonomies.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -10979,6 +10999,7 @@ pub mod column_schema {
     }
 
     /// Information only applying for columns in Entries from a specific system.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11224,6 +11245,7 @@ pub mod search_catalog_result {
 
     /// The source system of the entry. Applicable only when the
     /// `search_result_type` is `ENTRY`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11350,6 +11372,7 @@ pub mod big_query_table_spec {
     use super::*;
 
     /// Output only.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11667,6 +11690,7 @@ pub mod tag {
     /// to that scope.
     ///
     /// These fields cannot be updated after creation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11928,12 +11952,13 @@ pub mod tag_field {
     }
 
     /// Required. The value of this field.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Kind {
         /// The value of a tag field with a double type.
-        DoubleValue(f64),
+        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// The value of a tag field with a string type.
         ///
         /// The maximum length is 2000 UTF-8 characters.
@@ -12660,6 +12685,7 @@ pub mod field_type {
     }
 
     /// Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

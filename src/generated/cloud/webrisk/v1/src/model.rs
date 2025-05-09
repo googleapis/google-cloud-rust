@@ -1405,6 +1405,7 @@ pub mod threat_info {
             }
         }
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1412,7 +1413,7 @@ pub mod threat_info {
             /// A decimal representation of confidence in the range of 0
             /// to 1 where 0 indicates no confidence and 1 indicates
             /// complete confidence.
-            Score(f32),
+            Score(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Enum representation of confidence.
             Level(crate::model::threat_info::confidence::ConfidenceLevel),
         }

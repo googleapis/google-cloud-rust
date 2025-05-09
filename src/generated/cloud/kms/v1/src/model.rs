@@ -2486,6 +2486,7 @@ pub mod crypto_key {
     }
 
     /// Controls the rate of automatic rotation.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6615,6 +6616,7 @@ pub mod import_crypto_key_version_request {
     /// instead.
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6625,7 +6627,7 @@ pub mod import_crypto_key_version_request {
         /// (but not both) must be specified.
         ///
         /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
-        RsaAesWrappedKey(::bytes::Bytes),
+        RsaAesWrappedKey(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 
@@ -9577,16 +9579,17 @@ pub mod digest {
     use super::*;
 
     /// Required. The message digest.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Digest {
         /// A message digest produced with the SHA-256 algorithm.
-        Sha256(::bytes::Bytes),
+        Sha256(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// A message digest produced with the SHA-384 algorithm.
-        Sha384(::bytes::Bytes),
+        Sha384(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// A message digest produced with the SHA-512 algorithm.
-        Sha512(::bytes::Bytes),
+        Sha512(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
     }
 }
 

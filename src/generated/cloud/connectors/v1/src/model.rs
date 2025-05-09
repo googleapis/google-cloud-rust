@@ -506,6 +506,7 @@ pub mod auth_config {
     }
 
     /// Supported auth types.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1373,12 +1374,13 @@ pub mod config_variable {
     use super::*;
 
     /// Value type of the config variable.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Value {
         /// Value is an integer
-        IntValue(i64),
+        IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// Value is a bool.
         BoolValue(bool),
         /// Value is a string.
@@ -4639,6 +4641,7 @@ pub mod egress_control_config {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5067,6 +5070,7 @@ pub mod destination {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

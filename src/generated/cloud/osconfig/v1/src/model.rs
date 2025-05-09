@@ -682,6 +682,7 @@ pub mod inventory {
         }
 
         /// Specific details of this inventory item based on its type.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1040,6 +1041,7 @@ pub mod inventory {
         use super::*;
 
         /// Information about the different types of software packages.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -2352,6 +2354,7 @@ pub mod os_policy {
             }
 
             /// A specific type of file.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -3154,6 +3157,7 @@ pub mod os_policy {
             }
 
             /// A system package.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -3822,6 +3826,7 @@ pub mod os_policy {
             }
 
             /// A specific type of repository.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -4261,6 +4266,7 @@ pub mod os_policy {
                 }
 
                 /// What to execute.
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -4575,6 +4581,7 @@ pub mod os_policy {
             }
 
             /// The source for the contents of the file.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -4588,6 +4595,7 @@ pub mod os_policy {
         }
 
         /// Resource type.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -5732,6 +5740,7 @@ pub mod os_policy_assignment_report {
             }
 
             /// Resource specific output.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -7396,6 +7405,7 @@ pub mod fixed_or_percent {
     use super::*;
 
     /// Type of the value.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7791,6 +7801,7 @@ pub mod patch_deployment {
     }
 
     /// Schedule for the patch.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8177,6 +8188,7 @@ pub mod recurring_schedule {
 
     /// Configurations for this recurring schedule.
     /// Configurations must match frequency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8321,6 +8333,7 @@ pub mod monthly_schedule {
     use super::*;
 
     /// One day in a month.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11444,6 +11457,7 @@ pub mod exec_step_config {
     }
 
     /// Location of the executable.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

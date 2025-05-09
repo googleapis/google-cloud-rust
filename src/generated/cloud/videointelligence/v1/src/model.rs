@@ -2991,6 +2991,7 @@ pub mod object_tracking_annotation {
 
     /// Different representation of tracking info in non-streaming batch
     /// and streaming modes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3004,7 +3005,7 @@ pub mod object_tracking_annotation {
         /// Instead, we provide a unique identifiable integer track_id so that
         /// the customers can correlate the results of the ongoing
         /// ObjectTrackAnnotation of the same track_id over time.
-        TrackId(i64),
+        TrackId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
     }
 }
 

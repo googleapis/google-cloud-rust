@@ -2423,6 +2423,7 @@ pub mod start_manual_transfer_runs_request {
 
     /// The requested time specification - this can be a time range or a specific
     /// run_time.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2825,6 +2826,7 @@ pub mod schedule_options_v_2 {
     use super::*;
 
     /// Data transfer schedules.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3363,6 +3365,7 @@ pub mod transfer_config {
     use super::*;
 
     /// The desination of the transfer config.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3670,6 +3673,7 @@ pub mod transfer_run {
     use super::*;
 
     /// Data transfer destination.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

@@ -5697,6 +5697,7 @@ pub mod import_product_sets_input_config {
     use super::*;
 
     /// The source of the input.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6203,6 +6204,7 @@ pub mod purge_products_request {
     use super::*;
 
     /// The Products to delete.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

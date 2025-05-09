@@ -956,6 +956,7 @@ pub mod compliance_note {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -964,6 +965,7 @@ pub mod compliance_note {
     }
 
     /// Potential impact of the suggested remediation
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4589,6 +4591,7 @@ pub mod dsse_attestation_occurrence {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5046,6 +5049,7 @@ pub mod occurrence {
 
     /// Required. Immutable. Describes the details of the note kind found on this
     /// resource.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5552,6 +5556,7 @@ pub mod note {
     use super::*;
 
     /// Required. Immutable. The type of analysis this note represents.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -7292,6 +7297,7 @@ pub mod in_toto_statement {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9159,6 +9165,7 @@ pub mod source_context {
     use super::*;
 
     /// A SourceContext can refer any one of the following types of repositories.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9479,6 +9486,7 @@ pub mod cloud_repo_source_context {
 
     /// A revision in a Cloud Repo can be identified by either its revision ID or
     /// its alias.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9615,6 +9623,7 @@ pub mod gerrit_source_context {
 
     /// A revision in a Gerrit project can be identified by either its revision ID
     /// or its alias.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9764,6 +9773,7 @@ pub mod repo_id {
 
     /// A cloud repo can be identified by either its project ID and repository name
     /// combination, or its globally unique identifier.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -11663,6 +11673,7 @@ pub mod vulnerability_assessment_note {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

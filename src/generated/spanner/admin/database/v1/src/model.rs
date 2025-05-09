@@ -2170,6 +2170,7 @@ pub mod backup_schedule_spec {
     use super::*;
 
     /// Required.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2376,6 +2377,7 @@ pub mod backup_schedule {
 
     /// Required. Backup type spec determines the type of backup that is created by
     /// the backup schedule. Currently, only full backups are supported.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3207,6 +3209,7 @@ pub mod restore_info {
     use super::*;
 
     /// Information about the source used to restore the database.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4793,6 +4796,7 @@ pub mod restore_database_request {
     use super::*;
 
     /// Required. The source from which to restore.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5223,6 +5227,7 @@ pub mod restore_database_metadata {
     /// [RestoreDatabaseRequest][google.spanner.admin.database.v1.RestoreDatabaseRequest].
     ///
     /// [google.spanner.admin.database.v1.RestoreDatabaseRequest]: crate::model::RestoreDatabaseRequest
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

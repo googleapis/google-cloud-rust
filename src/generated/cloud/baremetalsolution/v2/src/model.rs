@@ -5746,6 +5746,7 @@ pub mod provisioning_quota {
     }
 
     /// The quota of one asset type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5755,16 +5756,17 @@ pub mod provisioning_quota {
     }
 
     /// Available quantity based on asset type.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Availability {
         /// Server count.
-        ServerCount(i64),
+        ServerCount(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// Network bandwidth, Gbps
-        NetworkBandwidth(i64),
+        NetworkBandwidth(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// Storage size (GB).
-        StorageGib(i64),
+        StorageGib(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
     }
 }
 
@@ -6779,6 +6781,7 @@ pub mod volume_config {
         }
 
         /// A client object.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

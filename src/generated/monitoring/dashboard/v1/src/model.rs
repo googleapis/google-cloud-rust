@@ -1635,6 +1635,7 @@ pub mod dashboard {
     use super::*;
 
     /// A dashboard's root container element that defines the layout style.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1915,6 +1916,7 @@ pub mod dashboard_filter {
     }
 
     /// The default value used in the filter comparison
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2991,6 +2993,7 @@ pub mod time_series_query {
     use super::*;
 
     /// Parameters needed to obtain data for the chart.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3165,6 +3168,7 @@ pub mod time_series_filter {
     use super::*;
 
     /// Selects an optional time series filter.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3395,6 +3399,7 @@ pub mod time_series_filter_ratio {
 
     /// Selects an optional filter that is applied to the time series after
     /// computing the ratio.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4473,6 +4478,7 @@ pub mod scorecard {
 
     /// Defines the optional additional chart shown on the scorecard. If
     /// neither is included - then a default scorecard is shown.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6455,6 +6461,7 @@ pub mod widget {
     use super::*;
 
     /// Content defines the component used to populate the widget.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

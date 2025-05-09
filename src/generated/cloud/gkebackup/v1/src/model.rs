@@ -681,6 +681,7 @@ pub mod backup {
         use super::*;
 
         /// Platform-specific version
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -855,6 +856,7 @@ pub mod backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.backup_scope]: crate::model::backup_plan::BackupConfig::backup_scope
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1519,6 +1521,7 @@ pub mod backup_plan {
         /// This defines the "scope" of the Backup - which namespaced
         /// resources in the cluster will be included in a Backup.
         /// Exactly one of the fields of backup_scope MUST be specified.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1963,6 +1966,7 @@ pub mod exclusion_window {
 
     /// Required. Specifies the day(s) on which the exclusion window takes
     /// effect. Exactly one of the fields MUST be specified.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5949,6 +5953,7 @@ pub mod restore_config {
         #[allow(unused_imports)]
         use super::*;
 
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6564,6 +6569,7 @@ pub mod restore_config {
     /// selected. Listing them explicitly will result in an error.
     ///
     /// [google.cloud.gkebackup.v1.RestoreConfig.all_namespaces]: crate::model::RestoreConfig::namespaced_resource_restore_scope
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6770,6 +6776,7 @@ pub mod volume_data_restore_policy_override {
     #[allow(unused_imports)]
     use super::*;
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

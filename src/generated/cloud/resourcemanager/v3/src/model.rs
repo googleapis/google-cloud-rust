@@ -1303,6 +1303,7 @@ pub mod organization {
     /// The lifetime of the organization and all of its descendants are bound to
     /// the owner. If the owner is deleted, the organization and all its
     /// descendants will be deleted.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

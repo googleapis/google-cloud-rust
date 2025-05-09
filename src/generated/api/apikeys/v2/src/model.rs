@@ -878,6 +878,7 @@ pub mod restrictions {
     /// The websites, IP addresses, Android apps, or iOS apps (the clients) that
     /// are allowed to use the key. You can specify only one type of client
     /// restrictions per key.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

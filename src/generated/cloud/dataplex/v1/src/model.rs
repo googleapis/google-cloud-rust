@@ -502,6 +502,7 @@ pub mod environment {
         }
 
         /// Hardware config
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -513,6 +514,7 @@ pub mod environment {
         }
 
         /// Software config
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1215,6 +1217,7 @@ pub mod content {
     }
 
     /// Only returned in `GetContent` requests and not in `ListContent` request.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1224,6 +1227,7 @@ pub mod content {
     }
 
     /// Types of content
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6656,6 +6660,7 @@ pub mod metadata_job {
         }
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -6666,6 +6671,7 @@ pub mod metadata_job {
         ExportSpec(std::boxed::Box<crate::model::metadata_job::ExportJobSpec>),
     }
 
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8531,6 +8537,7 @@ pub mod data_discovery_spec {
     }
 
     /// The configurations of the data discovery scan resource.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -9701,6 +9708,7 @@ pub mod data_profile_result {
 
                 /// Structural and profile information for specific field type. Not
                 /// available, if mode is REPEATABLE.
+                #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
                 #[non_exhaustive]
@@ -11973,6 +11981,7 @@ pub mod data_quality_rule {
     }
 
     /// The rule-specific configuration.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -12651,6 +12660,7 @@ pub mod data_attribute_binding {
 
     /// The reference to the resource that is associated to attributes, or
     /// the query to match resources and associate attributes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15301,6 +15311,7 @@ pub mod data_scan {
         /// When an option is selected for incremental scan, it cannot be unset or
         /// changed. If not specified, a data scan will run for all data in the
         /// table.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -15384,6 +15395,7 @@ pub mod data_scan {
     /// The settings are required and immutable. After you configure the settings
     /// for one type of data scan, you can't change the data scan to a different
     /// type of data scan.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15397,6 +15409,7 @@ pub mod data_scan {
     }
 
     /// The result of the data scan.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15913,6 +15926,7 @@ pub mod data_scan_job {
     }
 
     /// Data scan related setting.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -15926,6 +15940,7 @@ pub mod data_scan_job {
     }
 
     /// The result of the data scan.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -16919,6 +16934,7 @@ pub mod discovery_event {
     }
 
     /// Additional details about the event.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -18148,6 +18164,7 @@ pub mod session_event {
     }
 
     /// Additional information about the Query metadata.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20049,6 +20066,7 @@ pub mod data_scan_event {
     }
 
     /// The result of the data scan job.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -20060,6 +20078,7 @@ pub mod data_scan_event {
     }
 
     /// The applied configs in the data scan job.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24026,6 +24045,7 @@ pub mod storage_format {
     }
 
     /// Additional format-specific options.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24379,6 +24399,7 @@ pub mod trigger {
     /// DataScan scheduling and trigger settings.
     ///
     /// If not specified, the default is `onDemand`.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24482,6 +24503,7 @@ pub mod data_source {
 
     /// The source is required and immutable. Once it is set, it cannot be change
     /// to others.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -24629,6 +24651,7 @@ pub mod scanned_data {
     }
 
     /// The range of scanned data
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -25763,6 +25786,7 @@ pub mod zone {
         }
 
         /// Determines when discovery is triggered.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -27042,6 +27066,7 @@ pub mod action {
     }
 
     /// Additional details about the action based on the action category.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -27747,6 +27772,7 @@ pub mod asset {
         }
 
         /// Determines when discovery is triggered.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -31942,6 +31968,7 @@ pub mod task {
             use super::*;
 
             /// The Cloud VPC network identifier.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -31955,6 +31982,7 @@ pub mod task {
         }
 
         /// Hardware config.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -31964,6 +31992,7 @@ pub mod task {
         }
 
         /// Software config.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -31975,6 +32004,7 @@ pub mod task {
         }
 
         /// Networking config.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -32241,6 +32271,7 @@ pub mod task {
         }
 
         /// Trigger only applies for RECURRING tasks.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -32594,6 +32625,7 @@ pub mod task {
         /// Required. The specification of the main method to call to drive the
         /// job. Specify either the jar file that contains the main class or the
         /// main class name.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -32755,6 +32787,7 @@ pub mod task {
     }
 
     /// Task template specific user-specified config.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

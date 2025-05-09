@@ -100,6 +100,40 @@ mod serialization {
     }
 
     #[test]
+    fn serde_with_oneof() -> Result<()> {
+        // Integer Value
+        let value = aiplatform::model::FeatureValue::default().set_int64_value(0);
+        let got = serde_json::to_value(&value)?;
+        let want = serde_json::json!({
+            "int64Value": "0"
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(value, rt);
+        // Double Value
+        let value = value.set_double_value(f64::INFINITY);
+        let got = serde_json::to_value(&value)?;
+        let want = serde_json::json!({
+            "doubleValue": "Infinity"
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(value, rt);
+        // Bytes Value
+        let value = value.set_bytes_value(bytes::Bytes::from(
+            "the quick brown fox jumps over the lazy dog",
+        ));
+        let got = serde_json::to_value(&value)?;
+        let want = serde_json::json!({
+            "bytesValue": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
+        });
+        assert_eq!(got, want);
+        let rt = serde_json::from_value(got)?;
+        assert_eq!(value, rt);
+        Ok(())
+    }
+
+    #[test]
     fn multiple_serde_attributes() -> Result<()> {
         let input = Test {
             f_bytes: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),

@@ -1965,6 +1965,7 @@ pub mod queued_resource {
             }
 
             /// Either a node_id or multislice_params.
+            #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
             #[non_exhaustive]
@@ -2239,6 +2240,7 @@ pub mod queued_resource {
         use super::*;
 
         /// Time flexibility specification.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -2262,6 +2264,7 @@ pub mod queued_resource {
     }
 
     /// Resource specification.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2271,6 +2274,7 @@ pub mod queued_resource {
     }
 
     /// Tier specifies the required tier.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3142,6 +3146,7 @@ pub mod queued_resource_state {
     }
 
     /// Further data for the state.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]

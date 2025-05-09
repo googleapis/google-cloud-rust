@@ -330,6 +330,7 @@ pub mod precondition {
     use super::*;
 
     /// The type of precondition.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -581,6 +582,7 @@ pub mod transaction_options {
 
         /// The consistency mode for this transaction. If not set, defaults to strong
         /// consistency.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -604,6 +606,7 @@ pub mod transaction_options {
     }
 
     /// The mode of the transaction.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1040,6 +1043,7 @@ pub mod value {
     use super::*;
 
     /// Must have a value set.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -1049,9 +1053,9 @@ pub mod value {
         /// A boolean value.
         BooleanValue(bool),
         /// An integer value.
-        IntegerValue(i64),
+        IntegerValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
         /// A double value.
-        DoubleValue(f64),
+        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// A timestamp value.
         ///
         /// Precise only to microseconds. When stored, any additional precision is
@@ -1067,7 +1071,7 @@ pub mod value {
         ///
         /// Must not exceed 1 MiB - 89 bytes.
         /// Only the first 1,500 bytes are considered by queries.
-        BytesValue(::bytes::Bytes),
+        BytesValue(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// A reference to a document. For example:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
         ReferenceValue(std::string::String),
@@ -1352,12 +1356,13 @@ pub mod get_document_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Reads the document in a transaction.
-        Transaction(::bytes::Bytes),
+        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Reads the version of the document at the given time.
         ///
         /// This must be a microsecond precision timestamp within the past one hour,
@@ -1599,12 +1604,13 @@ pub mod list_documents_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Perform the read as part of an already active transaction.
-        Transaction(::bytes::Bytes),
+        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Perform the read at the provided time.
         ///
         /// This must be a microsecond precision timestamp within the past one hour,
@@ -2110,12 +2116,13 @@ pub mod batch_get_documents_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Reads documents in a transaction.
-        Transaction(::bytes::Bytes),
+        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Starts a new transaction and reads the documents.
         /// Defaults to a read-only transaction.
         /// The new transaction ID will be returned as the first response in the
@@ -2283,6 +2290,7 @@ pub mod batch_get_documents_response {
 
     /// A single result.
     /// This can be empty if the server is just returning a transaction.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2777,6 +2785,7 @@ pub mod run_query_request {
     use super::*;
 
     /// The query to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2796,6 +2805,7 @@ pub mod run_query_request {
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -2803,7 +2813,7 @@ pub mod run_query_request {
         /// Run the query within an already active transaction.
         ///
         /// The value here is the opaque transaction ID to execute the query in.
-        Transaction(::bytes::Bytes),
+        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Starts a new transaction and reads the documents.
         /// Defaults to a read-only transaction.
         /// The new transaction ID will be returned as the first response in the
@@ -2995,6 +3005,7 @@ pub mod run_query_response {
     /// The continuation mode for the query. If present, it indicates the current
     /// query response stream has finished. This can be set with or without a
     /// `document` present, but when set, no more results are returned.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3236,6 +3247,7 @@ pub mod run_aggregation_query_request {
     use super::*;
 
     /// The query to run.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3254,6 +3266,7 @@ pub mod run_aggregation_query_request {
     }
 
     /// The consistency mode for the query, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3261,7 +3274,7 @@ pub mod run_aggregation_query_request {
         /// Run the aggregation within an already active transaction.
         ///
         /// The value here is the opaque transaction ID to execute the query in.
-        Transaction(::bytes::Bytes),
+        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Starts a new transaction as part of the query, defaulting to read-only.
         ///
         /// The new transaction ID will be returned as the first response in the
@@ -3588,6 +3601,7 @@ pub mod partition_query_request {
     use super::*;
 
     /// The query to partition.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -3610,6 +3624,7 @@ pub mod partition_query_request {
 
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4036,6 +4051,7 @@ pub mod listen_request {
     use super::*;
 
     /// The supported target changes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4258,6 +4274,7 @@ pub mod listen_response {
     use super::*;
 
     /// The supported responses.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4676,6 +4693,7 @@ pub mod target {
         use super::*;
 
         /// The query to run.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -4695,6 +4713,7 @@ pub mod target {
     }
 
     /// The type of target to listen to.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4725,6 +4744,7 @@ pub mod target {
     /// If specified, only the matching Documents that have been updated AFTER the
     /// `resume_token` or `read_time` will be returned. Otherwise, all matching
     /// Documents are returned before any subsequent changes.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4735,7 +4755,7 @@ pub mod target {
         /// Using a resume token with a different target is unsupported and may fail.
         ///
         /// [google.firestore.v1.TargetChange]: crate::model::TargetChange
-        ResumeToken(::bytes::Bytes),
+        ResumeToken(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         /// Start listening after a specific `read_time`.
         ///
         /// The client must know the state of matching documents at this time.
@@ -5141,6 +5161,7 @@ pub mod list_collection_ids_request {
 
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -5782,6 +5803,7 @@ pub mod structured_query {
         use super::*;
 
         /// The type of filter.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -6576,6 +6598,7 @@ pub mod structured_query {
         }
 
         /// The argument to the filter.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -7614,6 +7637,7 @@ pub mod structured_aggregation_query {
         }
 
         /// The type of aggregation to perform, required.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -7655,6 +7679,7 @@ pub mod structured_aggregation_query {
     }
 
     /// The base query to aggregate over.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8123,6 +8148,7 @@ pub mod write {
     use super::*;
 
     /// The operation to execute.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -8588,6 +8614,7 @@ pub mod document_transform {
         }
 
         /// The transformation to apply on the field.
+        #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]

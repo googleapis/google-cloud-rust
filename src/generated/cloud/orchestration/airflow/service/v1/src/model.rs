@@ -4020,6 +4020,7 @@ pub mod ip_allocation_policy {
     use super::*;
 
     /// Configuration of allocating IP addresses for pods in the GKE cluster.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
@@ -4050,6 +4051,7 @@ pub mod ip_allocation_policy {
     }
 
     /// Configuration of allocating IP addresses for services in the GKE cluster.
+    #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
