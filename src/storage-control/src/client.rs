@@ -363,16 +363,14 @@ impl Storage {
     /// # Parameters
     /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}`
     ///   format.
-    /// * `folder_id` - the full name of a folder, including all its parent
-    ///   folders. This must end in a `/`.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let folder = client.create_folder(
-    ///         "projects/my-project/buckets/my-bucket",
-    ///         "my-folder/my-subfolder/")
+    ///     let folder = client
+    ///         .create_folder("projects/my-project/buckets/my-bucket")
+    ///         .set_folder_id("my-folder/my-subfolder/")
     ///         .send()
     ///         .await?;
     ///     println!("folder details={folder:?}");
@@ -382,12 +380,8 @@ impl Storage {
     pub fn create_folder(
         &self,
         parent: impl Into<String>,
-        folder_id: impl Into<String>,
     ) -> super::builder::storage::CreateFolder {
-        self.control
-            .create_folder()
-            .set_parent(parent.into())
-            .set_folder_id(folder_id.into())
+        self.control.create_folder().set_parent(parent.into())
     }
 
     /// Returns metadata for the specified folder.

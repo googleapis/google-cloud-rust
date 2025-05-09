@@ -211,7 +211,8 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
 
     println!("\nTesting create_folder()");
     let create = client
-        .create_folder(bucket_name, "test-folder/")
+        .create_folder(bucket_name)
+        .set_folder_id("test-folder/")
         .send()
         .await?;
     println!("SUCCESS on create_folder: {create:?}");
