@@ -882,6 +882,16 @@ pub struct Backup {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
+    /// Output only. Region of the volume from which the backup was created.
+    /// Format: `projects/{project_id}/locations/{location}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub volume_region: std::string::String,
+
+    /// Output only. Region in which backup is stored.
+    /// Format: `projects/{project_id}/locations/{location}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub backup_region: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -975,6 +985,18 @@ impl Backup {
     /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
+        self
+    }
+
+    /// Sets the value of [volume_region][crate::model::Backup::volume_region].
+    pub fn set_volume_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.volume_region = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_region][crate::model::Backup::backup_region].
+    pub fn set_backup_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_region = v.into();
         self
     }
 }
@@ -2302,6 +2324,32 @@ pub struct BackupVault {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. Type of backup vault to be created.
+    /// Default is IN_REGION.
+    pub backup_vault_type: crate::model::backup_vault::BackupVaultType,
+
+    /// Output only. Region in which the backup vault is created.
+    /// Format: `projects/{project_id}/locations/{location}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub source_region: std::string::String,
+
+    /// Optional. Region where the backups are stored.
+    /// Format: `projects/{project_id}/locations/{location}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub backup_region: std::string::String,
+
+    /// Output only. Name of the Backup vault created in source region.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub source_backup_vault: std::string::String,
+
+    /// Output only. Name of the Backup vault created in backup region.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub destination_backup_vault: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2350,6 +2398,47 @@ impl BackupVault {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [backup_vault_type][crate::model::BackupVault::backup_vault_type].
+    pub fn set_backup_vault_type<
+        T: std::convert::Into<crate::model::backup_vault::BackupVaultType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_vault_type = v.into();
+        self
+    }
+
+    /// Sets the value of [source_region][crate::model::BackupVault::source_region].
+    pub fn set_source_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_region = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_region][crate::model::BackupVault::backup_region].
+    pub fn set_backup_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_region = v.into();
+        self
+    }
+
+    /// Sets the value of [source_backup_vault][crate::model::BackupVault::source_backup_vault].
+    pub fn set_source_backup_vault<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_backup_vault = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_backup_vault][crate::model::BackupVault::destination_backup_vault].
+    pub fn set_destination_backup_vault<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_backup_vault = v.into();
         self
     }
 }
@@ -2514,6 +2603,138 @@ pub mod backup_vault {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.netapp.v1.BackupVault.State",
+            ))
+        }
+    }
+
+    /// Backup Vault Type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BackupVaultType {
+        /// BackupVault type not set.
+        Unspecified,
+        /// BackupVault type is IN_REGION.
+        InRegion,
+        /// BackupVault type is CROSS_REGION.
+        CrossRegion,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BackupVaultType::value] or
+        /// [BackupVaultType::name].
+        UnknownValue(backup_vault_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod backup_vault_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BackupVaultType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InRegion => std::option::Option::Some(1),
+                Self::CrossRegion => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BACKUP_VAULT_TYPE_UNSPECIFIED"),
+                Self::InRegion => std::option::Option::Some("IN_REGION"),
+                Self::CrossRegion => std::option::Option::Some("CROSS_REGION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BackupVaultType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BackupVaultType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BackupVaultType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InRegion,
+                2 => Self::CrossRegion,
+                _ => Self::UnknownValue(backup_vault_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BackupVaultType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BACKUP_VAULT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IN_REGION" => Self::InRegion,
+                "CROSS_REGION" => Self::CrossRegion,
+                _ => Self::UnknownValue(backup_vault_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BackupVaultType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InRegion => serializer.serialize_i32(1),
+                Self::CrossRegion => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BackupVaultType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackupVaultType>::new(
+                ".google.cloud.netapp.v1.BackupVault.BackupVaultType",
             ))
         }
     }

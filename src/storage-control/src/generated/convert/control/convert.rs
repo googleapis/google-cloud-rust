@@ -456,3 +456,236 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListManagedF
             .set_next_page_token(self.next_page_token)
     }
 }
+
+impl gaxi::prost::ToProto<CreateAnywhereCacheMetadata> for crate::generated::gapic_control::model::CreateAnywhereCacheMetadata {
+    type Output = CreateAnywhereCacheMetadata;
+    fn to_proto(self) -> std::result::Result<CreateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
+            anywhere_cache_id: self.anywhere_cache_id.map(|v| v.to_proto()).transpose()?,
+            zone: self.zone.map(|v| v.to_proto()).transpose()?,
+            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
+            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhereCacheMetadata> for CreateAnywhereCacheMetadata {
+    fn cnv(self) -> crate::generated::gapic_control::model::CreateAnywhereCacheMetadata {
+        crate::generated::gapic_control::model::CreateAnywhereCacheMetadata::new()
+            .set_common_metadata(self.common_metadata.map(|v| v.cnv()))
+            .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()))
+            .set_zone(self.zone.map(|v| v.cnv()))
+            .set_ttl(self.ttl.map(|v| v.cnv()))
+            .set_admission_policy(self.admission_policy.map(|v| v.cnv()))
+    }
+}
+
+impl gaxi::prost::ToProto<UpdateAnywhereCacheMetadata> for crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata {
+    type Output = UpdateAnywhereCacheMetadata;
+    fn to_proto(self) -> std::result::Result<UpdateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
+            anywhere_cache_id: self.anywhere_cache_id.map(|v| v.to_proto()).transpose()?,
+            zone: self.zone.map(|v| v.to_proto()).transpose()?,
+            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
+            admission_policy: self.admission_policy.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata> for UpdateAnywhereCacheMetadata {
+    fn cnv(self) -> crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata {
+        crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata::new()
+            .set_common_metadata(self.common_metadata.map(|v| v.cnv()))
+            .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()))
+            .set_zone(self.zone.map(|v| v.cnv()))
+            .set_ttl(self.ttl.map(|v| v.cnv()))
+            .set_admission_policy(self.admission_policy.map(|v| v.cnv()))
+    }
+}
+
+impl gaxi::prost::ToProto<AnywhereCache> for crate::generated::gapic_control::model::AnywhereCache {
+    type Output = AnywhereCache;
+    fn to_proto(self) -> std::result::Result<AnywhereCache, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            zone: self.zone.to_proto()?,
+            ttl: self.ttl.map(|v| v.to_proto()).transpose()?,
+            admission_policy: self.admission_policy.to_proto()?,
+            state: self.state.to_proto()?,
+            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+            pending_update: self.pending_update.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::AnywhereCache> for AnywhereCache {
+    fn cnv(self) -> crate::generated::gapic_control::model::AnywhereCache {
+        crate::generated::gapic_control::model::AnywhereCache::new()
+            .set_name(self.name)
+            .set_zone(self.zone)
+            .set_ttl(self.ttl.map(|v| v.cnv()))
+            .set_admission_policy(self.admission_policy)
+            .set_state(self.state)
+            .set_create_time(self.create_time.map(|v| v.cnv()))
+            .set_update_time(self.update_time.map(|v| v.cnv()))
+            .set_pending_update(self.pending_update)
+    }
+}
+
+impl gaxi::prost::ToProto<CreateAnywhereCacheRequest> for crate::generated::gapic_control::model::CreateAnywhereCacheRequest {
+    type Output = CreateAnywhereCacheRequest;
+    fn to_proto(self) -> std::result::Result<CreateAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            parent: self.parent.to_proto()?,
+            anywhere_cache: self.anywhere_cache.map(|v| v.to_proto()).transpose()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhereCacheRequest> for CreateAnywhereCacheRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::CreateAnywhereCacheRequest {
+        crate::generated::gapic_control::model::CreateAnywhereCacheRequest::new()
+            .set_parent(self.parent)
+            .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()))
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<UpdateAnywhereCacheRequest> for crate::generated::gapic_control::model::UpdateAnywhereCacheRequest {
+    type Output = UpdateAnywhereCacheRequest;
+    fn to_proto(self) -> std::result::Result<UpdateAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            anywhere_cache: self.anywhere_cache.map(|v| v.to_proto()).transpose()?,
+            update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhereCacheRequest> for UpdateAnywhereCacheRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::UpdateAnywhereCacheRequest {
+        crate::generated::gapic_control::model::UpdateAnywhereCacheRequest::new()
+            .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()))
+            .set_update_mask(self.update_mask.map(|v| v.cnv()))
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<DisableAnywhereCacheRequest> for crate::generated::gapic_control::model::DisableAnywhereCacheRequest {
+    type Output = DisableAnywhereCacheRequest;
+    fn to_proto(self) -> std::result::Result<DisableAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DisableAnywhereCacheRequest> for DisableAnywhereCacheRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::DisableAnywhereCacheRequest {
+        crate::generated::gapic_control::model::DisableAnywhereCacheRequest::new()
+            .set_name(self.name)
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<PauseAnywhereCacheRequest> for crate::generated::gapic_control::model::PauseAnywhereCacheRequest {
+    type Output = PauseAnywhereCacheRequest;
+    fn to_proto(self) -> std::result::Result<PauseAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::PauseAnywhereCacheRequest> for PauseAnywhereCacheRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::PauseAnywhereCacheRequest {
+        crate::generated::gapic_control::model::PauseAnywhereCacheRequest::new()
+            .set_name(self.name)
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<ResumeAnywhereCacheRequest> for crate::generated::gapic_control::model::ResumeAnywhereCacheRequest {
+    type Output = ResumeAnywhereCacheRequest;
+    fn to_proto(self) -> std::result::Result<ResumeAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ResumeAnywhereCacheRequest> for ResumeAnywhereCacheRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::ResumeAnywhereCacheRequest {
+        crate::generated::gapic_control::model::ResumeAnywhereCacheRequest::new()
+            .set_name(self.name)
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<GetAnywhereCacheRequest> for crate::generated::gapic_control::model::GetAnywhereCacheRequest {
+    type Output = GetAnywhereCacheRequest;
+    fn to_proto(self) -> std::result::Result<GetAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetAnywhereCacheRequest> for GetAnywhereCacheRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::GetAnywhereCacheRequest {
+        crate::generated::gapic_control::model::GetAnywhereCacheRequest::new()
+            .set_name(self.name)
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<ListAnywhereCachesRequest> for crate::generated::gapic_control::model::ListAnywhereCachesRequest {
+    type Output = ListAnywhereCachesRequest;
+    fn to_proto(self) -> std::result::Result<ListAnywhereCachesRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            parent: self.parent.to_proto()?,
+            page_size: self.page_size.to_proto()?,
+            page_token: self.page_token.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListAnywhereCachesRequest> for ListAnywhereCachesRequest {
+    fn cnv(self) -> crate::generated::gapic_control::model::ListAnywhereCachesRequest {
+        crate::generated::gapic_control::model::ListAnywhereCachesRequest::new()
+            .set_parent(self.parent)
+            .set_page_size(self.page_size)
+            .set_page_token(self.page_token)
+            .set_request_id(self.request_id)
+    }
+}
+
+impl gaxi::prost::ToProto<ListAnywhereCachesResponse> for crate::generated::gapic_control::model::ListAnywhereCachesResponse {
+    type Output = ListAnywhereCachesResponse;
+    fn to_proto(self) -> std::result::Result<ListAnywhereCachesResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            anywhere_caches: self.anywhere_caches
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            next_page_token: self.next_page_token.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListAnywhereCachesResponse> for ListAnywhereCachesResponse {
+    fn cnv(self) -> crate::generated::gapic_control::model::ListAnywhereCachesResponse {
+        crate::generated::gapic_control::model::ListAnywhereCachesResponse::new()
+            .set_anywhere_caches(self.anywhere_caches.into_iter().map(|v| v.cnv()))
+            .set_next_page_token(self.next_page_token)
+    }
+}

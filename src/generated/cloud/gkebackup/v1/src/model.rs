@@ -158,7 +158,8 @@ pub struct Backup {
     pub state: crate::model::backup::State,
 
     /// Output only. Human-readable description of why the backup is in the current
-    /// `state`.
+    /// `state`. This field is only meant for human readability and should not be
+    /// used programmatically as this field is not guaranteed to be consistent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_reason: std::string::String,
 
@@ -216,6 +217,14 @@ pub struct Backup {
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.permissive_mode]: crate::model::backup_plan::BackupConfig::permissive_mode
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub permissive_mode: bool,
+
+    /// Output only. [Output Only] Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub satisfies_pzs: bool,
+
+    /// Output only. [Output Only] Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub satisfies_pzi: bool,
 
     /// Defines the "scope" of the Backup - which namespaced resources in the
     /// cluster were included in the Backup.  Inherited from the parent
@@ -416,6 +425,18 @@ impl Backup {
     /// Sets the value of [permissive_mode][crate::model::Backup::permissive_mode].
     pub fn set_permissive_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.permissive_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 
@@ -872,6 +893,156 @@ pub mod backup {
     }
 }
 
+/// A BackupChannel imposes constraints on where clusters can be backed up.
+/// The BackupChannel should be in the same project and region
+/// as the cluster being backed up.
+/// The backup can be created only in destination_project.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BackupChannel {
+    /// Identifier. The fully qualified name of the BackupChannel.
+    /// `projects/*/locations/*/backupChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. Immutable. The project where Backups are allowed to be stored.
+    /// The format is `projects/{project}`.
+    /// Currently, {project} can only be the project number. Support for project
+    /// IDs will be added in the future.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub destination_project: std::string::String,
+
+    /// Output only. Server generated global unique identifier of
+    /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) format.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    /// Output only. The timestamp when this BackupChannel resource was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when this BackupChannel resource was last
+    /// updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A set of custom labels supplied by user.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. User specified descriptive string for this BackupChannel.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// Output only. `etag` is used for optimistic concurrency control as a way to
+    /// help prevent simultaneous updates of a BackupChannel from overwriting each
+    /// other. It is strongly suggested that systems make use of the 'etag' in the
+    /// read-modify-write cycle to perform BackupChannel updates in order to
+    /// avoid race conditions: An `etag` is returned in the response to
+    /// `GetBackupChannel`, and systems are expected to put that etag in the
+    /// request to `UpdateBackupChannel` or `DeleteBackupChannel` to
+    /// ensure that their change will be applied to the same version of the
+    /// resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Output only. The project_id where Backups are allowed to be stored.
+    /// Example Project ID: "my-project-id".
+    /// This will be an OUTPUT_ONLY field to return the project_id of the
+    /// destination project.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub destination_project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupChannel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackupChannel::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_project][crate::model::BackupChannel::destination_project].
+    pub fn set_destination_project<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_project = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::BackupChannel::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackupChannel::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::BackupChannel::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::BackupChannel::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::BackupChannel::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::BackupChannel::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_project_id][crate::model::BackupChannel::destination_project_id].
+    pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_project_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupChannel {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.BackupChannel"
+    }
+}
+
 /// Defines the configuration and scheduling for a "line" of Backups.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -960,7 +1131,8 @@ pub struct BackupPlan {
     pub state: crate::model::backup_plan::State,
 
     /// Output only. Human-readable description of why BackupPlan is in the current
-    /// `state`
+    /// `state`. This field is only meant for human readability and should not be
+    /// used programmatically as this field is not guaranteed to be consistent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_reason: std::string::String,
 
@@ -974,6 +1146,13 @@ pub struct BackupPlan {
     /// current rpo_risk_level and action items if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rpo_risk_reason: std::string::String,
+
+    /// Output only. Completion time of the last successful Backup. This is sourced
+    /// from a successful Backup's complete_time field. This field is added to
+    /// maintain consistency with BackupPlanBinding to display last successful
+    /// backup time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub last_successful_backup_time: std::option::Option<wkt::Timestamp>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1113,6 +1292,17 @@ impl BackupPlan {
     /// Sets the value of [rpo_risk_reason][crate::model::BackupPlan::rpo_risk_reason].
     pub fn set_rpo_risk_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rpo_risk_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [last_successful_backup_time][crate::model::BackupPlan::last_successful_backup_time].
+    pub fn set_last_successful_backup_time<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_successful_backup_time = v.into();
         self
     }
 }
@@ -1982,13 +2172,429 @@ pub mod exclusion_window {
     }
 }
 
-/// A list of Kubernetes Namespaces
+/// A BackupPlanBinding binds a BackupPlan with a BackupChannel.
+/// This resource is created automatically when a BackupPlan is created using a
+/// BackupChannel. This also serves as a holder for cross-project fields
+/// that need to be displayed in the current project.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BackupPlanBinding {
+    /// Identifier. The fully qualified name of the BackupPlanBinding.
+    /// `projects/*/locations/*/backupChannels/*/backupPlanBindings/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. Server generated global unique identifier of
+    /// [UUID4](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    /// Output only. The timestamp when this binding was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when this binding was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Immutable. The fully qualified name of the BackupPlan bound
+    /// with the parent BackupChannel.
+    /// `projects/*/locations/*/backupPlans/{backup_plan}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub backup_plan: std::string::String,
+
+    /// Output only. Immutable. The fully qualified name of the cluster that is
+    /// being backed up Valid formats:
+    ///
+    /// - `projects/*/locations/*/clusters/*`
+    /// - `projects/*/zones/*/clusters/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub cluster: std::string::String,
+
+    /// Output only. Contains details about the backup plan/backup.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub backup_plan_details:
+        std::option::Option<crate::model::backup_plan_binding::BackupPlanDetails>,
+
+    /// Output only. `etag` is used for optimistic concurrency control as a way to
+    /// help prevent simultaneous updates of a BackupPlanBinding from overwriting
+    /// each other. It is strongly suggested that systems make use of the 'etag' in
+    /// the read-modify-write cycle to perform BackupPlanBinding updates in
+    /// order to avoid race conditions: An `etag` is returned in the response to
+    /// `GetBackupPlanBinding`, and systems are expected to put that etag in
+    /// the request to `UpdateBackupPlanBinding` or
+    /// `DeleteBackupPlanBinding` to ensure that their change will be applied
+    /// to the same version of the resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupPlanBinding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackupPlanBinding::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::BackupPlanBinding::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackupPlanBinding::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::BackupPlanBinding::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan][crate::model::BackupPlanBinding::backup_plan].
+    pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_plan = v.into();
+        self
+    }
+
+    /// Sets the value of [cluster][crate::model::BackupPlanBinding::cluster].
+    pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cluster = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_details][crate::model::BackupPlanBinding::backup_plan_details].
+    pub fn set_backup_plan_details<
+        T: std::convert::Into<
+                std::option::Option<crate::model::backup_plan_binding::BackupPlanDetails>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_plan_details = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::BackupPlanBinding::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupPlanBinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.BackupPlanBinding"
+    }
+}
+
+/// Defines additional types related to [BackupPlanBinding].
+pub mod backup_plan_binding {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains metadata about the backup plan/backup.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct BackupPlanDetails {
+        /// Output only. The number of Kubernetes Pods backed up in the
+        /// last successful Backup created via this BackupPlan.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub protected_pod_count: i32,
+
+        /// Output only. State of the BackupPlan.
+        pub state: crate::model::backup_plan_binding::backup_plan_details::State,
+
+        /// Output only. Completion time of the last successful Backup. This is
+        /// sourced from a successful Backup's complete_time field.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub last_successful_backup_time: std::option::Option<wkt::Timestamp>,
+
+        /// Output only. Start time of next scheduled backup under this BackupPlan by
+        /// either cron_schedule or rpo config. This is sourced from BackupPlan.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub next_scheduled_backup_time: std::option::Option<wkt::Timestamp>,
+
+        /// Output only. A number that represents the current risk level of this
+        /// BackupPlan from RPO perspective with 1 being no risk and 5 being highest
+        /// risk.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub rpo_risk_level: i32,
+
+        /// Output only. The fully qualified name of the last successful Backup
+        /// created under this BackupPlan.
+        /// `projects/*/locations/*/backupPlans/*/backups/*`
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub last_successful_backup: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BackupPlanDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [protected_pod_count][crate::model::backup_plan_binding::BackupPlanDetails::protected_pod_count].
+        pub fn set_protected_pod_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.protected_pod_count = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::backup_plan_binding::BackupPlanDetails::state].
+        pub fn set_state<
+            T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [last_successful_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup_time].
+        pub fn set_last_successful_backup_time<
+            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_successful_backup_time = v.into();
+            self
+        }
+
+        /// Sets the value of [next_scheduled_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::next_scheduled_backup_time].
+        pub fn set_next_scheduled_backup_time<
+            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.next_scheduled_backup_time = v.into();
+            self
+        }
+
+        /// Sets the value of [rpo_risk_level][crate::model::backup_plan_binding::BackupPlanDetails::rpo_risk_level].
+        pub fn set_rpo_risk_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.rpo_risk_level = v.into();
+            self
+        }
+
+        /// Sets the value of [last_successful_backup][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup].
+        pub fn set_last_successful_backup<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_successful_backup = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BackupPlanDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.gkebackup.v1.BackupPlanBinding.BackupPlanDetails"
+        }
+    }
+
+    /// Defines additional types related to [BackupPlanDetails].
+    pub mod backup_plan_details {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// State
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
+            /// Default first value for Enums.
+            Unspecified,
+            /// Waiting for cluster state to be RUNNING.
+            ClusterPending,
+            /// The BackupPlan is in the process of being created.
+            Provisioning,
+            /// The BackupPlan has successfully been created and is ready for Backups.
+            Ready,
+            /// BackupPlan creation has failed.
+            Failed,
+            /// The BackupPlan has been deactivated.
+            Deactivated,
+            /// The BackupPlan is in the process of being deleted.
+            Deleting,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl State {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::ClusterPending => std::option::Option::Some(1),
+                    Self::Provisioning => std::option::Option::Some(2),
+                    Self::Ready => std::option::Option::Some(3),
+                    Self::Failed => std::option::Option::Some(4),
+                    Self::Deactivated => std::option::Option::Some(5),
+                    Self::Deleting => std::option::Option::Some(6),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                    Self::ClusterPending => std::option::Option::Some("CLUSTER_PENDING"),
+                    Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                    Self::Ready => std::option::Option::Some("READY"),
+                    Self::Failed => std::option::Option::Some("FAILED"),
+                    Self::Deactivated => std::option::Option::Some("DEACTIVATED"),
+                    Self::Deleting => std::option::Option::Some("DELETING"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::ClusterPending,
+                    2 => Self::Provisioning,
+                    3 => Self::Ready,
+                    4 => Self::Failed,
+                    5 => Self::Deactivated,
+                    6 => Self::Deleting,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNSPECIFIED" => Self::Unspecified,
+                    "CLUSTER_PENDING" => Self::ClusterPending,
+                    "PROVISIONING" => Self::Provisioning,
+                    "READY" => Self::Ready,
+                    "FAILED" => Self::Failed,
+                    "DEACTIVATED" => Self::Deactivated,
+                    "DELETING" => Self::Deleting,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::ClusterPending => serializer.serialize_i32(1),
+                    Self::Provisioning => serializer.serialize_i32(2),
+                    Self::Ready => serializer.serialize_i32(3),
+                    Self::Failed => serializer.serialize_i32(4),
+                    Self::Deactivated => serializer.serialize_i32(5),
+                    Self::Deleting => serializer.serialize_i32(6),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.gkebackup.v1.BackupPlanBinding.BackupPlanDetails.State",
+                ))
+            }
+        }
+    }
+}
+
+/// A list of Kubernetes Namespaces.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Namespaces {
-    /// Optional. A list of Kubernetes Namespaces
+    /// Optional. A list of Kubernetes Namespaces.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub namespaces: std::vec::Vec<std::string::String>,
 
@@ -2316,10 +2922,12 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
@@ -2761,6 +3369,600 @@ impl wkt::message::Message for DeleteBackupPlanRequest {
     }
 }
 
+/// Request message for CreateBackupChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateBackupChannelRequest {
+    /// Required. The location within which to create the BackupChannel.
+    /// Format: `projects/*/locations/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The BackupChannel resource object to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub backup_channel: std::option::Option<crate::model::BackupChannel>,
+
+    /// Optional. The client-provided short name for the BackupChannel resource.
+    /// This name must:
+    ///
+    /// - be between 1 and 63 characters long (inclusive)
+    /// - consist of only lower-case ASCII letters, numbers, and dashes
+    /// - start with a lower-case letter
+    /// - end with a lower-case letter or number
+    /// - be unique within the set of BackupChannels in this location
+    ///   If the user does not provide a name, a uuid will be used as the name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub backup_channel_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateBackupChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateBackupChannelRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_channel][crate::model::CreateBackupChannelRequest::backup_channel].
+    pub fn set_backup_channel<
+        T: std::convert::Into<std::option::Option<crate::model::BackupChannel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_channel = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_channel_id][crate::model::CreateBackupChannelRequest::backup_channel_id].
+    pub fn set_backup_channel_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_channel_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateBackupChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.CreateBackupChannelRequest"
+    }
+}
+
+/// Request message for ListBackupChannels.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupChannelsRequest {
+    /// Required. The location that contains the BackupChannels to list.
+    /// Format: `projects/*/locations/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The target number of results to return in a single response.
+    /// If not specified, a default value will be chosen by the service.
+    /// Note that the response may include a partial list and a caller should
+    /// only rely on the response's
+    /// [next_page_token][google.cloud.gkebackup.v1.ListBackupChannelsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.gkebackup.v1.ListBackupChannelsResponse.next_page_token]: crate::model::ListBackupChannelsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.gkebackup.v1.ListBackupChannelsResponse.next_page_token]
+    /// received from a previous `ListBackupChannels` call.
+    /// Provide this to retrieve the subsequent page in a multi-page list of
+    /// results. When paginating, all other parameters provided to
+    /// `ListBackupChannels` must match the call that provided the page
+    /// token.
+    ///
+    /// [google.cloud.gkebackup.v1.ListBackupChannelsResponse.next_page_token]: crate::model::ListBackupChannelsResponse::next_page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupChannelsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackupChannelsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackupChannelsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackupChannelsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBackupChannelsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListBackupChannelsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupChannelsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListBackupChannelsRequest"
+    }
+}
+
+/// Response message for ListBackupChannels.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupChannelsResponse {
+    /// The list of BackupChannels matching the given criteria.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub backup_channels: std::vec::Vec<crate::model::BackupChannel>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.gkebackup.v1.ListBackupChannelsRequest.page_token]
+    /// in a subsequent `ListBackupChannels` call to retrieve the next page of
+    /// results. If this field is omitted or empty, then there are no more results
+    /// to return.
+    ///
+    /// [google.cloud.gkebackup.v1.ListBackupChannelsRequest.page_token]: crate::model::ListBackupChannelsRequest::page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupChannelsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_channels][crate::model::ListBackupChannelsResponse::backup_channels].
+    pub fn set_backup_channels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupChannel>,
+    {
+        use std::iter::Iterator;
+        self.backup_channels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupChannelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupChannelsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupChannelsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListBackupChannelsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupChannelsResponse {
+    type PageItem = crate::model::BackupChannel;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backup_channels
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetBackupChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetBackupChannelRequest {
+    /// Required. Fully qualified BackupChannel name.
+    /// Format: `projects/*/locations/*/backupChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBackupChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBackupChannelRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBackupChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.GetBackupChannelRequest"
+    }
+}
+
+/// Request message for UpdateBackupChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateBackupChannelRequest {
+    /// Required. A new version of the BackupChannel resource that contains updated
+    /// fields. This may be sparsely populated if an `update_mask` is provided.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub backup_channel: std::option::Option<crate::model::BackupChannel>,
+
+    /// Optional. This is used to specify the fields to be overwritten in the
+    /// BackupChannel targeted for update. The values for each of these
+    /// updated fields will be taken from the `backup_channel` provided
+    /// with this request. Field names are relative to the root of the resource
+    /// (e.g., `description`, `labels`, etc.)
+    /// If no `update_mask` is provided, all fields in `backup_channel` will
+    /// be written to the target BackupChannel resource. Note that
+    /// OUTPUT_ONLY and IMMUTABLE fields in `backup_channel` are ignored and
+    /// are not used to update the target BackupChannel.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBackupChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
+    pub fn set_backup_channel<
+        T: std::convert::Into<std::option::Option<crate::model::BackupChannel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_channel = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateBackupChannelRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBackupChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.UpdateBackupChannelRequest"
+    }
+}
+
+/// Request message for DeleteBackupChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteBackupChannelRequest {
+    /// Required. Fully qualified BackupChannel name.
+    /// Format: `projects/*/locations/*/backupChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. If provided, this value must match the current value of the
+    /// target BackupChannel's [etag][google.cloud.gkebackup.v1.BackupChannel.etag]
+    /// field or the request is rejected.
+    ///
+    /// [google.cloud.gkebackup.v1.BackupChannel.etag]: crate::model::BackupChannel::etag
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Optional. If set to true, any BackupPlanAssociations below this
+    /// BackupChannel will also be deleted. Otherwise, the request will only
+    /// succeed if the BackupChannel has no BackupPlanAssociations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteBackupChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteBackupChannelRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteBackupChannelRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteBackupChannelRequest::force].
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteBackupChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.DeleteBackupChannelRequest"
+    }
+}
+
+/// Request message for ListBackupPlanBindings.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupPlanBindingsRequest {
+    /// Required. The BackupChannel that contains the BackupPlanBindings to list.
+    /// Format: `projects/*/locations/*/backupChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The target number of results to return in a single response.
+    /// If not specified, a default value will be chosen by the service.
+    /// Note that the response may include a partial list and a caller should
+    /// only rely on the response's
+    /// [next_page_token][google.cloud.gkebackup.v1.ListBackupPlanBindingsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.gkebackup.v1.ListBackupPlanBindingsResponse.next_page_token]: crate::model::ListBackupPlanBindingsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.gkebackup.v1.ListBackupPlanBindingsResponse.next_page_token]
+    /// received from a previous `ListBackupPlanBindings` call.
+    /// Provide this to retrieve the subsequent page in a multi-page list of
+    /// results. When paginating, all other parameters provided to
+    /// `ListBackupPlanBindings` must match the call that provided the page
+    /// token.
+    ///
+    /// [google.cloud.gkebackup.v1.ListBackupPlanBindingsResponse.next_page_token]: crate::model::ListBackupPlanBindingsResponse::next_page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupPlanBindingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackupPlanBindingsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackupPlanBindingsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackupPlanBindingsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBackupPlanBindingsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListBackupPlanBindingsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupPlanBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListBackupPlanBindingsRequest"
+    }
+}
+
+/// Response message for ListBackupPlanBindings.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupPlanBindingsResponse {
+    /// The list of BackupPlanBindings matching the given criteria.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub backup_plan_bindings: std::vec::Vec<crate::model::BackupPlanBinding>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.gkebackup.v1.ListBackupPlanBindingsRequest.page_token]
+    /// in a subsequent `ListBackupPlanBindingss` call to retrieve the next page of
+    /// results. If this field is omitted or empty, then there are no more results
+    /// to return.
+    ///
+    /// [google.cloud.gkebackup.v1.ListBackupPlanBindingsRequest.page_token]: crate::model::ListBackupPlanBindingsRequest::page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupPlanBindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_plan_bindings][crate::model::ListBackupPlanBindingsResponse::backup_plan_bindings].
+    pub fn set_backup_plan_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupPlanBinding>,
+    {
+        use std::iter::Iterator;
+        self.backup_plan_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupPlanBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupPlanBindingsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupPlanBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListBackupPlanBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupPlanBindingsResponse {
+    type PageItem = crate::model::BackupPlanBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backup_plan_bindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetBackupPlanBinding.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetBackupPlanBindingRequest {
+    /// Required. Fully qualified BackupPlanBinding name.
+    /// Format:
+    /// `projects/*/locations/*/backupChannels/*/backupPlanBindings/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBackupPlanBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBackupPlanBindingRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBackupPlanBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.GetBackupPlanBindingRequest"
+    }
+}
+
 /// Request message for CreateBackup.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2865,6 +4067,11 @@ pub struct ListBackupsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
 
+    /// Optional. If set to true, the response will return partial results when
+    /// some regions are unreachable and the unreachable field will be populated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2903,6 +4110,12 @@ impl ListBackupsRequest {
         self.order_by = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListBackupsRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListBackupsRequest {
@@ -2930,6 +4143,10 @@ pub struct ListBackupsResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2953,6 +4170,17 @@ impl ListBackupsResponse {
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3696,6 +4924,590 @@ impl wkt::message::Message for DeleteRestorePlanRequest {
     }
 }
 
+/// Request message for CreateRestoreChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateRestoreChannelRequest {
+    /// Required. The location within which to create the RestoreChannel.
+    /// Format: `projects/*/locations/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The RestoreChannel resource object to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub restore_channel: std::option::Option<crate::model::RestoreChannel>,
+
+    /// Optional. The client-provided short name for the RestoreChannel resource.
+    /// This name must:
+    ///
+    /// - be between 1 and 63 characters long (inclusive)
+    /// - consist of only lower-case ASCII letters, numbers, and dashes
+    /// - start with a lower-case letter
+    /// - end with a lower-case letter or number
+    /// - be unique within the set of RestoreChannels in this location
+    ///   If the user does not provide a name, a uuid will be used as the name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub restore_channel_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateRestoreChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateRestoreChannelRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_channel][crate::model::CreateRestoreChannelRequest::restore_channel].
+    pub fn set_restore_channel<
+        T: std::convert::Into<std::option::Option<crate::model::RestoreChannel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_channel = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_channel_id][crate::model::CreateRestoreChannelRequest::restore_channel_id].
+    pub fn set_restore_channel_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_channel_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateRestoreChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.CreateRestoreChannelRequest"
+    }
+}
+
+/// Request message for ListRestoreChannels.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListRestoreChannelsRequest {
+    /// Required. The location that contains the RestoreChannels to list.
+    /// Format: `projects/*/locations/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The target number of results to return in a single response.
+    /// If not specified, a default value will be chosen by the service.
+    /// Note that the response may include a partial list and a caller should
+    /// only rely on the response's
+    /// [next_page_token][google.cloud.gkebackup.v1.ListRestoreChannelsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.gkebackup.v1.ListRestoreChannelsResponse.next_page_token]: crate::model::ListRestoreChannelsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.gkebackup.v1.ListRestoreChannelsResponse.next_page_token]
+    /// received from a previous `ListRestoreChannels` call.
+    /// Provide this to retrieve the subsequent page in a multi-page list of
+    /// results. When paginating, all other parameters provided to
+    /// `ListRestoreChannels` must match the call that provided the page
+    /// token.
+    ///
+    /// [google.cloud.gkebackup.v1.ListRestoreChannelsResponse.next_page_token]: crate::model::ListRestoreChannelsResponse::next_page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreChannelsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRestoreChannelsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRestoreChannelsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRestoreChannelsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRestoreChannelsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListRestoreChannelsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreChannelsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListRestoreChannelsRequest"
+    }
+}
+
+/// Response message for ListRestoreChannels.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListRestoreChannelsResponse {
+    /// The list of RestoreChannels matching the given criteria.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub restore_channels: std::vec::Vec<crate::model::RestoreChannel>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.gkebackup.v1.ListRestoreChannelsRequest.page_token]
+    /// in a subsequent `ListRestoreChannels` call to retrieve the next page of
+    /// results. If this field is omitted or empty, then there are no more results
+    /// to return.
+    ///
+    /// [google.cloud.gkebackup.v1.ListRestoreChannelsRequest.page_token]: crate::model::ListRestoreChannelsRequest::page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreChannelsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_channels][crate::model::ListRestoreChannelsResponse::restore_channels].
+    pub fn set_restore_channels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestoreChannel>,
+    {
+        use std::iter::Iterator;
+        self.restore_channels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoreChannelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListRestoreChannelsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreChannelsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListRestoreChannelsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRestoreChannelsResponse {
+    type PageItem = crate::model::RestoreChannel;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.restore_channels
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetRestoreChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetRestoreChannelRequest {
+    /// Required. Fully qualified RestoreChannel name.
+    /// Format: `projects/*/locations/*/restoreChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRestoreChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRestoreChannelRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRestoreChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.GetRestoreChannelRequest"
+    }
+}
+
+/// Request message for UpdateRestoreChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateRestoreChannelRequest {
+    /// Required. A new version of the RestoreChannel resource that contains
+    /// updated fields. This may be sparsely populated if an `update_mask` is
+    /// provided.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub restore_channel: std::option::Option<crate::model::RestoreChannel>,
+
+    /// Optional. This is used to specify the fields to be overwritten in the
+    /// RestoreChannel targeted for update. The values for each of these
+    /// updated fields will be taken from the `restore_channel` provided
+    /// with this request. Field names are relative to the root of the resource
+    /// (e.g., `description`, `destination_project_id`, etc.)
+    /// If no `update_mask` is provided, all fields in `restore_channel` will
+    /// be written to the target RestoreChannel resource. Note that
+    /// OUTPUT_ONLY and IMMUTABLE fields in `restore_channel` are ignored and
+    /// are not used to update the target RestoreChannel.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateRestoreChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
+    pub fn set_restore_channel<
+        T: std::convert::Into<std::option::Option<crate::model::RestoreChannel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_channel = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateRestoreChannelRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateRestoreChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.UpdateRestoreChannelRequest"
+    }
+}
+
+/// Request message for DeleteRestoreChannel.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteRestoreChannelRequest {
+    /// Required. Fully qualified RestoreChannel name.
+    /// Format: `projects/*/locations/*/restoreChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. If provided, this value must match the current value of the
+    /// target RestoreChannel's
+    /// [etag][google.cloud.gkebackup.v1.RestoreChannel.etag] field or the request
+    /// is rejected.
+    ///
+    /// [google.cloud.gkebackup.v1.RestoreChannel.etag]: crate::model::RestoreChannel::etag
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteRestoreChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteRestoreChannelRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteRestoreChannelRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteRestoreChannelRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.DeleteRestoreChannelRequest"
+    }
+}
+
+/// Request message for ListRestorePlanBindings.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListRestorePlanBindingsRequest {
+    /// Required. The RestoreChannel that contains the ListRestorePlanBindings to
+    /// list. Format: `projects/*/locations/*/restoreChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The target number of results to return in a single response.
+    /// If not specified, a default value will be chosen by the service.
+    /// Note that the response may include a partial list and a caller should
+    /// only rely on the response's
+    /// [next_page_token][google.cloud.gkebackup.v1.ListRestorePlanBindingsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.gkebackup.v1.ListRestorePlanBindingsResponse.next_page_token]: crate::model::ListRestorePlanBindingsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.gkebackup.v1.ListRestorePlanBindingsResponse.next_page_token]
+    /// received from a previous `ListRestorePlanBindings` call.
+    /// Provide this to retrieve the subsequent page in a multi-page list of
+    /// results. When paginating, all other parameters provided to
+    /// `ListRestorePlanBindings` must match the call that provided the page
+    /// token.
+    ///
+    /// [google.cloud.gkebackup.v1.ListRestorePlanBindingsResponse.next_page_token]: crate::model::ListRestorePlanBindingsResponse::next_page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestorePlanBindingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRestorePlanBindingsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRestorePlanBindingsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRestorePlanBindingsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRestorePlanBindingsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListRestorePlanBindingsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestorePlanBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListRestorePlanBindingsRequest"
+    }
+}
+
+/// Response message for ListRestorePlanBindings.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListRestorePlanBindingsResponse {
+    /// The list of RestorePlanBindings matching the given criteria.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub restore_plan_bindings: std::vec::Vec<crate::model::RestorePlanBinding>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.gkebackup.v1.ListRestorePlanBindingsRequest.page_token]
+    /// in a subsequent `ListRestorePlanBindings` call to retrieve the next page of
+    /// results. If this field is omitted or empty, then there are no more results
+    /// to return.
+    ///
+    /// [google.cloud.gkebackup.v1.ListRestorePlanBindingsRequest.page_token]: crate::model::ListRestorePlanBindingsRequest::page_token
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestorePlanBindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_plan_bindings][crate::model::ListRestorePlanBindingsResponse::restore_plan_bindings].
+    pub fn set_restore_plan_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestorePlanBinding>,
+    {
+        use std::iter::Iterator;
+        self.restore_plan_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestorePlanBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListRestorePlanBindingsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestorePlanBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.ListRestorePlanBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListRestorePlanBindingsResponse {
+    type PageItem = crate::model::RestorePlanBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.restore_plan_bindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetRestorePlanBinding.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetRestorePlanBindingRequest {
+    /// Required. Fully qualified RestorePlanBinding name.
+    /// Format:
+    /// `projects/*/locations/*/restoreChannels/*/restorePlanBindings/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRestorePlanBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRestorePlanBindingRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRestorePlanBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.GetRestorePlanBindingRequest"
+    }
+}
+
 /// Request message for CreateRestore.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4302,6 +6114,7 @@ impl wkt::message::Message for GetBackupIndexDownloadUrlRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetBackupIndexDownloadUrlResponse {
+    /// Required. The signed URL for downloading the backup index.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub signed_url: std::string::String,
 
@@ -4353,7 +6166,7 @@ pub struct Restore {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// User specified descriptive string for this Restore.
+    /// Optional. User specified descriptive string for this Restore.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
@@ -4398,7 +6211,9 @@ pub struct Restore {
     pub state: crate::model::restore::State,
 
     /// Output only. Human-readable description of why the Restore is in its
-    /// current state.
+    /// current state. This field is only meant for human readability and should
+    /// not be used programmatically as this field is not guaranteed to be
+    /// consistent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_reason: std::string::String,
 
@@ -4436,8 +6251,8 @@ pub struct Restore {
 
     /// Optional. Immutable. Filters resources for `Restore`. If not specified, the
     /// scope of the restore will remain the same as defined in the `RestorePlan`.
-    /// If this is specified, and no resources are matched by the
-    /// `inclusion_filters` or everyting is excluded by the `exclusion_filters`,
+    /// If this is specified and no resources are matched by the
+    /// `inclusion_filters` or everything is excluded by the `exclusion_filters`,
     /// nothing will be restored. This filter can only be specified if the value of
     /// [namespaced_resource_restore_mode][google.cloud.gkebackup.v1.RestoreConfig.namespaced_resource_restore_mode]
     /// is set to `MERGE_SKIP_ON_CONFLICT`, `MERGE_REPLACE_VOLUME_ON_CONFLICT` or
@@ -4710,6 +6525,9 @@ pub mod restore {
         Failed,
         /// This Restore resource is in the process of being deleted.
         Deleting,
+        /// The Kubernetes resources created by this Restore are being
+        /// validated.
+        Validating,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -4738,6 +6556,7 @@ pub mod restore {
                 Self::Succeeded => std::option::Option::Some(3),
                 Self::Failed => std::option::Option::Some(4),
                 Self::Deleting => std::option::Option::Some(5),
+                Self::Validating => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4754,6 +6573,7 @@ pub mod restore {
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Validating => std::option::Option::Some("VALIDATING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4781,6 +6601,7 @@ pub mod restore {
                 3 => Self::Succeeded,
                 4 => Self::Failed,
                 5 => Self::Deleting,
+                6 => Self::Validating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4798,6 +6619,7 @@ pub mod restore {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
+                "VALIDATING" => Self::Validating,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4817,6 +6639,7 @@ pub mod restore {
                 Self::Succeeded => serializer.serialize_i32(3),
                 Self::Failed => serializer.serialize_i32(4),
                 Self::Deleting => serializer.serialize_i32(5),
+                Self::Validating => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -5198,7 +7021,7 @@ pub mod restore_config {
     pub struct GroupKind {
         /// Optional. API group string of a Kubernetes resource, e.g.
         /// "apiextensions.k8s.io", "storage.k8s.io", etc.
-        /// Note: use empty string for core API group
+        /// Note: use empty string for core API group.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub resource_group: std::string::String,
 
@@ -5248,14 +7071,16 @@ pub mod restore_config {
     /// an error if selected here. Any scope selection that would restore
     /// "all valid" resources automatically excludes these group kinds.
     ///
+    /// - Node
+    /// - ComponentStatus
     /// - gkebackup.gke.io/BackupJob
     /// - gkebackup.gke.io/RestoreJob
     /// - metrics.k8s.io/NodeMetrics
     /// - migration.k8s.io/StorageState
     /// - migration.k8s.io/StorageVersionMigration
-    /// - Node
     /// - snapshot.storage.k8s.io/VolumeSnapshotContent
     /// - storage.k8s.io/CSINode
+    /// - storage.k8s.io/VolumeAttachment
     ///
     /// Some group kinds are driven by restore configuration elsewhere,
     /// and will cause an error if selected here.
@@ -6786,6 +8611,155 @@ pub mod volume_data_restore_policy_override {
     }
 }
 
+/// A RestoreChannel imposes constraints on where backups can be restored.
+/// The RestoreChannel should be in the same project and region
+/// as the backups. The backups can only be restored in the
+/// `destination_project`.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RestoreChannel {
+    /// Identifier. The fully qualified name of the RestoreChannel.
+    /// `projects/*/locations/*/restoreChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. Immutable. The project into which the backups will be restored.
+    /// The format is `projects/{project}`.
+    /// Currently, {project} can only be the project number. Support for project
+    /// IDs will be added in the future.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub destination_project: std::string::String,
+
+    /// Output only. Server generated global unique identifier of
+    /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) format.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    /// Output only. The timestamp when this RestoreChannel was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when this RestoreChannel was last updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A set of custom labels supplied by user.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. User specified descriptive string for this RestoreChannel.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// Output only. `etag` is used for optimistic concurrency control as a way to
+    /// help prevent simultaneous updates of a RestoreChannel from overwriting each
+    /// other. It is strongly suggested that systems make use of the 'etag' in the
+    /// read-modify-write cycle to perform RestoreChannel updates in order to
+    /// avoid race conditions: An `etag` is returned in the response to
+    /// `GetRestoreChannel`, and systems are expected to put that etag in the
+    /// request to `UpdateRestoreChannel` or `DeleteRestoreChannel` to
+    /// ensure that their change will be applied to the same version of the
+    /// resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Output only. The project_id where backups will be restored.
+    /// Example Project ID: "my-project-id".
+    /// This will be an OUTPUT_ONLY field to return the project_id of the
+    /// destination project.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub destination_project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreChannel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreChannel::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_project][crate::model::RestoreChannel::destination_project].
+    pub fn set_destination_project<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_project = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::RestoreChannel::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RestoreChannel::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RestoreChannel::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::RestoreChannel::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::RestoreChannel::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::RestoreChannel::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_project_id][crate::model::RestoreChannel::destination_project_id].
+    pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_project_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreChannel {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.RestoreChannel"
+    }
+}
+
 /// The configuration of a potential series of Restore operations to be performed
 /// against Backups belong to a particular BackupPlan.
 #[serde_with::serde_as]
@@ -6860,7 +8834,9 @@ pub struct RestorePlan {
     pub state: crate::model::restore_plan::State,
 
     /// Output only. Human-readable description of why RestorePlan is in the
-    /// current `state`
+    /// current `state`. This field is only meant for human readability and should
+    /// not be used programmatically as this field is not guaranteed to be
+    /// consistent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_reason: std::string::String,
 
@@ -7124,6 +9100,119 @@ pub mod restore_plan {
     }
 }
 
+/// A RestorePlanBinding binds a RestorePlan with a RestoreChannel.
+/// This resource is created automatically when a RestorePlan is created using a
+/// RestoreChannel. This also serves as a holder for cross-project fields
+/// that need to be displayed in the current project.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RestorePlanBinding {
+    /// Identifier. The fully qualified name of the RestorePlanBinding.
+    /// `projects/*/locations/*/restoreChannels/*/restorePlanBindings/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. Server generated global unique identifier of
+    /// [UUID4](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    /// Output only. The timestamp when this binding was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when this binding was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The fully qualified name of the RestorePlan bound to this
+    /// RestoreChannel. `projects/*/locations/*/restorePlans/{restore_plan}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub restore_plan: std::string::String,
+
+    /// Output only. `etag` is used for optimistic concurrency control as a way to
+    /// help prevent simultaneous updates of a RestorePlanBinding from overwriting
+    /// each other. It is strongly suggested that systems make use of the 'etag' in
+    /// the read-modify-write cycle to perform RestorePlanBinding updates in
+    /// order to avoid race conditions: An `etag` is returned in the response to
+    /// `GetRestorePlanBinding`, and systems are expected to put that etag in
+    /// the request to `UpdateRestorePlanBinding` or
+    /// `DeleteRestorePlanBinding` to ensure that their change will be applied
+    /// to the same version of the resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Output only. The fully qualified name of the BackupPlan bound to the
+    /// specified RestorePlan. `projects/*/locations/*/backukpPlans/{backup_plan}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub backup_plan: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestorePlanBinding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestorePlanBinding::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::RestorePlanBinding::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RestorePlanBinding::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RestorePlanBinding::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_plan][crate::model::RestorePlanBinding::restore_plan].
+    pub fn set_restore_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.restore_plan = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::RestorePlanBinding::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan][crate::model::RestorePlanBinding::backup_plan].
+    pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_plan = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RestorePlanBinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkebackup.v1.RestorePlanBinding"
+    }
+}
+
 /// Represents the backup of a specific persistent volume as a component of a
 /// Backup - both the record of the operation and a pointer to the underlying
 /// storage-specific artifacts.
@@ -7189,7 +9278,9 @@ pub struct VolumeBackup {
     pub state: crate::model::volume_backup::State,
 
     /// Output only. A human readable message explaining why the VolumeBackup is in
-    /// its current state.
+    /// its current state. This field is only meant for human consumption and
+    /// should not be used programmatically as this field is not guaranteed to be
+    /// consistent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_message: std::string::String,
 
@@ -7200,6 +9291,14 @@ pub struct VolumeBackup {
     /// race conditions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    /// Output only. [Output Only] Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub satisfies_pzs: bool,
+
+    /// Output only. [Output Only] Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub satisfies_pzi: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7308,6 +9407,18 @@ impl VolumeBackup {
     /// Sets the value of [etag][crate::model::VolumeBackup::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::VolumeBackup::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::VolumeBackup::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 }
@@ -7486,6 +9597,9 @@ pub mod volume_backup {
         /// This VolumeBackup resource (and its associated artifacts) is in the
         /// process of being deleted.
         Deleting,
+        /// The underlying artifacts of a volume backup (eg: persistent disk
+        /// snapshots) are deleted.
+        CleanedUp,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -7515,6 +9629,7 @@ pub mod volume_backup {
                 Self::Succeeded => std::option::Option::Some(4),
                 Self::Failed => std::option::Option::Some(5),
                 Self::Deleting => std::option::Option::Some(6),
+                Self::CleanedUp => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7532,6 +9647,7 @@ pub mod volume_backup {
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::CleanedUp => std::option::Option::Some("CLEANED_UP"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7560,6 +9676,7 @@ pub mod volume_backup {
                 4 => Self::Succeeded,
                 5 => Self::Failed,
                 6 => Self::Deleting,
+                7 => Self::CleanedUp,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7578,6 +9695,7 @@ pub mod volume_backup {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
+                "CLEANED_UP" => Self::CleanedUp,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7598,6 +9716,7 @@ pub mod volume_backup {
                 Self::Succeeded => serializer.serialize_i32(4),
                 Self::Failed => serializer.serialize_i32(5),
                 Self::Deleting => serializer.serialize_i32(6),
+                Self::CleanedUp => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

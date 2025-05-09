@@ -7,7 +7,9 @@ changes in the upcoming releases. Testing is also incomplete, we do **not**
 recommend that you use this crate in production. We welcome feedback about the
 APIs, documentation, missing features, bugs, etc.
 
-The Chronicle API serves all customer endpoints.
+The Google Cloud Security Operations API, popularly known as the Chronicle
+API, serves endpoints that enable security analysts to analyze and
+mitigate a security threat throughout its lifecycle
 
 ## Quickstart
 

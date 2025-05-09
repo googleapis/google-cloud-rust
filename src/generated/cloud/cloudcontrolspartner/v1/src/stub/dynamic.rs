@@ -64,6 +64,24 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
         req: crate::model::GetPartnerRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Partner>>;
+
+    async fn create_customer(
+        &self,
+        req: crate::model::CreateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Customer>>;
+
+    async fn update_customer(
+        &self,
+        req: crate::model::UpdateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Customer>>;
+
+    async fn delete_customer(
+        &self,
+        req: crate::model::DeleteCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::CloudControlsPartnerCore] also implement [CloudControlsPartnerCore].
@@ -140,6 +158,33 @@ impl<T: super::CloudControlsPartnerCore> CloudControlsPartnerCore for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Partner>> {
         T::get_partner(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_customer(
+        &self,
+        req: crate::model::CreateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Customer>> {
+        T::create_customer(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_customer(
+        &self,
+        req: crate::model::UpdateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Customer>> {
+        T::update_customer(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_customer(
+        &self,
+        req: crate::model::DeleteCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_customer(self, req, options).await
     }
 }
 

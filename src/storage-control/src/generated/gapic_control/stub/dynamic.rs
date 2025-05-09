@@ -70,6 +70,36 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         req: crate::model::ListManagedFoldersRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>;
+
+    async fn disable_anywhere_cache(
+        &self,
+        req: crate::model::DisableAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>>;
+
+    async fn pause_anywhere_cache(
+        &self,
+        req: crate::model::PauseAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>>;
+
+    async fn resume_anywhere_cache(
+        &self,
+        req: crate::model::ResumeAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>>;
+
+    async fn get_anywhere_cache(
+        &self,
+        req: crate::model::GetAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>>;
+
+    async fn list_anywhere_caches(
+        &self,
+        req: crate::model::ListAnywhereCachesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>;
 }
 
 /// All implementations of [super::StorageControl] also implement [StorageControl].
@@ -154,5 +184,50 @@ impl<T: super::StorageControl> StorageControl for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>> {
         T::list_managed_folders(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_anywhere_cache(
+        &self,
+        req: crate::model::DisableAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>> {
+        T::disable_anywhere_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn pause_anywhere_cache(
+        &self,
+        req: crate::model::PauseAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>> {
+        T::pause_anywhere_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn resume_anywhere_cache(
+        &self,
+        req: crate::model::ResumeAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>> {
+        T::resume_anywhere_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_anywhere_cache(
+        &self,
+        req: crate::model::GetAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AnywhereCache>> {
+        T::get_anywhere_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_anywhere_caches(
+        &self,
+        req: crate::model::ListAnywhereCachesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
+        T::list_anywhere_caches(self, req, options).await
     }
 }

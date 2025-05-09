@@ -423,3 +423,225 @@ impl ::prost::Name for ListManagedFoldersResponse {
         "type.googleapis.com/google.storage.control.v2.ListManagedFoldersResponse".into()
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateAnywhereCacheMetadata {
+    #[prost(message, optional, tag = "1")]
+    pub common_metadata: ::core::option::Option<CommonLongRunningOperationMetadata>,
+    #[prost(string, optional, tag = "2")]
+    pub anywhere_cache_id: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "6")]
+    pub zone: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "3")]
+    pub ttl: ::core::option::Option<::prost_types::Duration>,
+    #[prost(string, optional, tag = "5")]
+    pub admission_policy: ::core::option::Option<::prost::alloc::string::String>,
+}
+impl ::prost::Name for CreateAnywhereCacheMetadata {
+    const NAME: &'static str = "CreateAnywhereCacheMetadata";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.CreateAnywhereCacheMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAnywhereCacheMetadata {
+    #[prost(message, optional, tag = "1")]
+    pub common_metadata: ::core::option::Option<CommonLongRunningOperationMetadata>,
+    #[prost(string, optional, tag = "2")]
+    pub anywhere_cache_id: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "5")]
+    pub zone: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "3")]
+    pub ttl: ::core::option::Option<::prost_types::Duration>,
+    #[prost(string, optional, tag = "4")]
+    pub admission_policy: ::core::option::Option<::prost::alloc::string::String>,
+}
+impl ::prost::Name for UpdateAnywhereCacheMetadata {
+    const NAME: &'static str = "UpdateAnywhereCacheMetadata";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateAnywhereCacheMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AnywhereCache {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "10")]
+    pub zone: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub ttl: ::core::option::Option<::prost_types::Duration>,
+    #[prost(string, tag = "9")]
+    pub admission_policy: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub state: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "6")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "7")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(bool, tag = "8")]
+    pub pending_update: bool,
+}
+impl ::prost::Name for AnywhereCache {
+    const NAME: &'static str = "AnywhereCache";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.AnywhereCache".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateAnywhereCacheRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub anywhere_cache: ::core::option::Option<AnywhereCache>,
+    #[prost(string, tag = "4")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for CreateAnywhereCacheRequest {
+    const NAME: &'static str = "CreateAnywhereCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.CreateAnywhereCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAnywhereCacheRequest {
+    #[prost(message, optional, tag = "1")]
+    pub anywhere_cache: ::core::option::Option<AnywhereCache>,
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(string, tag = "3")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for UpdateAnywhereCacheRequest {
+    const NAME: &'static str = "UpdateAnywhereCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateAnywhereCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DisableAnywhereCacheRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for DisableAnywhereCacheRequest {
+    const NAME: &'static str = "DisableAnywhereCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.DisableAnywhereCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.DisableAnywhereCacheRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PauseAnywhereCacheRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for PauseAnywhereCacheRequest {
+    const NAME: &'static str = "PauseAnywhereCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.PauseAnywhereCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.PauseAnywhereCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResumeAnywhereCacheRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ResumeAnywhereCacheRequest {
+    const NAME: &'static str = "ResumeAnywhereCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ResumeAnywhereCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ResumeAnywhereCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAnywhereCacheRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetAnywhereCacheRequest {
+    const NAME: &'static str = "GetAnywhereCacheRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetAnywhereCacheRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetAnywhereCacheRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAnywhereCachesRequest {
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListAnywhereCachesRequest {
+    const NAME: &'static str = "ListAnywhereCachesRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListAnywhereCachesRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListAnywhereCachesRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAnywhereCachesResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub anywhere_caches: ::prost::alloc::vec::Vec<AnywhereCache>,
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ListAnywhereCachesResponse {
+    const NAME: &'static str = "ListAnywhereCachesResponse";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.ListAnywhereCachesResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.ListAnywhereCachesResponse".into()
+    }
+}

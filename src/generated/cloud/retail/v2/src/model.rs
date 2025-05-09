@@ -166,8 +166,8 @@ pub struct CatalogAttribute {
     ///
     /// [CatalogAttribute][google.cloud.retail.v2.CatalogAttribute] can be
     /// pre-loaded by using
-    /// [CatalogService.AddCatalogAttribute][google.cloud.retail.v2.CatalogService.AddCatalogAttribute],
-    /// [CatalogService.ImportCatalogAttributes][], or
+    /// [CatalogService.AddCatalogAttribute][google.cloud.retail.v2.CatalogService.AddCatalogAttribute]
+    /// or
     /// [CatalogService.UpdateAttributesConfig][google.cloud.retail.v2.CatalogService.UpdateAttributesConfig]
     /// APIs. This field is `False` for pre-loaded
     /// [CatalogAttribute][google.cloud.retail.v2.CatalogAttribute]s.
@@ -3225,6 +3225,32 @@ impl Rule {
             std::option::Option::Some(crate::model::rule::Action::RemoveFacetAction(v.into()));
         self
     }
+
+    /// The value of [action][crate::model::Rule::action]
+    /// if it holds a `PinAction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pin_action(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::rule::PinAction>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::rule::Action::PinAction(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Rule::action]
+    /// to hold a `PinAction`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    pub fn set_pin_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::PinAction>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(crate::model::rule::Action::PinAction(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Rule {
@@ -3905,6 +3931,85 @@ pub mod rule {
         }
     }
 
+    /// Pins one or more specified products to a specific position in the
+    /// results.
+    ///
+    /// * Rule Condition:
+    ///   Must specify non-empty
+    ///   [Condition.query_terms][google.cloud.retail.v2.Condition.query_terms]
+    ///   (for search only) or
+    ///   [Condition.page_categories][google.cloud.retail.v2.Condition.page_categories]
+    ///   (for browse only), but can't specify both.
+    ///
+    /// * Action Input: mapping of `[pin_position, product_id]` pairs (pin position
+    ///   uses 1-based indexing).
+    ///
+    /// * Action Result: Will pin products with matching ids to the position
+    ///   specified in the final result order.
+    ///
+    ///
+    /// Example: Suppose the query is `shoes`, the
+    /// [Condition.query_terms][google.cloud.retail.v2.Condition.query_terms] is
+    /// `shoes` and the pin_map has `{1, "pid1"}`, then product with `pid1` will be
+    /// pinned to the top position in the final results.
+    ///
+    /// If multiple PinActions are matched to a single request the actions will
+    /// be processed from most to least recently updated.
+    ///
+    /// Pins to positions larger than the max allowed page size of 120 are not
+    /// allowed.
+    ///
+    /// [google.cloud.retail.v2.Condition.page_categories]: crate::model::Condition::page_categories
+    /// [google.cloud.retail.v2.Condition.query_terms]: crate::model::Condition::query_terms
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PinAction {
+        /// Required. A map of positions to product_ids.
+        ///
+        /// Partial matches per action are allowed, if a certain position in the map
+        /// is already filled that `[position, product_id]` pair will be ignored
+        /// but the rest may still be applied. This case will only occur if multiple
+        /// pin actions are matched to a single request, as the map guarantees that
+        /// pin positions are unique within the same action.
+        ///
+        /// Duplicate product_ids are not permitted within a single pin map.
+        ///
+        /// The max size of this map is 120, equivalent to the max [request page
+        /// size](https://cloud.google.com/retail/docs/reference/rest/v2/projects.locations.catalogs.placements/search#request-body).
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+        pub pin_map: std::collections::HashMap<i64, std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PinAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [pin_map][crate::model::rule::PinAction::pin_map].
+        pub fn set_pin_map<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<i64>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.pin_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PinAction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.Rule.PinAction"
+        }
+    }
+
     /// An action must be provided.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3932,6 +4037,9 @@ pub mod rule {
         ForceReturnFacetAction(std::boxed::Box<crate::model::rule::ForceReturnFacetAction>),
         /// Remove an attribute as a facet in the request (if present).
         RemoveFacetAction(std::boxed::Box<crate::model::rule::RemoveFacetAction>),
+        /// Pins one or more specified products to a specific position in the
+        /// results.
+        PinAction(std::boxed::Box<crate::model::rule::PinAction>),
     }
 }
 
@@ -4023,9 +4131,9 @@ impl wkt::message::Message for Audience {
 pub struct ColorInfo {
     /// The standard color families. Strongly recommended to use the following
     /// standard color groups: "Red", "Pink", "Orange", "Yellow", "Purple",
-    /// "Green", "Cyan", "Blue", "Brown", "White", "Gray", "Black" and
-    /// "Mixed". Normally it is expected to have only 1 color family. May consider
-    /// using single "Mixed" instead of multiple values.
+    /// "Green", "Cyan", "Blue", "Brown", "White", "Gray", "Black" and "Mixed".
+    /// Normally it is expected to have only 1 color family. May consider using
+    /// single "Mixed" instead of multiple values.
     ///
     /// A maximum of 5 values are allowed. Each value must be a UTF-8 encoded
     /// string with a length limit of 128 characters. Otherwise, an
@@ -4034,6 +4142,10 @@ pub struct ColorInfo {
     /// Google Merchant Center property
     /// [color](https://support.google.com/merchants/answer/6324487). Schema.org
     /// property [Product.color](https://schema.org/color).
+    ///
+    /// The colorFamilies field as a system attribute is not a required field but
+    /// strongly recommended to be specified. Google Search models treat this field
+    /// as more important than a custom product attribute when specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub color_families: std::vec::Vec<std::string::String>,
 
@@ -4312,9 +4424,10 @@ impl wkt::message::Message for FulfillmentInfo {
 }
 
 /// [Product][google.cloud.retail.v2.Product] image. Recommendations AI and
-/// Retail Search do not use product images to improve prediction and search
-/// results. However, product images can be returned in results, and are shown in
-/// prediction or search previews in the console.
+/// Retail Search use product images to improve prediction and search results.
+/// Product images can be returned in results, and are shown in prediction or
+/// search previews in the console. Please try to provide correct product images
+/// and avoid using images with size too small.
 ///
 /// [google.cloud.retail.v2.Product]: crate::model::Product
 #[serde_with::serde_as]
@@ -4961,9 +5074,7 @@ pub struct UserInfo {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ip_address: std::string::String,
 
-    /// User agent as included in the HTTP header. Required for getting
-    /// [SearchResponse.sponsored_results][google.cloud.retail.v2.SearchResponse.sponsored_results].
-    ///
+    /// User agent as included in the HTTP header.
     /// The field must be a UTF-8 encoded string with a length limit of 1,000
     /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
     ///
@@ -5042,19 +5153,19 @@ impl wkt::message::Message for UserInfo {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct LocalInventory {
-    /// The place ID for the current set of inventory information.
+    /// Optional. The place ID for the current set of inventory information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub place_id: std::string::String,
 
-    /// Product price and cost information.
+    /// Optional. Product price and cost information.
     ///
     /// Google Merchant Center property
     /// [price](https://support.google.com/merchants/answer/6324371).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub price_info: std::option::Option<crate::model::PriceInfo>,
 
-    /// Additional local inventory attributes, for example, store name, promotion
-    /// tags, etc.
+    /// Optional. Additional local inventory attributes, for example, store name,
+    /// promotion tags, etc.
     ///
     /// This field needs to pass all below criteria, otherwise an INVALID_ARGUMENT
     /// error is returned:
@@ -5074,7 +5185,7 @@ pub struct LocalInventory {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
 
-    /// Input only. Supported fulfillment types. Valid fulfillment type values
+    /// Optional. Supported fulfillment types. Valid fulfillment type values
     /// include commonly used types (such as pickup in store and same day
     /// delivery), and custom types. Customers have to map custom types to their
     /// display names before rendering UI.
@@ -5153,6 +5264,109 @@ impl wkt::message::Message for LocalInventory {
     }
 }
 
+/// Metadata for pinning to be returned in the response.
+/// This is used for distinguishing between applied vs dropped pins.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PinControlMetadata {
+    /// Map of all matched pins, keyed by pin position.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    pub all_matched_pins:
+        std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
+
+    /// Map of pins that were dropped due to overlap with other matching pins,
+    /// keyed by pin position.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    pub dropped_pins:
+        std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PinControlMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [all_matched_pins][crate::model::PinControlMetadata::all_matched_pins].
+    pub fn set_all_matched_pins<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<i64>,
+        V: std::convert::Into<crate::model::pin_control_metadata::ProductPins>,
+    {
+        use std::iter::Iterator;
+        self.all_matched_pins = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [dropped_pins][crate::model::PinControlMetadata::dropped_pins].
+    pub fn set_dropped_pins<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<i64>,
+        V: std::convert::Into<crate::model::pin_control_metadata::ProductPins>,
+    {
+        use std::iter::Iterator;
+        self.dropped_pins = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PinControlMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.retail.v2.PinControlMetadata"
+    }
+}
+
+/// Defines additional types related to [PinControlMetadata].
+pub mod pin_control_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// List of product ids which have associated pins.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ProductPins {
+        /// List of product ids which have associated pins.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub product_id: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ProductPins {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [product_id][crate::model::pin_control_metadata::ProductPins::product_id].
+        pub fn set_product_id<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.product_id = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ProductPins {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.retail.v2.PinControlMetadata.ProductPins"
+        }
+    }
+}
+
 /// Autocomplete parameters.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5172,7 +5386,7 @@ pub struct CompleteQueryRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub query: std::string::String,
 
-    /// Required field. A unique identifier for tracking visitors. For example,
+    /// Recommended field. A unique identifier for tracking visitors. For example,
     /// this could be implemented with an HTTP cookie, which should be able to
     /// uniquely identify a visitor on a single device. This unique identifier
     /// should not change if the visitor logs in or out of the website.
@@ -5215,10 +5429,11 @@ pub struct CompleteQueryRequest {
     pub device_type: std::string::String,
 
     /// Determines which dataset to use for fetching completion. "user-data" will
-    /// use the imported dataset through
+    /// use the dataset imported through
     /// [CompletionService.ImportCompletionData][google.cloud.retail.v2.CompletionService.ImportCompletionData].
-    /// "cloud-retail" will use the dataset generated by cloud retail based on user
-    /// events. If leave empty, it will use the "user-data".
+    /// `cloud-retail` will use the dataset generated by Cloud Retail based on user
+    /// events. If left empty, completions will be fetched from the `user-data`
+    /// dataset.
     ///
     /// Current supported values:
     ///
@@ -5246,7 +5461,7 @@ pub struct CompleteQueryRequest {
 
     /// If true, attribute suggestions are enabled and provided in the response.
     ///
-    /// This field is only available for the "cloud-retail" dataset.
+    /// This field is only available for the `cloud-retail` dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_attribute_suggestions: bool,
 
@@ -5255,7 +5470,12 @@ pub struct CompleteQueryRequest {
     /// `google.com`, `youtube.com`, etc.
     /// If this is set, it must be an exact match with
     /// [UserEvent.entity][google.cloud.retail.v2.UserEvent.entity] to get
-    /// per-entity autocomplete results.
+    /// per-entity autocomplete results. This field will be applied to
+    /// `completion_results` only. It has no effect on the `attribute_results`.
+    /// Also, this entity should be limited to 256 characters, if too long, it will
+    /// be truncated to 256 characters in both generation and serving time, and may
+    /// lead to mis-match. To ensure it works, please set the entity with string
+    /// within 256 characters.
     ///
     /// [google.cloud.retail.v2.UserEvent.entity]: crate::model::UserEvent::entity
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5388,7 +5608,7 @@ pub struct CompleteQueryResponse {
         std::vec::Vec<crate::model::complete_query_response::RecentSearchResult>,
 
     /// A map of matched attribute suggestions. This field is only available for
-    /// "cloud-retail" dataset.
+    /// `cloud-retail` dataset.
     ///
     /// Current supported keys:
     ///
@@ -5479,10 +5699,10 @@ pub mod complete_query_response {
 
         /// Custom attributes for the suggestion term.
         ///
-        /// * For "user-data", the attributes are additional custom attributes
+        /// * For `user-data`, the attributes are additional custom attributes
         ///   ingested through BigQuery.
         ///
-        /// * For "cloud-retail", the attributes are product attributes generated
+        /// * For `cloud-retail`, the attributes are product attributes generated
         ///   by Cloud Retail. It requires
         ///   [UserEvent.product_details][google.cloud.retail.v2.UserEvent.product_details]
         ///   is imported properly.
@@ -5564,12 +5784,12 @@ pub mod complete_query_response {
     }
 
     /// Resource that represents attribute results.
-    /// The list of suggestions for the attribute.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct AttributeResult {
+        /// The list of suggestions for the attribute.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub suggestions: std::vec::Vec<std::string::String>,
 
@@ -7444,11 +7664,6 @@ pub mod big_query_source {
     #[non_exhaustive]
     pub enum Partition {
         /// BigQuery time partitioned table's _PARTITIONDATE in YYYY-MM-DD format.
-        ///
-        /// Only supported in
-        /// [ImportProductsRequest][google.cloud.retail.v2.ImportProductsRequest].
-        ///
-        /// [google.cloud.retail.v2.ImportProductsRequest]: crate::model::ImportProductsRequest
         PartitionDate(std::boxed::Box<gtype::model::Date>),
     }
 }
@@ -14538,6 +14753,32 @@ pub struct SearchRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tile_navigation_spec: std::option::Option<crate::model::search_request::TileNavigationSpec>,
 
+    /// Optional. The BCP-47 language code, such as "en-US" or "sr-Latn"
+    /// [list](https://www.unicode.org/cldr/charts/46/summary/root.html). For more
+    /// information, see [Standardized codes](https://google.aip.dev/143). This
+    /// field helps to better interpret the query. If a value isn't specified, the
+    /// query language code is automatically detected, which may not be accurate.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub language_code: std::string::String,
+
+    /// Optional. The Unicode country/region code (CLDR) of a location, such as
+    /// "US" and "419"
+    /// [list](https://www.unicode.org/cldr/charts/46/supplemental/territory_information.html).
+    /// For more information, see [Standardized codes](https://google.aip.dev/143).
+    /// If set, then results will be boosted based on the region_code provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub region_code: std::string::String,
+
+    /// Optional. An id corresponding to a place, such as a store id or region id.
+    /// When specified, we use the price from the local inventory with the matching
+    /// product's
+    /// [LocalInventory.place_id][google.cloud.retail.v2.LocalInventory.place_id]
+    /// for revenue optimization.
+    ///
+    /// [google.cloud.retail.v2.LocalInventory.place_id]: crate::model::LocalInventory::place_id
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub place_id: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14756,6 +14997,24 @@ impl SearchRequest {
         v: T,
     ) -> Self {
         self.tile_navigation_spec = v.into();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::SearchRequest::language_code].
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [region_code][crate::model::SearchRequest::region_code].
+    pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.region_code = v.into();
+        self
+    }
+
+    /// Sets the value of [place_id][crate::model::SearchRequest::place_id].
+    pub fn set_place_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.place_id = v.into();
         self
     }
 }
@@ -15381,7 +15640,7 @@ pub mod search_request {
     #[non_exhaustive]
     pub struct BoostSpec {
         /// Condition boost specifications. If a product matches multiple conditions
-        /// in the specifictions, boost scores from these specifications are all
+        /// in the specifications, boost scores from these specifications are all
         /// applied and combined in a non-linear way. Maximum number of
         /// specifications is 20.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -16358,9 +16617,14 @@ pub mod search_request {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub tile_navigation_requested: bool,
 
-        /// This field specifies the tiles which are already clicked in client side.
-        /// NOTE: This field is not being used for filtering search products. Client
-        /// side should also put all the applied tiles in
+        /// This optional field specifies the tiles which are already clicked in
+        /// client side. While the feature works without this field set, particularly
+        /// for an initial query, it is highly recommended to set this field because
+        /// it can improve the quality of the search response and removes possible
+        /// duplicate tiles.
+        ///
+        /// NOTE: This field is not being used for filtering search
+        /// products. Client side should also put all the applied tiles in
         /// [SearchRequest.filter][google.cloud.retail.v2.SearchRequest.filter].
         ///
         /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
@@ -16644,6 +16908,15 @@ pub struct SearchResponse {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub applied_controls: std::vec::Vec<std::string::String>,
 
+    /// Metadata for pin controls which were applicable to the request.
+    /// This contains two map fields, one for all matched pins and one for pins
+    /// which were matched but not applied.
+    ///
+    /// The two maps are keyed by pin position, and the values are the product ids
+    /// which were matched to that pin.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub pin_control_metadata: std::option::Option<crate::model::PinControlMetadata>,
+
     /// The invalid
     /// [SearchRequest.BoostSpec.condition_boost_specs][google.cloud.retail.v2.SearchRequest.BoostSpec.condition_boost_specs]
     /// that are not applied during serving.
@@ -16653,7 +16926,7 @@ pub struct SearchResponse {
     pub invalid_condition_boost_specs:
         std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
 
-    /// Metadata related to A/B testing [Experiment][] associated with this
+    /// Metadata related to A/B testing experiment associated with this
     /// response. Only exists when an experiment is triggered.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub experiment_info: std::vec::Vec<crate::model::ExperimentInfo>,
@@ -16753,6 +17026,17 @@ impl SearchResponse {
     {
         use std::iter::Iterator;
         self.applied_controls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [pin_control_metadata][crate::model::SearchResponse::pin_control_metadata].
+    pub fn set_pin_control_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::PinControlMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pin_control_metadata = v.into();
         self
     }
 
@@ -17571,7 +17855,7 @@ pub mod search_response {
     }
 }
 
-/// Metadata for active A/B testing [Experiment][].
+/// Metadata for active A/B testing experiment.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17677,7 +17961,7 @@ pub mod experiment_info {
         pub original_serving_config: std::string::String,
 
         /// The fully qualified resource name of the serving config
-        /// [Experiment.VariantArm.serving_config_id][] responsible for generating
+        /// `Experiment.VariantArm.serving_config_id` responsible for generating
         /// the search response. For example:
         /// `projects/*/locations/*/catalogs/*/servingConfigs/*`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -17761,10 +18045,11 @@ pub struct ServingConfig {
     ///
     /// Required when
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model_id: std::string::String,
 
@@ -17785,9 +18070,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub price_reranking_level: std::string::String,
 
@@ -17801,12 +18087,13 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     /// [google.cloud.retail.v2.Control]: crate::model::Control
     /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub facet_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17815,9 +18102,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dynamic_facet_spec: std::option::Option<crate::model::search_request::DynamicFacetSpec>,
 
@@ -17836,11 +18124,12 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.SearchRequest.boost_spec]: crate::model::SearchRequest::boost_spec
     /// [google.cloud.retail.v2.ServingConfig.boost_control_ids]: crate::model::ServingConfig::boost_control_ids
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub boost_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17851,9 +18140,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub filter_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17863,9 +18153,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub redirect_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17876,9 +18167,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub twoway_synonyms_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17889,9 +18181,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub oneway_synonyms_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17904,9 +18197,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub do_not_associate_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17918,9 +18212,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub replacement_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17933,9 +18228,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ignore_control_ids: std::vec::Vec<std::string::String>,
 
@@ -17953,9 +18249,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub diversity_level: std::string::String,
 
@@ -17979,9 +18276,10 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
+    /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION].
     ///
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub enable_category_filter_level: std::string::String,
 
@@ -17994,7 +18292,7 @@ pub struct ServingConfig {
     ///
     /// Can only be set if
     /// [solution_types][google.cloud.retail.v2.ServingConfig.solution_types] is
-    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2main.SolutionType.SOLUTION_TYPE_SEARCH].
+    /// [SOLUTION_TYPE_SEARCH][google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH].
     ///
     /// Notice that if both
     /// [ServingConfig.personalization_spec][google.cloud.retail.v2.ServingConfig.personalization_spec]
@@ -18008,6 +18306,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.SearchRequest.personalization_spec]: crate::model::SearchRequest::personalization_spec
     /// [google.cloud.retail.v2.ServingConfig.personalization_spec]: crate::model::ServingConfig::personalization_spec
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
+    /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub personalization_spec:
         std::option::Option<crate::model::search_request::PersonalizationSpec>,
@@ -18772,8 +19071,6 @@ pub struct UserEvent {
     ///   viewed.
     /// * `detail-page-view`: Products detail page viewed.
     /// * `home-page-view`: Homepage viewed.
-    /// * `promotion-offered`: Promotion is offered to a user.
-    /// * `promotion-not-offered`: Promotion is not offered to a user.
     /// * `purchase-complete`: User finishing a purchase.
     /// * `search`: Product search.
     /// * `shopping-cart-page-view`: User viewing a shopping cart.
@@ -19949,7 +20246,7 @@ pub enum AttributeConfigLevel {
     /// [google.cloud.retail.v2.Product.attributes]: crate::model::Product::attributes
     ProductLevelAttributeConfig,
     /// At this level, we honor the attribute configurations set in
-    /// [CatalogConfig.attribute_configs][].
+    /// `CatalogConfig.attribute_configs`.
     CatalogLevelAttributeConfig,
     /// If set, the enum was initialized with an unknown value.
     ///

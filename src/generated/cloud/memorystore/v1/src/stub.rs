@@ -118,6 +118,112 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
+    /// Implements [super::client::Memorystore::reschedule_maintenance].
+    fn reschedule_maintenance(
+        &self,
+        _req: crate::model::RescheduleMaintenanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Memorystore::list_backup_collections].
+    fn list_backup_collections(
+        &self,
+        _req: crate::model::ListBackupCollectionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListBackupCollectionsResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupCollectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Memorystore::get_backup_collection].
+    fn get_backup_collection(
+        &self,
+        _req: crate::model::GetBackupCollectionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupCollection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupCollection>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Memorystore::list_backups].
+    fn list_backups(
+        &self,
+        _req: crate::model::ListBackupsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::Memorystore::get_backup].
+    fn get_backup(
+        &self,
+        _req: crate::model::GetBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Backup>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::Memorystore::delete_backup].
+    fn delete_backup(
+        &self,
+        _req: crate::model::DeleteBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Memorystore::export_backup].
+    fn export_backup(
+        &self,
+        _req: crate::model::ExportBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::Memorystore::backup_instance].
+    fn backup_instance(
+        &self,
+        _req: crate::model::BackupInstanceRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::Memorystore::list_locations].
     fn list_locations(
         &self,

@@ -195,6 +195,33 @@ impl CloudControlsPartnerCore {
         super::builder::cloud_controls_partner_core::GetPartner::new(self.inner.clone())
             .set_name(name.into())
     }
+
+    /// Creates a new customer.
+    pub fn create_customer(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::cloud_controls_partner_core::CreateCustomer {
+        super::builder::cloud_controls_partner_core::CreateCustomer::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Update details of a single customer
+    pub fn update_customer(
+        &self,
+        customer: impl Into<crate::model::Customer>,
+    ) -> super::builder::cloud_controls_partner_core::UpdateCustomer {
+        super::builder::cloud_controls_partner_core::UpdateCustomer::new(self.inner.clone())
+            .set_customer(customer.into())
+    }
+
+    /// Delete details of a single customer
+    pub fn delete_customer(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::cloud_controls_partner_core::DeleteCustomer {
+        super::builder::cloud_controls_partner_core::DeleteCustomer::new(self.inner.clone())
+            .set_name(name.into())
+    }
 }
 
 /// Implements a client for the Cloud Controls Partner API.

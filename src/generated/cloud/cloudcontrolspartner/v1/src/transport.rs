@@ -212,6 +212,86 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
+
+    async fn create_customer(
+        &self,
+        req: crate::model::CreateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}/customers", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("customerId", &req.customer_id)]);
+        self.inner
+            .execute(builder, Some(req.customer), options)
+            .await
+    }
+
+    async fn update_customer(
+        &self,
+        req: crate::model::UpdateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::PATCH,
+                format!(
+                    "/v1/{}",
+                    req.customer
+                        .as_ref()
+                        .ok_or_else(|| gaxi::path_parameter::missing("customer"))?
+                        .name
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner
+            .execute(builder, Some(req.customer), options)
+            .await
+    }
+
+    async fn delete_customer(
+        &self,
+        req: crate::model::DeleteCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
+    }
 }
 
 /// Implements [CloudControlsPartnerMonitoring](super::stub::CloudControlsPartnerMonitoring) using a [gaxi::http::ReqwestClient].

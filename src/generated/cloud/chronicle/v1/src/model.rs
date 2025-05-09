@@ -698,7 +698,7 @@ impl wkt::message::Message for DeleteDataAccessScopeRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DataAccessLabel {
-    /// Required. The unique resource name of the data access label.
+    /// The unique resource name of the data access label.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1929,7 +1929,7 @@ impl wkt::message::Message for DeleteWatchlistRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Instance {
-    /// Output only. The resource name of this instance.
+    /// Identifier. The resource name of this instance.
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,

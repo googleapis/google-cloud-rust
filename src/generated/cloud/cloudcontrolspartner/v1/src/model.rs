@@ -528,7 +528,7 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have been cancelled successfully
-    /// have [Operation.error][] value with a
+    /// have [Operation.error][google.longrunning.Operation.error] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -1368,6 +1368,11 @@ pub struct Customer {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_onboarded: bool,
 
+    /// Output only. The customer organization domain, extracted from
+    /// CRM Organization’s display_name field. e.g. "google.com"
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub organization_domain: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1403,6 +1408,15 @@ impl Customer {
     /// Sets the value of [is_onboarded][crate::model::Customer::is_onboarded].
     pub fn set_is_onboarded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_onboarded = v.into();
+        self
+    }
+
+    /// Sets the value of [organization_domain][crate::model::Customer::organization_domain].
+    pub fn set_organization_domain<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.organization_domain = v.into();
         self
     }
 }
@@ -1562,6 +1576,64 @@ impl gax::paginator::internal::PageableResponse for ListCustomersResponse {
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
+    }
+}
+
+/// Request to create a customer
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateCustomerRequest {
+    /// Required. Parent resource
+    /// Format: `organizations/{organization}/locations/{location}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The customer to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer: std::option::Option<crate::model::Customer>,
+
+    /// Required. The customer id to use for the customer, which will become the
+    /// final component of the customer's resource name. The specified value must
+    /// be a valid Google cloud organization id.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub customer_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateCustomerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateCustomerRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [customer][crate::model::CreateCustomerRequest::customer].
+    pub fn set_customer<T: std::convert::Into<std::option::Option<crate::model::Customer>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_id][crate::model::CreateCustomerRequest::customer_id].
+    pub fn set_customer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.customer_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateCustomerRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudcontrolspartner.v1.CreateCustomerRequest"
     }
 }
 
@@ -1842,6 +1914,89 @@ pub mod customer_onboarding_step {
                 ".google.cloud.cloudcontrolspartner.v1.CustomerOnboardingStep.Step",
             ))
         }
+    }
+}
+
+/// Request to update a customer
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateCustomerRequest {
+    /// Required. The customer to update
+    /// Format:
+    /// `organizations/{organization}/locations/{location}/customers/{customer}`
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer: std::option::Option<crate::model::Customer>,
+
+    /// Optional. The list of fields to update
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCustomerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [customer][crate::model::UpdateCustomerRequest::customer].
+    pub fn set_customer<T: std::convert::Into<std::option::Option<crate::model::Customer>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCustomerRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudcontrolspartner.v1.UpdateCustomerRequest"
+    }
+}
+
+/// Message for deleting customer
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteCustomerRequest {
+    /// Required. name of the resource to be deleted
+    /// format: name=organizations/*/locations/*/customers/*
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCustomerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCustomerRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCustomerRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.cloudcontrolspartner.v1.DeleteCustomerRequest"
     }
 }
 
@@ -2725,7 +2880,8 @@ pub mod ekm_metadata {
         Futurex,
         /// EKM Partner Thales
         Thales,
-        /// EKM Partner Virtu
+        /// This enum value is never used.
+        #[deprecated]
         Virtru,
         /// If set, the enum was initialized with an unknown value.
         ///

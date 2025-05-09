@@ -162,6 +162,174 @@ impl super::stub::BackupForGKE for BackupForGKE {
             .await
     }
 
+    async fn create_backup_channel(
+        &self,
+        req: crate::model::CreateBackupChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}/backupChannels", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("backupChannelId", &req.backup_channel_id)]);
+        self.inner
+            .execute(builder, Some(req.backup_channel), options)
+            .await
+    }
+
+    async fn list_backup_channels(
+        &self,
+        req: crate::model::ListBackupChannelsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupChannelsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/backupChannels", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("orderBy", &req.order_by)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_backup_channel(
+        &self,
+        req: crate::model::GetBackupChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BackupChannel>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn update_backup_channel(
+        &self,
+        req: crate::model::UpdateBackupChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::PATCH,
+                format!(
+                    "/v1/{}",
+                    req.backup_channel
+                        .as_ref()
+                        .ok_or_else(|| gaxi::path_parameter::missing("backup_channel"))?
+                        .name
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner
+            .execute(builder, Some(req.backup_channel), options)
+            .await
+    }
+
+    async fn delete_backup_channel(
+        &self,
+        req: crate::model::DeleteBackupChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("etag", &req.etag)]);
+        let builder = builder.query(&[("force", &req.force)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn list_backup_plan_bindings(
+        &self,
+        req: crate::model::ListBackupPlanBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupPlanBindingsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/backupPlanBindings", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("orderBy", &req.order_by)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_backup_plan_binding(
+        &self,
+        req: crate::model::GetBackupPlanBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BackupPlanBinding>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
@@ -198,6 +366,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
+        let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -438,6 +607,173 @@ impl super::stub::BackupForGKE for BackupForGKE {
             );
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("force", &req.force)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn create_restore_channel(
+        &self,
+        req: crate::model::CreateRestoreChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}/restoreChannels", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("restoreChannelId", &req.restore_channel_id)]);
+        self.inner
+            .execute(builder, Some(req.restore_channel), options)
+            .await
+    }
+
+    async fn list_restore_channels(
+        &self,
+        req: crate::model::ListRestoreChannelsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/restoreChannels", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("orderBy", &req.order_by)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_restore_channel(
+        &self,
+        req: crate::model::GetRestoreChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::RestoreChannel>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn update_restore_channel(
+        &self,
+        req: crate::model::UpdateRestoreChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::PATCH,
+                format!(
+                    "/v1/{}",
+                    req.restore_channel
+                        .as_ref()
+                        .ok_or_else(|| gaxi::path_parameter::missing("restore_channel"))?
+                        .name
+                ),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner
+            .execute(builder, Some(req.restore_channel), options)
+            .await
+    }
+
+    async fn delete_restore_channel(
+        &self,
+        req: crate::model::DeleteRestoreChannelRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("etag", &req.etag)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn list_restore_plan_bindings(
+        &self,
+        req: crate::model::ListRestorePlanBindingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListRestorePlanBindingsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/restorePlanBindings", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("orderBy", &req.order_by)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_restore_plan_binding(
+        &self,
+        req: crate::model::GetRestorePlanBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::RestorePlanBinding>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

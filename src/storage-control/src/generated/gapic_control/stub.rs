@@ -152,4 +152,69 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
             crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
         >(Err(Error::other("unimplemented")))
     }
+
+    /// Implements [super::client::StorageControl::disable_anywhere_cache].
+    fn disable_anywhere_cache(
+        &self,
+        _req: crate::model::DisableAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::pause_anywhere_cache].
+    fn pause_anywhere_cache(
+        &self,
+        _req: crate::model::PauseAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::resume_anywhere_cache].
+    fn resume_anywhere_cache(
+        &self,
+        _req: crate::model::ResumeAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::get_anywhere_cache].
+    fn get_anywhere_cache(
+        &self,
+        _req: crate::model::GetAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::list_anywhere_caches].
+    fn list_anywhere_caches(
+        &self,
+        _req: crate::model::ListAnywhereCachesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
 }

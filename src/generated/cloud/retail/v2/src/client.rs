@@ -18,14 +18,14 @@
 
 use crate::Result;
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::AnalyticsService;
 /// let client = AnalyticsService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -166,14 +166,14 @@ impl AnalyticsService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -306,14 +306,15 @@ impl CatalogService {
     ///
     /// Using multiple branches can be useful when developers would like
     /// to have a staging branch to test and verify for future usage. When it
-    /// becomes ready, developers switch on the staging branch using this API while
-    /// keeping using `projects/*/locations/*/catalogs/*/branches/default_branch`
-    /// as [SearchRequest.branch][google.cloud.retail.v2.SearchRequest.branch] to
+    /// becomes ready, developers switch on the staging branch using this API
+    /// while keeping using
+    /// `projects/*/locations/*/catalogs/*/branches/default_branch` as
+    /// [SearchRequest.branch][google.cloud.retail.v2.SearchRequest.branch] to
     /// route the traffic to this staging branch.
     ///
     /// CAUTION: If you have live predict/search traffic, switching the default
-    /// branch could potentially cause outages if the ID space of the new branch is
-    /// very different from the old one.
+    /// branch could potentially cause outages if the ID space of the new branch
+    /// is very different from the old one.
     ///
     /// More specifically:
     ///
@@ -475,14 +476,14 @@ impl CatalogService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -642,14 +643,14 @@ impl CompletionService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ControlService;
 /// let client = ControlService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -828,14 +829,14 @@ impl ControlService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
 /// let client = GenerativeQuestionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1010,14 +1011,14 @@ impl GenerativeQuestionService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1230,14 +1231,14 @@ impl ModelService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1364,14 +1365,14 @@ impl PredictionService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ProductService;
 /// let client = ProductService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1910,14 +1911,14 @@ impl ProductService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::SearchService;
 /// let client = SearchService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2047,14 +2048,14 @@ impl SearchService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2255,14 +2256,14 @@ impl ServingConfigService {
     }
 }
 
-/// Implements a client for the Vertex AI Search for Retail API.
+/// Implements a client for the Vertex AI Search for commerce API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for Retail API.
+/// // use `client` to make requests to the Vertex AI Search for commerce API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2366,8 +2367,10 @@ impl UserEventService {
             .set_parent(parent.into())
     }
 
-    /// Writes a single user event from the browser. This uses a GET request to
-    /// due to browser restriction of POST-ing to a 3rd party domain.
+    /// Writes a single user event from the browser.
+    ///
+    /// For larger user event payload over 16 KB, the POST method should be used
+    /// instead, otherwise a 400 Bad Request error is returned.
     ///
     /// This method is used only by the Retail API JavaScript pixel and Google Tag
     /// Manager. Users should not call this method directly.

@@ -186,6 +186,163 @@ impl super::stub::Memorystore for Memorystore {
             .await
     }
 
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:rescheduleMaintenance", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn list_backup_collections(
+        &self,
+        req: crate::model::ListBackupCollectionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupCollectionsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/backupCollections", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_backup_collection(
+        &self,
+        req: crate::model::GetBackupCollectionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BackupCollection>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}/backups", req.parent))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("requestId", &req.request_id)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn export_backup(
+        &self,
+        req: crate::model::ExportBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, format!("/v1/{}:export", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn backup_instance(
+        &self,
+        req: crate::model::BackupInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, format!("/v1/{}:backup", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

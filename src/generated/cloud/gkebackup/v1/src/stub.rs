@@ -105,6 +105,99 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         )
     }
 
+    /// Implements [super::client::BackupForGKE::create_backup_channel].
+    fn create_backup_channel(
+        &self,
+        _req: crate::model::CreateBackupChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::list_backup_channels].
+    fn list_backup_channels(
+        &self,
+        _req: crate::model::ListBackupChannelsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupChannelsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupChannelsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::BackupForGKE::get_backup_channel].
+    fn get_backup_channel(
+        &self,
+        _req: crate::model::GetBackupChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupChannel>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupChannel>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::update_backup_channel].
+    fn update_backup_channel(
+        &self,
+        _req: crate::model::UpdateBackupChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::delete_backup_channel].
+    fn delete_backup_channel(
+        &self,
+        _req: crate::model::DeleteBackupChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::list_backup_plan_bindings].
+    fn list_backup_plan_bindings(
+        &self,
+        _req: crate::model::ListBackupPlanBindingsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListBackupPlanBindingsResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupPlanBindingsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::BackupForGKE::get_backup_plan_binding].
+    fn get_backup_plan_binding(
+        &self,
+        _req: crate::model::GetBackupPlanBindingRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupPlanBinding>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupPlanBinding>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::BackupForGKE::create_backup].
     fn create_backup(
         &self,
@@ -257,6 +350,99 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
         std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::create_restore_channel].
+    fn create_restore_channel(
+        &self,
+        _req: crate::model::CreateRestoreChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::list_restore_channels].
+    fn list_restore_channels(
+        &self,
+        _req: crate::model::ListRestoreChannelsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::BackupForGKE::get_restore_channel].
+    fn get_restore_channel(
+        &self,
+        _req: crate::model::GetRestoreChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RestoreChannel>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::RestoreChannel>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::update_restore_channel].
+    fn update_restore_channel(
+        &self,
+        _req: crate::model::UpdateRestoreChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::delete_restore_channel].
+    fn delete_restore_channel(
+        &self,
+        _req: crate::model::DeleteRestoreChannelRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::BackupForGKE::list_restore_plan_bindings].
+    fn list_restore_plan_bindings(
+        &self,
+        _req: crate::model::ListRestorePlanBindingsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListRestorePlanBindingsResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRestorePlanBindingsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::BackupForGKE::get_restore_plan_binding].
+    fn get_restore_plan_binding(
+        &self,
+        _req: crate::model::GetRestorePlanBindingRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RestorePlanBinding>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::RestorePlanBinding>>>(
             Err(Error::other("unimplemented")),
         )
     }

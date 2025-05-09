@@ -5301,6 +5301,24 @@ pub mod search_service {
             self.0.request.tile_navigation_spec = v.into();
             self
         }
+
+        /// Sets the value of [language_code][crate::model::SearchRequest::language_code].
+        pub fn set_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.language_code = v.into();
+            self
+        }
+
+        /// Sets the value of [region_code][crate::model::SearchRequest::region_code].
+        pub fn set_region_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region_code = v.into();
+            self
+        }
+
+        /// Sets the value of [place_id][crate::model::SearchRequest::place_id].
+        pub fn set_place_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.place_id = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

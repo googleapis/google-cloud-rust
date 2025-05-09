@@ -117,4 +117,49 @@ where
     ) -> Result<gax::response::Response<crate::model::ListManagedFoldersResponse>> {
         self.inner.list_managed_folders(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn disable_anywhere_cache(
+        &self,
+        req: crate::model::DisableAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        self.inner.disable_anywhere_cache(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn pause_anywhere_cache(
+        &self,
+        req: crate::model::PauseAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        self.inner.pause_anywhere_cache(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn resume_anywhere_cache(
+        &self,
+        req: crate::model::ResumeAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        self.inner.resume_anywhere_cache(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_anywhere_cache(
+        &self,
+        req: crate::model::GetAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        self.inner.get_anywhere_cache(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_anywhere_caches(
+        &self,
+        req: crate::model::ListAnywhereCachesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
+        self.inner.list_anywhere_caches(req, options).await
+    }
 }

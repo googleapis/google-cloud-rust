@@ -108,6 +108,33 @@ where
     ) -> Result<gax::response::Response<crate::model::Partner>> {
         self.inner.get_partner(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn create_customer(
+        &self,
+        req: crate::model::CreateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        self.inner.create_customer(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_customer(
+        &self,
+        req: crate::model::UpdateCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
+        self.inner.update_customer(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_customer(
+        &self,
+        req: crate::model::DeleteCustomerRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_customer(req, options).await
+    }
 }
 
 /// Implements a [CloudControlsPartnerMonitoring](super::stub::CloudControlsPartnerMonitoring) decorator for logging and tracing.
