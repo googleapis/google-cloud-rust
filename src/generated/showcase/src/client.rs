@@ -87,9 +87,14 @@ impl Compliance {
     where
         T: super::stub::Compliance + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Compliance + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -362,9 +367,14 @@ impl Echo {
     where
         T: super::stub::Echo + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Echo + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -620,9 +630,14 @@ impl Identity {
     where
         T: super::stub::Identity + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Identity + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -848,9 +863,14 @@ impl Messaging {
     where
         T: super::stub::Messaging + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Messaging + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1137,9 +1157,14 @@ impl SequenceService {
     where
         T: super::stub::SequenceService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::SequenceService + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1377,9 +1402,14 @@ impl Testing {
     where
         T: super::stub::Testing + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Testing + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {

@@ -92,9 +92,14 @@ impl Firestore {
     where
         T: super::stub::Firestore + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Firestore + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {

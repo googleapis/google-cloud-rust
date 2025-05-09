@@ -85,9 +85,14 @@ impl Applications {
     where
         T: super::stub::Applications + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Applications + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -287,9 +292,14 @@ impl Services {
     where
         T: super::stub::Services + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Services + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -460,9 +470,14 @@ impl Versions {
     where
         T: super::stub::Versions + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Versions + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -688,9 +703,14 @@ impl Instances {
     where
         T: super::stub::Instances + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Instances + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -891,9 +911,14 @@ impl Firewall {
     where
         T: super::stub::Firewall + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Firewall + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1071,9 +1096,14 @@ impl AuthorizedDomains {
     where
         T: super::stub::AuthorizedDomains + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::AuthorizedDomains + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1206,9 +1236,14 @@ impl AuthorizedCertificates {
     where
         T: super::stub::AuthorizedCertificates + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::AuthorizedCertificates + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1384,9 +1419,14 @@ impl DomainMappings {
     where
         T: super::stub::DomainMappings + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::DomainMappings + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {

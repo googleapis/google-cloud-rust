@@ -87,9 +87,14 @@ impl Agents {
     where
         T: super::stub::Agents + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Agents + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -384,9 +389,14 @@ impl Changelogs {
     where
         T: super::stub::Changelogs + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Changelogs + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -550,9 +560,14 @@ impl Deployments {
     where
         T: super::stub::Deployments + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Deployments + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -722,9 +737,14 @@ impl EntityTypes {
     where
         T: super::stub::EntityTypes + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::EntityTypes + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -966,9 +986,14 @@ impl Environments {
     where
         T: super::stub::Environments + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Environments + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1298,9 +1323,14 @@ impl Experiments {
     where
         T: super::stub::Experiments + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Experiments + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1529,9 +1559,14 @@ impl Flows {
     where
         T: super::stub::Flows + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Flows + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1838,9 +1873,14 @@ impl Generators {
     where
         T: super::stub::Generators + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Generators + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -2030,9 +2070,14 @@ impl Intents {
     where
         T: super::stub::Intents + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Intents + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -2291,9 +2336,14 @@ impl Pages {
     where
         T: super::stub::Pages + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Pages + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -2487,9 +2537,14 @@ impl SecuritySettingsService {
     where
         T: super::stub::SecuritySettingsService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::SecuritySettingsService + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -2699,9 +2754,14 @@ impl Sessions {
     where
         T: super::stub::Sessions + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Sessions + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -2903,9 +2963,14 @@ impl SessionEntityTypes {
     where
         T: super::stub::SessionEntityTypes + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::SessionEntityTypes + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -3104,9 +3169,14 @@ impl TestCases {
     where
         T: super::stub::TestCases + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::TestCases + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -3452,9 +3522,14 @@ impl TransitionRouteGroups {
     where
         T: super::stub::TransitionRouteGroups + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::TransitionRouteGroups + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -3676,9 +3751,14 @@ impl Versions {
     where
         T: super::stub::Versions + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Versions + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -3933,9 +4013,14 @@ impl Webhooks {
     where
         T: super::stub::Webhooks + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Webhooks + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {

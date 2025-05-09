@@ -107,9 +107,14 @@ impl Autokey {
     where
         T: super::stub::Autokey + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::Autokey + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -326,9 +331,14 @@ impl AutokeyAdmin {
     where
         T: super::stub::AutokeyAdmin + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::AutokeyAdmin + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -538,9 +548,14 @@ impl EkmService {
     where
         T: super::stub::EkmService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::EkmService + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -804,9 +819,14 @@ impl KeyManagementService {
     where
         T: super::stub::KeyManagementService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self::from_arc_stub(std::sync::Arc::new(stub))
+    }
+
+    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
+    where
+        T: super::stub::KeyManagementService + 'static,
+    {
+        Self { inner: stub }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
