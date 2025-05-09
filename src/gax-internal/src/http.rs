@@ -25,6 +25,7 @@ use gax::polling_error_policy::PollingErrorPolicy;
 use gax::response::{Parts, Response};
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
+use http::Extensions;
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
@@ -129,7 +130,7 @@ impl ReqwestClient {
             .fold(builder, |b, t| b.timeout(t));
         let auth_headers = self
             .cred
-            .headers(None)
+            .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
         for (key, value) in auth_headers.iter() {

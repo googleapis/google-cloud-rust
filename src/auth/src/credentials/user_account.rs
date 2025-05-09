@@ -42,6 +42,7 @@
 //! # use google_cloud_auth::credentials::user_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialsError;
+//! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let authorized_user = serde_json::json!({
 //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
@@ -52,7 +53,7 @@
 //!     // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
-//! let token = credentials.token(None).await?;
+//! let token = credentials.token(Extensions::new()).await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -248,7 +249,7 @@ impl std::fmt::Debug for UserTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, _extensions: Extensions) -> Result<Token> {
         let client = Client::new();
 
         // Make the request
@@ -311,11 +312,11 @@ impl<T> CredentialsProvider for UserCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         let token = self.token(extensions).await?;
         build_bearer_headers(&token, &self.quota_project_id)
     }
@@ -480,7 +481,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let actual = uc.token(None).await.unwrap();
+        let actual = uc.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -495,7 +496,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.token(None).await.is_err());
+        assert!(uc.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test]
@@ -528,7 +529,7 @@ mod test {
             quota_project_id: None,
         };
 
-        let headers = uc.headers(None).await.unwrap();
+        let headers = uc.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1);
@@ -547,7 +548,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.headers(None).await.is_err());
+        assert!(uc.headers(Extensions::new()).await.is_err());
     }
 
     #[tokio::test]
@@ -569,7 +570,7 @@ mod test {
             quota_project_id: Some("test-project".to_string()),
         };
 
-        let headers = uc.headers(None).await.unwrap();
+        let headers = uc.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -721,7 +722,7 @@ mod test {
             .build()?;
 
         let now = std::time::Instant::now();
-        let token = cred.token(None).await?;
+        let token = cred.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -761,7 +762,7 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers = cred.headers(None).await.unwrap();
+        let headers = cred.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -808,10 +809,10 @@ mod test {
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
 
-        let token = cred.token(None).await?;
+        let token = cred.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
 
-        let token = cred.token(None).await?;
+        let token = cred.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
 
         // Test that the inner token provider was called only
@@ -843,7 +844,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let token = uc.token(None).await?;
+        let token = uc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -875,7 +876,7 @@ mod test {
         let uc = Builder::new(authorized_user)
             .with_token_uri(endpoint)
             .build()?;
-        let token = uc.token(None).await?;
+        let token = uc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -908,7 +909,7 @@ mod test {
             .with_token_uri(endpoint)
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
-        let token = uc.token(None).await?;
+        let token = uc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -934,7 +935,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.token(None).await.err().unwrap();
+        let e = uc.token(Extensions::new()).await.err().unwrap();
         assert!(e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("try again"), "{e}");
 
@@ -959,7 +960,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.token(None).await.err().unwrap();
+        let e = uc.token(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("epic fail"), "{e}");
 
@@ -984,7 +985,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.token(None).await.err().unwrap();
+        let e = uc.token(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
 
         Ok(())

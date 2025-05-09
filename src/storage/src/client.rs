@@ -15,6 +15,7 @@
 pub use crate::Error;
 pub use crate::Result;
 pub use control::model::Object;
+use http::Extensions;
 
 /// Implements a client for the Cloud Storage API.
 ///
@@ -150,7 +151,7 @@ impl Storage {
             );
         let auth_headers = self
             .cred
-            .headers(None)
+            .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
         let builder = auth_headers
@@ -212,7 +213,7 @@ impl Storage {
             );
         let auth_headers = self
             .cred
-            .headers(None)
+            .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
         let builder = auth_headers

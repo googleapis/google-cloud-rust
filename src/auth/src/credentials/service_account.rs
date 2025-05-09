@@ -49,6 +49,7 @@
 //! # use google_cloud_auth::credentials::service_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialsError;
+//! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
 //!     "client_email": "test-client-email",
@@ -60,7 +61,7 @@
 //! let credentials: Credentials = Builder::new(service_account_key)
 //!     .with_quota_project_id("my-quota-project")
 //!     .build()?;
-//! let token = credentials.token(None).await?;
+//! let token = credentials.token(Extensions::new()).await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -317,7 +318,7 @@ fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
 
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
-    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, _extensions: Extensions) -> Result<Token> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
         let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
@@ -402,11 +403,11 @@ impl<T> CredentialsProvider for ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         let token = self.token(extensions).await?;
         build_bearer_headers(&token, &self.quota_project_id)
     }
@@ -481,7 +482,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let actual = sac.token(None).await.unwrap();
+        let actual = sac.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -496,7 +497,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(sac.token(None).await.is_err());
+        assert!(sac.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test]
@@ -518,7 +519,7 @@ mod test {
             quota_project_id: None,
         };
 
-        let headers = sac.headers(None).await.unwrap();
+        let headers = sac.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1);
@@ -547,7 +548,7 @@ mod test {
             quota_project_id: Some(quota_project.to_string()),
         };
 
-        let headers = sac.headers(None).await.unwrap();
+        let headers = sac.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -572,7 +573,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(sac.headers(None).await.is_err());
+        assert!(sac.headers(Extensions::new()).await.is_err());
     }
 
     fn get_mock_service_key() -> Value {
@@ -601,7 +602,7 @@ mod test {
         let cred = Builder::new(service_account_key).build()?;
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(
-            cred.token(None)
+            cred.token(Extensions::new())
                 .await
                 .is_err_and(|e| e.to_string().contains(expected_error_message))
         );
@@ -613,7 +614,7 @@ mod test {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
         let cred = Builder::new(service_account_key.clone()).build()?;
-        let token = cred.token(None).await?;
+        let token = cred.token(Extensions::new()).await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
             format!(
@@ -650,7 +651,7 @@ mod test {
 
         let credentials = Builder::new(json_value).build()?;
 
-        let token = credentials.token(None).await?;
+        let token = credentials.token(Extensions::new()).await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).unwrap();
@@ -665,7 +666,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = credentials.token(None).await?;
+        let token = credentials.token(Extensions::new()).await?;
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
@@ -685,7 +686,7 @@ mod test {
         service_account_key["private_key"] = Value::from(pem_data);
         let cred = Builder::new(service_account_key).build()?;
 
-        let token = cred.token(None).await;
+        let token = cred.token(Extensions::new()).await;
         let expected_error_message = "failed to parse private key";
         assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
@@ -734,7 +735,7 @@ mod test {
         let token = Builder::new(service_account_key.clone())
             .with_aud("test-audience")
             .build()?
-            .token(None)
+            .token(Extensions::new())
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
@@ -766,7 +767,7 @@ mod test {
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
         let token = Builder::new(service_account_key.clone())
             .build()?
-            .token(None)
+            .token(Extensions::new())
             .await?;
 
         let expected_expiry = now + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
@@ -785,7 +786,7 @@ mod test {
         let token = Builder::new(service_account_key.clone())
             .with_scopes(scopes.clone())
             .build()?
-            .token(None)
+            .token(Extensions::new())
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();

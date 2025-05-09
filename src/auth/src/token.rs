@@ -66,7 +66,7 @@ impl std::fmt::Debug for Token {
 
 #[async_trait::async_trait]
 pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
-    async fn token(&self, extensions: Option<Extensions>) -> Result<Token>;
+    async fn token(&self, extensions: Extensions) -> Result<Token>;
 }
 
 #[cfg(test)]
@@ -81,7 +81,7 @@ pub(crate) mod test {
 
         #[async_trait::async_trait]
         impl TokenProvider for TokenProvider {
-            async fn token(&self, extensions: Option<Extensions>) -> Result<Token>;
+            async fn token(&self, extensions: Extensions) -> Result<Token>;
         }
     }
 

@@ -47,7 +47,7 @@ impl TokenCache {
 
 #[async_trait::async_trait]
 impl TokenProvider for TokenCache {
-    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, _extensions: Extensions) -> Result<Token> {
         let mut rx = self.rx_token.clone();
         let token_result = rx.borrow_and_update().clone();
 
@@ -88,7 +88,7 @@ where
     T: TokenProvider + Send + Sync + 'static,
 {
     loop {
-        let token_result = token_provider.token(None).await;
+        let token_result = token_provider.token(Extensions::new()).await;
 
         let _ = tx_token.send(Some(token_result.clone()));
 
@@ -155,12 +155,12 @@ mod test {
             .return_once(|_extensions| Ok(expected_clone));
 
         let cache = TokenCache::new(mock);
-        let actual = cache.token(None).await.unwrap();
+        let actual = cache.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
 
         // Verify that we use the cached token instead of making a new request
         // to the mock token provider.
-        let actual = cache.token(None).await.unwrap();
+        let actual = cache.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -172,11 +172,11 @@ mod test {
             .returning(|_extensions| Err(errors::non_retryable_from_str("fail")));
 
         let cache = TokenCache::new(mock);
-        assert!(cache.token(None).await.is_err());
+        assert!(cache.token(Extensions::new()).await.is_err());
 
         // Verify that a new request is made to the mock token provider when we
         // don't have a valid token.
-        assert!(cache.token(None).await.is_err());
+        assert!(cache.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test(start_paused = true)]
@@ -210,7 +210,7 @@ mod test {
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
-        let actual = cache.token(None).await.unwrap();
+        let actual = cache.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, initial);
 
         // wait long enough for the token to be expired
@@ -219,7 +219,7 @@ mod test {
         tokio::time::advance(sleep).await;
 
         // make sure this is the new token
-        let actual = cache.token(None).await.unwrap();
+        let actual = cache.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, refresh);
     }
 
@@ -246,7 +246,7 @@ mod test {
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
-        let actual = cache.token(None).await.unwrap();
+        let actual = cache.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, initial);
 
         // wait long enough for the token to be expired
@@ -254,7 +254,7 @@ mod test {
         tokio::time::advance(sleep).await;
 
         // make sure we return the error, not the expired token
-        assert!(cache.token(None).await.is_err());
+        assert!(cache.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
@@ -276,14 +276,14 @@ mod test {
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
-        let actual = cache.token(None).await.unwrap();
+        let actual = cache.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, token);
 
         // Spawn N tasks, all asking for a token at once.
         let tasks = (0..1000)
             .map(|_| {
                 let cache_clone = cache.clone();
-                tokio::spawn(async move { cache_clone.token(None).await })
+                tokio::spawn(async move { cache_clone.token(Extensions::new()).await })
             })
             .collect::<Vec<_>>();
 
@@ -569,7 +569,7 @@ mod test {
 
     #[async_trait::async_trait]
     impl TokenProvider for FakeTokenProvider {
-        async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+        async fn token(&self, _extensions: Extensions) -> Result<Token> {
             // We give enough time for the a thundering herd to pile up waiting for a change notification from watch channel
             sleep(Duration::from_millis(50)).await;
 
@@ -598,7 +598,7 @@ mod test {
         let tasks = (0..100)
             .map(|_| {
                 let cache_clone = cache.clone();
-                tokio::spawn(async move { cache_clone.token(None).await })
+                tokio::spawn(async move { cache_clone.token(Extensions::new()).await })
             })
             .collect::<Vec<_>>();
 
@@ -626,7 +626,7 @@ mod test {
         let tasks = (0..100)
             .map(|_| {
                 let cache_clone = cache.clone();
-                tokio::spawn(async move { cache_clone.token(None).await })
+                tokio::spawn(async move { cache_clone.token(Extensions::new()).await })
             })
             .collect::<Vec<_>>();
 

@@ -200,8 +200,8 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self, extensions: Option<Extensions>) -> Result<Token>;
-            async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap>;
+            async fn token(&self, extensions: Extensions) -> Result<Token>;
+            async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -222,8 +222,8 @@ mod test {
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.token(None).await?.token, "test-token");
-        assert!(creds.headers(None).await?.is_empty());
+        assert_eq!(creds.token(Extensions::new()).await?.token, "test-token");
+        assert!(creds.headers(Extensions::new()).await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
@@ -250,8 +250,8 @@ mod test {
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.token(None).await?.token, "test-token");
-        assert_eq!(creds.headers(None).await?, headers);
+        assert_eq!(creds.token(Extensions::new()).await?.token, "test-token");
+        assert_eq!(creds.headers(Extensions::new()).await?, headers);
         assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
@@ -277,8 +277,8 @@ mod test {
             .return_once(|| Some(universe_domain_clone));
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.token(None).await?.token, "test-token");
-        assert!(creds.headers(None).await?.is_empty());
+        assert_eq!(creds.token(Extensions::new()).await?.token, "test-token");
+        assert!(creds.headers(Extensions::new()).await?.is_empty());
         assert_eq!(creds.universe_domain().await.unwrap(), universe_domain);
 
         Ok(())
@@ -287,8 +287,11 @@ mod test {
     #[tokio::test]
     async fn testing_credentials() -> Result<()> {
         let creds = test_credentials();
-        assert_eq!(creds.token(None).await?.token, "test-only-token");
-        assert!(creds.headers(None).await?.is_empty());
+        assert_eq!(
+            creds.token(Extensions::new()).await?.token,
+            "test-only-token"
+        );
+        assert!(creds.headers(Extensions::new()).await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }

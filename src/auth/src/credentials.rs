@@ -88,11 +88,11 @@ where
 }
 
 impl Credentials {
-    pub async fn token(&self, extensions: Option<Extensions>) -> Result<crate::token::Token> {
+    pub async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
         self.inner.token(extensions).await
     }
 
-    pub async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+    pub async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         self.inner.headers(extensions).await
     }
 
@@ -147,10 +147,10 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// Returns a [Token][crate::token::Token] for the current credentials.
     /// The underlying implementation refreshes the token as needed.
     // TODO(#2036): After the return type is updated to return a cacheable resource
-    // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
+    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
     fn token(
         &self,
-        extensions: Option<Extensions>,
+        extensions: Extensions,
     ) -> impl Future<Output = Result<crate::token::Token>> + Send;
 
     /// Asynchronously constructs the auth headers.
@@ -161,11 +161,8 @@ pub trait CredentialsProvider: std::fmt::Debug {
     ///
     /// The underlying implementation refreshes the token as needed.
     // TODO(#2036): After the return type is updated to return a cacheable resource
-    // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-    fn headers(
-        &self,
-        extensions: Option<Extensions>,
-    ) -> impl Future<Output = Result<HeaderMap>> + Send;
+    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
+    fn headers(&self, extensions: Extensions) -> impl Future<Output = Result<HeaderMap>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
@@ -184,7 +181,7 @@ pub(crate) mod dynamic {
         /// The underlying implementation refreshes the token as needed.
         // TODO(#2036): After the return type is updated to return cacheable resource
         // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-        async fn token(&self, extensions: Option<Extensions>) -> Result<crate::token::Token>;
+        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token>;
 
         /// Asynchronously constructs the auth headers.
         ///
@@ -195,7 +192,7 @@ pub(crate) mod dynamic {
         /// The underlying implementation refreshes the token as needed.
         // TODO(#2036): After the return type is updated to return cacheable resource
         // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-        async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap>;
+        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
         async fn universe_domain(&self) -> Option<String> {
@@ -209,10 +206,10 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn token(&self, extensions: Option<Extensions>) -> Result<crate::token::Token> {
+        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
             T::token(self, extensions).await
         }
-        async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
             T::headers(self, extensions).await
         }
         async fn universe_domain(&self) -> Option<String> {
@@ -268,11 +265,12 @@ enum CredentialsSource {
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
+/// # use http::Extensions;
 /// # tokio_test::block_on(async {
 /// let creds = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token(None).await?;
+/// let token = creds.token(Extensions::new()).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -282,6 +280,7 @@ enum CredentialsSource {
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
+/// # use http::Extensions;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_auth::credentials::Builder;
 /// let authorized_user = serde_json::json!({
@@ -296,7 +295,7 @@ enum CredentialsSource {
 /// let creds = Builder::new(authorized_user)
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token(None).await?;
+/// let token = creds.token(Extensions::new()).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -587,7 +586,7 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+        async fn token(&self, _extensions: Extensions) -> Result<Token> {
             Ok(Token {
                 token: "test-only-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -596,7 +595,7 @@ pub mod testing {
             })
         }
 
-        async fn headers(&self, _extensions: Option<Extensions>) -> Result<HeaderMap> {
+        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Ok(HeaderMap::new())
         }
 
@@ -619,11 +618,11 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+        async fn token(&self, _extensions: Extensions) -> Result<Token> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
-        async fn headers(&self, _extensions: Option<Extensions>) -> Result<HeaderMap> {
+        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
@@ -791,9 +790,9 @@ mod test {
             credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
-        let err = credentials.token(None).await.err().unwrap();
+        let err = credentials.token(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
-        let err = credentials.headers(None).await.err().unwrap();
+        let err = credentials.headers(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
     }
 
@@ -835,7 +834,7 @@ mod test {
             .build()
             .unwrap();
 
-        let token = sac.token(None).await?;
+        let token = sac.token(Extensions::new()).await?;
         let parts: Vec<_> = token.token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());

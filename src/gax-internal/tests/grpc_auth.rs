@@ -32,8 +32,8 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self, extensions: Option<Extensions>) -> AuthResult<Token>;
-            async fn headers(&self, extensions: Option<Extensions>) -> AuthResult<HeaderMap>;
+            async fn token(&self, extensions: Extensions) -> AuthResult<Token>;
+            async fn headers(&self, extensions: Extensions) -> AuthResult<HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }

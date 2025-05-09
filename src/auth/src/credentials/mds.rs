@@ -40,11 +40,12 @@
 //! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialsError;
+//! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let credentials: Credentials = Builder::default()
 //!     .with_quota_project_id("my-quota-project")
 //!     .build()?;
-//! let token = credentials.token(None).await?;
+//! let token = credentials.token(Extensions::new()).await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -194,11 +195,11 @@ impl<T> CredentialsProvider for MDSCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         let token = self.token(extensions).await?;
         build_bearer_headers(&token, &self.quota_project_id)
     }
@@ -236,7 +237,7 @@ struct MDSAccessTokenProvider {
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
-    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, _extensions: Extensions) -> Result<Token> {
         let client = Client::new();
         let request = client
             .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
@@ -339,7 +340,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        let actual = mdsc.token(None).await.unwrap();
+        let actual = mdsc.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -355,7 +356,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        assert!(mdsc.token(None).await.is_err());
+        assert!(mdsc.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test]
@@ -377,7 +378,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        let headers = mdsc.headers(None).await.unwrap();
+        let headers = mdsc.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1);
@@ -397,7 +398,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        assert!(mdsc.headers(None).await.is_err());
+        assert!(mdsc.headers(Extensions::new()).await.is_err());
     }
 
     fn handle_token_factory(
@@ -472,7 +473,7 @@ mod test {
             .with_scopes(["scope1", "scope2"])
             .build()
             .unwrap();
-        let token = mdsc.token(None).await.unwrap();
+        let token = mdsc.token(Extensions::new()).await.unwrap();
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
         assert_eq!(token.token, "test-access-token");
@@ -509,7 +510,7 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers = mdsc.headers(None).await.unwrap();
+        let headers = mdsc.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -557,9 +558,9 @@ mod test {
             .with_scopes(scopes)
             .with_endpoint(endpoint)
             .build()?;
-        let token = mdsc.token(None).await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
-        let token = mdsc.token(None).await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
 
         // validate that the inner token provider is called only once
@@ -599,7 +600,7 @@ mod test {
             .with_endpoint(endpoint)
             .build()?;
         let now = std::time::Instant::now();
-        let token = mdsc.token(None).await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -638,7 +639,7 @@ mod test {
 
         let mdsc = Builder::default().with_endpoint(endpoint).build()?;
         let now = std::time::Instant::now();
-        let token = mdsc.token(None).await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -679,7 +680,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let token = mdsc.token(None).await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -709,7 +710,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let e = mdsc.token(None).await.err().unwrap();
+        let e = mdsc.token(Extensions::new()).await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
 
@@ -739,7 +740,7 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.token(None).await.err().unwrap();
+        let e = mdsc.token(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
 
@@ -769,7 +770,7 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.token(None).await.err().unwrap();
+        let e = mdsc.token(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable());
 
         Ok(())

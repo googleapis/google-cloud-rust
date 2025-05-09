@@ -87,7 +87,7 @@ impl std::fmt::Debug for ApiKeyTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for ApiKeyTokenProvider {
-    async fn token(&self, _extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, _extensions: Extensions) -> Result<Token> {
         Ok(Token {
             token: self.api_key.clone(),
             token_type: String::new(),
@@ -111,11 +111,11 @@ impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, extensions: Option<Extensions>) -> Result<Token> {
+    async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self, extensions: Option<Extensions>) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         let token = self.token(extensions).await?;
         build_api_key_headers(&token, &self.quota_project_id)
     }
@@ -147,7 +147,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
             .await
             .unwrap();
-        let token = creds.token(None).await.unwrap();
+        let token = creds.token(Extensions::new()).await.unwrap();
         assert_eq!(
             token,
             Token {
@@ -157,7 +157,7 @@ mod test {
                 metadata: None,
             }
         );
-        let headers = creds.headers(None).await.unwrap();
+        let headers = creds.headers(Extensions::new()).await.unwrap();
         let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 
         assert_eq!(headers.len(), 1);
@@ -174,7 +174,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
-        let headers = creds.headers(None).await.unwrap();
+        let headers = creds.headers(Extensions::new()).await.unwrap();
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -193,7 +193,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
-        let headers = creds.headers(None).await.unwrap();
+        let headers = creds.headers(Extensions::new()).await.unwrap();
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 

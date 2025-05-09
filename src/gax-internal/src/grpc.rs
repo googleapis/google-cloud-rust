@@ -142,7 +142,7 @@ impl Client {
         let mut headers = headers;
         let auth_headers = self
             .credentials
-            .headers(None)
+            .headers(http::Extensions::new())
             .await
             .map_err(Error::authentication)?;
         headers.extend(auth_headers);
