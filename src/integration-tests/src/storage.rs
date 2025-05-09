@@ -223,7 +223,7 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
     assert_eq!(get.name, folder_name);
 
     println!("\nTesting list_folders()");
-    let mut folders = client.list_folders(bucket_name).paginator().await.items();
+    let mut folders = client.list_folders(bucket_name).by_item();
     let mut folder_names = Vec::new();
     while let Some(folder) = folders.next().await {
         folder_names.push(folder?.name);

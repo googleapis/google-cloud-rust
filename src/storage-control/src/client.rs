@@ -375,7 +375,6 @@ impl Storage {
     ///         "my-folder/my-subfolder/")
     ///         .send()
     ///         .await?;
-    ///     assert_eq!(&folder.name, "projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/");
     ///     println!("folder details={folder:?}");
     ///     Ok(())
     /// }
@@ -408,7 +407,6 @@ impl Storage {
     ///         .get_folder("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
     ///         .send()
     ///         .await?;
-    ///     assert_eq!(&folder.name, "projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/");
     ///     println!("folder details={folder:?}");
     ///     Ok(())
     /// }
@@ -456,9 +454,7 @@ impl Storage {
     ///     use gax::paginator::ItemPaginator as _;
     ///     let mut folders = client
     ///         .list_folders("projects/_/buckets/my-bucket")
-    ///         .paginator
-    ///         .await
-    ///         .items();
+    ///         .by_item();
     ///     while let Some(folder) = folders.next().await {
     ///         let folder = folder?;
     ///         println!("  {folder:?}");
