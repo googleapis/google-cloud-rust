@@ -19,88 +19,12 @@
 use crate::Result;
 
 /// Implements a client for the Cloud Storage API.
-///
-/// # Example
-/// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::client::Storage;
-/// let client = Storage::builder().build().await?;
-/// // use `client` to make requests to the Cloud Storage API.
-/// # gax::Result::<()>::Ok(()) });
-/// ```
-///
-/// # Service Description
-///
-/// ## API Overview and Naming Syntax
-///
-/// The Cloud Storage gRPC API allows applications to read and write data through
-/// the abstractions of buckets and objects. For a description of these
-/// abstractions please see <https://cloud.google.com/storage/docs>.
-///
-/// Resources are named as follows:
-///
-/// - Projects are referred to as they are defined by the Resource Manager API,
-///   using strings like `projects/123456` or `projects/my-string-id`.
-///
-/// - Buckets are named using string names of the form:
-///   `projects/{project}/buckets/{bucket}`
-///   For globally unique buckets, `_` may be substituted for the project.
-///
-/// - Objects are uniquely identified by their name along with the name of the
-///   bucket they belong to, as separate strings in this API. For example:
-///
-/// - ReadObjectRequest {
-///   bucket: 'projects/_/buckets/my-bucket'
-///   object: 'my-object'
-///   }
-///   Note that object names can contain `/` characters, which are treated as
-///   any other character (no special directory semantics).
-///
-///
-/// # Configuration
-///
-/// To configure `Storage` use the `with_*` methods in the type returned
-/// by [builder()][Storage::builder]. The default configuration should
-/// work for most applications. Common configuration changes include
-///
-/// * [with_endpoint()]: by default this client uses the global default endpoint
-///   (`https://storage.googleapis.com`). Applications using regional
-///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
-///   override this default.
-/// * [with_credentials()]: by default this client uses
-///   [Application Default Credentials]. Applications using custom
-///   authentication may need to override this default.
-///
-/// [with_endpoint()]: super::builder::storage::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::storage::ClientBuilder::credentials
-/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
-/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
-///
-/// # Pooling and Cloning
-///
-/// `Storage` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Storage` in
-/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
-/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Storage {
     inner: std::sync::Arc<dyn super::stub::dynamic::Storage>,
 }
 
 impl Storage {
-    /// Returns a builder for [Storage].
-    ///
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::Storage;
-    /// let client = Storage::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
-    /// ```
-    pub fn builder() -> super::builder::storage::ClientBuilder {
-        gax::client_builder::internal::new_builder(super::builder::storage::client::Factory)
-    }
-
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the

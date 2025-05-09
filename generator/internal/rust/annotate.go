@@ -83,8 +83,8 @@ type serviceAnnotations struct {
 	APITitle string
 	// If set, gate this service under a feature named `ModuleName`.
 	PerServiceFeatures bool
-	// If set, skip the builder documentation.
-	SkipBuilderDocs bool
+	// If true, there is a handwritten client surface.
+	HasVeneer bool
 }
 
 func (a *serviceAnnotations) FeatureName() string {
@@ -156,7 +156,7 @@ type methodAnnotation struct {
 	OperationInfo       *operationInfo
 	SystemParameters    []systemParameter
 	ReturnType          string
-	SkipBuilderDocs     bool
+	HasVeneer           bool
 }
 
 type pathInfoAnnotation struct {
@@ -461,7 +461,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		HasLROs:            hasLROs,
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
-		SkipBuilderDocs:    c.skipBuilderDocs,
+		HasVeneer:          c.hasVeneer,
 	}
 	s.Codec = ann
 }
@@ -549,7 +549,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ServiceNameToSnake:  toSnake(s.Name),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
-		SkipBuilderDocs:     c.skipBuilderDocs,
+		HasVeneer:           c.hasVeneer,
 	}
 	if m.OperationInfo != nil {
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)

@@ -25,8 +25,8 @@ limitations under the License.
 {{/Codec.PerServiceFeatures}}
 pub mod {{Codec.ModuleName}} {
     use crate::Result;
+    {{^Codec.HasVeneer}}
 
-    {{^Codec.SkipBuilderDocs}}
     /// A builder for [{{Codec.Name}}][super::super::client::{{Codec.Name}}].
     ///
     /// ```
@@ -40,7 +40,6 @@ pub mod {{Codec.ModuleName}} {
     ///     .build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
-    {{/Codec.SkipBuilderDocs}}
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
@@ -55,6 +54,7 @@ pub mod {{Codec.ModuleName}} {
             }
         }
     }
+    {{/Codec.HasVeneer}}
 
     /// Common implementation for [super::super::client::{{Codec.Name}}] request builders.
     #[derive(Clone, Debug)]
@@ -76,9 +76,10 @@ pub mod {{Codec.ModuleName}} {
     }
 
     {{#Codec.Methods}}
-    {{^Codec.SkipBuilderDocs}}
+    {{! TODO(#1813) - fix and generate builder docs for veneers }}
+    {{^Codec.HasVeneer}}
     /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][super::super::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
-    {{/Codec.SkipBuilderDocs}}
+    {{/Codec.HasVeneer}}
     #[derive(Clone, Debug)]
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 

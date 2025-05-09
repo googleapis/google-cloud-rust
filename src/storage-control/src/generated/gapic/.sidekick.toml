@@ -18,7 +18,6 @@ specification-source = 'google/storage/v2'
 service-config       = 'google/storage/v2/storage_v2.yaml'
 
 [source]
-# TODO(#1813) - handle IAM mixin for gRPC-based clients
 skipped-ids = """\
     .google.storage.v2.BidiReadHandle,\
     .google.storage.v2.BidiReadObjectError,\
@@ -57,5 +56,4 @@ copyright-year            = '2025'
 template-override         = 'templates/grpc-client'
 package-name-override     = 'google-cloud-storage-control'
 include-grpc-only-methods = 'true'
-# TODO(#1813) - temporarily disable the docs because they don't compile.
-skip-builder-docs = 'true'
+has-veneer                = 'true'

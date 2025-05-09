@@ -117,12 +117,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `per-service-features` value %q to boolean: %w", definition, err)
 			}
 			codec.perServiceFeatures = value
-		case key == "skip-builder-docs":
+		case key == "has-veneer":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
-				return nil, fmt.Errorf("cannot convert `skip-builder-docs` value %q to boolean: %w", definition, err)
+				return nil, fmt.Errorf("cannot convert `has-veneer` value %q to boolean: %w", definition, err)
 			}
-			codec.skipBuilderDocs = value
+			codec.hasVeneer = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -227,8 +227,8 @@ type codec struct {
 	includeGrpcOnlyMethods bool
 	// If true, the generator will produce per-client features.
 	perServiceFeatures bool
-	// If true, skip the documentation for Client and Request builders.
-	skipBuilderDocs bool
+	// If true, there is a handwritten client surface.
+	hasVeneer bool
 }
 
 type systemParameter struct {
