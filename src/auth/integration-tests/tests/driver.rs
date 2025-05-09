@@ -24,7 +24,6 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_api_key() -> Result<()> {
-        // auth_integration_tests::api_key().await
-        Ok(())
+        auth_integration_tests::api_key().await
     }
 }
