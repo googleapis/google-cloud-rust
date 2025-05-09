@@ -17,18 +17,6 @@
 pub mod storage {
     use crate::Result;
 
-    pub(crate) mod client {
-        use super::super::super::client::Storage;
-        pub struct Factory;
-        impl gax::client_builder::internal::ClientFactory for Factory {
-            type Client = Storage;
-            type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
-                Self::Client::new(config).await
-            }
-        }
-    }
-
     /// Common implementation for [super::super::client::Storage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
