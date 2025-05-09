@@ -87,7 +87,7 @@ impl std::fmt::Debug for ApiKeyTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for ApiKeyTokenProvider {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         Ok(Token {
             token: self.api_key.clone(),
             token_type: String::new(),
@@ -111,8 +111,8 @@ impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, extensions: Extensions) -> Result<Token> {
-        self.token_provider.token(extensions).await
+    async fn token(&self, _extensions: Extensions) -> Result<Token> {
+        self.token_provider.token().await
     }
 
     async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
@@ -160,8 +160,8 @@ mod test {
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 
-        assert_eq!(headers.len(), 1);
-        assert_eq!(value, HeaderValue::from_str("test-api-key").unwrap());
+        assert_eq!(headers.len(), 1, "{headers:?}");
+        assert_eq!(value, HeaderValue::from_static("test-api-key"));
         assert!(value.is_sensitive());
     }
 
@@ -178,10 +178,10 @@ mod test {
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.len(), 2);
-        assert_eq!(api_key, HeaderValue::from_str("test-api-key").unwrap());
+        assert_eq!(headers.len(), 2, "{headers:?}");
+        assert_eq!(api_key, HeaderValue::from_static("test-api-key"));
         assert!(api_key.is_sensitive());
-        assert_eq!(quota_project, HeaderValue::from_str("qp-option").unwrap());
+        assert_eq!(quota_project, HeaderValue::from_static("qp-option"));
         assert!(!quota_project.is_sensitive());
     }
 
@@ -197,10 +197,10 @@ mod test {
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.len(), 2);
-        assert_eq!(api_key, HeaderValue::from_str("test-api-key").unwrap());
+        assert_eq!(headers.len(), 2, "{headers:?}");
+        assert_eq!(api_key, HeaderValue::from_static("test-api-key"));
         assert!(api_key.is_sensitive());
-        assert_eq!(quota_project, HeaderValue::from_str("qp-env").unwrap());
+        assert_eq!(quota_project, HeaderValue::from_static("qp-env"));
         assert!(!quota_project.is_sensitive());
     }
 }

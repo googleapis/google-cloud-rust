@@ -61,7 +61,8 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
-use crate::token::{Token, TokenProvider};
+use crate::token::{CachedTokenProvider, Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use async_trait::async_trait;
 use bon::Builder;
 use http::{Extensions, HeaderMap, HeaderValue};
@@ -79,7 +80,7 @@ const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
 #[derive(Debug)]
 struct MDSCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     quota_project_id: Option<String>,
     universe_domain: Option<String>,
@@ -177,7 +178,7 @@ impl Builder {
             .endpoint(endpoint)
             .maybe_scopes(self.scopes)
             .build();
-        let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
+        let cached_token_provider = TokenCache::new(token_provider);
 
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id,
@@ -193,7 +194,7 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T> CredentialsProvider for MDSCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
@@ -237,7 +238,7 @@ struct MDSAccessTokenProvider {
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         let client = Client::new();
         let request = client
             .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
@@ -333,12 +334,12 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Ok(expected_clone));
+            .return_once(|| Ok(expected_clone));
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
         let actual = mdsc.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
@@ -349,12 +350,12 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
         assert!(mdsc.token(Extensions::new()).await.is_err());
     }
@@ -369,19 +370,17 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|_extensions| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
         let headers = mdsc.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
     }
@@ -391,12 +390,12 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
         assert!(mdsc.headers(Extensions::new()).await.is_err());
     }

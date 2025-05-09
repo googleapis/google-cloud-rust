@@ -71,7 +71,7 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
-use crate::token::{Token, TokenProvider};
+use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::CONTENT_TYPE;
 use http::{Extensions, HeaderMap, HeaderValue};
@@ -249,7 +249,7 @@ impl std::fmt::Debug for UserTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         let client = Client::new();
 
         // Make the request
@@ -301,7 +301,7 @@ impl TokenProvider for UserTokenProvider {
 #[derive(Debug)]
 pub(crate) struct UserCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     token_provider: T,
     quota_project_id: Option<String>,
@@ -310,7 +310,7 @@ where
 #[async_trait::async_trait]
 impl<T> CredentialsProvider for UserCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
@@ -475,10 +475,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Ok(expected_clone));
+            .return_once(|| Ok(expected_clone));
 
         let uc = UserCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         let actual = uc.token(Extensions::new()).await.unwrap();
@@ -490,10 +490,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let uc = UserCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         assert!(uc.token(Extensions::new()).await.is_err());
@@ -501,7 +501,7 @@ mod test {
 
     #[tokio::test]
     async fn default_universe_domain_success() {
-        let mock = MockTokenProvider::new();
+        let mock = TokenCache::new(MockTokenProvider::new());
 
         let uc = UserCredentials {
             token_provider: mock,
@@ -520,19 +520,17 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|_extensions| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let uc = UserCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
 
         let headers = uc.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
     }
@@ -542,10 +540,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let uc = UserCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         assert!(uc.headers(Extensions::new()).await.is_err());
@@ -561,12 +559,10 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|_extensions| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let uc = UserCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: Some("test-project".to_string()),
         };
 
@@ -574,7 +570,7 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
         assert_eq!(

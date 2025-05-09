@@ -78,7 +78,7 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_bearer_headers;
-use crate::token::{Token, TokenProvider};
+use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
 use http::{Extensions, HeaderMap};
@@ -296,7 +296,7 @@ impl std::fmt::Debug for ServiceAccountKey {
 #[derive(Debug)]
 struct ServiceAccountCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     token_provider: T,
     quota_project_id: Option<String>,
@@ -318,7 +318,7 @@ fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
 
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
         let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
@@ -401,7 +401,7 @@ impl ServiceAccountTokenProvider {
 #[async_trait::async_trait]
 impl<T> CredentialsProvider for ServiceAccountCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     async fn token(&self, extensions: Extensions) -> Result<Token> {
         self.token_provider.token(extensions).await
@@ -476,10 +476,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Ok(expected_clone));
+            .return_once(|| Ok(expected_clone));
 
         let sac = ServiceAccountCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         let actual = sac.token(Extensions::new()).await.unwrap();
@@ -491,10 +491,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let sac = ServiceAccountCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         assert!(sac.token(Extensions::new()).await.is_err());
@@ -510,19 +510,17 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|_extension| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let sac = ServiceAccountCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
 
         let headers = sac.headers(Extensions::new()).await.unwrap();
         let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
     }
@@ -539,12 +537,10 @@ mod test {
         let quota_project = "test-quota-project";
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|_extensions| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let sac = ServiceAccountCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: Some(quota_project.to_string()),
         };
 
@@ -552,7 +548,7 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
         assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
         assert!(token.is_sensitive());
         assert_eq!(
@@ -567,10 +563,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
             .times(1)
-            .return_once(|_extensions| Err(errors::non_retryable_from_str("fail")));
+            .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
         let sac = ServiceAccountCredentials {
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         assert!(sac.headers(Extensions::new()).await.is_err());
