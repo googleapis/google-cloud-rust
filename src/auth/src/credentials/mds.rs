@@ -381,7 +381,7 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1, "{headers:?}");
-        assert_eq!(token, HeaderValue::from_str("Bearer test-token").unwrap());
+        assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
     }
 
@@ -513,16 +513,13 @@ mod test {
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
         assert_eq!(
             token,
-            HeaderValue::from_str("test-token-type test-access-token").unwrap()
+            HeaderValue::from_static("test-token-type test-access-token")
         );
         assert!(token.is_sensitive());
-        assert_eq!(
-            quota_project,
-            HeaderValue::from_str("test-project").unwrap()
-        );
+        assert_eq!(quota_project, HeaderValue::from_static("test-project"));
         assert!(!quota_project.is_sensitive());
         Ok(())
     }

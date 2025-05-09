@@ -97,7 +97,7 @@ mod test {
             .get(HeaderName::from_static("authorization"))
             .unwrap();
 
-        assert_eq!(value, HeaderValue::from_str("Bearer test_token").unwrap());
+        assert_eq!(value, HeaderValue::from_static("Bearer test_token"));
         assert!(value.is_sensitive());
     }
 
@@ -110,21 +110,18 @@ mod test {
 
         assert!(result.is_ok());
         let headers = result.unwrap();
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
 
         let token = headers
             .get(HeaderName::from_static("authorization"))
             .unwrap();
-        assert_eq!(token, HeaderValue::from_str("Bearer test_token").unwrap());
+        assert_eq!(token, HeaderValue::from_static("Bearer test_token"));
         assert!(token.is_sensitive());
 
         let quota_project = headers
             .get(HeaderName::from_static(QUOTA_PROJECT_KEY))
             .unwrap();
-        assert_eq!(
-            quota_project,
-            HeaderValue::from_str("test-project-123").unwrap()
-        );
+        assert_eq!(quota_project, HeaderValue::from_static("test-project-123"));
     }
 
     #[test]
@@ -136,13 +133,13 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
 
         let token = headers
             .get(HeaderName::from_static("authorization"))
             .unwrap();
 
-        assert_eq!(token, HeaderValue::from_str("MAC special_token").unwrap());
+        assert_eq!(token, HeaderValue::from_static("MAC special_token"));
         assert!(token.is_sensitive());
     }
 
@@ -166,12 +163,12 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
         let api_key = headers
             .get(HeaderName::from_static(API_KEY_HEADER_KEY))
             .unwrap();
 
-        assert_eq!(api_key, HeaderValue::from_str("api_key_12345").unwrap());
+        assert_eq!(api_key, HeaderValue::from_static("api_key_12345"));
         assert!(api_key.is_sensitive());
     }
 
@@ -185,21 +182,19 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
+
         let api_key = headers
             .get(HeaderName::from_static(API_KEY_HEADER_KEY))
             .unwrap();
 
-        assert_eq!(api_key, HeaderValue::from_str("api_key_12345").unwrap());
+        assert_eq!(api_key, HeaderValue::from_static("api_key_12345"));
         assert!(api_key.is_sensitive());
 
         let quota_project = headers
             .get(HeaderName::from_static(QUOTA_PROJECT_KEY))
             .unwrap();
-        assert_eq!(
-            quota_project,
-            HeaderValue::from_str("test-project-456").unwrap()
-        );
+        assert_eq!(quota_project, HeaderValue::from_static("test-project-456"));
     }
 
     #[test]
