@@ -31,8 +31,18 @@ pub use gax::error::Error;
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub use generated::gapic::builder;
-pub use generated::gapic::model;
+pub mod builder {
+    // TODO(#1813) - Consider renaming this to storage_control
+    pub mod storage {
+        pub use crate::generated::gapic::builder::storage::*;
+        pub use crate::generated::gapic_control::builder::storage_control::*;
+    }
+}
+pub mod model {
+    pub use crate::generated::gapic::model::*;
+    pub use crate::generated::gapic_control::model::*;
+}
+// TODO(#1813) - Consider moving client into a storage_control module
 pub mod client;
 
 pub(crate) mod google {
@@ -54,6 +64,12 @@ pub(crate) mod google {
         pub mod v2 {
             include!("generated/protos/storage/google.storage.v2.rs");
             include!("generated/convert/storage/convert.rs");
+        }
+        pub mod control {
+            pub mod v2 {
+                include!("generated/protos/control/google.storage.control.v2.rs");
+                include!("generated/convert/control/convert.rs");
+            }
         }
     }
 }

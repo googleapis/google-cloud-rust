@@ -17,7 +17,7 @@ language             = 'rust'
 specification-source = 'google/storage/v2'
 
 [source]
-skipped-ids    = """\
+skipped-ids = """\
     .google.storage.v2.BidiReadHandle,\
     .google.storage.v2.BidiReadObjectError,\
     .google.storage.v2.BidiReadObjectRedirectedError,\
