@@ -182,7 +182,6 @@ pub(crate) mod dynamic {
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
         /// The underlying implementation refreshes the token as needed.
-        ///
         // TODO(#2036): After the return type is updated to return cacheable resource
         // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
         async fn token(&self, extensions: Option<Extensions>) -> Result<crate::token::Token>;
