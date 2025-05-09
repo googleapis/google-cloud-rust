@@ -21,6 +21,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gax;
 extern crate gaxi;
+extern crate gtype;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
@@ -82,19 +83,20 @@ pub struct Instance {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shard_count: i32,
 
-    /// Output only. Endpoints clients can connect to the instance through.
-    /// Currently only one discovery endpoint is supported.
+    /// Output only. Deprecated: Use the endpoints.connections.psc_auto_connection
+    /// or endpoints.connections.psc_connection values instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub discovery_endpoints: std::vec::Vec<crate::model::DiscoveryEndpoint>,
 
-    /// Optional. Immutable. Machine type for individual nodes of the instance.
+    /// Optional. Machine type for individual nodes of the instance.
     pub node_type: crate::model::instance::NodeType,
 
     /// Optional. Persistence configuration of the instance.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub persistence_config: std::option::Option<crate::model::PersistenceConfig>,
 
-    /// Optional. Immutable. Engine version of the instance.
+    /// Optional. Engine version of the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub engine_version: std::string::String,
 
@@ -115,10 +117,15 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deletion_protection_enabled: std::option::Option<bool>,
 
-    /// Required. Immutable. User inputs and resource details of the auto-created
-    /// PSC connections.
+    /// Optional. Immutable. Deprecated: Use the
+    /// endpoints.connections.psc_auto_connection value instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub psc_auto_connections: std::vec::Vec<crate::model::PscAutoConnection>,
+
+    /// Output only. Service attachment details to configure PSC connections.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub psc_attachment_details: std::vec::Vec<crate::model::PscAttachmentDetail>,
 
     /// Optional. Endpoints for the instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -126,6 +133,45 @@ pub struct Instance {
 
     /// Optional. The mode config for the instance.
     pub mode: crate::model::instance::Mode,
+
+    /// Optional. Input only. Ondemand maintenance for the instance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ondemand_maintenance: std::option::Option<bool>,
+
+    /// Optional. The maintenance policy for the instance. If not provided,
+    /// the maintenance event will be performed based on Memorystore
+    /// internal rollout schedule.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub maintenance_policy: std::option::Option<crate::model::MaintenancePolicy>,
+
+    /// Output only. Published maintenance schedule.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub maintenance_schedule: std::option::Option<crate::model::MaintenanceSchedule>,
+
+    /// Optional. The config for cross instance replication.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cross_instance_replication_config:
+        std::option::Option<crate::model::CrossInstanceReplicationConfig>,
+
+    /// Optional. If true, instance endpoints that are created and registered by
+    /// customers can be deleted asynchronously. That is, such an instance endpoint
+    /// can be de-registered before the forwarding rules in the instance endpoint
+    /// are deleted.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub async_instance_endpoints_deletion_enabled: std::option::Option<bool>,
+
+    /// Output only. The backup collection full resource name. Example:
+    /// projects/{project}/locations/{location}/backupCollections/{collection}
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub backup_collection: std::option::Option<std::string::String>,
+
+    /// Optional. The automated backup config for the instance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub automated_backup_config: std::option::Option<crate::model::AutomatedBackupConfig>,
+
+    /// The source to import from.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub import_sources: std::option::Option<crate::model::instance::ImportSources>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -233,6 +279,7 @@ impl Instance {
     }
 
     /// Sets the value of [discovery_endpoints][crate::model::Instance::discovery_endpoints].
+    #[deprecated]
     pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -311,6 +358,7 @@ impl Instance {
     }
 
     /// Sets the value of [psc_auto_connections][crate::model::Instance::psc_auto_connections].
+    #[deprecated]
     pub fn set_psc_auto_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -318,6 +366,17 @@ impl Instance {
     {
         use std::iter::Iterator;
         self.psc_auto_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [psc_attachment_details][crate::model::Instance::psc_attachment_details].
+    pub fn set_psc_attachment_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PscAttachmentDetail>,
+    {
+        use std::iter::Iterator;
+        self.psc_attachment_details = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -335,6 +394,156 @@ impl Instance {
     /// Sets the value of [mode][crate::model::Instance::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::instance::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
+        self
+    }
+
+    /// Sets the value of [ondemand_maintenance][crate::model::Instance::ondemand_maintenance].
+    pub fn set_ondemand_maintenance<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ondemand_maintenance = v.into();
+        self
+    }
+
+    /// Sets the value of [maintenance_policy][crate::model::Instance::maintenance_policy].
+    pub fn set_maintenance_policy<
+        T: std::convert::Into<std::option::Option<crate::model::MaintenancePolicy>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maintenance_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [maintenance_schedule][crate::model::Instance::maintenance_schedule].
+    pub fn set_maintenance_schedule<
+        T: std::convert::Into<std::option::Option<crate::model::MaintenanceSchedule>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.maintenance_schedule = v.into();
+        self
+    }
+
+    /// Sets the value of [cross_instance_replication_config][crate::model::Instance::cross_instance_replication_config].
+    pub fn set_cross_instance_replication_config<
+        T: std::convert::Into<std::option::Option<crate::model::CrossInstanceReplicationConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cross_instance_replication_config = v.into();
+        self
+    }
+
+    /// Sets the value of [async_instance_endpoints_deletion_enabled][crate::model::Instance::async_instance_endpoints_deletion_enabled].
+    pub fn set_async_instance_endpoints_deletion_enabled<
+        T: std::convert::Into<std::option::Option<bool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.async_instance_endpoints_deletion_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_collection][crate::model::Instance::backup_collection].
+    pub fn set_backup_collection<
+        T: std::convert::Into<std::option::Option<std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_collection = v.into();
+        self
+    }
+
+    /// Sets the value of [automated_backup_config][crate::model::Instance::automated_backup_config].
+    pub fn set_automated_backup_config<
+        T: std::convert::Into<std::option::Option<crate::model::AutomatedBackupConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.automated_backup_config = v.into();
+        self
+    }
+
+    /// Sets the value of [import_sources][crate::model::Instance::import_sources].
+    ///
+    /// Note that all the setters affecting `import_sources` are mutually
+    /// exclusive.
+    pub fn set_import_sources<
+        T: std::convert::Into<std::option::Option<crate::model::instance::ImportSources>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_sources = v.into();
+        self
+    }
+
+    /// The value of [import_sources][crate::model::Instance::import_sources]
+    /// if it holds a `GcsSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::instance::GcsBackupSource>> {
+        #[allow(unreachable_patterns)]
+        self.import_sources.as_ref().and_then(|v| match v {
+            crate::model::instance::ImportSources::GcsSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [import_sources][crate::model::Instance::import_sources]
+    /// to hold a `GcsSource`.
+    ///
+    /// Note that all the setters affecting `import_sources` are
+    /// mutually exclusive.
+    pub fn set_gcs_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::instance::GcsBackupSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_sources =
+            std::option::Option::Some(crate::model::instance::ImportSources::GcsSource(v.into()));
+        self
+    }
+
+    /// The value of [import_sources][crate::model::Instance::import_sources]
+    /// if it holds a `ManagedBackupSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn managed_backup_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::instance::ManagedBackupSource>> {
+        #[allow(unreachable_patterns)]
+        self.import_sources.as_ref().and_then(|v| match v {
+            crate::model::instance::ImportSources::ManagedBackupSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [import_sources][crate::model::Instance::import_sources]
+    /// to hold a `ManagedBackupSource`.
+    ///
+    /// Note that all the setters affecting `import_sources` are
+    /// mutually exclusive.
+    pub fn set_managed_backup_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::instance::ManagedBackupSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_sources = std::option::Option::Some(
+            crate::model::instance::ImportSources::ManagedBackupSource(v.into()),
+        );
         self
     }
 }
@@ -441,6 +650,14 @@ pub mod instance {
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub target_replica_count: std::option::Option<i32>,
 
+            /// Output only. Target engine version for the instance.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub target_engine_version: std::option::Option<std::string::String>,
+
+            /// Output only. Target node type for the instance.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub target_node_type: std::option::Option<crate::model::instance::NodeType>,
+
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -467,6 +684,28 @@ pub mod instance {
                 self.target_replica_count = v.into();
                 self
             }
+
+            /// Sets the value of [target_engine_version][crate::model::instance::state_info::UpdateInfo::target_engine_version].
+            pub fn set_target_engine_version<
+                T: std::convert::Into<std::option::Option<std::string::String>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_engine_version = v.into();
+                self
+            }
+
+            /// Sets the value of [target_node_type][crate::model::instance::state_info::UpdateInfo::target_node_type].
+            pub fn set_target_node_type<
+                T: std::convert::Into<std::option::Option<crate::model::instance::NodeType>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_node_type = v.into();
+                self
+            }
         }
 
         impl wkt::message::Message for UpdateInfo {
@@ -482,6 +721,81 @@ pub mod instance {
         pub enum Info {
             /// Output only. Describes ongoing update when instance state is UPDATING.
             UpdateInfo(std::boxed::Box<crate::model::instance::state_info::UpdateInfo>),
+        }
+    }
+
+    /// Backups that stored in Cloud Storage buckets.
+    /// The Cloud Storage buckets need to be the same region as the instances.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GcsBackupSource {
+        /// Optional. Example: gs://bucket1/object1, gs://bucket2/folder2/object2
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub uris: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GcsBackupSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uris][crate::model::instance::GcsBackupSource::uris].
+        pub fn set_uris<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.uris = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GcsBackupSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.memorystore.v1.Instance.GcsBackupSource"
+        }
+    }
+
+    /// Backups that generated and managed by memorystore.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ManagedBackupSource {
+        /// Optional. Example:
+        /// //memorystore.googleapis.com/projects/{project}/locations/{location}/backupCollections/{collection}/backups/{backup}
+        /// A shorter version (without the prefix) of the backup name is also
+        /// supported, like
+        /// projects/{project}/locations/{location}/backupCollections/{collection}/backups/{backup_id}
+        /// In this case, it assumes the backup is under memorystore.googleapis.com.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub backup: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ManagedBackupSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [backup][crate::model::instance::ManagedBackupSource::backup].
+        pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.backup = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ManagedBackupSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.memorystore.v1.Instance.ManagedBackupSource"
         }
     }
 
@@ -646,8 +960,8 @@ pub mod instance {
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub enum Connection {
-            /// Detailed information of a PSC connection that is created through
-            /// service connectivity automation.
+            /// Immutable. Detailed information of a PSC connection that is created
+            /// through service connectivity automation.
             PscAutoConnection(std::boxed::Box<crate::model::PscAutoConnection>),
             /// Detailed information of a PSC connection that is created by the user.
             PscConnection(std::boxed::Box<crate::model::PscConnection>),
@@ -1355,6 +1669,1508 @@ pub mod instance {
             ))
         }
     }
+
+    /// The source to import from.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum ImportSources {
+        /// Optional. Immutable. Backups that stored in Cloud Storage buckets.
+        /// The Cloud Storage buckets need to be the same region as the instances.
+        /// Read permission is required to import from the provided Cloud Storage
+        /// Objects.
+        GcsSource(std::boxed::Box<crate::model::instance::GcsBackupSource>),
+        /// Optional. Immutable. Backups that generated and managed by memorystore
+        /// service.
+        ManagedBackupSource(std::boxed::Box<crate::model::instance::ManagedBackupSource>),
+    }
+}
+
+/// The automated backup config for an instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AutomatedBackupConfig {
+    /// Optional. The automated backup mode. If the mode is disabled, the other
+    /// fields will be ignored.
+    pub automated_backup_mode: crate::model::automated_backup_config::AutomatedBackupMode,
+
+    /// Optional. How long to keep automated backups before the backups are
+    /// deleted. The value should be between 1 day and 365 days. If not specified,
+    /// the default value is 35 days.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub retention: std::option::Option<wkt::Duration>,
+
+    /// The schedule of automated backups.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub schedule: std::option::Option<crate::model::automated_backup_config::Schedule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutomatedBackupConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [automated_backup_mode][crate::model::AutomatedBackupConfig::automated_backup_mode].
+    pub fn set_automated_backup_mode<
+        T: std::convert::Into<crate::model::automated_backup_config::AutomatedBackupMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.automated_backup_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [retention][crate::model::AutomatedBackupConfig::retention].
+    pub fn set_retention<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.retention = v.into();
+        self
+    }
+
+    /// Sets the value of [schedule][crate::model::AutomatedBackupConfig::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
+    pub fn set_schedule<
+        T: std::convert::Into<std::option::Option<crate::model::automated_backup_config::Schedule>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schedule = v.into();
+        self
+    }
+
+    /// The value of [schedule][crate::model::AutomatedBackupConfig::schedule]
+    /// if it holds a `FixedFrequencySchedule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn fixed_frequency_schedule(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.schedule.as_ref().and_then(|v| match v {
+            crate::model::automated_backup_config::Schedule::FixedFrequencySchedule(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [schedule][crate::model::AutomatedBackupConfig::schedule]
+    /// to hold a `FixedFrequencySchedule`.
+    ///
+    /// Note that all the setters affecting `schedule` are
+    /// mutually exclusive.
+    pub fn set_fixed_frequency_schedule<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schedule = std::option::Option::Some(
+            crate::model::automated_backup_config::Schedule::FixedFrequencySchedule(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AutomatedBackupConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AutomatedBackupConfig"
+    }
+}
+
+/// Defines additional types related to [AutomatedBackupConfig].
+pub mod automated_backup_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// This schedule allows the backup to be triggered at a fixed frequency
+    /// (currently only daily is supported).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FixedFrequencySchedule {
+        /// Required. The start time of every automated backup in UTC. It must be set
+        /// to the start of an hour. This field is required.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FixedFrequencySchedule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
+        pub fn set_start_time<
+            T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.start_time = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FixedFrequencySchedule {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.memorystore.v1.AutomatedBackupConfig.FixedFrequencySchedule"
+        }
+    }
+
+    /// The automated backup mode.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AutomatedBackupMode {
+        /// Default value. Automated backup config is not specified.
+        Unspecified,
+        /// Automated backup config disabled.
+        Disabled,
+        /// Automated backup config enabled.
+        Enabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AutomatedBackupMode::value] or
+        /// [AutomatedBackupMode::name].
+        UnknownValue(automated_backup_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod automated_backup_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AutomatedBackupMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Enabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AUTOMATED_BACKUP_MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AutomatedBackupMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AutomatedBackupMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AutomatedBackupMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::Enabled,
+                _ => Self::UnknownValue(automated_backup_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AutomatedBackupMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTOMATED_BACKUP_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "ENABLED" => Self::Enabled,
+                _ => Self::UnknownValue(automated_backup_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AutomatedBackupMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Enabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AutomatedBackupMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutomatedBackupMode>::new(
+                ".google.cloud.memorystore.v1.AutomatedBackupConfig.AutomatedBackupMode",
+            ))
+        }
+    }
+
+    /// The schedule of automated backups.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Schedule {
+        /// Optional. Trigger automated backups at a fixed frequency.
+        FixedFrequencySchedule(
+            std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
+        ),
+    }
+}
+
+/// BackupCollection of an instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BackupCollection {
+    /// Identifier. Full resource path of the backup collection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The instance uid of the backup collection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub instance_uid: std::string::String,
+
+    /// Output only. The full resource path of the instance the backup collection
+    /// belongs to. Example:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub instance: std::string::String,
+
+    /// Output only. The KMS key used to encrypt the backups under this backup
+    /// collection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kms_key: std::string::String,
+
+    /// Output only. System assigned unique identifier of the backup collection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    /// Output only. The time when the backup collection was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackupCollection::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_uid][crate::model::BackupCollection::instance_uid].
+    pub fn set_instance_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_uid = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::BackupCollection::instance].
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key][crate::model::BackupCollection::kms_key].
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::BackupCollection::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackupCollection::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupCollection {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.BackupCollection"
+    }
+}
+
+/// Backup of an instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Backup {
+    /// Identifier. Full resource path of the backup. the last part of the name is
+    /// the backup id with the following format: [YYYYMMDDHHMMSS]_[Shorted Instance
+    /// UID] OR customer specified while backup instance. Example:
+    /// 20240515123000_1234
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The time when the backup was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Instance resource path of this backup.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub instance: std::string::String,
+
+    /// Output only. Instance uid of this backup.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub instance_uid: std::string::String,
+
+    /// Output only. Total size of the backup in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub total_size_bytes: i64,
+
+    /// Output only. The time when the backup will expire.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. valkey-7.5/valkey-8.0, etc.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub engine_version: std::string::String,
+
+    /// Output only. List of backup files of the backup.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub backup_files: std::vec::Vec<crate::model::BackupFile>,
+
+    /// Output only. Node type of the instance.
+    pub node_type: crate::model::instance::NodeType,
+
+    /// Output only. Number of replicas for the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub replica_count: i32,
+
+    /// Output only. Number of shards for the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub shard_count: i32,
+
+    /// Output only. Type of the backup.
+    pub backup_type: crate::model::backup::BackupType,
+
+    /// Output only. State of the backup.
+    pub state: crate::model::backup::State,
+
+    /// Output only. System assigned unique identifier of the backup.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Backup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Backup::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Backup::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::Backup::instance].
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_uid][crate::model::Backup::instance_uid].
+    pub fn set_instance_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_uid = v.into();
+        self
+    }
+
+    /// Sets the value of [total_size_bytes][crate::model::Backup::total_size_bytes].
+    pub fn set_total_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_size_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::Backup::expire_time].
+    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of [engine_version][crate::model::Backup::engine_version].
+    pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.engine_version = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_files][crate::model::Backup::backup_files].
+    pub fn set_backup_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupFile>,
+    {
+        use std::iter::Iterator;
+        self.backup_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [node_type][crate::model::Backup::node_type].
+    pub fn set_node_type<T: std::convert::Into<crate::model::instance::NodeType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.node_type = v.into();
+        self
+    }
+
+    /// Sets the value of [replica_count][crate::model::Backup::replica_count].
+    pub fn set_replica_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.replica_count = v.into();
+        self
+    }
+
+    /// Sets the value of [shard_count][crate::model::Backup::shard_count].
+    pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.shard_count = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_type][crate::model::Backup::backup_type].
+    pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_type = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Backup::state].
+    pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Backup::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Backup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.Backup"
+    }
+}
+
+/// Defines additional types related to [Backup].
+pub mod backup {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of the backup.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BackupType {
+        /// The default value, not set.
+        Unspecified,
+        /// On-demand backup.
+        OnDemand,
+        /// Automated backup.
+        Automated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BackupType::value] or
+        /// [BackupType::name].
+        UnknownValue(backup_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod backup_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BackupType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::OnDemand => std::option::Option::Some(1),
+                Self::Automated => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BACKUP_TYPE_UNSPECIFIED"),
+                Self::OnDemand => std::option::Option::Some("ON_DEMAND"),
+                Self::Automated => std::option::Option::Some("AUTOMATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BackupType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BackupType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BackupType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::OnDemand,
+                2 => Self::Automated,
+                _ => Self::UnknownValue(backup_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BackupType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BACKUP_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ON_DEMAND" => Self::OnDemand,
+                "AUTOMATED" => Self::Automated,
+                _ => Self::UnknownValue(backup_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BackupType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::OnDemand => serializer.serialize_i32(1),
+                Self::Automated => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BackupType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackupType>::new(
+                ".google.cloud.memorystore.v1.Backup.BackupType",
+            ))
+        }
+    }
+
+    /// State of the backup.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value, not set.
+        Unspecified,
+        /// The backup is being created.
+        Creating,
+        /// The backup is active to be used.
+        Active,
+        /// The backup is being deleted.
+        Deleting,
+        /// The backup is currently suspended due to reasons like project deletion,
+        /// billing account closure, etc.
+        Suspended,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Suspended => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Suspended => std::option::Option::Some("SUSPENDED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Suspended,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "SUSPENDED" => Self::Suspended,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Suspended => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.Backup.State",
+            ))
+        }
+    }
+}
+
+/// Backup is consisted of multiple backup files.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BackupFile {
+    /// Output only. e.g: \<shard-id\>.rdb
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub file_name: std::string::String,
+
+    /// Output only. Size of the backup file in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub size_bytes: i64,
+
+    /// Output only. The time when the backup file was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupFile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [file_name][crate::model::BackupFile::file_name].
+    pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.file_name = v.into();
+        self
+    }
+
+    /// Sets the value of [size_bytes][crate::model::BackupFile::size_bytes].
+    pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.size_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackupFile::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupFile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.BackupFile"
+    }
+}
+
+/// Cross instance replication config.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CrossInstanceReplicationConfig {
+    /// Required. The role of the instance in cross instance replication.
+    pub instance_role: crate::model::cross_instance_replication_config::InstanceRole,
+
+    /// Optional. Details of the primary instance that is used as the replication
+    /// source for this secondary instance.
+    ///
+    /// This field is only set for a secondary instance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub primary_instance:
+        std::option::Option<crate::model::cross_instance_replication_config::RemoteInstance>,
+
+    /// Optional. List of secondary instances that are replicating from this
+    /// primary instance.
+    ///
+    /// This field is only set for a primary instance.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub secondary_instances:
+        std::vec::Vec<crate::model::cross_instance_replication_config::RemoteInstance>,
+
+    /// Output only. The last time cross instance replication config was updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. An output only view of all the member instances participating
+    /// in the cross instance replication. This view will be provided by every
+    /// member instance irrespective of its instance role(primary or secondary).
+    ///
+    /// A primary instance can provide information about all the secondary
+    /// instances replicating from it. However, a secondary instance only knows
+    /// about the primary instance from which it is replicating. However, for
+    /// scenarios, where the primary instance is unavailable(e.g. regional outage),
+    /// a Getinstance request can be sent to any other member instance and this
+    /// field will list all the member instances participating in cross instance
+    /// replication.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub membership:
+        std::option::Option<crate::model::cross_instance_replication_config::Membership>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CrossInstanceReplicationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance_role][crate::model::CrossInstanceReplicationConfig::instance_role].
+    pub fn set_instance_role<
+        T: std::convert::Into<crate::model::cross_instance_replication_config::InstanceRole>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.instance_role = v.into();
+        self
+    }
+
+    /// Sets the value of [primary_instance][crate::model::CrossInstanceReplicationConfig::primary_instance].
+    pub fn set_primary_instance<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::cross_instance_replication_config::RemoteInstance,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.primary_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [secondary_instances][crate::model::CrossInstanceReplicationConfig::secondary_instances].
+    pub fn set_secondary_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::cross_instance_replication_config::RemoteInstance>,
+    {
+        use std::iter::Iterator;
+        self.secondary_instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::CrossInstanceReplicationConfig::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [membership][crate::model::CrossInstanceReplicationConfig::membership].
+    pub fn set_membership<
+        T: std::convert::Into<
+                std::option::Option<crate::model::cross_instance_replication_config::Membership>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.membership = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CrossInstanceReplicationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.CrossInstanceReplicationConfig"
+    }
+}
+
+/// Defines additional types related to [CrossInstanceReplicationConfig].
+pub mod cross_instance_replication_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Details of the remote instance associated with this instance in a cross
+    /// instance replication setup.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct RemoteInstance {
+        /// Optional. The full resource path of the remote instance in
+        /// the format: projects/\<project\>/locations/\<region\>/instances/\<instance-id\>
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub instance: std::string::String,
+
+        /// Output only. The unique identifier of the remote instance.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub uid: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RemoteInstance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [instance][crate::model::cross_instance_replication_config::RemoteInstance::instance].
+        pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [uid][crate::model::cross_instance_replication_config::RemoteInstance::uid].
+        pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.uid = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RemoteInstance {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.memorystore.v1.CrossInstanceReplicationConfig.RemoteInstance"
+        }
+    }
+
+    /// An output only view of all the member instances participating in the cross
+    /// instance replication.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Membership {
+        /// Output only. The primary instance that acts as the source of replication
+        /// for the secondary instances.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub primary_instance:
+            std::option::Option<crate::model::cross_instance_replication_config::RemoteInstance>,
+
+        /// Output only. The list of secondary instances replicating from the primary
+        /// instance.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub secondary_instances:
+            std::vec::Vec<crate::model::cross_instance_replication_config::RemoteInstance>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Membership {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [primary_instance][crate::model::cross_instance_replication_config::Membership::primary_instance].
+        pub fn set_primary_instance<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::cross_instance_replication_config::RemoteInstance,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.primary_instance = v.into();
+            self
+        }
+
+        /// Sets the value of [secondary_instances][crate::model::cross_instance_replication_config::Membership::secondary_instances].
+        pub fn set_secondary_instances<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::cross_instance_replication_config::RemoteInstance>,
+        {
+            use std::iter::Iterator;
+            self.secondary_instances = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Membership {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.memorystore.v1.CrossInstanceReplicationConfig.Membership"
+        }
+    }
+
+    /// The role of the instance in cross instance replication.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InstanceRole {
+        /// instance role is not set.
+        /// The behavior is equivalent to NONE.
+        Unspecified,
+        /// This instance does not participate in cross instance replication. It is
+        /// an independent instance and does not replicate to or from any other
+        /// instances.
+        None,
+        /// A instance that allows both reads and writes. Any data written to this
+        /// instance is also replicated to the attached secondary instances.
+        Primary,
+        /// A instance that allows only reads and replicates data from a primary
+        /// instance.
+        Secondary,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [InstanceRole::value] or
+        /// [InstanceRole::name].
+        UnknownValue(instance_role::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod instance_role {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl InstanceRole {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Primary => std::option::Option::Some(2),
+                Self::Secondary => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INSTANCE_ROLE_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Primary => std::option::Option::Some("PRIMARY"),
+                Self::Secondary => std::option::Option::Some("SECONDARY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for InstanceRole {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for InstanceRole {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for InstanceRole {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Primary,
+                3 => Self::Secondary,
+                _ => Self::UnknownValue(instance_role::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for InstanceRole {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INSTANCE_ROLE_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "PRIMARY" => Self::Primary,
+                "SECONDARY" => Self::Secondary,
+                _ => Self::UnknownValue(instance_role::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for InstanceRole {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Primary => serializer.serialize_i32(2),
+                Self::Secondary => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for InstanceRole {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<InstanceRole>::new(
+                ".google.cloud.memorystore.v1.CrossInstanceReplicationConfig.InstanceRole",
+            ))
+        }
+    }
+}
+
+/// Maintenance policy per instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MaintenancePolicy {
+    /// Output only. The time when the policy was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the policy was updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Maintenance window that is applied to resources covered by this
+    /// policy. Minimum 1. For the current version, the maximum number of
+    /// weekly_window is expected to be one.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub weekly_maintenance_window: std::vec::Vec<crate::model::WeeklyMaintenanceWindow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MaintenancePolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::MaintenancePolicy::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::MaintenancePolicy::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [weekly_maintenance_window][crate::model::MaintenancePolicy::weekly_maintenance_window].
+    pub fn set_weekly_maintenance_window<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::WeeklyMaintenanceWindow>,
+    {
+        use std::iter::Iterator;
+        self.weekly_maintenance_window = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MaintenancePolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.MaintenancePolicy"
+    }
+}
+
+/// Time window specified for weekly operations.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct WeeklyMaintenanceWindow {
+    /// Optional. Allows to define schedule that runs specified day of the week.
+    pub day: gtype::model::DayOfWeek,
+
+    /// Optional. Start time of the window in UTC.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WeeklyMaintenanceWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [day][crate::model::WeeklyMaintenanceWindow::day].
+    pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
+        self.day = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::WeeklyMaintenanceWindow::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<gtype::model::TimeOfDay>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for WeeklyMaintenanceWindow {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.WeeklyMaintenanceWindow"
+    }
+}
+
+/// Upcoming maintenance schedule.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MaintenanceSchedule {
+    /// Output only. The start time of any upcoming scheduled maintenance for this
+    /// instance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The end time of any upcoming scheduled maintenance for this
+    /// instance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MaintenanceSchedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::MaintenanceSchedule::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::MaintenanceSchedule::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MaintenanceSchedule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.MaintenanceSchedule"
+    }
+}
+
+/// Configuration of a service attachment of the cluster, for creating PSC
+/// connections.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PscAttachmentDetail {
+    /// Output only. Service attachment URI which your self-created PscConnection
+    /// should use as target.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_attachment: std::string::String,
+
+    /// Output only. Type of Psc endpoint.
+    pub connection_type: crate::model::ConnectionType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PscAttachmentDetail {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [service_attachment][crate::model::PscAttachmentDetail::service_attachment].
+    pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_attachment = v.into();
+        self
+    }
+
+    /// Sets the value of [connection_type][crate::model::PscAttachmentDetail::connection_type].
+    pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connection_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PscAttachmentDetail {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.PscAttachmentDetail"
+    }
 }
 
 /// Details of consumer resources in a PSC connection.
@@ -1531,8 +3347,7 @@ pub mod psc_auto_connection {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Ports {
-        /// Optional. Output only. port will only be set for Primary/Reader or
-        /// Discovery endpoint.
+        /// Optional. port will only be set for Primary/Reader or Discovery endpoint.
         Port(i32),
     }
 }
@@ -1543,7 +3358,7 @@ pub mod psc_auto_connection {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PscConnection {
-    /// Output only. The PSC connection id of the forwarding rule connected to the
+    /// Required. The PSC connection id of the forwarding rule connected to the
     /// service attachment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub psc_connection_id: std::string::String,
@@ -1583,6 +3398,10 @@ pub struct PscConnection {
 
     /// Output only. Type of the PSC connection.
     pub connection_type: crate::model::ConnectionType,
+
+    /// Ports of the exposed endpoint.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub ports: std::option::Option<crate::model::psc_connection::Ports>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1652,11 +3471,62 @@ impl PscConnection {
         self.connection_type = v.into();
         self
     }
+
+    /// Sets the value of [ports][crate::model::PscConnection::ports].
+    ///
+    /// Note that all the setters affecting `ports` are mutually
+    /// exclusive.
+    pub fn set_ports<
+        T: std::convert::Into<std::option::Option<crate::model::psc_connection::Ports>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ports = v.into();
+        self
+    }
+
+    /// The value of [ports][crate::model::PscConnection::ports]
+    /// if it holds a `Port`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn port(&self) -> std::option::Option<&i32> {
+        #[allow(unreachable_patterns)]
+        self.ports.as_ref().and_then(|v| match v {
+            crate::model::psc_connection::Ports::Port(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [ports][crate::model::PscConnection::ports]
+    /// to hold a `Port`.
+    ///
+    /// Note that all the setters affecting `ports` are
+    /// mutually exclusive.
+    pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.ports = std::option::Option::Some(crate::model::psc_connection::Ports::Port(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for PscConnection {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.memorystore.v1.PscConnection"
+    }
+}
+
+/// Defines additional types related to [PscConnection].
+pub mod psc_connection {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Ports of the exposed endpoint.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Ports {
+        /// Optional. port will only be set for Primary/Reader or Discovery endpoint.
+        Port(i32),
     }
 }
 
@@ -2539,6 +4409,206 @@ pub mod zone_distribution_config {
     }
 }
 
+/// Request for rescheduling instance maintenance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RescheduleMaintenanceRequest {
+    /// Required. Name of the instance to reschedule maintenance for:
+    /// `projects/{project}/locations/{location_id}/instances/{instance}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. If reschedule type is SPECIFIC_TIME, schedule_time must be set.
+    pub reschedule_type: crate::model::reschedule_maintenance_request::RescheduleType,
+
+    /// Optional. Timestamp when the maintenance shall be rescheduled to if
+    /// reschedule_type=SPECIFIC_TIME, in RFC 3339 format.
+    /// Example: `2012-11-15T16:19:00.094Z`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub schedule_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RescheduleMaintenanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RescheduleMaintenanceRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [reschedule_type][crate::model::RescheduleMaintenanceRequest::reschedule_type].
+    pub fn set_reschedule_type<
+        T: std::convert::Into<crate::model::reschedule_maintenance_request::RescheduleType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reschedule_type = v.into();
+        self
+    }
+
+    /// Sets the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+    pub fn set_schedule_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schedule_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RescheduleMaintenanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.RescheduleMaintenanceRequest"
+    }
+}
+
+/// Defines additional types related to [RescheduleMaintenanceRequest].
+pub mod reschedule_maintenance_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Reschedule options.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RescheduleType {
+        /// Not set.
+        Unspecified,
+        /// If the user wants to schedule the maintenance to happen now.
+        Immediate,
+        /// If the user wants to reschedule the maintenance to a specific time.
+        SpecificTime,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RescheduleType::value] or
+        /// [RescheduleType::name].
+        UnknownValue(reschedule_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod reschedule_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RescheduleType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Immediate => std::option::Option::Some(1),
+                Self::SpecificTime => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESCHEDULE_TYPE_UNSPECIFIED"),
+                Self::Immediate => std::option::Option::Some("IMMEDIATE"),
+                Self::SpecificTime => std::option::Option::Some("SPECIFIC_TIME"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RescheduleType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Immediate,
+                3 => Self::SpecificTime,
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RescheduleType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IMMEDIATE" => Self::Immediate,
+                "SPECIFIC_TIME" => Self::SpecificTime,
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RescheduleType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Immediate => serializer.serialize_i32(1),
+                Self::SpecificTime => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RescheduleType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RescheduleType>::new(
+                ".google.cloud.memorystore.v1.RescheduleMaintenanceRequest.RescheduleType",
+            ))
+        }
+    }
+}
+
 /// Request message for [ListInstances][].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2936,6 +5006,559 @@ impl DeleteInstanceRequest {
 impl wkt::message::Message for DeleteInstanceRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.memorystore.v1.DeleteInstanceRequest"
+    }
+}
+
+/// Request for [ListBackupCollections]
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupCollectionsRequest {
+    /// Required. The resource name of the backupCollection location using the
+    /// form:
+    /// `projects/{project_id}/locations/{location_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 1000 will be used by the service.
+    /// Regardless of the page_size value, the response may include a partial list
+    /// and a caller should only rely on response's
+    /// [`next_page_token`][google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]
+    /// to determine if there are more clusters left to be queried.
+    ///
+    /// [google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]: crate::model::ListBackupCollectionsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// [ListBackupCollections] request, if any.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupCollectionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackupCollectionsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackupCollectionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackupCollectionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupCollectionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListBackupCollectionsRequest"
+    }
+}
+
+/// Response for [ListBackupCollections].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupCollectionsResponse {
+    /// A list of backupCollections in the project.
+    ///
+    /// If the `location_id` in the parent field of the request is "-", all regions
+    /// available to the project are queried, and the results aggregated.
+    /// If in such an aggregated query a location is unavailable, a placeholder
+    /// backupCollection entry is included in the response with the `name` field
+    /// set to a value of the form
+    /// `projects/{project_id}/locations/{location_id}/backupCollections/`- and the
+    /// `status` field set to ERROR and `status_message` field set to "location not
+    /// available for ListBackupCollections".
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub backup_collections: std::vec::Vec<crate::model::BackupCollection>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupCollectionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_collections][crate::model::ListBackupCollectionsResponse::backup_collections].
+    pub fn set_backup_collections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupCollection>,
+    {
+        use std::iter::Iterator;
+        self.backup_collections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupCollectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupCollectionsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupCollectionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListBackupCollectionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupCollectionsResponse {
+    type PageItem = crate::model::BackupCollection;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backup_collections
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for [GetBackupCollection].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetBackupCollectionRequest {
+    /// Required. Instance backupCollection resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBackupCollectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBackupCollectionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBackupCollectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetBackupCollectionRequest"
+    }
+}
+
+/// Request for [ListBackups].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupsRequest {
+    /// Required. The resource name of the backupCollection using the form:
+    /// `projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 1000 will be used by the service.
+    /// Regardless of the page_size value, the response may include a partial list
+    /// and a caller should only rely on response's
+    /// [`next_page_token`][google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]
+    /// to determine if there are more clusters left to be queried.
+    ///
+    /// [google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// [ListBackupCollections] request, if any.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListBackupsRequest"
+    }
+}
+
+/// Response for [ListBackups].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListBackupsResponse {
+    /// A list of backups in the project.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub backups: std::vec::Vec<crate::model::Backup>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Backups that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    pub fn set_backups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Backup>,
+    {
+        use std::iter::Iterator;
+        self.backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListBackupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
+    type PageItem = crate::model::Backup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for [GetBackup].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetBackupRequest {
+    /// Required. Instance backup resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBackupRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBackupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetBackupRequest"
+    }
+}
+
+/// Request for [DeleteBackup].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteBackupRequest {
+    /// Required. Instance backup resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. Idempotent request UUID.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteBackupRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteBackupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.DeleteBackupRequest"
+    }
+}
+
+/// Request for [ExportBackup].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExportBackupRequest {
+    /// Required. Instance backup resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/backupCollections/{backup_collection_id}/backups/{backup_id}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. Specify destination to export a backup.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub destination: std::option::Option<crate::model::export_backup_request::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExportBackupRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::ExportBackupRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::export_backup_request::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportBackupRequest::destination]
+    /// if it holds a `GcsBucket`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_bucket(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_backup_request::Destination::GcsBucket(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportBackupRequest::destination]
+    /// to hold a `GcsBucket`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_backup_request::Destination::GcsBucket(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportBackupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ExportBackupRequest"
+    }
+}
+
+/// Defines additional types related to [ExportBackupRequest].
+pub mod export_backup_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. Specify destination to export a backup.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// Google Cloud Storage bucket, like "my-bucket".
+        GcsBucket(std::string::String),
+    }
+}
+
+/// Request for [BackupInstance].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BackupInstanceRequest {
+    /// Required. Instance resource name using the form:
+    /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
+    /// where `location_id` refers to a Google Cloud region.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. TTL for the backup to expire. Value range is 1 day to 100 years.
+    /// If not specified, the default value is 100 years.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// Optional. The id of the backup to be created. If not specified, the
+    /// default value ([YYYYMMDDHHMMSS]_[Shortened Instance UID] is used.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub backup_id: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackupInstanceRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::BackupInstanceRequest::ttl].
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
+    pub fn set_backup_id<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.BackupInstanceRequest"
     }
 }
 

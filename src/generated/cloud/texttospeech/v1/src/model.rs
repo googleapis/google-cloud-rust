@@ -395,6 +395,29 @@ pub mod custom_pronunciation_params {
         /// X-SAMPA, such as apple -> "{p@l".
         /// <https://en.wikipedia.org/wiki/X-SAMPA>
         XSampa,
+        /// For reading-to-pron conversion to work well, the `pronunciation` field
+        /// should only contain Kanji, Hiragana, and Katakana.
+        ///
+        /// The pronunciation can also contain pitch accents.
+        /// The start of a pitch phrase is specified with `^` and the down-pitch
+        /// position is specified with `!`, for example:
+        ///
+        /// ```norust
+        /// phrase:端  pronunciation:^はし
+        /// phrase:箸  pronunciation:^は!し
+        /// phrase:橋  pronunciation:^はし!
+        /// ```
+        ///
+        /// We currently only support the Tokyo dialect, which allows at most one
+        /// down-pitch per phrase (i.e. at most one `!` between `^`).
+        JapaneseYomigana,
+        /// Used to specify pronunciations for Mandarin words. See
+        /// <https://en.wikipedia.org/wiki/Pinyin>.
+        ///
+        /// For example: 朝阳, the pronunciation is "chao2 yang2". The number
+        /// represents the tone, and there is a space between syllables. Neutral
+        /// tones are represented by 5, for example 孩子 "hai2 zi5".
+        Pinyin,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [PhoneticEncoding::value] or
@@ -420,6 +443,8 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Ipa => std::option::Option::Some(1),
                 Self::XSampa => std::option::Option::Some(2),
+                Self::JapaneseYomigana => std::option::Option::Some(3),
+                Self::Pinyin => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -433,6 +458,10 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => std::option::Option::Some("PHONETIC_ENCODING_UNSPECIFIED"),
                 Self::Ipa => std::option::Option::Some("PHONETIC_ENCODING_IPA"),
                 Self::XSampa => std::option::Option::Some("PHONETIC_ENCODING_X_SAMPA"),
+                Self::JapaneseYomigana => {
+                    std::option::Option::Some("PHONETIC_ENCODING_JAPANESE_YOMIGANA")
+                }
+                Self::Pinyin => std::option::Option::Some("PHONETIC_ENCODING_PINYIN"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -457,6 +486,8 @@ pub mod custom_pronunciation_params {
                 0 => Self::Unspecified,
                 1 => Self::Ipa,
                 2 => Self::XSampa,
+                3 => Self::JapaneseYomigana,
+                4 => Self::Pinyin,
                 _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -471,6 +502,8 @@ pub mod custom_pronunciation_params {
                 "PHONETIC_ENCODING_UNSPECIFIED" => Self::Unspecified,
                 "PHONETIC_ENCODING_IPA" => Self::Ipa,
                 "PHONETIC_ENCODING_X_SAMPA" => Self::XSampa,
+                "PHONETIC_ENCODING_JAPANESE_YOMIGANA" => Self::JapaneseYomigana,
+                "PHONETIC_ENCODING_PINYIN" => Self::Pinyin,
                 _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -487,6 +520,8 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Ipa => serializer.serialize_i32(1),
                 Self::XSampa => serializer.serialize_i32(2),
+                Self::JapaneseYomigana => serializer.serialize_i32(3),
+                Self::Pinyin => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -710,6 +745,28 @@ impl SynthesisInput {
     }
 
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
+    /// if it holds a `Markup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn markup(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.input_source.as_ref().and_then(|v| match v {
+            crate::model::synthesis_input::InputSource::Markup(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
+    /// to hold a `Markup`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source =
+            std::option::Option::Some(crate::model::synthesis_input::InputSource::Markup(v.into()));
+        self
+    }
+
+    /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Ssml`, `None` if the field is not set or
     /// holds a different branch.
     pub fn ssml(&self) -> std::option::Option<&std::string::String> {
@@ -783,6 +840,9 @@ pub mod synthesis_input {
     pub enum InputSource {
         /// The raw text to be synthesized.
         Text(std::string::String),
+        /// Markup for HD voices specifically. This field may not be used with any
+        /// other voices.
+        Markup(std::string::String),
         /// The SSML document to be synthesized. The SSML document must be valid
         /// and well-formed. Otherwise the RPC will fail and return
         /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]. For
@@ -1470,6 +1530,31 @@ impl StreamingSynthesisInput {
         );
         self
     }
+
+    /// The value of [input_source][crate::model::StreamingSynthesisInput::input_source]
+    /// if it holds a `Markup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn markup(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.input_source.as_ref().and_then(|v| match v {
+            crate::model::streaming_synthesis_input::InputSource::Markup(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source]
+    /// to hold a `Markup`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source = std::option::Option::Some(
+            crate::model::streaming_synthesis_input::InputSource::Markup(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for StreamingSynthesisInput {
@@ -1492,6 +1577,9 @@ pub mod streaming_synthesis_input {
         /// contains complete, terminating sentences, which results in better prosody
         /// in the output audio.
         Text(std::string::String),
+        /// Markup for HD voices specifically. This field may not be used with any
+        /// other voices.
+        Markup(std::string::String),
     }
 }
 

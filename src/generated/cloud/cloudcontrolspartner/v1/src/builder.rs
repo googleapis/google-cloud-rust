@@ -602,6 +602,178 @@ pub mod cloud_controls_partner_core {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [CloudControlsPartnerCore::create_customer][super::super::client::CloudControlsPartnerCore::create_customer] calls.
+    #[derive(Clone, Debug)]
+    pub struct CreateCustomer(RequestBuilder<crate::model::CreateCustomerRequest>);
+
+    impl CreateCustomer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateCustomerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Customer> {
+            (*self.0.stub)
+                .create_customer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateCustomerRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [customer][crate::model::CreateCustomerRequest::customer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_customer<T: Into<std::option::Option<crate::model::Customer>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.customer = v.into();
+            self
+        }
+
+        /// Sets the value of [customer_id][crate::model::CreateCustomerRequest::customer_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_customer_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.customer_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCustomer {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CloudControlsPartnerCore::update_customer][super::super::client::CloudControlsPartnerCore::update_customer] calls.
+    #[derive(Clone, Debug)]
+    pub struct UpdateCustomer(RequestBuilder<crate::model::UpdateCustomerRequest>);
+
+    impl UpdateCustomer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateCustomerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Customer> {
+            (*self.0.stub)
+                .update_customer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [customer][crate::model::UpdateCustomerRequest::customer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_customer<T: Into<std::option::Option<crate::model::Customer>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.customer = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCustomer {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CloudControlsPartnerCore::delete_customer][super::super::client::CloudControlsPartnerCore::delete_customer] calls.
+    #[derive(Clone, Debug)]
+    pub struct DeleteCustomer(RequestBuilder<crate::model::DeleteCustomerRequest>);
+
+    impl DeleteCustomer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteCustomerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_customer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteCustomerRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCustomer {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }
 
 pub mod cloud_controls_partner_monitoring {

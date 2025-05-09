@@ -92,6 +92,78 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.reschedule_maintenance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_backup_collections(
+        &self,
+        req: crate::model::ListBackupCollectionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupCollectionsResponse>> {
+        self.inner.list_backup_collections(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_backup_collection(
+        &self,
+        req: crate::model::GetBackupCollectionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::BackupCollection>> {
+        self.inner.get_backup_collection(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        self.inner.list_backups(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
+        self.inner.get_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn export_backup(
+        &self,
+        req: crate::model::ExportBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.export_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn backup_instance(
+        &self,
+        req: crate::model::BackupInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.backup_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

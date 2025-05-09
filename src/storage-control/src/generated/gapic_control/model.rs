@@ -907,7 +907,7 @@ pub mod storage_layout {
 
     /// Configuration for Custom Dual Regions.  It should specify precisely two
     /// eligible regions within the same Multiregion. More information on regions
-    /// may be found [<https://cloud.google.com/storage/docs/locations>][here].
+    /// may be found [here](https://cloud.google.com/storage/docs/locations).
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1473,6 +1473,765 @@ impl gax::paginator::internal::PageableResponse for ListManagedFoldersResponse {
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.managed_folders
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message returned in the metadata field of the Operation resource for
+/// CreateAnywhereCache operations.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateAnywhereCacheMetadata {
+    /// Generic metadata for the long running operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
+
+    /// Anywhere Cache ID.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub anywhere_cache_id: std::option::Option<std::string::String>,
+
+    /// The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub zone: std::option::Option<std::string::String>,
+
+    /// Anywhere Cache entry's TTL. A cache-level config that is applied to all new
+    /// cache entries on admission. Default ttl value (24hrs) is applied if not
+    /// specified in the create request.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// Anywhere Cache entry Admission Policy in kebab-case (e.g.,
+    /// "admit-on-first-miss"). Default admission policy (admit-on-first-miss) is
+    /// applied if not specified in the create request.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub admission_policy: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAnywhereCacheMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [common_metadata][crate::model::CreateAnywhereCacheMetadata::common_metadata].
+    pub fn set_common_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::CommonLongRunningOperationMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.common_metadata = v.into();
+        self
+    }
+
+    /// Sets the value of [anywhere_cache_id][crate::model::CreateAnywhereCacheMetadata::anywhere_cache_id].
+    pub fn set_anywhere_cache_id<
+        T: std::convert::Into<std::option::Option<std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.anywhere_cache_id = v.into();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::CreateAnywhereCacheMetadata::zone].
+    pub fn set_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::CreateAnywhereCacheMetadata::ttl].
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [admission_policy][crate::model::CreateAnywhereCacheMetadata::admission_policy].
+    pub fn set_admission_policy<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.admission_policy = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAnywhereCacheMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata"
+    }
+}
+
+/// Message returned in the metadata field of the Operation resource for
+/// UpdateAnywhereCache operation.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateAnywhereCacheMetadata {
+    /// Generic metadata for the long running operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
+
+    /// Anywhere Cache ID.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub anywhere_cache_id: std::option::Option<std::string::String>,
+
+    /// The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub zone: std::option::Option<std::string::String>,
+
+    /// Anywhere Cache entry's TTL between 1h and 7days. A cache-level config that
+    /// is applied to all new cache entries on admission. If `ttl` is pending
+    /// update, this field equals to the new value specified in the Update request.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// L4 Cache entry Admission Policy in kebab-case (e.g.,
+    /// "admit-on-first-miss"). If `admission_policy` is pending
+    /// update, this field equals to the new value specified in the Update request.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub admission_policy: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAnywhereCacheMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [common_metadata][crate::model::UpdateAnywhereCacheMetadata::common_metadata].
+    pub fn set_common_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::CommonLongRunningOperationMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.common_metadata = v.into();
+        self
+    }
+
+    /// Sets the value of [anywhere_cache_id][crate::model::UpdateAnywhereCacheMetadata::anywhere_cache_id].
+    pub fn set_anywhere_cache_id<
+        T: std::convert::Into<std::option::Option<std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.anywhere_cache_id = v.into();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::UpdateAnywhereCacheMetadata::zone].
+    pub fn set_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::UpdateAnywhereCacheMetadata::ttl].
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [admission_policy][crate::model::UpdateAnywhereCacheMetadata::admission_policy].
+    pub fn set_admission_policy<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.admission_policy = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAnywhereCacheMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata"
+    }
+}
+
+/// An Anywhere Cache Instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AnywhereCache {
+    /// Immutable. The resource name of this AnywhereCache.
+    /// Format:
+    /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Immutable. The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub zone: std::string::String,
+
+    /// Cache entry TTL (ranges between 1h to 7d). This is a cache-level config
+    /// that defines how long a cache entry can live. Default ttl value (24hrs)
+    /// is applied if not specified in the create request. TTL must be in whole
+    /// seconds.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ttl: std::option::Option<wkt::Duration>,
+
+    /// Cache admission policy. Valid policies includes:
+    /// `admit-on-first-miss` and `admit-on-second-miss`. Defaults to
+    /// `admit-on-first-miss`. Default value is applied if not specified in the
+    /// create request.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub admission_policy: std::string::String,
+
+    /// Output only. Cache state including RUNNING, CREATING, DISABLED and PAUSED.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub state: std::string::String,
+
+    /// Output only. Time when Anywhere cache instance is allocated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when Anywhere cache instance is last updated, including
+    /// creation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. True if there is an active update operation against this cache
+    /// instance. Subsequential update requests will be rejected if this field is
+    /// true. Output only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub pending_update: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AnywhereCache {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AnywhereCache::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::AnywhereCache::zone].
+    pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [ttl][crate::model::AnywhereCache::ttl].
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ttl = v.into();
+        self
+    }
+
+    /// Sets the value of [admission_policy][crate::model::AnywhereCache::admission_policy].
+    pub fn set_admission_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.admission_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AnywhereCache::state].
+    pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AnywhereCache::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AnywhereCache::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [pending_update][crate::model::AnywhereCache::pending_update].
+    pub fn set_pending_update<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.pending_update = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AnywhereCache {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache"
+    }
+}
+
+/// Request message for CreateAnywhereCache.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateAnywhereCacheRequest {
+    /// Required. The bucket to which this cache belongs.
+    /// Format: `projects/{project}/buckets/{bucket}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. Properties of the Anywhere Cache instance being created.
+    /// The parent bucket name is specified in the `parent` field. Server uses the
+    /// default value of `ttl` or `admission_policy` if not specified in
+    /// request.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub anywhere_cache: std::option::Option<crate::model::AnywhereCache>,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAnywhereCacheRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAnywhereCacheRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
+    pub fn set_anywhere_cache<
+        T: std::convert::Into<std::option::Option<crate::model::AnywhereCache>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.anywhere_cache = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAnywhereCacheRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAnywhereCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheRequest"
+    }
+}
+
+/// Request message for UpdateAnywhereCache.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateAnywhereCacheRequest {
+    /// Required. The Anywhere Cache instance to be updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub anywhere_cache: std::option::Option<crate::model::AnywhereCache>,
+
+    /// Required. List of fields to be updated. Mutable fields of AnywhereCache
+    /// include `ttl` and `admission_policy`.
+    ///
+    /// To specify ALL fields, specify a single field with the value `*`. Note: We
+    /// recommend against doing this. If a new field is introduced at a later time,
+    /// an older client updating with the `*` may accidentally reset the new
+    /// field's value.
+    ///
+    /// Not specifying any fields is an error.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAnywhereCacheRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
+    pub fn set_anywhere_cache<
+        T: std::convert::Into<std::option::Option<crate::model::AnywhereCache>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.anywhere_cache = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateAnywhereCacheRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAnywhereCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheRequest"
+    }
+}
+
+/// Request message for DisableAnywhereCache.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DisableAnywhereCacheRequest {
+    /// Required. The name field in the request should be:
+    /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisableAnywhereCacheRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DisableAnywhereCacheRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DisableAnywhereCacheRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DisableAnywhereCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.DisableAnywhereCacheRequest"
+    }
+}
+
+/// Request message for PauseAnywhereCache.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PauseAnywhereCacheRequest {
+    /// Required. The name field in the request should be:
+    /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PauseAnywhereCacheRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::PauseAnywhereCacheRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::PauseAnywhereCacheRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PauseAnywhereCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.PauseAnywhereCacheRequest"
+    }
+}
+
+/// Request message for ResumeAnywhereCache.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ResumeAnywhereCacheRequest {
+    /// Required. The name field in the request should be:
+    /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResumeAnywhereCacheRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ResumeAnywhereCacheRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::ResumeAnywhereCacheRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ResumeAnywhereCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ResumeAnywhereCacheRequest"
+    }
+}
+
+/// Request message for GetAnywhereCache.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetAnywhereCacheRequest {
+    /// Required. The name field in the request should be:
+    /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAnywhereCacheRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAnywhereCacheRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::GetAnywhereCacheRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAnywhereCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetAnywhereCacheRequest"
+    }
+}
+
+/// Request message for ListAnywhereCaches.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListAnywhereCachesRequest {
+    /// Required. The bucket to which this cache belongs.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Maximum number of caches to return in a single response.
+    /// The service will use this parameter or 1,000 items, whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// A previously-returned page token representing part of the larger set of
+    /// results to view.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAnywhereCachesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAnywhereCachesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAnywhereCachesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAnywhereCachesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::ListAnywhereCachesRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAnywhereCachesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListAnywhereCachesRequest"
+    }
+}
+
+/// Response message for ListAnywhereCaches.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListAnywhereCachesResponse {
+    /// The list of items.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub anywhere_caches: std::vec::Vec<crate::model::AnywhereCache>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAnywhereCachesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [anywhere_caches][crate::model::ListAnywhereCachesResponse::anywhere_caches].
+    pub fn set_anywhere_caches<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AnywhereCache>,
+    {
+        use std::iter::Iterator;
+        self.anywhere_caches = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAnywhereCachesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAnywhereCachesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.ListAnywhereCachesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAnywhereCachesResponse {
+    type PageItem = crate::model::AnywhereCache;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.anywhere_caches
     }
 
     fn next_page_token(&self) -> std::string::String {

@@ -114,4 +114,32 @@ impl StorageControl {
     pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
         super::builder::storage_control::ListManagedFolders::new(self.inner.clone())
     }
+
+    /// Disables an Anywhere Cache instance. A disabled instance is read-only. The
+    /// disablement could be revoked by calling ResumeAnywhereCache. The cache
+    /// instance will be deleted automatically if it remains in the disabled state
+    /// for at least one hour.
+    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache {
+        super::builder::storage_control::DisableAnywhereCache::new(self.inner.clone())
+    }
+
+    /// Pauses an Anywhere Cache instance.
+    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache {
+        super::builder::storage_control::PauseAnywhereCache::new(self.inner.clone())
+    }
+
+    /// Resumes a disabled or paused Anywhere Cache instance.
+    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache {
+        super::builder::storage_control::ResumeAnywhereCache::new(self.inner.clone())
+    }
+
+    /// Gets an Anywhere Cache instance.
+    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache {
+        super::builder::storage_control::GetAnywhereCache::new(self.inner.clone())
+    }
+
+    /// Lists Anywhere Cache instances for a given bucket.
+    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
+        super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
+    }
 }

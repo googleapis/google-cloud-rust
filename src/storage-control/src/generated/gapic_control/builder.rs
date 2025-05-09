@@ -754,4 +754,317 @@ pub mod storage_control {
             &mut self.0.options
         }
     }
+
+    #[derive(Clone, Debug)]
+    pub struct DisableAnywhereCache(RequestBuilder<crate::model::DisableAnywhereCacheRequest>);
+
+    impl DisableAnywhereCache {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DisableAnywhereCacheRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            (*self.0.stub)
+                .disable_anywhere_cache(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DisableAnywhereCacheRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DisableAnywhereCacheRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableAnywhereCache {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    pub struct PauseAnywhereCache(RequestBuilder<crate::model::PauseAnywhereCacheRequest>);
+
+    impl PauseAnywhereCache {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::PauseAnywhereCacheRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            (*self.0.stub)
+                .pause_anywhere_cache(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::PauseAnywhereCacheRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::PauseAnywhereCacheRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PauseAnywhereCache {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    pub struct ResumeAnywhereCache(RequestBuilder<crate::model::ResumeAnywhereCacheRequest>);
+
+    impl ResumeAnywhereCache {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ResumeAnywhereCacheRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            (*self.0.stub)
+                .resume_anywhere_cache(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ResumeAnywhereCacheRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::ResumeAnywhereCacheRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResumeAnywhereCache {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    pub struct GetAnywhereCache(RequestBuilder<crate::model::GetAnywhereCacheRequest>);
+
+    impl GetAnywhereCache {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetAnywhereCacheRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            (*self.0.stub)
+                .get_anywhere_cache(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetAnywhereCacheRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::GetAnywhereCacheRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAnywhereCache {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    pub struct ListAnywhereCaches(RequestBuilder<crate::model::ListAnywhereCachesRequest>);
+
+    impl ListAnywhereCaches {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListAnywhereCachesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListAnywhereCachesResponse> {
+            (*self.0.stub)
+                .list_anywhere_caches(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAnywhereCachesResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAnywhereCachesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListAnywhereCachesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListAnywhereCachesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListAnywhereCachesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::ListAnywhereCachesRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAnywhereCaches {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }

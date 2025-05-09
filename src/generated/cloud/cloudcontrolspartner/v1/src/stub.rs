@@ -147,6 +147,43 @@ pub trait CloudControlsPartnerCore: std::fmt::Debug + Send + Sync {
             Error::other("unimplemented"),
         ))
     }
+
+    /// Implements [super::client::CloudControlsPartnerCore::create_customer].
+    fn create_customer(
+        &self,
+        _req: crate::model::CreateCustomerRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Customer>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Customer>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CloudControlsPartnerCore::update_customer].
+    fn update_customer(
+        &self,
+        _req: crate::model::UpdateCustomerRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Customer>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Customer>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::CloudControlsPartnerCore::delete_customer].
+    fn delete_customer(
+        &self,
+        _req: crate::model::DeleteCustomerRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
 }
 
 /// Defines the trait used to implement [super::client::CloudControlsPartnerMonitoring].

@@ -40,7 +40,7 @@ extern crate wkt;
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListJobsRequest {
-    /// Required. Format: projects/{project_id}/locations/{location_id} .
+    /// Required. Format: projects/{project_id}/locations/global.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -189,7 +189,7 @@ impl gax::paginator::internal::PageableResponse for ListJobsResponse {
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. `name` of the job to retrieve.
-    /// Format: projects/{project_id}/locations/{location_id}/jobs/{job_id} .
+    /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -238,9 +238,9 @@ pub struct CreateJobRequest {
 
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID in case you need to retry your request. Requests with same
-    /// `request_id` will ignored for at least 60 minutes since the first request.
-    /// The request ID must be a valid UUID with the exception that zero UUID is
-    /// not supported (00000000-0000-0000-0000-000000000000).
+    /// `request_id` will be ignored for at least 60 minutes since the first
+    /// request. The request ID must be a valid UUID with the exception that zero
+    /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
 
@@ -294,15 +294,15 @@ impl wkt::message::Message for CreateJobRequest {
 #[non_exhaustive]
 pub struct CancelJobRequest {
     /// Required. The `name` of the job to cancel.
-    /// Format: projects/{project_id}/locations/{location_id}/jobs/{job_id}.
+    /// Format: projects/{project_id}/locations/global/jobs/{job_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID in case you need to retry your request. Requests with same
-    /// `request_id` will ignored for at least 60 minutes since the first request.
-    /// The request ID must be a valid UUID with the exception that zero UUID is
-    /// not supported (00000000-0000-0000-0000-000000000000).
+    /// `request_id` will be ignored for at least 60 minutes since the first
+    /// request. The request ID must be a valid UUID with the exception that zero
+    /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
 
@@ -341,15 +341,15 @@ impl wkt::message::Message for CancelJobRequest {
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The `name` of the job to delete.
-    /// Format: projects/{project_id}/locations/{location_id}/jobs/{job_id} .
+    /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID in case you need to retry your request. Requests with same
-    /// `request_id` will ignored for at least 60 minutes since the first request.
-    /// The request ID must be a valid UUID with the exception that zero UUID is
-    /// not supported (00000000-0000-0000-0000-000000000000).
+    /// `request_id` will be ignored for at least 60 minutes since the first
+    /// request. The request ID must be a valid UUID with the exception that zero
+    /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
 
@@ -410,7 +410,7 @@ impl wkt::message::Message for CancelJobResponse {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The unique operation resource name.
-    /// Format: projects/{project}/locations/{location}/operations/{operation}.
+    /// Format: projects/{project}/locations/global/operations/{operation}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub operation: std::string::String,
 
@@ -427,9 +427,11 @@ pub struct OperationMetadata {
     /// have
     /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
     /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
-    /// corresponding to `Code.CANCELLED`.
+    /// corresponding to
+    /// `[Code.CANCELLED][google.rpc.Code.CANCELLED]`.
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
+    /// [google.rpc.Code.CANCELLED]: rpc::model::Code::Cancelled
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
@@ -510,10 +512,10 @@ impl wkt::message::Message for OperationMetadata {
 #[non_exhaustive]
 pub struct Job {
     /// Identifier. The resource name of the Job. job_id is unique
-    /// within the project and location, that is either set by the customer or
+    /// within the project, that is either set by the customer or
     /// defined by the service. Format:
-    /// projects/{project}/locations/{location}/jobs/{job_id} .
-    /// For example: "projects/123456/locations/us-central1/jobs/job01".
+    /// projects/{project}/locations/global/jobs/{job_id} .
+    /// For example: "projects/123456/locations/global/jobs/job01".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1178,9 +1180,9 @@ pub struct Manifest {
     /// `manifest_location` should either be
     ///
     /// ) An absolute path to the object in the format of
-    ///   gs://bucket_name/path/file_name.csv.
+    ///   `gs://bucket_name/path/file_name.csv`.
     /// ) An absolute path with a single wildcard character in the file name, for
-    ///   example gs://bucket_name/path/file_name*.csv.
+    ///   example `gs://bucket_name/path/file_name*.csv`.
     ///   If manifest location is specified with a wildcard, objects in all manifest
     ///   files matching the pattern will be acted upon.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]

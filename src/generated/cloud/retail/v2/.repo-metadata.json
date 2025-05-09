@@ -5,7 +5,7 @@
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Vertex AI Search for Retail API",
+    "name_pretty": "Vertex AI Search for commerce API",
     "release_level": "preview",
     "repo": "googleapis/google-cloud-rust"
 }

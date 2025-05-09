@@ -509,4 +509,271 @@ impl super::stub::StorageControl for StorageControl {
                 >,
             )
     }
+
+    async fn disable_anywhere_cache(
+        &self,
+        req: crate::model::DisableAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "DisableAnywhereCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/DisableAnywhereCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.name.as_str()),
+                &[],
+                &[
+                    Segment::Literal("projects"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                    Segment::Literal("/"),
+                    Segment::Literal("buckets"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                ],
+                &[Segment::MultiWildcard],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::control::v2::AnywhereCache,
+                    crate::model::AnywhereCache,
+                >,
+            )
+    }
+
+    async fn pause_anywhere_cache(
+        &self,
+        req: crate::model::PauseAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "PauseAnywhereCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/PauseAnywhereCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.name.as_str()),
+                &[],
+                &[
+                    Segment::Literal("projects"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                    Segment::Literal("/"),
+                    Segment::Literal("buckets"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                ],
+                &[Segment::MultiWildcard],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::control::v2::AnywhereCache,
+                    crate::model::AnywhereCache,
+                >,
+            )
+    }
+
+    async fn resume_anywhere_cache(
+        &self,
+        req: crate::model::ResumeAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "ResumeAnywhereCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/ResumeAnywhereCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.name.as_str()),
+                &[],
+                &[
+                    Segment::Literal("projects"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                    Segment::Literal("/"),
+                    Segment::Literal("buckets"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                ],
+                &[Segment::MultiWildcard],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::control::v2::AnywhereCache,
+                    crate::model::AnywhereCache,
+                >,
+            )
+    }
+
+    async fn get_anywhere_cache(
+        &self,
+        req: crate::model::GetAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetAnywhereCache",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetAnywhereCache",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.name.as_str()),
+                &[],
+                &[
+                    Segment::Literal("projects"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                    Segment::Literal("/"),
+                    Segment::Literal("buckets"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                ],
+                &[Segment::MultiWildcard],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::control::v2::AnywhereCache,
+                    crate::model::AnywhereCache,
+                >,
+            )
+    }
+
+    async fn list_anywhere_caches(
+        &self,
+        req: crate::model::ListAnywhereCachesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "ListAnywhereCaches",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/ListAnywhereCaches",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.parent.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::control::v2::ListAnywhereCachesResponse,
+                    crate::model::ListAnywhereCachesResponse,
+                >,
+            )
+    }
 }

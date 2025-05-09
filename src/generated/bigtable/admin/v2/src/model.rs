@@ -8014,6 +8014,10 @@ pub struct LogicalView {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
+    /// Optional. Set to true to make the LogicalView protected against deletion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub deletion_protection: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8038,6 +8042,12 @@ impl LogicalView {
     /// Sets the value of [etag][crate::model::LogicalView::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection][crate::model::LogicalView::deletion_protection].
+    pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_protection = v.into();
         self
     }
 }

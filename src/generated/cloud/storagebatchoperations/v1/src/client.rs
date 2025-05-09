@@ -123,7 +123,7 @@ impl StorageBatchOperations {
             .map(super::tracing::StorageBatchOperations::new)
     }
 
-    /// Lists Jobs in a given project and location.
+    /// Lists Jobs in a given project.
     pub fn list_jobs(
         &self,
         parent: impl Into<std::string::String>,

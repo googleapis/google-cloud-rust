@@ -193,6 +193,99 @@ impl BackupForGKE {
             .set_name(name.into())
     }
 
+    /// Creates a new BackupChannel in a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_backup_channel(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::CreateBackupChannel {
+        super::builder::backup_for_gke::CreateBackupChannel::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Lists BackupChannels in a given location.
+    pub fn list_backup_channels(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::ListBackupChannels {
+        super::builder::backup_for_gke::ListBackupChannels::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Retrieve the details of a single BackupChannel.
+    pub fn get_backup_channel(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::GetBackupChannel {
+        super::builder::backup_for_gke::GetBackupChannel::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Update a BackupChannel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_backup_channel(
+        &self,
+        backup_channel: impl Into<crate::model::BackupChannel>,
+    ) -> super::builder::backup_for_gke::UpdateBackupChannel {
+        super::builder::backup_for_gke::UpdateBackupChannel::new(self.inner.clone())
+            .set_backup_channel(backup_channel.into())
+    }
+
+    /// Deletes an existing BackupChannel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_backup_channel(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::DeleteBackupChannel {
+        super::builder::backup_for_gke::DeleteBackupChannel::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Lists BackupPlanBindings in a given location.
+    pub fn list_backup_plan_bindings(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::ListBackupPlanBindings {
+        super::builder::backup_for_gke::ListBackupPlanBindings::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Retrieve the details of a single BackupPlanBinding.
+    pub fn get_backup_plan_binding(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::GetBackupPlanBinding {
+        super::builder::backup_for_gke::GetBackupPlanBinding::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
     /// Creates a Backup for the given BackupPlan.
     ///
     /// # Long running operations
@@ -356,6 +449,99 @@ impl BackupForGKE {
         name: impl Into<std::string::String>,
     ) -> super::builder::backup_for_gke::DeleteRestorePlan {
         super::builder::backup_for_gke::DeleteRestorePlan::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Creates a new RestoreChannel in a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_restore_channel(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::CreateRestoreChannel {
+        super::builder::backup_for_gke::CreateRestoreChannel::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Lists RestoreChannels in a given location.
+    pub fn list_restore_channels(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::ListRestoreChannels {
+        super::builder::backup_for_gke::ListRestoreChannels::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Retrieve the details of a single RestoreChannel.
+    pub fn get_restore_channel(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::GetRestoreChannel {
+        super::builder::backup_for_gke::GetRestoreChannel::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Update a RestoreChannel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_restore_channel(
+        &self,
+        restore_channel: impl Into<crate::model::RestoreChannel>,
+    ) -> super::builder::backup_for_gke::UpdateRestoreChannel {
+        super::builder::backup_for_gke::UpdateRestoreChannel::new(self.inner.clone())
+            .set_restore_channel(restore_channel.into())
+    }
+
+    /// Deletes an existing RestoreChannel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_restore_channel(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::DeleteRestoreChannel {
+        super::builder::backup_for_gke::DeleteRestoreChannel::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Lists RestorePlanBindings in a given location.
+    pub fn list_restore_plan_bindings(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::ListRestorePlanBindings {
+        super::builder::backup_for_gke::ListRestorePlanBindings::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Retrieve the details of a single RestorePlanBinding.
+    pub fn get_restore_plan_binding(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::backup_for_gke::GetRestorePlanBinding {
+        super::builder::backup_for_gke::GetRestorePlanBinding::new(self.inner.clone())
             .set_name(name.into())
     }
 

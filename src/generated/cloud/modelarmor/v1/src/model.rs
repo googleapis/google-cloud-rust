@@ -2041,6 +2041,11 @@ pub mod sanitization_result {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub error_message: std::string::String,
 
+        /// Passthrough field defined in TemplateMetadata to indicate whether to
+        /// ignore partial invocation failures.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub ignore_partial_invocation_failures: bool,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2062,6 +2067,15 @@ pub mod sanitization_result {
             v: T,
         ) -> Self {
             self.error_message = v.into();
+            self
+        }
+
+        /// Sets the value of [ignore_partial_invocation_failures][crate::model::sanitization_result::SanitizationMetadata::ignore_partial_invocation_failures].
+        pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.ignore_partial_invocation_failures = v.into();
             self
         }
     }
@@ -2886,6 +2900,12 @@ pub mod byte_data_item {
         PlaintextUtf8,
         /// PDF
         Pdf,
+        /// DOCX, DOCM, DOTX, DOTM
+        WordDocument,
+        /// XLSX, XLSM, XLTX, XLYM
+        ExcelDocument,
+        /// PPTX, PPTM, POTX, POTM, POT
+        PowerpointDocument,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ByteItemType::value] or
@@ -2911,6 +2931,9 @@ pub mod byte_data_item {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::PlaintextUtf8 => std::option::Option::Some(1),
                 Self::Pdf => std::option::Option::Some(2),
+                Self::WordDocument => std::option::Option::Some(3),
+                Self::ExcelDocument => std::option::Option::Some(4),
+                Self::PowerpointDocument => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2924,6 +2947,9 @@ pub mod byte_data_item {
                 Self::Unspecified => std::option::Option::Some("BYTE_ITEM_TYPE_UNSPECIFIED"),
                 Self::PlaintextUtf8 => std::option::Option::Some("PLAINTEXT_UTF8"),
                 Self::Pdf => std::option::Option::Some("PDF"),
+                Self::WordDocument => std::option::Option::Some("WORD_DOCUMENT"),
+                Self::ExcelDocument => std::option::Option::Some("EXCEL_DOCUMENT"),
+                Self::PowerpointDocument => std::option::Option::Some("POWERPOINT_DOCUMENT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2948,6 +2974,9 @@ pub mod byte_data_item {
                 0 => Self::Unspecified,
                 1 => Self::PlaintextUtf8,
                 2 => Self::Pdf,
+                3 => Self::WordDocument,
+                4 => Self::ExcelDocument,
+                5 => Self::PowerpointDocument,
                 _ => Self::UnknownValue(byte_item_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2962,6 +2991,9 @@ pub mod byte_data_item {
                 "BYTE_ITEM_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "PLAINTEXT_UTF8" => Self::PlaintextUtf8,
                 "PDF" => Self::Pdf,
+                "WORD_DOCUMENT" => Self::WordDocument,
+                "EXCEL_DOCUMENT" => Self::ExcelDocument,
+                "POWERPOINT_DOCUMENT" => Self::PowerpointDocument,
                 _ => Self::UnknownValue(byte_item_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2978,6 +3010,9 @@ pub mod byte_data_item {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::PlaintextUtf8 => serializer.serialize_i32(1),
                 Self::Pdf => serializer.serialize_i32(2),
+                Self::WordDocument => serializer.serialize_i32(3),
+                Self::ExcelDocument => serializer.serialize_i32(4),
+                Self::PowerpointDocument => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4645,7 +4680,7 @@ impl<'de> serde::de::Deserialize<'de> for RaiFilterType {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DetectionConfidenceLevel {
-    /// Same as MEDIUM_AND_ABOVE.
+    /// Same as LOW_AND_ABOVE.
     Unspecified,
     /// Highest chance of a false positive.
     LowAndAbove,

@@ -38,6 +38,43 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+/// The resource owners information.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ResourceOwners {
+    /// List of resource owners.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub resource_owners: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResourceOwners {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [resource_owners][crate::model::ResourceOwners::resource_owners].
+    pub fn set_resource_owners<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.resource_owners = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ResourceOwners {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.asset.v1.ResourceOwners"
+    }
+}
+
 /// Represents the metadata of the longrunning operation for the
 /// AnalyzeIamPolicyLongrunning RPC.
 #[serde_with::serde_as]
@@ -1489,13 +1526,13 @@ pub mod partition_spec {
         /// Unspecified partition key. If used, it means using non-partitioned table.
         Unspecified,
         /// The time when the snapshot is taken. If specified as partition key, the
-        /// result table(s) is partitoned by the additional timestamp column,
+        /// result table(s) is partitioned by the additional timestamp column,
         /// readTime. If [read_time] in ExportAssetsRequest is specified, the
         /// readTime column's value will be the same as it. Otherwise, its value will
         /// be the current time that is used to take the snapshot.
         ReadTime,
         /// The time when the request is received and started to be processed. If
-        /// specified as partition key, the result table(s) is partitoned by the
+        /// specified as partition key, the result table(s) is partitioned by the
         /// requestTime column, an additional timestamp column representing when the
         /// request was received.
         RequestTime,
@@ -3104,8 +3141,10 @@ pub struct AnalyzeIamPolicyResponse {
         std::option::Option<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
 
     /// The service account impersonation analysis if
-    /// [AnalyzeIamPolicyRequest.analyze_service_account_impersonation][] is
-    /// enabled.
+    /// [IamPolicyAnalysisQuery.Options.analyze_service_account_impersonation][google.cloud.asset.v1.IamPolicyAnalysisQuery.Options.analyze_service_account_impersonation]
+    /// is enabled.
+    ///
+    /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.Options.analyze_service_account_impersonation]: crate::model::iam_policy_analysis_query::Options::analyze_service_account_impersonation
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_account_impersonation_analysis:
         std::vec::Vec<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
@@ -3545,7 +3584,7 @@ pub mod iam_policy_analysis_output_config {
             /// option.
             Unspecified,
             /// The time when the request is received. If specified as partition key,
-            /// the result table(s) is partitoned by the RequestTime column, an
+            /// the result table(s) is partitioned by the RequestTime column, an
             /// additional timestamp column representing when the request was received.
             RequestTime,
             /// If set, the enum was initialized with an unknown value.
@@ -4362,7 +4401,7 @@ pub struct AnalyzeMoveRequest {
 
     /// Required. Name of the Google Cloud folder or organization to reparent the
     /// target resource. The analysis will be performed against hypothetically
-    /// moving the resource to this specified desitination parent. This can only be
+    /// moving the resource to this specified destination parent. This can only be
     /// a folder number (such as "folders/123") or an organization number (such as
     /// "organizations/123").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -6948,6 +6987,10 @@ pub mod analyzer_org_policy_constraint {
             Update,
             /// Constraint applied when deleting the resource.
             Delete,
+            /// Constraint applied when removing an IAM grant.
+            RemoveGrant,
+            /// Constraint applied when enforcing forced tagging.
+            GovernTags,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [MethodType::value] or
@@ -6974,6 +7017,8 @@ pub mod analyzer_org_policy_constraint {
                     Self::Create => std::option::Option::Some(1),
                     Self::Update => std::option::Option::Some(2),
                     Self::Delete => std::option::Option::Some(3),
+                    Self::RemoveGrant => std::option::Option::Some(4),
+                    Self::GovernTags => std::option::Option::Some(5),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -6988,6 +7033,8 @@ pub mod analyzer_org_policy_constraint {
                     Self::Create => std::option::Option::Some("CREATE"),
                     Self::Update => std::option::Option::Some("UPDATE"),
                     Self::Delete => std::option::Option::Some("DELETE"),
+                    Self::RemoveGrant => std::option::Option::Some("REMOVE_GRANT"),
+                    Self::GovernTags => std::option::Option::Some("GOVERN_TAGS"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -7016,6 +7063,8 @@ pub mod analyzer_org_policy_constraint {
                     1 => Self::Create,
                     2 => Self::Update,
                     3 => Self::Delete,
+                    4 => Self::RemoveGrant,
+                    5 => Self::GovernTags,
                     _ => Self::UnknownValue(method_type::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -7031,6 +7080,8 @@ pub mod analyzer_org_policy_constraint {
                     "CREATE" => Self::Create,
                     "UPDATE" => Self::Update,
                     "DELETE" => Self::Delete,
+                    "REMOVE_GRANT" => Self::RemoveGrant,
+                    "GOVERN_TAGS" => Self::GovernTags,
                     _ => Self::UnknownValue(method_type::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -7048,6 +7099,8 @@ pub mod analyzer_org_policy_constraint {
                     Self::Create => serializer.serialize_i32(1),
                     Self::Update => serializer.serialize_i32(2),
                     Self::Delete => serializer.serialize_i32(3),
+                    Self::RemoveGrant => serializer.serialize_i32(4),
+                    Self::GovernTags => serializer.serialize_i32(5),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -7413,18 +7466,22 @@ pub mod analyze_org_policies_response {
     pub struct OrgPolicyResult {
         /// The consolidated organization policy for the analyzed resource. The
         /// consolidated organization policy is computed by merging and evaluating
-        /// [AnalyzeOrgPoliciesResponse.policy_bundle][].
+        /// [policy_bundle][google.cloud.asset.v1.AnalyzeOrgPoliciesResponse.OrgPolicyResult.policy_bundle].
         /// The evaluation will respect the organization policy [hierarchy
         /// rules](https://cloud.google.com/resource-manager/docs/organization-policy/understanding-hierarchy).
+        ///
+        /// [google.cloud.asset.v1.AnalyzeOrgPoliciesResponse.OrgPolicyResult.policy_bundle]: crate::model::analyze_org_policies_response::OrgPolicyResult::policy_bundle
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub consolidated_policy: std::option::Option<crate::model::AnalyzerOrgPolicy>,
 
         /// The ordered list of all organization policies from the
-        /// [AnalyzeOrgPoliciesResponse.OrgPolicyResult.consolidated_policy.attached_resource][].
+        /// [consolidated_policy.attached_resource][google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource].
         /// to the scope specified in the request.
         ///
         /// If the constraint is defined with default policy, it will also appear in
         /// the list.
+        ///
+        /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
 
@@ -7738,11 +7795,13 @@ pub mod analyze_org_policy_governed_containers_response {
         pub consolidated_policy: std::option::Option<crate::model::AnalyzerOrgPolicy>,
 
         /// The ordered list of all organization policies from the
-        /// [AnalyzeOrgPoliciesResponse.OrgPolicyResult.consolidated_policy.attached_resource][].
+        /// [consolidated_policy.attached_resource][google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource].
         /// to the scope specified in the request.
         ///
         /// If the constraint is defined with default policy, it will also appear in
         /// the list.
+        ///
+        /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
 
@@ -8337,11 +8396,13 @@ pub mod analyze_org_policy_governed_assets_response {
         pub consolidated_policy: std::option::Option<crate::model::AnalyzerOrgPolicy>,
 
         /// The ordered list of all organization policies from the
-        /// [AnalyzeOrgPoliciesResponse.OrgPolicyResult.consolidated_policy.attached_resource][]
+        /// [consolidated_policy.attached_resource][google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]
         /// to the scope specified in the request.
         ///
         /// If the constraint is defined with default policy, it will also appear in
         /// the list.
+        ///
+        /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
 
@@ -8786,6 +8847,95 @@ impl TimeWindow {
 impl wkt::message::Message for TimeWindow {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.asset.v1.TimeWindow"
+    }
+}
+
+/// The enhanced metadata information for a resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AssetEnrichment {
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub enrichment_data: std::option::Option<crate::model::asset_enrichment::EnrichmentData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AssetEnrichment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enrichment_data][crate::model::AssetEnrichment::enrichment_data].
+    ///
+    /// Note that all the setters affecting `enrichment_data` are mutually
+    /// exclusive.
+    pub fn set_enrichment_data<
+        T: std::convert::Into<std::option::Option<crate::model::asset_enrichment::EnrichmentData>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enrichment_data = v.into();
+        self
+    }
+
+    /// The value of [enrichment_data][crate::model::AssetEnrichment::enrichment_data]
+    /// if it holds a `ResourceOwners`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn resource_owners(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ResourceOwners>> {
+        #[allow(unreachable_patterns)]
+        self.enrichment_data.as_ref().and_then(|v| match v {
+            crate::model::asset_enrichment::EnrichmentData::ResourceOwners(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [enrichment_data][crate::model::AssetEnrichment::enrichment_data]
+    /// to hold a `ResourceOwners`.
+    ///
+    /// Note that all the setters affecting `enrichment_data` are
+    /// mutually exclusive.
+    pub fn set_resource_owners<
+        T: std::convert::Into<std::boxed::Box<crate::model::ResourceOwners>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enrichment_data = std::option::Option::Some(
+            crate::model::asset_enrichment::EnrichmentData::ResourceOwners(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AssetEnrichment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.asset.v1.AssetEnrichment"
+    }
+}
+
+/// Defines additional types related to [AssetEnrichment].
+pub mod asset_enrichment {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum EnrichmentData {
+        /// The resource owners for a resource.
+        ///
+        /// Note that this field only contains the members that have "roles/owner"
+        /// role in the resource's IAM Policy.
+        ResourceOwners(std::boxed::Box<crate::model::ResourceOwners>),
     }
 }
 
@@ -9558,9 +9708,12 @@ impl wkt::message::Message for Tag {
 pub struct EffectiveTagDetails {
     /// The [full resource
     /// name](https://cloud.google.com/asset-inventory/docs/resource-name-format)
-    /// of the ancestor from which an [effective_tag][] is inherited, according to
-    /// [tag
+    /// of the ancestor from which
+    /// [effective_tags][google.cloud.asset.v1.EffectiveTagDetails.effective_tags]
+    /// are inherited, according to [tag
     /// inheritance](https://cloud.google.com/resource-manager/docs/tags/tags-overview#inheritance).
+    ///
+    /// [google.cloud.asset.v1.EffectiveTagDetails.effective_tags]: crate::model::EffectiveTagDetails::effective_tags
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attached_resource: std::option::Option<std::string::String>,
 
@@ -9984,6 +10137,34 @@ pub struct ResourceSearchResult {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub effective_tags: std::vec::Vec<crate::model::EffectiveTagDetails>,
 
+    /// Enrichments of the asset. Currently supported enrichment types with
+    /// SearchAllResources API:
+    ///
+    /// * RESOURCE_OWNERS
+    ///
+    /// The corresponding read masks in order to get the enrichment:
+    ///
+    /// * enrichments.resource_owners
+    ///
+    /// The corresponding required permissions:
+    ///
+    /// * cloudasset.assets.searchEnrichmentResourceOwners
+    ///
+    /// Example query to get resource owner enrichment:
+    ///
+    /// ```norust
+    ///   scope: "projects/my-project"
+    ///   query: "name: my-project"
+    ///   assetTypes: "cloudresourcemanager.googleapis.com/Project"
+    ///   readMask: {
+    ///      paths: "asset_type"
+    ///      paths: "name"
+    ///      paths: "enrichments.resource_owners"
+    ///   }
+    /// ```
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub enrichments: std::vec::Vec<crate::model::AssetEnrichment>,
+
     /// The type of this resource's immediate parent, if there is one.
     ///
     /// To search against the `parent_asset_type`:
@@ -10240,6 +10421,17 @@ impl ResourceSearchResult {
     {
         use std::iter::Iterator;
         self.effective_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enrichments][crate::model::ResourceSearchResult::enrichments].
+    pub fn set_enrichments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AssetEnrichment>,
+    {
+        use std::iter::Iterator;
+        self.enrichments = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -10504,7 +10696,7 @@ pub struct IamPolicySearchResult {
     /// form of projects/{PROJECT_NUMBER}. If an IAM policy is set on a resource
     /// (like VM instance, Cloud Storage bucket), the project field will indicate
     /// the project that contains the resource. If an IAM policy is set on a folder
-    /// or orgnization, this field will be empty.
+    /// or organization, this field will be empty.
     ///
     /// To search against the `project`:
     ///

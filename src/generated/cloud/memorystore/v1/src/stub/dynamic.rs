@@ -53,6 +53,54 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::CertificateAuthority>>;
 
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_backup_collections(
+        &self,
+        req: crate::model::ListBackupCollectionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupCollectionsResponse>>;
+
+    async fn get_backup_collection(
+        &self,
+        req: crate::model::GetBackupCollectionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::BackupCollection>>;
+
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
+
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
+
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn export_backup(
+        &self,
+        req: crate::model::ExportBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn backup_instance(
+        &self,
+        req: crate::model::BackupInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -155,6 +203,78 @@ impl<T: super::Memorystore> Memorystore for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::CertificateAuthority>> {
         T::get_certificate_authority(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::reschedule_maintenance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_backup_collections(
+        &self,
+        req: crate::model::ListBackupCollectionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupCollectionsResponse>> {
+        T::list_backup_collections(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_backup_collection(
+        &self,
+        req: crate::model::GetBackupCollectionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::BackupCollection>> {
+        T::get_backup_collection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        T::list_backups(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
+        T::get_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn export_backup(
+        &self,
+        req: crate::model::ExportBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::export_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn backup_instance(
+        &self,
+        req: crate::model::BackupInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::backup_instance(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

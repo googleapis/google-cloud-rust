@@ -200,6 +200,128 @@ impl Memorystore {
             .set_name(name.into())
     }
 
+    /// Reschedules upcoming maintenance event.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn reschedule_maintenance(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::RescheduleMaintenance {
+        super::builder::memorystore::RescheduleMaintenance::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Lists all backup collections owned by a consumer project in either the
+    /// specified location (region) or all locations.
+    ///
+    /// If `location_id` is specified as `-` (wildcard), then all regions
+    /// available to the project are queried, and the results are aggregated.
+    pub fn list_backup_collections(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::ListBackupCollections {
+        super::builder::memorystore::ListBackupCollections::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Get a backup collection.
+    pub fn get_backup_collection(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::GetBackupCollection {
+        super::builder::memorystore::GetBackupCollection::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Lists all backups owned by a backup collection.
+    pub fn list_backups(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::ListBackups {
+        super::builder::memorystore::ListBackups::new(self.inner.clone()).set_parent(parent.into())
+    }
+
+    /// Gets the details of a specific backup.
+    pub fn get_backup(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::GetBackup {
+        super::builder::memorystore::GetBackup::new(self.inner.clone()).set_name(name.into())
+    }
+
+    /// Deletes a specific backup.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_backup(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::DeleteBackup {
+        super::builder::memorystore::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    }
+
+    /// Exports a specific backup to a customer target Cloud Storage URI.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn export_backup(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::ExportBackup {
+        super::builder::memorystore::ExportBackup::new(self.inner.clone()).set_name(name.into())
+    }
+
+    /// Backup Instance.
+    /// If this is the first time a backup is being created, a backup collection
+    /// will be created at the backend, and this backup belongs to this collection.
+    /// Both collection and backup will have a resource name. Backup will be
+    /// executed for each shard. A replica (primary if nonHA) will be selected to
+    /// perform the execution. Backup call will be rejected if there is an ongoing
+    /// backup or update operation. Be aware that during preview, if the instance's
+    /// internal software version is too old, critical update will be performed
+    /// before actual backup. Once the internal software version is updated to the
+    /// minimum version required by the backup feature, subsequent backups will not
+    /// require critical update. After preview, there will be no critical update
+    /// needed for backup.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn backup_instance(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::memorystore::BackupInstance {
+        super::builder::memorystore::BackupInstance::new(self.inner.clone()).set_name(name.into())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,

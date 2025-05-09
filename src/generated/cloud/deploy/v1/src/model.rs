@@ -797,17 +797,17 @@ impl wkt::message::Message for Postdeploy {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Standard {
-    /// Optional. Whether to verify a deployment.
+    /// Optional. Whether to verify a deployment via `skaffold verify`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job. If this is not configured,
-    /// predeploy job will not be present.
+    /// the predeploy job will not be present.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub predeploy: std::option::Option<crate::model::Predeploy>,
 
     /// Optional. Configuration for the postdeploy job. If this is not configured,
-    /// postdeploy job will not be present.
+    /// the postdeploy job will not be present.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub postdeploy: std::option::Option<crate::model::Postdeploy>,
 
@@ -998,7 +998,8 @@ pub struct CanaryDeployment {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub percentages: std::vec::Vec<i32>,
 
-    /// Optional. Whether to run verify tests after each percentage deployment.
+    /// Optional. Whether to run verify tests after each percentage deployment via
+    /// `skaffold verify`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verify: bool,
 
@@ -1132,7 +1133,8 @@ pub mod custom_canary_deployment {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub profiles: std::vec::Vec<std::string::String>,
 
-        /// Optional. Whether to run verify tests after the deployment.
+        /// Optional. Whether to run verify tests after the deployment via `skaffold
+        /// verify`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub verify: bool,
 
@@ -5482,7 +5484,7 @@ pub struct DeployPolicy {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rules: std::vec::Vec<crate::model::PolicyRule>,
 
-    /// The weak etag of the `Automation` resource.
+    /// The weak etag of the `DeployPolicy` resource.
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.

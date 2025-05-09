@@ -622,6 +622,11 @@ pub struct FileLocation {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub file_path: std::string::String,
 
+    /// Each package found in a file should have its own layer metadata (that is,
+    /// information from the origin layer of the package).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub layer_details: std::option::Option<crate::model::LayerDetails>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -636,11 +641,153 @@ impl FileLocation {
         self.file_path = v.into();
         self
     }
+
+    /// Sets the value of [layer_details][crate::model::FileLocation::layer_details].
+    pub fn set_layer_details<
+        T: std::convert::Into<std::option::Option<crate::model::LayerDetails>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.layer_details = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for FileLocation {
     fn typename() -> &'static str {
         "type.googleapis.com/grafeas.v1.FileLocation"
+    }
+}
+
+/// BaseImage describes a base image of a container image.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BaseImage {
+    /// The name of the base image.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The repository name in which the base image is from.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub repository: std::string::String,
+
+    /// The number of layers that the base image is composed of.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub layer_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BaseImage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BaseImage::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [repository][crate::model::BaseImage::repository].
+    pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.repository = v.into();
+        self
+    }
+
+    /// Sets the value of [layer_count][crate::model::BaseImage::layer_count].
+    pub fn set_layer_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.layer_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BaseImage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.BaseImage"
+    }
+}
+
+/// Details about the layer a package was found in.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LayerDetails {
+    /// The index of the layer in the container image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub index: i32,
+
+    /// The diff ID (typically a sha256 hash) of the layer in the container image.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub diff_id: std::string::String,
+
+    /// The layer chain ID (sha256 hash) of the layer in the container image.
+    /// <https://github.com/opencontainers/image-spec/blob/main/config.md#layer-chainid>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub chain_id: std::string::String,
+
+    /// The layer build command that was used to build the layer. This may not be
+    /// found in all layers depending on how the container image is built.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub command: std::string::String,
+
+    /// The base images the layer is found within.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub base_images: std::vec::Vec<crate::model::BaseImage>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LayerDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [index][crate::model::LayerDetails::index].
+    pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.index = v.into();
+        self
+    }
+
+    /// Sets the value of [diff_id][crate::model::LayerDetails::diff_id].
+    pub fn set_diff_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.diff_id = v.into();
+        self
+    }
+
+    /// Sets the value of [chain_id][crate::model::LayerDetails::chain_id].
+    pub fn set_chain_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.chain_id = v.into();
+        self
+    }
+
+    /// Sets the value of [command][crate::model::LayerDetails::command].
+    pub fn set_command<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.command = v.into();
+        self
+    }
+
+    /// Sets the value of [base_images][crate::model::LayerDetails::base_images].
+    pub fn set_base_images<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BaseImage>,
+    {
+        use std::iter::Iterator;
+        self.base_images = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for LayerDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.LayerDetails"
     }
 }
 
@@ -5034,6 +5181,31 @@ impl Occurrence {
             std::option::Option::Some(crate::model::occurrence::Details::SbomReference(v.into()));
         self
     }
+
+    /// The value of [details][crate::model::Occurrence::details]
+    /// if it holds a `Secret`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn secret(&self) -> std::option::Option<&std::boxed::Box<crate::model::SecretOccurrence>> {
+        #[allow(unreachable_patterns)]
+        self.details.as_ref().and_then(|v| match v {
+            crate::model::occurrence::Details::Secret(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [details][crate::model::Occurrence::details]
+    /// to hold a `Secret`.
+    ///
+    /// Note that all the setters affecting `details` are
+    /// mutually exclusive.
+    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretOccurrence>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.details =
+            std::option::Option::Some(crate::model::occurrence::Details::Secret(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Occurrence {
@@ -5077,6 +5249,8 @@ pub mod occurrence {
         DsseAttestation(std::boxed::Box<crate::model::DSSEAttestationOccurrence>),
         /// Describes a specific SBOM reference occurrences.
         SbomReference(std::boxed::Box<crate::model::SBOMReferenceOccurrence>),
+        /// Describes a secret.
+        Secret(std::boxed::Box<crate::model::SecretOccurrence>),
     }
 }
 
@@ -5542,6 +5716,30 @@ impl Note {
         self.r#type = std::option::Option::Some(crate::model::note::Type::SbomReference(v.into()));
         self
     }
+
+    /// The value of [r#type][crate::model::Note::r#type]
+    /// if it holds a `Secret`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn secret(&self) -> std::option::Option<&std::boxed::Box<crate::model::SecretNote>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::note::Type::Secret(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::Note::r#type]
+    /// to hold a `Secret`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretNote>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(crate::model::note::Type::Secret(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Note {
@@ -5585,6 +5783,8 @@ pub mod note {
         VulnerabilityAssessment(std::boxed::Box<crate::model::VulnerabilityAssessmentNote>),
         /// A note describing an SBOM reference.
         SbomReference(std::boxed::Box<crate::model::SBOMReferenceNote>),
+        /// A note describing a secret.
+        Secret(std::boxed::Box<crate::model::SecretNote>),
     }
 }
 
@@ -10084,6 +10284,377 @@ impl wkt::message::Message for SbomReferenceIntotoPredicate {
     }
 }
 
+/// The note representing a secret.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SecretNote {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecretNote {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for SecretNote {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.SecretNote"
+    }
+}
+
+/// The occurrence provides details of a secret.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SecretOccurrence {
+    /// Type of secret.
+    pub kind: crate::model::SecretKind,
+
+    /// Locations where the secret is detected.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub locations: std::vec::Vec<crate::model::SecretLocation>,
+
+    /// Status of the secret.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub statuses: std::vec::Vec<crate::model::SecretStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecretOccurrence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kind][crate::model::SecretOccurrence::kind].
+    pub fn set_kind<T: std::convert::Into<crate::model::SecretKind>>(mut self, v: T) -> Self {
+        self.kind = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::SecretOccurrence::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretLocation>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [statuses][crate::model::SecretOccurrence::statuses].
+    pub fn set_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretStatus>,
+    {
+        use std::iter::Iterator;
+        self.statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SecretOccurrence {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.SecretOccurrence"
+    }
+}
+
+/// The location of the secret.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SecretLocation {
+    /// The detailed location of the secret.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub location: std::option::Option<crate::model::secret_location::Location>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecretLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::SecretLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
+    pub fn set_location<
+        T: std::convert::Into<std::option::Option<crate::model::secret_location::Location>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// The value of [location][crate::model::SecretLocation::location]
+    /// if it holds a `FileLocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn file_location(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FileLocation>> {
+        #[allow(unreachable_patterns)]
+        self.location.as_ref().and_then(|v| match v {
+            crate::model::secret_location::Location::FileLocation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [location][crate::model::SecretLocation::location]
+    /// to hold a `FileLocation`.
+    ///
+    /// Note that all the setters affecting `location` are
+    /// mutually exclusive.
+    pub fn set_file_location<T: std::convert::Into<std::boxed::Box<crate::model::FileLocation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.location = std::option::Option::Some(
+            crate::model::secret_location::Location::FileLocation(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SecretLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.SecretLocation"
+    }
+}
+
+/// Defines additional types related to [SecretLocation].
+pub mod secret_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The detailed location of the secret.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Location {
+        /// The secret is found from a file.
+        FileLocation(std::boxed::Box<crate::model::FileLocation>),
+    }
+}
+
+/// The status of the secret with a timestamp.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SecretStatus {
+    /// The status of the secret.
+    pub status: crate::model::secret_status::Status,
+
+    /// The time the secret status was last updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional message about the status code.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecretStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [status][crate::model::SecretStatus::status].
+    pub fn set_status<T: std::convert::Into<crate::model::secret_status::Status>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::SecretStatus::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::SecretStatus::message].
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SecretStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.SecretStatus"
+    }
+}
+
+/// Defines additional types related to [SecretStatus].
+pub mod secret_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The status of the secret.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Unspecified
+        Unspecified,
+        /// The status of the secret is unknown.
+        Unknown,
+        /// The secret is valid.
+        Valid,
+        /// The secret is invalid.
+        Invalid,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Unknown => std::option::Option::Some(1),
+                Self::Valid => std::option::Option::Some(2),
+                Self::Invalid => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::Valid => std::option::Option::Some("VALID"),
+                Self::Invalid => std::option::Option::Some("INVALID"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Unknown,
+                2 => Self::Valid,
+                3 => Self::Invalid,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATUS_UNSPECIFIED" => Self::Unspecified,
+                "UNKNOWN" => Self::Unknown,
+                "VALID" => Self::Valid,
+                "INVALID" => Self::Invalid,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Unknown => serializer.serialize_i32(1),
+                Self::Valid => serializer.serialize_i32(2),
+                Self::Invalid => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".grafeas.v1.SecretStatus.Status",
+            ))
+        }
+    }
+}
+
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13512,6 +14083,8 @@ pub enum NoteKind {
     VulnerabilityAssessment,
     /// This represents an SBOM Reference.
     SbomReference,
+    /// This represents a secret.
+    Secret,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [NoteKind::value] or
@@ -13547,6 +14120,7 @@ impl NoteKind {
             Self::DsseAttestation => std::option::Option::Some(10),
             Self::VulnerabilityAssessment => std::option::Option::Some(11),
             Self::SbomReference => std::option::Option::Some(12),
+            Self::Secret => std::option::Option::Some(13),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -13570,6 +14144,7 @@ impl NoteKind {
             Self::DsseAttestation => std::option::Option::Some("DSSE_ATTESTATION"),
             Self::VulnerabilityAssessment => std::option::Option::Some("VULNERABILITY_ASSESSMENT"),
             Self::SbomReference => std::option::Option::Some("SBOM_REFERENCE"),
+            Self::Secret => std::option::Option::Some("SECRET"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -13604,6 +14179,7 @@ impl std::convert::From<i32> for NoteKind {
             10 => Self::DsseAttestation,
             11 => Self::VulnerabilityAssessment,
             12 => Self::SbomReference,
+            13 => Self::Secret,
             _ => Self::UnknownValue(note_kind::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -13628,6 +14204,7 @@ impl std::convert::From<&str> for NoteKind {
             "DSSE_ATTESTATION" => Self::DsseAttestation,
             "VULNERABILITY_ASSESSMENT" => Self::VulnerabilityAssessment,
             "SBOM_REFERENCE" => Self::SbomReference,
+            "SECRET" => Self::Secret,
             _ => Self::UnknownValue(note_kind::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -13654,6 +14231,7 @@ impl serde::ser::Serialize for NoteKind {
             Self::DsseAttestation => serializer.serialize_i32(10),
             Self::VulnerabilityAssessment => serializer.serialize_i32(11),
             Self::SbomReference => serializer.serialize_i32(12),
+            Self::Secret => serializer.serialize_i32(13),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -13927,6 +14505,141 @@ impl<'de> serde::de::Deserialize<'de> for Architecture {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Architecture>::new(
             ".grafeas.v1.Architecture",
+        ))
+    }
+}
+
+/// Kind of secret.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SecretKind {
+    /// Unspecified
+    Unspecified,
+    /// The secret kind is unknown.
+    Unknown,
+    /// A GCP service account key per:
+    /// <https://cloud.google.com/iam/docs/creating-managing-service-account-keys>
+    GcpServiceAccountKey,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SecretKind::value] or
+    /// [SecretKind::name].
+    UnknownValue(secret_kind::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod secret_kind {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SecretKind {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Unknown => std::option::Option::Some(1),
+            Self::GcpServiceAccountKey => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SECRET_KIND_UNSPECIFIED"),
+            Self::Unknown => std::option::Option::Some("SECRET_KIND_UNKNOWN"),
+            Self::GcpServiceAccountKey => {
+                std::option::Option::Some("SECRET_KIND_GCP_SERVICE_ACCOUNT_KEY")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for SecretKind {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SecretKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SecretKind {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Unknown,
+            2 => Self::GcpServiceAccountKey,
+            _ => Self::UnknownValue(secret_kind::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SecretKind {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SECRET_KIND_UNSPECIFIED" => Self::Unspecified,
+            "SECRET_KIND_UNKNOWN" => Self::Unknown,
+            "SECRET_KIND_GCP_SERVICE_ACCOUNT_KEY" => Self::GcpServiceAccountKey,
+            _ => Self::UnknownValue(secret_kind::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SecretKind {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Unknown => serializer.serialize_i32(1),
+            Self::GcpServiceAccountKey => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SecretKind {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SecretKind>::new(
+            ".grafeas.v1.SecretKind",
         ))
     }
 }
