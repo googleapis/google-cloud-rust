@@ -148,9 +148,13 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self.cred.headers().await.map_err(Error::authentication)?;
+        let auth_headers = self
+            .cred
+            .headers(None)
+            .await
+            .map_err(Error::authentication)?;
         let builder = auth_headers
-            .into_iter()
+            .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
         let builder = builder.body(payload.into());
 
@@ -206,9 +210,13 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self.cred.headers().await.map_err(Error::authentication)?;
+        let auth_headers = self
+            .cred
+            .headers(None)
+            .await
+            .map_err(Error::authentication)?;
         let builder = auth_headers
-            .into_iter()
+            .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
         tracing::info!("builder={builder:?}");
 
