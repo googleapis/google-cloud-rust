@@ -16,7 +16,7 @@ use firestore::Error;
 use firestore::Result;
 use firestore::client::Firestore;
 use firestore::model;
-use gax::paginator::{ItemPaginator, Paginator};
+use gax::paginator::ItemPaginator as _;
 use rand::{Rng, distr::Alphanumeric};
 
 pub const COLLECTION_ID_LENGTH: usize = 32;
@@ -79,9 +79,7 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
             format!("projects/{project_id}/databases/(default)/documents"),
             &collection_id,
         )
-        .paginator()
-        .await
-        .items();
+        .by_item();
     while let Some(doc) = documents.next().await {
         let doc = doc?;
         println!("  ITEM = {doc:?}");
@@ -128,9 +126,7 @@ async fn cleanup_stale_documents() -> Result<()> {
             format!("projects/{project_id}/databases/(default)/documents"),
             "",
         )
-        .paginator()
-        .await
-        .items();
+        .by_item();
     while let Some(doc) = documents.next().await {
         let doc = doc?;
         if let Some(true) = doc.create_time.map(|v| v >= stale_deadline) {

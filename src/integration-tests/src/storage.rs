@@ -15,7 +15,7 @@
 use crate::{Error, Result};
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
-use gax::paginator::{ItemPaginator, Paginator};
+use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use std::time::Duration;
 use storage_control::model::Bucket;
@@ -144,9 +144,7 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
     println!("\nTesting list_buckets()");
     let mut buckets = client
         .list_buckets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .by_item();
     let mut bucket_names = Vec::new();
     while let Some(bucket) = buckets.next().await {
         bucket_names.push(bucket?.name);
@@ -212,9 +210,7 @@ async fn cleanup_stale_buckets(
 
     let mut buckets = client
         .list_buckets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .by_item();
     let mut pending = Vec::new();
     let mut names = Vec::new();
     while let Some(bucket) = buckets.next().await {
@@ -244,12 +240,7 @@ async fn cleanup_stale_buckets(
 }
 
 async fn cleanup_bucket(client: storage_control::client::Storage, name: String) -> Result<()> {
-    let mut objects = client
-        .list_objects(&name)
-        .set_versions(true)
-        .paginator()
-        .await
-        .items();
+    let mut objects = client.list_objects(&name).set_versions(true).by_item();
     let mut pending = Vec::new();
     while let Some(object) = objects.next().await {
         let object = object?;

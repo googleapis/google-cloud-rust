@@ -67,11 +67,11 @@ There are basically three implementations of the `Stub`:
 
 ## Pagination
 
-When appropriate, request builders implement a `paginator()` method. Instead of
-returning a single response for a request, these provide a stream of responses
-for paginated APIs (think `List*()`). The paginator basically holds the original
-stub and can chain requests using the page token returned in one response to get
-the next page in the subsequent request.
+When appropriate, request builders implement `by_page()` and `by_item()` method.
+Instead of returning a single response for a request, these provide a stream of
+responses for paginated APIs (think `List*()`). The paginator basically holds
+the original stub and can chain requests using the page token returned in one
+response to get the next page in the subsequent request.
 
 Paginators can also become an "item paginator", where the stream returns one
 element at a time, instead of one page at a time.

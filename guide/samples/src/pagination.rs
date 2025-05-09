@@ -27,8 +27,7 @@ pub async fn paginator_iterate_pages(project_id: &str) -> crate::Result<()> {
     // ANCHOR: paginator-iterate-pages
     let mut list = client
         .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await;
+        .by_page();
     while let Some(page) = list.next().await {
         let page = page?;
         println!("  next_page_token={}", page.next_page_token);
@@ -53,8 +52,7 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
     // ANCHOR: paginator-stream-pages
     let list = client
         .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
+        .by_page()
         .into_stream();
     list.enumerate()
         .map(|(index, page)| -> gax::Result<()> {
@@ -72,7 +70,7 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
 
 pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
     // ANCHOR: paginator-use
-    use google_cloud_gax::paginator::{ItemPaginator as _, Paginator as _};
+    use google_cloud_gax::paginator::ItemPaginator as _;
     // ANCHOR_END: paginator-use
     use google_cloud_secretmanager_v1 as secret_manager;
 
@@ -83,9 +81,7 @@ pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
     // ANCHOR: paginator-iterate-items
     let mut list = client
         .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .by_item();
     while let Some(secret) = list.next().await {
         let secret = secret?;
         println!("  secret={}", secret.name)
@@ -97,7 +93,7 @@ pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
 
 pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
     use futures::stream::StreamExt;
-    use google_cloud_gax::paginator::{ItemPaginator as _, Paginator as _};
+    use google_cloud_gax::paginator::ItemPaginator as _;
     use google_cloud_secretmanager_v1 as secret_manager;
 
     let client = secret_manager::client::SecretManagerService::builder()
@@ -107,9 +103,7 @@ pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
     // ANCHOR: paginator-stream-items
     let list = client
         .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items()
+        .by_item()
         .into_stream();
     list.map(|secret| -> gax::Result<()> {
         println!("  secret={}", secret?.name);

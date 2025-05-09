@@ -330,8 +330,7 @@ async fn run_many_secret_versions(
     let mut paginator = client
         .list_secret_versions(secret_name)
         .set_page_size(PAGE_SIZE)
-        .paginator()
-        .await;
+        .by_page();
     let mut got = BTreeSet::new();
     while let Some(page) = paginator.next().await {
         let page = page?;
@@ -389,9 +388,7 @@ async fn get_all_secret_names(
     let mut names = Vec::new();
     let mut paginator = client
         .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .by_item();
     while let Some(response) = paginator.next().await {
         let item = response?;
         names.push(item.name);
@@ -414,9 +411,7 @@ async fn cleanup_stale_secrets(
     let mut stale_secrets = Vec::new();
     let mut paginator = client
         .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .by_item();
     while let Some(secret) = paginator.next().await {
         let secret = secret?;
         if secret

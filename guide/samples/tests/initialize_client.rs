@@ -32,8 +32,7 @@ pub async fn initialize_client(project_id: &str) -> Result {
     use google_cloud_gax::paginator::Paginator as _;
     let mut items = client
         .list_locations(format!("projects/{project_id}"))
-        .paginator()
-        .await;
+        .by_page();
     while let Some(page) = items.next().await {
         let page = page?;
         for location in page.locations {

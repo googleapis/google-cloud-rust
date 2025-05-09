@@ -43,12 +43,9 @@ mod mocking {
         async fn other_task(
             client: sm::client::SecretManagerService,
         ) -> gax::Result<Vec<ListSecretsResponse>> {
-            let mut paginator = client
-                .list_secrets("projects/test-project")
-                .paginator()
-                .await;
+            let mut pages = client.list_secrets("projects/test-project").by_page();
             let mut responses = Vec::new();
-            while let Some(response) = paginator.next().await {
+            while let Some(response) = pages.next().await {
                 responses.push(response?);
             }
             Ok(responses)
@@ -83,11 +80,7 @@ mod mocking {
         async fn other_task(
             client: sm::client::SecretManagerService,
         ) -> gax::Result<Vec<sm::model::Secret>> {
-            let mut paginator = client
-                .list_secrets("projects/test-project")
-                .paginator()
-                .await
-                .items();
+            let mut paginator = client.list_secrets("projects/test-project").by_item();
             let mut responses = Vec::new();
             while let Some(response) = paginator.next().await {
                 responses.push(response?);
@@ -140,10 +133,7 @@ mod mocking {
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
-        let mut paginator = client
-            .list_secrets("projects/test-project")
-            .paginator()
-            .await;
+        let mut paginator = client.list_secrets("projects/test-project").by_page();
         let mut responses = Vec::new();
         while let Some(response) = paginator.next().await {
             responses.push(response?);
@@ -206,8 +196,7 @@ mod mocking {
         let client = sm::client::SecretManagerService::from_stub(mock);
         let mut paginator = client
             .list_secrets("projects/test-project")
-            .paginator()
-            .await
+            .by_page()
             .into_stream();
         let mut responses = Vec::new();
         while let Some(response) = paginator.next().await {
@@ -267,11 +256,7 @@ mod mocking {
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
-        let mut paginator = client
-            .list_secrets("projects/test-project")
-            .paginator()
-            .await
-            .items();
+        let mut paginator = client.list_secrets("projects/test-project").by_item();
         let mut names = Vec::new();
         while let Some(secret) = paginator.next().await {
             names.push(secret?.name);
@@ -329,9 +314,7 @@ mod mocking {
         let client = sm::client::SecretManagerService::from_stub(mock);
         let mut stream = client
             .list_secrets("projects/test-project")
-            .paginator()
-            .await
-            .items()
+            .by_item()
             .into_stream();
         let mut names = Vec::new();
         while let Some(secret) = stream.next().await {
