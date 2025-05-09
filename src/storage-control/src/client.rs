@@ -179,9 +179,7 @@ impl Storage {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client
     ///         .list_buckets("projects/my-project")
-    ///         .paginator()
-    ///         .await
-    ///         .items();
+    ///         .by_item();
     ///     while let Some(bucket) = items.next().await {
     ///         let bucket = bucket?;
     ///         println!("  {bucket:?}");
@@ -247,9 +245,7 @@ impl Storage {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client
     ///         .list_objects("projects/_/buckets/my-bucket")
-    ///         .paginator()
-    ///         .await
-    ///         .items();
+    ///         .by_item();
     ///     while let Some(object) = items.next().await {
     ///         let object = object?;
     ///         println!("  {object:?}");

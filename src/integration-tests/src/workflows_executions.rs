@@ -15,7 +15,7 @@
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
-use gax::paginator::{ItemPaginator, Paginator};
+use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 use std::time::Duration;
 use wf::Poller;
@@ -54,9 +54,7 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
     let mut executions = client
         .list_executions(&parent)
         .set_view(wfe::model::ExecutionView::Basic)
-        .paginator()
-        .await
-        .items();
+        .by_item();
 
     while let Some(execution) = executions.next().await {
         let execution = execution?;
@@ -68,9 +66,7 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
     let mut executions = client
         .list_executions(&parent)
         .set_view(wfe::model::ExecutionView::Full)
-        .paginator()
-        .await
-        .items();
+        .by_item();
 
     while let Some(execution) = executions.next().await {
         let execution = execution?;

@@ -292,7 +292,7 @@ async fn get_all_secret_names(
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
-    let mut paginator = client.list_secrets(project_id).paginator().await;
+    let mut paginator = client.list_secrets(project_id).by_page();
     while let Some(response) = paginator.next().await {
         response?
             .secrets

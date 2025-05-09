@@ -14,7 +14,7 @@
 
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::paginator::{ItemPaginator, Paginator};
+use gax::paginator::ItemPaginator as _;
 use gax::{error::Error, options::RequestOptionsBuilder};
 use std::time::Duration;
 use wf::Poller;
@@ -195,9 +195,7 @@ async fn cleanup_stale_workflows(
 
     let mut paginator = client
         .list_workflows(format!("projects/{project_id}/locations/{location_id}"))
-        .paginator()
-        .await
-        .items();
+        .by_item();
     let mut stale_workflows = Vec::new();
     while let Some(workflow) = paginator.next().await {
         let item = workflow?;

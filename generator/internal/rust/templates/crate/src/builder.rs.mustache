@@ -121,8 +121,8 @@ pub mod {{Codec.ModuleName}} {
         }
         {{#Pagination}}
 
-        /// Streams the responses back.
-        pub async fn paginator(self) -> impl gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
+        /// Streams each page in the collection.
+        pub fn by_page(self) -> impl gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
             use std::clone::Clone;
             {{#Optional}}
             let token = self.0.request.{{Codec.FieldName}}.clone().unwrap_or_default();
@@ -136,6 +136,12 @@ pub mod {{Codec.ModuleName}} {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<{{{OutputType.Codec.QualifiedName}}}, gax::error::Error> {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
         {{/Pagination}}
         {{#OperationInfo}}

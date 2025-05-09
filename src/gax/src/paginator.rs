@@ -422,7 +422,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_paginator() {
+    async fn test_pagination() {
         let seed = "token1".to_string();
         let mut responses = VecDeque::new();
         responses.push_back(TestResponse {
