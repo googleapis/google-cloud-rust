@@ -83,7 +83,7 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
 
 async fn delete_test_workflow(name: String) -> Result<()> {
     let client = workflow_client().await?;
-    let _ = client.delete_workflow(name).poller().until_done().await?;
+    client.delete_workflow(name).poller().until_done().await?;
     Ok(())
 }
 

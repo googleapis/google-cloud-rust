@@ -143,7 +143,19 @@ pub mod {{Codec.ModuleName}} {
         /// Creates a [Poller][lro::Poller] to work with `{{Method.Codec.Name}}`.
         pub fn poller(
             self
-        ) -> impl lro::Poller<{{Codec.ResponseType}}, {{Codec.MetadataType}}>
+        ) ->
+            {{#Codec.NoneAreEmpty}}
+            impl lro::Poller<{{Codec.ResponseType}}, {{Codec.MetadataType}}>
+            {{/Codec.NoneAreEmpty}}
+            {{#Codec.OnlyResponseIsEmpty}}
+            impl lro::Poller<(), {{Codec.MetadataType}}>
+            {{/Codec.OnlyResponseIsEmpty}}
+            {{#Codec.OnlyMetadataIsEmpty}}
+            impl lro::Poller<{{Codec.ResponseType}}, ()>
+            {{/Codec.OnlyMetadataIsEmpty}}
+            {{#Codec.BothAreEmpty}}
+            impl lro::Poller<(), ()>
+            {{/Codec.BothAreEmpty}}
         {
             type Operation = lro::internal::Operation<{{Codec.ResponseType}}, {{Codec.MetadataType}}>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -170,7 +182,18 @@ pub mod {{Codec.ModuleName}} {
                 Ok(Operation::new(op))
             };
 
+            {{#Codec.NoneAreEmpty}}
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            {{/Codec.NoneAreEmpty}}
+            {{#Codec.OnlyResponseIsEmpty}}
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
+            {{/Codec.OnlyResponseIsEmpty}}
+            {{#Codec.OnlyMetadataIsEmpty}}
+            lro::internal::new_unit_metadata_poller(polling_error_policy, polling_backoff_policy, start, query)
+            {{/Codec.OnlyMetadataIsEmpty}}
+            {{#Codec.BothAreEmpty}}
+            lro::internal::new_unit_poller(polling_error_policy, polling_backoff_policy, start, query)
+            {{/Codec.BothAreEmpty}}
         }
         {{/OperationInfo}}
         {{#InputType.Codec.BasicFields}}

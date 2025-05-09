@@ -412,7 +412,7 @@ pub mod dataset_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -439,7 +439,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
@@ -866,7 +871,7 @@ pub mod dataset_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset_version`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -893,7 +898,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetVersionRequest::name].
@@ -1558,7 +1568,7 @@ pub mod dataset_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_saved_query`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1585,7 +1595,12 @@ pub mod dataset_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
@@ -2805,7 +2820,7 @@ pub mod deployment_resource_pool_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_deployment_resource_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -2832,7 +2847,12 @@ pub mod deployment_resource_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentResourcePoolRequest::name].
@@ -4014,7 +4034,7 @@ pub mod endpoint_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_endpoint`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -4041,7 +4061,12 @@ pub mod endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
@@ -6542,7 +6567,7 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature_online_store`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -6569,7 +6594,12 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureOnlineStoreRequest::name].
@@ -6989,7 +7019,7 @@ pub mod feature_online_store_admin_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature_view`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -7016,7 +7046,12 @@ pub mod feature_online_store_admin_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureViewRequest::name].
@@ -9045,7 +9080,7 @@ pub mod feature_registry_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature_group`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -9072,7 +9107,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureGroupRequest::name].
@@ -9592,7 +9632,7 @@ pub mod feature_registry_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -9619,7 +9659,12 @@ pub mod feature_registry_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
@@ -11465,7 +11510,7 @@ pub mod featurestore_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_featurestore`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -11492,7 +11537,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeaturestoreRequest::name].
@@ -11866,7 +11916,7 @@ pub mod featurestore_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_entity_type`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -11893,7 +11943,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEntityTypeRequest::name].
@@ -12372,7 +12427,7 @@ pub mod featurestore_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -12399,7 +12454,12 @@ pub mod featurestore_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
@@ -16176,7 +16236,7 @@ pub mod index_endpoint_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_index_endpoint`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -16203,7 +16263,12 @@ pub mod index_endpoint_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteIndexEndpointRequest::name].
@@ -17542,7 +17607,7 @@ pub mod index_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_index`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -17569,7 +17634,12 @@ pub mod index_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteIndexRequest::name].
@@ -18595,7 +18665,7 @@ pub mod job_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_custom_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -18622,7 +18692,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomJobRequest::name].
@@ -18936,7 +19011,7 @@ pub mod job_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_data_labeling_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -18963,7 +19038,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDataLabelingJobRequest::name].
@@ -19284,7 +19364,7 @@ pub mod job_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_hyperparameter_tuning_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -19311,7 +19391,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteHyperparameterTuningJobRequest::name].
@@ -19610,7 +19695,7 @@ pub mod job_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_nas_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -19637,7 +19722,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNasJobRequest::name].
@@ -20080,7 +20170,7 @@ pub mod job_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_batch_prediction_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -20107,7 +20197,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBatchPredictionJobRequest::name].
@@ -20671,7 +20766,7 @@ pub mod job_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model_deployment_monitoring_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -20698,7 +20793,12 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteModelDeploymentMonitoringJobRequest::name].
@@ -23362,8 +23462,7 @@ pub mod metadata_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_metadata_store`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteMetadataStoreOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::DeleteMetadataStoreOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::DeleteMetadataStoreOperationMetadata,
@@ -23392,7 +23491,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteMetadataStoreRequest::name].
@@ -23717,7 +23821,7 @@ pub mod metadata_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_artifact`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -23744,7 +23848,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteArtifactRequest::name].
@@ -24170,7 +24279,7 @@ pub mod metadata_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_context`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -24197,7 +24306,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteContextRequest::name].
@@ -24877,7 +24991,7 @@ pub mod metadata_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_execution`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -24904,7 +25018,12 @@ pub mod metadata_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
@@ -28255,7 +28374,7 @@ pub mod model_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -28282,7 +28401,12 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
@@ -28341,7 +28465,7 @@ pub mod model_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model_version`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -28368,7 +28492,12 @@ pub mod model_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteModelVersionRequest::name].
@@ -30128,7 +30257,7 @@ pub mod notebook_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_notebook_runtime_template`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -30155,7 +30284,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNotebookRuntimeTemplateRequest::name].
@@ -30545,7 +30679,7 @@ pub mod notebook_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_notebook_runtime`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -30572,7 +30706,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNotebookRuntimeRequest::name].
@@ -31183,7 +31322,7 @@ pub mod notebook_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_notebook_execution_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -31210,7 +31349,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNotebookExecutionJobRequest::name].
@@ -32166,7 +32310,7 @@ pub mod persistent_resource_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_persistent_resource`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -32193,7 +32337,12 @@ pub mod persistent_resource_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePersistentResourceRequest::name].
@@ -33308,7 +33457,7 @@ pub mod pipeline_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_training_pipeline`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -33335,7 +33484,12 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTrainingPipelineRequest::name].
@@ -33653,7 +33807,7 @@ pub mod pipeline_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_pipeline_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -33680,7 +33834,12 @@ pub mod pipeline_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePipelineJobRequest::name].
@@ -36815,7 +36974,7 @@ pub mod reasoning_engine_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_reasoning_engine`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -36842,7 +37001,12 @@ pub mod reasoning_engine_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteReasoningEngineRequest::name].
@@ -37610,7 +37774,7 @@ pub mod schedule_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_schedule`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -37637,7 +37801,12 @@ pub mod schedule_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteScheduleRequest::name].
@@ -38875,7 +39044,7 @@ pub mod specialist_pool_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_specialist_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -38902,7 +39071,12 @@ pub mod specialist_pool_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSpecialistPoolRequest::name].
@@ -40071,7 +40245,7 @@ pub mod tensorboard_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -40098,7 +40272,12 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardRequest::name].
@@ -40549,7 +40728,7 @@ pub mod tensorboard_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_experiment`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -40576,7 +40755,12 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardExperimentRequest::name].
@@ -40978,7 +41162,7 @@ pub mod tensorboard_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_run`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -41005,7 +41189,12 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardRunRequest::name].
@@ -41424,7 +41613,7 @@ pub mod tensorboard_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tensorboard_time_series`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -41451,7 +41640,12 @@ pub mod tensorboard_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTensorboardTimeSeriesRequest::name].
@@ -42820,7 +43014,7 @@ pub mod vertex_rag_data_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_rag_corpus`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -42847,7 +43041,12 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRagCorpusRequest::name].
@@ -43204,7 +43403,7 @@ pub mod vertex_rag_data_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_rag_file`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteOperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -43231,7 +43430,12 @@ pub mod vertex_rag_data_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRagFileRequest::name].

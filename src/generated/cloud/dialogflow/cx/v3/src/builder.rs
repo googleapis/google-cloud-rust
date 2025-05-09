@@ -495,7 +495,7 @@ pub mod agents {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_agent`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -521,7 +521,12 @@ pub mod agents {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RestoreAgentRequest::name].
@@ -5288,7 +5293,7 @@ pub mod flows {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `train_flow`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5314,7 +5319,12 @@ pub mod flows {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::TrainFlowRequest::name].
@@ -12600,7 +12610,7 @@ pub mod versions {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `load_version`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, wkt::Struct> {
+        pub fn poller(self) -> impl lro::Poller<(), wkt::Struct> {
             type Operation = lro::internal::Operation<wkt::Empty, wkt::Struct>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -12626,7 +12636,12 @@ pub mod versions {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::LoadVersionRequest::name].

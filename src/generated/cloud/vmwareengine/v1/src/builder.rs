@@ -1036,7 +1036,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1062,7 +1062,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -1697,7 +1702,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_address`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1723,7 +1728,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAddressRequest::name].
@@ -2388,7 +2398,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_access_rule`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2414,7 +2424,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAccessRuleRequest::name].
@@ -2845,7 +2860,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_logging_server`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2871,7 +2886,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteLoggingServerRequest::name].
@@ -3785,7 +3805,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_peering`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3811,7 +3831,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPeeringRequest::name].
@@ -4681,7 +4706,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4707,7 +4732,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPolicyRequest::name].
@@ -5157,7 +5187,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_dns_zone_binding`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5183,7 +5213,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteManagementDnsZoneBindingRequest::name].
@@ -5584,7 +5619,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vmware_engine_network`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5610,7 +5645,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVmwareEngineNetworkRequest::name].
@@ -6202,7 +6242,7 @@ pub mod vmware_engine {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -6228,7 +6268,12 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].

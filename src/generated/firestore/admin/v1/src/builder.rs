@@ -724,7 +724,7 @@ pub mod firestore_admin {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDocumentsMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDocumentsMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -751,7 +751,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ImportDocumentsRequest::name].

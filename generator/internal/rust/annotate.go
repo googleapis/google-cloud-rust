@@ -175,11 +175,25 @@ func (a *pathInfoAnnotation) RequiresContentLength() bool {
 }
 
 type operationInfo struct {
-	MetadataType       string
-	ResponseType       string
-	MetadataTypeInDocs string
-	ResponseTypeInDocs string
-	PackageNamespace   string
+	MetadataType     string
+	ResponseType     string
+	PackageNamespace string
+}
+
+func (info *operationInfo) OnlyMetadataIsEmpty() bool {
+	return info.MetadataType == "wkt::Empty" && info.ResponseType != "wkt::Empty"
+}
+
+func (info *operationInfo) OnlyResponseIsEmpty() bool {
+	return info.MetadataType != "wkt::Empty" && info.ResponseType == "wkt::Empty"
+}
+
+func (info *operationInfo) BothAreEmpty() bool {
+	return info.MetadataType == "wkt::Empty" && info.ResponseType == "wkt::Empty"
+}
+
+func (info *operationInfo) NoneAreEmpty() bool {
+	return info.MetadataType != "wkt::Empty" && info.ResponseType != "wkt::Empty"
 }
 
 type routingVariantAnnotations struct {
@@ -555,11 +569,9 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)
 		responseType := c.methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, sourceSpecificationPackageName)
 		m.OperationInfo.Codec = &operationInfo{
-			MetadataType:       metadataType,
-			ResponseType:       responseType,
-			MetadataTypeInDocs: strings.TrimPrefix(metadataType, "crate::"),
-			ResponseTypeInDocs: strings.TrimPrefix(responseType, "crate::"),
-			PackageNamespace:   packageNamespace,
+			MetadataType:     metadataType,
+			ResponseType:     responseType,
+			PackageNamespace: packageNamespace,
 		}
 	}
 	m.Codec = annotation

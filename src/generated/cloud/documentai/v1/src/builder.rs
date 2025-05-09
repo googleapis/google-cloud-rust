@@ -989,9 +989,7 @@ pub mod document_processor_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor_version`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorVersionMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorVersionMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1018,7 +1016,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
@@ -1320,7 +1323,7 @@ pub mod document_processor_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1347,7 +1350,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].

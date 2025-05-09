@@ -445,7 +445,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_storage_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -471,7 +471,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteStoragePoolRequest::name].
@@ -530,7 +535,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `validate_directory_service`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -556,7 +561,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ValidateDirectoryServiceRequest::name].
@@ -1037,7 +1047,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_volume`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1063,7 +1073,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeRequest::name].
@@ -1445,7 +1460,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1471,7 +1486,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -1971,7 +1991,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_active_directory`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1997,7 +2017,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteActiveDirectoryRequest::name].
@@ -2507,7 +2532,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_kms_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2533,7 +2558,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteKmsConfigRequest::name].
@@ -2829,7 +2859,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_replication`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2855,7 +2885,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteReplicationRequest::name].
@@ -3832,7 +3867,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3858,7 +3893,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
@@ -4143,7 +4183,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4169,7 +4209,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -4664,7 +4709,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4690,7 +4735,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPolicyRequest::name].
@@ -5070,7 +5120,7 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_quota_rule`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5096,7 +5146,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteQuotaRuleRequest::name].

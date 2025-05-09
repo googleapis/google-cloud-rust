@@ -67,14 +67,14 @@ main:
     println!("    create LRO finished, response={response:?}");
 
     println!("\n\nStart delete_workflow() LRO and poll it to completion");
-    let delete = client
+    client
         .delete_workflow(format!(
             "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
         ))
         .poller()
         .until_done()
         .await?;
-    println!("    delete LRO finished, response={delete:?}");
+    println!("    delete LRO finished");
 
     Ok(())
 }
@@ -159,9 +159,12 @@ main:
             wf::PollingResult::InProgress(m) => {
                 println!("    delete LRO still in progress, metadata={m:?}");
             }
-            wf::PollingResult::Completed(r) => {
-                println!("    delete LRO finished, result={r:?}");
-                let _ = r?;
+            wf::PollingResult::Completed(Ok(_)) => {
+                println!("    delete LRO finished successfully");
+            }
+            wf::PollingResult::Completed(Err(e)) => {
+                println!("    delete LRO finished with an error {e}");
+                return Err(e);
             }
         }
         tokio::time::sleep(backoff).await;

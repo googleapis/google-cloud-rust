@@ -464,9 +464,7 @@ pub mod database_admin {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_database_ddl`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::UpdateDatabaseDdlMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::UpdateDatabaseDdlMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -493,7 +491,12 @@ pub mod database_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].

@@ -660,9 +660,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -689,7 +687,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -997,9 +1000,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1026,7 +1027,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -1424,9 +1430,7 @@ pub mod cloud_filestore_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1453,7 +1457,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].

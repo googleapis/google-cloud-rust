@@ -1471,8 +1471,7 @@ pub mod os_config_zonal_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_os_policy_assignment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::OSPolicyAssignmentOperationMetadata>
-        {
+        ) -> impl lro::Poller<(), crate::model::OSPolicyAssignmentOperationMetadata> {
             type Operation = lro::internal::Operation<
                 wkt::Empty,
                 crate::model::OSPolicyAssignmentOperationMetadata,
@@ -1501,7 +1500,12 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteOSPolicyAssignmentRequest::name].

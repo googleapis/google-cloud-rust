@@ -2526,9 +2526,7 @@ pub mod tag_bindings {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_binding`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTagBindingMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTagBindingMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteTagBindingMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -2555,7 +2553,12 @@ pub mod tag_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTagBindingRequest::name].
@@ -2889,7 +2892,7 @@ pub mod tag_holds {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_hold`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTagHoldMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTagHoldMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteTagHoldMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -2916,7 +2919,12 @@ pub mod tag_holds {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTagHoldRequest::name].

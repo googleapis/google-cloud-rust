@@ -221,7 +221,7 @@ pub mod datastore_admin {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_entities`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportEntitiesMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportEntitiesMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::ImportEntitiesMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -248,7 +248,12 @@ pub mod datastore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].

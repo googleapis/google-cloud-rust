@@ -1869,7 +1869,7 @@ pub mod translation_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteDatasetMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteDatasetMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteDatasetMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -1896,7 +1896,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
@@ -2653,7 +2658,7 @@ pub mod translation_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_data`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDataMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDataMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::ImportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2679,7 +2684,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
@@ -2746,7 +2756,7 @@ pub mod translation_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_data`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ExportDataMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ExportDataMetadata> {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::ExportDataMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2772,7 +2782,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
@@ -3144,7 +3159,7 @@ pub mod translation_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteModelMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteModelMetadata> {
             type Operation =
                 lro::internal::Operation<wkt::Empty, crate::model::DeleteModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
@@ -3171,7 +3186,12 @@ pub mod translation_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
