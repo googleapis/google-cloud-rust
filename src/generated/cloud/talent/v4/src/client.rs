@@ -85,14 +85,9 @@ impl CompanyService {
     where
         T: super::stub::CompanyService + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::CompanyService + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -246,14 +241,9 @@ impl Completion {
     where
         T: super::stub::Completion + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::Completion + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -371,14 +361,9 @@ impl EventService {
     where
         T: super::stub::EventService + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::EventService + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -502,14 +487,9 @@ impl JobService {
     where
         T: super::stub::JobService + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::JobService + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -765,14 +745,9 @@ impl TenantService {
     where
         T: super::stub::TenantService + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::TenantService + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {

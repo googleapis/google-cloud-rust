@@ -88,14 +88,9 @@ impl AutoscalingPolicyService {
     where
         T: super::stub::AutoscalingPolicyService + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::AutoscalingPolicyService + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -327,14 +322,9 @@ impl BatchController {
     where
         T: super::stub::BatchController + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::BatchController + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -563,14 +553,9 @@ impl ClusterController {
     where
         T: super::stub::ClusterController + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::ClusterController + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -936,14 +921,9 @@ impl JobController {
     where
         T: super::stub::JobController + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::JobController + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1226,14 +1206,9 @@ impl NodeGroupController {
     where
         T: super::stub::NodeGroupController + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::NodeGroupController + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1472,14 +1447,9 @@ impl SessionTemplateController {
     where
         T: super::stub::SessionTemplateController + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::SessionTemplateController + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1707,14 +1677,9 @@ impl SessionController {
     where
         T: super::stub::SessionController + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::SessionController + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1974,14 +1939,9 @@ impl WorkflowTemplateService {
     where
         T: super::stub::WorkflowTemplateService + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::WorkflowTemplateService + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {

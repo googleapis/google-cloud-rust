@@ -87,14 +87,9 @@ impl Folders {
     where
         T: super::stub::Folders + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::Folders + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -448,14 +443,9 @@ impl Organizations {
     where
         T: super::stub::Organizations + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::Organizations + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -625,14 +615,9 @@ impl Projects {
     where
         T: super::stub::Projects + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::Projects + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1004,14 +989,9 @@ impl TagBindings {
     where
         T: super::stub::TagBindings + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::TagBindings + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1173,14 +1153,9 @@ impl TagHolds {
     where
         T: super::stub::TagHolds + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::TagHolds + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1334,14 +1309,9 @@ impl TagKeys {
     where
         T: super::stub::TagKeys + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::TagKeys + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
@@ -1566,14 +1536,9 @@ impl TagValues {
     where
         T: super::stub::TagValues + 'static,
     {
-        Self::from_arc_stub(std::sync::Arc::new(stub))
-    }
-
-    pub(crate) fn from_arc_stub<T>(stub: std::sync::Arc<T>) -> Self
-    where
-        T: super::stub::TagValues + 'static,
-    {
-        Self { inner: stub }
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
