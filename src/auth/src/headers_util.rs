@@ -92,7 +92,7 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
         let value = headers
             .get(HeaderName::from_static("authorization"))
             .unwrap();
