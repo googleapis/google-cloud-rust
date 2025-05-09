@@ -363,8 +363,6 @@ impl Storage {
     /// # Parameters
     /// * `parent` - the bucket name. In `projects/_/buckets/{bucket_id}`
     ///   format.
-    /// * `folder_id` - the full name of a folder, including all its parent
-    ///   folders. This must end in a `/`.
     ///
     /// # Example
     /// ```
