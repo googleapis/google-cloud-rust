@@ -470,8 +470,8 @@ impl Storage {
     {
         let stub = std::sync::Arc::new(stub);
         Self {
-            storage: super::generated::gapic::client::Storage::from_arc_stub(stub.clone()),
-            control: super::generated::gapic_control::client::StorageControl::from_arc_stub(stub),
+            storage: super::generated::gapic::client::Storage::from_stub(stub.clone()),
+            control: super::generated::gapic_control::client::StorageControl::from_stub(stub),
         }
     }
 
