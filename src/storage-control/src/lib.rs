@@ -91,7 +91,7 @@ impl gaxi::prost::FromProto<rpc::model::Status> for google::rpc::Status {
         rpc::model::Status::new()
             .set_code(self.code)
             .set_message(self.message)
-        // TODO(#...) - detail with the error details
+        // TODO(#1699) - detail with the error details
         // .set_details(self.details.into_iter().filter_map(any_from_prost))
     }
 }
