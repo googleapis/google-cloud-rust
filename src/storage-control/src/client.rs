@@ -460,6 +460,21 @@ impl Storage {
         self.control.list_folders().set_parent(parent.into())
     }
 
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Storage + 'static,
+    {
+        let stub = std::sync::Arc::new(stub);
+        Self {
+            storage: super::generated::gapic::client::Storage::from_stub(stub.clone()),
+            control: super::generated::gapic_control::client::StorageControl::from_stub(stub),
+        }
+    }
+
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
         let storage = super::generated::gapic::client::Storage::new(config.clone()).await?;
         let control = super::generated::gapic_control::client::StorageControl::new(config).await?;
