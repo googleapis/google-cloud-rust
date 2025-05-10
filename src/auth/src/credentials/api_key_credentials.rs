@@ -14,6 +14,7 @@
 
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
+use crate::errors;
 use crate::headers_util::build_api_key_headers;
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue};
@@ -40,37 +41,6 @@ impl ApiKeyOptions {
         self.quota_project = Some(v.into());
         self
     }
-}
-
-/// Create credentials that authenticate using an [API key].
-///
-/// API keys are convenient because no [principal] is needed. The API key
-/// associates the request with a Google Cloud project for billing and quota
-/// purposes.
-///
-/// Note that only some Cloud APIs support API keys. The rest require full
-/// credentials.
-///
-/// [API key]: https://cloud.google.com/docs/authentication/api-keys-use
-/// [principal]: https://cloud.google.com/docs/authentication#principal
-pub async fn create_api_key_credentials<T: Into<String>>(
-    api_key: T,
-    o: ApiKeyOptions,
-) -> Result<Credentials> {
-    let token_provider = ApiKeyTokenProvider {
-        api_key: api_key.into(),
-    };
-
-    let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
-        .ok()
-        .or(o.quota_project);
-
-    Ok(Credentials {
-        inner: Arc::new(ApiKeyCredentials {
-            token_provider,
-            quota_project_id,
-        }),
-    })
 }
 
 struct ApiKeyTokenProvider {
@@ -104,6 +74,84 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+}
+
+/// A builder for creating [Credentials] that authenticate using an [API key].
+///
+/// API keys are convenient because no [principal] is needed. The API key
+/// associates the request with a Google Cloud project for billing and quota
+/// purposes.
+///
+/// Note that only some Cloud APIs support API keys. The rest require full
+/// credentials.
+///
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+/// [API key]: https://cloud.google.com/docs/authentication/api-keys-use
+/// [principal]: https://cloud.google.com/docs/authentication#principal
+#[derive(Debug, Default)]
+pub struct Builder {
+    api_key: Option<String>,
+    quota_project_id: Option<String>,
+}
+
+impl Builder {
+    /// Sets the api key for this credentials.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::ApiKeyCredentialsBuilder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = ApiKeyCredentialsBuilder::default()
+    ///     .with_api_key("my-api-key")
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_api_key<T: Into<String>>(mut self, api_key: T) -> Self {
+        self.api_key = Some(api_key.into());
+        self
+    }
+
+    /// Sets the [quota project] for these credentials.
+    ///
+    /// In some services, you can use an account in one project for authentication
+    /// and authorization, and charge the usage to a different project. This requires
+    /// that the user has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::ApiKeyCredentialsBuilder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = ApiKeyCredentialsBuilder::default()
+    ///     .with_quota_project_id("my-project")
+    ///     .build();
+    /// # });
+    /// ```
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<T: Into<String>>(mut self, quota_project_id: T) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    pub async fn build(self) -> Result<Credentials> {
+        let api_key = self
+            .api_key
+            .ok_or_else(|| errors::non_retryable_from_str("API key must be provided."))?;
+
+        let token_provider = ApiKeyTokenProvider { api_key };
+
+        let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
+            .ok()
+            .or(self.quota_project_id);
+
+        Ok(Credentials {
+            inner: Arc::new(ApiKeyCredentials {
+                token_provider,
+                quota_project_id,
+            }),
+        })
+    }
 }
 
 #[async_trait::async_trait]
@@ -144,7 +192,9 @@ mod test {
     async fn create_api_key_credentials_basic() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
-        let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
+        let creds = Builder::default()
+            .with_api_key("test-api-key")
+            .build()
             .await
             .unwrap();
         let token = creds.token().await.unwrap();
@@ -174,8 +224,10 @@ mod test {
     async fn create_api_key_credentials_with_options() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
-        let options = ApiKeyOptions::default().set_quota_project("qp-option");
-        let creds = create_api_key_credentials("test-api-key", options)
+        let creds = Builder::default()
+            .with_api_key("test-api-key")
+            .with_quota_project_id("qp-option")
+            .build()
             .await
             .unwrap();
         let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
@@ -201,8 +253,11 @@ mod test {
     #[serial_test::serial]
     async fn create_api_key_credentials_with_env() {
         let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
-        let options = ApiKeyOptions::default().set_quota_project("qp-option");
-        let creds = create_api_key_credentials("test-api-key", options)
+
+        let creds = Builder::default()
+            .with_api_key("test-api-key")
+            .with_quota_project_id("qp-option")
+            .build()
             .await
             .unwrap();
         let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());

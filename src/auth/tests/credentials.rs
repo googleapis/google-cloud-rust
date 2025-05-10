@@ -17,8 +17,8 @@ use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBu
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, Credentials, CredentialsProvider,
-    create_api_key_credentials,
+    ApiKeyCredentialsBuilder, Builder as AccessTokenCredentialBuilder, Credentials,
+    CredentialsProvider,
 };
 use google_cloud_auth::errors::CredentialsError;
 use google_cloud_auth::token::Token;
@@ -186,7 +186,9 @@ mod test {
 
     #[tokio::test]
     async fn create_api_key_credentials_success() {
-        let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
+        let creds = ApiKeyCredentialsBuilder::default()
+            .with_api_key("test-api-key")
+            .build()
             .await
             .unwrap();
         let fmt = format!("{:?}", creds);
