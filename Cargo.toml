@@ -279,7 +279,7 @@ async-trait      = { version = "0.1" }
 base64           = { version = "0.22" }
 bytes            = { version = "1", default-features = false, features = ["serde"] }
 futures          = { version = "0.3" }
-http             = { version = "1", default-features = false }
+http             = { version = "1", default-features = false, features = ["std"] }
 http-body-util   = { version = "0.1" }
 lazy_static      = { version = "1", default-features = false }
 percent-encoding = { version = "2", default-features = false }
