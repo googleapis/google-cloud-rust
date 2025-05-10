@@ -13,8 +13,8 @@
 // limitations under the License.
 
 mod api_key_credentials;
-// Export API Key factory function and options
-pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
+// Export API Key credentials builder and options
+pub use api_key_credentials::{ApiKeyOptions, Builder as ApiKeyCredentialsBuilder};
 
 pub mod mds;
 pub mod service_account;

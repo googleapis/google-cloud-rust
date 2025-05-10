@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use auth::credentials::{
-    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, create_api_key_credentials,
+    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, ApiKeyCredentialsBuilder,
 };
 use gax::error::Error;
 use language::client::LanguageService;
@@ -100,7 +100,9 @@ pub async fn api_key() -> Result<()> {
     let api_key = std::str::from_utf8(&api_key).unwrap();
 
     // Create credentials using the API key.
-    let creds = create_api_key_credentials(api_key, ApiKeyOptions::default())
+    let creds = ApiKeyCredentialsBuilder::default()
+        .with_api_key(api_key)
+        .build()
         .await
         .map_err(Error::authentication)?;
 
