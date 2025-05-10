@@ -551,6 +551,7 @@ fn adc_well_known_path() -> Option<String> {
 // Skipping mutation testing for this module. As it exclusively provides
 // hardcoded credential stubs for testing purposes.
 #[cfg_attr(test, mutants::skip)]
+#[doc(hidden)]
 pub mod testing {
     use crate::Result;
     use crate::credentials::Credentials;
