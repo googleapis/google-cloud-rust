@@ -17,6 +17,7 @@ use google_cloud_auth::credentials::*;
 #[cfg(test)]
 mod test {
     use super::*;
+    use http::Extensions;
     use rustls::crypto::{CryptoProvider, KeyProvider};
     use scoped_env::ScopedEnv;
 
@@ -85,7 +86,7 @@ mod test {
         // Try to use the service account credentials. This calls into the
         // custom crypto provider.
         let creds = test_service_account_credentials().await;
-        let e = creds.token().await.err().unwrap();
+        let e = creds.token(Extensions::new()).await.err().unwrap();
         assert!(e.to_string().contains(CUSTOM_ERROR), "{e}");
     }
 }

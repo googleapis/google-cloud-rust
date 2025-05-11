@@ -42,8 +42,9 @@ pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_control::model::*;
 }
-// TODO(#1813) - Consider moving client into a storage_control module
+// TODO(#1813) - Consider moving client and stub into a storage_control module
 pub mod client;
+pub mod stub;
 
 pub(crate) mod google {
     pub mod iam {

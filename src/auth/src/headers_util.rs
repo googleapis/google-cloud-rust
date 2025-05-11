@@ -16,6 +16,7 @@ use crate::Result;
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::errors;
 
+use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
 
 const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
@@ -24,7 +25,7 @@ const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 pub(crate) fn build_bearer_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
-) -> Result<Vec<(HeaderName, HeaderValue)>> {
+) -> Result<HeaderMap> {
     build_headers(token, quota_project_id, AUTHORIZATION, |token| {
         HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)
@@ -35,7 +36,7 @@ pub(crate) fn build_bearer_headers(
 pub(crate) fn build_api_key_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
-) -> Result<Vec<(HeaderName, HeaderValue)>> {
+) -> Result<HeaderMap> {
     build_headers(
         token,
         quota_project_id,
@@ -50,20 +51,21 @@ fn build_headers(
     quota_project_id: &Option<String>,
     header_name: HeaderName,
     build_header_value: impl FnOnce(&crate::token::Token) -> Result<HeaderValue>,
-) -> Result<Vec<(HeaderName, HeaderValue)>> {
+) -> Result<HeaderMap> {
     let mut value = build_header_value(token)?;
     value.set_sensitive(true);
 
-    let mut headers = vec![(header_name, value)];
+    let mut header_map = HeaderMap::new();
+    header_map.insert(header_name, value);
 
     if let Some(project) = quota_project_id {
-        headers.push((
+        header_map.insert(
             HeaderName::from_static(QUOTA_PROJECT_KEY),
             HeaderValue::from_str(project).map_err(errors::non_retryable)?,
-        ));
+        );
     }
 
-    Ok(headers)
+    Ok(header_map)
 }
 
 #[cfg(test)]
@@ -90,14 +92,13 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
+        let value = headers
+            .get(HeaderName::from_static("authorization"))
+            .unwrap();
 
-        assert_eq!(headers[0].0, HeaderName::from_static("authorization"));
-        assert_eq!(
-            headers[0].1,
-            HeaderValue::from_str("Bearer test_token").unwrap()
-        );
-        assert!(headers[0].1.is_sensitive());
+        assert_eq!(value, HeaderValue::from_static("Bearer test_token"));
+        assert!(value.is_sensitive());
     }
 
     #[test]
@@ -109,20 +110,18 @@ mod test {
 
         assert!(result.is_ok());
         let headers = result.unwrap();
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
 
-        assert_eq!(headers[0].0, HeaderName::from_static("authorization"));
-        assert_eq!(
-            headers[0].1,
-            HeaderValue::from_str("Bearer test_token").unwrap()
-        );
-        assert!(headers[0].1.is_sensitive());
+        let token = headers
+            .get(HeaderName::from_static("authorization"))
+            .unwrap();
+        assert_eq!(token, HeaderValue::from_static("Bearer test_token"));
+        assert!(token.is_sensitive());
 
-        assert_eq!(headers[1].0, HeaderName::from_static(QUOTA_PROJECT_KEY));
-        assert_eq!(
-            headers[1].1,
-            HeaderValue::from_str("test-project-123").unwrap()
-        );
+        let quota_project = headers
+            .get(HeaderName::from_static(QUOTA_PROJECT_KEY))
+            .unwrap();
+        assert_eq!(quota_project, HeaderValue::from_static("test-project-123"));
     }
 
     #[test]
@@ -134,14 +133,14 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
 
-        assert_eq!(headers[0].0, HeaderName::from_static("authorization"));
-        assert_eq!(
-            headers[0].1,
-            HeaderValue::from_str("MAC special_token").unwrap()
-        );
-        assert!(headers[0].1.is_sensitive());
+        let token = headers
+            .get(HeaderName::from_static("authorization"))
+            .unwrap();
+
+        assert_eq!(token, HeaderValue::from_static("MAC special_token"));
+        assert!(token.is_sensitive());
     }
 
     #[test]
@@ -164,14 +163,13 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 1);
+        assert_eq!(headers.len(), 1, "{headers:?}");
+        let api_key = headers
+            .get(HeaderName::from_static(API_KEY_HEADER_KEY))
+            .unwrap();
 
-        assert_eq!(headers[0].0, HeaderName::from_static(API_KEY_HEADER_KEY));
-        assert_eq!(
-            headers[0].1,
-            HeaderValue::from_str("api_key_12345").unwrap()
-        );
-        assert!(headers[0].1.is_sensitive());
+        assert_eq!(api_key, HeaderValue::from_static("api_key_12345"));
+        assert!(api_key.is_sensitive());
     }
 
     #[test]
@@ -184,20 +182,19 @@ mod test {
         assert!(result.is_ok());
         let headers = result.unwrap();
 
-        assert_eq!(headers.len(), 2);
+        assert_eq!(headers.len(), 2, "{headers:?}");
 
-        assert_eq!(headers[0].0, HeaderName::from_static(API_KEY_HEADER_KEY));
-        assert_eq!(
-            headers[0].1,
-            HeaderValue::from_str("api_key_12345").unwrap()
-        );
-        assert!(headers[0].1.is_sensitive());
+        let api_key = headers
+            .get(HeaderName::from_static(API_KEY_HEADER_KEY))
+            .unwrap();
 
-        assert_eq!(headers[1].0, HeaderName::from_static(QUOTA_PROJECT_KEY));
-        assert_eq!(
-            headers[1].1,
-            HeaderValue::from_str("test-project-456").unwrap()
-        );
+        assert_eq!(api_key, HeaderValue::from_static("api_key_12345"));
+        assert!(api_key.is_sensitive());
+
+        let quota_project = headers
+            .get(HeaderName::from_static(QUOTA_PROJECT_KEY))
+            .unwrap();
+        assert_eq!(quota_project, HeaderValue::from_static("test-project-456"));
     }
 
     #[test]

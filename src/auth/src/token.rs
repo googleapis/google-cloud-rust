@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use http::Extensions;
 use std::collections::HashMap;
 use std::time::Instant;
 
@@ -66,6 +67,11 @@ impl std::fmt::Debug for Token {
 #[async_trait::async_trait]
 pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
     async fn token(&self) -> Result<Token>;
+}
+
+#[async_trait::async_trait]
+pub(crate) trait CachedTokenProvider: std::fmt::Debug + Send + Sync {
+    async fn token(&self, extensions: Extensions) -> Result<Token>;
 }
 
 #[cfg(test)]

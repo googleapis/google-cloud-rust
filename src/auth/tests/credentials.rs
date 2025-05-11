@@ -30,6 +30,7 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 mod test {
     use super::*;
     use http::header::{HeaderName, HeaderValue};
+    use http::{Extensions, HeaderMap};
     use scoped_env::ScopedEnv;
     use std::error::Error;
 
@@ -200,8 +201,8 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self) -> Result<Token>;
-            async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+            async fn token(&self, extensions: Extensions) -> Result<Token>;
+            async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -209,7 +210,7 @@ mod test {
     #[tokio::test]
     async fn mocking_with_default_values() -> Result<()> {
         let mut mock = MockCredentials::new();
-        mock.expect_token().return_once(|| {
+        mock.expect_token().return_once(|_extensions| {
             Ok(Token {
                 token: "test-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -217,12 +218,13 @@ mod test {
                 metadata: None,
             })
         });
-        mock.expect_headers().return_once(|| Ok(Vec::new()));
+        mock.expect_headers()
+            .return_once(|_extensions| Ok(HeaderMap::default()));
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.token().await?.token, "test-token");
-        assert!(creds.headers().await?.is_empty());
+        assert_eq!(creds.token(Extensions::new()).await?.token, "test-token");
+        assert!(creds.headers(Extensions::new()).await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
@@ -231,7 +233,7 @@ mod test {
     #[tokio::test]
     async fn mocking_with_custom_header() -> Result<()> {
         let mut mock = MockCredentials::new();
-        mock.expect_token().return_once(|| {
+        mock.expect_token().return_once(|_extensions| {
             Ok(Token {
                 token: "test-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -239,17 +241,18 @@ mod test {
                 metadata: None,
             })
         });
-        let headers = vec![(
+        let headers = HeaderMap::from_iter([(
             HeaderName::from_static("test-header"),
             HeaderValue::from_static("test-value"),
-        )];
+        )]);
         let headers_clone = headers.clone();
-        mock.expect_headers().return_once(|| Ok(headers_clone));
+        mock.expect_headers()
+            .return_once(|_extensions| Ok(headers_clone));
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.token().await?.token, "test-token");
-        assert_eq!(creds.headers().await?, headers);
+        assert_eq!(creds.token(Extensions::new()).await?.token, "test-token");
+        assert_eq!(creds.headers(Extensions::new()).await?, headers);
         assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
@@ -258,7 +261,7 @@ mod test {
     #[tokio::test]
     async fn mocking_with_custom_universe_domain() -> Result<()> {
         let mut mock = MockCredentials::new();
-        mock.expect_token().return_once(|| {
+        mock.expect_token().return_once(|_extensions| {
             Ok(Token {
                 token: "test-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -269,13 +272,14 @@ mod test {
 
         let universe_domain = "test-universe-domain";
         let universe_domain_clone = universe_domain.to_string();
-        mock.expect_headers().return_once(|| Ok(Vec::new()));
+        mock.expect_headers()
+            .return_once(|_extensions| Ok(HeaderMap::default()));
         mock.expect_universe_domain()
             .return_once(|| Some(universe_domain_clone));
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.token().await?.token, "test-token");
-        assert!(creds.headers().await?.is_empty());
+        assert_eq!(creds.token(Extensions::new()).await?.token, "test-token");
+        assert!(creds.headers(Extensions::new()).await?.is_empty());
         assert_eq!(creds.universe_domain().await.unwrap(), universe_domain);
 
         Ok(())
@@ -284,8 +288,11 @@ mod test {
     #[tokio::test]
     async fn testing_credentials() -> Result<()> {
         let creds = test_credentials();
-        assert_eq!(creds.token().await?.token, "test-only-token");
-        assert!(creds.headers().await?.is_empty());
+        assert_eq!(
+            creds.token(Extensions::new()).await?.token,
+            "test-only-token"
+        );
+        assert!(creds.headers(Extensions::new()).await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }

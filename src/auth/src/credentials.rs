@@ -19,7 +19,7 @@ pub mod user_account;
 
 use crate::Result;
 use crate::errors::{self, CredentialsError};
-use http::header::{HeaderName, HeaderValue};
+use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
@@ -85,12 +85,12 @@ where
 }
 
 impl Credentials {
-    pub async fn token(&self) -> Result<crate::token::Token> {
-        self.inner.token().await
+    pub async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
+        self.inner.token(extensions).await
     }
 
-    pub async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        self.inner.headers().await
+    pub async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+        self.inner.headers(extensions).await
     }
 
     pub async fn universe_domain(&self) -> Option<String> {
@@ -143,7 +143,12 @@ pub trait CredentialsProvider: std::fmt::Debug {
     ///
     /// Returns a [Token][crate::token::Token] for the current credentials.
     /// The underlying implementation refreshes the token as needed.
-    fn token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send;
+    // TODO(#2036): After the return type is updated to return a cacheable resource
+    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
+    fn token(
+        &self,
+        extensions: Extensions,
+    ) -> impl Future<Output = Result<crate::token::Token>> + Send;
 
     /// Asynchronously constructs the auth headers.
     ///
@@ -152,7 +157,9 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// sent with a request.
     ///
     /// The underlying implementation refreshes the token as needed.
-    fn headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
+    // TODO(#2036): After the return type is updated to return a cacheable resource
+    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
+    fn headers(&self, extensions: Extensions) -> impl Future<Output = Result<HeaderMap>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
@@ -160,7 +167,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
 
 pub(crate) mod dynamic {
     use super::Result;
-    use super::{HeaderName, HeaderValue};
+    use super::{Extensions, HeaderMap};
 
     /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
@@ -169,7 +176,9 @@ pub(crate) mod dynamic {
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
         /// The underlying implementation refreshes the token as needed.
-        async fn token(&self) -> Result<crate::token::Token>;
+        // TODO(#2036): After the return type is updated to return cacheable resource
+        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
+        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token>;
 
         /// Asynchronously constructs the auth headers.
         ///
@@ -178,7 +187,9 @@ pub(crate) mod dynamic {
         /// sent with a request.
         ///
         /// The underlying implementation refreshes the token as needed.
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+        // TODO(#2036): After the return type is updated to return cacheable resource
+        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
+        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
         async fn universe_domain(&self) -> Option<String> {
@@ -192,11 +203,11 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn token(&self) -> Result<crate::token::Token> {
-            T::token(self).await
+        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
+            T::token(self, extensions).await
         }
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            T::headers(self).await
+        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+            T::headers(self, extensions).await
         }
         async fn universe_domain(&self) -> Option<String> {
             T::universe_domain(self).await
@@ -251,11 +262,12 @@ enum CredentialsSource {
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
+/// # use http::Extensions;
 /// # tokio_test::block_on(async {
 /// let creds = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token().await?;
+/// let token = creds.token(Extensions::new()).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -265,6 +277,7 @@ enum CredentialsSource {
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
+/// # use http::Extensions;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_auth::credentials::Builder;
 /// let authorized_user = serde_json::json!({
@@ -279,7 +292,7 @@ enum CredentialsSource {
 /// let creds = Builder::new(authorized_user)
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token().await?;
+/// let token = creds.token(Extensions::new()).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -554,7 +567,7 @@ pub mod testing {
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
     use crate::token::Token;
-    use http::header::{HeaderName, HeaderValue};
+    use http::{Extensions, HeaderMap};
     use std::sync::Arc;
 
     /// A simple credentials implementation to use in tests where authentication does not matter.
@@ -571,7 +584,7 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn token(&self) -> Result<Token> {
+        async fn token(&self, _extensions: Extensions) -> Result<Token> {
             Ok(Token {
                 token: "test-only-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -580,8 +593,8 @@ pub mod testing {
             })
         }
 
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            Ok(Vec::new())
+        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
+            Ok(HeaderMap::new())
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -603,11 +616,11 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn token(&self) -> Result<Token> {
+        async fn token(&self, _extensions: Extensions) -> Result<Token> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
@@ -629,33 +642,7 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
-    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
-    pub struct HV {
-        pub header: String,
-        pub value: String,
-        pub is_sensitive: bool,
-    }
-
-    impl HV {
-        pub fn from(headers: Vec<(HeaderName, HeaderValue)>) -> Vec<HV> {
-            let mut hvs: Vec<HV> = headers
-                .into_iter()
-                .map(|(h, v)| HV {
-                    header: h.to_string(),
-                    value: v.to_str().unwrap().to_string(),
-                    is_sensitive: v.is_sensitive(),
-                })
-                .collect();
-
-            // We want to verify the contents of the headers. We do not care
-            // what order they are in.
-            hvs.sort();
-            hvs
-        }
-    }
-
-    fn generate_pkcs8_private_key() -> String {
+    pub fn generate_pkcs8_private_key() -> String {
         let mut rng = rand::thread_rng();
         let bits = 2048;
         let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
@@ -665,7 +652,7 @@ mod test {
             .to_string()
     }
 
-    fn b64_decode_to_json(s: String) -> serde_json::Value {
+    pub fn b64_decode_to_json(s: String) -> serde_json::Value {
         let decoded = String::from_utf8(
             base64::engine::general_purpose::URL_SAFE_NO_PAD
                 .decode(s)
@@ -801,9 +788,9 @@ mod test {
             credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
-        let err = credentials.token().await.err().unwrap();
+        let err = credentials.token(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
-        let err = credentials.headers().await.err().unwrap();
+        let err = credentials.headers(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
     }
 
@@ -845,7 +832,7 @@ mod test {
             .build()
             .unwrap();
 
-        let token = sac.token().await?;
+        let token = sac.token(Extensions::new()).await?;
         let parts: Vec<_> = token.token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
