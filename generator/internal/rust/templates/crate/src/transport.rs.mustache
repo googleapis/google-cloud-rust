@@ -72,22 +72,32 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             options,
             {{PathInfo.Codec.IsIdempotent}},
         );
+        let path =
+            {{^PathInfo.Codec.HasPathArgs}}
+            {{! Sometimes there are no path args and `format!()` produces warnings }}
+            "{{PathInfo.Codec.PathFmt}}".to_string();
+            {{/PathInfo.Codec.HasPathArgs}}
+            {{#PathInfo.Codec.HasPathArgs}}
+            format!("{{PathInfo.Codec.PathFmt}}",
+                {{#PathInfo.Codec.PathArgs}}
+                    {
+                        {{#CheckForEmpty}}
+                        let arg = &req{{{Accessor}}};
+                        if arg.is_empty() {
+                            return Err(gaxi::path_parameter::missing("{{Name}}"));
+                        }
+                        arg
+                        {{/CheckForEmpty}}
+                        {{^CheckForEmpty}}
+                        &req{{{Accessor}}}
+                        {{/CheckForEmpty}}
+                    },
+                {{/PathInfo.Codec.PathArgs}}
+            );
+            {{/PathInfo.Codec.HasPathArgs}};
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::{{PathInfo.Codec.Method}},
-                {{^PathInfo.Codec.HasPathArgs}}
-                {{! Sometimes there are no path args and `format!()` produces warnings }}
-                "{{PathInfo.Codec.PathFmt}}".to_string()
-                {{/PathInfo.Codec.HasPathArgs}}
-                {{#PathInfo.Codec.HasPathArgs}}
-                format!("{{PathInfo.Codec.PathFmt}}"
-                    {{#PathInfo.Codec.PathArgs}}
-                        , req{{{Accessor}}}
-                    {{/PathInfo.Codec.PathArgs}}
-                )
-                {{/PathInfo.Codec.HasPathArgs}}
-            )
+            .builder(reqwest::Method::{{PathInfo.Codec.Method}}, path)
             {{#Codec.SystemParameters}}
             .query(&[("{{Name}}", "{{Value}}")])
             {{/Codec.SystemParameters}}

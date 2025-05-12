@@ -51,7 +51,8 @@ mod my_application {
         use speech::Poller;
         let mut progress_updates = Vec::new();
         let mut poller = client
-            .batch_recognize(format!(
+            .batch_recognize()
+            .set_recognizer(format!(
                 "projects/{project_id}/locations/global/recognizers/_"
             ))
             .poller();

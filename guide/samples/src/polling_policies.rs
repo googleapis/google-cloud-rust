@@ -40,7 +40,8 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-backoff-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: client-backoff-builder
@@ -90,7 +91,8 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: rpc-backoff-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: rpc-backoff-builder
@@ -153,7 +155,8 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-errors-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: client-errors-builder
@@ -204,7 +207,8 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: rpc-errors-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: rpc-errors-builder

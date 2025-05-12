@@ -25,7 +25,8 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: request-builder
     let operation = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: request-builder
@@ -74,7 +75,8 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
     let client = speech::client::Speech::builder().build().await?;
 
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         .set_files([speech::model::BatchRecognizeFileMetadata::new()
@@ -116,7 +118,8 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
     let client = speech::client::Speech::builder().build().await?;
 
     let mut poller = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         .set_files([speech::model::BatchRecognizeFileMetadata::new()
@@ -207,7 +210,12 @@ pub async fn manually_poll_lro(
         tokio::time::sleep(std::time::Duration::from_millis(500)).await;
         // ANCHOR_END: manual-backoff
         // ANCHOR: manual-poll-again
-        if let Ok(attempt) = client.get_operation(operation.name.clone()).send().await {
+        if let Ok(attempt) = client
+            .get_operation()
+            .set_name(&operation.name)
+            .send()
+            .await
+        {
             operation = attempt;
         }
         // ANCHOR_END: manual-poll-again

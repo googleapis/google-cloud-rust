@@ -76,7 +76,8 @@ mod default_idempotency {
             // We are calling `GetSecret`, which is a `GET`. This request should
             // be idempotent.
             let _ = client
-                .get_secret("invalid")
+                .get_secret()
+                .set_name("invalid")
                 .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
@@ -91,7 +92,8 @@ mod default_idempotency {
             // We are calling `AddSecretVersion`, which is a `POST`. This
             // request should not be idempotent.
             let _ = client
-                .add_secret_version("invalid")
+                .add_secret_version()
+                .set_parent("invalid")
                 .with_retry_policy(expect_non_idempotent())
                 .send()
                 .await;
@@ -111,7 +113,8 @@ mod default_idempotency {
             // We are calling `GetDocument`, which is a `GET`. This request
             // should be idempotent.
             let _ = client
-                .get_document("invalid")
+                .get_document()
+                .set_name("invalid")
                 .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
@@ -126,7 +129,8 @@ mod default_idempotency {
             // We are calling `BeginTransaction`, which is a `POST`. This
             // request should not be idempotent.
             let _ = client
-                .begin_transaction("invalid")
+                .begin_transaction()
+                .set_database("invalid")
                 .with_retry_policy(expect_non_idempotent())
                 .send()
                 .await;

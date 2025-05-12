@@ -30,7 +30,7 @@ pub async fn text_prompt(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: text-prompt-request
     let response = client
-        .generate_content(&model)
+        .generate_content().set_model(&model)
         .set_contents([vertexai::model::Content::new().set_role("user").set_parts([
             vertexai::model::Part::new().set_text("What's a good name for a flower shop that specializes in selling bouquets of dried flowers?"),
         ])])
@@ -61,7 +61,8 @@ pub async fn prompt_and_image(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: prompt-and-image-request
     let response = client
-        .generate_content(&model)
+        .generate_content()
+        .set_model(&model)
         .set_contents(
             [vertexai::model::Content::new().set_role("user").set_parts([
                 // ANCHOR: prompt-and-image-image-part

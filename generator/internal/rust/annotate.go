@@ -157,6 +157,7 @@ type methodAnnotation struct {
 	SystemParameters    []systemParameter
 	ReturnType          string
 	HasVeneer           bool
+	Attributes          []string
 }
 
 type pathInfoAnnotation struct {
@@ -564,6 +565,11 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,
+	}
+	if annotation.Name == "clone" {
+		// Some methods look too similar to standard Rust traits. Clippy makes
+		// a recommendation that is not applicable to generated code.
+		annotation.Attributes = []string{"#[allow(clippy::should_implement_trait)]"}
 	}
 	if m.OperationInfo != nil {
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)

@@ -33,7 +33,8 @@ mod test {
     // display name of the recognizer.
     async fn my_application_function(client: &speech::client::Speech) -> gax::Result<String> {
         client
-            .get_recognizer("invalid-test-recognizer")
+            .get_recognizer()
+            .set_name("invalid-test-recognizer")
             .send()
             .await
             .map(|r| r.display_name)

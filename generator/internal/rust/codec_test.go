@@ -2198,7 +2198,7 @@ func TestPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]pathArg{{Name: "a", Accessor: ".a"}},
+			[]pathArg{{Name: "a", Accessor: ".a", CheckForEmpty: true}},
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
@@ -2213,8 +2213,9 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:     "b",
-					Accessor: `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					Name:          "b",
+					Accessor:      `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
@@ -2262,8 +2263,9 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:     "e.a",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.a`,
+					Name:          "e.a",
+					Accessor:      `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.a`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
@@ -2283,6 +2285,7 @@ func TestPathArgs(t *testing.T) {
 					Name: "e.b",
 					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
 						`.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
@@ -2336,12 +2339,14 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:     "a",
-					Accessor: ".a",
+					Name:          "a",
+					Accessor:      ".a",
+					CheckForEmpty: true,
 				},
 				{
-					Name:     "b",
-					Accessor: `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					Name:          "b",
+					Accessor:      `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
