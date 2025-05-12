@@ -66,10 +66,7 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 		return nil, err
 	}
 	pathInfo := &api.PathInfo{
-		Verb:            binding.Verb,
-		PathTemplate:    binding.PathTemplate,
-		QueryParameters: binding.QueryParameters,
-		BodyFieldPath:   body,
+		BodyFieldPath: body,
 	}
 	// TODO(#2090) - remove the duplicates on the top-level binding
 	pathInfo.Bindings = []*api.PathBinding{binding}

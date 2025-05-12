@@ -524,7 +524,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	annotation := &methodAnnotation{
 		Parent:            method,
 		Name:              strcase.ToLowerCamel(method.Name),
-		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
+		RequestMethod:     strings.ToLower(method.PathInfo.Bindings[0].Verb),
 		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID], true),
 		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID], true),
 		DocLines:          formatDocComments(method.Documentation, state),

@@ -210,9 +210,6 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			}
 			queryParameters := makeQueryParameters(op.Operation)
 			pathInfo := &api.PathInfo{
-				Verb:            op.Verb,
-				PathTemplate:    pathTemplate,
-				QueryParameters: queryParameters,
 				Bindings: []*api.PathBinding{
 					{
 						Verb:            op.Verb,

@@ -70,9 +70,13 @@ func serviceAnnotationsModel() *api.API {
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".test.v1.Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("/v1/resource"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/resource"),
+					},
+				},
 			},
 		},
 	}
@@ -82,9 +86,13 @@ func serviceAnnotationsModel() *api.API {
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".google.protobuf.Empty",
 		PathInfo: &api.PathInfo{
-			Verb: "DELETE",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("/v1/resource"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "DELETE",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/resource"),
+					},
+				},
 			},
 		},
 		ReturnsEmpty: true,
@@ -1097,9 +1105,13 @@ func TestPathInfoAnnotations(t *testing.T) {
 			InputTypeID:  ".test.v1.Request",
 			OutputTypeID: ".test.v1.Response",
 			PathInfo: &api.PathInfo{
-				Verb: testCase.Verb,
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("/v1/resource"),
+				Bindings: []*api.PathBinding{
+					{
+						Verb: testCase.Verb,
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("/v1/resource"),
+						},
+					},
 				},
 			},
 		}

@@ -865,8 +865,9 @@ func bodyAccessor(m *api.Method) string {
 }
 
 func httpPathFmt(m *api.PathInfo) string {
+	binding := m.Bindings[0]
 	fmt := ""
-	for _, segment := range m.PathTemplate {
+	for _, segment := range binding.PathTemplate {
 		if segment.Literal != nil {
 			fmt = fmt + "/" + *segment.Literal
 		} else if segment.FieldPath != nil {
@@ -936,7 +937,7 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 		return []pathArg{}
 	}
 	var params []pathArg
-	for _, arg := range h.PathTemplate {
+	for _, arg := range h.Bindings[0].PathTemplate {
 		if arg.FieldPath != nil {
 			params = append(params, pathArg{
 				Name:     *arg.FieldPath,
@@ -1642,7 +1643,10 @@ func (c *codec) generateMethod(m *api.Method) bool {
 	if c.includeGrpcOnlyMethods {
 		return true
 	}
-	return m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+	if m.PathInfo == nil || len(m.PathInfo.Bindings) == 0 {
+		return false
+	}
+	return len(m.PathInfo.Bindings[0].PathTemplate) != 0
 }
 
 // The list of Rust keywords and reserved words can be found at:

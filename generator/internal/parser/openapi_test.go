@@ -721,18 +721,6 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		InputTypeID:   "..ListLocationsRequest",
 		OutputTypeID:  "..ListLocationsResponse",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("locations"),
-			},
-			QueryParameters: map[string]bool{
-				"filter":    true,
-				"pageSize":  true,
-				"pageToken": true,
-			},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
@@ -762,13 +750,12 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 	})
 
 	cs := sample.MethodCreate()
-	cs.PathInfo.PathTemplate = []api.PathSegment{
+	cs.PathInfo.Bindings[0].PathTemplate = []api.PathSegment{
 		api.NewLiteralPathSegment("v1"),
 		api.NewLiteralPathSegment("projects"),
 		api.NewFieldPathPathSegment("project"),
 		api.NewLiteralPathSegment("secrets"),
 	}
-	cs.PathInfo.Bindings[0].PathTemplate = cs.PathInfo.PathTemplate
 	checkMethod(t, service, cs.Name, cs)
 
 	asv := sample.MethodAddSecretVersion()
@@ -920,14 +907,6 @@ func TestOpenAPI_Pagination(t *testing.T) {
 				InputTypeID:  "..ListFoosRequest",
 				OutputTypeID: "..ListFoosResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("project"),
-						api.NewLiteralPathSegment("foos"),
-					},
-					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
@@ -1141,15 +1120,6 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 		InputTypeID:  "..RpcARequest",
 		OutputTypeID: "..Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("rpc"),
-				api.NewLiteralPathSegment("a"),
-			},
-			QueryParameters: map[string]bool{"filter": true},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
@@ -1173,15 +1143,6 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 		InputTypeID:  "..RpcBRequest",
 		OutputTypeID: "..Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("rpc"),
-				api.NewLiteralPathSegment("b"),
-			},
-			QueryParameters: map[string]bool{},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",

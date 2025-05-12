@@ -71,12 +71,6 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 		InputTypeID:   ".google.cloud.location.GetLocationRequest",
 		OutputTypeID:  ".google.cloud.location.Location",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("name"),
-			},
-			QueryParameters: map[string]bool{},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
@@ -140,13 +134,6 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 		InputTypeID:   ".google.iam.v1.GetIamPolicyRequest",
 		OutputTypeID:  ".google.iam.v1.Policy",
 		PathInfo: &api.PathInfo{
-			Verb: "POST",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("resource"),
-				api.NewVerbPathSegment("getIamPolicy"),
-			},
-			QueryParameters: map[string]bool{},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "POST",
@@ -218,12 +205,6 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 		InputTypeID:   ".google.longrunning.GetOperationRequest",
 		OutputTypeID:  ".google.longrunning.Operation",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v2"),
-				api.NewFieldPathPathSegment("name"),
-			},
-			QueryParameters: map[string]bool{},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
@@ -306,12 +287,6 @@ func TestProtobuf_OperationMixinNoEmpty(t *testing.T) {
 		OutputTypeID:  ".google.protobuf.Empty",
 		ReturnsEmpty:  true,
 		PathInfo: &api.PathInfo{
-			Verb: "DELETE",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v2"),
-				api.NewFieldPathPathSegment("name"),
-			},
-			QueryParameters: map[string]bool{},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "DELETE",
@@ -391,12 +366,6 @@ func TestProtobuf_DuplicateMixin(t *testing.T) {
 		InputTypeID:   ".google.longrunning.GetOperationRequest",
 		OutputTypeID:  ".google.longrunning.Operation",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("name"),
-			},
-			QueryParameters: map[string]bool{},
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
