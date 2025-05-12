@@ -133,19 +133,13 @@ impl ClientGatewaysService {
     /// Lists ClientGateways in a given project and location.
     pub fn list_client_gateways(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::client_gateways_service::ListClientGateways {
         super::builder::client_gateways_service::ListClientGateways::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ClientGateway.
-    pub fn get_client_gateway(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::GetClientGateway {
+    pub fn get_client_gateway(&self) -> super::builder::client_gateways_service::GetClientGateway {
         super::builder::client_gateways_service::GetClientGateway::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ClientGateway in a given project and location.
@@ -161,10 +155,8 @@ impl ClientGatewaysService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_client_gateway(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::client_gateways_service::CreateClientGateway {
         super::builder::client_gateways_service::CreateClientGateway::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single ClientGateway.
@@ -180,28 +172,18 @@ impl ClientGatewaysService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_client_gateway(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_gateways_service::DeleteClientGateway {
         super::builder::client_gateways_service::DeleteClientGateway::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::client_gateways_service::ListLocations {
         super::builder::client_gateways_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::client_gateways_service::GetLocation {
         super::builder::client_gateways_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -209,22 +191,14 @@ impl ClientGatewaysService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::client_gateways_service::SetIamPolicy {
         super::builder::client_gateways_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::client_gateways_service::GetIamPolicy {
         super::builder::client_gateways_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -236,53 +210,35 @@ impl ClientGatewaysService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::client_gateways_service::TestIamPermissions {
         super::builder::client_gateways_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::client_gateways_service::ListOperations {
         super::builder::client_gateways_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::client_gateways_service::GetOperation {
         super::builder::client_gateways_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::client_gateways_service::DeleteOperation {
         super::builder::client_gateways_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_gateways_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::client_gateways_service::CancelOperation {
         super::builder::client_gateways_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

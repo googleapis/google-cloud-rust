@@ -126,10 +126,8 @@ impl IdentityAwareProxyAdminService {
     /// <https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api>
     pub fn set_iam_policy(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::SetIamPolicy {
         super::builder::identity_aware_proxy_admin_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for an Identity-Aware Proxy protected
@@ -138,10 +136,8 @@ impl IdentityAwareProxyAdminService {
     /// <https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api>
     pub fn get_iam_policy(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::GetIamPolicy {
         super::builder::identity_aware_proxy_admin_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the Identity-Aware Proxy protected
@@ -150,44 +146,36 @@ impl IdentityAwareProxyAdminService {
     /// <https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api>
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::TestIamPermissions {
         super::builder::identity_aware_proxy_admin_service::TestIamPermissions::new(
             self.inner.clone(),
         )
-        .set_resource(resource.into())
     }
 
     /// Gets the IAP settings on a particular IAP protected resource.
     pub fn get_iap_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::GetIapSettings {
         super::builder::identity_aware_proxy_admin_service::GetIapSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the IAP settings on a particular IAP protected resource. It
     /// replaces all fields unless the `update_mask` is set.
     pub fn update_iap_settings(
         &self,
-        iap_settings: impl Into<crate::model::IapSettings>,
     ) -> super::builder::identity_aware_proxy_admin_service::UpdateIapSettings {
         super::builder::identity_aware_proxy_admin_service::UpdateIapSettings::new(
             self.inner.clone(),
         )
-        .set_iap_settings(iap_settings.into())
     }
 
     /// Validates that a given CEL expression conforms to IAP restrictions.
     pub fn validate_iap_attribute_expression(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression {
         super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Lists the existing TunnelDestGroups. To group across all locations, use a
@@ -195,56 +183,46 @@ impl IdentityAwareProxyAdminService {
     /// `/v1/projects/123/iap_tunnel/locations/-/destGroups`
     pub fn list_tunnel_dest_groups(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups {
         super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Creates a new TunnelDestGroup.
     pub fn create_tunnel_dest_group(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup {
         super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Retrieves an existing TunnelDestGroup.
     pub fn get_tunnel_dest_group(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup {
         super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Deletes a TunnelDestGroup.
     pub fn delete_tunnel_dest_group(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup {
         super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Updates a TunnelDestGroup.
     pub fn update_tunnel_dest_group(
         &self,
-        tunnel_dest_group: impl Into<crate::model::TunnelDestGroup>,
     ) -> super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup {
         super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup::new(
             self.inner.clone(),
         )
-        .set_tunnel_dest_group(tunnel_dest_group.into())
     }
 }
 
@@ -353,12 +331,8 @@ impl IdentityAwareProxyOAuthService {
     }
 
     /// Lists the existing brands for the project.
-    pub fn list_brands(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::identity_aware_proxy_o_auth_service::ListBrands {
+    pub fn list_brands(&self) -> super::builder::identity_aware_proxy_o_auth_service::ListBrands {
         super::builder::identity_aware_proxy_o_auth_service::ListBrands::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Constructs a new OAuth brand for the project if one does not exist.
@@ -369,21 +343,13 @@ impl IdentityAwareProxyOAuthService {
     /// changed in the Google Cloud Console. Requires that a brand does not already
     /// exist for the project, and that the specified support email is owned by the
     /// caller.
-    pub fn create_brand(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand {
+    pub fn create_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand {
         super::builder::identity_aware_proxy_o_auth_service::CreateBrand::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the OAuth brand of the project.
-    pub fn get_brand(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity_aware_proxy_o_auth_service::GetBrand {
+    pub fn get_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::GetBrand {
         super::builder::identity_aware_proxy_o_auth_service::GetBrand::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an Identity Aware Proxy (IAP) OAuth client. The client is owned
@@ -391,46 +357,38 @@ impl IdentityAwareProxyOAuthService {
     /// set for internal-only use.
     pub fn create_identity_aware_proxy_client(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient {
         super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Lists the existing clients for the brand.
     pub fn list_identity_aware_proxy_clients(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients {
         super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Retrieves an Identity Aware Proxy (IAP) OAuth client.
     /// Requires that the client is owned by IAP.
     pub fn get_identity_aware_proxy_client(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient {
         super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Resets an Identity Aware Proxy (IAP) OAuth client secret. Useful if the
     /// secret was compromised. Requires that the client is owned by IAP.
     pub fn reset_identity_aware_proxy_client_secret(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret
     {
         super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret::new(self.inner.clone())
-            .set_name ( name.into() )
     }
 
     /// Deletes an Identity Aware Proxy (IAP) OAuth client. Useful for removing
@@ -438,11 +396,9 @@ impl IdentityAwareProxyOAuthService {
     /// cleaning up after tests. Requires that the client is owned by IAP.
     pub fn delete_identity_aware_proxy_client(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient {
         super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 }

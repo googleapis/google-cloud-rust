@@ -119,21 +119,13 @@ impl BackupDR {
     }
 
     /// Lists ManagementServers in a given project and location.
-    pub fn list_management_servers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListManagementServers {
+    pub fn list_management_servers(&self) -> super::builder::backup_dr::ListManagementServers {
         super::builder::backup_dr::ListManagementServers::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ManagementServer.
-    pub fn get_management_server(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetManagementServer {
+    pub fn get_management_server(&self) -> super::builder::backup_dr::GetManagementServer {
         super::builder::backup_dr::GetManagementServer::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ManagementServer in a given project and location.
@@ -147,12 +139,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_management_server(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::CreateManagementServer {
+    pub fn create_management_server(&self) -> super::builder::backup_dr::CreateManagementServer {
         super::builder::backup_dr::CreateManagementServer::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single ManagementServer.
@@ -166,12 +154,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_management_server(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::DeleteManagementServer {
+    pub fn delete_management_server(&self) -> super::builder::backup_dr::DeleteManagementServer {
         super::builder::backup_dr::DeleteManagementServer::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new BackupVault in a given project and location.
@@ -185,40 +169,25 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_vault(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::CreateBackupVault {
+    pub fn create_backup_vault(&self) -> super::builder::backup_dr::CreateBackupVault {
         super::builder::backup_dr::CreateBackupVault::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists BackupVaults in a given project and location.
-    pub fn list_backup_vaults(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListBackupVaults {
+    pub fn list_backup_vaults(&self) -> super::builder::backup_dr::ListBackupVaults {
         super::builder::backup_dr::ListBackupVaults::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// FetchUsableBackupVaults lists usable BackupVaults in a given project and
     /// location. Usable BackupVault are the ones that user has
     /// backupdr.backupVaults.get permission.
-    pub fn fetch_usable_backup_vaults(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::FetchUsableBackupVaults {
+    pub fn fetch_usable_backup_vaults(&self) -> super::builder::backup_dr::FetchUsableBackupVaults {
         super::builder::backup_dr::FetchUsableBackupVaults::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a BackupVault.
-    pub fn get_backup_vault(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetBackupVault {
-        super::builder::backup_dr::GetBackupVault::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup_vault(&self) -> super::builder::backup_dr::GetBackupVault {
+        super::builder::backup_dr::GetBackupVault::new(self.inner.clone())
     }
 
     /// Updates the settings of a BackupVault.
@@ -232,12 +201,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup_vault(
-        &self,
-        backup_vault: impl Into<crate::model::BackupVault>,
-    ) -> super::builder::backup_dr::UpdateBackupVault {
+    pub fn update_backup_vault(&self) -> super::builder::backup_dr::UpdateBackupVault {
         super::builder::backup_dr::UpdateBackupVault::new(self.inner.clone())
-            .set_backup_vault(backup_vault.into())
     }
 
     /// Deletes a BackupVault.
@@ -251,28 +216,18 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_vault(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::DeleteBackupVault {
-        super::builder::backup_dr::DeleteBackupVault::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup_vault(&self) -> super::builder::backup_dr::DeleteBackupVault {
+        super::builder::backup_dr::DeleteBackupVault::new(self.inner.clone())
     }
 
     /// Lists DataSources in a given project and location.
-    pub fn list_data_sources(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListDataSources {
+    pub fn list_data_sources(&self) -> super::builder::backup_dr::ListDataSources {
         super::builder::backup_dr::ListDataSources::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a DataSource.
-    pub fn get_data_source(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetDataSource {
-        super::builder::backup_dr::GetDataSource::new(self.inner.clone()).set_name(name.into())
+    pub fn get_data_source(&self) -> super::builder::backup_dr::GetDataSource {
+        super::builder::backup_dr::GetDataSource::new(self.inner.clone())
     }
 
     /// Updates the settings of a DataSource.
@@ -286,28 +241,18 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_data_source(
-        &self,
-        data_source: impl Into<crate::model::DataSource>,
-    ) -> super::builder::backup_dr::UpdateDataSource {
+    pub fn update_data_source(&self) -> super::builder::backup_dr::UpdateDataSource {
         super::builder::backup_dr::UpdateDataSource::new(self.inner.clone())
-            .set_data_source(data_source.into())
     }
 
     /// Lists Backups in a given project and location.
-    pub fn list_backups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListBackups {
-        super::builder::backup_dr::ListBackups::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_backups(&self) -> super::builder::backup_dr::ListBackups {
+        super::builder::backup_dr::ListBackups::new(self.inner.clone())
     }
 
     /// Gets details of a Backup.
-    pub fn get_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetBackup {
-        super::builder::backup_dr::GetBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup(&self) -> super::builder::backup_dr::GetBackup {
+        super::builder::backup_dr::GetBackup::new(self.inner.clone())
     }
 
     /// Updates the settings of a Backup.
@@ -321,11 +266,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup(
-        &self,
-        backup: impl Into<crate::model::Backup>,
-    ) -> super::builder::backup_dr::UpdateBackup {
-        super::builder::backup_dr::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
+    pub fn update_backup(&self) -> super::builder::backup_dr::UpdateBackup {
+        super::builder::backup_dr::UpdateBackup::new(self.inner.clone())
     }
 
     /// Deletes a Backup.
@@ -339,11 +281,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::DeleteBackup {
-        super::builder::backup_dr::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup(&self) -> super::builder::backup_dr::DeleteBackup {
+        super::builder::backup_dr::DeleteBackup::new(self.inner.clone())
     }
 
     /// Restore from a Backup
@@ -357,11 +296,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::RestoreBackup {
-        super::builder::backup_dr::RestoreBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn restore_backup(&self) -> super::builder::backup_dr::RestoreBackup {
+        super::builder::backup_dr::RestoreBackup::new(self.inner.clone())
     }
 
     /// Create a BackupPlan
@@ -375,29 +311,18 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_plan(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::CreateBackupPlan {
+    pub fn create_backup_plan(&self) -> super::builder::backup_dr::CreateBackupPlan {
         super::builder::backup_dr::CreateBackupPlan::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single BackupPlan.
-    pub fn get_backup_plan(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetBackupPlan {
-        super::builder::backup_dr::GetBackupPlan::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup_plan(&self) -> super::builder::backup_dr::GetBackupPlan {
+        super::builder::backup_dr::GetBackupPlan::new(self.inner.clone())
     }
 
     /// Lists BackupPlans in a given project and location.
-    pub fn list_backup_plans(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListBackupPlans {
+    pub fn list_backup_plans(&self) -> super::builder::backup_dr::ListBackupPlans {
         super::builder::backup_dr::ListBackupPlans::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single BackupPlan.
@@ -411,11 +336,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_plan(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::DeleteBackupPlan {
-        super::builder::backup_dr::DeleteBackupPlan::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup_plan(&self) -> super::builder::backup_dr::DeleteBackupPlan {
+        super::builder::backup_dr::DeleteBackupPlan::new(self.inner.clone())
     }
 
     /// Create a BackupPlanAssociation
@@ -431,28 +353,22 @@ impl BackupDR {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_backup_plan_association(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::backup_dr::CreateBackupPlanAssociation {
         super::builder::backup_dr::CreateBackupPlanAssociation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single BackupPlanAssociation.
     pub fn get_backup_plan_association(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::backup_dr::GetBackupPlanAssociation {
         super::builder::backup_dr::GetBackupPlanAssociation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists BackupPlanAssociations in a given project and location.
     pub fn list_backup_plan_associations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::backup_dr::ListBackupPlanAssociations {
         super::builder::backup_dr::ListBackupPlanAssociations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single BackupPlanAssociation.
@@ -468,10 +384,8 @@ impl BackupDR {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_backup_plan_association(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::backup_dr::DeleteBackupPlanAssociation {
         super::builder::backup_dr::DeleteBackupPlanAssociation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Triggers a new Backup.
@@ -485,11 +399,8 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn trigger_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::TriggerBackup {
-        super::builder::backup_dr::TriggerBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn trigger_backup(&self) -> super::builder::backup_dr::TriggerBackup {
+        super::builder::backup_dr::TriggerBackup::new(self.inner.clone())
     }
 
     /// Initializes the service related config for a project.
@@ -503,27 +414,18 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn initialize_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::InitializeService {
-        super::builder::backup_dr::InitializeService::new(self.inner.clone()).set_name(name.into())
+    pub fn initialize_service(&self) -> super::builder::backup_dr::InitializeService {
+        super::builder::backup_dr::InitializeService::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListLocations {
-        super::builder::backup_dr::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::backup_dr::ListLocations {
+        super::builder::backup_dr::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetLocation {
-        super::builder::backup_dr::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::backup_dr::GetLocation {
+        super::builder::backup_dr::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -531,22 +433,14 @@ impl BackupDR {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::backup_dr::SetIamPolicy {
         super::builder::backup_dr::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::backup_dr::GetIamPolicy {
         super::builder::backup_dr::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -556,51 +450,35 @@ impl BackupDR {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::backup_dr::TestIamPermissions {
         super::builder::backup_dr::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::ListOperations {
-        super::builder::backup_dr::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::backup_dr::ListOperations {
+        super::builder::backup_dr::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::GetOperation {
-        super::builder::backup_dr::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::backup_dr::GetOperation {
+        super::builder::backup_dr::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::DeleteOperation {
-        super::builder::backup_dr::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::backup_dr::DeleteOperation {
+        super::builder::backup_dr::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::backup_dr::CancelOperation {
-        super::builder::backup_dr::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::backup_dr::CancelOperation {
+        super::builder::backup_dr::CancelOperation::new(self.inner.clone())
     }
 }

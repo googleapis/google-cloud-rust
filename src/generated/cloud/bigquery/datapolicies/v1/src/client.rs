@@ -122,84 +122,48 @@ impl DataPolicyService {
 
     /// Creates a new data policy under a project with the given `dataPolicyId`
     /// (used as the display name), policy tag, and data policy type.
-    pub fn create_data_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::CreateDataPolicy {
+    pub fn create_data_policy(&self) -> super::builder::data_policy_service::CreateDataPolicy {
         super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the metadata for an existing data policy. The target data policy
     /// can be specified by the resource name.
-    pub fn update_data_policy(
-        &self,
-        data_policy: impl Into<crate::model::DataPolicy>,
-    ) -> super::builder::data_policy_service::UpdateDataPolicy {
+    pub fn update_data_policy(&self) -> super::builder::data_policy_service::UpdateDataPolicy {
         super::builder::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
-            .set_data_policy(data_policy.into())
     }
 
     /// Renames the id (display name) of the specified data policy.
-    pub fn rename_data_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::RenameDataPolicy {
+    pub fn rename_data_policy(&self) -> super::builder::data_policy_service::RenameDataPolicy {
         super::builder::data_policy_service::RenameDataPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the data policy specified by its resource name.
-    pub fn delete_data_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::DeleteDataPolicy {
+    pub fn delete_data_policy(&self) -> super::builder::data_policy_service::DeleteDataPolicy {
         super::builder::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the data policy specified by its resource name.
-    pub fn get_data_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::GetDataPolicy {
+    pub fn get_data_policy(&self) -> super::builder::data_policy_service::GetDataPolicy {
         super::builder::data_policy_service::GetDataPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List all of the data policies in the specified parent project.
-    pub fn list_data_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::ListDataPolicies {
+    pub fn list_data_policies(&self) -> super::builder::data_policy_service::ListDataPolicies {
         super::builder::data_policy_service::ListDataPolicies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the IAM policy for the specified data policy.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::data_policy_service::GetIamPolicy {
         super::builder::data_policy_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the IAM policy for the specified data policy.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::data_policy_service::SetIamPolicy {
         super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the caller's permission on the specified data policy resource.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_policy_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::data_policy_service::TestIamPermissions {
         super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 }

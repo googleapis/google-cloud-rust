@@ -126,83 +126,50 @@ impl Firestore {
     }
 
     /// Gets a single document.
-    pub fn get_document(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore::GetDocument {
-        super::builder::firestore::GetDocument::new(self.inner.clone()).set_name(name.into())
+    pub fn get_document(&self) -> super::builder::firestore::GetDocument {
+        super::builder::firestore::GetDocument::new(self.inner.clone())
     }
 
     /// Lists documents.
-    pub fn list_documents(
-        &self,
-        parent: impl Into<std::string::String>,
-        collection_id: impl Into<std::string::String>,
-    ) -> super::builder::firestore::ListDocuments {
+    pub fn list_documents(&self) -> super::builder::firestore::ListDocuments {
         super::builder::firestore::ListDocuments::new(self.inner.clone())
-            .set_parent(parent.into())
-            .set_collection_id(collection_id.into())
     }
 
     /// Updates or inserts a document.
-    pub fn update_document(
-        &self,
-        document: impl Into<crate::model::Document>,
-    ) -> super::builder::firestore::UpdateDocument {
+    pub fn update_document(&self) -> super::builder::firestore::UpdateDocument {
         super::builder::firestore::UpdateDocument::new(self.inner.clone())
-            .set_document(document.into())
     }
 
     /// Deletes a document.
-    pub fn delete_document(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore::DeleteDocument {
-        super::builder::firestore::DeleteDocument::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_document(&self) -> super::builder::firestore::DeleteDocument {
+        super::builder::firestore::DeleteDocument::new(self.inner.clone())
     }
 
     /// Starts a new transaction.
-    pub fn begin_transaction(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::firestore::BeginTransaction {
+    pub fn begin_transaction(&self) -> super::builder::firestore::BeginTransaction {
         super::builder::firestore::BeginTransaction::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Commits a transaction, while optionally updating documents.
-    pub fn commit(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::firestore::Commit {
-        super::builder::firestore::Commit::new(self.inner.clone()).set_database(database.into())
+    pub fn commit(&self) -> super::builder::firestore::Commit {
+        super::builder::firestore::Commit::new(self.inner.clone())
     }
 
     /// Rolls back a transaction.
-    pub fn rollback(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::firestore::Rollback {
-        super::builder::firestore::Rollback::new(self.inner.clone()).set_database(database.into())
+    pub fn rollback(&self) -> super::builder::firestore::Rollback {
+        super::builder::firestore::Rollback::new(self.inner.clone())
     }
 
     /// Partitions a query by returning partition cursors that can be used to run
     /// the query in parallel. The returned partition cursors are split points that
     /// can be used by RunQuery as starting/end points for the query results.
-    pub fn partition_query(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore::PartitionQuery {
-        super::builder::firestore::PartitionQuery::new(self.inner.clone()).set_parent(parent.into())
+    pub fn partition_query(&self) -> super::builder::firestore::PartitionQuery {
+        super::builder::firestore::PartitionQuery::new(self.inner.clone())
     }
 
     /// Lists all the collection IDs underneath a document.
-    pub fn list_collection_ids(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore::ListCollectionIds {
+    pub fn list_collection_ids(&self) -> super::builder::firestore::ListCollectionIds {
         super::builder::firestore::ListCollectionIds::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Applies a batch of write operations.
@@ -218,21 +185,12 @@ impl Firestore {
     ///
     /// [google.firestore.v1.BatchWriteResponse]: crate::model::BatchWriteResponse
     /// [google.firestore.v1.Firestore.Commit]: crate::client::Firestore::commit
-    pub fn batch_write(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::firestore::BatchWrite {
-        super::builder::firestore::BatchWrite::new(self.inner.clone()).set_database(database.into())
+    pub fn batch_write(&self) -> super::builder::firestore::BatchWrite {
+        super::builder::firestore::BatchWrite::new(self.inner.clone())
     }
 
     /// Creates a new document.
-    pub fn create_document(
-        &self,
-        parent: impl Into<std::string::String>,
-        collection_id: impl Into<std::string::String>,
-    ) -> super::builder::firestore::CreateDocument {
+    pub fn create_document(&self) -> super::builder::firestore::CreateDocument {
         super::builder::firestore::CreateDocument::new(self.inner.clone())
-            .set_parent(parent.into())
-            .set_collection_id(collection_id.into())
     }
 }

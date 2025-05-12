@@ -130,19 +130,15 @@ impl ReachabilityService {
     /// Lists all Connectivity Tests owned by a project.
     pub fn list_connectivity_tests(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::ListConnectivityTests {
         super::builder::reachability_service::ListConnectivityTests::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a specific Connectivity Test.
     pub fn get_connectivity_test(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::GetConnectivityTest {
         super::builder::reachability_service::GetConnectivityTest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Connectivity Test.
@@ -170,10 +166,8 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_connectivity_test(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::CreateConnectivityTest {
         super::builder::reachability_service::CreateConnectivityTest::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the configuration of an existing `ConnectivityTest`.
@@ -202,10 +196,8 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_connectivity_test(
         &self,
-        resource: impl Into<crate::model::ConnectivityTest>,
     ) -> super::builder::reachability_service::UpdateConnectivityTest {
         super::builder::reachability_service::UpdateConnectivityTest::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Rerun an existing `ConnectivityTest`.
@@ -232,10 +224,8 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn rerun_connectivity_test(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::RerunConnectivityTest {
         super::builder::reachability_service::RerunConnectivityTest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a specific `ConnectivityTest`.
@@ -251,28 +241,18 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_connectivity_test(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::DeleteConnectivityTest {
         super::builder::reachability_service::DeleteConnectivityTest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::reachability_service::ListLocations {
         super::builder::reachability_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::reachability_service::GetLocation {
         super::builder::reachability_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -280,22 +260,14 @@ impl ReachabilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::reachability_service::SetIamPolicy {
         super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::reachability_service::GetIamPolicy {
         super::builder::reachability_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -305,56 +277,36 @@ impl ReachabilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::reachability_service::TestIamPermissions {
         super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::reachability_service::ListOperations {
         super::builder::reachability_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::reachability_service::GetOperation {
         super::builder::reachability_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::reachability_service::DeleteOperation {
         super::builder::reachability_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::reachability_service::CancelOperation {
         super::builder::reachability_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -465,19 +417,15 @@ impl VpcFlowLogsService {
     /// Lists all `VpcFlowLogsConfigs` in a given project.
     pub fn list_vpc_flow_logs_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs {
         super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
     pub fn get_vpc_flow_logs_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new `VpcFlowLogsConfig`.
@@ -507,10 +455,8 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_vpc_flow_logs_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing `VpcFlowLogsConfig`.
@@ -540,10 +486,8 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_vpc_flow_logs_config(
         &self,
-        vpc_flow_logs_config: impl Into<crate::model::VpcFlowLogsConfig>,
     ) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
-            .set_vpc_flow_logs_config(vpc_flow_logs_config.into())
     }
 
     /// Deletes a specific `VpcFlowLogsConfig`.
@@ -559,28 +503,18 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_vpc_flow_logs_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vpc_flow_logs_service::ListLocations {
         super::builder::vpc_flow_logs_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::vpc_flow_logs_service::GetLocation {
         super::builder::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -588,22 +522,14 @@ impl VpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
         super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
         super::builder::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -615,53 +541,35 @@ impl VpcFlowLogsService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
         super::builder::vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vpc_flow_logs_service::ListOperations {
         super::builder::vpc_flow_logs_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::vpc_flow_logs_service::GetOperation {
         super::builder::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::vpc_flow_logs_service::DeleteOperation {
         super::builder::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation {
         super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

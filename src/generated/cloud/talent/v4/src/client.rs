@@ -119,58 +119,36 @@ impl CompanyService {
     }
 
     /// Creates a new company entity.
-    pub fn create_company(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::company_service::CreateCompany {
+    pub fn create_company(&self) -> super::builder::company_service::CreateCompany {
         super::builder::company_service::CreateCompany::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves specified company.
-    pub fn get_company(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::company_service::GetCompany {
-        super::builder::company_service::GetCompany::new(self.inner.clone()).set_name(name.into())
+    pub fn get_company(&self) -> super::builder::company_service::GetCompany {
+        super::builder::company_service::GetCompany::new(self.inner.clone())
     }
 
     /// Updates specified company.
-    pub fn update_company(
-        &self,
-        company: impl Into<crate::model::Company>,
-    ) -> super::builder::company_service::UpdateCompany {
+    pub fn update_company(&self) -> super::builder::company_service::UpdateCompany {
         super::builder::company_service::UpdateCompany::new(self.inner.clone())
-            .set_company(company.into())
     }
 
     /// Deletes specified company.
     /// Prerequisite: The company has no jobs associated with it.
-    pub fn delete_company(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::company_service::DeleteCompany {
+    pub fn delete_company(&self) -> super::builder::company_service::DeleteCompany {
         super::builder::company_service::DeleteCompany::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all companies associated with the project.
-    pub fn list_companies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::company_service::ListCompanies {
+    pub fn list_companies(&self) -> super::builder::company_service::ListCompanies {
         super::builder::company_service::ListCompanies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::company_service::GetOperation {
-        super::builder::company_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::company_service::GetOperation {
+        super::builder::company_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -276,21 +254,15 @@ impl Completion {
 
     /// Completes the specified prefix with keyword suggestions.
     /// Intended for use by a job search auto-complete search box.
-    pub fn complete_query(
-        &self,
-        tenant: impl Into<std::string::String>,
-    ) -> super::builder::completion::CompleteQuery {
-        super::builder::completion::CompleteQuery::new(self.inner.clone()).set_tenant(tenant.into())
+    pub fn complete_query(&self) -> super::builder::completion::CompleteQuery {
+        super::builder::completion::CompleteQuery::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::completion::GetOperation {
-        super::builder::completion::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::completion::GetOperation {
+        super::builder::completion::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -401,22 +373,15 @@ impl EventService {
     /// [Learn
     /// more](https://cloud.google.com/talent-solution/docs/management-tools)
     /// about self service tools.
-    pub fn create_client_event(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::event_service::CreateClientEvent {
+    pub fn create_client_event(&self) -> super::builder::event_service::CreateClientEvent {
         super::builder::event_service::CreateClientEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::event_service::GetOperation {
-        super::builder::event_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::event_service::GetOperation {
+        super::builder::event_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -524,11 +489,8 @@ impl JobService {
     ///
     /// Typically, the job becomes searchable within 10 seconds, but it may take
     /// up to 5 minutes.
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::CreateJob {
-        super::builder::job_service::CreateJob::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_job(&self) -> super::builder::job_service::CreateJob {
+        super::builder::job_service::CreateJob::new(self.inner.clone())
     }
 
     /// Begins executing a batch create jobs operation.
@@ -542,32 +504,22 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_create_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::BatchCreateJobs {
+    pub fn batch_create_jobs(&self) -> super::builder::job_service::BatchCreateJobs {
         super::builder::job_service::BatchCreateJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified job, whose status is OPEN or recently EXPIRED
     /// within the last 90 days.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::job_service::GetJob {
-        super::builder::job_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::job_service::GetJob {
+        super::builder::job_service::GetJob::new(self.inner.clone())
     }
 
     /// Updates specified job.
     ///
     /// Typically, updated contents become visible in search results within 10
     /// seconds, but it may take up to 5 minutes.
-    pub fn update_job(
-        &self,
-        job: impl Into<crate::model::Job>,
-    ) -> super::builder::job_service::UpdateJob {
-        super::builder::job_service::UpdateJob::new(self.inner.clone()).set_job(job.into())
+    pub fn update_job(&self) -> super::builder::job_service::UpdateJob {
+        super::builder::job_service::UpdateJob::new(self.inner.clone())
     }
 
     /// Begins executing a batch update jobs operation.
@@ -581,23 +533,16 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_update_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::BatchUpdateJobs {
+    pub fn batch_update_jobs(&self) -> super::builder::job_service::BatchUpdateJobs {
         super::builder::job_service::BatchUpdateJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified job.
     ///
     /// Typically, the job becomes unsearchable within 10 seconds, but it may take
     /// up to 5 minutes.
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::job_service::DeleteJob {
-        super::builder::job_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_job(&self) -> super::builder::job_service::DeleteJob {
+        super::builder::job_service::DeleteJob::new(self.inner.clone())
     }
 
     /// Begins executing a batch delete jobs operation.
@@ -611,20 +556,13 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_delete_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::BatchDeleteJobs {
+    pub fn batch_delete_jobs(&self) -> super::builder::job_service::BatchDeleteJobs {
         super::builder::job_service::BatchDeleteJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists jobs by filter.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::ListJobs {
-        super::builder::job_service::ListJobs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_jobs(&self) -> super::builder::job_service::ListJobs {
+        super::builder::job_service::ListJobs::new(self.inner.clone())
     }
 
     /// Searches for jobs using the provided
@@ -637,11 +575,8 @@ impl JobService {
     ///
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
-    pub fn search_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::SearchJobs {
-        super::builder::job_service::SearchJobs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn search_jobs(&self) -> super::builder::job_service::SearchJobs {
+        super::builder::job_service::SearchJobs::new(self.inner.clone())
     }
 
     /// Searches for jobs using the provided
@@ -659,22 +594,15 @@ impl JobService {
     ///
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
-    pub fn search_jobs_for_alert(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::SearchJobsForAlert {
+    pub fn search_jobs_for_alert(&self) -> super::builder::job_service::SearchJobsForAlert {
         super::builder::job_service::SearchJobsForAlert::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::job_service::GetOperation {
-        super::builder::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::job_service::GetOperation {
+        super::builder::job_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -779,55 +707,34 @@ impl TenantService {
     }
 
     /// Creates a new tenant entity.
-    pub fn create_tenant(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::CreateTenant {
+    pub fn create_tenant(&self) -> super::builder::tenant_service::CreateTenant {
         super::builder::tenant_service::CreateTenant::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves specified tenant.
-    pub fn get_tenant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::GetTenant {
-        super::builder::tenant_service::GetTenant::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tenant(&self) -> super::builder::tenant_service::GetTenant {
+        super::builder::tenant_service::GetTenant::new(self.inner.clone())
     }
 
     /// Updates specified tenant.
-    pub fn update_tenant(
-        &self,
-        tenant: impl Into<crate::model::Tenant>,
-    ) -> super::builder::tenant_service::UpdateTenant {
+    pub fn update_tenant(&self) -> super::builder::tenant_service::UpdateTenant {
         super::builder::tenant_service::UpdateTenant::new(self.inner.clone())
-            .set_tenant(tenant.into())
     }
 
     /// Deletes specified tenant.
-    pub fn delete_tenant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::DeleteTenant {
-        super::builder::tenant_service::DeleteTenant::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tenant(&self) -> super::builder::tenant_service::DeleteTenant {
+        super::builder::tenant_service::DeleteTenant::new(self.inner.clone())
     }
 
     /// Lists all tenants associated with the project.
-    pub fn list_tenants(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::ListTenants {
+    pub fn list_tenants(&self) -> super::builder::tenant_service::ListTenants {
         super::builder::tenant_service::ListTenants::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::GetOperation {
-        super::builder::tenant_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tenant_service::GetOperation {
+        super::builder::tenant_service::GetOperation::new(self.inner.clone())
     }
 }

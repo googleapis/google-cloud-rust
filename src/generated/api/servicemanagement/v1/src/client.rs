@@ -130,12 +130,8 @@ impl ServiceManager {
 
     /// Gets a managed service. Authentication is required unless the service is
     /// public.
-    pub fn get_service(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::GetService {
+    pub fn get_service(&self) -> super::builder::service_manager::GetService {
         super::builder::service_manager::GetService::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Creates a new managed service.
@@ -183,12 +179,8 @@ impl ServiceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::DeleteService {
+    pub fn delete_service(&self) -> super::builder::service_manager::DeleteService {
         super::builder::service_manager::DeleteService::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Revives a previously deleted managed service. The method restores the
@@ -207,33 +199,19 @@ impl ServiceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_service(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::UndeleteService {
+    pub fn undelete_service(&self) -> super::builder::service_manager::UndeleteService {
         super::builder::service_manager::UndeleteService::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Lists the history of the service configuration for a managed service,
     /// from the newest to the oldest.
-    pub fn list_service_configs(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::ListServiceConfigs {
+    pub fn list_service_configs(&self) -> super::builder::service_manager::ListServiceConfigs {
         super::builder::service_manager::ListServiceConfigs::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Gets a service configuration (version) for a managed service.
-    pub fn get_service_config(
-        &self,
-        service_name: impl Into<std::string::String>,
-        config_id: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::GetServiceConfig {
+    pub fn get_service_config(&self) -> super::builder::service_manager::GetServiceConfig {
         super::builder::service_manager::GetServiceConfig::new(self.inner.clone())
-            .set_service_name(service_name.into())
-            .set_config_id(config_id.into())
     }
 
     /// Creates a new service configuration (version) for a managed service.
@@ -246,12 +224,8 @@ impl ServiceManager {
     /// eventually.
     ///
     /// [google.api.servicemanagement.v1.ServiceManager.CreateServiceRollout]: crate::client::ServiceManager::create_service_rollout
-    pub fn create_service_config(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::CreateServiceConfig {
+    pub fn create_service_config(&self) -> super::builder::service_manager::CreateServiceConfig {
         super::builder::service_manager::CreateServiceConfig::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Creates a new service configuration (version) for a managed service based
@@ -280,36 +254,22 @@ impl ServiceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn submit_config_source(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::SubmitConfigSource {
+    pub fn submit_config_source(&self) -> super::builder::service_manager::SubmitConfigSource {
         super::builder::service_manager::SubmitConfigSource::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Lists the history of the service configuration rollouts for a managed
     /// service, from the newest to the oldest.
-    pub fn list_service_rollouts(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::ListServiceRollouts {
+    pub fn list_service_rollouts(&self) -> super::builder::service_manager::ListServiceRollouts {
         super::builder::service_manager::ListServiceRollouts::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Gets a service configuration
     /// [rollout][google.api.servicemanagement.v1.Rollout].
     ///
     /// [google.api.servicemanagement.v1.Rollout]: crate::model::Rollout
-    pub fn get_service_rollout(
-        &self,
-        service_name: impl Into<std::string::String>,
-        rollout_id: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::GetServiceRollout {
+    pub fn get_service_rollout(&self) -> super::builder::service_manager::GetServiceRollout {
         super::builder::service_manager::GetServiceRollout::new(self.inner.clone())
-            .set_service_name(service_name.into())
-            .set_rollout_id(rollout_id.into())
     }
 
     /// Creates a new service configuration rollout. Based on rollout, the
@@ -336,12 +296,8 @@ impl ServiceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service_rollout(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::CreateServiceRollout {
+    pub fn create_service_rollout(&self) -> super::builder::service_manager::CreateServiceRollout {
         super::builder::service_manager::CreateServiceRollout::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Generates and returns a report (errors, warnings and changes from
@@ -364,22 +320,14 @@ impl ServiceManager {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::service_manager::SetIamPolicy {
         super::builder::service_manager::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::service_manager::GetIamPolicy {
         super::builder::service_manager::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -389,12 +337,8 @@ impl ServiceManager {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::service_manager::TestIamPermissions {
         super::builder::service_manager::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Lists service operations that match the specified filter in the request.
@@ -405,10 +349,7 @@ impl ServiceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_manager::GetOperation {
-        super::builder::service_manager::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::service_manager::GetOperation {
+        super::builder::service_manager::GetOperation::new(self.inner.clone())
     }
 }

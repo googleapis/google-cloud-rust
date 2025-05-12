@@ -124,69 +124,41 @@ impl OsLoginService {
     }
 
     /// Create an SSH public key
-    pub fn create_ssh_public_key(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::CreateSshPublicKey {
+    pub fn create_ssh_public_key(&self) -> super::builder::os_login_service::CreateSshPublicKey {
         super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a POSIX account.
-    pub fn delete_posix_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::DeletePosixAccount {
+    pub fn delete_posix_account(&self) -> super::builder::os_login_service::DeletePosixAccount {
         super::builder::os_login_service::DeletePosixAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes an SSH public key.
-    pub fn delete_ssh_public_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::DeleteSshPublicKey {
+    pub fn delete_ssh_public_key(&self) -> super::builder::os_login_service::DeleteSshPublicKey {
         super::builder::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves the profile information used for logging in to a virtual machine
     /// on Google Compute Engine.
-    pub fn get_login_profile(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::GetLoginProfile {
+    pub fn get_login_profile(&self) -> super::builder::os_login_service::GetLoginProfile {
         super::builder::os_login_service::GetLoginProfile::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves an SSH public key.
-    pub fn get_ssh_public_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::GetSshPublicKey {
+    pub fn get_ssh_public_key(&self) -> super::builder::os_login_service::GetSshPublicKey {
         super::builder::os_login_service::GetSshPublicKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds an SSH public key and returns the profile information. Default POSIX
     /// account information is set when no username and UID exist as part of the
     /// login profile.
-    pub fn import_ssh_public_key(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::ImportSshPublicKey {
+    pub fn import_ssh_public_key(&self) -> super::builder::os_login_service::ImportSshPublicKey {
         super::builder::os_login_service::ImportSshPublicKey::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an SSH public key and returns the profile information. This method
     /// supports patch semantics.
-    pub fn update_ssh_public_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_login_service::UpdateSshPublicKey {
+    pub fn update_ssh_public_key(&self) -> super::builder::os_login_service::UpdateSshPublicKey {
         super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

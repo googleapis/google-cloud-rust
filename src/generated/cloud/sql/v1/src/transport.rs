@@ -46,15 +46,27 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/backupRuns/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            { &req.id },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!(
-                    "/v1/projects/{}/instances/{}/backupRuns/{}",
-                    req.project, req.instance, req.id
-                ),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -71,15 +83,27 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRun>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/backupRuns/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            { &req.id },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/backupRuns/{}",
-                    req.project, req.instance, req.id
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -96,15 +120,26 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/backupRuns",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/backupRuns",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -119,15 +154,26 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/backupRuns",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/backupRuns",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -169,15 +215,26 @@ impl super::stub::SqlConnectService for SqlConnectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/connectSettings",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/connectSettings",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -204,15 +261,26 @@ impl super::stub::SqlConnectService for SqlConnectService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}:generateEphemeralCert",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}:generateEphemeralCert",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -250,15 +318,33 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/databases/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.database;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("database"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!(
-                    "/v1/projects/{}/instances/{}/databases/{}",
-                    req.project, req.instance, req.database
-                ),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -275,15 +361,33 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Database>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/databases/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.database;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("database"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/databases/{}",
-                    req.project, req.instance, req.database
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -300,15 +404,26 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/databases",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/databases",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -323,15 +438,26 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/databases",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/databases",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -348,15 +474,33 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/databases/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.database;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("database"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/projects/{}/instances/{}/databases/{}",
-                    req.project, req.instance, req.database
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -371,15 +515,33 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/databases/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.database;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("database"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PUT,
-                format!(
-                    "/v1/projects/{}/instances/{}/databases/{}",
-                    req.project, req.instance, req.database
-                ),
-            )
+            .builder(reqwest::Method::PUT, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -417,9 +579,10 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = "/v1/flags".to_string();
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, "/v1/flags".to_string())
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -460,15 +623,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/addServerCa",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/addServerCa",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -485,15 +659,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/clone",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/clone",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -508,12 +693,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -530,15 +729,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/demoteMaster",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/demoteMaster",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -553,15 +763,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/demote",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/demote",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -576,15 +797,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/export",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/export",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -599,15 +831,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/failover",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/failover",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -622,15 +865,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/reencrypt",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/reencrypt",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -645,12 +899,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -667,15 +935,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/import",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/import",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -690,12 +969,16 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/projects/{}/instances", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/instances", req.project),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -710,12 +993,16 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/instances", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/instances", req.project),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -735,15 +1022,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/listServerCas",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/listServerCas",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -760,12 +1058,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -780,15 +1092,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/promoteReplica",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/promoteReplica",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -806,15 +1129,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/switchover",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/switchover",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -841,15 +1175,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/resetSslConfig",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/resetSslConfig",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -866,15 +1211,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/restart",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/restart",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -891,15 +1247,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/restoreBackup",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/restoreBackup",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -914,15 +1281,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/rotateServerCa",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/rotateServerCa",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -937,15 +1315,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/startReplica",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/startReplica",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -962,15 +1351,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/stopReplica",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/stopReplica",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -987,15 +1387,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/truncateLog",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/truncateLog",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1010,12 +1421,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PUT,
-                format!("/v1/projects/{}/instances/{}", req.project, req.instance),
-            )
+            .builder(reqwest::Method::PUT, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1030,15 +1455,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/createEphemeral",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/createEphemeral",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1053,15 +1489,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/rescheduleMaintenance",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/rescheduleMaintenance",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1077,15 +1524,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1100,15 +1558,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/startExternalSync",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/startExternalSync",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1123,15 +1592,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/performDiskShrink",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/performDiskShrink",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1147,15 +1627,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1172,15 +1663,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/resetReplicaSize",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/resetReplicaSize",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1196,15 +1698,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
     ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1221,15 +1734,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/acquireSsrsLease",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/acquireSsrsLease",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1244,15 +1768,26 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/releaseSsrsLease",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/releaseSsrsLease",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1292,12 +1827,26 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/operations/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.operation;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("operation"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/operations/{}", req.project, req.operation),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1314,12 +1863,16 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/operations", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/operations", req.project),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1339,15 +1892,26 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/operations/{}/cancel",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.operation;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("operation"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/operations/{}/cancel",
-                    req.project, req.operation
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1391,15 +1955,33 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/sslCerts/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.sha1_fingerprint;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("sha1_fingerprint"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!(
-                    "/v1/projects/{}/instances/{}/sslCerts/{}",
-                    req.project, req.instance, req.sha1_fingerprint
-                ),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1416,15 +1998,33 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/sslCerts/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.sha1_fingerprint;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("sha1_fingerprint"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/sslCerts/{}",
-                    req.project, req.instance, req.sha1_fingerprint
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1441,15 +2041,26 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/sslCerts",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/sslCerts",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1464,15 +2075,26 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/sslCerts",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/sslCerts",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1512,12 +2134,16 @@ impl super::stub::SqlTiersService for SqlTiersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/tiers", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/tiers", req.project),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1557,15 +2183,26 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/users",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!(
-                    "/v1/projects/{}/instances/{}/users",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1584,15 +2221,33 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/users/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+            {
+                let arg = &req.name;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("name"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/users/{}",
-                    req.project, req.instance, req.name
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1610,15 +2265,26 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/users",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/instances/{}/users",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1633,15 +2299,26 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/users",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/instances/{}/users",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1658,15 +2335,26 @@ impl super::stub::SqlUsersService for SqlUsersService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/instances/{}/users",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.instance;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("instance"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PUT,
-                format!(
-                    "/v1/projects/{}/instances/{}/users",
-                    req.project, req.instance
-                ),
-            )
+            .builder(reqwest::Method::PUT, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

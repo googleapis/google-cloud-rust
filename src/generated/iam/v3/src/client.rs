@@ -132,21 +132,13 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_policy_binding(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::CreatePolicyBinding {
+    pub fn create_policy_binding(&self) -> super::builder::policy_bindings::CreatePolicyBinding {
         super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a policy binding.
-    pub fn get_policy_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::GetPolicyBinding {
+    pub fn get_policy_binding(&self) -> super::builder::policy_bindings::GetPolicyBinding {
         super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a policy binding and returns a long-running operation.
@@ -164,12 +156,8 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_policy_binding(
-        &self,
-        policy_binding: impl Into<crate::model::PolicyBinding>,
-    ) -> super::builder::policy_bindings::UpdatePolicyBinding {
+    pub fn update_policy_binding(&self) -> super::builder::policy_bindings::UpdatePolicyBinding {
         super::builder::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
-            .set_policy_binding(policy_binding.into())
     }
 
     /// Deletes a policy binding and returns a long-running operation.
@@ -185,41 +173,28 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_policy_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::DeletePolicyBinding {
+    pub fn delete_policy_binding(&self) -> super::builder::policy_bindings::DeletePolicyBinding {
         super::builder::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists policy bindings.
-    pub fn list_policy_bindings(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::ListPolicyBindings {
+    pub fn list_policy_bindings(&self) -> super::builder::policy_bindings::ListPolicyBindings {
         super::builder::policy_bindings::ListPolicyBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Search policy bindings by target. Returns all policy binding objects bound
     /// directly to target.
     pub fn search_target_policy_bindings(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
         super::builder::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::GetOperation {
-        super::builder::policy_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation {
+        super::builder::policy_bindings::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -340,22 +315,20 @@ impl PrincipalAccessBoundaryPolicies {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_principal_access_boundary_policy(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
-            .set_parent ( parent.into() )
+        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Gets a principal access boundary policy.
     pub fn get_principal_access_boundary_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
         super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Updates a principal access boundary policy.
@@ -371,11 +344,11 @@ impl PrincipalAccessBoundaryPolicies {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_principal_access_boundary_policy(
         &self,
-        principal_access_boundary_policy: impl Into<crate::model::PrincipalAccessBoundaryPolicy>,
     ) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
-            .set_principal_access_boundary_policy ( principal_access_boundary_policy.into() )
+        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Deletes a principal access boundary policy.
@@ -391,32 +364,28 @@ impl PrincipalAccessBoundaryPolicies {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_principal_access_boundary_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
-            .set_name ( name.into() )
+        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Lists principal access boundary policies.
     pub fn list_principal_access_boundary_policies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
     {
-        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
-            .set_parent ( parent.into() )
+        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(
+            self.inner.clone(),
+        )
     }
 
     /// Returns all policy bindings that bind a specific policy if a user has
     /// searchPolicyBindings permission on that policy.
-    pub fn search_principal_access_boundary_policy_bindings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
+    pub fn search_principal_access_boundary_policy_bindings(&self) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
     {
         super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
-            .set_name ( name.into() )
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -424,9 +393,7 @@ impl PrincipalAccessBoundaryPolicies {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::GetOperation {
         super::builder::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

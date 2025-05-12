@@ -119,19 +119,13 @@ impl Lustre {
     }
 
     /// Lists instances in a given project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lustre::ListInstances {
-        super::builder::lustre::ListInstances::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_instances(&self) -> super::builder::lustre::ListInstances {
+        super::builder::lustre::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::GetInstance {
-        super::builder::lustre::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::lustre::GetInstance {
+        super::builder::lustre::GetInstance::new(self.inner.clone())
     }
 
     /// Creates a new instance in a given project and location.
@@ -145,11 +139,8 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lustre::CreateInstance {
-        super::builder::lustre::CreateInstance::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_instance(&self) -> super::builder::lustre::CreateInstance {
+        super::builder::lustre::CreateInstance::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single instance.
@@ -163,12 +154,8 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::lustre::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::lustre::UpdateInstance {
         super::builder::lustre::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Deletes a single instance.
@@ -182,11 +169,8 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::DeleteInstance {
-        super::builder::lustre::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::lustre::DeleteInstance {
+        super::builder::lustre::DeleteInstance::new(self.inner.clone())
     }
 
     /// Imports data from Cloud Storage to a Managed Lustre instance.
@@ -200,11 +184,8 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_data(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::ImportData {
-        super::builder::lustre::ImportData::new(self.inner.clone()).set_name(name.into())
+    pub fn import_data(&self) -> super::builder::lustre::ImportData {
+        super::builder::lustre::ImportData::new(self.inner.clone())
     }
 
     /// Exports data from a Managed Lustre instance to Cloud Storage.
@@ -218,66 +199,45 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_data(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::ExportData {
-        super::builder::lustre::ExportData::new(self.inner.clone()).set_name(name.into())
+    pub fn export_data(&self) -> super::builder::lustre::ExportData {
+        super::builder::lustre::ExportData::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::ListLocations {
-        super::builder::lustre::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::lustre::ListLocations {
+        super::builder::lustre::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::GetLocation {
-        super::builder::lustre::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::lustre::GetLocation {
+        super::builder::lustre::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::ListOperations {
-        super::builder::lustre::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::lustre::ListOperations {
+        super::builder::lustre::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::GetOperation {
-        super::builder::lustre::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::lustre::GetOperation {
+        super::builder::lustre::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::DeleteOperation {
-        super::builder::lustre::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::lustre::DeleteOperation {
+        super::builder::lustre::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lustre::CancelOperation {
-        super::builder::lustre::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::lustre::CancelOperation {
+        super::builder::lustre::CancelOperation::new(self.inner.clone())
     }
 }

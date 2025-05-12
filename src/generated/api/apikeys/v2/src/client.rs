@@ -132,11 +132,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_key(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::CreateKey {
-        super::builder::api_keys::CreateKey::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_key(&self) -> super::builder::api_keys::CreateKey {
+        super::builder::api_keys::CreateKey::new(self.inner.clone())
     }
 
     /// Lists the API keys owned by a project. The key string of the API key
@@ -144,11 +141,8 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn list_keys(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::ListKeys {
-        super::builder::api_keys::ListKeys::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_keys(&self) -> super::builder::api_keys::ListKeys {
+        super::builder::api_keys::ListKeys::new(self.inner.clone())
     }
 
     /// Gets the metadata for an API key. The key string of the API key
@@ -156,22 +150,16 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn get_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::GetKey {
-        super::builder::api_keys::GetKey::new(self.inner.clone()).set_name(name.into())
+    pub fn get_key(&self) -> super::builder::api_keys::GetKey {
+        super::builder::api_keys::GetKey::new(self.inner.clone())
     }
 
     /// Get the key string for an API key.
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn get_key_string(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::GetKeyString {
-        super::builder::api_keys::GetKeyString::new(self.inner.clone()).set_name(name.into())
+    pub fn get_key_string(&self) -> super::builder::api_keys::GetKeyString {
+        super::builder::api_keys::GetKeyString::new(self.inner.clone())
     }
 
     /// Patches the modifiable fields of an API key.
@@ -189,11 +177,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_key(
-        &self,
-        key: impl Into<crate::model::Key>,
-    ) -> super::builder::api_keys::UpdateKey {
-        super::builder::api_keys::UpdateKey::new(self.inner.clone()).set_key(key.into())
+    pub fn update_key(&self) -> super::builder::api_keys::UpdateKey {
+        super::builder::api_keys::UpdateKey::new(self.inner.clone())
     }
 
     /// Deletes an API key. Deleted key can be retrieved within 30 days of
@@ -211,11 +196,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::DeleteKey {
-        super::builder::api_keys::DeleteKey::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_key(&self) -> super::builder::api_keys::DeleteKey {
+        super::builder::api_keys::DeleteKey::new(self.inner.clone())
     }
 
     /// Undeletes an API key which was deleted within 30 days.
@@ -232,11 +214,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::UndeleteKey {
-        super::builder::api_keys::UndeleteKey::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_key(&self) -> super::builder::api_keys::UndeleteKey {
+        super::builder::api_keys::UndeleteKey::new(self.inner.clone())
     }
 
     /// Find the parent project and resource name of the API
@@ -251,10 +230,7 @@ impl ApiKeys {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::GetOperation {
-        super::builder::api_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::api_keys::GetOperation {
+        super::builder::api_keys::GetOperation::new(self.inner.clone())
     }
 }

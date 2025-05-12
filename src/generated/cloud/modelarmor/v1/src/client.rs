@@ -119,96 +119,57 @@ impl ModelArmor {
     }
 
     /// Lists Templates in a given project and location.
-    pub fn list_templates(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::ListTemplates {
+    pub fn list_templates(&self) -> super::builder::model_armor::ListTemplates {
         super::builder::model_armor::ListTemplates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Template.
-    pub fn get_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::GetTemplate {
-        super::builder::model_armor::GetTemplate::new(self.inner.clone()).set_name(name.into())
+    pub fn get_template(&self) -> super::builder::model_armor::GetTemplate {
+        super::builder::model_armor::GetTemplate::new(self.inner.clone())
     }
 
     /// Creates a new Template in a given project and location.
-    pub fn create_template(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::CreateTemplate {
+    pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate {
         super::builder::model_armor::CreateTemplate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Template.
-    pub fn update_template(
-        &self,
-        template: impl Into<crate::model::Template>,
-    ) -> super::builder::model_armor::UpdateTemplate {
+    pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate {
         super::builder::model_armor::UpdateTemplate::new(self.inner.clone())
-            .set_template(template.into())
     }
 
     /// Deletes a single Template.
-    pub fn delete_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::DeleteTemplate {
-        super::builder::model_armor::DeleteTemplate::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate {
+        super::builder::model_armor::DeleteTemplate::new(self.inner.clone())
     }
 
     /// Gets details of a single floor setting of a project
-    pub fn get_floor_setting(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::GetFloorSetting {
-        super::builder::model_armor::GetFloorSetting::new(self.inner.clone()).set_name(name.into())
+    pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting {
+        super::builder::model_armor::GetFloorSetting::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single floor setting of a project
-    pub fn update_floor_setting(
-        &self,
-        floor_setting: impl Into<crate::model::FloorSetting>,
-    ) -> super::builder::model_armor::UpdateFloorSetting {
+    pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting {
         super::builder::model_armor::UpdateFloorSetting::new(self.inner.clone())
-            .set_floor_setting(floor_setting.into())
     }
 
     /// Sanitizes User Prompt.
-    pub fn sanitize_user_prompt(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::SanitizeUserPrompt {
+    pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt {
         super::builder::model_armor::SanitizeUserPrompt::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sanitizes Model Response.
-    pub fn sanitize_model_response(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::SanitizeModelResponse {
+    pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::ListLocations {
-        super::builder::model_armor::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::model_armor::ListLocations {
+        super::builder::model_armor::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::GetLocation {
-        super::builder::model_armor::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::model_armor::GetLocation {
+        super::builder::model_armor::GetLocation::new(self.inner.clone())
     }
 }

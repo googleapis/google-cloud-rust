@@ -121,57 +121,37 @@ impl CloudControlsPartnerCore {
     }
 
     /// Gets details of a single workload
-    pub fn get_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::GetWorkload {
+    pub fn get_workload(&self) -> super::builder::cloud_controls_partner_core::GetWorkload {
         super::builder::cloud_controls_partner_core::GetWorkload::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists customer workloads for a given customer org id
-    pub fn list_workloads(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::ListWorkloads {
+    pub fn list_workloads(&self) -> super::builder::cloud_controls_partner_core::ListWorkloads {
         super::builder::cloud_controls_partner_core::ListWorkloads::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single customer
-    pub fn get_customer(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::GetCustomer {
+    pub fn get_customer(&self) -> super::builder::cloud_controls_partner_core::GetCustomer {
         super::builder::cloud_controls_partner_core::GetCustomer::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists customers of a partner identified by its Google Cloud organization ID
-    pub fn list_customers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::ListCustomers {
+    pub fn list_customers(&self) -> super::builder::cloud_controls_partner_core::ListCustomers {
         super::builder::cloud_controls_partner_core::ListCustomers::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the EKM connections associated with a workload
     pub fn get_ekm_connections(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_controls_partner_core::GetEkmConnections {
         super::builder::cloud_controls_partner_core::GetEkmConnections::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the partner permissions granted for a workload
     pub fn get_partner_permissions(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_controls_partner_core::GetPartnerPermissions {
         super::builder::cloud_controls_partner_core::GetPartnerPermissions::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deprecated: Only returns access approval requests directly associated with
@@ -179,48 +159,30 @@ impl CloudControlsPartnerCore {
     #[deprecated]
     pub fn list_access_approval_requests(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::cloud_controls_partner_core::ListAccessApprovalRequests {
         super::builder::cloud_controls_partner_core::ListAccessApprovalRequests::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Get details of a Partner.
-    pub fn get_partner(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::GetPartner {
+    pub fn get_partner(&self) -> super::builder::cloud_controls_partner_core::GetPartner {
         super::builder::cloud_controls_partner_core::GetPartner::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new customer.
-    pub fn create_customer(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::CreateCustomer {
+    pub fn create_customer(&self) -> super::builder::cloud_controls_partner_core::CreateCustomer {
         super::builder::cloud_controls_partner_core::CreateCustomer::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update details of a single customer
-    pub fn update_customer(
-        &self,
-        customer: impl Into<crate::model::Customer>,
-    ) -> super::builder::cloud_controls_partner_core::UpdateCustomer {
+    pub fn update_customer(&self) -> super::builder::cloud_controls_partner_core::UpdateCustomer {
         super::builder::cloud_controls_partner_core::UpdateCustomer::new(self.inner.clone())
-            .set_customer(customer.into())
     }
 
     /// Delete details of a single customer
-    pub fn delete_customer(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_core::DeleteCustomer {
+    pub fn delete_customer(&self) -> super::builder::cloud_controls_partner_core::DeleteCustomer {
         super::builder::cloud_controls_partner_core::DeleteCustomer::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -335,18 +297,12 @@ impl CloudControlsPartnerMonitoring {
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     pub fn list_violations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::cloud_controls_partner_monitoring::ListViolations {
         super::builder::cloud_controls_partner_monitoring::ListViolations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Violation.
-    pub fn get_violation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_controls_partner_monitoring::GetViolation {
+    pub fn get_violation(&self) -> super::builder::cloud_controls_partner_monitoring::GetViolation {
         super::builder::cloud_controls_partner_monitoring::GetViolation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

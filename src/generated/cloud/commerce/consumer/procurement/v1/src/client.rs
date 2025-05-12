@@ -121,59 +121,39 @@ impl LicenseManagementService {
     }
 
     /// Gets the license pool.
-    pub fn get_license_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::GetLicensePool {
+    pub fn get_license_pool(&self) -> super::builder::license_management_service::GetLicensePool {
         super::builder::license_management_service::GetLicensePool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the license pool if one exists for this Order.
     pub fn update_license_pool(
         &self,
-        license_pool: impl Into<crate::model::LicensePool>,
     ) -> super::builder::license_management_service::UpdateLicensePool {
         super::builder::license_management_service::UpdateLicensePool::new(self.inner.clone())
-            .set_license_pool(license_pool.into())
     }
 
     /// Assigns a license to a user.
-    pub fn assign(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::Assign {
+    pub fn assign(&self) -> super::builder::license_management_service::Assign {
         super::builder::license_management_service::Assign::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Unassigns a license from a user.
-    pub fn unassign(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::Unassign {
+    pub fn unassign(&self) -> super::builder::license_management_service::Unassign {
         super::builder::license_management_service::Unassign::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Enumerates all users assigned a license.
     pub fn enumerate_licensed_users(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::license_management_service::EnumerateLicensedUsers {
         super::builder::license_management_service::EnumerateLicensedUsers::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation {
         super::builder::license_management_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -310,24 +290,16 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn place_order(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::PlaceOrder {
+    pub fn place_order(&self) -> super::builder::consumer_procurement_service::PlaceOrder {
         super::builder::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the requested
     /// [Order][google.cloud.commerce.consumer.procurement.v1.Order] resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
-    pub fn get_order(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::GetOrder {
+    pub fn get_order(&self) -> super::builder::consumer_procurement_service::GetOrder {
         super::builder::consumer_procurement_service::GetOrder::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists [Order][google.cloud.commerce.consumer.procurement.v1.Order]
@@ -335,12 +307,8 @@ impl ConsumerProcurementService {
     /// resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
-    pub fn list_orders(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::ListOrders {
+    pub fn list_orders(&self) -> super::builder::consumer_procurement_service::ListOrders {
         super::builder::consumer_procurement_service::ListOrders::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Modifies an existing
@@ -357,12 +325,8 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn modify_order(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::ModifyOrder {
+    pub fn modify_order(&self) -> super::builder::consumer_procurement_service::ModifyOrder {
         super::builder::consumer_procurement_service::ModifyOrder::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Cancels an existing
@@ -380,22 +344,14 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_order(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::CancelOrder {
+    pub fn cancel_order(&self) -> super::builder::consumer_procurement_service::CancelOrder {
         super::builder::consumer_procurement_service::CancelOrder::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation {
         super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

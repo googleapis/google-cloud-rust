@@ -139,12 +139,8 @@ impl BinauthzManagementServiceV1 {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
-    pub fn get_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::binauthz_management_service_v_1::GetPolicy {
+    pub fn get_policy(&self) -> super::builder::binauthz_management_service_v_1::GetPolicy {
         super::builder::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates or updates a project's [policy][google.cloud.binaryauthorization.v1.Policy], and returns a copy of the
@@ -154,12 +150,8 @@ impl BinauthzManagementServiceV1 {
     /// if the request is malformed.
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
-    pub fn update_policy(
-        &self,
-        policy: impl Into<crate::model::Policy>,
-    ) -> super::builder::binauthz_management_service_v_1::UpdatePolicy {
+    pub fn update_policy(&self) -> super::builder::binauthz_management_service_v_1::UpdatePolicy {
         super::builder::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
-            .set_policy(policy.into())
     }
 
     /// Creates an [attestor][google.cloud.binaryauthorization.v1.Attestor], and returns a copy of the new
@@ -170,22 +162,16 @@ impl BinauthzManagementServiceV1 {
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub fn create_attestor(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::binauthz_management_service_v_1::CreateAttestor {
         super::builder::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an [attestor][google.cloud.binaryauthorization.v1.Attestor].
     /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
-    pub fn get_attestor(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::binauthz_management_service_v_1::GetAttestor {
+    pub fn get_attestor(&self) -> super::builder::binauthz_management_service_v_1::GetAttestor {
         super::builder::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an [attestor][google.cloud.binaryauthorization.v1.Attestor].
@@ -194,22 +180,16 @@ impl BinauthzManagementServiceV1 {
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub fn update_attestor(
         &self,
-        attestor: impl Into<crate::model::Attestor>,
     ) -> super::builder::binauthz_management_service_v_1::UpdateAttestor {
         super::builder::binauthz_management_service_v_1::UpdateAttestor::new(self.inner.clone())
-            .set_attestor(attestor.into())
     }
 
     /// Lists [attestors][google.cloud.binaryauthorization.v1.Attestor].
     /// Returns INVALID_ARGUMENT if the project does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
-    pub fn list_attestors(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::binauthz_management_service_v_1::ListAttestors {
+    pub fn list_attestors(&self) -> super::builder::binauthz_management_service_v_1::ListAttestors {
         super::builder::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an [attestor][google.cloud.binaryauthorization.v1.Attestor]. Returns NOT_FOUND if the
@@ -218,10 +198,8 @@ impl BinauthzManagementServiceV1 {
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     pub fn delete_attestor(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::binauthz_management_service_v_1::DeleteAttestor {
         super::builder::binauthz_management_service_v_1::DeleteAttestor::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -328,12 +306,8 @@ impl SystemPolicyV1 {
     }
 
     /// Gets the current system policy in the specified location.
-    pub fn get_system_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::system_policy_v_1::GetSystemPolicy {
+    pub fn get_system_policy(&self) -> super::builder::system_policy_v_1::GetSystemPolicy {
         super::builder::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -443,11 +417,9 @@ impl ValidationHelperV1 {
     /// was signed by the given Attestor
     pub fn validate_attestation_occurrence(
         &self,
-        attestor: impl Into<std::string::String>,
     ) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence {
         super::builder::validation_helper_v_1::ValidateAttestationOccurrence::new(
             self.inner.clone(),
         )
-        .set_attestor(attestor.into())
     }
 }

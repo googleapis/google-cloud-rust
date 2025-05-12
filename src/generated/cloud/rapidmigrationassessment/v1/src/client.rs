@@ -132,12 +132,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_collector(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::CreateCollector {
+    pub fn create_collector(&self) -> super::builder::rapid_migration_assessment::CreateCollector {
         super::builder::rapid_migration_assessment::CreateCollector::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates an Annotation
@@ -153,37 +149,23 @@ impl RapidMigrationAssessment {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_annotation(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::rapid_migration_assessment::CreateAnnotation {
         super::builder::rapid_migration_assessment::CreateAnnotation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Annotation.
-    pub fn get_annotation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::GetAnnotation {
+    pub fn get_annotation(&self) -> super::builder::rapid_migration_assessment::GetAnnotation {
         super::builder::rapid_migration_assessment::GetAnnotation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Collectors in a given project and location.
-    pub fn list_collectors(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::ListCollectors {
+    pub fn list_collectors(&self) -> super::builder::rapid_migration_assessment::ListCollectors {
         super::builder::rapid_migration_assessment::ListCollectors::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Collector.
-    pub fn get_collector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::GetCollector {
+    pub fn get_collector(&self) -> super::builder::rapid_migration_assessment::GetCollector {
         super::builder::rapid_migration_assessment::GetCollector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the parameters of a single Collector.
@@ -197,12 +179,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_collector(
-        &self,
-        collector: impl Into<crate::model::Collector>,
-    ) -> super::builder::rapid_migration_assessment::UpdateCollector {
+    pub fn update_collector(&self) -> super::builder::rapid_migration_assessment::UpdateCollector {
         super::builder::rapid_migration_assessment::UpdateCollector::new(self.inner.clone())
-            .set_collector(collector.into())
     }
 
     /// Deletes a single Collector - changes state of collector to "Deleting".
@@ -217,12 +195,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_collector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::DeleteCollector {
+    pub fn delete_collector(&self) -> super::builder::rapid_migration_assessment::DeleteCollector {
         super::builder::rapid_migration_assessment::DeleteCollector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Resumes the given collector.
@@ -236,12 +210,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resume_collector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::ResumeCollector {
+    pub fn resume_collector(&self) -> super::builder::rapid_migration_assessment::ResumeCollector {
         super::builder::rapid_migration_assessment::ResumeCollector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Registers the given collector.
@@ -257,10 +227,8 @@ impl RapidMigrationAssessment {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn register_collector(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::rapid_migration_assessment::RegisterCollector {
         super::builder::rapid_migration_assessment::RegisterCollector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Pauses the given collector.
@@ -274,73 +242,45 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn pause_collector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::PauseCollector {
+    pub fn pause_collector(&self) -> super::builder::rapid_migration_assessment::PauseCollector {
         super::builder::rapid_migration_assessment::PauseCollector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::ListLocations {
+    pub fn list_locations(&self) -> super::builder::rapid_migration_assessment::ListLocations {
         super::builder::rapid_migration_assessment::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::GetLocation {
+    pub fn get_location(&self) -> super::builder::rapid_migration_assessment::GetLocation {
         super::builder::rapid_migration_assessment::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::ListOperations {
+    pub fn list_operations(&self) -> super::builder::rapid_migration_assessment::ListOperations {
         super::builder::rapid_migration_assessment::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::GetOperation {
+    pub fn get_operation(&self) -> super::builder::rapid_migration_assessment::GetOperation {
         super::builder::rapid_migration_assessment::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::rapid_migration_assessment::DeleteOperation {
         super::builder::rapid_migration_assessment::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rapid_migration_assessment::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::rapid_migration_assessment::CancelOperation {
         super::builder::rapid_migration_assessment::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

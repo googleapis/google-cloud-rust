@@ -120,11 +120,7 @@ impl GatewayControl {
 
     /// GenerateCredentials provides connection information that allows a user to
     /// access the specified membership using Connect Gateway.
-    pub fn generate_credentials(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gateway_control::GenerateCredentials {
+    pub fn generate_credentials(&self) -> super::builder::gateway_control::GenerateCredentials {
         super::builder::gateway_control::GenerateCredentials::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

@@ -135,11 +135,8 @@ impl Simulator {
     /// `Replay` is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub fn get_replay(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::simulator::GetReplay {
-        super::builder::simulator::GetReplay::new(self.inner.clone()).set_name(name.into())
+    pub fn get_replay(&self) -> super::builder::simulator::GetReplay {
+        super::builder::simulator::GetReplay::new(self.inner.clone())
     }
 
     /// Creates and starts a [Replay][google.cloud.policysimulator.v1.Replay] using
@@ -157,42 +154,29 @@ impl Simulator {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_replay(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::simulator::CreateReplay {
-        super::builder::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_replay(&self) -> super::builder::simulator::CreateReplay {
+        super::builder::simulator::CreateReplay::new(self.inner.clone())
     }
 
     /// Lists the results of running a
     /// [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub fn list_replay_results(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::simulator::ListReplayResults {
+    pub fn list_replay_results(&self) -> super::builder::simulator::ListReplayResults {
         super::builder::simulator::ListReplayResults::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::simulator::ListOperations {
-        super::builder::simulator::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::simulator::ListOperations {
+        super::builder::simulator::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::simulator::GetOperation {
-        super::builder::simulator::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::simulator::GetOperation {
+        super::builder::simulator::GetOperation::new(self.inner.clone())
     }
 }

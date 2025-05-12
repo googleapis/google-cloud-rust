@@ -129,21 +129,13 @@ impl AlertPolicyService {
     }
 
     /// Lists the existing alerting policies for the workspace.
-    pub fn list_alert_policies(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::alert_policy_service::ListAlertPolicies {
+    pub fn list_alert_policies(&self) -> super::builder::alert_policy_service::ListAlertPolicies {
         super::builder::alert_policy_service::ListAlertPolicies::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a single alerting policy.
-    pub fn get_alert_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::alert_policy_service::GetAlertPolicy {
+    pub fn get_alert_policy(&self) -> super::builder::alert_policy_service::GetAlertPolicy {
         super::builder::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new alerting policy.
@@ -151,12 +143,8 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
-    pub fn create_alert_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::alert_policy_service::CreateAlertPolicy {
+    pub fn create_alert_policy(&self) -> super::builder::alert_policy_service::CreateAlertPolicy {
         super::builder::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes an alerting policy.
@@ -164,12 +152,8 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
-    pub fn delete_alert_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::alert_policy_service::DeleteAlertPolicy {
+    pub fn delete_alert_policy(&self) -> super::builder::alert_policy_service::DeleteAlertPolicy {
         super::builder::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an alerting policy. You can either replace the entire policy with
@@ -180,12 +164,8 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
-    pub fn update_alert_policy(
-        &self,
-        alert_policy: impl Into<crate::model::AlertPolicy>,
-    ) -> super::builder::alert_policy_service::UpdateAlertPolicy {
+    pub fn update_alert_policy(&self) -> super::builder::alert_policy_service::UpdateAlertPolicy {
         super::builder::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
-            .set_alert_policy(alert_policy.into())
     }
 }
 
@@ -301,53 +281,34 @@ impl GroupService {
     }
 
     /// Lists the existing groups.
-    pub fn list_groups(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::group_service::ListGroups {
-        super::builder::group_service::ListGroups::new(self.inner.clone()).set_name(name.into())
+    pub fn list_groups(&self) -> super::builder::group_service::ListGroups {
+        super::builder::group_service::ListGroups::new(self.inner.clone())
     }
 
     /// Gets a single group.
-    pub fn get_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::group_service::GetGroup {
-        super::builder::group_service::GetGroup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_group(&self) -> super::builder::group_service::GetGroup {
+        super::builder::group_service::GetGroup::new(self.inner.clone())
     }
 
     /// Creates a new group.
-    pub fn create_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::group_service::CreateGroup {
-        super::builder::group_service::CreateGroup::new(self.inner.clone()).set_name(name.into())
+    pub fn create_group(&self) -> super::builder::group_service::CreateGroup {
+        super::builder::group_service::CreateGroup::new(self.inner.clone())
     }
 
     /// Updates an existing group.
     /// You can change any group attributes except `name`.
-    pub fn update_group(
-        &self,
-        group: impl Into<crate::model::Group>,
-    ) -> super::builder::group_service::UpdateGroup {
-        super::builder::group_service::UpdateGroup::new(self.inner.clone()).set_group(group.into())
+    pub fn update_group(&self) -> super::builder::group_service::UpdateGroup {
+        super::builder::group_service::UpdateGroup::new(self.inner.clone())
     }
 
     /// Deletes an existing group.
-    pub fn delete_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::group_service::DeleteGroup {
-        super::builder::group_service::DeleteGroup::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_group(&self) -> super::builder::group_service::DeleteGroup {
+        super::builder::group_service::DeleteGroup::new(self.inner.clone())
     }
 
     /// Lists the monitored resources that are members of a group.
-    pub fn list_group_members(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::group_service::ListGroupMembers {
+    pub fn list_group_members(&self) -> super::builder::group_service::ListGroupMembers {
         super::builder::group_service::ListGroupMembers::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -455,37 +416,25 @@ impl MetricService {
     /// Lists monitored resource descriptors that match a filter.
     pub fn list_monitored_resource_descriptors(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::metric_service::ListMonitoredResourceDescriptors {
         super::builder::metric_service::ListMonitoredResourceDescriptors::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a single monitored resource descriptor.
     pub fn get_monitored_resource_descriptor(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::metric_service::GetMonitoredResourceDescriptor {
         super::builder::metric_service::GetMonitoredResourceDescriptor::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists metric descriptors that match a filter.
-    pub fn list_metric_descriptors(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metric_service::ListMetricDescriptors {
+    pub fn list_metric_descriptors(&self) -> super::builder::metric_service::ListMetricDescriptors {
         super::builder::metric_service::ListMetricDescriptors::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a single metric descriptor.
-    pub fn get_metric_descriptor(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metric_service::GetMetricDescriptor {
+    pub fn get_metric_descriptor(&self) -> super::builder::metric_service::GetMetricDescriptor {
         super::builder::metric_service::GetMetricDescriptor::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new metric descriptor.
@@ -496,10 +445,8 @@ impl MetricService {
     /// except that metric labels are never removed.
     pub fn create_metric_descriptor(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::metric_service::CreateMetricDescriptor {
         super::builder::metric_service::CreateMetricDescriptor::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a metric descriptor. Only user-created
@@ -507,19 +454,13 @@ impl MetricService {
     /// deleted.
     pub fn delete_metric_descriptor(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::metric_service::DeleteMetricDescriptor {
         super::builder::metric_service::DeleteMetricDescriptor::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists time series that match a filter.
-    pub fn list_time_series(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metric_service::ListTimeSeries {
+    pub fn list_time_series(&self) -> super::builder::metric_service::ListTimeSeries {
         super::builder::metric_service::ListTimeSeries::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates or adds data to one or more time series.
@@ -529,12 +470,8 @@ impl MetricService {
     /// This method does not support
     /// [resource locations constraint of an organization
     /// policy](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations#setting_the_organization_policy).
-    pub fn create_time_series(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metric_service::CreateTimeSeries {
+    pub fn create_time_series(&self) -> super::builder::metric_service::CreateTimeSeries {
         super::builder::metric_service::CreateTimeSeries::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates or adds data to one or more service time series. A service time
@@ -550,10 +487,8 @@ impl MetricService {
     /// [google.monitoring.v3.MetricService.CreateTimeSeries]: crate::client::MetricService::create_time_series
     pub fn create_service_time_series(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::metric_service::CreateServiceTimeSeries {
         super::builder::metric_service::CreateServiceTimeSeries::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -664,24 +599,20 @@ impl NotificationChannelService {
     /// makes it possible for new channel types to be dynamically added.
     pub fn list_notification_channel_descriptors(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::ListNotificationChannelDescriptors {
         super::builder::notification_channel_service::ListNotificationChannelDescriptors::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Gets a single channel descriptor. The descriptor indicates which fields
     /// are expected / permitted for a notification channel of the given type.
     pub fn get_notification_channel_descriptor(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::GetNotificationChannelDescriptor {
         super::builder::notification_channel_service::GetNotificationChannelDescriptor::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Lists the notification channels that have been created for the project.
@@ -689,12 +620,10 @@ impl NotificationChannelService {
     /// the `ListNotificationChannelDescriptors` method.
     pub fn list_notification_channels(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::ListNotificationChannels {
         super::builder::notification_channel_service::ListNotificationChannels::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Gets a single notification channel. The channel includes the relevant
@@ -704,12 +633,10 @@ impl NotificationChannelService {
     /// that was supplied in the call to the create method.
     pub fn get_notification_channel(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::GetNotificationChannel {
         super::builder::notification_channel_service::GetNotificationChannel::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Creates a new notification channel, representing a single notification
@@ -721,12 +648,10 @@ impl NotificationChannelService {
     /// UpdateNotificationChannel.
     pub fn create_notification_channel(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::CreateNotificationChannel {
         super::builder::notification_channel_service::CreateNotificationChannel::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Updates a notification channel. Fields not specified in the field mask
@@ -738,12 +663,10 @@ impl NotificationChannelService {
     /// UpdateNotificationChannel.
     pub fn update_notification_channel(
         &self,
-        notification_channel: impl Into<crate::model::NotificationChannel>,
     ) -> super::builder::notification_channel_service::UpdateNotificationChannel {
         super::builder::notification_channel_service::UpdateNotificationChannel::new(
             self.inner.clone(),
         )
-        .set_notification_channel(notification_channel.into())
     }
 
     /// Deletes a notification channel.
@@ -754,24 +677,20 @@ impl NotificationChannelService {
     /// UpdateNotificationChannel.
     pub fn delete_notification_channel(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::DeleteNotificationChannel {
         super::builder::notification_channel_service::DeleteNotificationChannel::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Causes a verification code to be delivered to the channel. The code
     /// can then be supplied in `VerifyNotificationChannel` to verify the channel.
     pub fn send_notification_channel_verification_code(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::SendNotificationChannelVerificationCode {
         super::builder::notification_channel_service::SendNotificationChannelVerificationCode::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Requests a verification code for an already verified channel that can then
@@ -797,12 +716,10 @@ impl NotificationChannelService {
     /// 64 encoded string that has a longer expiration time.
     pub fn get_notification_channel_verification_code(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::GetNotificationChannelVerificationCode {
         super::builder::notification_channel_service::GetNotificationChannelVerificationCode::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Verifies a `NotificationChannel` by proving receipt of the code
@@ -810,12 +727,10 @@ impl NotificationChannelService {
     /// `SendNotificationChannelVerificationCode`.
     pub fn verify_notification_channel(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::VerifyNotificationChannel {
         super::builder::notification_channel_service::VerifyNotificationChannel::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 }
 
@@ -926,12 +841,8 @@ impl QueryService {
     /// see the [MQL deprecation
     /// notice](https://cloud.google.com/stackdriver/docs/deprecations/mql).
     #[deprecated]
-    pub fn query_time_series(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::query_service::QueryTimeSeries {
+    pub fn query_time_series(&self) -> super::builder::query_service::QueryTimeSeries {
         super::builder::query_service::QueryTimeSeries::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1041,103 +952,73 @@ impl ServiceMonitoringService {
     }
 
     /// Create a `Service`.
-    pub fn create_service(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_monitoring_service::CreateService {
+    pub fn create_service(&self) -> super::builder::service_monitoring_service::CreateService {
         super::builder::service_monitoring_service::CreateService::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get the named `Service`.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_monitoring_service::GetService {
+    pub fn get_service(&self) -> super::builder::service_monitoring_service::GetService {
         super::builder::service_monitoring_service::GetService::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List `Service`s for this Metrics Scope.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_monitoring_service::ListServices {
+    pub fn list_services(&self) -> super::builder::service_monitoring_service::ListServices {
         super::builder::service_monitoring_service::ListServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update this `Service`.
-    pub fn update_service(
-        &self,
-        service: impl Into<crate::model::Service>,
-    ) -> super::builder::service_monitoring_service::UpdateService {
+    pub fn update_service(&self) -> super::builder::service_monitoring_service::UpdateService {
         super::builder::service_monitoring_service::UpdateService::new(self.inner.clone())
-            .set_service(service.into())
     }
 
     /// Soft delete this `Service`.
-    pub fn delete_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_monitoring_service::DeleteService {
+    pub fn delete_service(&self) -> super::builder::service_monitoring_service::DeleteService {
         super::builder::service_monitoring_service::DeleteService::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Create a `ServiceLevelObjective` for the given `Service`.
     pub fn create_service_level_objective(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::service_monitoring_service::CreateServiceLevelObjective {
         super::builder::service_monitoring_service::CreateServiceLevelObjective::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Get a `ServiceLevelObjective` by name.
     pub fn get_service_level_objective(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::service_monitoring_service::GetServiceLevelObjective {
         super::builder::service_monitoring_service::GetServiceLevelObjective::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// List the `ServiceLevelObjective`s for the given `Service`.
     pub fn list_service_level_objectives(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::service_monitoring_service::ListServiceLevelObjectives {
         super::builder::service_monitoring_service::ListServiceLevelObjectives::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Update the given `ServiceLevelObjective`.
     pub fn update_service_level_objective(
         &self,
-        service_level_objective: impl Into<crate::model::ServiceLevelObjective>,
     ) -> super::builder::service_monitoring_service::UpdateServiceLevelObjective {
         super::builder::service_monitoring_service::UpdateServiceLevelObjective::new(
             self.inner.clone(),
         )
-        .set_service_level_objective(service_level_objective.into())
     }
 
     /// Delete the given `ServiceLevelObjective`.
     pub fn delete_service_level_objective(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::service_monitoring_service::DeleteServiceLevelObjective {
         super::builder::service_monitoring_service::DeleteServiceLevelObjective::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 }
 
@@ -1246,40 +1127,25 @@ impl SnoozeService {
     /// Creates a `Snooze` that will prevent alerts, which match the provided
     /// criteria, from being opened. The `Snooze` applies for a specific time
     /// interval.
-    pub fn create_snooze(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::snooze_service::CreateSnooze {
+    pub fn create_snooze(&self) -> super::builder::snooze_service::CreateSnooze {
         super::builder::snooze_service::CreateSnooze::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists the `Snooze`s associated with a project. Can optionally pass in
     /// `filter`, which specifies predicates to match `Snooze`s.
-    pub fn list_snoozes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::snooze_service::ListSnoozes {
+    pub fn list_snoozes(&self) -> super::builder::snooze_service::ListSnoozes {
         super::builder::snooze_service::ListSnoozes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a `Snooze` by `name`.
-    pub fn get_snooze(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::snooze_service::GetSnooze {
-        super::builder::snooze_service::GetSnooze::new(self.inner.clone()).set_name(name.into())
+    pub fn get_snooze(&self) -> super::builder::snooze_service::GetSnooze {
+        super::builder::snooze_service::GetSnooze::new(self.inner.clone())
     }
 
     /// Updates a `Snooze`, identified by its `name`, with the parameters in the
     /// given `Snooze` object.
-    pub fn update_snooze(
-        &self,
-        snooze: impl Into<crate::model::Snooze>,
-    ) -> super::builder::snooze_service::UpdateSnooze {
+    pub fn update_snooze(&self) -> super::builder::snooze_service::UpdateSnooze {
         super::builder::snooze_service::UpdateSnooze::new(self.inner.clone())
-            .set_snooze(snooze.into())
     }
 }
 
@@ -1396,28 +1262,22 @@ impl UptimeCheckService {
     /// (leaving out any invalid configurations).
     pub fn list_uptime_check_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::uptime_check_service::ListUptimeCheckConfigs {
         super::builder::uptime_check_service::ListUptimeCheckConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a single Uptime check configuration.
     pub fn get_uptime_check_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::uptime_check_service::GetUptimeCheckConfig {
         super::builder::uptime_check_service::GetUptimeCheckConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Uptime check configuration.
     pub fn create_uptime_check_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::uptime_check_service::CreateUptimeCheckConfig {
         super::builder::uptime_check_service::CreateUptimeCheckConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an Uptime check configuration. You can either replace the entire
@@ -1426,10 +1286,8 @@ impl UptimeCheckService {
     /// Returns the updated configuration.
     pub fn update_uptime_check_config(
         &self,
-        uptime_check_config: impl Into<crate::model::UptimeCheckConfig>,
     ) -> super::builder::uptime_check_service::UpdateUptimeCheckConfig {
         super::builder::uptime_check_service::UpdateUptimeCheckConfig::new(self.inner.clone())
-            .set_uptime_check_config(uptime_check_config.into())
     }
 
     /// Deletes an Uptime check configuration. Note that this method will fail
@@ -1437,10 +1295,8 @@ impl UptimeCheckService {
     /// other dependent configs that would be rendered invalid by the deletion.
     pub fn delete_uptime_check_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::uptime_check_service::DeleteUptimeCheckConfig {
         super::builder::uptime_check_service::DeleteUptimeCheckConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns the list of IP addresses that checkers run from.

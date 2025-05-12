@@ -46,12 +46,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/locations", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/locations", req.project),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -80,12 +84,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/locations/{}", req.project, req.location),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -102,12 +120,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/secrets", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/secrets", req.project),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -136,12 +158,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/projects/{}/secrets", {
+            let arg = &req.project;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/secrets", req.project),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -159,15 +185,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets",
-                    req.project, req.location
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -196,15 +233,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets",
-                    req.project, req.location
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -222,15 +270,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}:addVersion",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/secrets/{}:addVersion",
-                    req.project, req.secret
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -245,15 +304,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}:addVersion",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}:addVersion",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -268,12 +345,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/secrets/{}", req.project, req.secret),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -290,12 +381,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!("/v1/projects/{}/secrets/{}", req.project, req.secret),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -316,12 +421,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!("/v1/projects/{}/secrets/{}", req.project, req.secret),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -343,15 +462,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -368,15 +505,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Empty>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -397,15 +552,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -427,15 +600,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}/versions",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/secrets/{}/versions",
-                    req.project, req.secret
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -464,15 +648,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}/versions",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -501,15 +703,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}/versions/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/secrets/{}/versions/{}",
-                    req.project, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -526,15 +746,40 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
-                    req.project, req.location, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -551,15 +796,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}/versions/{}:access",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/secrets/{}/versions/{}:access",
-                    req.project, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -576,15 +839,40 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
-                    req.project, req.location, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -601,15 +889,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}/versions/{}:disable",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/secrets/{}/versions/{}:disable",
-                    req.project, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -624,15 +930,40 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
-                    req.project, req.location, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -647,15 +978,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}/versions/{}:enable",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/secrets/{}/versions/{}:enable",
-                    req.project, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -670,15 +1019,40 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
-                    req.project, req.location, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -693,15 +1067,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}/versions/{}:destroy",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/secrets/{}/versions/{}:destroy",
-                    req.project, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -716,15 +1108,40 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+            {
+                let arg = &req.version;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("version"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
-                    req.project, req.location, req.secret, req.version
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -739,15 +1156,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}:setIamPolicy",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/secrets/{}:setIamPolicy",
-                    req.project, req.secret
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -762,15 +1190,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -785,15 +1231,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}:getIamPolicy",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/secrets/{}:getIamPolicy",
-                    req.project, req.secret
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -816,15 +1273,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -847,15 +1322,26 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/secrets/{}:testIamPermissions",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/secrets/{}:testIamPermissions",
-                    req.project, req.secret
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
@@ -870,15 +1356,33 @@ impl super::stub::SecretManagerService for SecretManagerService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
+            {
+                let arg = &req.project;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project"));
+                }
+                arg
+            },
+            {
+                let arg = &req.location;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("location"));
+                }
+                arg
+            },
+            {
+                let arg = &req.secret;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("secret"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
-                    req.project, req.location, req.secret
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",

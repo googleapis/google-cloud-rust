@@ -119,51 +119,36 @@ impl Builds {
     }
 
     /// Submits a build in a given project.
-    pub fn submit_build(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::builds::SubmitBuild {
-        super::builder::builds::SubmitBuild::new(self.inner.clone()).set_parent(parent.into())
+    pub fn submit_build(&self) -> super::builder::builds::SubmitBuild {
+        super::builder::builds::SubmitBuild::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::builds::ListOperations {
-        super::builder::builds::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::builds::ListOperations {
+        super::builder::builds::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::builds::GetOperation {
-        super::builder::builds::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::builds::GetOperation {
+        super::builder::builds::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::builds::DeleteOperation {
-        super::builder::builds::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::builds::DeleteOperation {
+        super::builder::builds::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn wait_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::builds::WaitOperation {
-        super::builder::builds::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn wait_operation(&self) -> super::builder::builds::WaitOperation {
+        super::builder::builds::WaitOperation::new(self.inner.clone())
     }
 }
 
@@ -268,21 +253,14 @@ impl Executions {
     }
 
     /// Gets information about an Execution.
-    pub fn get_execution(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::GetExecution {
-        super::builder::executions::GetExecution::new(self.inner.clone()).set_name(name.into())
+    pub fn get_execution(&self) -> super::builder::executions::GetExecution {
+        super::builder::executions::GetExecution::new(self.inner.clone())
     }
 
     /// Lists Executions from a Job. Results are sorted by creation time,
     /// descending.
-    pub fn list_executions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::executions::ListExecutions {
+    pub fn list_executions(&self) -> super::builder::executions::ListExecutions {
         super::builder::executions::ListExecutions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an Execution.
@@ -296,11 +274,8 @@ impl Executions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_execution(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::DeleteExecution {
-        super::builder::executions::DeleteExecution::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_execution(&self) -> super::builder::executions::DeleteExecution {
+        super::builder::executions::DeleteExecution::new(self.inner.clone())
     }
 
     /// Cancels an Execution.
@@ -314,51 +289,36 @@ impl Executions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_execution(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::CancelExecution {
-        super::builder::executions::CancelExecution::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution {
+        super::builder::executions::CancelExecution::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::ListOperations {
-        super::builder::executions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::executions::ListOperations {
+        super::builder::executions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::GetOperation {
-        super::builder::executions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::executions::GetOperation {
+        super::builder::executions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::DeleteOperation {
-        super::builder::executions::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::executions::DeleteOperation {
+        super::builder::executions::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn wait_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::WaitOperation {
-        super::builder::executions::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn wait_operation(&self) -> super::builder::executions::WaitOperation {
+        super::builder::executions::WaitOperation::new(self.inner.clone())
     }
 }
 
@@ -471,24 +431,18 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::jobs::CreateJob {
-        super::builder::jobs::CreateJob::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_job(&self) -> super::builder::jobs::CreateJob {
+        super::builder::jobs::CreateJob::new(self.inner.clone())
     }
 
     /// Gets information about a Job.
-    pub fn get_job(&self, name: impl Into<std::string::String>) -> super::builder::jobs::GetJob {
-        super::builder::jobs::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::jobs::GetJob {
+        super::builder::jobs::GetJob::new(self.inner.clone())
     }
 
     /// Lists Jobs. Results are sorted by creation time, descending.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::jobs::ListJobs {
-        super::builder::jobs::ListJobs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_jobs(&self) -> super::builder::jobs::ListJobs {
+        super::builder::jobs::ListJobs::new(self.inner.clone())
     }
 
     /// Updates a Job.
@@ -502,8 +456,8 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_job(&self, job: impl Into<crate::model::Job>) -> super::builder::jobs::UpdateJob {
-        super::builder::jobs::UpdateJob::new(self.inner.clone()).set_job(job.into())
+    pub fn update_job(&self) -> super::builder::jobs::UpdateJob {
+        super::builder::jobs::UpdateJob::new(self.inner.clone())
     }
 
     /// Deletes a Job.
@@ -517,11 +471,8 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::jobs::DeleteJob {
-        super::builder::jobs::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_job(&self) -> super::builder::jobs::DeleteJob {
+        super::builder::jobs::DeleteJob::new(self.inner.clone())
     }
 
     /// Triggers creation of a new Execution of this Job.
@@ -535,77 +486,55 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_job(&self, name: impl Into<std::string::String>) -> super::builder::jobs::RunJob {
-        super::builder::jobs::RunJob::new(self.inner.clone()).set_name(name.into())
+    pub fn run_job(&self) -> super::builder::jobs::RunJob {
+        super::builder::jobs::RunJob::new(self.inner.clone())
     }
 
     /// Gets the IAM Access Control policy currently in effect for the given Job.
     /// This result does not include any inherited policies.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::jobs::GetIamPolicy {
-        super::builder::jobs::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::jobs::GetIamPolicy {
+        super::builder::jobs::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM Access control policy for the specified Job. Overwrites
     /// any existing policy.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::jobs::SetIamPolicy {
-        super::builder::jobs::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::jobs::SetIamPolicy {
+        super::builder::jobs::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified Project.
     ///
     /// There are no permissions required for making this API call.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::jobs::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::jobs::TestIamPermissions {
         super::builder::jobs::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::jobs::ListOperations {
-        super::builder::jobs::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::jobs::ListOperations {
+        super::builder::jobs::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::jobs::GetOperation {
-        super::builder::jobs::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::jobs::GetOperation {
+        super::builder::jobs::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::jobs::DeleteOperation {
-        super::builder::jobs::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::jobs::DeleteOperation {
+        super::builder::jobs::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn wait_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::jobs::WaitOperation {
-        super::builder::jobs::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn wait_operation(&self) -> super::builder::jobs::WaitOperation {
+        super::builder::jobs::WaitOperation::new(self.inner.clone())
     }
 }
 
@@ -710,20 +639,14 @@ impl Revisions {
     }
 
     /// Gets information about a Revision.
-    pub fn get_revision(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::revisions::GetRevision {
-        super::builder::revisions::GetRevision::new(self.inner.clone()).set_name(name.into())
+    pub fn get_revision(&self) -> super::builder::revisions::GetRevision {
+        super::builder::revisions::GetRevision::new(self.inner.clone())
     }
 
     /// Lists Revisions from a given Service, or from a given location.  Results
     /// are sorted by creation time, descending.
-    pub fn list_revisions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::revisions::ListRevisions {
-        super::builder::revisions::ListRevisions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_revisions(&self) -> super::builder::revisions::ListRevisions {
+        super::builder::revisions::ListRevisions::new(self.inner.clone())
     }
 
     /// Deletes a Revision.
@@ -737,51 +660,36 @@ impl Revisions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_revision(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::revisions::DeleteRevision {
-        super::builder::revisions::DeleteRevision::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_revision(&self) -> super::builder::revisions::DeleteRevision {
+        super::builder::revisions::DeleteRevision::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::revisions::ListOperations {
-        super::builder::revisions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::revisions::ListOperations {
+        super::builder::revisions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::revisions::GetOperation {
-        super::builder::revisions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::revisions::GetOperation {
+        super::builder::revisions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::revisions::DeleteOperation {
-        super::builder::revisions::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::revisions::DeleteOperation {
+        super::builder::revisions::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn wait_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::revisions::WaitOperation {
-        super::builder::revisions::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn wait_operation(&self) -> super::builder::revisions::WaitOperation {
+        super::builder::revisions::WaitOperation::new(self.inner.clone())
     }
 }
 
@@ -896,27 +804,18 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::services::CreateService {
-        super::builder::services::CreateService::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_service(&self) -> super::builder::services::CreateService {
+        super::builder::services::CreateService::new(self.inner.clone())
     }
 
     /// Gets information about a Service.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::GetService {
-        super::builder::services::GetService::new(self.inner.clone()).set_name(name.into())
+    pub fn get_service(&self) -> super::builder::services::GetService {
+        super::builder::services::GetService::new(self.inner.clone())
     }
 
     /// Lists Services. Results are sorted by creation time, descending.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::services::ListServices {
-        super::builder::services::ListServices::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_services(&self) -> super::builder::services::ListServices {
+        super::builder::services::ListServices::new(self.inner.clone())
     }
 
     /// Updates a Service.
@@ -930,11 +829,8 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_service(
-        &self,
-        service: impl Into<crate::model::Service>,
-    ) -> super::builder::services::UpdateService {
-        super::builder::services::UpdateService::new(self.inner.clone()).set_service(service.into())
+    pub fn update_service(&self) -> super::builder::services::UpdateService {
+        super::builder::services::UpdateService::new(self.inner.clone())
     }
 
     /// Deletes a Service.
@@ -950,82 +846,55 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::DeleteService {
-        super::builder::services::DeleteService::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_service(&self) -> super::builder::services::DeleteService {
+        super::builder::services::DeleteService::new(self.inner.clone())
     }
 
     /// Gets the IAM Access Control policy currently in effect for the given
     /// Cloud Run Service. This result does not include any inherited policies.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::services::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::services::GetIamPolicy {
         super::builder::services::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the IAM Access control policy for the specified Service. Overwrites
     /// any existing policy.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::services::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::services::SetIamPolicy {
         super::builder::services::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified Project.
     ///
     /// There are no permissions required for making this API call.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::services::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::services::TestIamPermissions {
         super::builder::services::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::ListOperations {
-        super::builder::services::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::services::ListOperations {
+        super::builder::services::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::GetOperation {
-        super::builder::services::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::services::GetOperation {
+        super::builder::services::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::DeleteOperation {
-        super::builder::services::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::services::DeleteOperation {
+        super::builder::services::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn wait_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::WaitOperation {
-        super::builder::services::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn wait_operation(&self) -> super::builder::services::WaitOperation {
+        super::builder::services::WaitOperation::new(self.inner.clone())
     }
 }
 
@@ -1128,55 +997,40 @@ impl Tasks {
     }
 
     /// Gets information about a Task.
-    pub fn get_task(&self, name: impl Into<std::string::String>) -> super::builder::tasks::GetTask {
-        super::builder::tasks::GetTask::new(self.inner.clone()).set_name(name.into())
+    pub fn get_task(&self) -> super::builder::tasks::GetTask {
+        super::builder::tasks::GetTask::new(self.inner.clone())
     }
 
     /// Lists Tasks from an Execution of a Job.
-    pub fn list_tasks(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tasks::ListTasks {
-        super::builder::tasks::ListTasks::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_tasks(&self) -> super::builder::tasks::ListTasks {
+        super::builder::tasks::ListTasks::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tasks::ListOperations {
-        super::builder::tasks::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::tasks::ListOperations {
+        super::builder::tasks::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tasks::GetOperation {
-        super::builder::tasks::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tasks::GetOperation {
+        super::builder::tasks::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tasks::DeleteOperation {
-        super::builder::tasks::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::tasks::DeleteOperation {
+        super::builder::tasks::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn wait_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tasks::WaitOperation {
-        super::builder::tasks::WaitOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn wait_operation(&self) -> super::builder::tasks::WaitOperation {
+        super::builder::tasks::WaitOperation::new(self.inner.clone())
     }
 }

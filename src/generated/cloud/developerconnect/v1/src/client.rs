@@ -121,21 +121,13 @@ impl DeveloperConnect {
     }
 
     /// Lists Connections in a given project and location.
-    pub fn list_connections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::ListConnections {
+    pub fn list_connections(&self) -> super::builder::developer_connect::ListConnections {
         super::builder::developer_connect::ListConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Connection.
-    pub fn get_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::GetConnection {
+    pub fn get_connection(&self) -> super::builder::developer_connect::GetConnection {
         super::builder::developer_connect::GetConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Connection in a given project and location.
@@ -149,12 +141,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connection(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::CreateConnection {
+    pub fn create_connection(&self) -> super::builder::developer_connect::CreateConnection {
         super::builder::developer_connect::CreateConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Connection.
@@ -168,12 +156,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_connection(
-        &self,
-        connection: impl Into<crate::model::Connection>,
-    ) -> super::builder::developer_connect::UpdateConnection {
+    pub fn update_connection(&self) -> super::builder::developer_connect::UpdateConnection {
         super::builder::developer_connect::UpdateConnection::new(self.inner.clone())
-            .set_connection(connection.into())
     }
 
     /// Deletes a single Connection.
@@ -187,12 +171,8 @@ impl DeveloperConnect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::DeleteConnection {
+    pub fn delete_connection(&self) -> super::builder::developer_connect::DeleteConnection {
         super::builder::developer_connect::DeleteConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a GitRepositoryLink. Upon linking a Git Repository, Developer
@@ -212,10 +192,8 @@ impl DeveloperConnect {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_git_repository_link(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::CreateGitRepositoryLink {
         super::builder::developer_connect::CreateGitRepositoryLink::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single GitRepositoryLink.
@@ -231,56 +209,40 @@ impl DeveloperConnect {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_git_repository_link(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::DeleteGitRepositoryLink {
         super::builder::developer_connect::DeleteGitRepositoryLink::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists GitRepositoryLinks in a given project, location, and connection.
     pub fn list_git_repository_links(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::ListGitRepositoryLinks {
         super::builder::developer_connect::ListGitRepositoryLinks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single GitRepositoryLink.
     pub fn get_git_repository_link(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::GetGitRepositoryLink {
         super::builder::developer_connect::GetGitRepositoryLink::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Fetches read/write token of a given gitRepositoryLink.
-    pub fn fetch_read_write_token(
-        &self,
-        git_repository_link: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::FetchReadWriteToken {
+    pub fn fetch_read_write_token(&self) -> super::builder::developer_connect::FetchReadWriteToken {
         super::builder::developer_connect::FetchReadWriteToken::new(self.inner.clone())
-            .set_git_repository_link(git_repository_link.into())
     }
 
     /// Fetches read token of a given gitRepositoryLink.
-    pub fn fetch_read_token(
-        &self,
-        git_repository_link: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::FetchReadToken {
+    pub fn fetch_read_token(&self) -> super::builder::developer_connect::FetchReadToken {
         super::builder::developer_connect::FetchReadToken::new(self.inner.clone())
-            .set_git_repository_link(git_repository_link.into())
     }
 
     /// FetchLinkableGitRepositories returns a list of git repositories from an SCM
     /// that are available to be added to a Connection.
     pub fn fetch_linkable_git_repositories(
         &self,
-        connection: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::FetchLinkableGitRepositories {
         super::builder::developer_connect::FetchLinkableGitRepositories::new(self.inner.clone())
-            .set_connection(connection.into())
     }
 
     /// FetchGitHubInstallations returns the list of GitHub Installations that
@@ -289,80 +251,50 @@ impl DeveloperConnect {
     /// are returned. For GitHub Enterprise, all installations are returned.
     pub fn fetch_git_hub_installations(
         &self,
-        connection: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::FetchGitHubInstallations {
         super::builder::developer_connect::FetchGitHubInstallations::new(self.inner.clone())
-            .set_connection(connection.into())
     }
 
     /// Fetch the list of branches or tags for a given repository.
-    pub fn fetch_git_refs(
-        &self,
-        git_repository_link: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::FetchGitRefs {
+    pub fn fetch_git_refs(&self) -> super::builder::developer_connect::FetchGitRefs {
         super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
-            .set_git_repository_link(git_repository_link.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::ListLocations {
+    pub fn list_locations(&self) -> super::builder::developer_connect::ListLocations {
         super::builder::developer_connect::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::GetLocation {
+    pub fn get_location(&self) -> super::builder::developer_connect::GetLocation {
         super::builder::developer_connect::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::ListOperations {
+    pub fn list_operations(&self) -> super::builder::developer_connect::ListOperations {
         super::builder::developer_connect::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::GetOperation {
+    pub fn get_operation(&self) -> super::builder::developer_connect::GetOperation {
         super::builder::developer_connect::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::developer_connect::DeleteOperation {
         super::builder::developer_connect::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::developer_connect::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::developer_connect::CancelOperation {
         super::builder::developer_connect::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

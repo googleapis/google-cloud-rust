@@ -132,22 +132,15 @@ impl TextToSpeech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::text_to_speech::ListOperations {
+    pub fn list_operations(&self) -> super::builder::text_to_speech::ListOperations {
         super::builder::text_to_speech::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::text_to_speech::GetOperation {
-        super::builder::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::text_to_speech::GetOperation {
+        super::builder::text_to_speech::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -266,12 +259,10 @@ impl TextToSpeechLongAudioSynthesize {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn synthesize_long_audio(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
         super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -279,12 +270,10 @@ impl TextToSpeechLongAudioSynthesize {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::ListOperations {
         super::builder::text_to_speech_long_audio_synthesize::ListOperations::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -292,9 +281,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation {
         super::builder::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

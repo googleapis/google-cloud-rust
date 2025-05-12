@@ -127,36 +127,22 @@ impl IAMCredentials {
     }
 
     /// Generates an OAuth 2.0 access token for a service account.
-    pub fn generate_access_token(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::GenerateAccessToken {
+    pub fn generate_access_token(&self) -> super::builder::iam_credentials::GenerateAccessToken {
         super::builder::iam_credentials::GenerateAccessToken::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Generates an OpenID Connect ID token for a service account.
-    pub fn generate_id_token(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::GenerateIdToken {
+    pub fn generate_id_token(&self) -> super::builder::iam_credentials::GenerateIdToken {
         super::builder::iam_credentials::GenerateIdToken::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Signs a blob using a service account's system-managed private key.
-    pub fn sign_blob(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::SignBlob {
-        super::builder::iam_credentials::SignBlob::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_blob(&self) -> super::builder::iam_credentials::SignBlob {
+        super::builder::iam_credentials::SignBlob::new(self.inner.clone())
     }
 
     /// Signs a JWT using a service account's system-managed private key.
-    pub fn sign_jwt(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::SignJwt {
-        super::builder::iam_credentials::SignJwt::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_jwt(&self) -> super::builder::iam_credentials::SignJwt {
+        super::builder::iam_credentials::SignJwt::new(self.inner.clone())
     }
 }

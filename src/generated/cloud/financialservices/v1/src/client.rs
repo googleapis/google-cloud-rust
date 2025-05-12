@@ -118,19 +118,13 @@ impl Aml {
     }
 
     /// Lists instances.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListInstances {
-        super::builder::aml::ListInstances::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_instances(&self) -> super::builder::aml::ListInstances {
+        super::builder::aml::ListInstances::new(self.inner.clone())
     }
 
     /// Gets an instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetInstance {
-        super::builder::aml::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::aml::GetInstance {
+        super::builder::aml::GetInstance::new(self.inner.clone())
     }
 
     /// Creates an instance.
@@ -144,11 +138,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::CreateInstance {
-        super::builder::aml::CreateInstance::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_instance(&self) -> super::builder::aml::CreateInstance {
+        super::builder::aml::CreateInstance::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Instance.
@@ -162,11 +153,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::aml::UpdateInstance {
-        super::builder::aml::UpdateInstance::new(self.inner.clone()).set_instance(instance.into())
+    pub fn update_instance(&self) -> super::builder::aml::UpdateInstance {
+        super::builder::aml::UpdateInstance::new(self.inner.clone())
     }
 
     /// Deletes an instance.
@@ -180,11 +168,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeleteInstance {
-        super::builder::aml::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::aml::DeleteInstance {
+        super::builder::aml::DeleteInstance::new(self.inner.clone())
     }
 
     /// Imports the list of registered parties. See
@@ -201,11 +186,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_registered_parties(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::ImportRegisteredParties {
-        super::builder::aml::ImportRegisteredParties::new(self.inner.clone()).set_name(name.into())
+    pub fn import_registered_parties(&self) -> super::builder::aml::ImportRegisteredParties {
+        super::builder::aml::ImportRegisteredParties::new(self.inner.clone())
     }
 
     /// Exports the list of registered parties. See
@@ -222,27 +204,18 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_registered_parties(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::ExportRegisteredParties {
-        super::builder::aml::ExportRegisteredParties::new(self.inner.clone()).set_name(name.into())
+    pub fn export_registered_parties(&self) -> super::builder::aml::ExportRegisteredParties {
+        super::builder::aml::ExportRegisteredParties::new(self.inner.clone())
     }
 
     /// Lists datasets.
-    pub fn list_datasets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListDatasets {
-        super::builder::aml::ListDatasets::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_datasets(&self) -> super::builder::aml::ListDatasets {
+        super::builder::aml::ListDatasets::new(self.inner.clone())
     }
 
     /// Gets a dataset.
-    pub fn get_dataset(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetDataset {
-        super::builder::aml::GetDataset::new(self.inner.clone()).set_name(name.into())
+    pub fn get_dataset(&self) -> super::builder::aml::GetDataset {
+        super::builder::aml::GetDataset::new(self.inner.clone())
     }
 
     /// Creates a dataset.
@@ -256,11 +229,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_dataset(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::CreateDataset {
-        super::builder::aml::CreateDataset::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_dataset(&self) -> super::builder::aml::CreateDataset {
+        super::builder::aml::CreateDataset::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Dataset.
@@ -274,11 +244,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_dataset(
-        &self,
-        dataset: impl Into<crate::model::Dataset>,
-    ) -> super::builder::aml::UpdateDataset {
-        super::builder::aml::UpdateDataset::new(self.inner.clone()).set_dataset(dataset.into())
+    pub fn update_dataset(&self) -> super::builder::aml::UpdateDataset {
+        super::builder::aml::UpdateDataset::new(self.inner.clone())
     }
 
     /// Deletes a dataset.
@@ -292,24 +259,18 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_dataset(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeleteDataset {
-        super::builder::aml::DeleteDataset::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_dataset(&self) -> super::builder::aml::DeleteDataset {
+        super::builder::aml::DeleteDataset::new(self.inner.clone())
     }
 
     /// Lists models.
-    pub fn list_models(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListModels {
-        super::builder::aml::ListModels::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_models(&self) -> super::builder::aml::ListModels {
+        super::builder::aml::ListModels::new(self.inner.clone())
     }
 
     /// Gets a model.
-    pub fn get_model(&self, name: impl Into<std::string::String>) -> super::builder::aml::GetModel {
-        super::builder::aml::GetModel::new(self.inner.clone()).set_name(name.into())
+    pub fn get_model(&self) -> super::builder::aml::GetModel {
+        super::builder::aml::GetModel::new(self.inner.clone())
     }
 
     /// Creates a model.
@@ -323,11 +284,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_model(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::CreateModel {
-        super::builder::aml::CreateModel::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_model(&self) -> super::builder::aml::CreateModel {
+        super::builder::aml::CreateModel::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Model.
@@ -341,11 +299,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_model(
-        &self,
-        model: impl Into<crate::model::Model>,
-    ) -> super::builder::aml::UpdateModel {
-        super::builder::aml::UpdateModel::new(self.inner.clone()).set_model(model.into())
+    pub fn update_model(&self) -> super::builder::aml::UpdateModel {
+        super::builder::aml::UpdateModel::new(self.inner.clone())
     }
 
     /// Export governance information for a Model resource. For
@@ -362,11 +317,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_model_metadata(
-        &self,
-        model: impl Into<std::string::String>,
-    ) -> super::builder::aml::ExportModelMetadata {
-        super::builder::aml::ExportModelMetadata::new(self.inner.clone()).set_model(model.into())
+    pub fn export_model_metadata(&self) -> super::builder::aml::ExportModelMetadata {
+        super::builder::aml::ExportModelMetadata::new(self.inner.clone())
     }
 
     /// Deletes a model.
@@ -380,27 +332,18 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeleteModel {
-        super::builder::aml::DeleteModel::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_model(&self) -> super::builder::aml::DeleteModel {
+        super::builder::aml::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists engine configs.
-    pub fn list_engine_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListEngineConfigs {
-        super::builder::aml::ListEngineConfigs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_engine_configs(&self) -> super::builder::aml::ListEngineConfigs {
+        super::builder::aml::ListEngineConfigs::new(self.inner.clone())
     }
 
     /// Gets an engine config.
-    pub fn get_engine_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetEngineConfig {
-        super::builder::aml::GetEngineConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn get_engine_config(&self) -> super::builder::aml::GetEngineConfig {
+        super::builder::aml::GetEngineConfig::new(self.inner.clone())
     }
 
     /// Creates an engine config.
@@ -414,11 +357,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_engine_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::CreateEngineConfig {
-        super::builder::aml::CreateEngineConfig::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_engine_config(&self) -> super::builder::aml::CreateEngineConfig {
+        super::builder::aml::CreateEngineConfig::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single EngineConfig.
@@ -432,12 +372,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_engine_config(
-        &self,
-        engine_config: impl Into<crate::model::EngineConfig>,
-    ) -> super::builder::aml::UpdateEngineConfig {
+    pub fn update_engine_config(&self) -> super::builder::aml::UpdateEngineConfig {
         super::builder::aml::UpdateEngineConfig::new(self.inner.clone())
-            .set_engine_config(engine_config.into())
     }
 
     /// Export governance information for an EngineConfig resource. For
@@ -454,12 +390,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_engine_config_metadata(
-        &self,
-        engine_config: impl Into<std::string::String>,
-    ) -> super::builder::aml::ExportEngineConfigMetadata {
+    pub fn export_engine_config_metadata(&self) -> super::builder::aml::ExportEngineConfigMetadata {
         super::builder::aml::ExportEngineConfigMetadata::new(self.inner.clone())
-            .set_engine_config(engine_config.into())
     }
 
     /// Deletes an engine config.
@@ -473,44 +405,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_engine_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeleteEngineConfig {
-        super::builder::aml::DeleteEngineConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_engine_config(&self) -> super::builder::aml::DeleteEngineConfig {
+        super::builder::aml::DeleteEngineConfig::new(self.inner.clone())
     }
 
     /// Gets a single EngineVersion.
-    pub fn get_engine_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetEngineVersion {
-        super::builder::aml::GetEngineVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_engine_version(&self) -> super::builder::aml::GetEngineVersion {
+        super::builder::aml::GetEngineVersion::new(self.inner.clone())
     }
 
     /// Lists EngineVersions for given location.
-    pub fn list_engine_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListEngineVersions {
-        super::builder::aml::ListEngineVersions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_engine_versions(&self) -> super::builder::aml::ListEngineVersions {
+        super::builder::aml::ListEngineVersions::new(self.inner.clone())
     }
 
     /// List PredictionResults.
-    pub fn list_prediction_results(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListPredictionResults {
+    pub fn list_prediction_results(&self) -> super::builder::aml::ListPredictionResults {
         super::builder::aml::ListPredictionResults::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a PredictionResult.
-    pub fn get_prediction_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetPredictionResult {
-        super::builder::aml::GetPredictionResult::new(self.inner.clone()).set_name(name.into())
+    pub fn get_prediction_result(&self) -> super::builder::aml::GetPredictionResult {
+        super::builder::aml::GetPredictionResult::new(self.inner.clone())
     }
 
     /// Create a PredictionResult.
@@ -524,12 +440,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_prediction_result(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::CreatePredictionResult {
+    pub fn create_prediction_result(&self) -> super::builder::aml::CreatePredictionResult {
         super::builder::aml::CreatePredictionResult::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single PredictionResult.
@@ -543,12 +455,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_prediction_result(
-        &self,
-        prediction_result: impl Into<crate::model::PredictionResult>,
-    ) -> super::builder::aml::UpdatePredictionResult {
+    pub fn update_prediction_result(&self) -> super::builder::aml::UpdatePredictionResult {
         super::builder::aml::UpdatePredictionResult::new(self.inner.clone())
-            .set_prediction_result(prediction_result.into())
     }
 
     /// Export governance information for a PredictionResult resource. For
@@ -567,10 +475,8 @@ impl Aml {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn export_prediction_result_metadata(
         &self,
-        prediction_result: impl Into<std::string::String>,
     ) -> super::builder::aml::ExportPredictionResultMetadata {
         super::builder::aml::ExportPredictionResultMetadata::new(self.inner.clone())
-            .set_prediction_result(prediction_result.into())
     }
 
     /// Deletes a PredictionResult.
@@ -584,27 +490,18 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_prediction_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeletePredictionResult {
-        super::builder::aml::DeletePredictionResult::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_prediction_result(&self) -> super::builder::aml::DeletePredictionResult {
+        super::builder::aml::DeletePredictionResult::new(self.inner.clone())
     }
 
     /// List BacktestResults.
-    pub fn list_backtest_results(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListBacktestResults {
-        super::builder::aml::ListBacktestResults::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_backtest_results(&self) -> super::builder::aml::ListBacktestResults {
+        super::builder::aml::ListBacktestResults::new(self.inner.clone())
     }
 
     /// Gets a BacktestResult.
-    pub fn get_backtest_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetBacktestResult {
-        super::builder::aml::GetBacktestResult::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backtest_result(&self) -> super::builder::aml::GetBacktestResult {
+        super::builder::aml::GetBacktestResult::new(self.inner.clone())
     }
 
     /// Create a BacktestResult.
@@ -618,11 +515,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backtest_result(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aml::CreateBacktestResult {
-        super::builder::aml::CreateBacktestResult::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_backtest_result(&self) -> super::builder::aml::CreateBacktestResult {
+        super::builder::aml::CreateBacktestResult::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single BacktestResult.
@@ -636,12 +530,8 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backtest_result(
-        &self,
-        backtest_result: impl Into<crate::model::BacktestResult>,
-    ) -> super::builder::aml::UpdateBacktestResult {
+    pub fn update_backtest_result(&self) -> super::builder::aml::UpdateBacktestResult {
         super::builder::aml::UpdateBacktestResult::new(self.inner.clone())
-            .set_backtest_result(backtest_result.into())
     }
 
     /// Export governance information for a BacktestResult resource. For
@@ -660,10 +550,8 @@ impl Aml {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn export_backtest_result_metadata(
         &self,
-        backtest_result: impl Into<std::string::String>,
     ) -> super::builder::aml::ExportBacktestResultMetadata {
         super::builder::aml::ExportBacktestResultMetadata::new(self.inner.clone())
-            .set_backtest_result(backtest_result.into())
     }
 
     /// Deletes a BacktestResult.
@@ -677,66 +565,45 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backtest_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeleteBacktestResult {
-        super::builder::aml::DeleteBacktestResult::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backtest_result(&self) -> super::builder::aml::DeleteBacktestResult {
+        super::builder::aml::DeleteBacktestResult::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListLocations {
-        super::builder::aml::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::aml::ListLocations {
+        super::builder::aml::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetLocation {
-        super::builder::aml::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::aml::GetLocation {
+        super::builder::aml::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::ListOperations {
-        super::builder::aml::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::aml::ListOperations {
+        super::builder::aml::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::GetOperation {
-        super::builder::aml::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::aml::GetOperation {
+        super::builder::aml::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::DeleteOperation {
-        super::builder::aml::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::aml::DeleteOperation {
+        super::builder::aml::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aml::CancelOperation {
-        super::builder::aml::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::aml::CancelOperation {
+        super::builder::aml::CancelOperation::new(self.inner.clone())
     }
 }
