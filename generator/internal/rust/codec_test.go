@@ -1842,9 +1842,13 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 			{
 				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("/v1/foo"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("/v1/foo"),
+							},
+						},
 					},
 				},
 			},
@@ -1860,9 +1864,13 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 				Name: "CreateThing",
 				ID:   ".test.v1.YELL.CreateThing",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("/v1/thing"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("/v1/thing"),
+							},
+						},
 					},
 				},
 			},
@@ -2095,33 +2103,43 @@ func TestPathFmt(t *testing.T) {
 		{
 			"/v1/fixed",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")},
+				Bindings: []*api.PathBinding{
+					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")}},
+				},
 			},
 		},
 		{
 			"/v1/{}",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")},
+				Bindings: []*api.PathBinding{
+					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")}},
+				},
 			},
 		},
 		{
 			"/v1/{}:action",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")},
+				Bindings: []*api.PathBinding{
+					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")}},
+				},
 			},
 		},
 		{
 			"/v1/projects/{}/locations/{}/secrets/{}:action",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewLiteralPathSegment("projects"),
-					api.NewFieldPathPathSegment("project"),
-					api.NewLiteralPathSegment("locations"),
-					api.NewFieldPathPathSegment("location"),
-					api.NewLiteralPathSegment("secrets"),
-					api.NewFieldPathPathSegment("secret"),
-					api.NewVerbPathSegment("action"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewLiteralPathSegment("projects"),
+							api.NewFieldPathPathSegment("project"),
+							api.NewLiteralPathSegment("locations"),
+							api.NewFieldPathPathSegment("location"),
+							api.NewLiteralPathSegment("secrets"),
+							api.NewFieldPathPathSegment("secret"),
+							api.NewVerbPathSegment("action"),
+						},
+					},
 				},
 			},
 		},
@@ -2174,17 +2192,22 @@ func TestPathArgs(t *testing.T) {
 		{
 			nil,
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
+				Bindings: []*api.PathBinding{
+					{},
 				},
 			},
 		},
 		{
 			[]pathArg{{Name: "a", Accessor: ".a"}},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("a")},
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("a"),
+						},
+					},
+				},
 			},
 		},
 		{
@@ -2195,18 +2218,26 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("b"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("b"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{{Name: "c", Accessor: `.c`}},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("c"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("c"),
+						},
+					},
 				},
 			},
 		},
@@ -2218,9 +2249,13 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("d"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("d"),
+						},
+					},
 				},
 			},
 		},
@@ -2232,9 +2267,13 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.a"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("e.a"),
+						},
+					},
 				},
 			},
 		},
@@ -2247,9 +2286,13 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.b"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("e.b"),
+						},
+					},
 				},
 			},
 		},
@@ -2261,9 +2304,13 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.c"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("e.c"),
+						},
+					},
 				},
 			},
 		},
@@ -2276,9 +2323,13 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.d"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("e.d"),
+						},
+					},
 				},
 			},
 		},
@@ -2294,10 +2345,14 @@ func TestPathArgs(t *testing.T) {
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("a"),
-					api.NewFieldPathPathSegment("b"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("a"),
+							api.NewFieldPathPathSegment("b"),
+						},
+					},
 				},
 			},
 		},

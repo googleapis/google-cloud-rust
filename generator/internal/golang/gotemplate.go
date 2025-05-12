@@ -206,7 +206,7 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 
 func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:   m.PathInfo.Verb,
+		Method:   m.PathInfo.Bindings[0].Verb,
 		PathFmt:  httpPathFmt(m.PathInfo),
 		PathArgs: httpPathArgs(m.PathInfo),
 		HasBody:  m.PathInfo.BodyFieldPath != "",
