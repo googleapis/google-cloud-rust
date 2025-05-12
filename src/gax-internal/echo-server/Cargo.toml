@@ -20,12 +20,12 @@ edition.workspace = true
 publish           = false
 
 [dependencies]
-axum.workspace  = true
-bytes.workspace = true
+axum.workspace       = true
+bytes.workspace      = true
 serde_json.workspace = true
-tokio           = { workspace = true, features = ["macros"] }
+tokio                = { workspace = true, features = ["macros"] }
 # Local dependencies
 auth.workspace = true
-gax.workspace = true
-rpc.workspace = true
-gaxi = { workspace = true, features = ["_internal-http-client"] }
+gax.workspace  = true
+rpc.workspace  = true
+gaxi           = { workspace = true, features = ["_internal-http-client"] }
