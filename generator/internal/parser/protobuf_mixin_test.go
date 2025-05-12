@@ -77,6 +77,16 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 				api.NewFieldPathPathSegment("name"),
 			},
 			QueryParameters: map[string]bool{},
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+			},
 		},
 	})
 }
@@ -137,7 +147,18 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 				api.NewVerbPathSegment("getIamPolicy"),
 			},
 			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("resource"),
+						api.NewVerbPathSegment("getIamPolicy"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+			},
+			BodyFieldPath: "*",
 		},
 	})
 }
@@ -203,7 +224,17 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 				api.NewFieldPathPathSegment("name"),
 			},
 			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v2"),
+						api.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+			},
+			BodyFieldPath: "*",
 		},
 	})
 }
@@ -281,7 +312,17 @@ func TestProtobuf_OperationMixinNoEmpty(t *testing.T) {
 				api.NewFieldPathPathSegment("name"),
 			},
 			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "DELETE",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v2"),
+						api.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+			},
+			BodyFieldPath: "*",
 		},
 	})
 	got, ok := test.State.MessageByID[".google.protobuf.Empty"]
@@ -356,6 +397,16 @@ func TestProtobuf_DuplicateMixin(t *testing.T) {
 				api.NewFieldPathPathSegment("name"),
 			},
 			QueryParameters: map[string]bool{},
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+			},
 		},
 	})
 }

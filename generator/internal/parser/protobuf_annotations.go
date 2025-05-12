@@ -61,6 +61,33 @@ func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *api.APIState) (
 }
 
 func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string) (*api.PathInfo, error) {
+	binding, body, err := processRuleShallow(httpRule, state, mID)
+	if err != nil {
+		return nil, err
+	}
+	pathInfo := &api.PathInfo{
+		Verb:            binding.Verb,
+		PathTemplate:    binding.PathTemplate,
+		QueryParameters: binding.QueryParameters,
+		BodyFieldPath:   body,
+	}
+	// TODO(#2090) - remove the duplicates on the top-level binding
+	pathInfo.Bindings = []*api.PathBinding{binding}
+
+	for _, binding := range httpRule.GetAdditionalBindings() {
+		binding, body, err := processRuleShallow(binding, state, mID)
+		if err != nil {
+			return nil, err
+		}
+		if pathInfo.BodyFieldPath != "" && body != "" && body != pathInfo.BodyFieldPath {
+			slog.Warn("mismatched body in additional binding (see AIP-127)", "message", mID, "topLevelBody", pathInfo.BodyFieldPath, "additionalBindingBody", body)
+		}
+		pathInfo.Bindings = append(pathInfo.Bindings, binding)
+	}
+	return pathInfo, nil
+}
+
+func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID string) (*api.PathBinding, string, error) {
 	var verb string
 	var rawPath string
 	switch httpRule.GetPattern().(type) {
@@ -82,28 +109,26 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 	default:
 		// Most often this happens with streaming RPCs. We will handle any
 		/// errors later in the code generation, maybe by ignoring the RPC.
-		return &api.PathInfo{
+		return &api.PathBinding{
 			Verb:            "POST",
 			PathTemplate:    []api.PathSegment{},
 			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
-		}, nil
+		}, "*", nil
 	}
 	pathTemplate, err := httprule.ParseSegments(rawPath)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
-	return &api.PathInfo{
+	return &api.PathBinding{
 		Verb:            verb,
 		PathTemplate:    pathTemplate,
 		QueryParameters: queryParameters,
-		BodyFieldPath:   httpRule.GetBody(),
-	}, nil
+	}, httpRule.GetBody(), nil
 }
 
 func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, state *api.APIState) (map[string]bool, error) {

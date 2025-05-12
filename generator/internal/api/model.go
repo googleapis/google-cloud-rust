@@ -261,8 +261,27 @@ type PathInfo struct {
 	//
 	// If this is empty then the body is not used.
 	BodyFieldPath string
+
+	// The list of bindings, including the top-level binding.
+	Bindings []*PathBinding
 	// Language specific annotations
 	Codec any
+}
+
+type PathBinding struct {
+	// HTTP Verb.
+	//
+	// This is one of:
+	// - GET
+	// - POST
+	// - PUT
+	// - DELETE
+	// - PATCH
+	Verb string
+	// The path broken by components.
+	PathTemplate []PathSegment
+	// Query parameter fields.
+	QueryParameters map[string]bool
 }
 
 // Normalized long running operation info
