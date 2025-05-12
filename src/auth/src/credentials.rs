@@ -20,6 +20,8 @@ pub mod mds;
 pub mod service_account;
 pub mod user_account;
 
+pub(crate) mod internal;
+
 use crate::Result;
 use crate::errors::{self, CredentialsError};
 use http::header::{HeaderName, HeaderValue};

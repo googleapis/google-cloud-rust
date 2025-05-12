@@ -53,5 +53,6 @@ tempfile            = "3"
 test-case.workspace = true
 tokio               = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test          = "0.4"
+httptest          = "0.16.3"
 url                 = "2"
 mutants.workspace   = true
