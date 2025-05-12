@@ -40,17 +40,16 @@ time   = []
 _internal-semver = []
 
 [dependencies]
-base64     = "0.22"
-bytes      = { version = "1", features = ["serde"] }
-chrono     = { version = "0.4", optional = true }
-serde      = { version = "1", features = ["serde_derive"] }
-serde_json = "1"
-serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-thiserror  = "2"
-time       = { version = "0.3", features = ["formatting", "parsing"] }
+base64.workspace     = true
+bytes.workspace      = true
+chrono               = { workspace = true, optional = true }
+serde.workspace      = true
+serde_json.workspace = true
+serde_with.workspace = true
+thiserror.workspace  = true
+time                 = { workspace = true, features = ["formatting", "parsing"] }
 
 [dev-dependencies]
 anyhow.workspace    = true
-bytes               = { version = "1", features = ["serde"] }
 test-case.workspace = true
 wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }
