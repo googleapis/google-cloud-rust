@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use auth::credentials::{
-    Builder as AccessTokenCredentialBuilder, api_key_credentials::Builder as ApiKeyCredentialsBuilder,
+    Builder as AccessTokenCredentialBuilder,
+    api_key_credentials::Builder as ApiKeyCredentialsBuilder,
 };
 use gax::error::Error;
 use language::client::LanguageService;
