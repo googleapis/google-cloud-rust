@@ -78,9 +78,9 @@ Manager API, do the following:
 
 1. Add the [google-cloud-gax] crate to the new project
 
-```shell
-cargo add google-cloud-gax
-```
+   ```shell
+   cargo add google-cloud-gax
+   ```
 
 1. Add the [tokio] crate to the new project
 

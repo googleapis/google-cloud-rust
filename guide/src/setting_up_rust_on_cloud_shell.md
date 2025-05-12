@@ -59,6 +59,12 @@ Cloud Shell is a great environment to run small examples and tests.
    cargo add google-cloud-secretmanager-v1
    ```
 
+1. Add the [google-cloud-gax] crate to the new project
+
+   ```shell
+   cargo add google-cloud-gax
+   ```
+
 1. Add the [tokio] crate to the new project
 
    ```shell
@@ -82,6 +88,7 @@ Cloud Shell is a great environment to run small examples and tests.
 <!-- markdownlint-enable MD029 -->
 
 [cloud shell]: https://cloud.google.com/shell
+[google-cloud-gax]: https://crates.io/crates/google-cloud-gax
 [rustup]: https://rust-lang.github.io/rustup/
 [secret manager]: https://cloud.google.com/secret-manager/docs/overview
 [tokio]: https://crates.io/crates/tokio
