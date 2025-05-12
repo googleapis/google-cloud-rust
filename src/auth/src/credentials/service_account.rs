@@ -100,7 +100,7 @@ const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 ///
 /// [JWT]: https://google.aip.dev/auth/4111
 /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum AccessSpecifier {
     /// Use [AccessSpecifier::Audience] for setting audience in the token.
     /// `aud` is a [JWT] claim specifying intended recipient of the token,
