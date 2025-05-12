@@ -101,10 +101,7 @@ pub async fn api_key() -> Result<()> {
     let api_key = std::str::from_utf8(&api_key).unwrap();
 
     // Create credentials using the API key.
-    let creds = ApiKeyCredentialsBuilder::new(api_key)
-        .build()
-        .await
-        .map_err(Error::authentication)?;
+    let creds = ApiKeyCredentialsBuilder::new(api_key).build();
 
     // Construct a Natural Language client using the credentials.
     let client = LanguageService::builder()
