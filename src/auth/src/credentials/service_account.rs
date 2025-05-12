@@ -92,98 +92,28 @@ use tokio::time::Instant;
 
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
-#[derive(Debug)]
-enum ServiceAccountRestrictions {
-    Audience(String),
-    Scopes(Vec<String>),
-}
-
-impl ServiceAccountRestrictions {
-    fn get_audience(&self) -> Option<&String> {
-        match self {
-            ServiceAccountRestrictions::Audience(aud) => Some(aud),
-            ServiceAccountRestrictions::Scopes(_) => None,
-        }
-    }
-
-    fn get_scopes(&self) -> Option<&[String]> {
-        match self {
-            ServiceAccountRestrictions::Scopes(scopes) => Some(scopes),
-            ServiceAccountRestrictions::Audience(_) => None,
-        }
-    }
-}
-
-/// A builder for constructing service account [Credentials] instances.
+/// Represents the access specifier for a service account based token,
+/// specifying either OAuth 2.0 [scopes] or a [JWT] audience.
 ///
-/// # Example
-/// ```
-/// # use google_cloud_auth::credentials::service_account::Builder;
-/// # tokio_test::block_on(async {
-/// let key = serde_json::json!({
-///     "client_email": "test-client-email",
-///     "private_key_id": "test-private-key-id",
-///     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
-///     "project_id": "test-project-id",
-///     "universe_domain": "test-universe-domain",
-/// });
-/// let credentials = Builder::new(key)
-///     .with_aud("https://pubsub.googleapis.com")
-///     .build();
-/// })
-/// ```
-pub struct Builder {
-    service_account_key: Value,
-    restrictions: ServiceAccountRestrictions,
-    quota_project_id: Option<String>,
-}
-
-impl Builder {
-    /// Creates a new builder using [service_account_key] JSON value.
-    /// By default, the builder is configured with [cloud-platform] scope.
-    /// This can be overridden using [with_aud][Builder::with_aud]
-    /// or [with_scopes][Builder::with_scopes] methods.
-    ///
-    /// [cloud-platform]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
-    /// [service_account_key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    pub fn new(service_account_key: Value) -> Self {
-        Self {
-            service_account_key,
-            restrictions: ServiceAccountRestrictions::Scopes(
-                [DEFAULT_SCOPE].map(str::to_string).to_vec(),
-            ),
-            quota_project_id: None,
-        }
-    }
-
-    /// Sets the audience for this credentials.
-    ///
-    /// `aud` is a [JWT] claim specifying intended recipient(s) of the token,
-    /// that is, a service(s).
+/// It ensures that only one of these access specifiers can be applied
+/// for a given credential setup.
+/// 
+/// [JWT]: https://google.aip.dev/auth/4111
+/// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+#[derive(Debug)]
+pub enum AccessSpecifier {
+    /// Use [AccessSpecifier::Audience] for setting audience in the token.
+    /// `aud` is a [JWT] claim specifying intended recipient of the token,
+    /// that is, a service.
     /// Only one of audience or scopes can be specified for a credentials.
-    /// Setting the audience will replace any previously configured scopes.
-    /// The value should be `https://{SERVICE}/`, e.g., `https://pubsub.googleapis.com/`
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::service_account::Builder;
-    /// let service_account_key = serde_json::json!({ /* add details here */ });
-    /// let credentials = Builder::new(service_account_key)
-    ///     .with_aud("https://bigtable.googleapis.com/")
-    ///     .build();
-    /// ```
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
-    pub fn with_aud<V: Into<String>>(mut self, v: V) -> Self {
-        self.restrictions = ServiceAccountRestrictions::Audience(v.into());
-        self
-    }
+    Audience(String),
 
-    /// Sets the [scopes] for this credentials.
+    /// Use [AccessSpecifier::Scopes] for setting [scopes] in the token.
     ///
     /// `scopes` is a [JWT] claim specifying requested permission(s) for the token.
     /// Only one of audience or scopes can be specified for a credentials.
-    /// Setting the scopes will replace any previously configured audience.
     ///
     /// `scopes` define the *permissions being requested* for this specific session
     /// when interacting with a service. For example, `https://www.googleapis.com/auth/devstorage.read_write`.
@@ -195,25 +125,128 @@ impl Builder {
     /// can be used for. Please see relevant section in [service account authorization] to learn
     /// more about scopes and IAM permissions.
     ///
+    /// [JWT]: https://google.aip.dev/auth/4111
+    /// [service account authorization]: https://cloud.google.com/compute/docs/access/service-accounts#authorization
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+    Scopes(Vec<String>),
+}
+
+impl AccessSpecifier {
+    fn audience(&self) -> Option<&String> {
+        match self {
+            AccessSpecifier::Audience(aud) => Some(aud),
+            AccessSpecifier::Scopes(_) => None,
+        }
+    }
+
+    fn scopes(&self) -> Option<&[String]> {
+        match self {
+            AccessSpecifier::Scopes(scopes) => Some(scopes),
+            AccessSpecifier::Audience(_) => None,
+        }
+    }
+
+    /// Creates [AccessSpecifier] with [scopes].
+    ///
     /// # Example
     /// ```
-    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// # use google_cloud_auth::credentials::service_account::{AccessSpecifier, Builder};
+    /// let access_specifier = AccessSpecifier::from_scopes(["https://www.googleapis.com/auth/pubsub"]);
     /// let service_account_key = serde_json::json!({ /* add details here */ });
     /// let credentials = Builder::new(service_account_key)
-    ///     .with_scopes(["https://www.googleapis.com/auth/pubsub"])
+    ///     .with_access_specifier(access_specifier)
     ///     .build();
     /// ```
     ///
-    /// [JWT]: https://google.aip.dev/auth/4111
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
-    /// [service account authorization]: https://cloud.google.com/compute/docs/access/service-accounts#authorization
-    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    pub fn from_scopes<I, S>(scopes: I) -> Self
     where
         I: IntoIterator<Item = S>,
         S: Into<String>,
     {
-        self.restrictions =
-            ServiceAccountRestrictions::Scopes(scopes.into_iter().map(|s| s.into()).collect());
+        AccessSpecifier::Scopes(scopes.into_iter().map(|s| s.into()).collect())
+    }
+
+    /// Creates [AccessSpecifier] with an audience.
+    ///
+    /// The value should be `https://{SERVICE}/`, e.g., `https://pubsub.googleapis.com/`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::{AccessSpecifier, Builder};
+    /// let access_specifier = AccessSpecifier::from_audience("https://bigtable.googleapis.com/");
+    /// let service_account_key = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(service_account_key)
+    ///     .with_access_specifier(access_specifier)
+    ///     .build();
+    /// ```
+    pub fn from_audience<S: Into<String>>(audience: S) -> Self {
+        AccessSpecifier::Audience(audience.into())
+    }
+}
+
+/// A builder for constructing service account [Credentials] instances.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::service_account::{AccessSpecifier, Builder};
+/// # tokio_test::block_on(async {
+/// let key = serde_json::json!({
+///     "client_email": "test-client-email",
+///     "private_key_id": "test-private-key-id",
+///     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
+///     "project_id": "test-project-id",
+///     "universe_domain": "test-universe-domain",
+/// });
+/// let credentials = Builder::new(key)
+///     .with_access_specifier(AccessSpecifier::from_audience("https://pubsub.googleapis.com"))
+///     .build();
+/// })
+/// ```
+pub struct Builder {
+    service_account_key: Value,
+    access_specifier: AccessSpecifier,
+    quota_project_id: Option<String>,
+}
+
+impl Builder {
+    /// Creates a new builder using [service_account_key] JSON value.
+    /// By default, the builder is configured with [cloud-platform] scope.
+    /// This can be overridden using the [with_access_specifier][Builder::with_access_specifier] method.
+    ///
+    /// [cloud-platform]:https://cloud.google.com/compute/docs/access/service-accounts#scopes_best_practice
+    /// [service_account_key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    pub fn new(service_account_key: Value) -> Self {
+        Self {
+            service_account_key,
+            access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
+            quota_project_id: None,
+        }
+    }
+
+    /// Sets the [AccessSpecifier] representing either scopes or audience for this credentials.
+    ///
+    /// # Example for setting audience
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::{AccessSpecifier, Builder};
+    /// let access_specifier = AccessSpecifier::from_audience("https://bigtable.googleapis.com/");
+    /// let service_account_key = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(service_account_key)
+    ///     .with_access_specifier(access_specifier)
+    ///     .build();
+    /// ```
+    ///
+    /// # Example for setting scopes
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::{AccessSpecifier, Builder};
+    /// let access_specifier = AccessSpecifier::from_scopes(["https://www.googleapis.com/auth/pubsub"]);
+    /// let service_account_key = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(service_account_key)
+    ///     .with_access_specifier(access_specifier)
+    ///     .build();
+    /// ```
+    pub fn with_access_specifier(mut self, access_specifier: AccessSpecifier) -> Self {
+        self.access_specifier = access_specifier;
         self
     }
 
@@ -248,7 +281,7 @@ impl Builder {
                 .map_err(errors::non_retryable)?;
         let token_provider = ServiceAccountTokenProvider {
             service_account_key,
-            restrictions: self.restrictions,
+            access_specifier: self.access_specifier,
         };
         let token_provider = TokenCache::new(token_provider);
 
@@ -304,7 +337,7 @@ where
 #[derive(Debug)]
 struct ServiceAccountTokenProvider {
     service_account_key: ServiceAccountKey,
-    restrictions: ServiceAccountRestrictions,
+    access_specifier: AccessSpecifier,
 }
 
 fn token_issue_time(current_time: OffsetDateTime) -> OffsetDateTime {
@@ -329,10 +362,10 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let claims = JwsClaims {
             iss: self.service_account_key.client_email.clone(),
             scope: self
-                .restrictions
-                .get_scopes()
+                .access_specifier
+                .scopes()
                 .map(|scopes| scopes.join(" ")),
-            aud: self.restrictions.get_audience().cloned(),
+            aud: self.access_specifier.audience().cloned(),
             exp: token_expiry_time(current_time),
             iat: token_issue_time(current_time),
             typ: None,
@@ -729,7 +762,7 @@ mod test {
         let tp = ServiceAccountTokenProvider {
             service_account_key:
                 serde_json::from_value::<ServiceAccountKey>(get_mock_service_key()).unwrap(),
-            restrictions: ServiceAccountRestrictions::Scopes(vec![]),
+            access_specifier: AccessSpecifier::Scopes(vec![]),
         };
         let signer = tp.signer(&tp.service_account_key.private_key);
         let expected_error_message = "missing PEM section in service account key";
@@ -755,7 +788,7 @@ mod test {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
         let token = Builder::new(service_account_key.clone())
-            .with_aud("test-audience")
+            .with_access_specifier(AccessSpecifier::from_audience("test-audience"))
             .build()?
             .token()
             .await?;
@@ -806,7 +839,7 @@ mod test {
         ];
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
         let token = Builder::new(service_account_key.clone())
-            .with_scopes(scopes.clone())
+            .with_access_specifier(AccessSpecifier::from_scopes(scopes.clone()))
             .build()?
             .token()
             .await?;
