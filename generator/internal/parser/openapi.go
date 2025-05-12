@@ -208,11 +208,19 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			if err != nil {
 				return nil, err
 			}
+			queryParameters := makeQueryParameters(op.Operation)
 			pathInfo := &api.PathInfo{
 				Verb:            op.Verb,
 				PathTemplate:    pathTemplate,
-				QueryParameters: makeQueryParameters(op.Operation),
-				BodyFieldPath:   bodyFieldPath,
+				QueryParameters: queryParameters,
+				Bindings: []*api.PathBinding{
+					{
+						Verb:            op.Verb,
+						PathTemplate:    pathTemplate,
+						QueryParameters: queryParameters,
+					},
+				},
+				BodyFieldPath: bodyFieldPath,
 			}
 			mID := fmt.Sprintf("%s.%s", serviceID, op.Operation.OperationId)
 			m := &api.Method{
