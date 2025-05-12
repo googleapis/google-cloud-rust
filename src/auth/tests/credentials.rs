@@ -187,10 +187,7 @@ mod test {
 
     #[tokio::test]
     async fn create_api_key_credentials_success() {
-        let creds = ApiKeyCredentialsBuilder::new("test-api-key")
-            .build()
-            .await
-            .unwrap();
+        let creds = ApiKeyCredentialsBuilder::new("test-api-key").build();
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
         assert!(!fmt.contains("test-api-key"), "{fmt:?}");

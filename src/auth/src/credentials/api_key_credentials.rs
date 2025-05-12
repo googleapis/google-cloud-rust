@@ -110,7 +110,7 @@ impl Builder {
     }
 
     /// Returns a [Credentials] instance with the configured settings.
-    pub async fn build(self) -> Result<Credentials> {
+    pub fn build(self) -> Credentials {
         let token_provider = ApiKeyTokenProvider {
             api_key: self.api_key,
         };
@@ -119,12 +119,12 @@ impl Builder {
             .ok()
             .or(self.quota_project_id);
 
-        Ok(Credentials {
+        Credentials {
             inner: Arc::new(ApiKeyCredentials {
                 token_provider,
                 quota_project_id,
             }),
-        })
+        }
     }
 }
 
@@ -192,9 +192,7 @@ mod test {
 
         let creds = Builder::new("test-api-key")
             .with_quota_project_id("qp-option")
-            .build()
-            .await
-            .unwrap();
+            .build();
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
@@ -213,9 +211,7 @@ mod test {
 
         let creds = Builder::new("test-api-key")
             .with_quota_project_id("qp-option")
-            .build()
-            .await
-            .unwrap();
+            .build();
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
