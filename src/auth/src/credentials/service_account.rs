@@ -97,7 +97,7 @@ const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 ///
 /// It ensures that only one of these access specifiers can be applied
 /// for a given credential setup.
-/// 
+///
 /// [JWT]: https://google.aip.dev/auth/4111
 /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
 #[derive(Debug)]
