@@ -166,7 +166,7 @@ mod test {
     async fn create_api_key_credentials_basic() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
-        let creds = Builder::new("test-api-key").build().await.unwrap();
+        let creds = Builder::new("test-api-key").build();
         let token = creds.token(Extensions::new()).await.unwrap();
         assert_eq!(
             token,
