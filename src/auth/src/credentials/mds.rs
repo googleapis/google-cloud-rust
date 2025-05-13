@@ -568,6 +568,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_provider_full() -> TestResult {
+        let now = std::time::Instant::now();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -595,7 +596,6 @@ mod test {
             .with_scopes(scopes)
             .with_endpoint(endpoint)
             .build()?;
-        let now = std::time::Instant::now();
         let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -611,6 +611,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
+        let now = std::time::Instant::now();
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -634,7 +635,6 @@ mod test {
         println!("endpoint = {endpoint}");
 
         let mdsc = Builder::default().with_endpoint(endpoint).build()?;
-        let now = std::time::Instant::now();
         let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
