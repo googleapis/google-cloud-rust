@@ -37,11 +37,16 @@ impl gaxi::prost::ToProto<ErrorInfo> for rpc::model::ErrorInfo {
 }
 
 impl gaxi::prost::FromProto<rpc::model::ErrorInfo> for ErrorInfo {
-    fn cnv(self) -> rpc::model::ErrorInfo {
-        rpc::model::ErrorInfo::new()
-            .set_reason(self.reason)
-            .set_domain(self.domain)
-            .set_metadata(self.metadata.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
+    fn cnv(self) -> std::result::Result<rpc::model::ErrorInfo, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::ErrorInfo::new()
+                .set_reason(self.reason)
+                .set_domain(self.domain)
+                .set_metadata(self.metadata.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+        )
     }
 }
 
@@ -55,9 +60,11 @@ impl gaxi::prost::ToProto<RetryInfo> for rpc::model::RetryInfo {
 }
 
 impl gaxi::prost::FromProto<rpc::model::RetryInfo> for RetryInfo {
-    fn cnv(self) -> rpc::model::RetryInfo {
-        rpc::model::RetryInfo::new()
-            .set_retry_delay(self.retry_delay.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::RetryInfo, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::RetryInfo::new()
+                .set_retry_delay(self.retry_delay.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -75,10 +82,13 @@ impl gaxi::prost::ToProto<DebugInfo> for rpc::model::DebugInfo {
 }
 
 impl gaxi::prost::FromProto<rpc::model::DebugInfo> for DebugInfo {
-    fn cnv(self) -> rpc::model::DebugInfo {
-        rpc::model::DebugInfo::new()
-            .set_stack_entries(self.stack_entries.into_iter().map(|v| v.cnv()))
-            .set_detail(self.detail)
+    fn cnv(self) -> std::result::Result<rpc::model::DebugInfo, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::DebugInfo::new()
+                .set_stack_entries(self.stack_entries.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_detail(self.detail)
+        )
     }
 }
 
@@ -103,16 +113,21 @@ impl gaxi::prost::ToProto<quota_failure::Violation> for rpc::model::quota_failur
 }
 
 impl gaxi::prost::FromProto<rpc::model::quota_failure::Violation> for quota_failure::Violation {
-    fn cnv(self) -> rpc::model::quota_failure::Violation {
-        rpc::model::quota_failure::Violation::new()
-            .set_subject(self.subject)
-            .set_description(self.description)
-            .set_api_service(self.api_service)
-            .set_quota_metric(self.quota_metric)
-            .set_quota_id(self.quota_id)
-            .set_quota_dimensions(self.quota_dimensions.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
-            .set_quota_value(self.quota_value)
-            .set_future_quota_value(self.future_quota_value.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::quota_failure::Violation, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::quota_failure::Violation::new()
+                .set_subject(self.subject)
+                .set_description(self.description)
+                .set_api_service(self.api_service)
+                .set_quota_metric(self.quota_metric)
+                .set_quota_id(self.quota_id)
+                .set_quota_dimensions(self.quota_dimensions.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_quota_value(self.quota_value)
+                .set_future_quota_value(self.future_quota_value.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -129,9 +144,12 @@ impl gaxi::prost::ToProto<QuotaFailure> for rpc::model::QuotaFailure {
 }
 
 impl gaxi::prost::FromProto<rpc::model::QuotaFailure> for QuotaFailure {
-    fn cnv(self) -> rpc::model::QuotaFailure {
-        rpc::model::QuotaFailure::new()
-            .set_violations(self.violations.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::QuotaFailure, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::QuotaFailure::new()
+                .set_violations(self.violations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -147,11 +165,13 @@ impl gaxi::prost::ToProto<precondition_failure::Violation> for rpc::model::preco
 }
 
 impl gaxi::prost::FromProto<rpc::model::precondition_failure::Violation> for precondition_failure::Violation {
-    fn cnv(self) -> rpc::model::precondition_failure::Violation {
-        rpc::model::precondition_failure::Violation::new()
-            .set_type(self.r#type)
-            .set_subject(self.subject)
-            .set_description(self.description)
+    fn cnv(self) -> std::result::Result<rpc::model::precondition_failure::Violation, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::precondition_failure::Violation::new()
+                .set_type(self.r#type)
+                .set_subject(self.subject)
+                .set_description(self.description)
+        )
     }
 }
 
@@ -168,9 +188,12 @@ impl gaxi::prost::ToProto<PreconditionFailure> for rpc::model::PreconditionFailu
 }
 
 impl gaxi::prost::FromProto<rpc::model::PreconditionFailure> for PreconditionFailure {
-    fn cnv(self) -> rpc::model::PreconditionFailure {
-        rpc::model::PreconditionFailure::new()
-            .set_violations(self.violations.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::PreconditionFailure, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::PreconditionFailure::new()
+                .set_violations(self.violations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -187,12 +210,14 @@ impl gaxi::prost::ToProto<bad_request::FieldViolation> for rpc::model::bad_reque
 }
 
 impl gaxi::prost::FromProto<rpc::model::bad_request::FieldViolation> for bad_request::FieldViolation {
-    fn cnv(self) -> rpc::model::bad_request::FieldViolation {
-        rpc::model::bad_request::FieldViolation::new()
-            .set_field(self.field)
-            .set_description(self.description)
-            .set_reason(self.reason)
-            .set_localized_message(self.localized_message.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::bad_request::FieldViolation, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::bad_request::FieldViolation::new()
+                .set_field(self.field)
+                .set_description(self.description)
+                .set_reason(self.reason)
+                .set_localized_message(self.localized_message.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -209,9 +234,12 @@ impl gaxi::prost::ToProto<BadRequest> for rpc::model::BadRequest {
 }
 
 impl gaxi::prost::FromProto<rpc::model::BadRequest> for BadRequest {
-    fn cnv(self) -> rpc::model::BadRequest {
-        rpc::model::BadRequest::new()
-            .set_field_violations(self.field_violations.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::BadRequest, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::BadRequest::new()
+                .set_field_violations(self.field_violations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -226,10 +254,12 @@ impl gaxi::prost::ToProto<RequestInfo> for rpc::model::RequestInfo {
 }
 
 impl gaxi::prost::FromProto<rpc::model::RequestInfo> for RequestInfo {
-    fn cnv(self) -> rpc::model::RequestInfo {
-        rpc::model::RequestInfo::new()
-            .set_request_id(self.request_id)
-            .set_serving_data(self.serving_data)
+    fn cnv(self) -> std::result::Result<rpc::model::RequestInfo, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::RequestInfo::new()
+                .set_request_id(self.request_id)
+                .set_serving_data(self.serving_data)
+        )
     }
 }
 
@@ -246,12 +276,14 @@ impl gaxi::prost::ToProto<ResourceInfo> for rpc::model::ResourceInfo {
 }
 
 impl gaxi::prost::FromProto<rpc::model::ResourceInfo> for ResourceInfo {
-    fn cnv(self) -> rpc::model::ResourceInfo {
-        rpc::model::ResourceInfo::new()
-            .set_resource_type(self.resource_type)
-            .set_resource_name(self.resource_name)
-            .set_owner(self.owner)
-            .set_description(self.description)
+    fn cnv(self) -> std::result::Result<rpc::model::ResourceInfo, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::ResourceInfo::new()
+                .set_resource_type(self.resource_type)
+                .set_resource_name(self.resource_name)
+                .set_owner(self.owner)
+                .set_description(self.description)
+        )
     }
 }
 
@@ -266,10 +298,12 @@ impl gaxi::prost::ToProto<help::Link> for rpc::model::help::Link {
 }
 
 impl gaxi::prost::FromProto<rpc::model::help::Link> for help::Link {
-    fn cnv(self) -> rpc::model::help::Link {
-        rpc::model::help::Link::new()
-            .set_description(self.description)
-            .set_url(self.url)
+    fn cnv(self) -> std::result::Result<rpc::model::help::Link, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::help::Link::new()
+                .set_description(self.description)
+                .set_url(self.url)
+        )
     }
 }
 
@@ -286,9 +320,12 @@ impl gaxi::prost::ToProto<Help> for rpc::model::Help {
 }
 
 impl gaxi::prost::FromProto<rpc::model::Help> for Help {
-    fn cnv(self) -> rpc::model::Help {
-        rpc::model::Help::new()
-            .set_links(self.links.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<rpc::model::Help, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::Help::new()
+                .set_links(self.links.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -303,10 +340,12 @@ impl gaxi::prost::ToProto<LocalizedMessage> for rpc::model::LocalizedMessage {
 }
 
 impl gaxi::prost::FromProto<rpc::model::LocalizedMessage> for LocalizedMessage {
-    fn cnv(self) -> rpc::model::LocalizedMessage {
-        rpc::model::LocalizedMessage::new()
-            .set_locale(self.locale)
-            .set_message(self.message)
+    fn cnv(self) -> std::result::Result<rpc::model::LocalizedMessage, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::LocalizedMessage::new()
+                .set_locale(self.locale)
+                .set_message(self.message)
+        )
     }
 }
 
@@ -326,12 +365,15 @@ impl gaxi::prost::ToProto<HttpRequest> for rpc::model::HttpRequest {
 }
 
 impl gaxi::prost::FromProto<rpc::model::HttpRequest> for HttpRequest {
-    fn cnv(self) -> rpc::model::HttpRequest {
-        rpc::model::HttpRequest::new()
-            .set_method(self.method)
-            .set_uri(self.uri)
-            .set_headers(self.headers.into_iter().map(|v| v.cnv()))
-            .set_body(self.body)
+    fn cnv(self) -> std::result::Result<rpc::model::HttpRequest, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::HttpRequest::new()
+                .set_method(self.method)
+                .set_uri(self.uri)
+                .set_headers(self.headers.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_body(self.body)
+        )
     }
 }
 
@@ -351,12 +393,15 @@ impl gaxi::prost::ToProto<HttpResponse> for rpc::model::HttpResponse {
 }
 
 impl gaxi::prost::FromProto<rpc::model::HttpResponse> for HttpResponse {
-    fn cnv(self) -> rpc::model::HttpResponse {
-        rpc::model::HttpResponse::new()
-            .set_status(self.status)
-            .set_reason(self.reason)
-            .set_headers(self.headers.into_iter().map(|v| v.cnv()))
-            .set_body(self.body)
+    fn cnv(self) -> std::result::Result<rpc::model::HttpResponse, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::HttpResponse::new()
+                .set_status(self.status)
+                .set_reason(self.reason)
+                .set_headers(self.headers.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_body(self.body)
+        )
     }
 }
 
@@ -371,9 +416,11 @@ impl gaxi::prost::ToProto<HttpHeader> for rpc::model::HttpHeader {
 }
 
 impl gaxi::prost::FromProto<rpc::model::HttpHeader> for HttpHeader {
-    fn cnv(self) -> rpc::model::HttpHeader {
-        rpc::model::HttpHeader::new()
-            .set_key(self.key)
-            .set_value(self.value)
+    fn cnv(self) -> std::result::Result<rpc::model::HttpHeader, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::HttpHeader::new()
+                .set_key(self.key)
+                .set_value(self.value)
+        )
     }
 }

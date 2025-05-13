@@ -33,7 +33,8 @@ mod requests {
             .await?;
 
         client
-            .cancel_operation("operations/test-001")
+            .cancel_operation()
+            .set_name("operations/test-001")
             .send()
             .await?;
         Ok(())

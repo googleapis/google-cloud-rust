@@ -129,11 +129,9 @@ impl PublicCertificateAuthorityService {
     /// [google.cloud.security.publicca.v1.ExternalAccountKey]: crate::model::ExternalAccountKey
     pub fn create_external_account_key(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey {
         super::builder::public_certificate_authority_service::CreateExternalAccountKey::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 }

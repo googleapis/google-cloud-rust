@@ -120,12 +120,8 @@ impl MetricsScopes {
     }
 
     /// Returns a specific `Metrics Scope`.
-    pub fn get_metrics_scope(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_scopes::GetMetricsScope {
+    pub fn get_metrics_scope(&self) -> super::builder::metrics_scopes::GetMetricsScope {
         super::builder::metrics_scopes::GetMetricsScope::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns a list of every `Metrics Scope` that a specific `MonitoredProject`
@@ -151,10 +147,8 @@ impl MetricsScopes {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_monitored_project(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::metrics_scopes::CreateMonitoredProject {
         super::builder::metrics_scopes::CreateMonitoredProject::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a `MonitoredProject` from the specified `Metrics Scope`.
@@ -170,19 +164,14 @@ impl MetricsScopes {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_monitored_project(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::metrics_scopes::DeleteMonitoredProject {
         super::builder::metrics_scopes::DeleteMonitoredProject::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_scopes::GetOperation {
-        super::builder::metrics_scopes::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::metrics_scopes::GetOperation {
+        super::builder::metrics_scopes::GetOperation::new(self.inner.clone())
     }
 }

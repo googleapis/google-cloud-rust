@@ -119,87 +119,49 @@ impl DatasetService {
     }
 
     /// Returns the dataset specified by datasetID.
-    pub fn get_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::GetDataset {
+    pub fn get_dataset(&self) -> super::builder::dataset_service::GetDataset {
         super::builder::dataset_service::GetDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Creates a new empty dataset.
-    pub fn insert_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::InsertDataset {
+    pub fn insert_dataset(&self) -> super::builder::dataset_service::InsertDataset {
         super::builder::dataset_service::InsertDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Updates information in an existing dataset. The update method replaces the
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
     /// This method supports RFC5789 patch semantics.
-    pub fn patch_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::PatchDataset {
+    pub fn patch_dataset(&self) -> super::builder::dataset_service::PatchDataset {
         super::builder::dataset_service::PatchDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Updates information in an existing dataset. The update method replaces the
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
-    pub fn update_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::UpdateDataset {
+    pub fn update_dataset(&self) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Deletes the dataset specified by the datasetId value. Before you can delete
     /// a dataset, you must delete all its tables, either manually or by specifying
     /// deleteContents. Immediately after deletion, you can create another dataset
     /// with the same name.
-    pub fn delete_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::DeleteDataset {
+    pub fn delete_dataset(&self) -> super::builder::dataset_service::DeleteDataset {
         super::builder::dataset_service::DeleteDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Lists all datasets in the specified project to which the user has been
     /// granted the READER dataset role.
-    pub fn list_datasets(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::ListDatasets {
+    pub fn list_datasets(&self) -> super::builder::dataset_service::ListDatasets {
         super::builder::dataset_service::ListDatasets::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Undeletes a dataset which is within time travel window based on datasetId.
     /// If a time is specified, the dataset version deleted at that time is
     /// undeleted, else the last live version is undeleted.
-    pub fn undelete_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::UndeleteDataset {
+    pub fn undelete_dataset(&self) -> super::builder::dataset_service::UndeleteDataset {
         super::builder::dataset_service::UndeleteDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 }
 
@@ -304,55 +266,25 @@ impl ModelService {
     }
 
     /// Gets the specified model resource by model ID.
-    pub fn get_model(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        model_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::GetModel {
+    pub fn get_model(&self) -> super::builder::model_service::GetModel {
         super::builder::model_service::GetModel::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_model_id(model_id.into())
     }
 
     /// Lists all models in the specified dataset. Requires the READER dataset
     /// role. After retrieving the list of models, you can get information about a
     /// particular model by calling the models.get method.
-    pub fn list_models(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::ListModels {
+    pub fn list_models(&self) -> super::builder::model_service::ListModels {
         super::builder::model_service::ListModels::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Patch specific fields in the specified model.
-    pub fn patch_model(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        model_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::PatchModel {
+    pub fn patch_model(&self) -> super::builder::model_service::PatchModel {
         super::builder::model_service::PatchModel::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_model_id(model_id.into())
     }
 
     /// Deletes the model specified by modelId from the dataset.
-    pub fn delete_model(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        model_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::DeleteModel {
+    pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
         super::builder::model_service::DeleteModel::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_model_id(model_id.into())
     }
 }
 
@@ -458,12 +390,8 @@ impl ProjectService {
 
     /// RPC to get the service account for a project used for interactions with
     /// Google Cloud KMS
-    pub fn get_service_account(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::project_service::GetServiceAccount {
+    pub fn get_service_account(&self) -> super::builder::project_service::GetServiceAccount {
         super::builder::project_service::GetServiceAccount::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 }
 
@@ -568,66 +496,30 @@ impl RoutineService {
     }
 
     /// Gets the specified routine resource by routine ID.
-    pub fn get_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        routine_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::GetRoutine {
+    pub fn get_routine(&self) -> super::builder::routine_service::GetRoutine {
         super::builder::routine_service::GetRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_routine_id(routine_id.into())
     }
 
     /// Creates a new routine in the dataset.
-    pub fn insert_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::InsertRoutine {
+    pub fn insert_routine(&self) -> super::builder::routine_service::InsertRoutine {
         super::builder::routine_service::InsertRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Updates information in an existing routine. The update method replaces the
     /// entire Routine resource.
-    pub fn update_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        routine_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::UpdateRoutine {
+    pub fn update_routine(&self) -> super::builder::routine_service::UpdateRoutine {
         super::builder::routine_service::UpdateRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_routine_id(routine_id.into())
     }
 
     /// Deletes the routine specified by routineId from the dataset.
-    pub fn delete_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        routine_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::DeleteRoutine {
+    pub fn delete_routine(&self) -> super::builder::routine_service::DeleteRoutine {
         super::builder::routine_service::DeleteRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_routine_id(routine_id.into())
     }
 
     /// Lists all routines in the specified dataset. Requires the READER dataset
     /// role.
-    pub fn list_routines(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::ListRoutines {
+    pub fn list_routines(&self) -> super::builder::routine_service::ListRoutines {
         super::builder::routine_service::ListRoutines::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 }
 
@@ -736,87 +628,45 @@ impl RowAccessPolicyService {
     /// Lists all row access policies on the specified table.
     pub fn list_row_access_policies(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::ListRowAccessPolicies {
         super::builder::row_access_policy_service::ListRowAccessPolicies::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Gets the specified row access policy by policy ID.
     pub fn get_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-        policy_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::GetRowAccessPolicy {
         super::builder::row_access_policy_service::GetRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
-            .set_policy_id(policy_id.into())
     }
 
     /// Creates a row access policy.
     pub fn create_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::CreateRowAccessPolicy {
         super::builder::row_access_policy_service::CreateRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Updates a row access policy.
     pub fn update_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-        policy_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::UpdateRowAccessPolicy {
         super::builder::row_access_policy_service::UpdateRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
-            .set_policy_id(policy_id.into())
     }
 
     /// Deletes a row access policy.
     pub fn delete_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-        policy_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::DeleteRowAccessPolicy {
         super::builder::row_access_policy_service::DeleteRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
-            .set_policy_id(policy_id.into())
     }
 
     /// Deletes provided row access policies.
     pub fn batch_delete_row_access_policies(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies {
         super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies::new(
             self.inner.clone(),
         )
-        .set_project_id(project_id.into())
-        .set_dataset_id(dataset_id.into())
-        .set_table_id(table_id.into())
     }
 }
 
@@ -924,83 +774,39 @@ impl TableService {
     /// Gets the specified table resource by table ID.
     /// This method does not return the data in the table, it only returns the
     /// table resource, which describes the structure of this table.
-    pub fn get_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::GetTable {
+    pub fn get_table(&self) -> super::builder::table_service::GetTable {
         super::builder::table_service::GetTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Creates a new, empty table in the dataset.
-    pub fn insert_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::InsertTable {
+    pub fn insert_table(&self) -> super::builder::table_service::InsertTable {
         super::builder::table_service::InsertTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Updates information in an existing table. The update method replaces the
     /// entire table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted table resource.
     /// This method supports RFC5789 patch semantics.
-    pub fn patch_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::PatchTable {
+    pub fn patch_table(&self) -> super::builder::table_service::PatchTable {
         super::builder::table_service::PatchTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Updates information in an existing table. The update method replaces the
     /// entire Table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted Table resource.
-    pub fn update_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::UpdateTable {
+    pub fn update_table(&self) -> super::builder::table_service::UpdateTable {
         super::builder::table_service::UpdateTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Deletes the table specified by tableId from the dataset.
     /// If the table contains data, all the data will be deleted.
-    pub fn delete_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::DeleteTable {
+    pub fn delete_table(&self) -> super::builder::table_service::DeleteTable {
         super::builder::table_service::DeleteTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Lists all tables in the specified dataset. Requires the READER dataset
     /// role.
-    pub fn list_tables(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::ListTables {
+    pub fn list_tables(&self) -> super::builder::table_service::ListTables {
         super::builder::table_service::ListTables::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 }

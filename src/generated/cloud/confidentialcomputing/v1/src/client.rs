@@ -121,38 +121,22 @@ impl ConfidentialComputing {
     }
 
     /// Creates a new Challenge in a given project and location.
-    pub fn create_challenge(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::CreateChallenge {
+    pub fn create_challenge(&self) -> super::builder::confidential_computing::CreateChallenge {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Verifies the provided attestation info, returning a signed OIDC token.
-    pub fn verify_attestation(
-        &self,
-        challenge: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::VerifyAttestation {
+    pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
-            .set_challenge(challenge.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::ListLocations {
+    pub fn list_locations(&self) -> super::builder::confidential_computing::ListLocations {
         super::builder::confidential_computing::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::GetLocation {
+    pub fn get_location(&self) -> super::builder::confidential_computing::GetLocation {
         super::builder::confidential_computing::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

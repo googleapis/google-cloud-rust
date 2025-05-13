@@ -120,19 +120,13 @@ impl Eventarc {
     }
 
     /// Get a single trigger.
-    pub fn get_trigger(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetTrigger {
-        super::builder::eventarc::GetTrigger::new(self.inner.clone()).set_name(name.into())
+    pub fn get_trigger(&self) -> super::builder::eventarc::GetTrigger {
+        super::builder::eventarc::GetTrigger::new(self.inner.clone())
     }
 
     /// List triggers.
-    pub fn list_triggers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListTriggers {
-        super::builder::eventarc::ListTriggers::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_triggers(&self) -> super::builder::eventarc::ListTriggers {
+        super::builder::eventarc::ListTriggers::new(self.inner.clone())
     }
 
     /// Create a new trigger in a particular project and location.
@@ -146,11 +140,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_trigger(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreateTrigger {
-        super::builder::eventarc::CreateTrigger::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_trigger(&self) -> super::builder::eventarc::CreateTrigger {
+        super::builder::eventarc::CreateTrigger::new(self.inner.clone())
     }
 
     /// Update a single trigger.
@@ -164,11 +155,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_trigger(
-        &self,
-        trigger: impl Into<crate::model::Trigger>,
-    ) -> super::builder::eventarc::UpdateTrigger {
-        super::builder::eventarc::UpdateTrigger::new(self.inner.clone()).set_trigger(trigger.into())
+    pub fn update_trigger(&self) -> super::builder::eventarc::UpdateTrigger {
+        super::builder::eventarc::UpdateTrigger::new(self.inner.clone())
     }
 
     /// Delete a single trigger.
@@ -182,27 +170,18 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_trigger(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteTrigger {
-        super::builder::eventarc::DeleteTrigger::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_trigger(&self) -> super::builder::eventarc::DeleteTrigger {
+        super::builder::eventarc::DeleteTrigger::new(self.inner.clone())
     }
 
     /// Get a single Channel.
-    pub fn get_channel(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetChannel {
-        super::builder::eventarc::GetChannel::new(self.inner.clone()).set_name(name.into())
+    pub fn get_channel(&self) -> super::builder::eventarc::GetChannel {
+        super::builder::eventarc::GetChannel::new(self.inner.clone())
     }
 
     /// List channels.
-    pub fn list_channels(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListChannels {
-        super::builder::eventarc::ListChannels::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_channels(&self) -> super::builder::eventarc::ListChannels {
+        super::builder::eventarc::ListChannels::new(self.inner.clone())
     }
 
     /// Create a new channel in a particular project and location.
@@ -216,11 +195,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_channel(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreateChannel {
-        super::builder::eventarc::CreateChannel::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_channel(&self) -> super::builder::eventarc::CreateChannel {
+        super::builder::eventarc::CreateChannel::new(self.inner.clone())
     }
 
     /// Update a single channel.
@@ -234,11 +210,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_channel(
-        &self,
-        channel: impl Into<crate::model::Channel>,
-    ) -> super::builder::eventarc::UpdateChannel {
-        super::builder::eventarc::UpdateChannel::new(self.inner.clone()).set_channel(channel.into())
+    pub fn update_channel(&self) -> super::builder::eventarc::UpdateChannel {
+        super::builder::eventarc::UpdateChannel::new(self.inner.clone())
     }
 
     /// Delete a single channel.
@@ -252,45 +225,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_channel(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteChannel {
-        super::builder::eventarc::DeleteChannel::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_channel(&self) -> super::builder::eventarc::DeleteChannel {
+        super::builder::eventarc::DeleteChannel::new(self.inner.clone())
     }
 
     /// Get a single Provider.
-    pub fn get_provider(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetProvider {
-        super::builder::eventarc::GetProvider::new(self.inner.clone()).set_name(name.into())
+    pub fn get_provider(&self) -> super::builder::eventarc::GetProvider {
+        super::builder::eventarc::GetProvider::new(self.inner.clone())
     }
 
     /// List providers.
-    pub fn list_providers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListProviders {
-        super::builder::eventarc::ListProviders::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_providers(&self) -> super::builder::eventarc::ListProviders {
+        super::builder::eventarc::ListProviders::new(self.inner.clone())
     }
 
     /// Get a single ChannelConnection.
-    pub fn get_channel_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetChannelConnection {
+    pub fn get_channel_connection(&self) -> super::builder::eventarc::GetChannelConnection {
         super::builder::eventarc::GetChannelConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List channel connections.
-    pub fn list_channel_connections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListChannelConnections {
+    pub fn list_channel_connections(&self) -> super::builder::eventarc::ListChannelConnections {
         super::builder::eventarc::ListChannelConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a new ChannelConnection in a particular project and location.
@@ -304,12 +260,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_channel_connection(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreateChannelConnection {
+    pub fn create_channel_connection(&self) -> super::builder::eventarc::CreateChannelConnection {
         super::builder::eventarc::CreateChannelConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Delete a single ChannelConnection.
@@ -323,56 +275,37 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_channel_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteChannelConnection {
+    pub fn delete_channel_connection(&self) -> super::builder::eventarc::DeleteChannelConnection {
         super::builder::eventarc::DeleteChannelConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get a GoogleChannelConfig
-    pub fn get_google_channel_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetGoogleChannelConfig {
+    pub fn get_google_channel_config(&self) -> super::builder::eventarc::GetGoogleChannelConfig {
         super::builder::eventarc::GetGoogleChannelConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update a single GoogleChannelConfig
     pub fn update_google_channel_config(
         &self,
-        google_channel_config: impl Into<crate::model::GoogleChannelConfig>,
     ) -> super::builder::eventarc::UpdateGoogleChannelConfig {
         super::builder::eventarc::UpdateGoogleChannelConfig::new(self.inner.clone())
-            .set_google_channel_config(google_channel_config.into())
     }
 
     /// Get a single MessageBus.
-    pub fn get_message_bus(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetMessageBus {
-        super::builder::eventarc::GetMessageBus::new(self.inner.clone()).set_name(name.into())
+    pub fn get_message_bus(&self) -> super::builder::eventarc::GetMessageBus {
+        super::builder::eventarc::GetMessageBus::new(self.inner.clone())
     }
 
     /// List message buses.
-    pub fn list_message_buses(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListMessageBuses {
+    pub fn list_message_buses(&self) -> super::builder::eventarc::ListMessageBuses {
         super::builder::eventarc::ListMessageBuses::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// List message bus enrollments.
     pub fn list_message_bus_enrollments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::eventarc::ListMessageBusEnrollments {
         super::builder::eventarc::ListMessageBusEnrollments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a new MessageBus in a particular project and location.
@@ -386,12 +319,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_message_bus(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreateMessageBus {
+    pub fn create_message_bus(&self) -> super::builder::eventarc::CreateMessageBus {
         super::builder::eventarc::CreateMessageBus::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update a single message bus.
@@ -405,12 +334,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_message_bus(
-        &self,
-        message_bus: impl Into<crate::model::MessageBus>,
-    ) -> super::builder::eventarc::UpdateMessageBus {
+    pub fn update_message_bus(&self) -> super::builder::eventarc::UpdateMessageBus {
         super::builder::eventarc::UpdateMessageBus::new(self.inner.clone())
-            .set_message_bus(message_bus.into())
     }
 
     /// Delete a single message bus.
@@ -424,27 +349,18 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_message_bus(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteMessageBus {
-        super::builder::eventarc::DeleteMessageBus::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_message_bus(&self) -> super::builder::eventarc::DeleteMessageBus {
+        super::builder::eventarc::DeleteMessageBus::new(self.inner.clone())
     }
 
     /// Get a single Enrollment.
-    pub fn get_enrollment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetEnrollment {
-        super::builder::eventarc::GetEnrollment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_enrollment(&self) -> super::builder::eventarc::GetEnrollment {
+        super::builder::eventarc::GetEnrollment::new(self.inner.clone())
     }
 
     /// List Enrollments.
-    pub fn list_enrollments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListEnrollments {
-        super::builder::eventarc::ListEnrollments::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_enrollments(&self) -> super::builder::eventarc::ListEnrollments {
+        super::builder::eventarc::ListEnrollments::new(self.inner.clone())
     }
 
     /// Create a new Enrollment in a particular project and location.
@@ -458,12 +374,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_enrollment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreateEnrollment {
+    pub fn create_enrollment(&self) -> super::builder::eventarc::CreateEnrollment {
         super::builder::eventarc::CreateEnrollment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update a single Enrollment.
@@ -477,12 +389,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_enrollment(
-        &self,
-        enrollment: impl Into<crate::model::Enrollment>,
-    ) -> super::builder::eventarc::UpdateEnrollment {
+    pub fn update_enrollment(&self) -> super::builder::eventarc::UpdateEnrollment {
         super::builder::eventarc::UpdateEnrollment::new(self.inner.clone())
-            .set_enrollment(enrollment.into())
     }
 
     /// Delete a single Enrollment.
@@ -496,27 +404,18 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_enrollment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteEnrollment {
-        super::builder::eventarc::DeleteEnrollment::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_enrollment(&self) -> super::builder::eventarc::DeleteEnrollment {
+        super::builder::eventarc::DeleteEnrollment::new(self.inner.clone())
     }
 
     /// Get a single Pipeline.
-    pub fn get_pipeline(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetPipeline {
-        super::builder::eventarc::GetPipeline::new(self.inner.clone()).set_name(name.into())
+    pub fn get_pipeline(&self) -> super::builder::eventarc::GetPipeline {
+        super::builder::eventarc::GetPipeline::new(self.inner.clone())
     }
 
     /// List pipelines.
-    pub fn list_pipelines(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListPipelines {
-        super::builder::eventarc::ListPipelines::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_pipelines(&self) -> super::builder::eventarc::ListPipelines {
+        super::builder::eventarc::ListPipelines::new(self.inner.clone())
     }
 
     /// Create a new Pipeline in a particular project and location.
@@ -530,11 +429,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_pipeline(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreatePipeline {
-        super::builder::eventarc::CreatePipeline::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_pipeline(&self) -> super::builder::eventarc::CreatePipeline {
+        super::builder::eventarc::CreatePipeline::new(self.inner.clone())
     }
 
     /// Update a single pipeline.
@@ -548,12 +444,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_pipeline(
-        &self,
-        pipeline: impl Into<crate::model::Pipeline>,
-    ) -> super::builder::eventarc::UpdatePipeline {
+    pub fn update_pipeline(&self) -> super::builder::eventarc::UpdatePipeline {
         super::builder::eventarc::UpdatePipeline::new(self.inner.clone())
-            .set_pipeline(pipeline.into())
     }
 
     /// Delete a single pipeline.
@@ -567,28 +459,18 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_pipeline(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeletePipeline {
-        super::builder::eventarc::DeletePipeline::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_pipeline(&self) -> super::builder::eventarc::DeletePipeline {
+        super::builder::eventarc::DeletePipeline::new(self.inner.clone())
     }
 
     /// Get a single GoogleApiSource.
-    pub fn get_google_api_source(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetGoogleApiSource {
-        super::builder::eventarc::GetGoogleApiSource::new(self.inner.clone()).set_name(name.into())
+    pub fn get_google_api_source(&self) -> super::builder::eventarc::GetGoogleApiSource {
+        super::builder::eventarc::GetGoogleApiSource::new(self.inner.clone())
     }
 
     /// List GoogleApiSources.
-    pub fn list_google_api_sources(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListGoogleApiSources {
+    pub fn list_google_api_sources(&self) -> super::builder::eventarc::ListGoogleApiSources {
         super::builder::eventarc::ListGoogleApiSources::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a new GoogleApiSource in a particular project and location.
@@ -602,12 +484,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_google_api_source(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CreateGoogleApiSource {
+    pub fn create_google_api_source(&self) -> super::builder::eventarc::CreateGoogleApiSource {
         super::builder::eventarc::CreateGoogleApiSource::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update a single GoogleApiSource.
@@ -621,12 +499,8 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_google_api_source(
-        &self,
-        google_api_source: impl Into<crate::model::GoogleApiSource>,
-    ) -> super::builder::eventarc::UpdateGoogleApiSource {
+    pub fn update_google_api_source(&self) -> super::builder::eventarc::UpdateGoogleApiSource {
         super::builder::eventarc::UpdateGoogleApiSource::new(self.inner.clone())
-            .set_google_api_source(google_api_source.into())
     }
 
     /// Delete a single GoogleApiSource.
@@ -640,28 +514,18 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_google_api_source(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteGoogleApiSource {
+    pub fn delete_google_api_source(&self) -> super::builder::eventarc::DeleteGoogleApiSource {
         super::builder::eventarc::DeleteGoogleApiSource::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListLocations {
-        super::builder::eventarc::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::eventarc::ListLocations {
+        super::builder::eventarc::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetLocation {
-        super::builder::eventarc::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::eventarc::GetLocation {
+        super::builder::eventarc::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -669,22 +533,14 @@ impl Eventarc {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::eventarc::SetIamPolicy {
         super::builder::eventarc::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::eventarc::GetIamPolicy {
         super::builder::eventarc::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -694,51 +550,35 @@ impl Eventarc {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::eventarc::TestIamPermissions {
         super::builder::eventarc::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::ListOperations {
-        super::builder::eventarc::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::eventarc::ListOperations {
+        super::builder::eventarc::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::GetOperation {
-        super::builder::eventarc::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::eventarc::GetOperation {
+        super::builder::eventarc::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::DeleteOperation {
-        super::builder::eventarc::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::eventarc::DeleteOperation {
+        super::builder::eventarc::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::eventarc::CancelOperation {
-        super::builder::eventarc::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::eventarc::CancelOperation {
+        super::builder::eventarc::CancelOperation::new(self.inner.clone())
     }
 }

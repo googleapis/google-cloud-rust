@@ -46,12 +46,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/orchestrationClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/orchestrationClusters", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -72,9 +76,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OrchestrationCluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -91,12 +102,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/orchestrationClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/orchestrationClusters", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -115,9 +130,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -135,9 +157,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/edgeSlms", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/edgeSlms", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -158,9 +187,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EdgeSlm>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -177,12 +213,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/edgeSlms", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/edgeSlms", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -201,9 +241,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -221,12 +268,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/blueprints", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/blueprints", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -244,18 +295,20 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .blueprint
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("blueprint"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("blueprint.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.blueprint
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("blueprint"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -278,9 +331,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -298,9 +358,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -321,12 +388,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBlueprintsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/blueprints", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/blueprints", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -346,9 +417,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:approve", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:approve", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -363,9 +441,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:propose", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:propose", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -380,9 +465,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:reject", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:reject", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -397,12 +489,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBlueprintRevisionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:listRevisions", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:listRevisions", req.name),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -421,12 +517,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/blueprints:searchRevisions", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/blueprints:searchRevisions", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -446,12 +546,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/deployments:searchRevisions", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/deployments:searchRevisions", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -471,9 +575,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiscardBlueprintChangesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:discard", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:discard", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -488,12 +599,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/publicBlueprints", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/publicBlueprints", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -512,9 +627,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PublicBlueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -531,12 +653,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/deployments", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/deployments", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -554,18 +680,20 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .deployment
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("deployment"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("deployment.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.deployment
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("deployment"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -588,9 +716,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -608,9 +743,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:remove", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:remove", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -630,12 +772,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/deployments", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/deployments", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -655,12 +801,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeploymentRevisionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:listRevisions", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:listRevisions", req.name),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -679,9 +829,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:discard", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:discard", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -696,9 +853,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:apply", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:apply", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -713,12 +877,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ComputeDeploymentStatusResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:computeDeploymentStatus", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:computeDeploymentStatus", req.name),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -735,9 +903,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:rollback", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:rollback", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -752,9 +927,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -771,12 +953,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListHydratedDeploymentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/hydratedDeployments", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/hydratedDeployments", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -795,18 +981,20 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .hydrated_deployment
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("hydrated_deployment"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("hydrated_deployment.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.hydrated_deployment
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("hydrated_deployment"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -829,9 +1017,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:apply", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:apply", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -846,9 +1041,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -868,9 +1070,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -887,9 +1096,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -909,9 +1125,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -928,9 +1151,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -951,9 +1181,16 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

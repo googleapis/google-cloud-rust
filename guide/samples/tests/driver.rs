@@ -167,9 +167,14 @@ mod driver {
             "The quick brown fox jumps over the lazy dog".into(),
         )
         .await?;
-        let _ = client.destroy_secret_version(&version.name).send().await?;
         let _ = client
-            .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+            .destroy_secret_version()
+            .set_name(&version.name)
+            .send()
+            .await?;
+        let _ = client
+            .delete_secret()
+            .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
             .send()
             .await?;
         Ok(())
@@ -204,9 +209,14 @@ mod driver {
             )
             .build()
             .await?;
-        let _ = client.destroy_secret_version(&version.name).send().await?;
         let _ = client
-            .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+            .destroy_secret_version()
+            .set_name(&version.name)
+            .send()
+            .await?;
+        let _ = client
+            .delete_secret()
+            .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
             .send()
             .await?;
         Ok(())

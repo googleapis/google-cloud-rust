@@ -165,37 +165,25 @@ impl ManagedIdentitiesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_microsoft_ad_domain(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::managed_identities_service::CreateMicrosoftAdDomain {
         super::builder::managed_identities_service::CreateMicrosoftAdDomain::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Resets a domain's administrator password.
     pub fn reset_admin_password(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::managed_identities_service::ResetAdminPassword {
         super::builder::managed_identities_service::ResetAdminPassword::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists domains in a project.
-    pub fn list_domains(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::ListDomains {
+    pub fn list_domains(&self) -> super::builder::managed_identities_service::ListDomains {
         super::builder::managed_identities_service::ListDomains::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information about a domain.
-    pub fn get_domain(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::GetDomain {
+    pub fn get_domain(&self) -> super::builder::managed_identities_service::GetDomain {
         super::builder::managed_identities_service::GetDomain::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the metadata and configuration of a domain.
@@ -209,12 +197,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_domain(
-        &self,
-        domain: impl Into<crate::model::Domain>,
-    ) -> super::builder::managed_identities_service::UpdateDomain {
+    pub fn update_domain(&self) -> super::builder::managed_identities_service::UpdateDomain {
         super::builder::managed_identities_service::UpdateDomain::new(self.inner.clone())
-            .set_domain(domain.into())
     }
 
     /// Deletes a domain.
@@ -228,12 +212,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_domain(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::DeleteDomain {
+    pub fn delete_domain(&self) -> super::builder::managed_identities_service::DeleteDomain {
         super::builder::managed_identities_service::DeleteDomain::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds an AD trust to a domain.
@@ -247,12 +227,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn attach_trust(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::AttachTrust {
+    pub fn attach_trust(&self) -> super::builder::managed_identities_service::AttachTrust {
         super::builder::managed_identities_service::AttachTrust::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the DNS conditional forwarder.
@@ -268,10 +244,8 @@ impl ManagedIdentitiesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn reconfigure_trust(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::managed_identities_service::ReconfigureTrust {
         super::builder::managed_identities_service::ReconfigureTrust::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Removes an AD trust.
@@ -285,12 +259,8 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn detach_trust(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::DetachTrust {
+    pub fn detach_trust(&self) -> super::builder::managed_identities_service::DetachTrust {
         super::builder::managed_identities_service::DetachTrust::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Validates a trust state, that the target domain is reachable, and that the
@@ -305,55 +275,35 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn validate_trust(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::ValidateTrust {
+    pub fn validate_trust(&self) -> super::builder::managed_identities_service::ValidateTrust {
         super::builder::managed_identities_service::ValidateTrust::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::managed_identities_service::ListOperations {
         super::builder::managed_identities_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::managed_identities_service::GetOperation {
         super::builder::managed_identities_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::managed_identities_service::DeleteOperation {
         super::builder::managed_identities_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::managed_identities_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::managed_identities_service::CancelOperation {
         super::builder::managed_identities_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

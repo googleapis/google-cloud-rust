@@ -138,35 +138,23 @@ impl GkeHub {
     }
 
     /// Lists Memberships in a given project and location.
-    pub fn list_memberships(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::ListMemberships {
-        super::builder::gke_hub::ListMemberships::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_memberships(&self) -> super::builder::gke_hub::ListMemberships {
+        super::builder::gke_hub::ListMemberships::new(self.inner.clone())
     }
 
     /// Lists Features in a given project and location.
-    pub fn list_features(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::ListFeatures {
-        super::builder::gke_hub::ListFeatures::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_features(&self) -> super::builder::gke_hub::ListFeatures {
+        super::builder::gke_hub::ListFeatures::new(self.inner.clone())
     }
 
     /// Gets the details of a Membership.
-    pub fn get_membership(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::GetMembership {
-        super::builder::gke_hub::GetMembership::new(self.inner.clone()).set_name(name.into())
+    pub fn get_membership(&self) -> super::builder::gke_hub::GetMembership {
+        super::builder::gke_hub::GetMembership::new(self.inner.clone())
     }
 
     /// Gets details of a single Feature.
-    pub fn get_feature(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::GetFeature {
-        super::builder::gke_hub::GetFeature::new(self.inner.clone()).set_name(name.into())
+    pub fn get_feature(&self) -> super::builder::gke_hub::GetFeature {
+        super::builder::gke_hub::GetFeature::new(self.inner.clone())
     }
 
     /// Creates a new Membership.
@@ -184,11 +172,8 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_membership(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::CreateMembership {
-        super::builder::gke_hub::CreateMembership::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_membership(&self) -> super::builder::gke_hub::CreateMembership {
+        super::builder::gke_hub::CreateMembership::new(self.inner.clone())
     }
 
     /// Adds a new Feature.
@@ -202,11 +187,8 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_feature(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::CreateFeature {
-        super::builder::gke_hub::CreateFeature::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_feature(&self) -> super::builder::gke_hub::CreateFeature {
+        super::builder::gke_hub::CreateFeature::new(self.inner.clone())
     }
 
     /// Removes a Membership.
@@ -224,11 +206,8 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_membership(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::DeleteMembership {
-        super::builder::gke_hub::DeleteMembership::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_membership(&self) -> super::builder::gke_hub::DeleteMembership {
+        super::builder::gke_hub::DeleteMembership::new(self.inner.clone())
     }
 
     /// Removes a Feature.
@@ -242,11 +221,8 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_feature(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::DeleteFeature {
-        super::builder::gke_hub::DeleteFeature::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_feature(&self) -> super::builder::gke_hub::DeleteFeature {
+        super::builder::gke_hub::DeleteFeature::new(self.inner.clone())
     }
 
     /// Updates an existing Membership.
@@ -260,11 +236,8 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_membership(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::UpdateMembership {
-        super::builder::gke_hub::UpdateMembership::new(self.inner.clone()).set_name(name.into())
+    pub fn update_membership(&self) -> super::builder::gke_hub::UpdateMembership {
+        super::builder::gke_hub::UpdateMembership::new(self.inner.clone())
     }
 
     /// Updates an existing Feature.
@@ -278,62 +251,43 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_feature(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::UpdateFeature {
-        super::builder::gke_hub::UpdateFeature::new(self.inner.clone()).set_name(name.into())
+    pub fn update_feature(&self) -> super::builder::gke_hub::UpdateFeature {
+        super::builder::gke_hub::UpdateFeature::new(self.inner.clone())
     }
 
     /// Generates the manifest for deployment of the GKE connect agent.
     ///
     /// **This method is used internally by Google-provided libraries.**
     /// Most clients should not need to call this method directly.
-    pub fn generate_connect_manifest(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::GenerateConnectManifest {
+    pub fn generate_connect_manifest(&self) -> super::builder::gke_hub::GenerateConnectManifest {
         super::builder::gke_hub::GenerateConnectManifest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::ListOperations {
-        super::builder::gke_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::gke_hub::ListOperations {
+        super::builder::gke_hub::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::GetOperation {
-        super::builder::gke_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::gke_hub::GetOperation {
+        super::builder::gke_hub::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::DeleteOperation {
-        super::builder::gke_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::gke_hub::DeleteOperation {
+        super::builder::gke_hub::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gke_hub::CancelOperation {
-        super::builder::gke_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::gke_hub::CancelOperation {
+        super::builder::gke_hub::CancelOperation::new(self.inner.clone())
     }
 }

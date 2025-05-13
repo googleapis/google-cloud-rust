@@ -46,9 +46,10 @@ impl super::stub::VideoIntelligenceService for VideoIntelligenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v1/videos:annotate".to_string();
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, "/v1/videos:annotate".to_string())
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -63,9 +64,16 @@ impl super::stub::VideoIntelligenceService for VideoIntelligenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -85,9 +93,16 @@ impl super::stub::VideoIntelligenceService for VideoIntelligenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -104,9 +119,16 @@ impl super::stub::VideoIntelligenceService for VideoIntelligenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -127,9 +149,16 @@ impl super::stub::VideoIntelligenceService for VideoIntelligenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

@@ -46,9 +46,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/insights", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/insights", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -68,9 +75,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Insight>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -87,12 +101,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Insight>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:markAccepted", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:markAccepted", req.name),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -107,12 +125,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/recommendations", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/recommendations", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -132,9 +154,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -151,12 +180,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:markDismissed", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:markDismissed", req.name),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -171,12 +204,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:markClaimed", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:markClaimed", req.name),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -191,12 +228,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:markSucceeded", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:markSucceeded", req.name),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -211,12 +252,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:markFailed", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:markFailed", req.name),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -231,9 +276,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -250,18 +302,20 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .recommender_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("recommender_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("recommender_config.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.recommender_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("recommender_config"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -285,9 +339,16 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -304,18 +365,20 @@ impl super::stub::Recommender for Recommender {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .insight_type_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("insight_type_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("insight_type_config.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.insight_type_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("insight_type_config"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

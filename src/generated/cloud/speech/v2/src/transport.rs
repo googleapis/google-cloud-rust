@@ -46,12 +46,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/recognizers", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/recognizers", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -70,12 +74,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRecognizersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/recognizers", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/recognizers", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -95,9 +103,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recognizer>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -114,18 +129,20 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .recognizer
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("recognizer"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("recognizer.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.recognizer
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("recognizer"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -149,9 +166,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -171,9 +195,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:undelete", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:undelete", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -188,12 +219,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecognizeResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:recognize", {
+            let arg = &req.recognizer;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("recognizer"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:recognize", req.recognizer),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -208,12 +243,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:batchRecognize", {
+            let arg = &req.recognizer;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("recognizer"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:batchRecognize", req.recognizer),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -228,9 +267,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Config>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -247,18 +293,20 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Config>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("config.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("config"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -279,12 +327,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/customClasses", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/customClasses", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -303,12 +355,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCustomClassesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/customClasses", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/customClasses", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -328,9 +384,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CustomClass>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -347,18 +410,20 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .custom_class
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("custom_class"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("custom_class.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.custom_class
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("custom_class"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -382,9 +447,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -404,9 +476,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:undelete", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:undelete", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -421,12 +500,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/phraseSets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/phraseSets", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -445,12 +528,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPhraseSetsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/phraseSets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/phraseSets", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -470,9 +557,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PhraseSet>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -489,18 +583,20 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .phrase_set
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("phrase_set"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("phrase_set.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.phrase_set
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("phrase_set"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -524,9 +620,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -546,9 +649,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:undelete", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:undelete", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -563,9 +673,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/locations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/locations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -585,9 +702,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -604,9 +728,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -626,9 +757,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -645,9 +783,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -668,9 +813,16 @@ impl super::stub::Speech for Speech {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

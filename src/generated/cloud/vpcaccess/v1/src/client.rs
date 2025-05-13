@@ -133,31 +133,19 @@ impl VpcAccessService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connector(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::CreateConnector {
+    pub fn create_connector(&self) -> super::builder::vpc_access_service::CreateConnector {
         super::builder::vpc_access_service::CreateConnector::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a Serverless VPC Access connector. Returns NOT_FOUND if the resource
     /// does not exist.
-    pub fn get_connector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::GetConnector {
+    pub fn get_connector(&self) -> super::builder::vpc_access_service::GetConnector {
         super::builder::vpc_access_service::GetConnector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Serverless VPC Access connectors.
-    pub fn list_connectors(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::ListConnectors {
+    pub fn list_connectors(&self) -> super::builder::vpc_access_service::ListConnectors {
         super::builder::vpc_access_service::ListConnectors::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a Serverless VPC Access connector. Returns NOT_FOUND if the
@@ -172,42 +160,26 @@ impl VpcAccessService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::DeleteConnector {
+    pub fn delete_connector(&self) -> super::builder::vpc_access_service::DeleteConnector {
         super::builder::vpc_access_service::DeleteConnector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vpc_access_service::ListLocations {
         super::builder::vpc_access_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vpc_access_service::ListOperations {
         super::builder::vpc_access_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_access_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::vpc_access_service::GetOperation {
         super::builder::vpc_access_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

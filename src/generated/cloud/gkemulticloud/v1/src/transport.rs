@@ -46,12 +46,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/attachedClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/attachedClusters", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -70,18 +74,20 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .attached_cluster
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("attached_cluster"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attached_cluster.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.attached_cluster
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("attached_cluster"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -105,12 +111,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/attachedClusters:import", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/attachedClusters:import", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -125,9 +135,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttachedCluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -144,12 +161,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttachedClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/attachedClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/attachedClusters", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -168,9 +189,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -191,9 +219,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttachedServerConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -211,12 +246,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
     ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:generateAttachedClusterInstallManifest", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:generateAttachedClusterInstallManifest", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -246,15 +285,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
     ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:generateAttachedClusterAgentToken", {
+            let arg = &req.attached_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attached_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/{}:generateAttachedClusterAgentToken",
-                    req.attached_cluster
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -269,9 +309,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -291,9 +338,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -310,9 +364,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -333,9 +394,16 @@ impl super::stub::AttachedClusters for AttachedClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -392,12 +460,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/awsClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/awsClusters", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -416,18 +488,20 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .aws_cluster
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("aws_cluster"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_cluster.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.aws_cluster
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("aws_cluster"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -451,9 +525,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AwsCluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -470,12 +551,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAwsClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/awsClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/awsClusters", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -494,9 +579,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -517,12 +609,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:generateAwsClusterAgentToken", {
+            let arg = &req.aws_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:generateAwsClusterAgentToken", req.aws_cluster),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -537,12 +633,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:generateAwsAccessToken", {
+            let arg = &req.aws_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:generateAwsAccessToken", req.aws_cluster),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -559,12 +659,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/awsNodePools", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/awsNodePools", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -583,18 +687,20 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .aws_node_pool
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("aws_node_pool"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_node_pool.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.aws_node_pool
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("aws_node_pool"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -618,9 +724,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:rollback", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:rollback", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -635,9 +748,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AwsNodePool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -654,12 +774,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/awsNodePools", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/awsNodePools", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -678,9 +802,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -701,12 +832,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AwsOpenIdConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/.well-known/openid-configuration", {
+            let arg = &req.aws_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/.well-known/openid-configuration", req.aws_cluster),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -723,12 +858,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AwsJsonWebKeys>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/jwks", {
+            let arg = &req.aws_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/jwks", req.aws_cluster),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -745,9 +884,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AwsServerConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -764,9 +910,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -786,9 +939,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -805,9 +965,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -828,9 +995,16 @@ impl super::stub::AwsClusters for AwsClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -887,12 +1061,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/azureClients", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/azureClients", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -911,9 +1089,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AzureClient>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -930,12 +1115,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAzureClientsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/azureClients", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/azureClients", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -954,9 +1143,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -975,12 +1171,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/azureClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/azureClusters", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -999,18 +1199,20 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .azure_cluster
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("azure_cluster"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_cluster.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.azure_cluster
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("azure_cluster"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1034,9 +1236,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AzureCluster>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1053,12 +1262,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAzureClustersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/azureClusters", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/azureClusters", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1077,9 +1290,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1100,12 +1320,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:generateAzureClusterAgentToken", {
+            let arg = &req.azure_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:generateAzureClusterAgentToken", req.azure_cluster),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1120,12 +1344,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:generateAzureAccessToken", {
+            let arg = &req.azure_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:generateAzureAccessToken", req.azure_cluster),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1142,12 +1370,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/azureNodePools", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/azureNodePools", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1166,18 +1398,20 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .azure_node_pool
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("azure_node_pool"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_node_pool.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.azure_node_pool
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("azure_node_pool"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1201,9 +1435,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AzureNodePool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1220,12 +1461,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/azureNodePools", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/azureNodePools", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1244,9 +1489,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1267,12 +1519,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AzureOpenIdConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/.well-known/openid-configuration", {
+            let arg = &req.azure_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/.well-known/openid-configuration", req.azure_cluster),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1289,12 +1545,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AzureJsonWebKeys>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/jwks", {
+            let arg = &req.azure_cluster;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_cluster"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/jwks", req.azure_cluster),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1311,9 +1571,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AzureServerConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1330,9 +1597,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1352,9 +1626,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1371,9 +1652,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1394,9 +1682,16 @@ impl super::stub::AzureClusters for AzureClusters {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

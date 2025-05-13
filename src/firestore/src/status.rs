@@ -26,11 +26,11 @@ impl gaxi::prost::ToProto<google::rpc::Status> for rpc::model::Status {
 }
 
 impl gaxi::prost::FromProto<rpc::model::Status> for google::rpc::Status {
-    fn cnv(self) -> rpc::model::Status {
-        rpc::model::Status::new()
+    fn cnv(self) -> Result<rpc::model::Status, gaxi::prost::ConvertError> {
+        Ok(rpc::model::Status::new()
             .set_code(self.code)
             .set_message(self.message)
-            .set_details(self.details.into_iter().filter_map(any_from_prost))
+            .set_details(self.details.into_iter().filter_map(any_from_prost)))
     }
 }
 
@@ -98,43 +98,53 @@ fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
         "type.googleapis.com/google.rpc.BadRequest" => value
             .to_msg::<google::rpc::BadRequest>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.DebugInfo" => value
             .to_msg::<google::rpc::DebugInfo>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.ErrorInfo" => value
             .to_msg::<google::rpc::ErrorInfo>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.Help" => value
             .to_msg::<google::rpc::Help>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.LocalizedMessage" => value
             .to_msg::<google::rpc::LocalizedMessage>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.PreconditionFailure" => value
             .to_msg::<google::rpc::PreconditionFailure>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.QuotaFailure" => value
             .to_msg::<google::rpc::QuotaFailure>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.RequestInfo" => value
             .to_msg::<google::rpc::RequestInfo>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.ResourceInfo" => value
             .to_msg::<google::rpc::ResourceInfo>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         "type.googleapis.com/google.rpc.RetryInfo" => value
             .to_msg::<google::rpc::RetryInfo>()
             .ok()
-            .map(|v| wkt::Any::try_from(&v.cnv())),
+            .and_then(|v| v.cnv().ok())
+            .map(|v| wkt::Any::try_from(&v)),
         _ => None,
     };
     mapped.transpose().ok().flatten()
@@ -147,18 +157,19 @@ mod test {
     use gaxi::prost::ToProto;
 
     #[test]
-    fn from_protok() {
+    fn from_proto() -> anyhow::Result<()> {
         let input = google::rpc::Status {
             code: 12,
             message: "test-message".into(),
             details: prost_details(),
         };
-        let got: rpc::model::Status = input.cnv();
+        let got = input.cnv()?;
         let want = rpc::model::Status::new()
             .set_code(12)
             .set_message("test-message")
             .set_details(wkt_details());
         assert_eq!(got, want);
+        Ok(())
     }
 
     #[test]

@@ -123,38 +123,26 @@ impl RecaptchaEnterpriseService {
     /// Creates an Assessment of the likelihood an event is legitimate.
     pub fn create_assessment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::CreateAssessment {
         super::builder::recaptcha_enterprise_service::CreateAssessment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Annotates a previously created Assessment to provide additional information
     /// on whether the event turned out to be authentic or fraudulent.
     pub fn annotate_assessment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::AnnotateAssessment {
         super::builder::recaptcha_enterprise_service::AnnotateAssessment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new reCAPTCHA Enterprise key.
-    pub fn create_key(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::CreateKey {
+    pub fn create_key(&self) -> super::builder::recaptcha_enterprise_service::CreateKey {
         super::builder::recaptcha_enterprise_service::CreateKey::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the list of all keys that belong to a project.
-    pub fn list_keys(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::ListKeys {
+    pub fn list_keys(&self) -> super::builder::recaptcha_enterprise_service::ListKeys {
         super::builder::recaptcha_enterprise_service::ListKeys::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the secret key related to the specified public key.
@@ -162,39 +150,25 @@ impl RecaptchaEnterpriseService {
     /// legacy reCAPTCHA.
     pub fn retrieve_legacy_secret_key(
         &self,
-        key: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey {
         super::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey::new(
             self.inner.clone(),
         )
-        .set_key(key.into())
     }
 
     /// Returns the specified key.
-    pub fn get_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::GetKey {
+    pub fn get_key(&self) -> super::builder::recaptcha_enterprise_service::GetKey {
         super::builder::recaptcha_enterprise_service::GetKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified key.
-    pub fn update_key(
-        &self,
-        key: impl Into<crate::model::Key>,
-    ) -> super::builder::recaptcha_enterprise_service::UpdateKey {
+    pub fn update_key(&self) -> super::builder::recaptcha_enterprise_service::UpdateKey {
         super::builder::recaptcha_enterprise_service::UpdateKey::new(self.inner.clone())
-            .set_key(key.into())
     }
 
     /// Deletes the specified key.
-    pub fn delete_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::DeleteKey {
+    pub fn delete_key(&self) -> super::builder::recaptcha_enterprise_service::DeleteKey {
         super::builder::recaptcha_enterprise_service::DeleteKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Migrates an existing key from reCAPTCHA to reCAPTCHA Enterprise.
@@ -203,12 +177,8 @@ impl RecaptchaEnterpriseService {
     /// authenticated as one of the current owners of the reCAPTCHA Key, and
     /// your user must have the reCAPTCHA Enterprise Admin IAM role in the
     /// destination project.
-    pub fn migrate_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::MigrateKey {
+    pub fn migrate_key(&self) -> super::builder::recaptcha_enterprise_service::MigrateKey {
         super::builder::recaptcha_enterprise_service::MigrateKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds an IP override to a key. The following restrictions hold:
@@ -216,12 +186,8 @@ impl RecaptchaEnterpriseService {
     /// * The maximum number of IP overrides per key is 100.
     /// * For any conflict (such as IP already exists or IP part of an existing
     ///   IP range), an error is returned.
-    pub fn add_ip_override(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::AddIpOverride {
+    pub fn add_ip_override(&self) -> super::builder::recaptcha_enterprise_service::AddIpOverride {
         super::builder::recaptcha_enterprise_service::AddIpOverride::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Removes an IP override from a key. The following restrictions hold:
@@ -232,29 +198,21 @@ impl RecaptchaEnterpriseService {
     ///   override type does not match, a `NOT_FOUND` error is returned.
     pub fn remove_ip_override(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::RemoveIpOverride {
         super::builder::recaptcha_enterprise_service::RemoveIpOverride::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all IP overrides for a key.
     pub fn list_ip_overrides(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::ListIpOverrides {
         super::builder::recaptcha_enterprise_service::ListIpOverrides::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get some aggregated metrics for a Key. This data can be used to build
     /// dashboards.
-    pub fn get_metrics(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recaptcha_enterprise_service::GetMetrics {
+    pub fn get_metrics(&self) -> super::builder::recaptcha_enterprise_service::GetMetrics {
         super::builder::recaptcha_enterprise_service::GetMetrics::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new FirewallPolicy, specifying conditions at which reCAPTCHA
@@ -262,89 +220,71 @@ impl RecaptchaEnterpriseService {
     /// A project may have a maximum of 1000 policies.
     pub fn create_firewall_policy(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::CreateFirewallPolicy {
         super::builder::recaptcha_enterprise_service::CreateFirewallPolicy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the list of all firewall policies that belong to a project.
     pub fn list_firewall_policies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::ListFirewallPolicies {
         super::builder::recaptcha_enterprise_service::ListFirewallPolicies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified firewall policy.
     pub fn get_firewall_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::GetFirewallPolicy {
         super::builder::recaptcha_enterprise_service::GetFirewallPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified firewall policy.
     pub fn update_firewall_policy(
         &self,
-        firewall_policy: impl Into<crate::model::FirewallPolicy>,
     ) -> super::builder::recaptcha_enterprise_service::UpdateFirewallPolicy {
         super::builder::recaptcha_enterprise_service::UpdateFirewallPolicy::new(self.inner.clone())
-            .set_firewall_policy(firewall_policy.into())
     }
 
     /// Deletes the specified firewall policy.
     pub fn delete_firewall_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::DeleteFirewallPolicy {
         super::builder::recaptcha_enterprise_service::DeleteFirewallPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Reorders all firewall policies.
     pub fn reorder_firewall_policies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies {
         super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// List groups of related accounts.
     pub fn list_related_account_groups(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::ListRelatedAccountGroups {
         super::builder::recaptcha_enterprise_service::ListRelatedAccountGroups::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Get memberships in a group of related accounts.
     pub fn list_related_account_group_memberships(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships {
         super::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Search group memberships related to a given account.
     pub fn search_related_account_group_memberships(
         &self,
-        project: impl Into<std::string::String>,
     ) -> super::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships {
         super::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
     }
 }

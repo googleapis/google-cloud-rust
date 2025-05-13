@@ -126,72 +126,42 @@ impl TranscoderService {
     }
 
     /// Creates a job in the specified region.
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::CreateJob {
+    pub fn create_job(&self) -> super::builder::transcoder_service::CreateJob {
         super::builder::transcoder_service::CreateJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists jobs in the specified region.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::ListJobs {
+    pub fn list_jobs(&self) -> super::builder::transcoder_service::ListJobs {
         super::builder::transcoder_service::ListJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the job data.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::GetJob {
-        super::builder::transcoder_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::transcoder_service::GetJob {
+        super::builder::transcoder_service::GetJob::new(self.inner.clone())
     }
 
     /// Deletes a job.
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::DeleteJob {
-        super::builder::transcoder_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_job(&self) -> super::builder::transcoder_service::DeleteJob {
+        super::builder::transcoder_service::DeleteJob::new(self.inner.clone())
     }
 
     /// Creates a job template in the specified region.
-    pub fn create_job_template(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::CreateJobTemplate {
+    pub fn create_job_template(&self) -> super::builder::transcoder_service::CreateJobTemplate {
         super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists job templates in the specified region.
-    pub fn list_job_templates(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::ListJobTemplates {
+    pub fn list_job_templates(&self) -> super::builder::transcoder_service::ListJobTemplates {
         super::builder::transcoder_service::ListJobTemplates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the job template data.
-    pub fn get_job_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::GetJobTemplate {
+    pub fn get_job_template(&self) -> super::builder::transcoder_service::GetJobTemplate {
         super::builder::transcoder_service::GetJobTemplate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a job template.
-    pub fn delete_job_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::DeleteJobTemplate {
+    pub fn delete_job_template(&self) -> super::builder::transcoder_service::DeleteJobTemplate {
         super::builder::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

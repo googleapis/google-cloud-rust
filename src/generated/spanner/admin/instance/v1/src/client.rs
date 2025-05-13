@@ -142,21 +142,13 @@ impl InstanceAdmin {
     ///
     /// Returns both Google-managed configurations and user-managed
     /// configurations.
-    pub fn list_instance_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::ListInstanceConfigs {
+    pub fn list_instance_configs(&self) -> super::builder::instance_admin::ListInstanceConfigs {
         super::builder::instance_admin::ListInstanceConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information about a particular instance configuration.
-    pub fn get_instance_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::GetInstanceConfig {
+    pub fn get_instance_config(&self) -> super::builder::instance_admin::GetInstanceConfig {
         super::builder::instance_admin::GetInstanceConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an instance configuration and begins preparing it to be used. The
@@ -215,12 +207,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::CreateInstanceConfig {
+    pub fn create_instance_config(&self) -> super::builder::instance_admin::CreateInstanceConfig {
         super::builder::instance_admin::CreateInstanceConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an instance configuration. The returned
@@ -283,12 +271,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance_config(
-        &self,
-        instance_config: impl Into<crate::model::InstanceConfig>,
-    ) -> super::builder::instance_admin::UpdateInstanceConfig {
+    pub fn update_instance_config(&self) -> super::builder::instance_admin::UpdateInstanceConfig {
         super::builder::instance_admin::UpdateInstanceConfig::new(self.inner.clone())
-            .set_instance_config(instance_config.into())
     }
 
     /// Deletes the instance configuration. Deletion is only allowed when no
@@ -301,12 +285,8 @@ impl InstanceAdmin {
     /// the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
     ///
     /// [google.spanner.admin.instance.v1.InstanceConfig.name]: crate::model::InstanceConfig::name
-    pub fn delete_instance_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::DeleteInstanceConfig {
+    pub fn delete_instance_config(&self) -> super::builder::instance_admin::DeleteInstanceConfig {
         super::builder::instance_admin::DeleteInstanceConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists the user-managed instance configuration long-running
@@ -322,36 +302,25 @@ impl InstanceAdmin {
     /// from the most recently started operation.
     pub fn list_instance_config_operations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::instance_admin::ListInstanceConfigOperations {
         super::builder::instance_admin::ListInstanceConfigOperations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all instances in the given project.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::ListInstances {
+    pub fn list_instances(&self) -> super::builder::instance_admin::ListInstances {
         super::builder::instance_admin::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all instance partitions for the given instance.
     pub fn list_instance_partitions(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::instance_admin::ListInstancePartitions {
         super::builder::instance_admin::ListInstancePartitions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information about a particular instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::GetInstance {
-        super::builder::instance_admin::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::instance_admin::GetInstance {
+        super::builder::instance_admin::GetInstance::new(self.inner.clone())
     }
 
     /// Creates an instance and begins preparing it to begin serving. The
@@ -401,12 +370,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::instance_admin::CreateInstance {
         super::builder::instance_admin::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an instance, and begins allocating or releasing resources
@@ -463,12 +428,8 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::instance_admin::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::instance_admin::UpdateInstance {
         super::builder::instance_admin::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Deletes an instance.
@@ -482,12 +443,8 @@ impl InstanceAdmin {
     /// * The instance and *all of its databases* immediately and
     ///   irrevocably disappear from the API. All data in the databases
     ///   is permanently deleted.
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::instance_admin::DeleteInstance {
         super::builder::instance_admin::DeleteInstance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on an instance resource. Replaces any
@@ -497,12 +454,8 @@ impl InstanceAdmin {
     /// [resource][google.iam.v1.SetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.SetIamPolicyRequest.resource]: iam_v1::model::SetIamPolicyRequest::resource
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::instance_admin::SetIamPolicy {
         super::builder::instance_admin::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for an instance resource. Returns an empty
@@ -512,12 +465,8 @@ impl InstanceAdmin {
     /// [resource][google.iam.v1.GetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.GetIamPolicyRequest.resource]: iam_v1::model::GetIamPolicyRequest::resource
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::instance_admin::GetIamPolicy {
         super::builder::instance_admin::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that the caller has on the specified instance resource.
@@ -526,21 +475,13 @@ impl InstanceAdmin {
     /// result in a NOT_FOUND error if the user has `spanner.instances.list`
     /// permission on the containing Google Cloud Project. Otherwise returns an
     /// empty set of permissions.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::instance_admin::TestIamPermissions {
         super::builder::instance_admin::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets information about a particular instance partition.
-    pub fn get_instance_partition(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::GetInstancePartition {
+    pub fn get_instance_partition(&self) -> super::builder::instance_admin::GetInstancePartition {
         super::builder::instance_admin::GetInstancePartition::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an instance partition and begins preparing it to be used. The
@@ -595,10 +536,8 @@ impl InstanceAdmin {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_instance_partition(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::instance_admin::CreateInstancePartition {
         super::builder::instance_admin::CreateInstancePartition::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an existing instance partition. Requires that the
@@ -612,10 +551,8 @@ impl InstanceAdmin {
     /// [google.spanner.admin.instance.v1.InstancePartition.name]: crate::model::InstancePartition::name
     pub fn delete_instance_partition(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::instance_admin::DeleteInstancePartition {
         super::builder::instance_admin::DeleteInstancePartition::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an instance partition, and begins allocating or releasing resources
@@ -678,10 +615,8 @@ impl InstanceAdmin {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_instance_partition(
         &self,
-        instance_partition: impl Into<crate::model::InstancePartition>,
     ) -> super::builder::instance_admin::UpdateInstancePartition {
         super::builder::instance_admin::UpdateInstancePartition::new(self.inner.clone())
-            .set_instance_partition(instance_partition.into())
     }
 
     /// Lists instance partition long-running operations in the given instance.
@@ -702,10 +637,8 @@ impl InstanceAdmin {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest.parent]: crate::model::ListInstancePartitionOperationsRequest::parent
     pub fn list_instance_partition_operations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::instance_admin::ListInstancePartitionOperations {
         super::builder::instance_admin::ListInstancePartitionOperations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Moves an instance to the target instance configuration. You can use the
@@ -785,53 +718,35 @@ impl InstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn move_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::MoveInstance {
-        super::builder::instance_admin::MoveInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn move_instance(&self) -> super::builder::instance_admin::MoveInstance {
+        super::builder::instance_admin::MoveInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::instance_admin::ListOperations {
         super::builder::instance_admin::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::GetOperation {
-        super::builder::instance_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::instance_admin::GetOperation {
+        super::builder::instance_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::instance_admin::DeleteOperation {
         super::builder::instance_admin::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_admin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::instance_admin::CancelOperation {
         super::builder::instance_admin::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

@@ -121,69 +121,49 @@ impl DataTransferService {
     }
 
     /// Retrieves a supported data source and returns its settings.
-    pub fn get_data_source(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::GetDataSource {
+    pub fn get_data_source(&self) -> super::builder::data_transfer_service::GetDataSource {
         super::builder::data_transfer_service::GetDataSource::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists supported data sources and returns their settings.
-    pub fn list_data_sources(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::ListDataSources {
+    pub fn list_data_sources(&self) -> super::builder::data_transfer_service::ListDataSources {
         super::builder::data_transfer_service::ListDataSources::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new data transfer configuration.
     pub fn create_transfer_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_transfer_service::CreateTransferConfig {
         super::builder::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a data transfer configuration.
     /// All fields must be set, even if they are not updated.
     pub fn update_transfer_config(
         &self,
-        transfer_config: impl Into<crate::model::TransferConfig>,
     ) -> super::builder::data_transfer_service::UpdateTransferConfig {
         super::builder::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
-            .set_transfer_config(transfer_config.into())
     }
 
     /// Deletes a data transfer configuration, including any associated transfer
     /// runs and logs.
     pub fn delete_transfer_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_transfer_service::DeleteTransferConfig {
         super::builder::data_transfer_service::DeleteTransferConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns information about a data transfer config.
-    pub fn get_transfer_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::GetTransferConfig {
+    pub fn get_transfer_config(&self) -> super::builder::data_transfer_service::GetTransferConfig {
         super::builder::data_transfer_service::GetTransferConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns information about all transfer configs owned by a project in the
     /// specified location.
     pub fn list_transfer_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_transfer_service::ListTransferConfigs {
         super::builder::data_transfer_service::ListTransferConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates transfer runs for a time range [start_time, end_time].
@@ -194,10 +174,8 @@ impl DataTransferService {
     #[deprecated]
     pub fn schedule_transfer_runs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_transfer_service::ScheduleTransferRuns {
         super::builder::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Start manual transfer runs to be executed now with schedule_time equal to
@@ -206,56 +184,34 @@ impl DataTransferService {
     /// a specific run_time.
     pub fn start_manual_transfer_runs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_transfer_service::StartManualTransferRuns {
         super::builder::data_transfer_service::StartManualTransferRuns::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns information about the particular transfer run.
-    pub fn get_transfer_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::GetTransferRun {
+    pub fn get_transfer_run(&self) -> super::builder::data_transfer_service::GetTransferRun {
         super::builder::data_transfer_service::GetTransferRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the specified transfer run.
-    pub fn delete_transfer_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::DeleteTransferRun {
+    pub fn delete_transfer_run(&self) -> super::builder::data_transfer_service::DeleteTransferRun {
         super::builder::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns information about running and completed transfer runs.
-    pub fn list_transfer_runs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::ListTransferRuns {
+    pub fn list_transfer_runs(&self) -> super::builder::data_transfer_service::ListTransferRuns {
         super::builder::data_transfer_service::ListTransferRuns::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns log messages for the transfer run.
-    pub fn list_transfer_logs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::ListTransferLogs {
+    pub fn list_transfer_logs(&self) -> super::builder::data_transfer_service::ListTransferLogs {
         super::builder::data_transfer_service::ListTransferLogs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns true if valid credentials exist for the given data source and
     /// requesting user.
-    pub fn check_valid_creds(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::CheckValidCreds {
+    pub fn check_valid_creds(&self) -> super::builder::data_transfer_service::CheckValidCreds {
         super::builder::data_transfer_service::CheckValidCreds::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Enroll data sources in a user project. This allows users to create transfer
@@ -266,12 +222,8 @@ impl DataTransferService {
     /// [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
     /// [Data Transfer
     /// Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
-    pub fn enroll_data_sources(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::EnrollDataSources {
+    pub fn enroll_data_sources(&self) -> super::builder::data_transfer_service::EnrollDataSources {
         super::builder::data_transfer_service::EnrollDataSources::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Unenroll data sources in a user project. This allows users to remove
@@ -281,27 +233,17 @@ impl DataTransferService {
     /// configurations of unenrolled data sources will not be scheduled.
     pub fn unenroll_data_sources(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_transfer_service::UnenrollDataSources {
         super::builder::data_transfer_service::UnenrollDataSources::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::data_transfer_service::ListLocations {
         super::builder::data_transfer_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_transfer_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::data_transfer_service::GetLocation {
         super::builder::data_transfer_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

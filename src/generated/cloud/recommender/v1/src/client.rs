@@ -123,20 +123,14 @@ impl Recommender {
 
     /// Lists insights for the specified Cloud Resource. Requires the
     /// recommender.*.list IAM permission for the specified insight type.
-    pub fn list_insights(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::recommender::ListInsights {
-        super::builder::recommender::ListInsights::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_insights(&self) -> super::builder::recommender::ListInsights {
+        super::builder::recommender::ListInsights::new(self.inner.clone())
     }
 
     /// Gets the requested insight. Requires the recommender.*.get IAM permission
     /// for the specified insight type.
-    pub fn get_insight(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recommender::GetInsight {
-        super::builder::recommender::GetInsight::new(self.inner.clone()).set_name(name.into())
+    pub fn get_insight(&self) -> super::builder::recommender::GetInsight {
+        super::builder::recommender::GetInsight::new(self.inner.clone())
     }
 
     /// Marks the Insight State as Accepted. Users can use this method to
@@ -145,32 +139,20 @@ impl Recommender {
     ///
     /// MarkInsightAccepted can be applied to insights in ACTIVE state. Requires
     /// the recommender.*.update IAM permission for the specified insight.
-    pub fn mark_insight_accepted(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recommender::MarkInsightAccepted {
+    pub fn mark_insight_accepted(&self) -> super::builder::recommender::MarkInsightAccepted {
         super::builder::recommender::MarkInsightAccepted::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists recommendations for the specified Cloud Resource. Requires the
     /// recommender.*.list IAM permission for the specified recommender.
-    pub fn list_recommendations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::recommender::ListRecommendations {
+    pub fn list_recommendations(&self) -> super::builder::recommender::ListRecommendations {
         super::builder::recommender::ListRecommendations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the requested recommendation. Requires the recommender.*.get
     /// IAM permission for the specified recommender.
-    pub fn get_recommendation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recommender::GetRecommendation {
+    pub fn get_recommendation(&self) -> super::builder::recommender::GetRecommendation {
         super::builder::recommender::GetRecommendation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Mark the Recommendation State as Dismissed. Users can use this method to
@@ -184,10 +166,8 @@ impl Recommender {
     /// recommender.
     pub fn mark_recommendation_dismissed(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationDismissed {
         super::builder::recommender::MarkRecommendationDismissed::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Marks the Recommendation State as Claimed. Users can use this method to
@@ -202,10 +182,8 @@ impl Recommender {
     /// recommender.
     pub fn mark_recommendation_claimed(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationClaimed {
         super::builder::recommender::MarkRecommendationClaimed::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Marks the Recommendation State as Succeeded. Users can use this method to
@@ -221,10 +199,8 @@ impl Recommender {
     /// recommender.
     pub fn mark_recommendation_succeeded(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationSucceeded {
         super::builder::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Marks the Recommendation State as Failed. Users can use this method to
@@ -240,49 +216,35 @@ impl Recommender {
     /// recommender.
     pub fn mark_recommendation_failed(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationFailed {
         super::builder::recommender::MarkRecommendationFailed::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the requested Recommender Config. There is only one instance of the
     /// config for each Recommender.
-    pub fn get_recommender_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recommender::GetRecommenderConfig {
+    pub fn get_recommender_config(&self) -> super::builder::recommender::GetRecommenderConfig {
         super::builder::recommender::GetRecommenderConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a Recommender Config. This will create a new revision of the
     /// config.
     pub fn update_recommender_config(
         &self,
-        recommender_config: impl Into<crate::model::RecommenderConfig>,
     ) -> super::builder::recommender::UpdateRecommenderConfig {
         super::builder::recommender::UpdateRecommenderConfig::new(self.inner.clone())
-            .set_recommender_config(recommender_config.into())
     }
 
     /// Gets the requested InsightTypeConfig. There is only one instance of the
     /// config for each InsightType.
-    pub fn get_insight_type_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::recommender::GetInsightTypeConfig {
+    pub fn get_insight_type_config(&self) -> super::builder::recommender::GetInsightTypeConfig {
         super::builder::recommender::GetInsightTypeConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an InsightTypeConfig change. This will create a new revision of the
     /// config.
     pub fn update_insight_type_config(
         &self,
-        insight_type_config: impl Into<crate::model::InsightTypeConfig>,
     ) -> super::builder::recommender::UpdateInsightTypeConfig {
         super::builder::recommender::UpdateInsightTypeConfig::new(self.inner.clone())
-            .set_insight_type_config(insight_type_config.into())
     }
 }

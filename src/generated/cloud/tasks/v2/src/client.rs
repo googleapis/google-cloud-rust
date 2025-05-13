@@ -122,19 +122,13 @@ impl CloudTasks {
     /// Lists queues.
     ///
     /// Queues are returned in lexicographical order.
-    pub fn list_queues(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::ListQueues {
-        super::builder::cloud_tasks::ListQueues::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_queues(&self) -> super::builder::cloud_tasks::ListQueues {
+        super::builder::cloud_tasks::ListQueues::new(self.inner.clone())
     }
 
     /// Gets a queue.
-    pub fn get_queue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::GetQueue {
-        super::builder::cloud_tasks::GetQueue::new(self.inner.clone()).set_name(name.into())
+    pub fn get_queue(&self) -> super::builder::cloud_tasks::GetQueue {
+        super::builder::cloud_tasks::GetQueue::new(self.inner.clone())
     }
 
     /// Creates a queue.
@@ -149,11 +143,8 @@ impl CloudTasks {
     /// [Overview of Queue Management and
     /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
     /// this method.
-    pub fn create_queue(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::CreateQueue {
-        super::builder::cloud_tasks::CreateQueue::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_queue(&self) -> super::builder::cloud_tasks::CreateQueue {
+        super::builder::cloud_tasks::CreateQueue::new(self.inner.clone())
     }
 
     /// Updates a queue.
@@ -171,11 +162,8 @@ impl CloudTasks {
     /// [Overview of Queue Management and
     /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
     /// this method.
-    pub fn update_queue(
-        &self,
-        queue: impl Into<crate::model::Queue>,
-    ) -> super::builder::cloud_tasks::UpdateQueue {
-        super::builder::cloud_tasks::UpdateQueue::new(self.inner.clone()).set_queue(queue.into())
+    pub fn update_queue(&self) -> super::builder::cloud_tasks::UpdateQueue {
+        super::builder::cloud_tasks::UpdateQueue::new(self.inner.clone())
     }
 
     /// Deletes a queue.
@@ -191,11 +179,8 @@ impl CloudTasks {
     /// [Overview of Queue Management and
     /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
     /// this method.
-    pub fn delete_queue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::DeleteQueue {
-        super::builder::cloud_tasks::DeleteQueue::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_queue(&self) -> super::builder::cloud_tasks::DeleteQueue {
+        super::builder::cloud_tasks::DeleteQueue::new(self.inner.clone())
     }
 
     /// Purges a queue by deleting all of its tasks.
@@ -204,11 +189,8 @@ impl CloudTasks {
     ///
     /// Purge operations can take up to one minute to take effect. Tasks
     /// might be dispatched before the purge takes effect. A purge is irreversible.
-    pub fn purge_queue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::PurgeQueue {
-        super::builder::cloud_tasks::PurgeQueue::new(self.inner.clone()).set_name(name.into())
+    pub fn purge_queue(&self) -> super::builder::cloud_tasks::PurgeQueue {
+        super::builder::cloud_tasks::PurgeQueue::new(self.inner.clone())
     }
 
     /// Pauses the queue.
@@ -223,11 +205,8 @@ impl CloudTasks {
     /// [google.cloud.tasks.v2.CloudTasks.ResumeQueue]: crate::client::CloudTasks::resume_queue
     /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
     /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
-    pub fn pause_queue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::PauseQueue {
-        super::builder::cloud_tasks::PauseQueue::new(self.inner.clone()).set_name(name.into())
+    pub fn pause_queue(&self) -> super::builder::cloud_tasks::PauseQueue {
+        super::builder::cloud_tasks::PauseQueue::new(self.inner.clone())
     }
 
     /// Resume a queue.
@@ -249,11 +228,8 @@ impl CloudTasks {
     /// [google.cloud.tasks.v2.Queue.State.PAUSED]: crate::model::queue::State::Paused
     /// [google.cloud.tasks.v2.Queue.State.RUNNING]: crate::model::queue::State::Running
     /// [google.cloud.tasks.v2.Queue.state]: crate::model::Queue::state
-    pub fn resume_queue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::ResumeQueue {
-        super::builder::cloud_tasks::ResumeQueue::new(self.inner.clone()).set_name(name.into())
+    pub fn resume_queue(&self) -> super::builder::cloud_tasks::ResumeQueue {
+        super::builder::cloud_tasks::ResumeQueue::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a [Queue][google.cloud.tasks.v2.Queue].
@@ -267,12 +243,8 @@ impl CloudTasks {
     /// * `cloudtasks.queues.getIamPolicy`
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::cloud_tasks::GetIamPolicy {
         super::builder::cloud_tasks::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy for a [Queue][google.cloud.tasks.v2.Queue].
@@ -288,12 +260,8 @@ impl CloudTasks {
     /// * `cloudtasks.queues.setIamPolicy`
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::cloud_tasks::SetIamPolicy {
         super::builder::cloud_tasks::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on a
@@ -306,12 +274,8 @@ impl CloudTasks {
     /// may "fail open" without warning.
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_tasks::TestIamPermissions {
         super::builder::cloud_tasks::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Lists the tasks in a queue.
@@ -326,19 +290,13 @@ impl CloudTasks {
     ///
     /// [google.cloud.tasks.v2.ListTasksRequest.response_view]: crate::model::ListTasksRequest::response_view
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
-    pub fn list_tasks(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::ListTasks {
-        super::builder::cloud_tasks::ListTasks::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_tasks(&self) -> super::builder::cloud_tasks::ListTasks {
+        super::builder::cloud_tasks::ListTasks::new(self.inner.clone())
     }
 
     /// Gets a task.
-    pub fn get_task(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::GetTask {
-        super::builder::cloud_tasks::GetTask::new(self.inner.clone()).set_name(name.into())
+    pub fn get_task(&self) -> super::builder::cloud_tasks::GetTask {
+        super::builder::cloud_tasks::GetTask::new(self.inner.clone())
     }
 
     /// Creates a task and adds it to a queue.
@@ -346,11 +304,8 @@ impl CloudTasks {
     /// Tasks cannot be updated after creation; there is no UpdateTask command.
     ///
     /// * The maximum task size is 100KB.
-    pub fn create_task(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::CreateTask {
-        super::builder::cloud_tasks::CreateTask::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_task(&self) -> super::builder::cloud_tasks::CreateTask {
+        super::builder::cloud_tasks::CreateTask::new(self.inner.clone())
     }
 
     /// Deletes a task.
@@ -358,11 +313,8 @@ impl CloudTasks {
     /// A task can be deleted if it is scheduled or dispatched. A task
     /// cannot be deleted if it has executed successfully or permanently
     /// failed.
-    pub fn delete_task(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::DeleteTask {
-        super::builder::cloud_tasks::DeleteTask::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_task(&self) -> super::builder::cloud_tasks::DeleteTask {
+        super::builder::cloud_tasks::DeleteTask::new(self.inner.clone())
     }
 
     /// Forces a task to run now.
@@ -397,26 +349,17 @@ impl CloudTasks {
     /// [google.cloud.tasks.v2.RateLimits]: crate::model::RateLimits
     /// [google.cloud.tasks.v2.RetryConfig]: crate::model::RetryConfig
     /// [google.cloud.tasks.v2.Task.schedule_time]: crate::model::Task::schedule_time
-    pub fn run_task(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::RunTask {
-        super::builder::cloud_tasks::RunTask::new(self.inner.clone()).set_name(name.into())
+    pub fn run_task(&self) -> super::builder::cloud_tasks::RunTask {
+        super::builder::cloud_tasks::RunTask::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::ListLocations {
-        super::builder::cloud_tasks::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::cloud_tasks::ListLocations {
+        super::builder::cloud_tasks::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_tasks::GetLocation {
-        super::builder::cloud_tasks::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::cloud_tasks::GetLocation {
+        super::builder::cloud_tasks::GetLocation::new(self.inner.clone())
     }
 }

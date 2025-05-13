@@ -46,12 +46,16 @@ impl super::stub::AnalyticsService for AnalyticsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:exportAnalyticsMetrics", {
+            let arg = &req.catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:exportAnalyticsMetrics", req.catalog),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -66,9 +70,16 @@ impl super::stub::AnalyticsService for AnalyticsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -88,9 +99,16 @@ impl super::stub::AnalyticsService for AnalyticsService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -144,9 +162,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCatalogsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/catalogs", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/catalogs", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -165,18 +190,20 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Catalog>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .catalog
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("catalog"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.catalog
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("catalog"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -199,12 +226,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:setDefaultBranch", {
+            let arg = &req.catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:setDefaultBranch", req.catalog),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -224,12 +255,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetDefaultBranchResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}:getDefaultBranch", {
+            let arg = &req.catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}:getDefaultBranch", req.catalog),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -246,9 +281,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CompletionConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -265,18 +307,20 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CompletionConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .completion_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("completion_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("completion_config.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.completion_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("completion_config"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -299,9 +343,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttributesConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -318,18 +369,20 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttributesConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .attributes_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("attributes_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attributes_config.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.attributes_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("attributes_config"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -352,12 +405,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttributesConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:addCatalogAttribute", {
+            let arg = &req.attributes_config;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attributes_config"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:addCatalogAttribute", req.attributes_config),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -372,12 +429,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttributesConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:removeCatalogAttribute", {
+            let arg = &req.attributes_config;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attributes_config"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:removeCatalogAttribute", req.attributes_config),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -392,12 +453,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AttributesConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:replaceCatalogAttribute", {
+            let arg = &req.attributes_config;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attributes_config"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:replaceCatalogAttribute", req.attributes_config),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -412,9 +477,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -434,9 +506,16 @@ impl super::stub::CatalogService for CatalogService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -476,12 +555,16 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CompleteQueryResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}:completeQuery", {
+            let arg = &req.catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}:completeQuery", req.catalog),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -512,12 +595,16 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/completionData:import", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/completionData:import", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -532,9 +619,16 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -554,9 +648,16 @@ impl super::stub::CompletionService for CompletionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -610,12 +711,16 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/controls", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/controls", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -633,9 +738,16 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -656,18 +768,20 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .control
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("control"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("control.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.control
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("control"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -690,9 +804,16 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -709,9 +830,16 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListControlsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/controls", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/controls", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -731,9 +859,16 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -753,9 +888,16 @@ impl super::stub::ControlService for ControlService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -795,20 +937,24 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/generativeQuestionFeature", {
+            let arg = &req
+                .generative_questions_feature_config
+                .as_ref()
+                .ok_or_else(|| {
+                    gaxi::path_parameter::missing("generative_questions_feature_config")
+                })?
+                .catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "generative_questions_feature_config.catalog",
+                ));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}/generativeQuestionFeature",
-                    req.generative_questions_feature_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing(
-                            "generative_questions_feature_config"
-                        ))?
-                        .catalog
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -835,12 +981,16 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/generativeQuestionFeature", {
+            let arg = &req.catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/generativeQuestionFeature", req.catalog),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -857,12 +1007,16 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGenerativeQuestionConfigsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/generativeQuestions", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/generativeQuestions", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -879,18 +1033,22 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/generativeQuestion", {
+            let arg = &req
+                .generative_question_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("generative_question_config"))?
+                .catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "generative_question_config.catalog",
+                ));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}/generativeQuestion",
-                    req.generative_question_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("generative_question_config"))?
-                        .catalog
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -914,12 +1072,16 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
     ) -> Result<gax::response::Response<crate::model::BatchUpdateGenerativeQuestionConfigsResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/generativeQuestion:batchUpdate", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/generativeQuestion:batchUpdate", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -934,9 +1096,16 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -956,9 +1125,16 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -998,9 +1174,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/models", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}/models", req.parent))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1016,9 +1199,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1035,9 +1225,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:pause", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:pause", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1052,9 +1249,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:resume", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:resume", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1069,9 +1273,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1092,9 +1303,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/models", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/models", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1113,18 +1331,20 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .model
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("model"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("model.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.model
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("model"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1145,9 +1365,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:tune", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:tune", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1162,9 +1389,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1184,9 +1418,16 @@ impl super::stub::ModelService for ModelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1240,12 +1481,16 @@ impl super::stub::PredictionService for PredictionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PredictResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:predict", {
+            let arg = &req.placement;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("placement"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:predict", req.placement),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1260,9 +1505,16 @@ impl super::stub::PredictionService for PredictionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1282,9 +1534,16 @@ impl super::stub::PredictionService for PredictionService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1324,12 +1583,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/products", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/products", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1347,9 +1610,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1366,9 +1636,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/products", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/products", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1394,18 +1671,20 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .product
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("product"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.product
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("product"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1429,9 +1708,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1452,12 +1738,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/products:purge", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/products:purge", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1472,12 +1762,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/products:import", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/products:import", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1492,18 +1786,20 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:setInventory", {
+            let arg = &req
+                .inventory
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("inventory"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("inventory.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v2/{}:setInventory",
-                    req.inventory
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("inventory"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1518,12 +1814,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:addFulfillmentPlaces", {
+            let arg = &req.product;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:addFulfillmentPlaces", req.product),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1538,12 +1838,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:removeFulfillmentPlaces", {
+            let arg = &req.product;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:removeFulfillmentPlaces", req.product),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1558,12 +1862,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:addLocalInventories", {
+            let arg = &req.product;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:addLocalInventories", req.product),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1578,12 +1886,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:removeLocalInventories", {
+            let arg = &req.product;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:removeLocalInventories", req.product),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1598,9 +1910,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1620,9 +1939,16 @@ impl super::stub::ProductService for ProductService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1676,12 +2002,16 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:search", {
+            let arg = &req.placement;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("placement"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:search", req.placement),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1696,9 +2026,16 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1718,9 +2055,16 @@ impl super::stub::SearchService for SearchService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1760,12 +2104,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/servingConfigs", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/servingConfigs", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1783,9 +2131,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1806,18 +2161,20 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .serving_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("serving_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("serving_config.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.serving_config
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("serving_config"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1840,9 +2197,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1859,12 +2223,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServingConfigsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/servingConfigs", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/servingConfigs", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1883,12 +2251,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:addControl", {
+            let arg = &req.serving_config;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("serving_config"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:addControl", req.serving_config),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1903,12 +2275,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:removeControl", {
+            let arg = &req.serving_config;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("serving_config"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}:removeControl", req.serving_config),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1923,9 +2299,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1945,9 +2328,16 @@ impl super::stub::ServingConfigService for ServingConfigService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -1987,12 +2377,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserEvent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/userEvents:write", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/userEvents:write", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -2010,12 +2404,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::HttpBody>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/userEvents:collect", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/userEvents:collect", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -2040,12 +2438,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/userEvents:purge", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/userEvents:purge", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -2060,12 +2462,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/userEvents:import", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/userEvents:import", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -2080,12 +2486,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/userEvents:rejoin", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/userEvents:rejoin", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -2100,9 +2510,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/operations", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -2122,9 +2539,16 @@ impl super::stub::UserEventService for UserEventService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

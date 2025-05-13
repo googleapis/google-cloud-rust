@@ -124,19 +124,13 @@ impl Workflows {
 
     /// Lists workflows in a given project and location.
     /// The default order is not specified.
-    pub fn list_workflows(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::workflows::ListWorkflows {
-        super::builder::workflows::ListWorkflows::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_workflows(&self) -> super::builder::workflows::ListWorkflows {
+        super::builder::workflows::ListWorkflows::new(self.inner.clone())
     }
 
     /// Gets details of a single workflow.
-    pub fn get_workflow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::GetWorkflow {
-        super::builder::workflows::GetWorkflow::new(self.inner.clone()).set_name(name.into())
+    pub fn get_workflow(&self) -> super::builder::workflows::GetWorkflow {
+        super::builder::workflows::GetWorkflow::new(self.inner.clone())
     }
 
     /// Creates a new workflow. If a workflow with the specified name already
@@ -152,11 +146,8 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workflow(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::workflows::CreateWorkflow {
-        super::builder::workflows::CreateWorkflow::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_workflow(&self) -> super::builder::workflows::CreateWorkflow {
+        super::builder::workflows::CreateWorkflow::new(self.inner.clone())
     }
 
     /// Deletes a workflow with the specified name.
@@ -172,11 +163,8 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workflow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::DeleteWorkflow {
-        super::builder::workflows::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_workflow(&self) -> super::builder::workflows::DeleteWorkflow {
+        super::builder::workflows::DeleteWorkflow::new(self.inner.clone())
     }
 
     /// Updates an existing workflow.
@@ -194,66 +182,43 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workflow(
-        &self,
-        workflow: impl Into<crate::model::Workflow>,
-    ) -> super::builder::workflows::UpdateWorkflow {
+    pub fn update_workflow(&self) -> super::builder::workflows::UpdateWorkflow {
         super::builder::workflows::UpdateWorkflow::new(self.inner.clone())
-            .set_workflow(workflow.into())
     }
 
     /// Lists revisions for a given workflow.
-    pub fn list_workflow_revisions(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::ListWorkflowRevisions {
+    pub fn list_workflow_revisions(&self) -> super::builder::workflows::ListWorkflowRevisions {
         super::builder::workflows::ListWorkflowRevisions::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::ListLocations {
-        super::builder::workflows::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::workflows::ListLocations {
+        super::builder::workflows::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::GetLocation {
-        super::builder::workflows::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::workflows::GetLocation {
+        super::builder::workflows::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::ListOperations {
-        super::builder::workflows::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::workflows::ListOperations {
+        super::builder::workflows::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::GetOperation {
-        super::builder::workflows::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::workflows::GetOperation {
+        super::builder::workflows::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workflows::DeleteOperation {
-        super::builder::workflows::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::workflows::DeleteOperation {
+        super::builder::workflows::DeleteOperation::new(self.inner.clone())
     }
 }

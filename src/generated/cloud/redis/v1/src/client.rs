@@ -143,31 +143,20 @@ impl CloudRedis {
     ///
     /// If `location_id` is specified as `-` (wildcard), then all regions
     /// available to the project are queried, and the results are aggregated.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::ListInstances {
+    pub fn list_instances(&self) -> super::builder::cloud_redis::ListInstances {
         super::builder::cloud_redis::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a specific Redis instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::GetInstance {
-        super::builder::cloud_redis::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::cloud_redis::GetInstance {
+        super::builder::cloud_redis::GetInstance::new(self.inner.clone())
     }
 
     /// Gets the AUTH string for a Redis instance. If AUTH is not enabled for the
     /// instance the response will be empty. This information is not included in
     /// the details returned to GetInstance.
-    pub fn get_instance_auth_string(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::GetInstanceAuthString {
+    pub fn get_instance_auth_string(&self) -> super::builder::cloud_redis::GetInstanceAuthString {
         super::builder::cloud_redis::GetInstanceAuthString::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a Redis instance based on the specified tier and memory size.
@@ -192,12 +181,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::cloud_redis::CreateInstance {
         super::builder::cloud_redis::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the metadata and configuration of a specific Redis instance.
@@ -215,12 +200,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::cloud_redis::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::cloud_redis::UpdateInstance {
         super::builder::cloud_redis::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Upgrades Redis instance to the newer Redis version specified in the
@@ -235,11 +216,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upgrade_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::UpgradeInstance {
-        super::builder::cloud_redis::UpgradeInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn upgrade_instance(&self) -> super::builder::cloud_redis::UpgradeInstance {
+        super::builder::cloud_redis::UpgradeInstance::new(self.inner.clone())
     }
 
     /// Import a Redis RDB snapshot file from Cloud Storage into a Redis instance.
@@ -260,11 +238,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::ImportInstance {
-        super::builder::cloud_redis::ImportInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn import_instance(&self) -> super::builder::cloud_redis::ImportInstance {
+        super::builder::cloud_redis::ImportInstance::new(self.inner.clone())
     }
 
     /// Export Redis instance data into a Redis RDB format file in Cloud Storage.
@@ -283,11 +258,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::ExportInstance {
-        super::builder::cloud_redis::ExportInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn export_instance(&self) -> super::builder::cloud_redis::ExportInstance {
+        super::builder::cloud_redis::ExportInstance::new(self.inner.clone())
     }
 
     /// Initiates a failover of the primary node to current replica node for a
@@ -302,11 +274,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn failover_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::FailoverInstance {
-        super::builder::cloud_redis::FailoverInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn failover_instance(&self) -> super::builder::cloud_redis::FailoverInstance {
+        super::builder::cloud_redis::FailoverInstance::new(self.inner.clone())
     }
 
     /// Deletes a specific Redis instance.  Instance stops serving and data is
@@ -321,11 +290,8 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::DeleteInstance {
-        super::builder::cloud_redis::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::cloud_redis::DeleteInstance {
+        super::builder::cloud_redis::DeleteInstance::new(self.inner.clone())
     }
 
     /// Reschedule maintenance for a given instance in a given project and
@@ -340,67 +306,45 @@ impl CloudRedis {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reschedule_maintenance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::RescheduleMaintenance {
+    pub fn reschedule_maintenance(&self) -> super::builder::cloud_redis::RescheduleMaintenance {
         super::builder::cloud_redis::RescheduleMaintenance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::ListLocations {
-        super::builder::cloud_redis::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::cloud_redis::ListLocations {
+        super::builder::cloud_redis::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::GetLocation {
-        super::builder::cloud_redis::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::cloud_redis::GetLocation {
+        super::builder::cloud_redis::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::ListOperations {
-        super::builder::cloud_redis::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::cloud_redis::ListOperations {
+        super::builder::cloud_redis::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::GetOperation {
-        super::builder::cloud_redis::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::cloud_redis::GetOperation {
+        super::builder::cloud_redis::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::DeleteOperation {
-        super::builder::cloud_redis::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::cloud_redis::DeleteOperation {
+        super::builder::cloud_redis::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_redis::CancelOperation {
-        super::builder::cloud_redis::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::cloud_redis::CancelOperation {
+        super::builder::cloud_redis::CancelOperation::new(self.inner.clone())
     }
 }

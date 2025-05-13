@@ -123,28 +123,18 @@ impl LookupService {
     /// Resolving a service is not considered an active developer method.
     ///
     /// [google.cloud.servicedirectory.v1.Service]: crate::model::Service
-    pub fn resolve_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lookup_service::ResolveService {
+    pub fn resolve_service(&self) -> super::builder::lookup_service::ResolveService {
         super::builder::lookup_service::ResolveService::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lookup_service::ListLocations {
-        super::builder::lookup_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::lookup_service::ListLocations {
+        super::builder::lookup_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lookup_service::GetLocation {
-        super::builder::lookup_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::lookup_service::GetLocation {
+        super::builder::lookup_service::GetLocation::new(self.inner.clone())
     }
 }
 
@@ -270,184 +260,104 @@ impl RegistrationService {
     }
 
     /// Creates a namespace, and returns the new namespace.
-    pub fn create_namespace(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::CreateNamespace {
+    pub fn create_namespace(&self) -> super::builder::registration_service::CreateNamespace {
         super::builder::registration_service::CreateNamespace::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all namespaces.
-    pub fn list_namespaces(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::ListNamespaces {
+    pub fn list_namespaces(&self) -> super::builder::registration_service::ListNamespaces {
         super::builder::registration_service::ListNamespaces::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a namespace.
-    pub fn get_namespace(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::GetNamespace {
+    pub fn get_namespace(&self) -> super::builder::registration_service::GetNamespace {
         super::builder::registration_service::GetNamespace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a namespace.
-    pub fn update_namespace(
-        &self,
-        namespace: impl Into<crate::model::Namespace>,
-    ) -> super::builder::registration_service::UpdateNamespace {
+    pub fn update_namespace(&self) -> super::builder::registration_service::UpdateNamespace {
         super::builder::registration_service::UpdateNamespace::new(self.inner.clone())
-            .set_namespace(namespace.into())
     }
 
     /// Deletes a namespace. This also deletes all services and endpoints in
     /// the namespace.
-    pub fn delete_namespace(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::DeleteNamespace {
+    pub fn delete_namespace(&self) -> super::builder::registration_service::DeleteNamespace {
         super::builder::registration_service::DeleteNamespace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a service, and returns the new service.
-    pub fn create_service(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::CreateService {
+    pub fn create_service(&self) -> super::builder::registration_service::CreateService {
         super::builder::registration_service::CreateService::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all services belonging to a namespace.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::ListServices {
+    pub fn list_services(&self) -> super::builder::registration_service::ListServices {
         super::builder::registration_service::ListServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a service.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::GetService {
+    pub fn get_service(&self) -> super::builder::registration_service::GetService {
         super::builder::registration_service::GetService::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a service.
-    pub fn update_service(
-        &self,
-        service: impl Into<crate::model::Service>,
-    ) -> super::builder::registration_service::UpdateService {
+    pub fn update_service(&self) -> super::builder::registration_service::UpdateService {
         super::builder::registration_service::UpdateService::new(self.inner.clone())
-            .set_service(service.into())
     }
 
     /// Deletes a service. This also deletes all endpoints associated with
     /// the service.
-    pub fn delete_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::DeleteService {
+    pub fn delete_service(&self) -> super::builder::registration_service::DeleteService {
         super::builder::registration_service::DeleteService::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an endpoint, and returns the new endpoint.
-    pub fn create_endpoint(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::CreateEndpoint {
+    pub fn create_endpoint(&self) -> super::builder::registration_service::CreateEndpoint {
         super::builder::registration_service::CreateEndpoint::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all endpoints.
-    pub fn list_endpoints(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::ListEndpoints {
+    pub fn list_endpoints(&self) -> super::builder::registration_service::ListEndpoints {
         super::builder::registration_service::ListEndpoints::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an endpoint.
-    pub fn get_endpoint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::GetEndpoint {
+    pub fn get_endpoint(&self) -> super::builder::registration_service::GetEndpoint {
         super::builder::registration_service::GetEndpoint::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an endpoint.
-    pub fn update_endpoint(
-        &self,
-        endpoint: impl Into<crate::model::Endpoint>,
-    ) -> super::builder::registration_service::UpdateEndpoint {
+    pub fn update_endpoint(&self) -> super::builder::registration_service::UpdateEndpoint {
         super::builder::registration_service::UpdateEndpoint::new(self.inner.clone())
-            .set_endpoint(endpoint.into())
     }
 
     /// Deletes an endpoint.
-    pub fn delete_endpoint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::DeleteEndpoint {
+    pub fn delete_endpoint(&self) -> super::builder::registration_service::DeleteEndpoint {
         super::builder::registration_service::DeleteEndpoint::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the IAM Policy for a resource (namespace or service only).
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::registration_service::GetIamPolicy {
         super::builder::registration_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the IAM Policy for a resource (namespace or service only).
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::registration_service::SetIamPolicy {
         super::builder::registration_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Tests IAM permissions for a resource (namespace or service only).
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::registration_service::TestIamPermissions {
         super::builder::registration_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::registration_service::ListLocations {
         super::builder::registration_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::registration_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::registration_service::GetLocation {
         super::builder::registration_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

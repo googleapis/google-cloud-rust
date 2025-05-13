@@ -694,6 +694,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
+        let now = std::time::Instant::now();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -717,7 +718,6 @@ mod test {
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
 
-        let now = std::time::Instant::now();
         let token = cred.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");

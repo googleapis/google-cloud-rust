@@ -46,12 +46,10 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v2/documents:analyzeSentiment".to_string();
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                "/v2/documents:analyzeSentiment".to_string(),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -66,12 +64,10 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v2/documents:analyzeEntities".to_string();
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                "/v2/documents:analyzeEntities".to_string(),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -86,12 +82,10 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v2/documents:classifyText".to_string();
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                "/v2/documents:classifyText".to_string(),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -106,12 +100,10 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v2/documents:moderateText".to_string();
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                "/v2/documents:moderateText".to_string(),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -126,12 +118,10 @@ impl super::stub::LanguageService for LanguageService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v2/documents:annotateText".to_string();
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                "/v2/documents:annotateText".to_string(),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

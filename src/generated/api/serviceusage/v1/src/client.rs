@@ -133,11 +133,8 @@ impl ServiceUsage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn enable_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::EnableService {
-        super::builder::service_usage::EnableService::new(self.inner.clone()).set_name(name.into())
+    pub fn enable_service(&self) -> super::builder::service_usage::EnableService {
+        super::builder::service_usage::EnableService::new(self.inner.clone())
     }
 
     /// Disable a service so that it can no longer be used with a project.
@@ -157,19 +154,13 @@ impl ServiceUsage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn disable_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::DisableService {
-        super::builder::service_usage::DisableService::new(self.inner.clone()).set_name(name.into())
+    pub fn disable_service(&self) -> super::builder::service_usage::DisableService {
+        super::builder::service_usage::DisableService::new(self.inner.clone())
     }
 
     /// Returns the service configuration and enabled state for a given service.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::GetService {
-        super::builder::service_usage::GetService::new(self.inner.clone()).set_name(name.into())
+    pub fn get_service(&self) -> super::builder::service_usage::GetService {
+        super::builder::service_usage::GetService::new(self.inner.clone())
     }
 
     /// List all services available to the specified project, and the current
@@ -185,12 +176,8 @@ impl ServiceUsage {
     /// [Cloud Asset Inventory
     /// API](https://cloud.google.com/asset-inventory/docs/apis), which provides
     /// higher throughput and richer filtering capability.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::ListServices {
+    pub fn list_services(&self) -> super::builder::service_usage::ListServices {
         super::builder::service_usage::ListServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Enable multiple services on a project. The operation is atomic: if enabling
@@ -206,22 +193,14 @@ impl ServiceUsage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_enable_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::BatchEnableServices {
+    pub fn batch_enable_services(&self) -> super::builder::service_usage::BatchEnableServices {
         super::builder::service_usage::BatchEnableServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the service configurations and enabled states for a given list of
     /// services.
-    pub fn batch_get_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::BatchGetServices {
+    pub fn batch_get_services(&self) -> super::builder::service_usage::BatchGetServices {
         super::builder::service_usage::BatchGetServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -234,10 +213,7 @@ impl ServiceUsage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::GetOperation {
-        super::builder::service_usage::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::service_usage::GetOperation {
+        super::builder::service_usage::GetOperation::new(self.inner.clone())
     }
 }

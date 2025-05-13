@@ -123,36 +123,22 @@ impl Executions {
     /// the given name. The method returns executions of all workflow
     /// revisions. Returned executions are ordered by their start time (newest
     /// first).
-    pub fn list_executions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::executions::ListExecutions {
+    pub fn list_executions(&self) -> super::builder::executions::ListExecutions {
         super::builder::executions::ListExecutions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new execution using the latest revision of the given workflow.
-    pub fn create_execution(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::executions::CreateExecution {
+    pub fn create_execution(&self) -> super::builder::executions::CreateExecution {
         super::builder::executions::CreateExecution::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns an execution of the given name.
-    pub fn get_execution(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::GetExecution {
-        super::builder::executions::GetExecution::new(self.inner.clone()).set_name(name.into())
+    pub fn get_execution(&self) -> super::builder::executions::GetExecution {
+        super::builder::executions::GetExecution::new(self.inner.clone())
     }
 
     /// Cancels an execution of the given name.
-    pub fn cancel_execution(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::executions::CancelExecution {
-        super::builder::executions::CancelExecution::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution {
+        super::builder::executions::CancelExecution::new(self.inner.clone())
     }
 }

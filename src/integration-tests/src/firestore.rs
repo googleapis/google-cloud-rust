@@ -52,10 +52,11 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
     let client = builder.build().await?;
     let collection_id = new_collection_id();
     let response = client
-        .create_document(
-            format!("projects/{project_id}/databases/(default)/documents"),
-            &collection_id,
-        )
+        .create_document()
+        .set_parent(format!(
+            "projects/{project_id}/databases/(default)/documents"
+        ))
+        .set_collection_id(&collection_id)
         .set_document(model::Document::new().set_fields([
             (
                 "greeting",
@@ -71,14 +72,19 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
     println!("SUCCESS on create_document: {response:?}");
 
     let document_name = response.name;
-    let response = client.get_document(&document_name).send().await?;
+    let response = client
+        .get_document()
+        .set_name(&document_name)
+        .send()
+        .await?;
     println!("SUCCESS on get_document: {response:?}");
 
     let mut documents = client
-        .list_documents(
-            format!("projects/{project_id}/databases/(default)/documents"),
-            &collection_id,
-        )
+        .list_documents()
+        .set_parent(format!(
+            "projects/{project_id}/databases/(default)/documents"
+        ))
+        .set_collection_id(&collection_id)
         .by_item();
     while let Some(doc) = documents.next().await {
         let doc = doc?;
@@ -87,7 +93,8 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
     println!("SUCCESS on list_documents:");
 
     let response = client
-        .update_document(
+        .update_document()
+        .set_document(
             model::Document::new()
                 .set_name(&document_name)
                 .set_fields([("greeting", model::Value::new().set_string_value("Goodbye."))]),
@@ -97,7 +104,11 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
         .await?;
     println!("SUCCESS on update_document: {response:?}");
 
-    client.delete_document(&document_name).send().await?;
+    client
+        .delete_document()
+        .set_name(&document_name)
+        .send()
+        .await?;
     println!("SUCCESS on delete_document");
 
     Ok(())
@@ -122,10 +133,10 @@ async fn cleanup_stale_documents() -> Result<()> {
 
     let project_id = crate::project_id()?;
     let mut documents = client
-        .list_documents(
-            format!("projects/{project_id}/databases/(default)/documents"),
-            "",
-        )
+        .list_documents()
+        .set_parent(format!(
+            "projects/{project_id}/databases/(default)/documents"
+        ))
         .by_item();
     while let Some(doc) = documents.next().await {
         let doc = doc?;
@@ -141,7 +152,7 @@ async fn cleanup_stale_documents() -> Result<()> {
     let stale_documents = stale_documents;
     let pending = stale_documents
         .iter()
-        .map(|name| client.delete_document(name).send())
+        .map(|name| client.delete_document().set_name(name).send())
         .collect::<Vec<_>>();
 
     futures::future::join_all(pending)

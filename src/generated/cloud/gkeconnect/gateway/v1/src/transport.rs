@@ -46,12 +46,16 @@ impl super::stub::GatewayControl for GatewayControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:generateCredentials", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:generateCredentials", req.name),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

@@ -43,7 +43,8 @@ pub async fn run_sql_instances_service(
 
     println!("\nTesting insert sql instance");
     let insert = client
-        .insert(&project_id)
+        .insert()
+        .set_project(&project_id)
         .set_body(
             model::DatabaseInstance::new().set_name(&name).set_settings(
                 model::Settings::new()
@@ -57,7 +58,12 @@ pub async fn run_sql_instances_service(
     assert_eq!(insert.target_id, name);
 
     println!("Testing get sql instance");
-    let get = client.get(&project_id, &name).send().await?;
+    let get = client
+        .get()
+        .set_project(&project_id)
+        .set_instance(&name)
+        .send()
+        .await?;
     println!("SUCCESS on get sql instance: {get:?}");
     assert_eq!(get.name, name);
     let settings = get
@@ -67,7 +73,8 @@ pub async fn run_sql_instances_service(
 
     println!("Testing list sql instances");
     let list = client
-        .list(&project_id)
+        .list()
+        .set_project(&project_id)
         .set_filter(format!("name:{name}"))
         .by_item()
         .into_stream();
@@ -75,7 +82,12 @@ pub async fn run_sql_instances_service(
     assert_eq!(list.count().await, 1);
 
     println!("Testing delete sql instance");
-    let delete = client.delete(&project_id, &name).send().await?;
+    let delete = client
+        .delete()
+        .set_project(&project_id)
+        .set_instance(&name)
+        .send()
+        .await?;
     println!("SUCCESS on delete sql instance: {delete:?}");
     assert_eq!(delete.target_id, name);
 
@@ -110,7 +122,8 @@ async fn cleanup_stale_sql_instances(
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let instances = client
-        .list(project_id)
+        .list()
+        .set_project(project_id)
         .set_filter(format!(
             "name:{PREFIX}* AND settings.userLabels.{INSTANCE_LABEL}:true"
         ))
@@ -165,7 +178,7 @@ pub async fn run_sql_tiers_service(
     let project_id = crate::project_id()?;
     let client: sql::client::SqlTiersService = builder.build().await?;
 
-    let list = client.list(&project_id).send().await?;
+    let list = client.list().set_project(&project_id).send().await?;
 
     assert_ne!(
         list.items

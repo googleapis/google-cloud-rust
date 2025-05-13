@@ -138,20 +138,13 @@ impl OrgPolicy {
     }
 
     /// Lists constraints that could be applied on the specified resource.
-    pub fn list_constraints(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::ListConstraints {
+    pub fn list_constraints(&self) -> super::builder::org_policy::ListConstraints {
         super::builder::org_policy::ListConstraints::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves all of the policies that exist on a particular resource.
-    pub fn list_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::ListPolicies {
-        super::builder::org_policy::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_policies(&self) -> super::builder::org_policy::ListPolicies {
+        super::builder::org_policy::ListPolicies::new(self.inner.clone())
     }
 
     /// Gets a policy on a resource.
@@ -159,11 +152,8 @@ impl OrgPolicy {
     /// If no policy is set on the resource, `NOT_FOUND` is returned. The
     /// `etag` value can be used with `UpdatePolicy()` to update a
     /// policy during read-modify-write.
-    pub fn get_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::GetPolicy {
-        super::builder::org_policy::GetPolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn get_policy(&self) -> super::builder::org_policy::GetPolicy {
+        super::builder::org_policy::GetPolicy::new(self.inner.clone())
     }
 
     /// Gets the effective policy on a resource. This is the result of merging
@@ -172,12 +162,8 @@ impl OrgPolicy {
     /// an evaluated policy across multiple resources.
     /// Subtrees of Resource Manager resource hierarchy with 'under:' prefix will
     /// not be expanded.
-    pub fn get_effective_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::GetEffectivePolicy {
+    pub fn get_effective_policy(&self) -> super::builder::org_policy::GetEffectivePolicy {
         super::builder::org_policy::GetEffectivePolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a policy.
@@ -186,11 +172,8 @@ impl OrgPolicy {
     /// constraint does not exist.
     /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
     /// policy already exists on the given Google Cloud resource.
-    pub fn create_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::CreatePolicy {
-        super::builder::org_policy::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_policy(&self) -> super::builder::org_policy::CreatePolicy {
+        super::builder::org_policy::CreatePolicy::new(self.inner.clone())
     }
 
     /// Updates a policy.
@@ -202,22 +185,16 @@ impl OrgPolicy {
     ///
     /// Note: the supplied policy will perform a full overwrite of all
     /// fields.
-    pub fn update_policy(
-        &self,
-        policy: impl Into<crate::model::Policy>,
-    ) -> super::builder::org_policy::UpdatePolicy {
-        super::builder::org_policy::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
+    pub fn update_policy(&self) -> super::builder::org_policy::UpdatePolicy {
+        super::builder::org_policy::UpdatePolicy::new(self.inner.clone())
     }
 
     /// Deletes a policy.
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// constraint or organization policy does not exist.
-    pub fn delete_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::DeletePolicy {
-        super::builder::org_policy::DeletePolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_policy(&self) -> super::builder::org_policy::DeletePolicy {
+        super::builder::org_policy::DeletePolicy::new(self.inner.clone())
     }
 
     /// Creates a custom constraint.
@@ -226,12 +203,8 @@ impl OrgPolicy {
     /// organization does not exist.
     /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
     /// constraint already exists on the given organization.
-    pub fn create_custom_constraint(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::CreateCustomConstraint {
+    pub fn create_custom_constraint(&self) -> super::builder::org_policy::CreateCustomConstraint {
         super::builder::org_policy::CreateCustomConstraint::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a custom constraint.
@@ -241,45 +214,29 @@ impl OrgPolicy {
     ///
     /// Note: the supplied policy will perform a full overwrite of all
     /// fields.
-    pub fn update_custom_constraint(
-        &self,
-        custom_constraint: impl Into<crate::model::CustomConstraint>,
-    ) -> super::builder::org_policy::UpdateCustomConstraint {
+    pub fn update_custom_constraint(&self) -> super::builder::org_policy::UpdateCustomConstraint {
         super::builder::org_policy::UpdateCustomConstraint::new(self.inner.clone())
-            .set_custom_constraint(custom_constraint.into())
     }
 
     /// Gets a custom or managed constraint.
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// custom or managed constraint does not exist.
-    pub fn get_custom_constraint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::GetCustomConstraint {
+    pub fn get_custom_constraint(&self) -> super::builder::org_policy::GetCustomConstraint {
         super::builder::org_policy::GetCustomConstraint::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves all of the custom constraints that exist on a particular
     /// organization resource.
-    pub fn list_custom_constraints(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::ListCustomConstraints {
+    pub fn list_custom_constraints(&self) -> super::builder::org_policy::ListCustomConstraints {
         super::builder::org_policy::ListCustomConstraints::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a custom constraint.
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// constraint does not exist.
-    pub fn delete_custom_constraint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::org_policy::DeleteCustomConstraint {
+    pub fn delete_custom_constraint(&self) -> super::builder::org_policy::DeleteCustomConstraint {
         super::builder::org_policy::DeleteCustomConstraint::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

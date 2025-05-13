@@ -123,12 +123,8 @@ impl KeyDashboardService {
     /// Returns cryptographic keys managed by Cloud KMS in a given Cloud project.
     /// Note that this data is sourced from snapshots, meaning it may not
     /// completely reflect the actual state of key metadata at call time.
-    pub fn list_crypto_keys(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::key_dashboard_service::ListCryptoKeys {
+    pub fn list_crypto_keys(&self) -> super::builder::key_dashboard_service::ListCryptoKeys {
         super::builder::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }
 
@@ -244,10 +240,8 @@ impl KeyTrackingService {
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     pub fn get_protected_resources_summary(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
         super::builder::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns metadata about the resources protected by the given Cloud KMS
@@ -256,9 +250,7 @@ impl KeyTrackingService {
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     pub fn search_protected_resources(
         &self,
-        scope: impl Into<std::string::String>,
     ) -> super::builder::key_tracking_service::SearchProtectedResources {
         super::builder::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 }
