@@ -69,6 +69,21 @@ pub mod text_to_speech {
     }
 
     /// The request builder for [TextToSpeech::list_voices][super::super::client::TextToSpeech::list_voices] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::ListVoices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVoices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVoices(RequestBuilder<crate::model::ListVoicesRequest>);
 
@@ -114,6 +129,21 @@ pub mod text_to_speech {
     }
 
     /// The request builder for [TextToSpeech::synthesize_speech][super::super::client::TextToSpeech::synthesize_speech] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::SynthesizeSpeech;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SynthesizeSpeech {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SynthesizeSpeech(RequestBuilder<crate::model::SynthesizeSpeechRequest>);
 
@@ -200,6 +230,25 @@ pub mod text_to_speech {
     }
 
     /// The request builder for [TextToSpeech::list_operations][super::super::client::TextToSpeech::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -292,6 +341,21 @@ pub mod text_to_speech {
     }
 
     /// The request builder for [TextToSpeech::get_operation][super::super::client::TextToSpeech::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -395,6 +459,22 @@ pub mod text_to_speech_long_audio_synthesize {
     }
 
     /// The request builder for [TextToSpeechLongAudioSynthesize::synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_texttospeech_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SynthesizeLongAudio {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SynthesizeLongAudio(RequestBuilder<crate::model::SynthesizeLongAudioRequest>);
 
@@ -527,6 +607,25 @@ pub mod text_to_speech_long_audio_synthesize {
     }
 
     /// The request builder for [TextToSpeechLongAudioSynthesize::list_operations][super::super::client::TextToSpeechLongAudioSynthesize::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech_long_audio_synthesize::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -619,6 +718,21 @@ pub mod text_to_speech_long_audio_synthesize {
     }
 
     /// The request builder for [TextToSpeechLongAudioSynthesize::get_operation][super::super::client::TextToSpeechLongAudioSynthesize::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech_long_audio_synthesize::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

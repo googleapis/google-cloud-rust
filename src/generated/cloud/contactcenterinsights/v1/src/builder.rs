@@ -69,6 +69,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_conversation][super::super::client::ContactCenterInsights::create_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateConversation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConversation(RequestBuilder<crate::model::CreateConversationRequest>);
 
@@ -136,6 +151,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::upload_conversation][super::super::client::ContactCenterInsights::upload_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UploadConversation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UploadConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UploadConversation(RequestBuilder<crate::model::UploadConversationRequest>);
 
@@ -262,6 +293,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_conversation][super::super::client::ContactCenterInsights::update_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateConversation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConversation(RequestBuilder<crate::model::UpdateConversationRequest>);
 
@@ -324,6 +370,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_conversation][super::super::client::ContactCenterInsights::get_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetConversation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConversation(RequestBuilder<crate::model::GetConversationRequest>);
 
@@ -377,6 +438,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_conversations][super::super::client::ContactCenterInsights::list_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListConversations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConversations(RequestBuilder<crate::model::ListConversationsRequest>);
 
@@ -481,6 +561,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_conversation][super::super::client::ContactCenterInsights::delete_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteConversation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConversation(RequestBuilder<crate::model::DeleteConversationRequest>);
 
@@ -537,6 +632,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_analysis][super::super::client::ContactCenterInsights::create_analysis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateAnalysis;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnalysis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnalysis(RequestBuilder<crate::model::CreateAnalysisRequest>);
 
@@ -636,6 +747,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_analysis][super::super::client::ContactCenterInsights::get_analysis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetAnalysis;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnalysis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnalysis(RequestBuilder<crate::model::GetAnalysisRequest>);
 
@@ -683,6 +809,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_analyses][super::super::client::ContactCenterInsights::list_analyses] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListAnalyses;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAnalyses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAnalyses(RequestBuilder<crate::model::ListAnalysesRequest>);
 
@@ -772,6 +917,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_analysis][super::super::client::ContactCenterInsights::delete_analysis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteAnalysis;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAnalysis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAnalysis(RequestBuilder<crate::model::DeleteAnalysisRequest>);
 
@@ -819,6 +979,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::bulk_analyze_conversations][super::super::client::ContactCenterInsights::bulk_analyze_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkAnalyzeConversations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkAnalyzeConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkAnalyzeConversations(
         RequestBuilder<crate::model::BulkAnalyzeConversationsRequest>,
@@ -941,6 +1117,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::bulk_delete_conversations][super::super::client::ContactCenterInsights::bulk_delete_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkDeleteConversations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkDeleteConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDeleteConversations(
         RequestBuilder<crate::model::BulkDeleteConversationsRequest>,
@@ -1054,6 +1246,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::ingest_conversations][super::super::client::ContactCenterInsights::ingest_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::IngestConversations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> IngestConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct IngestConversations(RequestBuilder<crate::model::IngestConversationsRequest>);
 
@@ -1246,6 +1454,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::export_insights_data][super::super::client::ContactCenterInsights::export_insights_data] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ExportInsightsData;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportInsightsData {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportInsightsData(RequestBuilder<crate::model::ExportInsightsDataRequest>);
 
@@ -1395,6 +1619,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_issue_model][super::super::client::ContactCenterInsights::create_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateIssueModel(RequestBuilder<crate::model::CreateIssueModelRequest>);
 
@@ -1497,6 +1737,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_issue_model][super::super::client::ContactCenterInsights::update_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateIssueModel(RequestBuilder<crate::model::UpdateIssueModelRequest>);
 
@@ -1559,6 +1814,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_issue_model][super::super::client::ContactCenterInsights::get_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIssueModel(RequestBuilder<crate::model::GetIssueModelRequest>);
 
@@ -1606,6 +1876,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_issue_models][super::super::client::ContactCenterInsights::list_issue_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListIssueModels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIssueModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIssueModels(RequestBuilder<crate::model::ListIssueModelsRequest>);
 
@@ -1653,6 +1938,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_issue_model][super::super::client::ContactCenterInsights::delete_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIssueModel(RequestBuilder<crate::model::DeleteIssueModelRequest>);
 
@@ -1744,6 +2045,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::deploy_issue_model][super::super::client::ContactCenterInsights::deploy_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeployIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployIssueModel(RequestBuilder<crate::model::DeployIssueModelRequest>);
 
@@ -1837,6 +2154,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::undeploy_issue_model][super::super::client::ContactCenterInsights::undeploy_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UndeployIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeployIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployIssueModel(RequestBuilder<crate::model::UndeployIssueModelRequest>);
 
@@ -1930,6 +2263,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::export_issue_model][super::super::client::ContactCenterInsights::export_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ExportIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportIssueModel(RequestBuilder<crate::model::ExportIssueModelRequest>);
 
@@ -2054,6 +2403,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::import_issue_model][super::super::client::ContactCenterInsights::import_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ImportIssueModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportIssueModel(RequestBuilder<crate::model::ImportIssueModelRequest>);
 
@@ -2182,6 +2547,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_issue][super::super::client::ContactCenterInsights::get_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetIssue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
 
@@ -2229,6 +2609,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_issues][super::super::client::ContactCenterInsights::list_issues] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListIssues;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIssues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
 
@@ -2276,6 +2671,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_issue][super::super::client::ContactCenterInsights::update_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateIssue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
 
@@ -2335,6 +2745,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_issue][super::super::client::ContactCenterInsights::delete_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteIssue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
 
@@ -2382,6 +2807,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::calculate_issue_model_stats][super::super::client::ContactCenterInsights::calculate_issue_model_stats] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CalculateIssueModelStats;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CalculateIssueModelStats {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CalculateIssueModelStats(
         RequestBuilder<crate::model::CalculateIssueModelStatsRequest>,
@@ -2434,6 +2874,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_phrase_matcher][super::super::client::ContactCenterInsights::create_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreatePhraseMatcher;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePhraseMatcher(RequestBuilder<crate::model::CreatePhraseMatcherRequest>);
 
@@ -2495,6 +2950,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_phrase_matcher][super::super::client::ContactCenterInsights::get_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetPhraseMatcher;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPhraseMatcher(RequestBuilder<crate::model::GetPhraseMatcherRequest>);
 
@@ -2545,6 +3015,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_phrase_matchers][super::super::client::ContactCenterInsights::list_phrase_matchers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListPhraseMatchers;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPhraseMatchers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPhraseMatchers(RequestBuilder<crate::model::ListPhraseMatchersRequest>);
 
@@ -2639,6 +3128,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_phrase_matcher][super::super::client::ContactCenterInsights::delete_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeletePhraseMatcher;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePhraseMatcher(RequestBuilder<crate::model::DeletePhraseMatcherRequest>);
 
@@ -2689,6 +3193,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_phrase_matcher][super::super::client::ContactCenterInsights::update_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdatePhraseMatcher;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePhraseMatcher(RequestBuilder<crate::model::UpdatePhraseMatcherRequest>);
 
@@ -2751,6 +3270,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::calculate_stats][super::super::client::ContactCenterInsights::calculate_stats] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CalculateStats;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CalculateStats {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CalculateStats(RequestBuilder<crate::model::CalculateStatsRequest>);
 
@@ -2804,6 +3338,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_settings][super::super::client::ContactCenterInsights::get_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
@@ -2851,6 +3400,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_settings][super::super::client::ContactCenterInsights::update_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
@@ -2912,6 +3476,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_analysis_rule][super::super::client::ContactCenterInsights::create_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateAnalysisRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnalysisRule(RequestBuilder<crate::model::CreateAnalysisRuleRequest>);
 
@@ -2973,6 +3552,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_analysis_rule][super::super::client::ContactCenterInsights::get_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetAnalysisRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnalysisRule(RequestBuilder<crate::model::GetAnalysisRuleRequest>);
 
@@ -3020,6 +3614,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_analysis_rules][super::super::client::ContactCenterInsights::list_analysis_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListAnalysisRules;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAnalysisRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAnalysisRules(RequestBuilder<crate::model::ListAnalysisRulesRequest>);
 
@@ -3106,6 +3719,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_analysis_rule][super::super::client::ContactCenterInsights::update_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateAnalysisRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAnalysisRule(RequestBuilder<crate::model::UpdateAnalysisRuleRequest>);
 
@@ -3168,6 +3796,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_analysis_rule][super::super::client::ContactCenterInsights::delete_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteAnalysisRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAnalysisRule(RequestBuilder<crate::model::DeleteAnalysisRuleRequest>);
 
@@ -3218,6 +3861,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_encryption_spec][super::super::client::ContactCenterInsights::get_encryption_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetEncryptionSpec;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEncryptionSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEncryptionSpec(RequestBuilder<crate::model::GetEncryptionSpecRequest>);
 
@@ -3268,6 +3926,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::initialize_encryption_spec][super::super::client::ContactCenterInsights::initialize_encryption_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::InitializeEncryptionSpec;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InitializeEncryptionSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InitializeEncryptionSpec(
         RequestBuilder<crate::model::InitializeEncryptionSpecRequest>,
@@ -3366,6 +4040,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_view][super::super::client::ContactCenterInsights::create_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateView;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
 
@@ -3421,6 +4110,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_view][super::super::client::ContactCenterInsights::get_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetView;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
 
@@ -3468,6 +4172,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_views][super::super::client::ContactCenterInsights::list_views] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListViews;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListViews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
 
@@ -3551,6 +4274,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_view][super::super::client::ContactCenterInsights::update_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateView;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
 
@@ -3607,6 +4345,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_view][super::super::client::ContactCenterInsights::delete_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteView;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
 
@@ -3654,6 +4407,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::query_metrics][super::super::client::ContactCenterInsights::query_metrics] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::QueryMetrics;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryMetrics(RequestBuilder<crate::model::QueryMetricsRequest>);
 
@@ -3781,6 +4550,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_qa_question][super::super::client::ContactCenterInsights::create_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateQaQuestion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaQuestion(RequestBuilder<crate::model::CreateQaQuestionRequest>);
 
@@ -3848,6 +4632,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_qa_question][super::super::client::ContactCenterInsights::get_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetQaQuestion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQaQuestion(RequestBuilder<crate::model::GetQaQuestionRequest>);
 
@@ -3895,6 +4694,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_qa_question][super::super::client::ContactCenterInsights::update_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateQaQuestion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQaQuestion(RequestBuilder<crate::model::UpdateQaQuestionRequest>);
 
@@ -3959,6 +4773,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_qa_question][super::super::client::ContactCenterInsights::delete_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteQaQuestion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaQuestion(RequestBuilder<crate::model::DeleteQaQuestionRequest>);
 
@@ -4009,6 +4838,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_qa_questions][super::super::client::ContactCenterInsights::list_qa_questions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListQaQuestions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQaQuestions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaQuestions(RequestBuilder<crate::model::ListQaQuestionsRequest>);
 
@@ -4092,6 +4940,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_qa_scorecard][super::super::client::ContactCenterInsights::create_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateQaScorecard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaScorecard(RequestBuilder<crate::model::CreateQaScorecardRequest>);
 
@@ -4159,6 +5022,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_qa_scorecard][super::super::client::ContactCenterInsights::get_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetQaScorecard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQaScorecard(RequestBuilder<crate::model::GetQaScorecardRequest>);
 
@@ -4206,6 +5084,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_qa_scorecard][super::super::client::ContactCenterInsights::update_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateQaScorecard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQaScorecard(RequestBuilder<crate::model::UpdateQaScorecardRequest>);
 
@@ -4270,6 +5163,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_qa_scorecard][super::super::client::ContactCenterInsights::delete_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteQaScorecard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaScorecard(RequestBuilder<crate::model::DeleteQaScorecardRequest>);
 
@@ -4326,6 +5234,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_qa_scorecards][super::super::client::ContactCenterInsights::list_qa_scorecards] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListQaScorecards;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQaScorecards {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaScorecards(RequestBuilder<crate::model::ListQaScorecardsRequest>);
 
@@ -4412,6 +5339,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_qa_scorecard_revision][super::super::client::ContactCenterInsights::create_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaScorecardRevision(
         RequestBuilder<crate::model::CreateQaScorecardRevisionRequest>,
@@ -4483,6 +5425,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_qa_scorecard_revision][super::super::client::ContactCenterInsights::get_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQaScorecardRevision(RequestBuilder<crate::model::GetQaScorecardRevisionRequest>);
 
@@ -4533,6 +5490,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::tune_qa_scorecard_revision][super::super::client::ContactCenterInsights::tune_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::TuneQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TuneQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TuneQaScorecardRevision(
         RequestBuilder<crate::model::TuneQaScorecardRevisionRequest>,
@@ -4642,6 +5615,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::deploy_qa_scorecard_revision][super::super::client::ContactCenterInsights::deploy_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeployQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployQaScorecardRevision(
         RequestBuilder<crate::model::DeployQaScorecardRevisionRequest>,
@@ -4694,6 +5682,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::undeploy_qa_scorecard_revision][super::super::client::ContactCenterInsights::undeploy_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UndeployQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeployQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployQaScorecardRevision(
         RequestBuilder<crate::model::UndeployQaScorecardRevisionRequest>,
@@ -4746,6 +5749,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_qa_scorecard_revision][super::super::client::ContactCenterInsights::delete_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaScorecardRevision(
         RequestBuilder<crate::model::DeleteQaScorecardRevisionRequest>,
@@ -4804,6 +5822,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_qa_scorecard_revisions][super::super::client::ContactCenterInsights::list_qa_scorecard_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListQaScorecardRevisions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQaScorecardRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaScorecardRevisions(
         RequestBuilder<crate::model::ListQaScorecardRevisionsRequest>,
@@ -4902,6 +5939,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::create_feedback_label][super::super::client::ContactCenterInsights::create_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFeedbackLabel(RequestBuilder<crate::model::CreateFeedbackLabelRequest>);
 
@@ -4969,6 +6021,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_feedback_labels][super::super::client::ContactCenterInsights::list_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFeedbackLabels(RequestBuilder<crate::model::ListFeedbackLabelsRequest>);
 
@@ -5063,6 +6134,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_feedback_label][super::super::client::ContactCenterInsights::get_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFeedbackLabel(RequestBuilder<crate::model::GetFeedbackLabelRequest>);
 
@@ -5113,6 +6199,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::update_feedback_label][super::super::client::ContactCenterInsights::update_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFeedbackLabel(RequestBuilder<crate::model::UpdateFeedbackLabelRequest>);
 
@@ -5177,6 +6278,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::delete_feedback_label][super::super::client::ContactCenterInsights::delete_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFeedbackLabel(RequestBuilder<crate::model::DeleteFeedbackLabelRequest>);
 
@@ -5227,6 +6343,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_all_feedback_labels][super::super::client::ContactCenterInsights::list_all_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListAllFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAllFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAllFeedbackLabels(RequestBuilder<crate::model::ListAllFeedbackLabelsRequest>);
 
@@ -5321,6 +6456,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::bulk_upload_feedback_labels][super::super::client::ContactCenterInsights::bulk_upload_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkUploadFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkUploadFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkUploadFeedbackLabels(
         RequestBuilder<crate::model::BulkUploadFeedbackLabelsRequest>,
@@ -5453,6 +6604,22 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::bulk_download_feedback_labels][super::super::client::ContactCenterInsights::bulk_download_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkDownloadFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkDownloadFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDownloadFeedbackLabels(
         RequestBuilder<crate::model::BulkDownloadFeedbackLabelsRequest>,
@@ -5621,6 +6788,25 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::list_operations][super::super::client::ContactCenterInsights::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5713,6 +6899,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::get_operation][super::super::client::ContactCenterInsights::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5761,6 +6962,21 @@ pub mod contact_center_insights {
     }
 
     /// The request builder for [ContactCenterInsights::cancel_operation][super::super::client::ContactCenterInsights::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

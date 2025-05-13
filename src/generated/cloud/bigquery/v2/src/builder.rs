@@ -69,6 +69,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::get_dataset][super::super::client::DatasetService::get_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::GetDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
@@ -139,6 +154,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::insert_dataset][super::super::client::DatasetService::insert_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::InsertDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertDataset(RequestBuilder<crate::model::InsertDatasetRequest>);
 
@@ -203,6 +233,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::patch_dataset][super::super::client::DatasetService::patch_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::PatchDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PatchDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
@@ -289,6 +334,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::update_dataset][super::super::client::DatasetService::update_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::UpdateDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
@@ -375,6 +435,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::delete_dataset][super::super::client::DatasetService::delete_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::DeleteDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
@@ -436,6 +511,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::list_datasets][super::super::client::DatasetService::list_datasets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::ListDatasets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatasets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
@@ -510,6 +600,21 @@ pub mod dataset_service {
     }
 
     /// The request builder for [DatasetService::undelete_dataset][super::super::client::DatasetService::undelete_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::UndeleteDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteDataset(RequestBuilder<crate::model::UndeleteDatasetRequest>);
 
@@ -629,6 +734,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::get_model][super::super::client::ModelService::get_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::GetModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
@@ -692,6 +812,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::list_models][super::super::client::ModelService::list_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::ListModels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
@@ -762,6 +897,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::patch_model][super::super::client::ModelService::patch_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::PatchModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PatchModel(RequestBuilder<crate::model::PatchModelRequest>);
 
@@ -836,6 +986,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::delete_model][super::super::client::ModelService::delete_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::DeleteModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
@@ -954,6 +1119,21 @@ pub mod project_service {
     }
 
     /// The request builder for [ProjectService::get_service_account][super::super::client::ProjectService::get_service_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::project_service::GetServiceAccount;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
 
@@ -1059,6 +1239,21 @@ pub mod routine_service {
     }
 
     /// The request builder for [RoutineService::get_routine][super::super::client::RoutineService::get_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::GetRoutine;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRoutine(RequestBuilder<crate::model::GetRoutineRequest>);
 
@@ -1122,6 +1317,21 @@ pub mod routine_service {
     }
 
     /// The request builder for [RoutineService::insert_routine][super::super::client::RoutineService::insert_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::InsertRoutine;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertRoutine(RequestBuilder<crate::model::InsertRoutineRequest>);
 
@@ -1188,6 +1398,21 @@ pub mod routine_service {
     }
 
     /// The request builder for [RoutineService::update_routine][super::super::client::RoutineService::update_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::UpdateRoutine;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRoutine(RequestBuilder<crate::model::UpdateRoutineRequest>);
 
@@ -1262,6 +1487,21 @@ pub mod routine_service {
     }
 
     /// The request builder for [RoutineService::delete_routine][super::super::client::RoutineService::delete_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::DeleteRoutine;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRoutine(RequestBuilder<crate::model::DeleteRoutineRequest>);
 
@@ -1325,6 +1565,21 @@ pub mod routine_service {
     }
 
     /// The request builder for [RoutineService::list_routines][super::super::client::RoutineService::list_routines] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::ListRoutines;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRoutines {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRoutines(RequestBuilder<crate::model::ListRoutinesRequest>);
 
@@ -1456,6 +1711,25 @@ pub mod row_access_policy_service {
     }
 
     /// The request builder for [RowAccessPolicyService::list_row_access_policies][super::super::client::RowAccessPolicyService::list_row_access_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::ListRowAccessPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRowAccessPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRowAccessPolicies(RequestBuilder<crate::model::ListRowAccessPoliciesRequest>);
 
@@ -1560,6 +1834,21 @@ pub mod row_access_policy_service {
     }
 
     /// The request builder for [RowAccessPolicyService::get_row_access_policy][super::super::client::RowAccessPolicyService::get_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::GetRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRowAccessPolicy(RequestBuilder<crate::model::GetRowAccessPolicyRequest>);
 
@@ -1634,6 +1923,21 @@ pub mod row_access_policy_service {
     }
 
     /// The request builder for [RowAccessPolicyService::create_row_access_policy][super::super::client::RowAccessPolicyService::create_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::CreateRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRowAccessPolicy(RequestBuilder<crate::model::CreateRowAccessPolicyRequest>);
 
@@ -1713,6 +2017,21 @@ pub mod row_access_policy_service {
     }
 
     /// The request builder for [RowAccessPolicyService::update_row_access_policy][super::super::client::RowAccessPolicyService::update_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::UpdateRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRowAccessPolicy(RequestBuilder<crate::model::UpdateRowAccessPolicyRequest>);
 
@@ -1800,6 +2119,21 @@ pub mod row_access_policy_service {
     }
 
     /// The request builder for [RowAccessPolicyService::delete_row_access_policy][super::super::client::RowAccessPolicyService::delete_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::DeleteRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRowAccessPolicy(RequestBuilder<crate::model::DeleteRowAccessPolicyRequest>);
 
@@ -1880,6 +2214,21 @@ pub mod row_access_policy_service {
     }
 
     /// The request builder for [RowAccessPolicyService::batch_delete_row_access_policies][super::super::client::RowAccessPolicyService::batch_delete_row_access_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::BatchDeleteRowAccessPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchDeleteRowAccessPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteRowAccessPolicies(
         RequestBuilder<crate::model::BatchDeleteRowAccessPoliciesRequest>,
@@ -2022,6 +2371,21 @@ pub mod table_service {
     }
 
     /// The request builder for [TableService::get_table][super::super::client::TableService::get_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::GetTable;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
@@ -2100,6 +2464,21 @@ pub mod table_service {
     }
 
     /// The request builder for [TableService::insert_table][super::super::client::TableService::insert_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::InsertTable;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertTable(RequestBuilder<crate::model::InsertTableRequest>);
 
@@ -2166,6 +2545,21 @@ pub mod table_service {
     }
 
     /// The request builder for [TableService::patch_table][super::super::client::TableService::patch_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::PatchTable;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PatchTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
@@ -2249,6 +2643,21 @@ pub mod table_service {
     }
 
     /// The request builder for [TableService::update_table][super::super::client::TableService::update_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::UpdateTable;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
@@ -2332,6 +2741,21 @@ pub mod table_service {
     }
 
     /// The request builder for [TableService::delete_table][super::super::client::TableService::delete_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::DeleteTable;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
@@ -2395,6 +2819,21 @@ pub mod table_service {
     }
 
     /// The request builder for [TableService::list_tables][super::super::client::TableService::list_tables] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::ListTables;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTables {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 

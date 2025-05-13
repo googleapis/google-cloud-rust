@@ -67,6 +67,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::lookup_service_project_attachment][super::super::client::AppHub::lookup_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::LookupServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupServiceProjectAttachment(
         RequestBuilder<crate::model::LookupServiceProjectAttachmentRequest>,
@@ -117,6 +132,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_service_project_attachments][super::super::client::AppHub::list_service_project_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListServiceProjectAttachments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceProjectAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceProjectAttachments(
         RequestBuilder<crate::model::ListServiceProjectAttachmentsRequest>,
@@ -219,6 +253,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceProjectAttachment(
         RequestBuilder<crate::model::CreateServiceProjectAttachmentRequest>,
@@ -340,6 +390,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_service_project_attachment][super::super::client::AppHub::get_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceProjectAttachment(
         RequestBuilder<crate::model::GetServiceProjectAttachmentRequest>,
@@ -390,6 +455,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceProjectAttachment(
         RequestBuilder<crate::model::DeleteServiceProjectAttachmentRequest>,
@@ -486,6 +567,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::detach_service_project_attachment][super::super::client::AppHub::detach_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DetachServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetachServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetachServiceProjectAttachment(
         RequestBuilder<crate::model::DetachServiceProjectAttachmentRequest>,
@@ -536,6 +632,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_discovered_services][super::super::client::AppHub::list_discovered_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListDiscoveredServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDiscoveredServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
 
@@ -636,6 +751,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_discovered_service][super::super::client::AppHub::get_discovered_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetDiscoveredService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiscoveredService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
 
@@ -684,6 +814,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::lookup_discovered_service][super::super::client::AppHub::lookup_discovered_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::LookupDiscoveredService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupDiscoveredService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredService(
         RequestBuilder<crate::model::LookupDiscoveredServiceRequest>,
@@ -742,6 +887,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_services][super::super::client::AppHub::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -835,6 +999,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::create_service][super::super::client::AppHub::create_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
@@ -943,6 +1123,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_service][super::super::client::AppHub::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -988,6 +1183,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::update_service][super::super::client::AppHub::update_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::UpdateService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
@@ -1091,6 +1302,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::delete_service][super::super::client::AppHub::delete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
@@ -1182,6 +1409,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_discovered_workloads][super::super::client::AppHub::list_discovered_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListDiscoveredWorkloads;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDiscoveredWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredWorkloads(
         RequestBuilder<crate::model::ListDiscoveredWorkloadsRequest>,
@@ -1284,6 +1530,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_discovered_workload][super::super::client::AppHub::get_discovered_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetDiscoveredWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiscoveredWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
 
@@ -1332,6 +1593,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::lookup_discovered_workload][super::super::client::AppHub::lookup_discovered_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::LookupDiscoveredWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupDiscoveredWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredWorkload(
         RequestBuilder<crate::model::LookupDiscoveredWorkloadRequest>,
@@ -1390,6 +1666,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_workloads][super::super::client::AppHub::list_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListWorkloads;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
@@ -1483,6 +1778,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::create_workload][super::super::client::AppHub::create_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
@@ -1591,6 +1902,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_workload][super::super::client::AppHub::get_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
@@ -1636,6 +1962,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::update_workload][super::super::client::AppHub::update_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::UpdateWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
@@ -1739,6 +2081,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::delete_workload][super::super::client::AppHub::delete_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
@@ -1830,6 +2188,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_applications][super::super::client::AppHub::list_applications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListApplications;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApplications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
 
@@ -1926,6 +2303,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::create_application][super::super::client::AppHub::create_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateApplication;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
 
@@ -2039,6 +2432,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_application][super::super::client::AppHub::get_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetApplication;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
 
@@ -2084,6 +2492,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::update_application][super::super::client::AppHub::update_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::UpdateApplication;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
 
@@ -2192,6 +2616,22 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::delete_application][super::super::client::AppHub::delete_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteApplication;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apphub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
 
@@ -2286,6 +2726,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_locations][super::super::client::AppHub::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2374,6 +2833,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_location][super::super::client::AppHub::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2417,6 +2891,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::set_iam_policy][super::super::client::AppHub::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2482,6 +2971,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_iam_policy][super::super::client::AppHub::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2536,6 +3040,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::test_iam_permissions][super::super::client::AppHub::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2597,6 +3116,25 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::list_operations][super::super::client::AppHub::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2687,6 +3225,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::get_operation][super::super::client::AppHub::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2733,6 +3286,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::delete_operation][super::super::client::AppHub::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2779,6 +3347,21 @@ pub mod app_hub {
     }
 
     /// The request builder for [AppHub::cancel_operation][super::super::client::AppHub::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

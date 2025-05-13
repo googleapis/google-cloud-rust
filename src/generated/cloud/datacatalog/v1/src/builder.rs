@@ -69,6 +69,25 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::search_catalog][super::super::client::DataCatalog::search_catalog] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::SearchCatalog;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchCatalog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCatalog(RequestBuilder<crate::model::SearchCatalogRequest>);
 
@@ -175,6 +194,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::create_entry_group][super::super::client::DataCatalog::create_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
@@ -242,6 +276,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::get_entry_group][super::super::client::DataCatalog::get_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
@@ -295,6 +344,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::update_entry_group][super::super::client::DataCatalog::update_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
@@ -357,6 +421,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::delete_entry_group][super::super::client::DataCatalog::delete_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
@@ -413,6 +492,25 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::list_entry_groups][super::super::client::DataCatalog::list_entry_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListEntryGroups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntryGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
@@ -496,6 +594,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::create_entry][super::super::client::DataCatalog::create_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
@@ -562,6 +675,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::update_entry][super::super::client::DataCatalog::update_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
@@ -621,6 +749,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::delete_entry][super::super::client::DataCatalog::delete_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
@@ -668,6 +811,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::get_entry][super::super::client::DataCatalog::get_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
@@ -715,6 +873,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::lookup_entry][super::super::client::DataCatalog::lookup_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::LookupEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
@@ -817,6 +990,25 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::list_entries][super::super::client::DataCatalog::list_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListEntries;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
@@ -906,6 +1098,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::modify_entry_overview][super::super::client::DataCatalog::modify_entry_overview] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ModifyEntryOverview;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyEntryOverview {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyEntryOverview(RequestBuilder<crate::model::ModifyEntryOverviewRequest>);
 
@@ -967,6 +1174,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::modify_entry_contacts][super::super::client::DataCatalog::modify_entry_contacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ModifyEntryContacts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyEntryContacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyEntryContacts(RequestBuilder<crate::model::ModifyEntryContactsRequest>);
 
@@ -1028,6 +1250,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::create_tag_template][super::super::client::DataCatalog::create_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateTagTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagTemplate(RequestBuilder<crate::model::CreateTagTemplateRequest>);
 
@@ -1097,6 +1334,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::get_tag_template][super::super::client::DataCatalog::get_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetTagTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTagTemplate(RequestBuilder<crate::model::GetTagTemplateRequest>);
 
@@ -1144,6 +1396,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::update_tag_template][super::super::client::DataCatalog::update_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateTagTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagTemplate(RequestBuilder<crate::model::UpdateTagTemplateRequest>);
 
@@ -1206,6 +1473,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::delete_tag_template][super::super::client::DataCatalog::delete_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteTagTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagTemplate(RequestBuilder<crate::model::DeleteTagTemplateRequest>);
 
@@ -1264,6 +1546,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::create_tag_template_field][super::super::client::DataCatalog::create_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateTagTemplateField;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagTemplateField(RequestBuilder<crate::model::CreateTagTemplateFieldRequest>);
 
@@ -1335,6 +1632,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::update_tag_template_field][super::super::client::DataCatalog::update_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateTagTemplateField;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagTemplateField(RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>);
 
@@ -1407,6 +1719,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::rename_tag_template_field][super::super::client::DataCatalog::rename_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RenameTagTemplateField;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateField(RequestBuilder<crate::model::RenameTagTemplateFieldRequest>);
 
@@ -1465,6 +1792,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::rename_tag_template_field_enum_value][super::super::client::DataCatalog::rename_tag_template_field_enum_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RenameTagTemplateFieldEnumValue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameTagTemplateFieldEnumValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateFieldEnumValue(
         RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>,
@@ -1528,6 +1870,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::delete_tag_template_field][super::super::client::DataCatalog::delete_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteTagTemplateField;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagTemplateField(RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>);
 
@@ -1586,6 +1943,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::create_tag][super::super::client::DataCatalog::create_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
@@ -1641,6 +2013,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::update_tag][super::super::client::DataCatalog::update_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
@@ -1697,6 +2084,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::delete_tag][super::super::client::DataCatalog::delete_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
@@ -1744,6 +2146,25 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::list_tags][super::super::client::DataCatalog::list_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListTags;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
@@ -1827,6 +2248,22 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::reconcile_tags][super::super::client::DataCatalog::reconcile_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ReconcileTags;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datacatalog_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReconcileTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReconcileTags(RequestBuilder<crate::model::ReconcileTagsRequest>);
 
@@ -1940,6 +2377,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::star_entry][super::super::client::DataCatalog::star_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::StarEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StarEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StarEntry(RequestBuilder<crate::model::StarEntryRequest>);
 
@@ -1987,6 +2439,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::unstar_entry][super::super::client::DataCatalog::unstar_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UnstarEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnstarEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UnstarEntry(RequestBuilder<crate::model::UnstarEntryRequest>);
 
@@ -2034,6 +2501,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::set_iam_policy][super::super::client::DataCatalog::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2101,6 +2583,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::get_iam_policy][super::super::client::DataCatalog::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2157,6 +2654,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::test_iam_permissions][super::super::client::DataCatalog::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2220,6 +2732,22 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::import_entries][super::super::client::DataCatalog::import_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ImportEntries;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datacatalog_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportEntries(RequestBuilder<crate::model::ImportEntriesRequest>);
 
@@ -2339,6 +2867,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::set_config][super::super::client::DataCatalog::set_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::SetConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetConfig(RequestBuilder<crate::model::SetConfigRequest>);
 
@@ -2430,6 +2973,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::retrieve_config][super::super::client::DataCatalog::retrieve_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RetrieveConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveConfig(RequestBuilder<crate::model::RetrieveConfigRequest>);
 
@@ -2477,6 +3035,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::retrieve_effective_config][super::super::client::DataCatalog::retrieve_effective_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RetrieveEffectiveConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveEffectiveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveEffectiveConfig(
         RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>,
@@ -2529,6 +3102,25 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::list_operations][super::super::client::DataCatalog::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2621,6 +3213,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::get_operation][super::super::client::DataCatalog::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2669,6 +3276,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::delete_operation][super::super::client::DataCatalog::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2717,6 +3339,21 @@ pub mod data_catalog {
     }
 
     /// The request builder for [DataCatalog::cancel_operation][super::super::client::DataCatalog::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2820,6 +3457,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::create_taxonomy][super::super::client::PolicyTagManager::create_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::CreateTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTaxonomy(RequestBuilder<crate::model::CreateTaxonomyRequest>);
 
@@ -2876,6 +3528,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::delete_taxonomy][super::super::client::PolicyTagManager::delete_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::DeleteTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTaxonomy(RequestBuilder<crate::model::DeleteTaxonomyRequest>);
 
@@ -2923,6 +3590,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::update_taxonomy][super::super::client::PolicyTagManager::update_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::UpdateTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTaxonomy(RequestBuilder<crate::model::UpdateTaxonomyRequest>);
 
@@ -2980,6 +3662,25 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::list_taxonomies][super::super::client::PolicyTagManager::list_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::ListTaxonomies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTaxonomies(RequestBuilder<crate::model::ListTaxonomiesRequest>);
 
@@ -3069,6 +3770,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::get_taxonomy][super::super::client::PolicyTagManager::get_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTaxonomy(RequestBuilder<crate::model::GetTaxonomyRequest>);
 
@@ -3116,6 +3832,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::create_policy_tag][super::super::client::PolicyTagManager::create_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::CreatePolicyTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicyTag(RequestBuilder<crate::model::CreatePolicyTagRequest>);
 
@@ -3172,6 +3903,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::delete_policy_tag][super::super::client::PolicyTagManager::delete_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::DeletePolicyTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicyTag(RequestBuilder<crate::model::DeletePolicyTagRequest>);
 
@@ -3219,6 +3965,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::update_policy_tag][super::super::client::PolicyTagManager::update_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::UpdatePolicyTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicyTag(RequestBuilder<crate::model::UpdatePolicyTagRequest>);
 
@@ -3276,6 +4037,25 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::list_policy_tags][super::super::client::PolicyTagManager::list_policy_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::ListPolicyTags;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicyTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicyTags(RequestBuilder<crate::model::ListPolicyTagsRequest>);
 
@@ -3359,6 +4139,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::get_policy_tag][super::super::client::PolicyTagManager::get_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetPolicyTag;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicyTag(RequestBuilder<crate::model::GetPolicyTagRequest>);
 
@@ -3406,6 +4201,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::get_iam_policy][super::super::client::PolicyTagManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3462,6 +4272,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::set_iam_policy][super::super::client::PolicyTagManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3529,6 +4354,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::test_iam_permissions][super::super::client::PolicyTagManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3592,6 +4432,25 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::list_operations][super::super::client::PolicyTagManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3684,6 +4543,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::get_operation][super::super::client::PolicyTagManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3732,6 +4606,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::delete_operation][super::super::client::PolicyTagManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3780,6 +4669,21 @@ pub mod policy_tag_manager {
     }
 
     /// The request builder for [PolicyTagManager::cancel_operation][super::super::client::PolicyTagManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3883,6 +4787,21 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::replace_taxonomy][super::super::client::PolicyTagManagerSerialization::replace_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ReplaceTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceTaxonomy(RequestBuilder<crate::model::ReplaceTaxonomyRequest>);
 
@@ -3943,6 +4862,21 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::import_taxonomies][super::super::client::PolicyTagManagerSerialization::import_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ImportTaxonomies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportTaxonomies(RequestBuilder<crate::model::ImportTaxonomiesRequest>);
 
@@ -4035,6 +4969,21 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::export_taxonomies][super::super::client::PolicyTagManagerSerialization::export_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ExportTaxonomies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportTaxonomies(RequestBuilder<crate::model::ExportTaxonomiesRequest>);
 
@@ -4122,6 +5071,25 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::list_operations][super::super::client::PolicyTagManagerSerialization::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4214,6 +5182,21 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::get_operation][super::super::client::PolicyTagManagerSerialization::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4262,6 +5245,21 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::delete_operation][super::super::client::PolicyTagManagerSerialization::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4310,6 +5308,21 @@ pub mod policy_tag_manager_serialization {
     }
 
     /// The request builder for [PolicyTagManagerSerialization::cancel_operation][super::super::client::PolicyTagManagerSerialization::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

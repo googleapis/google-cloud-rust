@@ -69,6 +69,25 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::list_connections][super::super::client::DeveloperConnect::list_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::ListConnections;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
@@ -164,6 +183,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::get_connection][super::super::client::DeveloperConnect::get_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::GetConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
@@ -211,6 +245,22 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::create_connection][super::super::client::DeveloperConnect::create_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::CreateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_developerconnect_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
@@ -330,6 +380,22 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::update_connection][super::super::client::DeveloperConnect::update_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::UpdateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_developerconnect_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
@@ -450,6 +516,22 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::delete_connection][super::super::client::DeveloperConnect::delete_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::DeleteConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_developerconnect_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
@@ -558,6 +640,22 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::create_git_repository_link][super::super::client::DeveloperConnect::create_git_repository_link] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::CreateGitRepositoryLink;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_developerconnect_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGitRepositoryLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGitRepositoryLink(
         RequestBuilder<crate::model::CreateGitRepositoryLinkRequest>,
@@ -684,6 +782,22 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::delete_git_repository_link][super::super::client::DeveloperConnect::delete_git_repository_link] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::DeleteGitRepositoryLink;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_developerconnect_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGitRepositoryLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGitRepositoryLink(
         RequestBuilder<crate::model::DeleteGitRepositoryLinkRequest>,
@@ -794,6 +908,25 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::list_git_repository_links][super::super::client::DeveloperConnect::list_git_repository_links] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::ListGitRepositoryLinks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGitRepositoryLinks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGitRepositoryLinks(RequestBuilder<crate::model::ListGitRepositoryLinksRequest>);
 
@@ -896,6 +1029,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::get_git_repository_link][super::super::client::DeveloperConnect::get_git_repository_link] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::GetGitRepositoryLink;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGitRepositoryLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGitRepositoryLink(RequestBuilder<crate::model::GetGitRepositoryLinkRequest>);
 
@@ -946,6 +1094,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::fetch_read_write_token][super::super::client::DeveloperConnect::fetch_read_write_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::FetchReadWriteToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchReadWriteToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
@@ -996,6 +1159,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::fetch_read_token][super::super::client::DeveloperConnect::fetch_read_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::FetchReadToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchReadToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
@@ -1043,6 +1221,25 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::fetch_linkable_git_repositories][super::super::client::DeveloperConnect::fetch_linkable_git_repositories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::FetchLinkableGitRepositories;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchLinkableGitRepositories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchLinkableGitRepositories(
         RequestBuilder<crate::model::FetchLinkableGitRepositoriesRequest>,
@@ -1135,6 +1332,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::fetch_git_hub_installations][super::super::client::DeveloperConnect::fetch_git_hub_installations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::FetchGitHubInstallations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchGitHubInstallations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitHubInstallations(
         RequestBuilder<crate::model::FetchGitHubInstallationsRequest>,
@@ -1187,6 +1399,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::fetch_git_refs][super::super::client::DeveloperConnect::fetch_git_refs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::FetchGitRefs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchGitRefs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
@@ -1257,6 +1484,25 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::list_locations][super::super::client::DeveloperConnect::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1347,6 +1593,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::get_location][super::super::client::DeveloperConnect::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1392,6 +1653,25 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::list_operations][super::super::client::DeveloperConnect::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1484,6 +1764,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::get_operation][super::super::client::DeveloperConnect::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1532,6 +1827,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::delete_operation][super::super::client::DeveloperConnect::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1580,6 +1890,21 @@ pub mod developer_connect {
     }
 
     /// The request builder for [DeveloperConnect::cancel_operation][super::super::client::DeveloperConnect::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_developerconnect_v1::builder;
+    /// use builder::developer_connect::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

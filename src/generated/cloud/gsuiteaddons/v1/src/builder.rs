@@ -69,6 +69,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::get_authorization][super::super::client::GSuiteAddOns::get_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::GetAuthorization;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
 
@@ -119,6 +134,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::create_deployment][super::super::client::GSuiteAddOns::create_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::CreateDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
@@ -188,6 +218,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::replace_deployment][super::super::client::GSuiteAddOns::replace_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::ReplaceDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
@@ -241,6 +286,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::get_deployment][super::super::client::GSuiteAddOns::get_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::GetDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
@@ -288,6 +348,25 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::list_deployments][super::super::client::GSuiteAddOns::list_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::ListDeployments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
@@ -371,6 +450,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::delete_deployment][super::super::client::GSuiteAddOns::delete_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::DeleteDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
@@ -427,6 +521,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::install_deployment][super::super::client::GSuiteAddOns::install_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::InstallDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InstallDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
 
@@ -477,6 +586,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::uninstall_deployment][super::super::client::GSuiteAddOns::uninstall_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::UninstallDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UninstallDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
 
@@ -527,6 +651,21 @@ pub mod g_suite_add_ons {
     }
 
     /// The request builder for [GSuiteAddOns::get_install_status][super::super::client::GSuiteAddOns::get_install_status] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::GetInstallStatus;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstallStatus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
 

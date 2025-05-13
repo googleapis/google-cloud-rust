@@ -69,6 +69,25 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::list_access_policies][super::super::client::AccessContextManager::list_access_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListAccessPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAccessPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessPolicies(RequestBuilder<crate::model::ListAccessPoliciesRequest>);
 
@@ -157,6 +176,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::get_access_policy][super::super::client::AccessContextManager::get_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessPolicy(RequestBuilder<crate::model::GetAccessPolicyRequest>);
 
@@ -204,6 +238,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::create_access_policy][super::super::client::AccessContextManager::create_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAccessPolicy(RequestBuilder<crate::model::AccessPolicy>);
 
@@ -339,6 +389,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::update_access_policy][super::super::client::AccessContextManager::update_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessPolicy(RequestBuilder<crate::model::UpdateAccessPolicyRequest>);
 
@@ -446,6 +512,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::delete_access_policy][super::super::client::AccessContextManager::delete_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessPolicy(RequestBuilder<crate::model::DeleteAccessPolicyRequest>);
 
@@ -541,6 +623,25 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::list_access_levels][super::super::client::AccessContextManager::list_access_levels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListAccessLevels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAccessLevels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessLevels(RequestBuilder<crate::model::ListAccessLevelsRequest>);
 
@@ -633,6 +734,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::get_access_level][super::super::client::AccessContextManager::get_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessLevel(RequestBuilder<crate::model::GetAccessLevelRequest>);
 
@@ -686,6 +802,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::create_access_level][super::super::client::AccessContextManager::create_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAccessLevel(RequestBuilder<crate::model::CreateAccessLevelRequest>);
 
@@ -790,6 +922,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::update_access_level][super::super::client::AccessContextManager::update_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessLevel(RequestBuilder<crate::model::UpdateAccessLevelRequest>);
 
@@ -897,6 +1045,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::delete_access_level][super::super::client::AccessContextManager::delete_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessLevel(RequestBuilder<crate::model::DeleteAccessLevelRequest>);
 
@@ -992,6 +1156,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::replace_access_levels][super::super::client::AccessContextManager::replace_access_levels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ReplaceAccessLevels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceAccessLevels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceAccessLevels(RequestBuilder<crate::model::ReplaceAccessLevelsRequest>);
 
@@ -1104,6 +1284,25 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::list_service_perimeters][super::super::client::AccessContextManager::list_service_perimeters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListServicePerimeters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServicePerimeters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServicePerimeters(RequestBuilder<crate::model::ListServicePerimetersRequest>);
 
@@ -1192,6 +1391,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::get_service_perimeter][super::super::client::AccessContextManager::get_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServicePerimeter(RequestBuilder<crate::model::GetServicePerimeterRequest>);
 
@@ -1242,6 +1456,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServicePerimeter(RequestBuilder<crate::model::CreateServicePerimeterRequest>);
 
@@ -1348,6 +1578,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServicePerimeter(RequestBuilder<crate::model::UpdateServicePerimeterRequest>);
 
@@ -1457,6 +1703,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServicePerimeter(RequestBuilder<crate::model::DeleteServicePerimeterRequest>);
 
@@ -1552,6 +1814,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ReplaceServicePerimeters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceServicePerimeters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceServicePerimeters(
         RequestBuilder<crate::model::ReplaceServicePerimetersRequest>,
@@ -1666,6 +1944,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CommitServicePerimeters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CommitServicePerimeters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CommitServicePerimeters(
         RequestBuilder<crate::model::CommitServicePerimetersRequest>,
@@ -1767,6 +2061,25 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::list_gcp_user_access_bindings][super::super::client::AccessContextManager::list_gcp_user_access_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListGcpUserAccessBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGcpUserAccessBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGcpUserAccessBindings(
         RequestBuilder<crate::model::ListGcpUserAccessBindingsRequest>,
@@ -1859,6 +2172,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::get_gcp_user_access_binding][super::super::client::AccessContextManager::get_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGcpUserAccessBinding(
         RequestBuilder<crate::model::GetGcpUserAccessBindingRequest>,
@@ -1911,6 +2239,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGcpUserAccessBinding(
         RequestBuilder<crate::model::CreateGcpUserAccessBindingRequest>,
@@ -2019,6 +2363,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGcpUserAccessBinding(
         RequestBuilder<crate::model::UpdateGcpUserAccessBindingRequest>,
@@ -2130,6 +2490,22 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_identity_accesscontextmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGcpUserAccessBinding(
         RequestBuilder<crate::model::DeleteGcpUserAccessBindingRequest>,
@@ -2227,6 +2603,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::set_iam_policy][super::super::client::AccessContextManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2294,6 +2685,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::get_iam_policy][super::super::client::AccessContextManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2350,6 +2756,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::test_iam_permissions][super::super::client::AccessContextManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2413,6 +2834,21 @@ pub mod access_context_manager {
     }
 
     /// The request builder for [AccessContextManager::get_operation][super::super::client::AccessContextManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

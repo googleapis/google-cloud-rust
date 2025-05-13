@@ -69,6 +69,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::get_document][super::super::client::Firestore::get_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::GetDocument;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
 
@@ -162,6 +177,25 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::list_documents][super::super::client::Firestore::list_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::ListDocuments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
 
@@ -309,6 +343,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::update_document][super::super::client::Firestore::update_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::UpdateDocument;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
 
@@ -386,6 +435,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::delete_document][super::super::client::Firestore::delete_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::DeleteDocument;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
 
@@ -442,6 +506,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::begin_transaction][super::super::client::Firestore::begin_transaction] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::BeginTransaction;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BeginTransaction {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
 
@@ -501,6 +580,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::commit][super::super::client::Firestore::commit] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::Commit;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Commit {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Commit(RequestBuilder<crate::model::CommitRequest>);
 
@@ -565,6 +659,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::rollback][super::super::client::Firestore::rollback] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::Rollback;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Rollback {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
 
@@ -620,6 +729,25 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::partition_query][super::super::client::Firestore::partition_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::PartitionQuery;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PartitionQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
 
@@ -763,6 +891,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::list_collection_ids][super::super::client::Firestore::list_collection_ids] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::ListCollectionIds;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCollectionIds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCollectionIds(RequestBuilder<crate::model::ListCollectionIdsRequest>);
 
@@ -852,6 +995,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::batch_write][super::super::client::Firestore::batch_write] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::BatchWrite;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchWrite {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
 
@@ -921,6 +1079,21 @@ pub mod firestore {
     }
 
     /// The request builder for [Firestore::create_document][super::super::client::Firestore::create_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::CreateDocument;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
 

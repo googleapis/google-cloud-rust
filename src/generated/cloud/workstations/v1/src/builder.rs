@@ -69,6 +69,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::get_workstation_cluster][super::super::client::Workstations::get_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkstationCluster(RequestBuilder<crate::model::GetWorkstationClusterRequest>);
 
@@ -119,6 +134,25 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::list_workstation_clusters][super::super::client::Workstations::list_workstation_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListWorkstationClusters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkstationClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstationClusters(
         RequestBuilder<crate::model::ListWorkstationClustersRequest>,
@@ -211,6 +245,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::create_workstation_cluster][super::super::client::Workstations::create_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CreateWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationCluster(
         RequestBuilder<crate::model::CreateWorkstationClusterRequest>,
@@ -331,6 +381,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::update_workstation_cluster][super::super::client::Workstations::update_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::UpdateWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationCluster(
         RequestBuilder<crate::model::UpdateWorkstationClusterRequest>,
@@ -452,6 +518,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::delete_workstation_cluster][super::super::client::Workstations::delete_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationCluster(
         RequestBuilder<crate::model::DeleteWorkstationClusterRequest>,
@@ -563,6 +645,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::get_workstation_config][super::super::client::Workstations::get_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkstationConfig(RequestBuilder<crate::model::GetWorkstationConfigRequest>);
 
@@ -613,6 +710,25 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::list_workstation_configs][super::super::client::Workstations::list_workstation_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListWorkstationConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkstationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstationConfigs(RequestBuilder<crate::model::ListWorkstationConfigsRequest>);
 
@@ -703,6 +819,25 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::list_usable_workstation_configs][super::super::client::Workstations::list_usable_workstation_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListUsableWorkstationConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUsableWorkstationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstationConfigs(
         RequestBuilder<crate::model::ListUsableWorkstationConfigsRequest>,
@@ -795,6 +930,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::create_workstation_config][super::super::client::Workstations::create_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CreateWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationConfig(
         RequestBuilder<crate::model::CreateWorkstationConfigRequest>,
@@ -915,6 +1066,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::update_workstation_config][super::super::client::Workstations::update_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::UpdateWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationConfig(
         RequestBuilder<crate::model::UpdateWorkstationConfigRequest>,
@@ -1036,6 +1203,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::delete_workstation_config][super::super::client::Workstations::delete_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationConfig(
         RequestBuilder<crate::model::DeleteWorkstationConfigRequest>,
@@ -1147,6 +1330,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::get_workstation][super::super::client::Workstations::get_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetWorkstation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkstation(RequestBuilder<crate::model::GetWorkstationRequest>);
 
@@ -1194,6 +1392,25 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::list_workstations][super::super::client::Workstations::list_workstations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListWorkstations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkstations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstations(RequestBuilder<crate::model::ListWorkstationsRequest>);
 
@@ -1280,6 +1497,25 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::list_usable_workstations][super::super::client::Workstations::list_usable_workstations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListUsableWorkstations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUsableWorkstations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstations(RequestBuilder<crate::model::ListUsableWorkstationsRequest>);
 
@@ -1370,6 +1606,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::create_workstation][super::super::client::Workstations::create_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CreateWorkstation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstation(RequestBuilder<crate::model::CreateWorkstationRequest>);
 
@@ -1485,6 +1737,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::update_workstation][super::super::client::Workstations::update_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::UpdateWorkstation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstation(RequestBuilder<crate::model::UpdateWorkstationRequest>);
 
@@ -1601,6 +1869,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::delete_workstation][super::super::client::Workstations::delete_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteWorkstation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstation(RequestBuilder<crate::model::DeleteWorkstationRequest>);
 
@@ -1703,6 +1987,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::start_workstation][super::super::client::Workstations::start_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::StartWorkstation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartWorkstation(RequestBuilder<crate::model::StartWorkstationRequest>);
 
@@ -1805,6 +2105,22 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::stop_workstation][super::super::client::Workstations::stop_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::StopWorkstation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workstations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopWorkstation(RequestBuilder<crate::model::StopWorkstationRequest>);
 
@@ -1904,6 +2220,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::generate_access_token][super::super::client::Workstations::generate_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GenerateAccessToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
@@ -1994,6 +2325,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::set_iam_policy][super::super::client::Workstations::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2061,6 +2407,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::get_iam_policy][super::super::client::Workstations::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2117,6 +2478,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::test_iam_permissions][super::super::client::Workstations::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2180,6 +2556,25 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::list_operations][super::super::client::Workstations::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2272,6 +2667,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::get_operation][super::super::client::Workstations::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2320,6 +2730,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::delete_operation][super::super::client::Workstations::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2368,6 +2793,21 @@ pub mod workstations {
     }
 
     /// The request builder for [Workstations::cancel_operation][super::super::client::Workstations::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

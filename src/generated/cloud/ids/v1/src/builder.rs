@@ -67,6 +67,25 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::list_endpoints][super::super::client::Ids::list_endpoints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::ListEndpoints;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEndpoints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
@@ -160,6 +179,21 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::get_endpoint][super::super::client::Ids::get_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::GetEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
@@ -205,6 +239,22 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::create_endpoint][super::super::client::Ids::create_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::CreateEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_ids_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
@@ -313,6 +363,22 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::delete_endpoint][super::super::client::Ids::delete_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::DeleteEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_ids_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
@@ -404,6 +470,25 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::list_operations][super::super::client::Ids::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -494,6 +579,21 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::get_operation][super::super::client::Ids::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -540,6 +640,21 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::delete_operation][super::super::client::Ids::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -586,6 +701,21 @@ pub mod ids {
     }
 
     /// The request builder for [Ids::cancel_operation][super::super::client::Ids::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_ids_v1::builder;
+    /// use builder::ids::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

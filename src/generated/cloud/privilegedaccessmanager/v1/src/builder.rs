@@ -69,6 +69,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::check_onboarding_status][super::super::client::PrivilegedAccessManager::check_onboarding_status] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::CheckOnboardingStatus;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckOnboardingStatus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckOnboardingStatus(RequestBuilder<crate::model::CheckOnboardingStatusRequest>);
 
@@ -119,6 +134,25 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::list_entitlements][super::super::client::PrivilegedAccessManager::list_entitlements] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListEntitlements;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntitlements {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
@@ -217,6 +251,25 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::search_entitlements][super::super::client::PrivilegedAccessManager::search_entitlements] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::SearchEntitlements;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchEntitlements {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchEntitlements(RequestBuilder<crate::model::SearchEntitlementsRequest>);
 
@@ -324,6 +377,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::get_entitlement][super::super::client::PrivilegedAccessManager::get_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetEntitlement;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntitlement(RequestBuilder<crate::model::GetEntitlementRequest>);
 
@@ -371,6 +439,22 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::CreateEntitlement;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntitlement(RequestBuilder<crate::model::CreateEntitlementRequest>);
 
@@ -486,6 +570,22 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::DeleteEntitlement;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntitlement(RequestBuilder<crate::model::DeleteEntitlementRequest>);
 
@@ -588,6 +688,22 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::UpdateEntitlement;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntitlement(RequestBuilder<crate::model::UpdateEntitlementRequest>);
 
@@ -692,6 +808,25 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::list_grants][super::super::client::PrivilegedAccessManager::list_grants] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListGrants;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGrants {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGrants(RequestBuilder<crate::model::ListGrantsRequest>);
 
@@ -787,6 +922,25 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::search_grants][super::super::client::PrivilegedAccessManager::search_grants] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::SearchGrants;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchGrants {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchGrants(RequestBuilder<crate::model::SearchGrantsRequest>);
 
@@ -889,6 +1043,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::get_grant][super::super::client::PrivilegedAccessManager::get_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetGrant;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGrant(RequestBuilder<crate::model::GetGrantRequest>);
 
@@ -936,6 +1105,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::create_grant][super::super::client::PrivilegedAccessManager::create_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::CreateGrant;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGrant(RequestBuilder<crate::model::CreateGrantRequest>);
 
@@ -1000,6 +1184,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::approve_grant][super::super::client::PrivilegedAccessManager::approve_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ApproveGrant;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveGrant(RequestBuilder<crate::model::ApproveGrantRequest>);
 
@@ -1053,6 +1252,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::deny_grant][super::super::client::PrivilegedAccessManager::deny_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::DenyGrant;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DenyGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DenyGrant(RequestBuilder<crate::model::DenyGrantRequest>);
 
@@ -1106,6 +1320,22 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::RevokeGrant;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevokeGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeGrant(RequestBuilder<crate::model::RevokeGrantRequest>);
 
@@ -1197,6 +1427,25 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::list_locations][super::super::client::PrivilegedAccessManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1287,6 +1536,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::get_location][super::super::client::PrivilegedAccessManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1332,6 +1596,25 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::list_operations][super::super::client::PrivilegedAccessManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1424,6 +1707,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::get_operation][super::super::client::PrivilegedAccessManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1472,6 +1770,21 @@ pub mod privileged_access_manager {
     }
 
     /// The request builder for [PrivilegedAccessManager::delete_operation][super::super::client::PrivilegedAccessManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 

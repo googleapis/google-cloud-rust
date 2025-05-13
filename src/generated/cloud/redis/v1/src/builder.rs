@@ -69,6 +69,25 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::list_instances][super::super::client::CloudRedis::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -152,6 +171,21 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::get_instance][super::super::client::CloudRedis::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -199,6 +233,21 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::get_instance_auth_string][super::super::client::CloudRedis::get_instance_auth_string] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::GetInstanceAuthString;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstanceAuthString {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstanceAuthString(RequestBuilder<crate::model::GetInstanceAuthStringRequest>);
 
@@ -249,6 +298,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::create_instance][super::super::client::CloudRedis::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -353,6 +418,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::update_instance][super::super::client::CloudRedis::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -452,6 +533,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::upgrade_instance][super::super::client::CloudRedis::upgrade_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::UpgradeInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpgradeInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
@@ -545,6 +642,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::import_instance][super::super::client::CloudRedis::import_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::ImportInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportInstance(RequestBuilder<crate::model::ImportInstanceRequest>);
 
@@ -641,6 +754,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::export_instance][super::super::client::CloudRedis::export_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::ExportInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportInstance(RequestBuilder<crate::model::ExportInstanceRequest>);
 
@@ -737,6 +866,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::failover_instance][super::super::client::CloudRedis::failover_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::FailoverInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FailoverInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FailoverInstance(RequestBuilder<crate::model::FailoverInstanceRequest>);
 
@@ -836,6 +981,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::delete_instance][super::super::client::CloudRedis::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -923,6 +1084,22 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::reschedule_maintenance][super::super::client::CloudRedis::reschedule_maintenance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::RescheduleMaintenance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_redis_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RescheduleMaintenance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
 
@@ -1033,6 +1210,25 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::list_locations][super::super::client::CloudRedis::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1123,6 +1319,21 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::get_location][super::super::client::CloudRedis::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1168,6 +1379,25 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::list_operations][super::super::client::CloudRedis::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1260,6 +1490,21 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::get_operation][super::super::client::CloudRedis::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1308,6 +1553,21 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::delete_operation][super::super::client::CloudRedis::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1356,6 +1616,21 @@ pub mod cloud_redis {
     }
 
     /// The request builder for [CloudRedis::cancel_operation][super::super::client::CloudRedis::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_redis_v1::builder;
+    /// use builder::cloud_redis::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

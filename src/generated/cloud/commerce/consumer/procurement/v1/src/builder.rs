@@ -69,6 +69,21 @@ pub mod license_management_service {
     }
 
     /// The request builder for [LicenseManagementService::get_license_pool][super::super::client::LicenseManagementService::get_license_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::GetLicensePool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLicensePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLicensePool(RequestBuilder<crate::model::GetLicensePoolRequest>);
 
@@ -116,6 +131,21 @@ pub mod license_management_service {
     }
 
     /// The request builder for [LicenseManagementService::update_license_pool][super::super::client::LicenseManagementService::update_license_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::UpdateLicensePool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateLicensePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateLicensePool(RequestBuilder<crate::model::UpdateLicensePoolRequest>);
 
@@ -180,6 +210,21 @@ pub mod license_management_service {
     }
 
     /// The request builder for [LicenseManagementService::assign][super::super::client::LicenseManagementService::assign] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::Assign;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Assign {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Assign(RequestBuilder<crate::model::AssignRequest>);
 
@@ -240,6 +285,21 @@ pub mod license_management_service {
     }
 
     /// The request builder for [LicenseManagementService::unassign][super::super::client::LicenseManagementService::unassign] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::Unassign;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Unassign {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Unassign(RequestBuilder<crate::model::UnassignRequest>);
 
@@ -300,6 +360,25 @@ pub mod license_management_service {
     }
 
     /// The request builder for [LicenseManagementService::enumerate_licensed_users][super::super::client::LicenseManagementService::enumerate_licensed_users] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::EnumerateLicensedUsers;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnumerateLicensedUsers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnumerateLicensedUsers(RequestBuilder<crate::model::EnumerateLicensedUsersRequest>);
 
@@ -390,6 +469,21 @@ pub mod license_management_service {
     }
 
     /// The request builder for [LicenseManagementService::get_operation][super::super::client::LicenseManagementService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -493,6 +587,22 @@ pub mod consumer_procurement_service {
     }
 
     /// The request builder for [ConsumerProcurementService::place_order][super::super::client::ConsumerProcurementService::place_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::PlaceOrder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PlaceOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PlaceOrder(RequestBuilder<crate::model::PlaceOrderRequest>);
 
@@ -603,6 +713,21 @@ pub mod consumer_procurement_service {
     }
 
     /// The request builder for [ConsumerProcurementService::get_order][super::super::client::ConsumerProcurementService::get_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::GetOrder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrder(RequestBuilder<crate::model::GetOrderRequest>);
 
@@ -650,6 +775,25 @@ pub mod consumer_procurement_service {
     }
 
     /// The request builder for [ConsumerProcurementService::list_orders][super::super::client::ConsumerProcurementService::list_orders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::ListOrders;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrders(RequestBuilder<crate::model::ListOrdersRequest>);
 
@@ -739,6 +883,22 @@ pub mod consumer_procurement_service {
     }
 
     /// The request builder for [ConsumerProcurementService::modify_order][super::super::client::ConsumerProcurementService::modify_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::ModifyOrder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyOrder(RequestBuilder<crate::model::ModifyOrderRequest>);
 
@@ -847,6 +1007,22 @@ pub mod consumer_procurement_service {
     }
 
     /// The request builder for [ConsumerProcurementService::cancel_order][super::super::client::ConsumerProcurementService::cancel_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::CancelOrder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_commerce_consumer_procurement_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOrder(RequestBuilder<crate::model::CancelOrderRequest>);
 
@@ -949,6 +1125,21 @@ pub mod consumer_procurement_service {
     }
 
     /// The request builder for [ConsumerProcurementService::get_operation][super::super::client::ConsumerProcurementService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

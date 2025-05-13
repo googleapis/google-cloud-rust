@@ -69,6 +69,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_instances][super::super::client::BareMetalSolution::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -158,6 +177,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_instance][super::super::client::BareMetalSolution::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -205,6 +239,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::update_instance][super::super::client::BareMetalSolution::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -302,6 +352,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::rename_instance][super::super::client::BareMetalSolution::rename_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameInstance(RequestBuilder<crate::model::RenameInstanceRequest>);
 
@@ -357,6 +422,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::reset_instance][super::super::client::BareMetalSolution::reset_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ResetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
@@ -445,6 +526,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::start_instance][super::super::client::BareMetalSolution::start_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::StartInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
@@ -533,6 +630,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::stop_instance][super::super::client::BareMetalSolution::stop_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::StopInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
@@ -621,6 +734,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::EnableInteractiveSerialConsole;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableInteractiveSerialConsole {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableInteractiveSerialConsole(
         RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>,
@@ -716,6 +845,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DisableInteractiveSerialConsole;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableInteractiveSerialConsole {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableInteractiveSerialConsole(
         RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>,
@@ -811,6 +956,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::detach_lun][super::super::client::BareMetalSolution::detach_lun] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DetachLun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetachLun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetachLun(RequestBuilder<crate::model::DetachLunRequest>);
 
@@ -910,6 +1071,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_ssh_keys][super::super::client::BareMetalSolution::list_ssh_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListSSHKeys;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSSHKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSSHKeys(RequestBuilder<crate::model::ListSSHKeysRequest>);
 
@@ -993,6 +1173,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::create_ssh_key][super::super::client::BareMetalSolution::create_ssh_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateSSHKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSSHKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSSHKey(RequestBuilder<crate::model::CreateSSHKeyRequest>);
 
@@ -1059,6 +1254,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::delete_ssh_key][super::super::client::BareMetalSolution::delete_ssh_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DeleteSSHKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSSHKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSSHKey(RequestBuilder<crate::model::DeleteSSHKeyRequest>);
 
@@ -1106,6 +1316,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_volumes][super::super::client::BareMetalSolution::list_volumes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListVolumes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
@@ -1195,6 +1424,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_volume][super::super::client::BareMetalSolution::get_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetVolume;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
@@ -1242,6 +1486,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::update_volume][super::super::client::BareMetalSolution::update_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateVolume;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
@@ -1339,6 +1599,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::rename_volume][super::super::client::BareMetalSolution::rename_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameVolume;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameVolume(RequestBuilder<crate::model::RenameVolumeRequest>);
 
@@ -1394,6 +1669,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::evict_volume][super::super::client::BareMetalSolution::evict_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::EvictVolume;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvictVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvictVolume(RequestBuilder<crate::model::EvictVolumeRequest>);
 
@@ -1481,6 +1772,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::resize_volume][super::super::client::BareMetalSolution::resize_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ResizeVolume;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResizeVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResizeVolume(RequestBuilder<crate::model::ResizeVolumeRequest>);
 
@@ -1572,6 +1879,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_networks][super::super::client::BareMetalSolution::list_networks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListNetworks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNetworks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
@@ -1661,6 +1987,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_network_usage][super::super::client::BareMetalSolution::list_network_usage] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListNetworkUsage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNetworkUsage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworkUsage(RequestBuilder<crate::model::ListNetworkUsageRequest>);
 
@@ -1711,6 +2052,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_network][super::super::client::BareMetalSolution::get_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
@@ -1758,6 +2114,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::update_network][super::super::client::BareMetalSolution::update_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNetwork(RequestBuilder<crate::model::UpdateNetworkRequest>);
 
@@ -1855,6 +2227,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::create_volume_snapshot][super::super::client::BareMetalSolution::create_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVolumeSnapshot(RequestBuilder<crate::model::CreateVolumeSnapshotRequest>);
 
@@ -1916,6 +2303,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RestoreVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreVolumeSnapshot(RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>);
 
@@ -2007,6 +2410,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::delete_volume_snapshot][super::super::client::BareMetalSolution::delete_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DeleteVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVolumeSnapshot(RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>);
 
@@ -2057,6 +2475,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_volume_snapshot][super::super::client::BareMetalSolution::get_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolumeSnapshot(RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
 
@@ -2107,6 +2540,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_volume_snapshots][super::super::client::BareMetalSolution::list_volume_snapshots] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListVolumeSnapshots;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumeSnapshots {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumeSnapshots(RequestBuilder<crate::model::ListVolumeSnapshotsRequest>);
 
@@ -2195,6 +2647,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_lun][super::super::client::BareMetalSolution::get_lun] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetLun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLun(RequestBuilder<crate::model::GetLunRequest>);
 
@@ -2242,6 +2709,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_luns][super::super::client::BareMetalSolution::list_luns] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListLuns;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLuns(RequestBuilder<crate::model::ListLunsRequest>);
 
@@ -2325,6 +2811,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::evict_lun][super::super::client::BareMetalSolution::evict_lun] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::EvictLun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvictLun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvictLun(RequestBuilder<crate::model::EvictLunRequest>);
 
@@ -2412,6 +2914,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_nfs_share][super::super::client::BareMetalSolution::get_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetNfsShare;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNfsShare(RequestBuilder<crate::model::GetNfsShareRequest>);
 
@@ -2459,6 +2976,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_nfs_shares][super::super::client::BareMetalSolution::list_nfs_shares] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListNfsShares;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNfsShares {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNfsShares(RequestBuilder<crate::model::ListNfsSharesRequest>);
 
@@ -2548,6 +3084,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateNfsShare;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNfsShare(RequestBuilder<crate::model::UpdateNfsShareRequest>);
 
@@ -2645,6 +3197,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateNfsShare;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNfsShare(RequestBuilder<crate::model::CreateNfsShareRequest>);
 
@@ -2741,6 +3309,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::rename_nfs_share][super::super::client::BareMetalSolution::rename_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameNfsShare;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameNfsShare(RequestBuilder<crate::model::RenameNfsShareRequest>);
 
@@ -2796,6 +3379,22 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DeleteNfsShare;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNfsShare(RequestBuilder<crate::model::DeleteNfsShareRequest>);
 
@@ -2883,6 +3482,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_provisioning_quotas][super::super::client::BareMetalSolution::list_provisioning_quotas] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListProvisioningQuotas;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProvisioningQuotas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProvisioningQuotas(RequestBuilder<crate::model::ListProvisioningQuotasRequest>);
 
@@ -2973,6 +3591,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::submit_provisioning_config][super::super::client::BareMetalSolution::submit_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::SubmitProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitProvisioningConfig(
         RequestBuilder<crate::model::SubmitProvisioningConfigRequest>,
@@ -3044,6 +3677,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_provisioning_config][super::super::client::BareMetalSolution::get_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProvisioningConfig(RequestBuilder<crate::model::GetProvisioningConfigRequest>);
 
@@ -3094,6 +3742,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::create_provisioning_config][super::super::client::BareMetalSolution::create_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProvisioningConfig(
         RequestBuilder<crate::model::CreateProvisioningConfigRequest>,
@@ -3165,6 +3828,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::update_provisioning_config][super::super::client::BareMetalSolution::update_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProvisioningConfig(
         RequestBuilder<crate::model::UpdateProvisioningConfigRequest>,
@@ -3239,6 +3917,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::rename_network][super::super::client::BareMetalSolution::rename_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameNetwork(RequestBuilder<crate::model::RenameNetworkRequest>);
 
@@ -3294,6 +3987,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_os_images][super::super::client::BareMetalSolution::list_os_images] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListOSImages;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOSImages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSImages(RequestBuilder<crate::model::ListOSImagesRequest>);
 
@@ -3377,6 +4089,25 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::list_locations][super::super::client::BareMetalSolution::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3467,6 +4198,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_location][super::super::client::BareMetalSolution::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3512,6 +4258,21 @@ pub mod bare_metal_solution {
     }
 
     /// The request builder for [BareMetalSolution::get_operation][super::super::client::BareMetalSolution::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

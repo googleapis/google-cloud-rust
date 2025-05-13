@@ -69,6 +69,25 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::list_data_exchanges][super::super::client::AnalyticsHubService::list_data_exchanges] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListDataExchanges;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataExchanges {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataExchanges(RequestBuilder<crate::model::ListDataExchangesRequest>);
 
@@ -155,6 +174,25 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::list_org_data_exchanges][super::super::client::AnalyticsHubService::list_org_data_exchanges] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListOrgDataExchanges;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrgDataExchanges {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrgDataExchanges(RequestBuilder<crate::model::ListOrgDataExchangesRequest>);
 
@@ -243,6 +281,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::get_data_exchange][super::super::client::AnalyticsHubService::get_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetDataExchange;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataExchange(RequestBuilder<crate::model::GetDataExchangeRequest>);
 
@@ -290,6 +343,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::create_data_exchange][super::super::client::AnalyticsHubService::create_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::CreateDataExchange;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataExchange(RequestBuilder<crate::model::CreateDataExchangeRequest>);
 
@@ -359,6 +427,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::update_data_exchange][super::super::client::AnalyticsHubService::update_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::UpdateDataExchange;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataExchange(RequestBuilder<crate::model::UpdateDataExchangeRequest>);
 
@@ -423,6 +506,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::delete_data_exchange][super::super::client::AnalyticsHubService::delete_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::DeleteDataExchange;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataExchange(RequestBuilder<crate::model::DeleteDataExchangeRequest>);
 
@@ -473,6 +571,25 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::list_listings][super::super::client::AnalyticsHubService::list_listings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListListings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListListings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListListings(RequestBuilder<crate::model::ListListingsRequest>);
 
@@ -556,6 +673,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::get_listing][super::super::client::AnalyticsHubService::get_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetListing;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetListing(RequestBuilder<crate::model::GetListingRequest>);
 
@@ -603,6 +735,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::create_listing][super::super::client::AnalyticsHubService::create_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::CreateListing;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateListing(RequestBuilder<crate::model::CreateListingRequest>);
 
@@ -669,6 +816,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::update_listing][super::super::client::AnalyticsHubService::update_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::UpdateListing;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateListing(RequestBuilder<crate::model::UpdateListingRequest>);
 
@@ -730,6 +892,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::delete_listing][super::super::client::AnalyticsHubService::delete_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::DeleteListing;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteListing(RequestBuilder<crate::model::DeleteListingRequest>);
 
@@ -777,6 +954,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::subscribe_listing][super::super::client::AnalyticsHubService::subscribe_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::SubscribeListing;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubscribeListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubscribeListing(RequestBuilder<crate::model::SubscribeListingRequest>);
 
@@ -871,6 +1063,22 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::subscribe_data_exchange][super::super::client::AnalyticsHubService::subscribe_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::SubscribeDataExchange;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubscribeDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubscribeDataExchange(RequestBuilder<crate::model::SubscribeDataExchangeRequest>);
 
@@ -995,6 +1203,22 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::refresh_subscription][super::super::client::AnalyticsHubService::refresh_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::RefreshSubscription;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RefreshSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RefreshSubscription(RequestBuilder<crate::model::RefreshSubscriptionRequest>);
 
@@ -1086,6 +1310,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::get_subscription][super::super::client::AnalyticsHubService::get_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetSubscription;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
 
@@ -1133,6 +1372,25 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::list_subscriptions][super::super::client::AnalyticsHubService::list_subscriptions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListSubscriptions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSubscriptions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
@@ -1225,6 +1483,25 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::list_shared_resource_subscriptions][super::super::client::AnalyticsHubService::list_shared_resource_subscriptions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListSharedResourceSubscriptions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSharedResourceSubscriptions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSharedResourceSubscriptions(
         RequestBuilder<crate::model::ListSharedResourceSubscriptionsRequest>,
@@ -1323,6 +1600,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::revoke_subscription][super::super::client::AnalyticsHubService::revoke_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::RevokeSubscription;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevokeSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeSubscription(RequestBuilder<crate::model::RevokeSubscriptionRequest>);
 
@@ -1373,6 +1665,22 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::delete_subscription][super::super::client::AnalyticsHubService::delete_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::DeleteSubscription;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
 
@@ -1463,6 +1771,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::get_iam_policy][super::super::client::AnalyticsHubService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1519,6 +1842,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::set_iam_policy][super::super::client::AnalyticsHubService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1586,6 +1924,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::test_iam_permissions][super::super::client::AnalyticsHubService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1649,6 +2002,21 @@ pub mod analytics_hub_service {
     }
 
     /// The request builder for [AnalyticsHubService::get_operation][super::super::client::AnalyticsHubService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

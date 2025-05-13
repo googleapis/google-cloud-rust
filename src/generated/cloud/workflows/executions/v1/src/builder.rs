@@ -69,6 +69,25 @@ pub mod executions {
     }
 
     /// The request builder for [Executions::list_executions][super::super::client::Executions::list_executions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::ListExecutions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListExecutions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListExecutions(RequestBuilder<crate::model::ListExecutionsRequest>);
 
@@ -170,6 +189,21 @@ pub mod executions {
     }
 
     /// The request builder for [Executions::create_execution][super::super::client::Executions::create_execution] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::CreateExecution;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExecution {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExecution(RequestBuilder<crate::model::CreateExecutionRequest>);
 
@@ -228,6 +262,21 @@ pub mod executions {
     }
 
     /// The request builder for [Executions::get_execution][super::super::client::Executions::get_execution] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::GetExecution;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetExecution {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetExecution(RequestBuilder<crate::model::GetExecutionRequest>);
 
@@ -281,6 +330,21 @@ pub mod executions {
     }
 
     /// The request builder for [Executions::cancel_execution][super::super::client::Executions::cancel_execution] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::CancelExecution;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelExecution {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelExecution(RequestBuilder<crate::model::CancelExecutionRequest>);
 

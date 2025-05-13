@@ -69,6 +69,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::initialize_zone][super::super::client::EdgeNetwork::initialize_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::InitializeZone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InitializeZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InitializeZone(RequestBuilder<crate::model::InitializeZoneRequest>);
 
@@ -116,6 +131,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_zones][super::super::client::EdgeNetwork::list_zones] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListZones;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListZones {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
@@ -211,6 +245,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_zone][super::super::client::EdgeNetwork::get_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetZone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
@@ -258,6 +307,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_networks][super::super::client::EdgeNetwork::list_networks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListNetworks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNetworks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
@@ -353,6 +421,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_network][super::super::client::EdgeNetwork::get_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
@@ -400,6 +483,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::diagnose_network][super::super::client::EdgeNetwork::diagnose_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DiagnoseNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiagnoseNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiagnoseNetwork(RequestBuilder<crate::model::DiagnoseNetworkRequest>);
 
@@ -447,6 +545,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::create_network][super::super::client::EdgeNetwork::create_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::CreateNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNetwork(RequestBuilder<crate::model::CreateNetworkRequest>);
 
@@ -557,6 +671,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::delete_network][super::super::client::EdgeNetwork::delete_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DeleteNetwork;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNetwork(RequestBuilder<crate::model::DeleteNetworkRequest>);
 
@@ -650,6 +780,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_subnets][super::super::client::EdgeNetwork::list_subnets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListSubnets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSubnets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
@@ -745,6 +894,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_subnet][super::super::client::EdgeNetwork::get_subnet] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetSubnet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSubnet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
@@ -792,6 +956,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::create_subnet][super::super::client::EdgeNetwork::create_subnet] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::CreateSubnet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSubnet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSubnet(RequestBuilder<crate::model::CreateSubnetRequest>);
 
@@ -902,6 +1082,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::update_subnet][super::super::client::EdgeNetwork::update_subnet] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::UpdateSubnet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSubnet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
@@ -1007,6 +1203,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::delete_subnet][super::super::client::EdgeNetwork::delete_subnet] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DeleteSubnet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSubnet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSubnet(RequestBuilder<crate::model::DeleteSubnetRequest>);
 
@@ -1100,6 +1312,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_interconnects][super::super::client::EdgeNetwork::list_interconnects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListInterconnects;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInterconnects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInterconnects(RequestBuilder<crate::model::ListInterconnectsRequest>);
 
@@ -1198,6 +1429,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_interconnect][super::super::client::EdgeNetwork::get_interconnect] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetInterconnect;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInterconnect {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInterconnect(RequestBuilder<crate::model::GetInterconnectRequest>);
 
@@ -1245,6 +1491,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::diagnose_interconnect][super::super::client::EdgeNetwork::diagnose_interconnect] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DiagnoseInterconnect;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiagnoseInterconnect {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiagnoseInterconnect(RequestBuilder<crate::model::DiagnoseInterconnectRequest>);
 
@@ -1295,6 +1556,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_interconnect_attachments][super::super::client::EdgeNetwork::list_interconnect_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListInterconnectAttachments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInterconnectAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInterconnectAttachments(
         RequestBuilder<crate::model::ListInterconnectAttachmentsRequest>,
@@ -1399,6 +1679,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_interconnect_attachment][super::super::client::EdgeNetwork::get_interconnect_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetInterconnectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInterconnectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInterconnectAttachment(
         RequestBuilder<crate::model::GetInterconnectAttachmentRequest>,
@@ -1451,6 +1746,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::create_interconnect_attachment][super::super::client::EdgeNetwork::create_interconnect_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::CreateInterconnectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInterconnectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInterconnectAttachment(
         RequestBuilder<crate::model::CreateInterconnectAttachmentRequest>,
@@ -1574,6 +1885,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::delete_interconnect_attachment][super::super::client::EdgeNetwork::delete_interconnect_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DeleteInterconnectAttachment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInterconnectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInterconnectAttachment(
         RequestBuilder<crate::model::DeleteInterconnectAttachmentRequest>,
@@ -1672,6 +1999,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_routers][super::super::client::EdgeNetwork::list_routers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListRouters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRouters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRouters(RequestBuilder<crate::model::ListRoutersRequest>);
 
@@ -1767,6 +2113,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_router][super::super::client::EdgeNetwork::get_router] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetRouter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRouter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRouter(RequestBuilder<crate::model::GetRouterRequest>);
 
@@ -1814,6 +2175,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::diagnose_router][super::super::client::EdgeNetwork::diagnose_router] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DiagnoseRouter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiagnoseRouter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiagnoseRouter(RequestBuilder<crate::model::DiagnoseRouterRequest>);
 
@@ -1861,6 +2237,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::create_router][super::super::client::EdgeNetwork::create_router] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::CreateRouter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRouter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRouter(RequestBuilder<crate::model::CreateRouterRequest>);
 
@@ -1971,6 +2363,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::update_router][super::super::client::EdgeNetwork::update_router] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::UpdateRouter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRouter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRouter(RequestBuilder<crate::model::UpdateRouterRequest>);
 
@@ -2076,6 +2484,22 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::delete_router][super::super::client::EdgeNetwork::delete_router] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DeleteRouter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgenetwork_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRouter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRouter(RequestBuilder<crate::model::DeleteRouterRequest>);
 
@@ -2169,6 +2593,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_locations][super::super::client::EdgeNetwork::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2259,6 +2702,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_location][super::super::client::EdgeNetwork::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2304,6 +2762,25 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::list_operations][super::super::client::EdgeNetwork::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2396,6 +2873,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::get_operation][super::super::client::EdgeNetwork::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2444,6 +2936,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::delete_operation][super::super::client::EdgeNetwork::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2492,6 +2999,21 @@ pub mod edge_network {
     }
 
     /// The request builder for [EdgeNetwork::cancel_operation][super::super::client::EdgeNetwork::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgenetwork_v1::builder;
+    /// use builder::edge_network::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

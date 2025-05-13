@@ -69,6 +69,25 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::list_client_connector_services][super::super::client::ClientConnectorServicesService::list_client_connector_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::ListClientConnectorServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClientConnectorServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClientConnectorServices(
         RequestBuilder<crate::model::ListClientConnectorServicesRequest>,
@@ -173,6 +192,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::get_client_connector_service][super::super::client::ClientConnectorServicesService::get_client_connector_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::GetClientConnectorService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetClientConnectorService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetClientConnectorService(
         RequestBuilder<crate::model::GetClientConnectorServiceRequest>,
@@ -225,6 +259,22 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::create_client_connector_service][super::super::client::ClientConnectorServicesService::create_client_connector_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::CreateClientConnectorService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateClientConnectorService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateClientConnectorService(
         RequestBuilder<crate::model::CreateClientConnectorServiceRequest>,
@@ -354,6 +404,22 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::update_client_connector_service][super::super::client::ClientConnectorServicesService::update_client_connector_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::UpdateClientConnectorService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateClientConnectorService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateClientConnectorService(
         RequestBuilder<crate::model::UpdateClientConnectorServiceRequest>,
@@ -483,6 +549,22 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::delete_client_connector_service][super::super::client::ClientConnectorServicesService::delete_client_connector_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::DeleteClientConnectorService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_beyondcorp_clientconnectorservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteClientConnectorService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteClientConnectorService(
         RequestBuilder<crate::model::DeleteClientConnectorServiceRequest>,
@@ -592,6 +674,25 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::list_locations][super::super::client::ClientConnectorServicesService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -682,6 +783,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::get_location][super::super::client::ClientConnectorServicesService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -727,6 +843,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::set_iam_policy][super::super::client::ClientConnectorServicesService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -794,6 +925,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::get_iam_policy][super::super::client::ClientConnectorServicesService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -850,6 +996,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::test_iam_permissions][super::super::client::ClientConnectorServicesService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -913,6 +1074,25 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::list_operations][super::super::client::ClientConnectorServicesService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1005,6 +1185,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::get_operation][super::super::client::ClientConnectorServicesService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1053,6 +1248,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::delete_operation][super::super::client::ClientConnectorServicesService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1101,6 +1311,21 @@ pub mod client_connector_services_service {
     }
 
     /// The request builder for [ClientConnectorServicesService::cancel_operation][super::super::client::ClientConnectorServicesService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
+    /// use builder::client_connector_services_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

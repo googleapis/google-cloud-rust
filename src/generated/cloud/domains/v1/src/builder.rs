@@ -67,6 +67,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::search_domains][super::super::client::Domains::search_domains] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::SearchDomains;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchDomains {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchDomains(RequestBuilder<crate::model::SearchDomainsRequest>);
 
@@ -120,6 +135,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::retrieve_register_parameters][super::super::client::Domains::retrieve_register_parameters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RetrieveRegisterParameters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveRegisterParameters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveRegisterParameters(
         RequestBuilder<crate::model::RetrieveRegisterParametersRequest>,
@@ -178,6 +208,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::register_domain][super::super::client::Domains::register_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RegisterDomain;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RegisterDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RegisterDomain(RequestBuilder<crate::model::RegisterDomainRequest>);
 
@@ -313,6 +359,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::retrieve_transfer_parameters][super::super::client::Domains::retrieve_transfer_parameters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RetrieveTransferParameters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveTransferParameters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveTransferParameters(
         RequestBuilder<crate::model::RetrieveTransferParametersRequest>,
@@ -371,6 +432,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::transfer_domain][super::super::client::Domains::transfer_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::TransferDomain;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TransferDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TransferDomain(RequestBuilder<crate::model::TransferDomainRequest>);
 
@@ -506,6 +583,25 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::list_registrations][super::super::client::Domains::list_registrations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ListRegistrations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRegistrations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRegistrations(RequestBuilder<crate::model::ListRegistrationsRequest>);
 
@@ -596,6 +692,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::get_registration][super::super::client::Domains::get_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::GetRegistration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRegistration(RequestBuilder<crate::model::GetRegistrationRequest>);
 
@@ -641,6 +752,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::update_registration][super::super::client::Domains::update_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::UpdateRegistration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRegistration(RequestBuilder<crate::model::UpdateRegistrationRequest>);
 
@@ -741,6 +868,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::configure_management_settings][super::super::client::Domains::configure_management_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ConfigureManagementSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConfigureManagementSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureManagementSettings(
         RequestBuilder<crate::model::ConfigureManagementSettingsRequest>,
@@ -853,6 +996,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::configure_dns_settings][super::super::client::Domains::configure_dns_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ConfigureDnsSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConfigureDnsSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureDnsSettings(RequestBuilder<crate::model::ConfigureDnsSettingsRequest>);
 
@@ -967,6 +1126,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::configure_contact_settings][super::super::client::Domains::configure_contact_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ConfigureContactSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConfigureContactSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureContactSettings(
         RequestBuilder<crate::model::ConfigureContactSettingsRequest>,
@@ -1094,6 +1269,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::export_registration][super::super::client::Domains::export_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ExportRegistration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRegistration(RequestBuilder<crate::model::ExportRegistrationRequest>);
 
@@ -1182,6 +1373,22 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::delete_registration][super::super::client::Domains::delete_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::DeleteRegistration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_domains_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRegistration(RequestBuilder<crate::model::DeleteRegistrationRequest>);
 
@@ -1270,6 +1477,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::retrieve_authorization_code][super::super::client::Domains::retrieve_authorization_code] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RetrieveAuthorizationCode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveAuthorizationCode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveAuthorizationCode(
         RequestBuilder<crate::model::RetrieveAuthorizationCodeRequest>,
@@ -1320,6 +1542,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::reset_authorization_code][super::super::client::Domains::reset_authorization_code] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ResetAuthorizationCode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetAuthorizationCode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetAuthorizationCode(RequestBuilder<crate::model::ResetAuthorizationCodeRequest>);
 
@@ -1368,6 +1605,25 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::list_operations][super::super::client::Domains::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1458,6 +1714,21 @@ pub mod domains {
     }
 
     /// The request builder for [Domains::get_operation][super::super::client::Domains::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

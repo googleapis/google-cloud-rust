@@ -69,6 +69,21 @@ pub mod profiler_service {
     }
 
     /// The request builder for [ProfilerService::create_profile][super::super::client::ProfilerService::create_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::profiler_service::CreateProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
 
@@ -134,6 +149,21 @@ pub mod profiler_service {
     }
 
     /// The request builder for [ProfilerService::create_offline_profile][super::super::client::ProfilerService::create_offline_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::profiler_service::CreateOfflineProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateOfflineProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
 
@@ -191,6 +221,21 @@ pub mod profiler_service {
     }
 
     /// The request builder for [ProfilerService::update_profile][super::super::client::ProfilerService::update_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::profiler_service::UpdateProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
 
@@ -303,6 +348,25 @@ pub mod export_service {
     }
 
     /// The request builder for [ExportService::list_profiles][super::super::client::ExportService::list_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::export_service::ListProfiles;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
 

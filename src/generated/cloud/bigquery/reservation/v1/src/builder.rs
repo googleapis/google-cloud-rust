@@ -69,6 +69,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::create_reservation][super::super::client::ReservationService::create_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::CreateReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReservation(RequestBuilder<crate::model::CreateReservationRequest>);
 
@@ -134,6 +149,25 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::list_reservations][super::super::client::ReservationService::list_reservations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::ListReservations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReservations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReservations(RequestBuilder<crate::model::ListReservationsRequest>);
 
@@ -220,6 +254,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::get_reservation][super::super::client::ReservationService::get_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::GetReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReservation(RequestBuilder<crate::model::GetReservationRequest>);
 
@@ -267,6 +316,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::delete_reservation][super::super::client::ReservationService::delete_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::DeleteReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteReservation(RequestBuilder<crate::model::DeleteReservationRequest>);
 
@@ -317,6 +381,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::update_reservation][super::super::client::ReservationService::update_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateReservation(RequestBuilder<crate::model::UpdateReservationRequest>);
 
@@ -377,6 +456,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::failover_reservation][super::super::client::ReservationService::failover_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::FailoverReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FailoverReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FailoverReservation(RequestBuilder<crate::model::FailoverReservationRequest>);
 
@@ -427,6 +521,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::create_capacity_commitment][super::super::client::ReservationService::create_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::CreateCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCapacityCommitment(
         RequestBuilder<crate::model::CreateCapacityCommitmentRequest>,
@@ -502,6 +611,25 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::list_capacity_commitments][super::super::client::ReservationService::list_capacity_commitments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::ListCapacityCommitments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCapacityCommitments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCapacityCommitments(
         RequestBuilder<crate::model::ListCapacityCommitmentsRequest>,
@@ -594,6 +722,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::get_capacity_commitment][super::super::client::ReservationService::get_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::GetCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCapacityCommitment(RequestBuilder<crate::model::GetCapacityCommitmentRequest>);
 
@@ -644,6 +787,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::delete_capacity_commitment][super::super::client::ReservationService::delete_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::DeleteCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCapacityCommitment(
         RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>,
@@ -702,6 +860,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::update_capacity_commitment][super::super::client::ReservationService::update_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCapacityCommitment(
         RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>,
@@ -766,6 +939,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::split_capacity_commitment][super::super::client::ReservationService::split_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::SplitCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SplitCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SplitCapacityCommitment(
         RequestBuilder<crate::model::SplitCapacityCommitmentRequest>,
@@ -824,6 +1012,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::merge_capacity_commitments][super::super::client::ReservationService::merge_capacity_commitments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::MergeCapacityCommitments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MergeCapacityCommitments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MergeCapacityCommitments(
         RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>,
@@ -885,6 +1088,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::create_assignment][super::super::client::ReservationService::create_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::CreateAssignment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAssignment(RequestBuilder<crate::model::CreateAssignmentRequest>);
 
@@ -950,6 +1168,25 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::list_assignments][super::super::client::ReservationService::list_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::ListAssignments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssignments(RequestBuilder<crate::model::ListAssignmentsRequest>);
 
@@ -1033,6 +1270,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::delete_assignment][super::super::client::ReservationService::delete_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::DeleteAssignment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAssignment(RequestBuilder<crate::model::DeleteAssignmentRequest>);
 
@@ -1083,6 +1335,25 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::search_assignments][super::super::client::ReservationService::search_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::SearchAssignments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAssignments(RequestBuilder<crate::model::SearchAssignmentsRequest>);
 
@@ -1175,6 +1446,25 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::search_all_assignments][super::super::client::ReservationService::search_all_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::SearchAllAssignments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchAllAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAllAssignments(RequestBuilder<crate::model::SearchAllAssignmentsRequest>);
 
@@ -1269,6 +1559,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::move_assignment][super::super::client::ReservationService::move_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::MoveAssignment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveAssignment(RequestBuilder<crate::model::MoveAssignmentRequest>);
 
@@ -1328,6 +1633,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::update_assignment][super::super::client::ReservationService::update_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateAssignment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAssignment(RequestBuilder<crate::model::UpdateAssignmentRequest>);
 
@@ -1388,6 +1708,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::get_bi_reservation][super::super::client::ReservationService::get_bi_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::GetBiReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBiReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBiReservation(RequestBuilder<crate::model::GetBiReservationRequest>);
 
@@ -1438,6 +1773,21 @@ pub mod reservation_service {
     }
 
     /// The request builder for [ReservationService::update_bi_reservation][super::super::client::ReservationService::update_bi_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateBiReservation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBiReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBiReservation(RequestBuilder<crate::model::UpdateBiReservationRequest>);
 

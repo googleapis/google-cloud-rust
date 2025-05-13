@@ -69,6 +69,25 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::list_constraints][super::super::client::OrgPolicy::list_constraints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::ListConstraints;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConstraints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
@@ -152,6 +171,25 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::list_policies][super::super::client::OrgPolicy::list_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::ListPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
@@ -235,6 +273,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::get_policy][super::super::client::OrgPolicy::get_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::GetPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
@@ -282,6 +335,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::get_effective_policy][super::super::client::OrgPolicy::get_effective_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::GetEffectivePolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEffectivePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
@@ -332,6 +400,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::create_policy][super::super::client::OrgPolicy::create_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::CreatePolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
@@ -390,6 +473,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::update_policy][super::super::client::OrgPolicy::update_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::UpdatePolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
@@ -449,6 +547,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::delete_policy][super::super::client::OrgPolicy::delete_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::DeletePolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
@@ -502,6 +615,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::create_custom_constraint][super::super::client::OrgPolicy::create_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::CreateCustomConstraint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
@@ -565,6 +693,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::update_custom_constraint][super::super::client::OrgPolicy::update_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::UpdateCustomConstraint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
@@ -620,6 +763,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::get_custom_constraint][super::super::client::OrgPolicy::get_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::GetCustomConstraint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
@@ -670,6 +828,25 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::list_custom_constraints][super::super::client::OrgPolicy::list_custom_constraints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::ListCustomConstraints;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomConstraints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
@@ -758,6 +935,21 @@ pub mod org_policy {
     }
 
     /// The request builder for [OrgPolicy::delete_custom_constraint][super::super::client::OrgPolicy::delete_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::DeleteCustomConstraint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 

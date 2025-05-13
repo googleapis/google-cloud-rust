@@ -69,6 +69,25 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::list_instances][super::super::client::SecureSourceManager::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -164,6 +183,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_instance][super::super::client::SecureSourceManager::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -211,6 +245,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::create_instance][super::super::client::SecureSourceManager::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -321,6 +371,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::delete_instance][super::super::client::SecureSourceManager::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -414,6 +480,25 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::list_repositories][super::super::client::SecureSourceManager::list_repositories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListRepositories;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRepositories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
@@ -512,6 +597,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_repository][super::super::client::SecureSourceManager::get_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetRepository;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
@@ -559,6 +659,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::create_repository][super::super::client::SecureSourceManager::create_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreateRepository;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
@@ -666,6 +782,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::delete_repository][super::super::client::SecureSourceManager::delete_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteRepository;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
@@ -762,6 +894,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_iam_policy_repo][super::super::client::SecureSourceManager::get_iam_policy_repo] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetIamPolicyRepo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicyRepo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicyRepo(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -818,6 +965,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::set_iam_policy_repo][super::super::client::SecureSourceManager::set_iam_policy_repo] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::SetIamPolicyRepo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicyRepo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicyRepo(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -885,6 +1047,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::test_iam_permissions_repo][super::super::client::SecureSourceManager::test_iam_permissions_repo] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::TestIamPermissionsRepo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissionsRepo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissionsRepo(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -948,6 +1125,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::create_branch_rule][super::super::client::SecureSourceManager::create_branch_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CreateBranchRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBranchRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBranchRule(RequestBuilder<crate::model::CreateBranchRuleRequest>);
 
@@ -1055,6 +1248,25 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::list_branch_rules][super::super::client::SecureSourceManager::list_branch_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListBranchRules;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBranchRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBranchRules(RequestBuilder<crate::model::ListBranchRulesRequest>);
 
@@ -1138,6 +1350,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_branch_rule][super::super::client::SecureSourceManager::get_branch_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetBranchRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBranchRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBranchRule(RequestBuilder<crate::model::GetBranchRuleRequest>);
 
@@ -1185,6 +1412,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::update_branch_rule][super::super::client::SecureSourceManager::update_branch_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::UpdateBranchRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBranchRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBranchRule(RequestBuilder<crate::model::UpdateBranchRuleRequest>);
 
@@ -1293,6 +1536,22 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::delete_branch_rule][super::super::client::SecureSourceManager::delete_branch_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteBranchRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBranchRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBranchRule(RequestBuilder<crate::model::DeleteBranchRuleRequest>);
 
@@ -1389,6 +1648,25 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::list_locations][super::super::client::SecureSourceManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1479,6 +1757,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_location][super::super::client::SecureSourceManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1524,6 +1817,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::set_iam_policy][super::super::client::SecureSourceManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1591,6 +1899,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_iam_policy][super::super::client::SecureSourceManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1647,6 +1970,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::test_iam_permissions][super::super::client::SecureSourceManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1710,6 +2048,25 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::list_operations][super::super::client::SecureSourceManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1802,6 +2159,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::get_operation][super::super::client::SecureSourceManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1850,6 +2222,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::delete_operation][super::super::client::SecureSourceManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1898,6 +2285,21 @@ pub mod secure_source_manager {
     }
 
     /// The request builder for [SecureSourceManager::cancel_operation][super::super::client::SecureSourceManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securesourcemanager_v1::builder;
+    /// use builder::secure_source_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

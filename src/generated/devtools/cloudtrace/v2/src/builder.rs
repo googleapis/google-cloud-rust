@@ -69,6 +69,21 @@ pub mod trace_service {
     }
 
     /// The request builder for [TraceService::batch_write_spans][super::super::client::TraceService::batch_write_spans] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_trace_v2::builder;
+    /// use builder::trace_service::BatchWriteSpans;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchWriteSpans {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchWriteSpans(RequestBuilder<crate::model::BatchWriteSpansRequest>);
 
@@ -129,6 +144,21 @@ pub mod trace_service {
     }
 
     /// The request builder for [TraceService::create_span][super::super::client::TraceService::create_span] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_trace_v2::builder;
+    /// use builder::trace_service::CreateSpan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSpan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSpan(RequestBuilder<crate::model::Span>);
 

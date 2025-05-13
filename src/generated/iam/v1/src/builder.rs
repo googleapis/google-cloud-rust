@@ -69,6 +69,21 @@ pub mod iam_policy {
     }
 
     /// The request builder for [IAMPolicy::set_iam_policy][super::super::client::IAMPolicy::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v1::builder;
+    /// use builder::iam_policy::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<crate::model::SetIamPolicyRequest>);
 
@@ -136,6 +151,21 @@ pub mod iam_policy {
     }
 
     /// The request builder for [IAMPolicy::get_iam_policy][super::super::client::IAMPolicy::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v1::builder;
+    /// use builder::iam_policy::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<crate::model::GetIamPolicyRequest>);
 
@@ -192,6 +222,21 @@ pub mod iam_policy {
     }
 
     /// The request builder for [IAMPolicy::test_iam_permissions][super::super::client::IAMPolicy::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v1::builder;
+    /// use builder::iam_policy::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<crate::model::TestIamPermissionsRequest>);
 

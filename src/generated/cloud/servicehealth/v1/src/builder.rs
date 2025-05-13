@@ -69,6 +69,25 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::list_events][super::super::client::ServiceHealth::list_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListEvents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
@@ -164,6 +183,21 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::get_event][super::super::client::ServiceHealth::get_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
@@ -211,6 +245,25 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::list_organization_events][super::super::client::ServiceHealth::list_organization_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListOrganizationEvents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrganizationEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
 
@@ -313,6 +366,21 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::get_organization_event][super::super::client::ServiceHealth::get_organization_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetOrganizationEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganizationEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
 
@@ -363,6 +431,25 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::list_organization_impacts][super::super::client::ServiceHealth::list_organization_impacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListOrganizationImpacts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrganizationImpacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrganizationImpacts(
         RequestBuilder<crate::model::ListOrganizationImpactsRequest>,
@@ -461,6 +548,21 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::get_organization_impact][super::super::client::ServiceHealth::get_organization_impact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetOrganizationImpact;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganizationImpact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
 
@@ -511,6 +613,25 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::list_locations][super::super::client::ServiceHealth::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -601,6 +722,21 @@ pub mod service_health {
     }
 
     /// The request builder for [ServiceHealth::get_location][super::super::client::ServiceHealth::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

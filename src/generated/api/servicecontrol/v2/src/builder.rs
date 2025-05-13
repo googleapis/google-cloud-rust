@@ -69,6 +69,21 @@ pub mod service_controller {
     }
 
     /// The request builder for [ServiceController::check][super::super::client::ServiceController::check] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v2::builder;
+    /// use builder::service_controller::Check;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Check {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
@@ -148,6 +163,21 @@ pub mod service_controller {
     }
 
     /// The request builder for [ServiceController::report][super::super::client::ServiceController::report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v2::builder;
+    /// use builder::service_controller::Report;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Report {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 

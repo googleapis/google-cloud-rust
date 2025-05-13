@@ -69,6 +69,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::batch_create_resource_value_configs][super::super::client::SecurityCenter::batch_create_resource_value_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::BatchCreateResourceValueConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreateResourceValueConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateResourceValueConfigs(
         RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>,
@@ -134,6 +149,22 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::BulkMuteFindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_securitycenter_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkMuteFindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkMuteFindings(RequestBuilder<crate::model::BulkMuteFindingsRequest>);
 
@@ -240,6 +271,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::create_big_query_export][super::super::client::SecurityCenter::create_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateBigQueryExport;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBigQueryExport(RequestBuilder<crate::model::CreateBigQueryExportRequest>);
 
@@ -309,6 +355,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::create_finding][super::super::client::SecurityCenter::create_finding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateFinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFinding(RequestBuilder<crate::model::CreateFindingRequest>);
 
@@ -375,6 +436,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::create_mute_config][super::super::client::SecurityCenter::create_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateMuteConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMuteConfig(RequestBuilder<crate::model::CreateMuteConfigRequest>);
 
@@ -444,6 +520,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::create_notification_config][super::super::client::SecurityCenter::create_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateNotificationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNotificationConfig(
         RequestBuilder<crate::model::CreateNotificationConfigRequest>,
@@ -517,6 +608,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::create_source][super::super::client::SecurityCenter::create_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateSource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
@@ -575,6 +681,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::delete_big_query_export][super::super::client::SecurityCenter::delete_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteBigQueryExport;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBigQueryExport(RequestBuilder<crate::model::DeleteBigQueryExportRequest>);
 
@@ -625,6 +746,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::delete_mute_config][super::super::client::SecurityCenter::delete_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteMuteConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMuteConfig(RequestBuilder<crate::model::DeleteMuteConfigRequest>);
 
@@ -675,6 +811,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::delete_notification_config][super::super::client::SecurityCenter::delete_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteNotificationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationConfig(
         RequestBuilder<crate::model::DeleteNotificationConfigRequest>,
@@ -727,6 +878,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::delete_resource_value_config][super::super::client::SecurityCenter::delete_resource_value_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteResourceValueConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteResourceValueConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteResourceValueConfig(
         RequestBuilder<crate::model::DeleteResourceValueConfigRequest>,
@@ -779,6 +945,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_big_query_export][super::super::client::SecurityCenter::get_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetBigQueryExport;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBigQueryExport(RequestBuilder<crate::model::GetBigQueryExportRequest>);
 
@@ -829,6 +1010,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_simulation][super::super::client::SecurityCenter::get_simulation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetSimulation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSimulation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSimulation(RequestBuilder<crate::model::GetSimulationRequest>);
 
@@ -876,6 +1072,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_valued_resource][super::super::client::SecurityCenter::get_valued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetValuedResource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetValuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetValuedResource(RequestBuilder<crate::model::GetValuedResourceRequest>);
 
@@ -926,6 +1137,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_iam_policy][super::super::client::SecurityCenter::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -982,6 +1208,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_mute_config][super::super::client::SecurityCenter::get_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetMuteConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMuteConfig(RequestBuilder<crate::model::GetMuteConfigRequest>);
 
@@ -1029,6 +1270,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_notification_config][super::super::client::SecurityCenter::get_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetNotificationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotificationConfig(RequestBuilder<crate::model::GetNotificationConfigRequest>);
 
@@ -1079,6 +1335,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_resource_value_config][super::super::client::SecurityCenter::get_resource_value_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetResourceValueConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetResourceValueConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetResourceValueConfig(RequestBuilder<crate::model::GetResourceValueConfigRequest>);
 
@@ -1129,6 +1400,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_source][super::super::client::SecurityCenter::get_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetSource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
@@ -1176,6 +1462,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::group_findings][super::super::client::SecurityCenter::group_findings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GroupFindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GroupFindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GroupFindings(RequestBuilder<crate::model::GroupFindingsRequest>);
 
@@ -1273,6 +1578,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_attack_paths][super::super::client::SecurityCenter::list_attack_paths] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListAttackPaths;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttackPaths {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttackPaths(RequestBuilder<crate::model::ListAttackPathsRequest>);
 
@@ -1362,6 +1686,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_big_query_exports][super::super::client::SecurityCenter::list_big_query_exports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListBigQueryExports;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBigQueryExports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBigQueryExports(RequestBuilder<crate::model::ListBigQueryExportsRequest>);
 
@@ -1450,6 +1793,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_findings][super::super::client::SecurityCenter::list_findings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListFindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
@@ -1554,6 +1916,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_mute_configs][super::super::client::SecurityCenter::list_mute_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListMuteConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMuteConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMuteConfigs(RequestBuilder<crate::model::ListMuteConfigsRequest>);
 
@@ -1637,6 +2018,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_notification_configs][super::super::client::SecurityCenter::list_notification_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListNotificationConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNotificationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotificationConfigs(
         RequestBuilder<crate::model::ListNotificationConfigsRequest>,
@@ -1729,6 +2129,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_resource_value_configs][super::super::client::SecurityCenter::list_resource_value_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListResourceValueConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListResourceValueConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListResourceValueConfigs(
         RequestBuilder<crate::model::ListResourceValueConfigsRequest>,
@@ -1821,6 +2240,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_sources][super::super::client::SecurityCenter::list_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListSources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
@@ -1904,6 +2342,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_valued_resources][super::super::client::SecurityCenter::list_valued_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListValuedResources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListValuedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListValuedResources(RequestBuilder<crate::model::ListValuedResourcesRequest>);
 
@@ -2004,6 +2461,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::set_finding_state][super::super::client::SecurityCenter::set_finding_state] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::SetFindingState;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetFindingState {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetFindingState(RequestBuilder<crate::model::SetFindingStateRequest>);
 
@@ -2059,6 +2531,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::set_iam_policy][super::super::client::SecurityCenter::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2126,6 +2613,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::set_mute][super::super::client::SecurityCenter::set_mute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::SetMute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetMute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetMute(RequestBuilder<crate::model::SetMuteRequest>);
 
@@ -2181,6 +2683,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::test_iam_permissions][super::super::client::SecurityCenter::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2244,6 +2761,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_big_query_export][super::super::client::SecurityCenter::update_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateBigQueryExport;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBigQueryExport(RequestBuilder<crate::model::UpdateBigQueryExportRequest>);
 
@@ -2306,6 +2838,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_external_system][super::super::client::SecurityCenter::update_external_system] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateExternalSystem;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateExternalSystem {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExternalSystem(RequestBuilder<crate::model::UpdateExternalSystemRequest>);
 
@@ -2368,6 +2915,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_finding][super::super::client::SecurityCenter::update_finding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateFinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFinding(RequestBuilder<crate::model::UpdateFindingRequest>);
 
@@ -2427,6 +2989,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_mute_config][super::super::client::SecurityCenter::update_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateMuteConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMuteConfig(RequestBuilder<crate::model::UpdateMuteConfigRequest>);
 
@@ -2489,6 +3066,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_notification_config][super::super::client::SecurityCenter::update_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateNotificationConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationConfig(
         RequestBuilder<crate::model::UpdateNotificationConfigRequest>,
@@ -2555,6 +3147,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_resource_value_config][super::super::client::SecurityCenter::update_resource_value_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateResourceValueConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateResourceValueConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateResourceValueConfig(
         RequestBuilder<crate::model::UpdateResourceValueConfigRequest>,
@@ -2621,6 +3228,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_security_marks][super::super::client::SecurityCenter::update_security_marks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateSecurityMarks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecurityMarks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecurityMarks(RequestBuilder<crate::model::UpdateSecurityMarksRequest>);
 
@@ -2683,6 +3305,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::update_source][super::super::client::SecurityCenter::update_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateSource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
@@ -2742,6 +3379,25 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::list_operations][super::super::client::SecurityCenter::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2834,6 +3490,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::get_operation][super::super::client::SecurityCenter::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2882,6 +3553,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::delete_operation][super::super::client::SecurityCenter::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2930,6 +3616,21 @@ pub mod security_center {
     }
 
     /// The request builder for [SecurityCenter::cancel_operation][super::super::client::SecurityCenter::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

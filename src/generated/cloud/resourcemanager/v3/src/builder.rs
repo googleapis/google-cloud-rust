@@ -67,6 +67,21 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::get_folder][super::super::client::Folders::get_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::GetFolder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
@@ -112,6 +127,25 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::list_folders][super::super::client::Folders::list_folders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::ListFolders;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFolders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
@@ -199,6 +233,25 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::search_folders][super::super::client::Folders::search_folders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::SearchFolders;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchFolders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchFolders(RequestBuilder<crate::model::SearchFoldersRequest>);
 
@@ -278,6 +331,22 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::create_folder][super::super::client::Folders::create_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::CreateFolder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
@@ -364,6 +433,22 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::update_folder][super::super::client::Folders::update_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::UpdateFolder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFolder(RequestBuilder<crate::model::UpdateFolderRequest>);
 
@@ -461,6 +546,22 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::move_folder][super::super::client::Folders::move_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::MoveFolder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveFolder(RequestBuilder<crate::model::MoveFolderRequest>);
 
@@ -552,6 +653,22 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::delete_folder][super::super::client::Folders::delete_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::DeleteFolder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
@@ -635,6 +752,22 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::undelete_folder][super::super::client::Folders::undelete_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::UndeleteFolder;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteFolder(RequestBuilder<crate::model::UndeleteFolderRequest>);
 
@@ -720,6 +853,21 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::get_iam_policy][super::super::client::Folders::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -774,6 +922,21 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::set_iam_policy][super::super::client::Folders::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -839,6 +1002,21 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::test_iam_permissions][super::super::client::Folders::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -900,6 +1078,21 @@ pub mod folders {
     }
 
     /// The request builder for [Folders::get_operation][super::super::client::Folders::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1001,6 +1194,21 @@ pub mod organizations {
     }
 
     /// The request builder for [Organizations::get_organization][super::super::client::Organizations::get_organization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::GetOrganization;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganization(RequestBuilder<crate::model::GetOrganizationRequest>);
 
@@ -1048,6 +1256,25 @@ pub mod organizations {
     }
 
     /// The request builder for [Organizations::search_organizations][super::super::client::Organizations::search_organizations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::SearchOrganizations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchOrganizations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchOrganizations(RequestBuilder<crate::model::SearchOrganizationsRequest>);
 
@@ -1134,6 +1361,21 @@ pub mod organizations {
     }
 
     /// The request builder for [Organizations::get_iam_policy][super::super::client::Organizations::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1190,6 +1432,21 @@ pub mod organizations {
     }
 
     /// The request builder for [Organizations::set_iam_policy][super::super::client::Organizations::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1257,6 +1514,21 @@ pub mod organizations {
     }
 
     /// The request builder for [Organizations::test_iam_permissions][super::super::client::Organizations::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1320,6 +1592,21 @@ pub mod organizations {
     }
 
     /// The request builder for [Organizations::get_operation][super::super::client::Organizations::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1421,6 +1708,21 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::get_project][super::super::client::Projects::get_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::GetProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProject(RequestBuilder<crate::model::GetProjectRequest>);
 
@@ -1466,6 +1768,25 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::list_projects][super::super::client::Projects::list_projects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::ListProjects;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProjects(RequestBuilder<crate::model::ListProjectsRequest>);
 
@@ -1553,6 +1874,25 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::search_projects][super::super::client::Projects::search_projects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::SearchProjects;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchProjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchProjects(RequestBuilder<crate::model::SearchProjectsRequest>);
 
@@ -1632,6 +1972,22 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::create_project][super::super::client::Projects::create_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::CreateProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProject(RequestBuilder<crate::model::CreateProjectRequest>);
 
@@ -1720,6 +2076,22 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::update_project][super::super::client::Projects::update_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::UpdateProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProject(RequestBuilder<crate::model::UpdateProjectRequest>);
 
@@ -1817,6 +2189,22 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::move_project][super::super::client::Projects::move_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::MoveProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveProject(RequestBuilder<crate::model::MoveProjectRequest>);
 
@@ -1908,6 +2296,22 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::delete_project][super::super::client::Projects::delete_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::DeleteProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProject(RequestBuilder<crate::model::DeleteProjectRequest>);
 
@@ -1993,6 +2397,22 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::undelete_project][super::super::client::Projects::undelete_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::UndeleteProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteProject(RequestBuilder<crate::model::UndeleteProjectRequest>);
 
@@ -2079,6 +2499,21 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::get_iam_policy][super::super::client::Projects::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2133,6 +2568,21 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::set_iam_policy][super::super::client::Projects::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2198,6 +2648,21 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::test_iam_permissions][super::super::client::Projects::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2259,6 +2724,21 @@ pub mod projects {
     }
 
     /// The request builder for [Projects::get_operation][super::super::client::Projects::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2360,6 +2840,25 @@ pub mod tag_bindings {
     }
 
     /// The request builder for [TagBindings::list_tag_bindings][super::super::client::TagBindings::list_tag_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::ListTagBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagBindings(RequestBuilder<crate::model::ListTagBindingsRequest>);
 
@@ -2443,6 +2942,22 @@ pub mod tag_bindings {
     }
 
     /// The request builder for [TagBindings::create_tag_binding][super::super::client::TagBindings::create_tag_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::CreateTagBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagBinding(RequestBuilder<crate::model::CreateTagBindingRequest>);
 
@@ -2543,6 +3058,22 @@ pub mod tag_bindings {
     }
 
     /// The request builder for [TagBindings::delete_tag_binding][super::super::client::TagBindings::delete_tag_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::DeleteTagBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagBinding(RequestBuilder<crate::model::DeleteTagBindingRequest>);
 
@@ -2634,6 +3165,25 @@ pub mod tag_bindings {
     }
 
     /// The request builder for [TagBindings::list_effective_tags][super::super::client::TagBindings::list_effective_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::ListEffectiveTags;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEffectiveTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEffectiveTags(RequestBuilder<crate::model::ListEffectiveTagsRequest>);
 
@@ -2720,6 +3270,21 @@ pub mod tag_bindings {
     }
 
     /// The request builder for [TagBindings::get_operation][super::super::client::TagBindings::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2821,6 +3386,22 @@ pub mod tag_holds {
     }
 
     /// The request builder for [TagHolds::create_tag_hold][super::super::client::TagHolds::create_tag_hold] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::CreateTagHold;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagHold {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagHold(RequestBuilder<crate::model::CreateTagHoldRequest>);
 
@@ -2923,6 +3504,22 @@ pub mod tag_holds {
     }
 
     /// The request builder for [TagHolds::delete_tag_hold][super::super::client::TagHolds::delete_tag_hold] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::DeleteTagHold;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagHold {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagHold(RequestBuilder<crate::model::DeleteTagHoldRequest>);
 
@@ -3015,6 +3612,25 @@ pub mod tag_holds {
     }
 
     /// The request builder for [TagHolds::list_tag_holds][super::super::client::TagHolds::list_tag_holds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::ListTagHolds;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagHolds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagHolds(RequestBuilder<crate::model::ListTagHoldsRequest>);
 
@@ -3102,6 +3718,21 @@ pub mod tag_holds {
     }
 
     /// The request builder for [TagHolds::get_operation][super::super::client::TagHolds::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3201,6 +3832,25 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::list_tag_keys][super::super::client::TagKeys::list_tag_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::ListTagKeys;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagKeys(RequestBuilder<crate::model::ListTagKeysRequest>);
 
@@ -3282,6 +3932,21 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::get_tag_key][super::super::client::TagKeys::get_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetTagKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTagKey(RequestBuilder<crate::model::GetTagKeyRequest>);
 
@@ -3327,6 +3992,21 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::get_namespaced_tag_key][super::super::client::TagKeys::get_namespaced_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetNamespacedTagKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNamespacedTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNamespacedTagKey(RequestBuilder<crate::model::GetNamespacedTagKeyRequest>);
 
@@ -3375,6 +4055,22 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::create_tag_key][super::super::client::TagKeys::create_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::CreateTagKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagKey(RequestBuilder<crate::model::CreateTagKeyRequest>);
 
@@ -3467,6 +4163,22 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::update_tag_key][super::super::client::TagKeys::update_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::UpdateTagKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagKey(RequestBuilder<crate::model::UpdateTagKeyRequest>);
 
@@ -3568,6 +4280,22 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::delete_tag_key][super::super::client::TagKeys::delete_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::DeleteTagKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagKey(RequestBuilder<crate::model::DeleteTagKeyRequest>);
 
@@ -3663,6 +4391,21 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::get_iam_policy][super::super::client::TagKeys::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3717,6 +4460,21 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::set_iam_policy][super::super::client::TagKeys::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3782,6 +4540,21 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::test_iam_permissions][super::super::client::TagKeys::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3843,6 +4616,21 @@ pub mod tag_keys {
     }
 
     /// The request builder for [TagKeys::get_operation][super::super::client::TagKeys::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3944,6 +4732,25 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::list_tag_values][super::super::client::TagValues::list_tag_values] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::ListTagValues;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagValues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagValues(RequestBuilder<crate::model::ListTagValuesRequest>);
 
@@ -4027,6 +4834,21 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::get_tag_value][super::super::client::TagValues::get_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetTagValue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTagValue(RequestBuilder<crate::model::GetTagValueRequest>);
 
@@ -4074,6 +4896,21 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::get_namespaced_tag_value][super::super::client::TagValues::get_namespaced_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetNamespacedTagValue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNamespacedTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNamespacedTagValue(RequestBuilder<crate::model::GetNamespacedTagValueRequest>);
 
@@ -4124,6 +4961,22 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::create_tag_value][super::super::client::TagValues::create_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::CreateTagValue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagValue(RequestBuilder<crate::model::CreateTagValueRequest>);
 
@@ -4221,6 +5074,22 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::update_tag_value][super::super::client::TagValues::update_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::UpdateTagValue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagValue(RequestBuilder<crate::model::UpdateTagValueRequest>);
 
@@ -4327,6 +5196,22 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::delete_tag_value][super::super::client::TagValues::delete_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::DeleteTagValue;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_resourcemanager_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagValue(RequestBuilder<crate::model::DeleteTagValueRequest>);
 
@@ -4427,6 +5312,21 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::get_iam_policy][super::super::client::TagValues::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4483,6 +5383,21 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::set_iam_policy][super::super::client::TagValues::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4550,6 +5465,21 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::test_iam_permissions][super::super::client::TagValues::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4613,6 +5543,21 @@ pub mod tag_values {
     }
 
     /// The request builder for [TagValues::get_operation][super::super::client::TagValues::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

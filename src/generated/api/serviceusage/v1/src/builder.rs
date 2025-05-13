@@ -69,6 +69,22 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::enable_service][super::super::client::ServiceUsage::enable_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::EnableService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_api_serviceusage_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableService(RequestBuilder<crate::model::EnableServiceRequest>);
 
@@ -155,6 +171,22 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::disable_service][super::super::client::ServiceUsage::disable_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::DisableService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_api_serviceusage_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableService(RequestBuilder<crate::model::DisableServiceRequest>);
 
@@ -258,6 +290,21 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::get_service][super::super::client::ServiceUsage::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::GetService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -303,6 +350,25 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::list_services][super::super::client::ServiceUsage::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::ListServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -390,6 +456,22 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::batch_enable_services][super::super::client::ServiceUsage::batch_enable_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::BatchEnableServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_api_serviceusage_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchEnableServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchEnableServices(RequestBuilder<crate::model::BatchEnableServicesRequest>);
 
@@ -490,6 +572,21 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::batch_get_services][super::super::client::ServiceUsage::batch_get_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::BatchGetServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchGetServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchGetServices(RequestBuilder<crate::model::BatchGetServicesRequest>);
 
@@ -549,6 +646,25 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::list_operations][super::super::client::ServiceUsage::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -641,6 +757,21 @@ pub mod service_usage {
     }
 
     /// The request builder for [ServiceUsage::get_operation][super::super::client::ServiceUsage::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

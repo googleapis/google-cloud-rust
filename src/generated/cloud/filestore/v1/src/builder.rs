@@ -69,6 +69,25 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::list_instances][super::super::client::CloudFilestoreManager::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -164,6 +183,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::get_instance][super::super::client::CloudFilestoreManager::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -211,6 +245,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::create_instance][super::super::client::CloudFilestoreManager::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -318,6 +368,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::update_instance][super::super::client::CloudFilestoreManager::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -416,6 +482,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::restore_instance][super::super::client::CloudFilestoreManager::restore_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::RestoreInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreInstance(RequestBuilder<crate::model::RestoreInstanceRequest>);
 
@@ -537,6 +619,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::revert_instance][super::super::client::CloudFilestoreManager::revert_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::RevertInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevertInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevertInstance(RequestBuilder<crate::model::RevertInstanceRequest>);
 
@@ -633,6 +731,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::delete_instance][super::super::client::CloudFilestoreManager::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -727,6 +841,25 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::list_snapshots][super::super::client::CloudFilestoreManager::list_snapshots] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListSnapshots;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSnapshots {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
@@ -828,6 +961,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::get_snapshot][super::super::client::CloudFilestoreManager::get_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
@@ -875,6 +1023,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::create_snapshot][super::super::client::CloudFilestoreManager::create_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CreateSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
@@ -982,6 +1146,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::delete_snapshot][super::super::client::CloudFilestoreManager::delete_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
@@ -1070,6 +1250,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::update_snapshot][super::super::client::CloudFilestoreManager::update_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::UpdateSnapshot;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
@@ -1172,6 +1368,25 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::list_backups][super::super::client::CloudFilestoreManager::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1267,6 +1482,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::get_backup][super::super::client::CloudFilestoreManager::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1314,6 +1544,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::create_backup][super::super::client::CloudFilestoreManager::create_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CreateBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -1421,6 +1667,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::delete_backup][super::super::client::CloudFilestoreManager::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1509,6 +1771,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::update_backup][super::super::client::CloudFilestoreManager::update_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::UpdateBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -1611,6 +1889,22 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::promote_replica][super::super::client::CloudFilestoreManager::promote_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::PromoteReplica;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_filestore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PromoteReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PromoteReplica(RequestBuilder<crate::model::PromoteReplicaRequest>);
 
@@ -1705,6 +1999,25 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::list_locations][super::super::client::CloudFilestoreManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1795,6 +2108,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::get_location][super::super::client::CloudFilestoreManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1840,6 +2168,25 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::list_operations][super::super::client::CloudFilestoreManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1932,6 +2279,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::get_operation][super::super::client::CloudFilestoreManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1980,6 +2342,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::delete_operation][super::super::client::CloudFilestoreManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2028,6 +2405,21 @@ pub mod cloud_filestore_manager {
     }
 
     /// The request builder for [CloudFilestoreManager::cancel_operation][super::super::client::CloudFilestoreManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

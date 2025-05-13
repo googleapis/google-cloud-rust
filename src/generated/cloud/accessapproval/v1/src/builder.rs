@@ -69,6 +69,25 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::list_approval_requests][super::super::client::AccessApproval::list_approval_requests] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::ListApprovalRequests;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApprovalRequests {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApprovalRequests(RequestBuilder<crate::model::ListApprovalRequestsMessage>);
 
@@ -161,6 +180,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::get_approval_request][super::super::client::AccessApproval::get_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::GetApprovalRequest;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApprovalRequest(RequestBuilder<crate::model::GetApprovalRequestMessage>);
 
@@ -209,6 +243,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::approve_approval_request][super::super::client::AccessApproval::approve_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::ApproveApprovalRequest;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveApprovalRequest(RequestBuilder<crate::model::ApproveApprovalRequestMessage>);
 
@@ -266,6 +315,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::dismiss_approval_request][super::super::client::AccessApproval::dismiss_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::DismissApprovalRequest;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DismissApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DismissApprovalRequest(RequestBuilder<crate::model::DismissApprovalRequestMessage>);
 
@@ -314,6 +378,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::invalidate_approval_request][super::super::client::AccessApproval::invalidate_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::InvalidateApprovalRequest;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InvalidateApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InvalidateApprovalRequest(
         RequestBuilder<crate::model::InvalidateApprovalRequestMessage>,
@@ -364,6 +443,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::get_access_approval_settings][super::super::client::AccessApproval::get_access_approval_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::GetAccessApprovalSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessApprovalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalSettings(
         RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>,
@@ -414,6 +508,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::update_access_approval_settings][super::super::client::AccessApproval::update_access_approval_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::UpdateAccessApprovalSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAccessApprovalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessApprovalSettings(
         RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>,
@@ -476,6 +585,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::delete_access_approval_settings][super::super::client::AccessApproval::delete_access_approval_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::DeleteAccessApprovalSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAccessApprovalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessApprovalSettings(
         RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>,
@@ -526,6 +650,21 @@ pub mod access_approval {
     }
 
     /// The request builder for [AccessApproval::get_access_approval_service_account][super::super::client::AccessApproval::get_access_approval_service_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::GetAccessApprovalServiceAccount;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessApprovalServiceAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalServiceAccount(
         RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>,

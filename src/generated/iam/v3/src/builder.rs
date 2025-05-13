@@ -69,6 +69,22 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::create_policy_binding][super::super::client::PolicyBindings::create_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::CreatePolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_iam_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
@@ -185,6 +201,21 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::get_policy_binding][super::super::client::PolicyBindings::get_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::GetPolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
@@ -235,6 +266,22 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::update_policy_binding][super::super::client::PolicyBindings::update_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::UpdatePolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_iam_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
@@ -344,6 +391,22 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::DeletePolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_iam_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
@@ -446,6 +509,25 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::list_policy_bindings][super::super::client::PolicyBindings::list_policy_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::ListPolicyBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicyBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
@@ -540,6 +622,25 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::search_target_policy_bindings][super::super::client::PolicyBindings::search_target_policy_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::SearchTargetPolicyBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchTargetPolicyBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchTargetPolicyBindings(
         RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>,
@@ -640,6 +741,21 @@ pub mod policy_bindings {
     }
 
     /// The request builder for [PolicyBindings::get_operation][super::super::client::PolicyBindings::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -743,6 +859,22 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_iam_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>,
@@ -866,6 +998,21 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>,
@@ -918,6 +1065,22 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_iam_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>,
@@ -1031,6 +1194,22 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_iam_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>,
@@ -1141,6 +1320,25 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies][super::super::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPrincipalAccessBoundaryPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPrincipalAccessBoundaryPolicies(
         RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>,
@@ -1235,6 +1433,25 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings][super::super::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchPrincipalAccessBoundaryPolicyBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchPrincipalAccessBoundaryPolicyBindings(
         RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
@@ -1331,6 +1548,21 @@ pub mod principal_access_boundary_policies {
     }
 
     /// The request builder for [PrincipalAccessBoundaryPolicies::get_operation][super::super::client::PrincipalAccessBoundaryPolicies::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

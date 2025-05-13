@@ -69,6 +69,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_migration_jobs][super::super::client::DataMigrationService::list_migration_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListMigrationJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMigrationJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMigrationJobs(RequestBuilder<crate::model::ListMigrationJobsRequest>);
 
@@ -167,6 +186,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_migration_job][super::super::client::DataMigrationService::get_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMigrationJob(RequestBuilder<crate::model::GetMigrationJobRequest>);
 
@@ -214,6 +248,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::create_migration_job][super::super::client::DataMigrationService::create_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CreateMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMigrationJob(RequestBuilder<crate::model::CreateMigrationJobRequest>);
 
@@ -329,6 +379,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::update_migration_job][super::super::client::DataMigrationService::update_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::UpdateMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMigrationJob(RequestBuilder<crate::model::UpdateMigrationJobRequest>);
 
@@ -439,6 +505,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::delete_migration_job][super::super::client::DataMigrationService::delete_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DeleteMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMigrationJob(RequestBuilder<crate::model::DeleteMigrationJobRequest>);
 
@@ -541,6 +623,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::start_migration_job][super::super::client::DataMigrationService::start_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::StartMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartMigrationJob(RequestBuilder<crate::model::StartMigrationJobRequest>);
 
@@ -635,6 +733,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::stop_migration_job][super::super::client::DataMigrationService::stop_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::StopMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopMigrationJob(RequestBuilder<crate::model::StopMigrationJobRequest>);
 
@@ -723,6 +837,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::resume_migration_job][super::super::client::DataMigrationService::resume_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ResumeMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeMigrationJob(RequestBuilder<crate::model::ResumeMigrationJobRequest>);
 
@@ -811,6 +941,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::promote_migration_job][super::super::client::DataMigrationService::promote_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::PromoteMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PromoteMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PromoteMigrationJob(RequestBuilder<crate::model::PromoteMigrationJobRequest>);
 
@@ -899,6 +1045,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::verify_migration_job][super::super::client::DataMigrationService::verify_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::VerifyMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> VerifyMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyMigrationJob(RequestBuilder<crate::model::VerifyMigrationJobRequest>);
 
@@ -1005,6 +1167,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::restart_migration_job][super::super::client::DataMigrationService::restart_migration_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::RestartMigrationJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestartMigrationJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestartMigrationJob(RequestBuilder<crate::model::RestartMigrationJobRequest>);
 
@@ -1099,6 +1277,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::generate_ssh_script][super::super::client::DataMigrationService::generate_ssh_script] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GenerateSshScript;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateSshScript {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateSshScript(RequestBuilder<crate::model::GenerateSshScriptRequest>);
 
@@ -1205,6 +1398,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::generate_tcp_proxy_script][super::super::client::DataMigrationService::generate_tcp_proxy_script] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GenerateTcpProxyScript;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateTcpProxyScript {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateTcpProxyScript(RequestBuilder<crate::model::GenerateTcpProxyScriptRequest>);
 
@@ -1283,6 +1491,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_connection_profiles][super::super::client::DataMigrationService::list_connection_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListConnectionProfiles;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectionProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
@@ -1385,6 +1612,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_connection_profile][super::super::client::DataMigrationService::get_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
@@ -1435,6 +1677,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::create_connection_profile][super::super::client::DataMigrationService::create_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CreateConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnectionProfile(
         RequestBuilder<crate::model::CreateConnectionProfileRequest>,
@@ -1567,6 +1825,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::update_connection_profile][super::super::client::DataMigrationService::update_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::UpdateConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnectionProfile(
         RequestBuilder<crate::model::UpdateConnectionProfileRequest>,
@@ -1694,6 +1968,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::delete_connection_profile][super::super::client::DataMigrationService::delete_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DeleteConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnectionProfile(
         RequestBuilder<crate::model::DeleteConnectionProfileRequest>,
@@ -1798,6 +2088,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::create_private_connection][super::super::client::DataMigrationService::create_private_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CreatePrivateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePrivateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePrivateConnection(
         RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
@@ -1924,6 +2230,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_private_connection][super::super::client::DataMigrationService::get_private_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetPrivateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPrivateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
@@ -1974,6 +2295,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_private_connections][super::super::client::DataMigrationService::list_private_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListPrivateConnections;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPrivateConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
@@ -2076,6 +2416,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::delete_private_connection][super::super::client::DataMigrationService::delete_private_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DeletePrivateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePrivateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePrivateConnection(
         RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
@@ -2174,6 +2530,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_conversion_workspace][super::super::client::DataMigrationService::get_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConversionWorkspace(RequestBuilder<crate::model::GetConversionWorkspaceRequest>);
 
@@ -2224,6 +2595,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_conversion_workspaces][super::super::client::DataMigrationService::list_conversion_workspaces] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListConversionWorkspaces;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConversionWorkspaces {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConversionWorkspaces(
         RequestBuilder<crate::model::ListConversionWorkspacesRequest>,
@@ -2322,6 +2712,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::create_conversion_workspace][super::super::client::DataMigrationService::create_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CreateConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConversionWorkspace(
         RequestBuilder<crate::model::CreateConversionWorkspaceRequest>,
@@ -2442,6 +2848,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::update_conversion_workspace][super::super::client::DataMigrationService::update_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::UpdateConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConversionWorkspace(
         RequestBuilder<crate::model::UpdateConversionWorkspaceRequest>,
@@ -2557,6 +2979,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::delete_conversion_workspace][super::super::client::DataMigrationService::delete_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DeleteConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConversionWorkspace(
         RequestBuilder<crate::model::DeleteConversionWorkspaceRequest>,
@@ -2661,6 +3099,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::create_mapping_rule][super::super::client::DataMigrationService::create_mapping_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CreateMappingRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMappingRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMappingRule(RequestBuilder<crate::model::CreateMappingRuleRequest>);
 
@@ -2736,6 +3189,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::delete_mapping_rule][super::super::client::DataMigrationService::delete_mapping_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DeleteMappingRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMappingRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMappingRule(RequestBuilder<crate::model::DeleteMappingRuleRequest>);
 
@@ -2792,6 +3260,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_mapping_rules][super::super::client::DataMigrationService::list_mapping_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListMappingRules;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMappingRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMappingRules(RequestBuilder<crate::model::ListMappingRulesRequest>);
 
@@ -2878,6 +3365,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_mapping_rule][super::super::client::DataMigrationService::get_mapping_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetMappingRule;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMappingRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMappingRule(RequestBuilder<crate::model::GetMappingRuleRequest>);
 
@@ -2925,6 +3427,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::seed_conversion_workspace][super::super::client::DataMigrationService::seed_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::SeedConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SeedConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SeedConversionWorkspace(
         RequestBuilder<crate::model::SeedConversionWorkspaceRequest>,
@@ -3062,6 +3580,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::import_mapping_rules][super::super::client::DataMigrationService::import_mapping_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ImportMappingRules;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportMappingRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportMappingRules(RequestBuilder<crate::model::ImportMappingRulesRequest>);
 
@@ -3185,6 +3719,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::convert_conversion_workspace][super::super::client::DataMigrationService::convert_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ConvertConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConvertConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConvertConversionWorkspace(
         RequestBuilder<crate::model::ConvertConversionWorkspaceRequest>,
@@ -3294,6 +3844,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::commit_conversion_workspace][super::super::client::DataMigrationService::commit_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CommitConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CommitConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CommitConversionWorkspace(
         RequestBuilder<crate::model::CommitConversionWorkspaceRequest>,
@@ -3393,6 +3959,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::rollback_conversion_workspace][super::super::client::DataMigrationService::rollback_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::RollbackConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RollbackConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackConversionWorkspace(
         RequestBuilder<crate::model::RollbackConversionWorkspaceRequest>,
@@ -3486,6 +4068,22 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::apply_conversion_workspace][super::super::client::DataMigrationService::apply_conversion_workspace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ApplyConversionWorkspace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_clouddms_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApplyConversionWorkspace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApplyConversionWorkspace(
         RequestBuilder<crate::model::ApplyConversionWorkspaceRequest>,
@@ -3624,6 +4222,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::describe_database_entities][super::super::client::DataMigrationService::describe_database_entities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DescribeDatabaseEntities;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DescribeDatabaseEntities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DescribeDatabaseEntities(
         RequestBuilder<crate::model::DescribeDatabaseEntitiesRequest>,
@@ -3751,6 +4368,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::search_background_jobs][super::super::client::DataMigrationService::search_background_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::SearchBackgroundJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchBackgroundJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchBackgroundJobs(RequestBuilder<crate::model::SearchBackgroundJobsRequest>);
 
@@ -3822,6 +4454,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::describe_conversion_workspace_revisions][super::super::client::DataMigrationService::describe_conversion_workspace_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DescribeConversionWorkspaceRevisions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DescribeConversionWorkspaceRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DescribeConversionWorkspaceRevisions(
         RequestBuilder<crate::model::DescribeConversionWorkspaceRevisionsRequest>,
@@ -3882,6 +4529,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::fetch_static_ips][super::super::client::DataMigrationService::fetch_static_ips] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::FetchStaticIps;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchStaticIps {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
@@ -3941,6 +4603,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_locations][super::super::client::DataMigrationService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4031,6 +4712,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_location][super::super::client::DataMigrationService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4076,6 +4772,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::set_iam_policy][super::super::client::DataMigrationService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4143,6 +4854,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_iam_policy][super::super::client::DataMigrationService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4199,6 +4925,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::test_iam_permissions][super::super::client::DataMigrationService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4262,6 +5003,25 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::list_operations][super::super::client::DataMigrationService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4354,6 +5114,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::get_operation][super::super::client::DataMigrationService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4402,6 +5177,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::delete_operation][super::super::client::DataMigrationService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4450,6 +5240,21 @@ pub mod data_migration_service {
     }
 
     /// The request builder for [DataMigrationService::cancel_operation][super::super::client::DataMigrationService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_clouddms_v1::builder;
+    /// use builder::data_migration_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

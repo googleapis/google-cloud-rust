@@ -69,6 +69,21 @@ pub mod fleet_routing {
     }
 
     /// The request builder for [FleetRouting::optimize_tours][super::super::client::FleetRouting::optimize_tours] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_optimization_v1::builder;
+    /// use builder::fleet_routing::OptimizeTours;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> OptimizeTours {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
@@ -258,6 +273,22 @@ pub mod fleet_routing {
     }
 
     /// The request builder for [FleetRouting::batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_optimization_v1::builder;
+    /// use builder::fleet_routing::BatchOptimizeTours;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_optimization_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchOptimizeTours {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
@@ -362,6 +393,21 @@ pub mod fleet_routing {
     }
 
     /// The request builder for [FleetRouting::get_operation][super::super::client::FleetRouting::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_optimization_v1::builder;
+    /// use builder::fleet_routing::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

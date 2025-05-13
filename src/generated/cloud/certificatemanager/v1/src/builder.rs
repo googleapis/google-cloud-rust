@@ -69,6 +69,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_certificates][super::super::client::CertificateManager::list_certificates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
@@ -167,6 +186,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_certificate][super::super::client::CertificateManager::get_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
@@ -214,6 +248,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::create_certificate][super::super::client::CertificateManager::create_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
@@ -323,6 +373,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::update_certificate][super::super::client::CertificateManager::update_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
@@ -427,6 +493,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_certificate][super::super::client::CertificateManager::delete_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
 
@@ -517,6 +599,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_certificate_maps][super::super::client::CertificateManager::list_certificate_maps] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificateMaps;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateMaps {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
 
@@ -617,6 +718,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_certificate_map][super::super::client::CertificateManager::get_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
 
@@ -667,6 +783,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::create_certificate_map][super::super::client::CertificateManager::create_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
 
@@ -777,6 +909,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::update_certificate_map][super::super::client::CertificateManager::update_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
 
@@ -882,6 +1030,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
 
@@ -972,6 +1136,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_certificate_map_entries][super::super::client::CertificateManager::list_certificate_map_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificateMapEntries;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateMapEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateMapEntries(
         RequestBuilder<crate::model::ListCertificateMapEntriesRequest>,
@@ -1076,6 +1259,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_certificate_map_entry][super::super::client::CertificateManager::get_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
 
@@ -1126,6 +1324,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMapEntry(
         RequestBuilder<crate::model::CreateCertificateMapEntryRequest>,
@@ -1240,6 +1454,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMapEntry(
         RequestBuilder<crate::model::UpdateCertificateMapEntryRequest>,
@@ -1349,6 +1579,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMapEntry(
         RequestBuilder<crate::model::DeleteCertificateMapEntryRequest>,
@@ -1441,6 +1687,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_dns_authorizations][super::super::client::CertificateManager::list_dns_authorizations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListDnsAuthorizations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDnsAuthorizations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
 
@@ -1541,6 +1806,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_dns_authorization][super::super::client::CertificateManager::get_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
 
@@ -1591,6 +1871,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
 
@@ -1703,6 +1999,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
 
@@ -1810,6 +2122,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
 
@@ -1900,6 +2228,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_certificate_issuance_configs][super::super::client::CertificateManager::list_certificate_issuance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificateIssuanceConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateIssuanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateIssuanceConfigs(
         RequestBuilder<crate::model::ListCertificateIssuanceConfigsRequest>,
@@ -2004,6 +2351,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_certificate_issuance_config][super::super::client::CertificateManager::get_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificateIssuanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateIssuanceConfig(
         RequestBuilder<crate::model::GetCertificateIssuanceConfigRequest>,
@@ -2056,6 +2418,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificateIssuanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateIssuanceConfig(
         RequestBuilder<crate::model::CreateCertificateIssuanceConfigRequest>,
@@ -2173,6 +2551,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificateIssuanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateIssuanceConfig(
         RequestBuilder<crate::model::DeleteCertificateIssuanceConfigRequest>,
@@ -2265,6 +2659,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_trust_configs][super::super::client::CertificateManager::list_trust_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListTrustConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTrustConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
@@ -2363,6 +2776,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_trust_config][super::super::client::CertificateManager::get_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
 
@@ -2410,6 +2838,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::create_trust_config][super::super::client::CertificateManager::create_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
@@ -2519,6 +2963,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::update_trust_config][super::super::client::CertificateManager::update_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
@@ -2623,6 +3083,22 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_trust_config][super::super::client::CertificateManager::delete_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_certificatemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
@@ -2719,6 +3195,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_locations][super::super::client::CertificateManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2809,6 +3304,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_location][super::super::client::CertificateManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2854,6 +3364,25 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::list_operations][super::super::client::CertificateManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2946,6 +3475,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::get_operation][super::super::client::CertificateManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2994,6 +3538,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::delete_operation][super::super::client::CertificateManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3042,6 +3601,21 @@ pub mod certificate_manager {
     }
 
     /// The request builder for [CertificateManager::cancel_operation][super::super::client::CertificateManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
