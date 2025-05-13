@@ -69,8 +69,12 @@ func TestRustFromOpenAPI(t *testing.T) {
 	}
 	for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
 		filename := path.Join(outDir, expected)
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
+		stat, err := os.Stat(filename)
+		if os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
+		}
+		if stat.Mode().Perm()|0666 != 0666 {
+			t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 		}
 	}
 }
@@ -155,8 +159,12 @@ func TestRustFromProtobuf(t *testing.T) {
 
 		for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}
@@ -218,8 +226,12 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		}
 		for _, expected := range []string{".sidekick.toml", "mod.rs"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}
@@ -280,8 +292,12 @@ func TestRustBootstrapWkt(t *testing.T) {
 		}
 		for _, expected := range []string{".sidekick.toml", "mod.rs"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}
@@ -318,8 +334,12 @@ func TestRustOverrideTitleAndDescription(t *testing.T) {
 	}
 	for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
 		filename := path.Join(outDir, expected)
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
+		stat, err := os.Stat(filename)
+		if os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
+		}
+		if stat.Mode().Perm()|0666 != 0666 {
+			t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 		}
 	}
 	contents, err := os.ReadFile(path.Join(outDir, "README.md"))
@@ -398,8 +418,12 @@ func TestGoFromProtobuf(t *testing.T) {
 		execCommand(t, dir, "go", "mod", "tidy")
 		for _, expected := range []string{".sidekick.toml", "go.mod", "client.go"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}

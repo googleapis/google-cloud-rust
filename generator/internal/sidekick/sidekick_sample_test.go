@@ -53,8 +53,12 @@ func TestSampleFromProtobuf(t *testing.T) {
 
 	for _, expected := range []string{".sidekick.toml", "README.md"} {
 		filename := path.Join(outDir, expected)
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
+		stat, err := os.Stat(filename)
+		if os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
+		}
+		if stat.Mode().Perm()|0666 != 0666 {
+			t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 		}
 	}
 }
