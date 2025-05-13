@@ -41,6 +41,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>;
 
+    async fn rename_folder(
+        &self,
+        req: crate::model::RenameFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,
@@ -71,6 +77,18 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>;
 
+    async fn create_anywhere_cache(
+        &self,
+        req: crate::model::CreateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_anywhere_cache(
+        &self,
+        req: crate::model::UpdateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn disable_anywhere_cache(
         &self,
         req: crate::model::DisableAnywhereCacheRequest,
@@ -100,6 +118,22 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         req: crate::model::ListAnywhereCachesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::StorageControl] also implement [StorageControl].
@@ -139,6 +173,15 @@ impl<T: super::StorageControl> StorageControl for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListFoldersResponse>> {
         T::list_folders(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn rename_folder(
+        &self,
+        req: crate::model::RenameFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::rename_folder(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -187,6 +230,24 @@ impl<T: super::StorageControl> StorageControl for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn create_anywhere_cache(
+        &self,
+        req: crate::model::CreateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_anywhere_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_anywhere_cache(
+        &self,
+        req: crate::model::UpdateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_anywhere_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn disable_anywhere_cache(
         &self,
         req: crate::model::DisableAnywhereCacheRequest,
@@ -229,5 +290,28 @@ impl<T: super::StorageControl> StorageControl for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
         T::list_anywhere_caches(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }

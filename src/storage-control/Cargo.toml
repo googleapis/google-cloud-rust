@@ -40,12 +40,14 @@ tonic.workspace       = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }
 tracing.workspace     = true
 # Local crates
-gax.workspace    = true
-gaxi             = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
-gtype.workspace  = true
-iam_v1.workspace = true
-rpc.workspace    = true
-wkt.workspace    = true
+gax.workspace         = true
+gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+gtype.workspace       = true
+iam_v1.workspace      = true
+longrunning.workspace = true
+lro.workspace         = true
+rpc.workspace         = true
+wkt.workspace         = true
 
 [dev-dependencies]
 mockall.workspace    = true
