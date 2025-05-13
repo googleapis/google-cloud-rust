@@ -88,11 +88,13 @@ impl gaxi::prost::ToProto<google::rpc::Status> for rpc::model::Status {
 }
 
 impl gaxi::prost::FromProto<rpc::model::Status> for google::rpc::Status {
-    fn cnv(self) -> rpc::model::Status {
-        rpc::model::Status::new()
-            .set_code(self.code)
-            .set_message(self.message)
-        // TODO(#1699) - detail with the error details
-        // .set_details(self.details.into_iter().filter_map(any_from_prost))
+    fn cnv(self) -> std::result::Result<rpc::model::Status, gaxi::prost::ConvertError> {
+        Ok(
+            rpc::model::Status::new()
+                .set_code(self.code)
+                .set_message(self.message),
+            // TODO(#1699) - detail with the error details
+            // .set_details(self.details.into_iter().filter_map(any_from_prost))
+        )
     }
 }

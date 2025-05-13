@@ -248,6 +248,7 @@ where
     let (metadata, body, _extensions) = response.into_parts();
     gax::response::Response::from_parts(
         gax::response::Parts::new().set_headers(metadata.into_headers()),
-        body.cnv(),
+        // TODO(#2037) - handle conversion from proto errors.
+        body.cnv().unwrap(),
     )
 }
