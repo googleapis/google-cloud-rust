@@ -17,15 +17,20 @@ use base64::Engine;
 use serde::Deserialize;
 use std::collections::HashMap;
 
+#[allow(dead_code)]
 type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Token Exchange grant type for a sts exchange.
+#[allow(dead_code)]
 pub const TOKEN_EXCHANGE_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:token-exchange";
 /// Refresh Token Exchange grant type for a sts exchange.
+#[allow(dead_code)]
 pub const REFRESH_TOKEN_GRANT_TYPE: &str = "refresh_token";
 /// TokenType for a sts exchange.
+#[allow(dead_code)]
 pub const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT TokenType for a sts exchange.
+#[allow(dead_code)]
 pub const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
@@ -34,6 +39,7 @@ pub struct STSHandler {
     client: reqwest::Client,
 }
 
+#[allow(dead_code)]
 impl STSHandler {
     pub fn new() -> Self {
         let client = reqwest::Client::new();
@@ -122,7 +128,7 @@ impl STSHandler {
         if !status.is_success() {
             return Err(CredentialsError::from_str(
                 false,
-                format!("error requesting token, failed with status {status}"),
+                format!("error exchanging token, failed with status {status}"),
             ));
         }
         let token_res = res
@@ -148,6 +154,7 @@ pub struct TokenResponse {
 /// Authentication style via headers or form params.
 /// See https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 pub enum ClientAuthStyle {
     InParams,
     InHeader,
@@ -177,11 +184,8 @@ impl ClientAuthentication {
     // Add authentication to a Secure Token Service exchange request.
     // Modifies either the passed headers or form parameters
     // depending on the desired authentication format.
-    pub(crate) fn inject_auth(
-        &self,
-        headers: &mut http::HeaderMap,
-        params: &mut HashMap<&str, String>,
-    ) {
+    #[allow(dead_code)]
+    pub fn inject_auth(&self, headers: &mut http::HeaderMap, params: &mut HashMap<&str, String>) {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
         {
@@ -205,6 +209,7 @@ impl ClientAuthentication {
 }
 
 /// Information required to perform an oauth2 token exchange with the provided endpoint.
+#[allow(dead_code)]
 #[derive(Default)]
 pub struct ExchangeTokenRequest {
     pub url: String,
@@ -221,6 +226,7 @@ pub struct ExchangeTokenRequest {
 }
 
 /// Information required to perform the token exchange using a refresh token flow.
+#[allow(dead_code)]
 #[derive(Default)]
 pub struct RefreshAccessTokenRequest {
     pub url: String,
@@ -238,7 +244,7 @@ mod test {
 
     #[tokio::test]
     async fn exchange_token() -> TestResult {
-        let client_auth = ClientAuthentication {
+        let authentication = ClientAuthentication {
             auth_style: ClientAuthStyle::InHeader,
             client_id: Some("client_id".to_string()),
             client_secret: Some("supersecret".to_string()),
@@ -282,16 +288,16 @@ mod test {
             .respond_with(status_code(200).body(response_body)),
         );
 
-        let url = server.url("/sts");
+        let url = server.url("/sts").to_string();
         let mut headers = http::HeaderMap::new();
         headers.insert(
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/x-www-form-urlencoded"),
         );
         let token_req = ExchangeTokenRequest {
-            url: url.to_string(),
-            headers: headers,
-            authentication: client_auth,
+            url,
+            headers,
+            authentication,
             audience: Some("32555940559.apps.googleusercontent.com".to_string()),
             scope: ["https://www.googleapis.com/auth/cloud-platform".to_string()].to_vec(),
             subject_token: "an_example_token".to_string(),
@@ -318,7 +324,7 @@ mod test {
 
     #[tokio::test]
     async fn exchange_token_err() -> TestResult {
-        let client_auth = ClientAuthentication {
+        let authentication = ClientAuthentication {
             auth_style: ClientAuthStyle::InHeader,
             client_id: None,
             client_secret: None,
@@ -350,12 +356,12 @@ mod test {
             .respond_with(status_code(400).body(response_body)),
         );
 
-        let url = server.url("/fail");
+        let url = server.url("/fail").to_string();
         let headers = http::HeaderMap::new();
         let token_req = ExchangeTokenRequest {
-            url: url.to_string(),
-            headers: headers,
-            authentication: client_auth,
+            url,
+            headers,
+            authentication,
             subject_token: "an_example_token".to_string(),
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
@@ -365,7 +371,7 @@ mod test {
 
         let expected_err = crate::errors::CredentialsError::from_str(
             false,
-            "error requesting token, failed with status 400 Bad Request",
+            "error exchanging token, failed with status 400 Bad Request",
         );
         assert_eq!(err.to_string(), expected_err.to_string());
 
@@ -374,7 +380,7 @@ mod test {
 
     #[tokio::test]
     async fn refresh_access_token() -> TestResult {
-        let client_auth = ClientAuthentication {
+        let authentication = ClientAuthentication {
             auth_style: ClientAuthStyle::InParams,
             client_id: Some("client_id".to_string()),
             client_secret: Some("supersecret".to_string()),
@@ -404,16 +410,16 @@ mod test {
             .respond_with(status_code(200).body(response_body)),
         );
 
-        let url = server.url("/refresh_token");
+        let url = server.url("/refresh_token").to_string();
         let mut headers = http::HeaderMap::new();
         headers.insert(
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/x-www-form-urlencoded"),
         );
         let token_req = RefreshAccessTokenRequest {
-            url: url.to_string(),
-            authentication: client_auth,
-            headers: headers,
+            url,
+            authentication,
+            headers,
             refresh_token: "an_example_refresh_token".to_string(),
         };
         let handler = STSHandler::new();
