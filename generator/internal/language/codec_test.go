@@ -57,10 +57,14 @@ func TestQueryParams(t *testing.T) {
 		InputTypeID:  request.ID,
 		OutputTypeID: ".google.protobuf.Empty",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			QueryParameters: map[string]bool{
-				"options_field": true,
-				"another_field": true,
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					QueryParameters: map[string]bool{
+						"options_field": true,
+						"another_field": true,
+					},
+				},
 			},
 		},
 	}
