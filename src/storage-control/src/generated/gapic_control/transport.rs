@@ -282,6 +282,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -292,12 +293,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 
     async fn get_storage_layout(
@@ -568,6 +564,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -578,12 +575,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 
     async fn update_anywhere_cache(
@@ -625,6 +617,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -635,12 +628,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 
     async fn disable_anywhere_cache(
@@ -912,6 +900,7 @@ impl super::stub::StorageControl for StorageControl {
             .into_iter()
             .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -922,11 +911,6 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 }
