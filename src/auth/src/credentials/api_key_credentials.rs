@@ -19,60 +19,6 @@ use crate::token::{Token, TokenProvider};
 use http::{Extensions, HeaderMap};
 use std::sync::Arc;
 
-/// Configuration options for API key credentials.
-#[derive(Default)]
-pub struct ApiKeyOptions {
-    quota_project: Option<String>,
-}
-
-impl ApiKeyOptions {
-    /// Set the [quota project].
-    ///
-    /// If unset, the project associated with the API key will be used as the
-    /// quota project.
-    ///
-    /// You can also configure the quota project by setting the
-    /// `GOOGLE_CLOUD_QUOTA_PROJECT` environment variable. The environment
-    /// variable takes precedence over this option's value.
-    ///
-    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
-    pub fn set_quota_project<T: Into<String>>(mut self, v: T) -> Self {
-        self.quota_project = Some(v.into());
-        self
-    }
-}
-
-/// Create credentials that authenticate using an [API key].
-///
-/// API keys are convenient because no [principal] is needed. The API key
-/// associates the request with a Google Cloud project for billing and quota
-/// purposes.
-///
-/// Note that only some Cloud APIs support API keys. The rest require full
-/// credentials.
-///
-/// [API key]: https://cloud.google.com/docs/authentication/api-keys-use
-/// [principal]: https://cloud.google.com/docs/authentication#principal
-pub async fn create_api_key_credentials<T: Into<String>>(
-    api_key: T,
-    o: ApiKeyOptions,
-) -> Result<Credentials> {
-    let token_provider = ApiKeyTokenProvider {
-        api_key: api_key.into(),
-    };
-
-    let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
-        .ok()
-        .or(o.quota_project);
-
-    Ok(Credentials {
-        inner: Arc::new(ApiKeyCredentials {
-            token_provider,
-            quota_project_id,
-        }),
-    })
-}
-
 struct ApiKeyTokenProvider {
     api_key: String,
 }
@@ -104,6 +50,82 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+}
+
+/// A builder for creating credentials that authenticate using an [API key].
+///
+/// API keys are convenient because no [principal] is needed. The API key
+/// associates the request with a Google Cloud project for billing and quota
+/// purposes.
+///
+/// Note that only some Cloud APIs support API keys. The rest require full
+/// credentials.
+///
+/// [API key]: https://cloud.google.com/docs/authentication/api-keys-use
+/// [principal]: https://cloud.google.com/docs/authentication#principal
+#[derive(Debug)]
+pub struct Builder {
+    api_key: String,
+    quota_project_id: Option<String>,
+}
+
+impl Builder {
+    /// Creates a new builder with given API key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::api_key_credentials::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::new("my-api-key")
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn new<T: Into<String>>(api_key: T) -> Self {
+        Self {
+            api_key: api_key.into(),
+            quota_project_id: None,
+        }
+    }
+
+    /// Sets the [quota project] for these credentials.
+    ///
+    /// In some services, you can use an account in one project for authentication
+    /// and authorization, and charge the usage to a different project. This requires
+    /// that the user has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::api_key_credentials::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::new("my-api-key")
+    ///     .with_quota_project_id("my-project")
+    ///     .build();
+    /// # });
+    /// ```
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<T: Into<String>>(mut self, quota_project_id: T) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    pub fn build(self) -> Credentials {
+        let token_provider = ApiKeyTokenProvider {
+            api_key: self.api_key,
+        };
+
+        let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
+            .ok()
+            .or(self.quota_project_id);
+
+        Credentials {
+            inner: Arc::new(ApiKeyCredentials {
+                token_provider,
+                quota_project_id,
+            }),
+        }
+    }
 }
 
 #[async_trait::async_trait]
@@ -144,9 +166,7 @@ mod test {
     async fn create_api_key_credentials_basic() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
-        let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
-            .await
-            .unwrap();
+        let creds = Builder::new("test-api-key").build();
         let token = creds.token(Extensions::new()).await.unwrap();
         assert_eq!(
             token,
@@ -170,10 +190,9 @@ mod test {
     async fn create_api_key_credentials_with_options() {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
-        let options = ApiKeyOptions::default().set_quota_project("qp-option");
-        let creds = create_api_key_credentials("test-api-key", options)
-            .await
-            .unwrap();
+        let creds = Builder::new("test-api-key")
+            .with_quota_project_id("qp-option")
+            .build();
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
@@ -189,10 +208,10 @@ mod test {
     #[serial_test::serial]
     async fn create_api_key_credentials_with_env() {
         let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
-        let options = ApiKeyOptions::default().set_quota_project("qp-option");
-        let creds = create_api_key_credentials("test-api-key", options)
-            .await
-            .unwrap();
+
+        let creds = Builder::new("test-api-key")
+            .with_quota_project_id("qp-option")
+            .build();
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();

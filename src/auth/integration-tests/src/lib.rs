@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use auth::credentials::{
-    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, create_api_key_credentials,
+    Builder as AccessTokenCredentialBuilder,
+    api_key_credentials::Builder as ApiKeyCredentialsBuilder,
 };
 use gax::error::Error;
 use language::client::LanguageService;
@@ -100,9 +101,7 @@ pub async fn api_key() -> Result<()> {
     let api_key = std::str::from_utf8(&api_key).unwrap();
 
     // Create credentials using the API key.
-    let creds = create_api_key_credentials(api_key, ApiKeyOptions::default())
-        .await
-        .map_err(Error::authentication)?;
+    let creds = ApiKeyCredentialsBuilder::new(api_key).build();
 
     // Construct a Natural Language client using the credentials.
     let client = LanguageService::builder()

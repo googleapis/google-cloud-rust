@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod api_key_credentials;
-// Export API Key factory function and options
-pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
-
+pub mod api_key_credentials;
 pub mod mds;
 pub mod service_account;
 pub mod user_account;
@@ -437,13 +434,15 @@ fn extract_credential_type(json: &Value) -> Result<&str> {
 /// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
 /// It helps avoid repetitive code in the `build_credentials` function.
 macro_rules! config_builder {
-    ($builder_instance:expr, $quota_project_id:expr, $scopes:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
         let builder = $builder_instance;
-        let builder = $quota_project_id
+        let builder = $quota_project_id_option
             .into_iter()
             .fold(builder, |b, qp| b.with_quota_project_id(qp));
 
-        let builder = $scopes.into_iter().fold(builder, |b, s| b.with_scopes(s));
+        let builder = $scopes_option
+            .into_iter()
+            .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
         builder.build()
     }};
@@ -455,17 +454,29 @@ fn build_credentials(
     scopes: Option<Vec<String>>,
 ) -> Result<Credentials> {
     match json {
-        None => config_builder!(mds::Builder::default(), quota_project_id, scopes),
+        None => config_builder!(
+            mds::Builder::default(),
+            quota_project_id,
+            scopes,
+            |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
+        ),
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
                 "authorized_user" => {
-                    config_builder!(user_account::Builder::new(json), quota_project_id, scopes)
+                    config_builder!(
+                        user_account::Builder::new(json),
+                        quota_project_id,
+                        scopes,
+                        |b: user_account::Builder, s: Vec<String>| b.with_scopes(s)
+                    )
                 }
                 "service_account" => config_builder!(
                     service_account::Builder::new(json),
                     quota_project_id,
-                    scopes
+                    scopes,
+                    |b: service_account::Builder, s: Vec<String>| b
+                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
                 _ => Err(errors::non_retryable_from_str(format!(
                     "Invalid or unsupported credentials type found in JSON: {cred_type}"

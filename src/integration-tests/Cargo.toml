@@ -24,18 +24,18 @@ log-integration-tests = ["dep:tracing-subscriber"]
 run-integration-tests = []
 
 [dependencies]
-bytes                 = "1"
-crc32c                = "0.6"
-futures               = "0.3"
+bytes.workspace       = true
+crc32c.workspace      = true
+futures.workspace     = true
 auth.workspace        = true
 gax                   = { workspace = true, features = ["unstable-stream"] }
 iam_v1.workspace      = true
 longrunning.workspace = true
-rand                  = "0.9"
-serde_json            = "1"
-tokio                 = { version = "1", features = ["full", "macros"] }
-tracing               = "0.1"
-tracing-subscriber    = { version = "0.3", optional = true }
+rand.workspace        = true
+serde_json.workspace  = true
+tokio.workspace       = true
+tracing.workspace     = true
+tracing-subscriber    = { workspace = true, optional = true, features = ["fmt", "std"] }
 wkt.workspace         = true
 
 [dependencies.aiplatform]
@@ -85,11 +85,11 @@ package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
-anyhow.workspace    = true
-axum.workspace      = true
-mockall             = "0.13"
-reqwest.workspace   = true
-serde               = { version = "1", features = ["serde_derive"] }
-serde_with          = { version = "3", features = ["base64"] }
-test-case.workspace = true
-tokio               = { version = "1", features = ["full", "macros"] }
+anyhow.workspace     = true
+axum.workspace       = true
+mockall.workspace    = true
+reqwest.workspace    = true
+serde.workspace      = true
+serde_with.workspace = true
+test-case.workspace  = true
+tokio.workspace      = true

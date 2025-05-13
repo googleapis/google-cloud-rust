@@ -43,7 +43,7 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 		return nil
 	}
 	pathNames := []string{}
-	for _, arg := range m.PathInfo.PathTemplate {
+	for _, arg := range m.PathInfo.Bindings[0].PathTemplate {
 		if arg.FieldPath != nil {
 			components := strings.Split(*arg.FieldPath, ".")
 			pathNames = append(pathNames, components[0])
@@ -73,7 +73,7 @@ func QueryParams(m *api.Method, state *api.APIState) []*api.Field {
 
 	var queryParams []*api.Field
 	for _, field := range msg.Fields {
-		if !m.PathInfo.QueryParameters[field.Name] {
+		if !m.PathInfo.Bindings[0].QueryParameters[field.Name] {
 			continue
 		}
 		queryParams = append(queryParams, field)

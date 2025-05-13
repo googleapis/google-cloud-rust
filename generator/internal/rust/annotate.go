@@ -524,8 +524,8 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:        m.PathInfo.Verb,
-		MethodToLower: strings.ToLower(m.PathInfo.Verb),
+		Method:        m.PathInfo.Bindings[0].Verb,
+		MethodToLower: strings.ToLower(m.PathInfo.Bindings[0].Verb),
 		PathFmt:       httpPathFmt(m.PathInfo),
 		PathArgs:      httpPathArgs(m.PathInfo, m, state),
 		HasBody:       m.PathInfo.BodyFieldPath != "",
