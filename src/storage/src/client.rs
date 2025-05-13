@@ -397,7 +397,8 @@ mod v1 {
                 // datetime fields:
                 "timeCreated": "2025-05-13T10:30:00Z",
             });
-            let object: Object = serde_json::from_value(json).unwrap(); // TODO: remove unwrap, return result instead.
+            let object: Object = serde_json::from_value(json)
+                .expect("json value in object test should be deserializable");
 
             let want = Object {
                 // string fields:
@@ -415,7 +416,8 @@ mod v1 {
                 // number fields:
                 component_count: 5,
                 // datetime fields:
-                time_created: wkt::Timestamp::new(1747132200, 0).unwrap(),
+                time_created: wkt::Timestamp::new(1747132200, 0)
+                    .expect("hardcoded timestamp value in object test should be in range"),
                 ..Default::default()
             };
 
@@ -440,7 +442,8 @@ mod v1 {
                 // number fields:
                 component_count: 5,
                 // datetime fields:
-                time_created: wkt::Timestamp::new(1747132200, 0).unwrap(),
+                time_created: wkt::Timestamp::new(1747132200, 0)
+                    .expect("hardcoded timestamp value in object test should be in range"),
                 // unused in control::model
                 media_link: "my-media-link".to_string(),
                 ..Default::default()
