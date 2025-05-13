@@ -2167,11 +2167,11 @@ func TestPathArgs(t *testing.T) {
 		Name: "CreateResourceRequest",
 		ID:   ".test.CreateResourceRequest",
 		Fields: []*api.Field{
-			{Name: "a", Typez: api.STRING_TYPE},
-			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
-			{Name: "c", Typez: api.ENUM_TYPE},
-			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
-			{Name: "e", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
+			{Name: "v", Typez: api.STRING_TYPE},
+			{Name: "w", Typez: api.STRING_TYPE, Optional: true},
+			{Name: "x", Typez: api.ENUM_TYPE},
+			{Name: "y", Typez: api.ENUM_TYPE, Optional: true},
+			{Name: "z", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
 		},
 	}
 	method := &api.Method{
@@ -2198,13 +2198,13 @@ func TestPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]pathArg{{Name: "a", Accessor: ".a", CheckForEmpty: true}},
+			[]pathArg{{Name: "v", Accessor: ".v", CheckForEmpty: true}},
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("a"),
+							api.NewFieldPathPathSegment("v"),
 						},
 					},
 				},
@@ -2213,8 +2213,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:          "b",
-					Accessor:      `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					Name:          "w",
+					Accessor:      `.w.as_ref().ok_or_else(|| gaxi::path_parameter::missing("w"))?`,
 					CheckForEmpty: true,
 				},
 			},
@@ -2223,20 +2223,20 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("b"),
+							api.NewFieldPathPathSegment("w"),
 						},
 					},
 				},
 			},
 		},
 		{
-			[]pathArg{{Name: "c", Accessor: `.c`}},
+			[]pathArg{{Name: "x", Accessor: `.x`}},
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("c"),
+							api.NewFieldPathPathSegment("x"),
 						},
 					},
 				},
@@ -2245,8 +2245,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:     "d",
-					Accessor: `.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
+					Name:     "y",
+					Accessor: `.y.as_ref().ok_or_else(|| gaxi::path_parameter::missing("y"))?`,
 				},
 			},
 			&api.PathInfo{
@@ -2254,7 +2254,7 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("d"),
+							api.NewFieldPathPathSegment("y"),
 						},
 					},
 				},
@@ -2263,8 +2263,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:          "e.a",
-					Accessor:      `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.a`,
+					Name:          "z.a",
+					Accessor:      `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?.a`,
 					CheckForEmpty: true,
 				},
 			},
@@ -2273,7 +2273,7 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("e.a"),
+							api.NewFieldPathPathSegment("z.a"),
 						},
 					},
 				},
@@ -2282,8 +2282,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name: "e.b",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
+					Name: "z.b",
+					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?` +
 						`.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
 					CheckForEmpty: true,
 				},
@@ -2293,7 +2293,7 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("e.b"),
+							api.NewFieldPathPathSegment("z.b"),
 						},
 					},
 				},
@@ -2302,8 +2302,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:     "e.c",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.c`,
+					Name:     "z.c",
+					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?.c`,
 				},
 			},
 			&api.PathInfo{
@@ -2311,7 +2311,7 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("e.c"),
+							api.NewFieldPathPathSegment("z.c"),
 						},
 					},
 				},
@@ -2320,8 +2320,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name: "e.d",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
+					Name: "z.d",
+					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?` +
 						`.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
 				},
 			},
@@ -2330,7 +2330,7 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("e.d"),
+							api.NewFieldPathPathSegment("z.d"),
 						},
 					},
 				},
@@ -2339,13 +2339,13 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name:          "a",
-					Accessor:      ".a",
+					Name:          "v",
+					Accessor:      ".v",
 					CheckForEmpty: true,
 				},
 				{
-					Name:          "b",
-					Accessor:      `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					Name:          "w",
+					Accessor:      `.w.as_ref().ok_or_else(|| gaxi::path_parameter::missing("w"))?`,
 					CheckForEmpty: true,
 				},
 			},
@@ -2354,8 +2354,8 @@ func TestPathArgs(t *testing.T) {
 					{
 						PathTemplate: []api.PathSegment{
 							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("a"),
-							api.NewFieldPathPathSegment("b"),
+							api.NewFieldPathPathSegment("v"),
+							api.NewFieldPathPathSegment("w"),
 						},
 					},
 				},
