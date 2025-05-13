@@ -29,8 +29,7 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// An implementation of [crate::credentials::CredentialsProvider].
 ///
-/// Represents a [Credentials] used to obtain the corresponding request headers,
-/// the underlying header implementaiton fet.
+/// Represents a [Credentials] used to obtain the auth request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that provide
 /// proof of identity", the archetype may be a username and password
@@ -94,8 +93,7 @@ impl Credentials {
     }
 }
 
-/// Represents a [Credentials] used to obtain auth
-/// [Token][crate::token::Token]s and the corresponding request headers.
+/// Represents a [Credentials] used to obtain auth request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that
 /// provide proof of identity", the archetype may be a username and password
@@ -220,7 +218,7 @@ enum CredentialsSource {
 ///   service account key file, or a JSON object describing your user
 ///   credentials.
 ///
-/// The access tokens returned by these credentials should be used in the
+/// The headers returned by these credentials should be used in the
 /// Authorization HTTP header.
 ///
 /// The Google Cloud client libraries for Rust will typically find and use these
@@ -232,7 +230,7 @@ enum CredentialsSource {
 ///
 /// Example usage:
 ///
-/// Fetching token using ADC
+/// Fetching headers using ADC
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
@@ -247,7 +245,7 @@ enum CredentialsSource {
 /// # });
 /// ```
 ///
-/// Fetching token using custom JSON
+/// Fetching headers using custom JSON
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
@@ -582,7 +580,7 @@ pub mod testing {
 
     /// A simple credentials implementation to use in tests.
     ///
-    /// Always return an error in `token()` and `headers()`.
+    /// Always return an error in `headers()`.
     pub fn error_credentials(retryable: bool) -> Credentials {
         Credentials {
             inner: Arc::from(ErrorCredentials(retryable)),
