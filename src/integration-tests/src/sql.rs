@@ -72,16 +72,17 @@ pub async fn run_sql_instances_service(
     assert_eq!(settings.tier, "db-f1-micro");
 
     println!("Testing list sql instances");
-    let _list = client
+    let list = client
         .list()
         .set_project(&project_id)
         .set_filter(format!("name:{name}"))
         .by_item()
         .into_stream();
+    let items = list.collect::<Vec<Result<_>>>().await;
     println!("SUCCESS on list sql instance");
-    // TODO(#2067) - these assertions are flaky, disabled for now
-    // assert_eq!(list.items.len(), 1);
-    // assert!(list.items.into_iter().any(|v| v.name.eq(&name)));
+    // TODO(#2067) - this assertion checks for <= instead of == 0 because the
+    // list may not include the newly inserted instance.
+    assert!(items.len() <= 1, "{items:?}");
 
     println!("Testing delete sql instance");
     let delete = client
