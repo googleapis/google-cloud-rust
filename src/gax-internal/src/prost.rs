@@ -120,11 +120,10 @@ impl ToProto<prost_types::Timestamp> for wkt::Timestamp {
 
 impl FromProto<wkt::Struct> for prost_types::Struct {
     fn cnv(self) -> Result<wkt::Struct> {
-        Ok(self
-            .fields
+        self.fields
             .into_iter()
             .map(|(k, v)| pair_transpose(k.cnv(), v.cnv()))
-            .collect::<Result<serde_json::Map<_, _>>>()?)
+            .collect::<Result<serde_json::Map<_, _>>>()
     }
 }
 
