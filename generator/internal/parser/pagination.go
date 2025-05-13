@@ -38,11 +38,11 @@ func updateMethodPagination(a *api.API) {
 		var hasPageSize bool
 		var hasPageToken *api.Field
 		for _, f := range reqMsg.Fields {
-   		// Some legacy services (e.g. sqladmin.googleapis.com)
-   		// predate AIP-4233 and use `maxResults` instead of 
-   		// `pageSize` for the field name.
-   		// Furthermore, some of these services use both 
-   		// `uint32` and `int32` for the `maxResults` field type.
+			// Some legacy services (e.g. sqladmin.googleapis.com)
+			// predate AIP-4233 and use `maxResults` instead of
+			// `pageSize` for the field name.
+			// Furthermore, some of these services use both
+			// `uint32` and `int32` for the `maxResults` field type.
 			switch f.JSONName {
 			case pageSize:
 				if f.Typez == api.INT32_TYPE {

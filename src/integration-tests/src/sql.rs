@@ -121,7 +121,7 @@ async fn cleanup_stale_sql_instances(
         .filter_map(|instance| async {
             match instance {
                 Ok(instance) => {
-                    if instance.create_time?.le(&stale_deadline) {
+                    if instance.create_time? < stale_deadline {
                         Some(client.delete(project_id, instance.name).send())
                     } else {
                         None
