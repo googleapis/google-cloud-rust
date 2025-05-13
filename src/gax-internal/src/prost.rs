@@ -18,6 +18,7 @@
 use std::collections::BTreeMap;
 
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
+#[non_exhaustive]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
     EnumNoIntegerValue(&'static str),
