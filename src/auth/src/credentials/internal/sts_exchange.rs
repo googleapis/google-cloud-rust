@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::credentials::errors::CredentialsError;
 use base64::Engine;
-use gax::Result;
-use gax::error::Error;
 use serde::Deserialize;
 use std::collections::HashMap;
+
+type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Token Exchange grant type for a sts exchange.
 pub(crate) const TOKEN_EXCHANGE_GRANT_TYPE: &str =
@@ -61,7 +62,9 @@ impl Client {
         params.insert("subject_token", req.subject_token);
         params.insert("subject_token_type", req.subject_token_type);
 
-        params.insert("scope", req.scope.join(" "));
+        if req.scope.len() > 0 {
+            params.insert("scope", req.scope.join(" "));
+        }
 
         if let Some(audience) = req.audience {
             params.insert("audience", audience);
@@ -103,10 +106,23 @@ impl Client {
             .headers(headers)
             .send()
             .await
-            .map_err(Error::io)?;
+            .map_err(|err| {
+                CredentialsError::from_str(false, format!("failed to request token: {}", err))
+            })?;
 
+        let status = res.status();
+        println!("[execute] status: {:?}", status);
+        if !status.is_success() {
+            return Err(CredentialsError::from_str(
+                false,
+                format!("error requesting token, failed with status {status}"),
+            ));
+        }
         println!("[execute] response: {:?}", res);
-        let token_res = res.json::<TokenResponse>().await.map_err(Error::io)?;
+        let token_res = res
+            .json::<TokenResponse>()
+            .await
+            .map_err(|err| CredentialsError::new(false, err))?;
         Ok(token_res)
     }
 }
@@ -209,6 +225,7 @@ pub struct RefreshTokenRequest {
 mod test {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use tokio_test::assert_err;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
@@ -287,6 +304,62 @@ mod test {
                 scope: "https://www.googleapis.com/auth/cloud-platform".to_string(),
             }
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn exchange_token_err() -> TestResult {
+        let client_auth = ClientAuthentication {
+            auth_style: ClientAuthStyle::InHeader,
+            client_id: None,
+            client_secret: None,
+        };
+        let response_body = r#"{"error":"bad request"}"#;
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/fail"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains(("subject_token", "an_example_token")))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    JWT_TOKEN_TYPE
+                )))),
+                request::headers(contains((
+                    "content-type",
+                    "application/x-www-form-urlencoded"
+                ))),
+            ])
+            .respond_with(status_code(400).body(response_body)),
+        );
+
+        let url = server.url("/fail");
+        let headers = http::HeaderMap::new();
+        let token_req = ExchangeTokenRequest {
+            url: url.to_string(),
+            headers: headers,
+            authentication: client_auth,
+            subject_token: "an_example_token".to_string(),
+            subject_token_type: JWT_TOKEN_TYPE.to_string(),
+            ..ExchangeTokenRequest::default()
+        };
+        let client = Client::new();
+        let err = assert_err!(client.exchange_token(token_req).await);
+
+        let expected_err = crate::errors::CredentialsError::from_str(
+            false,
+            "error requesting token, failed with status 400 Bad Request",
+        );
+        assert_eq!(err.to_string(), expected_err.to_string());
 
         Ok(())
     }
