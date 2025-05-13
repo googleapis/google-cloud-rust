@@ -18,4 +18,7 @@ cp $HOME/googleapis/google/type/expr.proto         ./google/type
 cp $HOME/googleapis/google/iam/v1/iam_policy.proto ./google/iam/v1
 cp $HOME/googleapis/google/iam/v1/policy.proto     ./google/iam/v1
 cp $HOME/googleapis/google/iam/v1/options.proto    ./google/iam/v1
+cp $HOME/googleapis/google/cloud/secretmanager/v1/resources.proto        ./google/cloud/secretmanager/v1
+cp $HOME/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml  ./google/cloud/secretmanager/v1
+cp $HOME/googleapis/google/cloud/secretmanager/v1/service.proto          ./google/cloud/secretmanager/v1
 ```
