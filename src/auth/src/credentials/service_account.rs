@@ -450,7 +450,7 @@ where
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{b64_decode_to_json, generate_pkcs8_private_key};
+    use crate::credentials::test::{PKCS8_PK, b64_decode_to_json};
     use crate::token::test::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -459,6 +459,7 @@ mod test {
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
     use serde_json::json;
+    use std::sync::LazyLock;
     use std::time::Duration;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -614,7 +615,7 @@ mod test {
         })
     }
 
-    fn generate_pkcs1_private_key() -> String {
+    static PKCS1_PK: LazyLock<String> = LazyLock::new(|| {
         let mut rng = rand::thread_rng();
         let bits = 2048;
         let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
@@ -622,12 +623,12 @@ mod test {
             .to_pkcs1_pem(LineEnding::LF)
             .expect("Failed to encode key to PKCS#1 PEM")
             .to_string()
-    }
+    });
 
     #[tokio::test]
     async fn get_service_account_token_pkcs1_private_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(generate_pkcs1_private_key());
+        service_account_key["private_key"] = Value::from(PKCS1_PK.clone());
         let cred = Builder::new(service_account_key).build()?;
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(
@@ -641,7 +642,7 @@ mod test {
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
         let cred = Builder::new(service_account_key.clone()).build()?;
         let token = cred.token(Extensions::new()).await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
@@ -668,7 +669,7 @@ mod test {
 
     #[tokio::test]
     async fn token_caching() -> TestResult {
-        let private_key = generate_pkcs8_private_key();
+        let private_key = PKCS8_PK.clone();
 
         let json_value = json!({
             "client_email": "test-client-email",
@@ -760,7 +761,7 @@ mod test {
     #[tokio::test]
     async fn get_service_account_token_with_audience() -> TestResult {
         let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
         let token = Builder::new(service_account_key.clone())
             .with_access_specifier(AccessSpecifier::from_audience("test-audience"))
             .build()?
@@ -793,7 +794,7 @@ mod test {
     async fn get_service_account_token_verify_expiry_time() -> TestResult {
         let now = Instant::now();
         let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
         let token = Builder::new(service_account_key.clone())
             .build()?
             .token(Extensions::new())
@@ -811,7 +812,7 @@ mod test {
         let scopes = vec![
             "https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate",
         ];
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
         let token = Builder::new(service_account_key.clone())
             .with_access_specifier(AccessSpecifier::from_scopes(scopes.clone()))
             .build()?
