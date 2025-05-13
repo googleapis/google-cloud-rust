@@ -16,10 +16,12 @@
 //!
 //! Some applications need to construct clients with custom configuration, for
 //! example, they may need to override the endpoint or the authentication
-//! credentials. The types in this module implement the client builders.
+//! credentials. The Google Cloud client libraries for Rust use a generic
+//! builder type to provide such functionality. The types in this module
+//! implement the client builders.
 //!
 //! Applications should not create builders directly, instead each client type
-//! defines a `builder()` function to obtain the correct type of builder:
+//! defines a `builder()` function to obtain the correct type of builder.
 //!
 //! ## Example: create a client with the default configuration.
 //!
