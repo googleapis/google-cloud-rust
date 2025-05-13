@@ -62,7 +62,7 @@ impl STSHandler {
         params.insert("subject_token", req.subject_token);
         params.insert("subject_token_type", req.subject_token_type);
 
-        if req.scope.is_empty() {
+        if !req.scope.is_empty() {
             params.insert("scope", req.scope.join(" "));
         }
 
@@ -79,7 +79,11 @@ impl STSHandler {
             params.insert("actor_token_type", actor_token_type);
         }
 
-        //TODO(aviebrantz): Add support for extra options
+        if let Some(options) = req.extra_options {
+            if let Ok(value) = serde_json::to_value(options) {
+                params.insert("options", value.to_string());
+            }
+        }
 
         self.execute(req.url, req.authentication, req.headers, params)
             .await
@@ -211,6 +215,7 @@ pub struct ExchangeTokenRequest {
     scope: Vec<String>,
     actor_token: Option<String>,
     actor_token_type: Option<String>,
+    extra_options: Option<HashMap<String, String>>,
 }
 
 /// Information required to perform the token exchange using a refresh token flow.
