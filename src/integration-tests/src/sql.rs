@@ -80,7 +80,7 @@ pub async fn run_sql_instances_service(
         .into_stream();
     let items = list.collect::<Vec<Result<_>>>().await;
     println!("SUCCESS on list sql instance");
-    // TODO(#2067) - this assertion checks for <= instead of == 0 because the
+    // TODO(#2067) - this assertion checks for <= instead of == 1 because the
     // list may not include the newly inserted instance.
     assert!(items.len() <= 1, "{items:?}");
 
