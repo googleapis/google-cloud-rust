@@ -34,7 +34,8 @@ pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Resul
     let client = builder.build().await?;
 
     let response = client
-        .list_orchestration_clusters(format!("projects/{project_id}/locations/{region_id}"))
+        .list_orchestration_clusters()
+        .set_parent(format!("projects/{project_id}/locations/{region_id}"))
         .send()
         .await;
     let err = response
@@ -70,7 +71,7 @@ pub async fn check_code_for_http(builder: wf::builder::workflows::ClientBuilder)
         format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}");
     let client = builder.build().await?;
 
-    match client.get_workflow(&workflow_name).send().await {
+    match client.get_workflow().set_name(&workflow_name).send().await {
         Ok(g) => panic!("unexpected success {g:?}"),
         Err(e) => match e.as_inner::<gax::error::ServiceError>() {
             None => panic!("expected service error, got {e:?}"),

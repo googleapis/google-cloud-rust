@@ -69,6 +69,25 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::list_app_gateways][super::super::client::AppGatewaysService::list_app_gateways] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::ListAppGateways;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAppGateways {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAppGateways(RequestBuilder<crate::model::ListAppGatewaysRequest>);
 
@@ -164,6 +183,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::get_app_gateway][super::super::client::AppGatewaysService::get_app_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::GetAppGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAppGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAppGateway(RequestBuilder<crate::model::GetAppGatewayRequest>);
 
@@ -211,6 +245,22 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::create_app_gateway][super::super::client::AppGatewaysService::create_app_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::CreateAppGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_beyondcorp_appgateways_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAppGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAppGateway(RequestBuilder<crate::model::CreateAppGatewayRequest>);
 
@@ -331,6 +381,22 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::delete_app_gateway][super::super::client::AppGatewaysService::delete_app_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::DeleteAppGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_beyondcorp_appgateways_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAppGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAppGateway(RequestBuilder<crate::model::DeleteAppGatewayRequest>);
 
@@ -434,6 +500,25 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::list_locations][super::super::client::AppGatewaysService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -524,6 +609,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::get_location][super::super::client::AppGatewaysService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -569,6 +669,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::set_iam_policy][super::super::client::AppGatewaysService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -636,6 +751,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::get_iam_policy][super::super::client::AppGatewaysService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -692,6 +822,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::test_iam_permissions][super::super::client::AppGatewaysService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -755,6 +900,25 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::list_operations][super::super::client::AppGatewaysService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -847,6 +1011,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::get_operation][super::super::client::AppGatewaysService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -895,6 +1074,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::delete_operation][super::super::client::AppGatewaysService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -943,6 +1137,21 @@ pub mod app_gateways_service {
     }
 
     /// The request builder for [AppGatewaysService::cancel_operation][super::super::client::AppGatewaysService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_appgateways_v1::builder;
+    /// use builder::app_gateways_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

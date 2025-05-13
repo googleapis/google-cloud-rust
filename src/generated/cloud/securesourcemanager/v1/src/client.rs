@@ -140,21 +140,13 @@ impl SecureSourceManager {
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::ListInstances {
+    pub fn list_instances(&self) -> super::builder::secure_source_manager::ListInstances {
         super::builder::secure_source_manager::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetInstance {
+    pub fn get_instance(&self) -> super::builder::secure_source_manager::GetInstance {
         super::builder::secure_source_manager::GetInstance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new instance in a given project and location.
@@ -168,12 +160,8 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::secure_source_manager::CreateInstance {
         super::builder::secure_source_manager::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single instance.
@@ -187,34 +175,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::secure_source_manager::DeleteInstance {
         super::builder::secure_source_manager::DeleteInstance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Repositories in a given project and location.
     ///
     /// **Host: Data Plane**
-    pub fn list_repositories(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::ListRepositories {
+    pub fn list_repositories(&self) -> super::builder::secure_source_manager::ListRepositories {
         super::builder::secure_source_manager::ListRepositories::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets metadata of a repository.
     ///
     /// **Host: Data Plane**
-    pub fn get_repository(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetRepository {
+    pub fn get_repository(&self) -> super::builder::secure_source_manager::GetRepository {
         super::builder::secure_source_manager::GetRepository::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new repository in a given project and location.
@@ -230,12 +206,8 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_repository(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::CreateRepository {
+    pub fn create_repository(&self) -> super::builder::secure_source_manager::CreateRepository {
         super::builder::secure_source_manager::CreateRepository::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a Repository.
@@ -251,40 +223,26 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_repository(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::DeleteRepository {
+    pub fn delete_repository(&self) -> super::builder::secure_source_manager::DeleteRepository {
         super::builder::secure_source_manager::DeleteRepository::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get IAM policy for a repository.
-    pub fn get_iam_policy_repo(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetIamPolicyRepo {
+    pub fn get_iam_policy_repo(&self) -> super::builder::secure_source_manager::GetIamPolicyRepo {
         super::builder::secure_source_manager::GetIamPolicyRepo::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Set IAM policy on a repository.
-    pub fn set_iam_policy_repo(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::SetIamPolicyRepo {
+    pub fn set_iam_policy_repo(&self) -> super::builder::secure_source_manager::SetIamPolicyRepo {
         super::builder::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Test IAM permissions on a repository.
     /// IAM permission checks are not required on this method.
     pub fn test_iam_permissions_repo(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::secure_source_manager::TestIamPermissionsRepo {
         super::builder::secure_source_manager::TestIamPermissionsRepo::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// CreateBranchRule creates a branch rule in a given repository.
@@ -298,30 +256,18 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_branch_rule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::CreateBranchRule {
+    pub fn create_branch_rule(&self) -> super::builder::secure_source_manager::CreateBranchRule {
         super::builder::secure_source_manager::CreateBranchRule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// ListBranchRules lists branch rules in a given repository.
-    pub fn list_branch_rules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::ListBranchRules {
+    pub fn list_branch_rules(&self) -> super::builder::secure_source_manager::ListBranchRules {
         super::builder::secure_source_manager::ListBranchRules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// GetBranchRule gets a branch rule.
-    pub fn get_branch_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetBranchRule {
+    pub fn get_branch_rule(&self) -> super::builder::secure_source_manager::GetBranchRule {
         super::builder::secure_source_manager::GetBranchRule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// UpdateBranchRule updates a branch rule.
@@ -335,12 +281,8 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_branch_rule(
-        &self,
-        branch_rule: impl Into<crate::model::BranchRule>,
-    ) -> super::builder::secure_source_manager::UpdateBranchRule {
+    pub fn update_branch_rule(&self) -> super::builder::secure_source_manager::UpdateBranchRule {
         super::builder::secure_source_manager::UpdateBranchRule::new(self.inner.clone())
-            .set_branch_rule(branch_rule.into())
     }
 
     /// DeleteBranchRule deletes a branch rule.
@@ -354,30 +296,18 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_branch_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::DeleteBranchRule {
+    pub fn delete_branch_rule(&self) -> super::builder::secure_source_manager::DeleteBranchRule {
         super::builder::secure_source_manager::DeleteBranchRule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::secure_source_manager::ListLocations {
         super::builder::secure_source_manager::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetLocation {
+    pub fn get_location(&self) -> super::builder::secure_source_manager::GetLocation {
         super::builder::secure_source_manager::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -385,22 +315,14 @@ impl SecureSourceManager {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::secure_source_manager::SetIamPolicy {
         super::builder::secure_source_manager::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::secure_source_manager::GetIamPolicy {
         super::builder::secure_source_manager::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -412,53 +334,35 @@ impl SecureSourceManager {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::secure_source_manager::TestIamPermissions {
         super::builder::secure_source_manager::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::secure_source_manager::ListOperations {
         super::builder::secure_source_manager::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::GetOperation {
+    pub fn get_operation(&self) -> super::builder::secure_source_manager::GetOperation {
         super::builder::secure_source_manager::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::secure_source_manager::DeleteOperation {
         super::builder::secure_source_manager::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::secure_source_manager::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::secure_source_manager::CancelOperation {
         super::builder::secure_source_manager::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

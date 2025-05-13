@@ -129,43 +129,29 @@ impl Lineage {
     /// <https://github.com/OpenLineage/OpenLineage/blob/main/spec/OpenLineage.json>.
     pub fn process_open_lineage_run_event(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::lineage::ProcessOpenLineageRunEvent {
         super::builder::lineage::ProcessOpenLineageRunEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new process.
-    pub fn create_process(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::CreateProcess {
-        super::builder::lineage::CreateProcess::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_process(&self) -> super::builder::lineage::CreateProcess {
+        super::builder::lineage::CreateProcess::new(self.inner.clone())
     }
 
     /// Updates a process.
-    pub fn update_process(
-        &self,
-        process: impl Into<crate::model::Process>,
-    ) -> super::builder::lineage::UpdateProcess {
-        super::builder::lineage::UpdateProcess::new(self.inner.clone()).set_process(process.into())
+    pub fn update_process(&self) -> super::builder::lineage::UpdateProcess {
+        super::builder::lineage::UpdateProcess::new(self.inner.clone())
     }
 
     /// Gets the details of the specified process.
-    pub fn get_process(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::GetProcess {
-        super::builder::lineage::GetProcess::new(self.inner.clone()).set_name(name.into())
+    pub fn get_process(&self) -> super::builder::lineage::GetProcess {
+        super::builder::lineage::GetProcess::new(self.inner.clone())
     }
 
     /// List processes in the given project and location. List order is descending
     /// by insertion time.
-    pub fn list_processes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::ListProcesses {
-        super::builder::lineage::ListProcesses::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_processes(&self) -> super::builder::lineage::ListProcesses {
+        super::builder::lineage::ListProcesses::new(self.inner.clone())
     }
 
     /// Deletes the process with the specified name.
@@ -179,41 +165,29 @@ impl Lineage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_process(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::DeleteProcess {
-        super::builder::lineage::DeleteProcess::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_process(&self) -> super::builder::lineage::DeleteProcess {
+        super::builder::lineage::DeleteProcess::new(self.inner.clone())
     }
 
     /// Creates a new run.
-    pub fn create_run(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::CreateRun {
-        super::builder::lineage::CreateRun::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_run(&self) -> super::builder::lineage::CreateRun {
+        super::builder::lineage::CreateRun::new(self.inner.clone())
     }
 
     /// Updates a run.
-    pub fn update_run(
-        &self,
-        run: impl Into<crate::model::Run>,
-    ) -> super::builder::lineage::UpdateRun {
-        super::builder::lineage::UpdateRun::new(self.inner.clone()).set_run(run.into())
+    pub fn update_run(&self) -> super::builder::lineage::UpdateRun {
+        super::builder::lineage::UpdateRun::new(self.inner.clone())
     }
 
     /// Gets the details of the specified run.
-    pub fn get_run(&self, name: impl Into<std::string::String>) -> super::builder::lineage::GetRun {
-        super::builder::lineage::GetRun::new(self.inner.clone()).set_name(name.into())
+    pub fn get_run(&self) -> super::builder::lineage::GetRun {
+        super::builder::lineage::GetRun::new(self.inner.clone())
     }
 
     /// Lists runs in the given project and location. List order is descending by
     /// `start_time`.
-    pub fn list_runs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::ListRuns {
-        super::builder::lineage::ListRuns::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_runs(&self) -> super::builder::lineage::ListRuns {
+        super::builder::lineage::ListRuns::new(self.inner.clone())
     }
 
     /// Deletes the run with the specified name.
@@ -227,46 +201,29 @@ impl Lineage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::DeleteRun {
-        super::builder::lineage::DeleteRun::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_run(&self) -> super::builder::lineage::DeleteRun {
+        super::builder::lineage::DeleteRun::new(self.inner.clone())
     }
 
     /// Creates a new lineage event.
-    pub fn create_lineage_event(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::CreateLineageEvent {
+    pub fn create_lineage_event(&self) -> super::builder::lineage::CreateLineageEvent {
         super::builder::lineage::CreateLineageEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a specified lineage event.
-    pub fn get_lineage_event(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::GetLineageEvent {
-        super::builder::lineage::GetLineageEvent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_lineage_event(&self) -> super::builder::lineage::GetLineageEvent {
+        super::builder::lineage::GetLineageEvent::new(self.inner.clone())
     }
 
     /// Lists lineage events in the given project and location. The list order is
     /// not defined.
-    pub fn list_lineage_events(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::ListLineageEvents {
+    pub fn list_lineage_events(&self) -> super::builder::lineage::ListLineageEvents {
         super::builder::lineage::ListLineageEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the lineage event with the specified name.
-    pub fn delete_lineage_event(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::DeleteLineageEvent {
-        super::builder::lineage::DeleteLineageEvent::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_lineage_event(&self) -> super::builder::lineage::DeleteLineageEvent {
+        super::builder::lineage::DeleteLineageEvent::new(self.inner.clone())
     }
 
     /// Retrieve a list of links connected to a specific asset.
@@ -278,11 +235,8 @@ impl Lineage {
     /// You can retrieve links in every project where you have the
     /// `datalineage.events.get` permission. The project provided in the URL
     /// is used for Billing and Quota.
-    pub fn search_links(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::SearchLinks {
-        super::builder::lineage::SearchLinks::new(self.inner.clone()).set_parent(parent.into())
+    pub fn search_links(&self) -> super::builder::lineage::SearchLinks {
+        super::builder::lineage::SearchLinks::new(self.inner.clone())
     }
 
     /// Retrieve information about LineageProcesses associated with specific
@@ -301,51 +255,35 @@ impl Lineage {
     /// URL is used for Billing and Quota.
     ///
     /// [google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks]: crate::client::Lineage::search_links
-    pub fn batch_search_link_processes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::lineage::BatchSearchLinkProcesses {
+    pub fn batch_search_link_processes(&self) -> super::builder::lineage::BatchSearchLinkProcesses {
         super::builder::lineage::BatchSearchLinkProcesses::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::ListOperations {
-        super::builder::lineage::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::lineage::ListOperations {
+        super::builder::lineage::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::GetOperation {
-        super::builder::lineage::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::lineage::GetOperation {
+        super::builder::lineage::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::DeleteOperation {
-        super::builder::lineage::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::lineage::DeleteOperation {
+        super::builder::lineage::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::lineage::CancelOperation {
-        super::builder::lineage::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::lineage::CancelOperation {
+        super::builder::lineage::CancelOperation::new(self.inner.clone())
     }
 }

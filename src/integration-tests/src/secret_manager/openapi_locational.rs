@@ -47,7 +47,9 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
 
     println!("\nTesting create_secret_by_project_and_location({project_id}, {location_id})");
     let create = client
-        .create_secret_by_project_and_location(&project_id, &location_id)
+        .create_secret_by_project_and_location()
+        .set_project(&project_id)
+        .set_location(&location_id)
         .set_secret_id(&secret_id)
         .set_request_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
         .send()
@@ -56,7 +58,10 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
 
     println!("\nTesting get_secret_by_project_and_location_and_secret()");
     let get = client
-        .get_secret_by_project_and_location_and_secret(&project_id, &location_id, &secret_id)
+        .get_secret_by_project_and_location_and_secret()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret(&secret_id)
         .send()
         .await?;
     println!("GET = {get:?}");
@@ -67,7 +72,10 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
     let update = client
-        .update_secret_by_project_and_location_and_secret(&project_id, &location_id, &secret_id)
+        .update_secret_by_project_and_location_and_secret()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
         .set_request_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
@@ -89,7 +97,10 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
 
     println!("\nTesting delete_secret_by_project_and_location_and_secret()");
     let response = client
-        .delete_secret_by_project_and_location_and_secret(&project_id, &location_id, &secret_id)
+        .delete_secret_by_project_and_location_and_secret()
+        .set_project(&project_id)
+        .set_location(&location_id)
+        .set_secret(&secret_id)
         .send()
         .await?;
     println!("DELETE = {response:?}");
@@ -107,14 +118,20 @@ async fn run_iam(
 
     println!("\nTesting get_iam_policy_by_project_and_location_and_secret()");
     let policy = client
-        .get_iam_policy_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .get_iam_policy_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
         .send()
         .await?;
     println!("POLICY = {policy:?}");
 
     println!("\nTesting test_iam_permissions_by_project_and_location_and_secret()");
     let response = client
-        .test_iam_permissions_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .test_iam_permissions_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
         .set_permissions(["secretmanager.versions.access"])
         .send()
         .await?;
@@ -142,7 +159,10 @@ async fn run_iam(
         );
     }
     let response = client
-        .set_iam_policy_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .set_iam_policy_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
@@ -162,7 +182,10 @@ async fn run_secret_versions(
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
     let create = client
-        .add_secret_version_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .add_secret_version_by_project_and_location_and_secret()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
         .set_payload(
             smo::model::SecretPayload::default()
                 .set_data(bytes::Bytes::from(data))
@@ -188,12 +211,11 @@ async fn run_secret_versions(
 
     println!("\nTesting get_secret_version_by_project_and_location_and_secret_and_version()");
     let get = client
-        .get_secret_version_by_project_and_location_and_secret_and_version(
-            project_id,
-            location_id,
-            secret_id,
-            version_id,
-        )
+        .get_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("GET_SECRET_VERSION = {get:?}");
@@ -212,12 +234,11 @@ async fn run_secret_versions(
 
     println!("\nTesting access_secret_version_by_project_and_location_and_secret_and_version()");
     let access_secret_version = client
-        .access_secret_version_by_project_and_location_and_secret_and_version(
-            project_id,
-            location_id,
-            secret_id,
-            version_id,
-        )
+        .access_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
@@ -228,36 +249,33 @@ async fn run_secret_versions(
 
     println!("\nTesting disable_secret_version_by_project_and_location_and_secret_and_version()");
     let disable = client
-        .disable_secret_version_by_project_and_location_and_secret_and_version(
-            project_id,
-            location_id,
-            secret_id,
-            version_id,
-        )
+        .disable_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
     println!("\nTesting enable_secret_version_by_project_and_location_and_secret_and_version()");
     let enable = client
-        .enable_secret_version_by_project_and_location_and_secret_and_version(
-            project_id,
-            location_id,
-            secret_id,
-            version_id,
-        )
+        .enable_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
 
     println!("\nTesting destroy_secret_version_by_project_and_location_and_secret_and_version()");
     let delete = client
-        .destroy_secret_version_by_project_and_location_and_secret_and_version(
-            project_id,
-            location_id,
-            secret_id,
-            version_id,
-        )
+        .destroy_secret_version_by_project_and_location_and_secret_and_version()
+        .set_project(project_id)
+        .set_location(location_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -275,11 +293,10 @@ async fn get_all_secret_version_names(
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secret_versions_by_project_and_location_and_secret(
-                project_id,
-                location_id,
-                secret_id,
-            )
+            .list_secret_versions_by_project_and_location_and_secret()
+            .set_project(project_id)
+            .set_location(location_id)
+            .set_secret(secret_id)
             .set_page_token(page_token)
             .send()
             .await?;
@@ -305,7 +322,9 @@ async fn get_all_secret_names(
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secrets_by_project_and_location(project_id, location_id)
+            .list_secrets_by_project_and_location()
+            .set_project(project_id)
+            .set_location(location_id)
             .set_page_token(page_token)
             .send()
             .await?;
@@ -338,7 +357,9 @@ async fn cleanup_stale_secrets(
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secrets_by_project_and_location(project_id, location_id)
+            .list_secrets_by_project_and_location()
+            .set_project(project_id)
+            .set_location(location_id)
             .set_page_token(page_token.clone())
             .send()
             .await?;
@@ -365,9 +386,12 @@ async fn cleanup_stale_secrets(
 
     let pending = stale_secrets
         .iter()
-        .map(|v| {
+        .map(|secret_id| {
             client
-                .delete_secret_by_project_and_location_and_secret(project_id, location_id, v)
+                .delete_secret_by_project_and_location_and_secret()
+                .set_project(project_id)
+                .set_location(location_id)
+                .set_secret(secret_id)
                 .send()
         })
         .collect::<Vec<_>>();

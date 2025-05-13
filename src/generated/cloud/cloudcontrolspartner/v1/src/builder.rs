@@ -69,6 +69,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::get_workload][super::super::client::CloudControlsPartnerCore::get_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetWorkload;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
@@ -116,6 +131,25 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::list_workloads][super::super::client::CloudControlsPartnerCore::list_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::ListWorkloads;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
@@ -211,6 +245,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::get_customer][super::super::client::CloudControlsPartnerCore::get_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetCustomer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomer(RequestBuilder<crate::model::GetCustomerRequest>);
 
@@ -258,6 +307,25 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::list_customers][super::super::client::CloudControlsPartnerCore::list_customers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::ListCustomers;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomers(RequestBuilder<crate::model::ListCustomersRequest>);
 
@@ -353,6 +421,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][super::super::client::CloudControlsPartnerCore::get_ekm_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetEkmConnections;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEkmConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEkmConnections(RequestBuilder<crate::model::GetEkmConnectionsRequest>);
 
@@ -403,6 +486,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][super::super::client::CloudControlsPartnerCore::get_partner_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetPartnerPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPartnerPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPartnerPermissions(RequestBuilder<crate::model::GetPartnerPermissionsRequest>);
 
@@ -453,6 +551,25 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][super::super::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::ListAccessApprovalRequests;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAccessApprovalRequests {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessApprovalRequests(
         RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>,
@@ -557,6 +674,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::get_partner][super::super::client::CloudControlsPartnerCore::get_partner] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetPartner;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPartner {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPartner(RequestBuilder<crate::model::GetPartnerRequest>);
 
@@ -604,6 +736,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::create_customer][super::super::client::CloudControlsPartnerCore::create_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::CreateCustomer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCustomer(RequestBuilder<crate::model::CreateCustomerRequest>);
 
@@ -670,6 +817,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::update_customer][super::super::client::CloudControlsPartnerCore::update_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::UpdateCustomer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomer(RequestBuilder<crate::model::UpdateCustomerRequest>);
 
@@ -729,6 +891,21 @@ pub mod cloud_controls_partner_core {
     }
 
     /// The request builder for [CloudControlsPartnerCore::delete_customer][super::super::client::CloudControlsPartnerCore::delete_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::DeleteCustomer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomer(RequestBuilder<crate::model::DeleteCustomerRequest>);
 
@@ -831,6 +1008,25 @@ pub mod cloud_controls_partner_monitoring {
     }
 
     /// The request builder for [CloudControlsPartnerMonitoring::list_violations][super::super::client::CloudControlsPartnerMonitoring::list_violations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_monitoring::ListViolations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListViolations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListViolations(RequestBuilder<crate::model::ListViolationsRequest>);
 
@@ -935,6 +1131,21 @@ pub mod cloud_controls_partner_monitoring {
     }
 
     /// The request builder for [CloudControlsPartnerMonitoring::get_violation][super::super::client::CloudControlsPartnerMonitoring::get_violation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_monitoring::GetViolation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetViolation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetViolation(RequestBuilder<crate::model::GetViolationRequest>);
 

@@ -182,12 +182,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_entities(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ExportEntities {
+    pub fn export_entities(&self) -> super::builder::datastore_admin::ExportEntities {
         super::builder::datastore_admin::ExportEntities::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Imports entities into Google Cloud Datastore. Existing entities with the
@@ -205,12 +201,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_entities(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ImportEntities {
+    pub fn import_entities(&self) -> super::builder::datastore_admin::ImportEntities {
         super::builder::datastore_admin::ImportEntities::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Creates the specified index.
@@ -240,12 +232,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_index(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::CreateIndex {
+    pub fn create_index(&self) -> super::builder::datastore_admin::CreateIndex {
         super::builder::datastore_admin::CreateIndex::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Deletes an existing index.
@@ -273,78 +261,47 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_index(
-        &self,
-        project_id: impl Into<std::string::String>,
-        index_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::DeleteIndex {
+    pub fn delete_index(&self) -> super::builder::datastore_admin::DeleteIndex {
         super::builder::datastore_admin::DeleteIndex::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_index_id(index_id.into())
     }
 
     /// Gets an index.
-    pub fn get_index(
-        &self,
-        project_id: impl Into<std::string::String>,
-        index_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::GetIndex {
+    pub fn get_index(&self) -> super::builder::datastore_admin::GetIndex {
         super::builder::datastore_admin::GetIndex::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_index_id(index_id.into())
     }
 
     /// Lists the indexes that match the specified filters.  Datastore uses an
     /// eventually consistent query to fetch the list of indexes and may
     /// occasionally return stale results.
-    pub fn list_indexes(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ListIndexes {
+    pub fn list_indexes(&self) -> super::builder::datastore_admin::ListIndexes {
         super::builder::datastore_admin::ListIndexes::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::datastore_admin::ListOperations {
         super::builder::datastore_admin::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::GetOperation {
-        super::builder::datastore_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::datastore_admin::GetOperation {
+        super::builder::datastore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::datastore_admin::DeleteOperation {
         super::builder::datastore_admin::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::datastore_admin::CancelOperation {
         super::builder::datastore_admin::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

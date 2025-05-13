@@ -121,126 +121,75 @@ impl StorageInsights {
     }
 
     /// Lists ReportConfigs in a given project and location.
-    pub fn list_report_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListReportConfigs {
+    pub fn list_report_configs(&self) -> super::builder::storage_insights::ListReportConfigs {
         super::builder::storage_insights::ListReportConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ReportConfig.
-    pub fn get_report_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetReportConfig {
+    pub fn get_report_config(&self) -> super::builder::storage_insights::GetReportConfig {
         super::builder::storage_insights::GetReportConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ReportConfig in a given project and location.
-    pub fn create_report_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::CreateReportConfig {
+    pub fn create_report_config(&self) -> super::builder::storage_insights::CreateReportConfig {
         super::builder::storage_insights::CreateReportConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single ReportConfig.
-    pub fn update_report_config(
-        &self,
-        report_config: impl Into<crate::model::ReportConfig>,
-    ) -> super::builder::storage_insights::UpdateReportConfig {
+    pub fn update_report_config(&self) -> super::builder::storage_insights::UpdateReportConfig {
         super::builder::storage_insights::UpdateReportConfig::new(self.inner.clone())
-            .set_report_config(report_config.into())
     }
 
     /// Deletes a single ReportConfig.
-    pub fn delete_report_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::DeleteReportConfig {
+    pub fn delete_report_config(&self) -> super::builder::storage_insights::DeleteReportConfig {
         super::builder::storage_insights::DeleteReportConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ReportDetails in a given project and location.
-    pub fn list_report_details(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListReportDetails {
+    pub fn list_report_details(&self) -> super::builder::storage_insights::ListReportDetails {
         super::builder::storage_insights::ListReportDetails::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ReportDetail.
-    pub fn get_report_detail(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetReportDetail {
+    pub fn get_report_detail(&self) -> super::builder::storage_insights::GetReportDetail {
         super::builder::storage_insights::GetReportDetail::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListLocations {
+    pub fn list_locations(&self) -> super::builder::storage_insights::ListLocations {
         super::builder::storage_insights::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetLocation {
-        super::builder::storage_insights::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::storage_insights::GetLocation {
+        super::builder::storage_insights::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListOperations {
+    pub fn list_operations(&self) -> super::builder::storage_insights::ListOperations {
         super::builder::storage_insights::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetOperation {
+    pub fn get_operation(&self) -> super::builder::storage_insights::GetOperation {
         super::builder::storage_insights::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::storage_insights::DeleteOperation {
         super::builder::storage_insights::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::storage_insights::CancelOperation {
         super::builder::storage_insights::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

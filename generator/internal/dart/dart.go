@@ -157,8 +157,7 @@ func enumValueName(e *api.EnumValue) string {
 
 func httpPathFmt(pathInfo *api.PathInfo) string {
 	var builder strings.Builder
-
-	for _, segment := range pathInfo.PathTemplate {
+	for _, segment := range pathInfo.Bindings[0].PathTemplate {
 		switch {
 		case segment.Literal != nil:
 			builder.WriteString("/")
@@ -237,7 +236,13 @@ func shouldGenerateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations; we cannot generate working RPCs
 	// for them.
 	// TODO(#499) Switch to explicitly excluding such functions.
-	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+	if m.ClientSideStreaming || m.ServerSideStreaming || m.PathInfo == nil {
+		return false
+	}
+	if len(m.PathInfo.Bindings) == 0 {
+		return false
+	}
+	return len(m.PathInfo.Bindings[0].PathTemplate) != 0
 }
 
 func formatDirectory(dir string) error {

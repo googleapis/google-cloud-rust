@@ -69,6 +69,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::process_document][super::super::client::DocumentProcessorService::process_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ProcessDocument;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ProcessDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ProcessDocument(RequestBuilder<crate::model::ProcessRequest>);
 
@@ -214,6 +229,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::BatchProcessDocuments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchProcessDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchProcessDocuments(RequestBuilder<crate::model::BatchProcessRequest>);
 
@@ -350,6 +381,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::fetch_processor_types][super::super::client::DocumentProcessorService::fetch_processor_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::FetchProcessorTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchProcessorTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchProcessorTypes(RequestBuilder<crate::model::FetchProcessorTypesRequest>);
 
@@ -400,6 +446,25 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::list_processor_types][super::super::client::DocumentProcessorService::list_processor_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListProcessorTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcessorTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcessorTypes(RequestBuilder<crate::model::ListProcessorTypesRequest>);
 
@@ -488,6 +553,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::get_processor_type][super::super::client::DocumentProcessorService::get_processor_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetProcessorType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcessorType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcessorType(RequestBuilder<crate::model::GetProcessorTypeRequest>);
 
@@ -538,6 +618,25 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::list_processors][super::super::client::DocumentProcessorService::list_processors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListProcessors;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcessors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcessors(RequestBuilder<crate::model::ListProcessorsRequest>);
 
@@ -621,6 +720,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::get_processor][super::super::client::DocumentProcessorService::get_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetProcessor;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcessor(RequestBuilder<crate::model::GetProcessorRequest>);
 
@@ -668,6 +782,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::train_processor_version][super::super::client::DocumentProcessorService::train_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::TrainProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TrainProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TrainProcessorVersion(RequestBuilder<crate::model::TrainProcessorVersionRequest>);
 
@@ -843,6 +973,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::get_processor_version][super::super::client::DocumentProcessorService::get_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcessorVersion(RequestBuilder<crate::model::GetProcessorVersionRequest>);
 
@@ -893,6 +1038,25 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::list_processor_versions][super::super::client::DocumentProcessorService::list_processor_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListProcessorVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcessorVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcessorVersions(RequestBuilder<crate::model::ListProcessorVersionsRequest>);
 
@@ -981,6 +1145,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DeleteProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProcessorVersion(RequestBuilder<crate::model::DeleteProcessorVersionRequest>);
 
@@ -1072,6 +1252,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DeployProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployProcessorVersion(RequestBuilder<crate::model::DeployProcessorVersionRequest>);
 
@@ -1165,6 +1361,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::UndeployProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeployProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployProcessorVersion(
         RequestBuilder<crate::model::UndeployProcessorVersionRequest>,
@@ -1260,6 +1472,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::create_processor][super::super::client::DocumentProcessorService::create_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::CreateProcessor;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProcessor(RequestBuilder<crate::model::CreateProcessorRequest>);
 
@@ -1318,6 +1545,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::delete_processor][super::super::client::DocumentProcessorService::delete_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DeleteProcessor;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProcessor(RequestBuilder<crate::model::DeleteProcessorRequest>);
 
@@ -1406,6 +1649,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::enable_processor][super::super::client::DocumentProcessorService::enable_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::EnableProcessor;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableProcessor(RequestBuilder<crate::model::EnableProcessorRequest>);
 
@@ -1494,6 +1753,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::disable_processor][super::super::client::DocumentProcessorService::disable_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DisableProcessor;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableProcessor(RequestBuilder<crate::model::DisableProcessorRequest>);
 
@@ -1587,6 +1862,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::SetDefaultProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetDefaultProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetDefaultProcessorVersion(
         RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>,
@@ -1690,6 +1981,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::review_document][super::super::client::DocumentProcessorService::review_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ReviewDocument;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReviewDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReviewDocument(RequestBuilder<crate::model::ReviewDocumentRequest>);
 
@@ -1831,6 +2138,22 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::EvaluateProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_documentai_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvaluateProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvaluateProcessorVersion(
         RequestBuilder<crate::model::EvaluateProcessorVersionRequest>,
@@ -1937,6 +2260,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::get_evaluation][super::super::client::DocumentProcessorService::get_evaluation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetEvaluation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEvaluation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEvaluation(RequestBuilder<crate::model::GetEvaluationRequest>);
 
@@ -1984,6 +2322,25 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::list_evaluations][super::super::client::DocumentProcessorService::list_evaluations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListEvaluations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEvaluations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEvaluations(RequestBuilder<crate::model::ListEvaluationsRequest>);
 
@@ -2067,6 +2424,25 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::list_locations][super::super::client::DocumentProcessorService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2157,6 +2533,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::get_location][super::super::client::DocumentProcessorService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2202,6 +2593,25 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::list_operations][super::super::client::DocumentProcessorService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2294,6 +2704,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::get_operation][super::super::client::DocumentProcessorService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2342,6 +2767,21 @@ pub mod document_processor_service {
     }
 
     /// The request builder for [DocumentProcessorService::cancel_operation][super::super::client::DocumentProcessorService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

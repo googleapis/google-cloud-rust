@@ -370,6 +370,117 @@ pub mod storage_control {
     }
 
     #[derive(Clone, Debug)]
+    pub struct RenameFolder(RequestBuilder<crate::model::RenameFolderRequest>);
+
+    impl RenameFolder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RenameFolderRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .rename_folder(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `rename_folder`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Folder, crate::model::RenameFolderMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Folder, crate::model::RenameFolderMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::RenameFolderRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [destination_folder_id][crate::model::RenameFolderRequest::destination_folder_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_destination_folder_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.destination_folder_id = v.into();
+            self
+        }
+
+        /// Sets the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
+        pub fn set_if_metageneration_match<T: Into<std::option::Option<i64>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.if_metageneration_match = v.into();
+            self
+        }
+
+        /// Sets the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
+        pub fn set_if_metageneration_not_match<T: Into<std::option::Option<i64>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.if_metageneration_not_match = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::RenameFolderRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RenameFolder {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
     pub struct GetStorageLayout(RequestBuilder<crate::model::GetStorageLayoutRequest>);
 
     impl GetStorageLayout {
@@ -756,6 +867,213 @@ pub mod storage_control {
     }
 
     #[derive(Clone, Debug)]
+    pub struct CreateAnywhereCache(RequestBuilder<crate::model::CreateAnywhereCacheRequest>);
+
+    impl CreateAnywhereCache {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateAnywhereCacheRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_anywhere_cache(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_anywhere_cache`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::AnywhereCache, crate::model::CreateAnywhereCacheMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::AnywhereCache,
+                crate::model::CreateAnywhereCacheMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateAnywhereCacheRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_anywhere_cache<T: Into<std::option::Option<crate::model::AnywhereCache>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.anywhere_cache = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateAnywhereCacheRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAnywhereCache {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    pub struct UpdateAnywhereCache(RequestBuilder<crate::model::UpdateAnywhereCacheRequest>);
+
+    impl UpdateAnywhereCache {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateAnywhereCacheRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_anywhere_cache(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_anywhere_cache`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::AnywhereCache, crate::model::UpdateAnywhereCacheMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::AnywhereCache,
+                crate::model::UpdateAnywhereCacheMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_anywhere_cache<T: Into<std::option::Option<crate::model::AnywhereCache>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.anywhere_cache = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mask = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateAnywhereCacheRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAnywhereCache {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
     pub struct DisableAnywhereCache(RequestBuilder<crate::model::DisableAnywhereCacheRequest>);
 
     impl DisableAnywhereCache {
@@ -1063,6 +1381,53 @@ pub mod storage_control {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for ListAnywhereCaches {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

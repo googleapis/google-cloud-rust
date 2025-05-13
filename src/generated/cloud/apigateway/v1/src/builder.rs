@@ -69,6 +69,25 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::list_gateways][super::super::client::ApiGatewayService::list_gateways] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListGateways;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGateways {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
@@ -164,6 +183,21 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::get_gateway][super::super::client::ApiGatewayService::get_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
@@ -211,6 +245,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::create_gateway][super::super::client::ApiGatewayService::create_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CreateGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
@@ -315,6 +365,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::update_gateway][super::super::client::ApiGatewayService::update_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::UpdateGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
@@ -412,6 +478,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::delete_gateway][super::super::client::ApiGatewayService::delete_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteGateway;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
@@ -499,6 +581,25 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::list_apis][super::super::client::ApiGatewayService::list_apis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListApis;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApis(RequestBuilder<crate::model::ListApisRequest>);
 
@@ -594,6 +695,21 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::get_api][super::super::client::ApiGatewayService::get_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetApi;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApi(RequestBuilder<crate::model::GetApiRequest>);
 
@@ -641,6 +757,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::create_api][super::super::client::ApiGatewayService::create_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CreateApi;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApi(RequestBuilder<crate::model::CreateApiRequest>);
 
@@ -742,6 +874,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::update_api][super::super::client::ApiGatewayService::update_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::UpdateApi;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApi(RequestBuilder<crate::model::UpdateApiRequest>);
 
@@ -836,6 +984,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::delete_api][super::super::client::ApiGatewayService::delete_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteApi;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApi(RequestBuilder<crate::model::DeleteApiRequest>);
 
@@ -923,6 +1087,25 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::list_api_configs][super::super::client::ApiGatewayService::list_api_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListApiConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApiConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApiConfigs(RequestBuilder<crate::model::ListApiConfigsRequest>);
 
@@ -1018,6 +1201,21 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::get_api_config][super::super::client::ApiGatewayService::get_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetApiConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApiConfig(RequestBuilder<crate::model::GetApiConfigRequest>);
 
@@ -1074,6 +1272,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::create_api_config][super::super::client::ApiGatewayService::create_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CreateApiConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApiConfig(RequestBuilder<crate::model::CreateApiConfigRequest>);
 
@@ -1178,6 +1392,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::update_api_config][super::super::client::ApiGatewayService::update_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::UpdateApiConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApiConfig(RequestBuilder<crate::model::UpdateApiConfigRequest>);
 
@@ -1275,6 +1505,22 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::delete_api_config][super::super::client::ApiGatewayService::delete_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteApiConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apigateway_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApiConfig(RequestBuilder<crate::model::DeleteApiConfigRequest>);
 
@@ -1362,6 +1608,25 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::list_operations][super::super::client::ApiGatewayService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1454,6 +1719,21 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::get_operation][super::super::client::ApiGatewayService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1502,6 +1782,21 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::delete_operation][super::super::client::ApiGatewayService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1550,6 +1845,21 @@ pub mod api_gateway_service {
     }
 
     /// The request builder for [ApiGatewayService::cancel_operation][super::super::client::ApiGatewayService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

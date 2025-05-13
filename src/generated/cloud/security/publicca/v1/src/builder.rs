@@ -71,6 +71,21 @@ pub mod public_certificate_authority_service {
     }
 
     /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][super::super::client::PublicCertificateAuthorityService::create_external_account_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_publicca_v1::builder;
+    /// use builder::public_certificate_authority_service::CreateExternalAccountKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExternalAccountKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExternalAccountKey(
         RequestBuilder<crate::model::CreateExternalAccountKeyRequest>,

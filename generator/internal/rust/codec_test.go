@@ -1842,9 +1842,13 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 			{
 				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("/v1/foo"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("/v1/foo"),
+							},
+						},
 					},
 				},
 			},
@@ -1860,9 +1864,13 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 				Name: "CreateThing",
 				ID:   ".test.v1.YELL.CreateThing",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("/v1/thing"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("/v1/thing"),
+							},
+						},
 					},
 				},
 			},
@@ -2095,33 +2103,43 @@ func TestPathFmt(t *testing.T) {
 		{
 			"/v1/fixed",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")},
+				Bindings: []*api.PathBinding{
+					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")}},
+				},
 			},
 		},
 		{
 			"/v1/{}",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")},
+				Bindings: []*api.PathBinding{
+					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")}},
+				},
 			},
 		},
 		{
 			"/v1/{}:action",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")},
+				Bindings: []*api.PathBinding{
+					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")}},
+				},
 			},
 		},
 		{
 			"/v1/projects/{}/locations/{}/secrets/{}:action",
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewLiteralPathSegment("projects"),
-					api.NewFieldPathPathSegment("project"),
-					api.NewLiteralPathSegment("locations"),
-					api.NewFieldPathPathSegment("location"),
-					api.NewLiteralPathSegment("secrets"),
-					api.NewFieldPathPathSegment("secret"),
-					api.NewVerbPathSegment("action"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewLiteralPathSegment("projects"),
+							api.NewFieldPathPathSegment("project"),
+							api.NewLiteralPathSegment("locations"),
+							api.NewFieldPathPathSegment("location"),
+							api.NewLiteralPathSegment("secrets"),
+							api.NewFieldPathPathSegment("secret"),
+							api.NewVerbPathSegment("action"),
+						},
+					},
 				},
 			},
 		},
@@ -2149,11 +2167,11 @@ func TestPathArgs(t *testing.T) {
 		Name: "CreateResourceRequest",
 		ID:   ".test.CreateResourceRequest",
 		Fields: []*api.Field{
-			{Name: "a", Typez: api.STRING_TYPE},
-			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
-			{Name: "c", Typez: api.ENUM_TYPE},
-			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
-			{Name: "e", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
+			{Name: "v", Typez: api.STRING_TYPE},
+			{Name: "w", Typez: api.STRING_TYPE, Optional: true},
+			{Name: "x", Typez: api.ENUM_TYPE},
+			{Name: "y", Typez: api.ENUM_TYPE, Optional: true},
+			{Name: "z", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
 		},
 	}
 	method := &api.Method{
@@ -2174,130 +2192,172 @@ func TestPathArgs(t *testing.T) {
 		{
 			nil,
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
+				Bindings: []*api.PathBinding{
+					{},
 				},
 			},
 		},
 		{
-			[]pathArg{{Name: "a", Accessor: ".a"}},
+			[]pathArg{{Name: "v", Accessor: ".v", CheckForEmpty: true}},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("a")},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "b",
-					Accessor: `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("b"),
-				},
-			},
-		},
-		{
-			[]pathArg{{Name: "c", Accessor: `.c`}},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("c"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("v"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{
 				{
-					Name:     "d",
-					Accessor: `.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
+					Name:          "w",
+					Accessor:      `.w.as_ref().ok_or_else(|| gaxi::path_parameter::missing("w"))?`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("d"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("w"),
+						},
+					},
+				},
+			},
+		},
+		{
+			[]pathArg{{Name: "x", Accessor: `.x`}},
+			&api.PathInfo{
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("x"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{
 				{
-					Name:     "e.a",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.a`,
+					Name:     "y",
+					Accessor: `.y.as_ref().ok_or_else(|| gaxi::path_parameter::missing("y"))?`,
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.a"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("y"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{
 				{
-					Name: "e.b",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
+					Name:          "z.a",
+					Accessor:      `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?.a`,
+					CheckForEmpty: true,
+				},
+			},
+			&api.PathInfo{
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("z.a"),
+						},
+					},
+				},
+			},
+		},
+		{
+			[]pathArg{
+				{
+					Name: "z.b",
+					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?` +
 						`.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.b"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("z.b"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{
 				{
-					Name:     "e.c",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.c`,
+					Name:     "z.c",
+					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?.c`,
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.c"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("z.c"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{
 				{
-					Name: "e.d",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
+					Name: "z.d",
+					Accessor: `.z.as_ref().ok_or_else(|| gaxi::path_parameter::missing("z"))?` +
 						`.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.d"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("z.d"),
+						},
+					},
 				},
 			},
 		},
 		{
 			[]pathArg{
 				{
-					Name:     "a",
-					Accessor: ".a",
+					Name:          "v",
+					Accessor:      ".v",
+					CheckForEmpty: true,
 				},
 				{
-					Name:     "b",
-					Accessor: `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
+					Name:          "w",
+					Accessor:      `.w.as_ref().ok_or_else(|| gaxi::path_parameter::missing("w"))?`,
+					CheckForEmpty: true,
 				},
 			},
 			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("a"),
-					api.NewFieldPathPathSegment("b"),
+				Bindings: []*api.PathBinding{
+					{
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("v1"),
+							api.NewFieldPathPathSegment("v"),
+							api.NewFieldPathPathSegment("w"),
+						},
+					},
 				},
 			},
 		},

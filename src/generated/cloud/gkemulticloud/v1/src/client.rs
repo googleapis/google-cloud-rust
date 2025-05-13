@@ -144,10 +144,8 @@ impl AttachedClusters {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_attached_cluster(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::CreateAttachedCluster {
         super::builder::attached_clusters::CreateAttachedCluster::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an
@@ -166,10 +164,8 @@ impl AttachedClusters {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_attached_cluster(
         &self,
-        attached_cluster: impl Into<crate::model::AttachedCluster>,
     ) -> super::builder::attached_clusters::UpdateAttachedCluster {
         super::builder::attached_clusters::UpdateAttachedCluster::new(self.inner.clone())
-            .set_attached_cluster(attached_cluster.into())
     }
 
     /// Imports creates a new
@@ -197,22 +193,16 @@ impl AttachedClusters {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn import_attached_cluster(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::ImportAttachedCluster {
         super::builder::attached_clusters::ImportAttachedCluster::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Describes a specific
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
-    pub fn get_attached_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::attached_clusters::GetAttachedCluster {
+    pub fn get_attached_cluster(&self) -> super::builder::attached_clusters::GetAttachedCluster {
         super::builder::attached_clusters::GetAttachedCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster]
@@ -221,10 +211,8 @@ impl AttachedClusters {
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
     pub fn list_attached_clusters(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::ListAttachedClusters {
         super::builder::attached_clusters::ListAttachedClusters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a specific
@@ -248,86 +236,62 @@ impl AttachedClusters {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_attached_cluster(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::DeleteAttachedCluster {
         super::builder::attached_clusters::DeleteAttachedCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns information, such as supported Kubernetes versions, on a given
     /// Google Cloud location.
     pub fn get_attached_server_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::GetAttachedServerConfig {
         super::builder::attached_clusters::GetAttachedServerConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Generates the install manifest to be installed on the target cluster.
     pub fn generate_attached_cluster_install_manifest(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::GenerateAttachedClusterInstallManifest {
         super::builder::attached_clusters::GenerateAttachedClusterInstallManifest::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Generates an access token for a cluster agent.
     pub fn generate_attached_cluster_agent_token(
         &self,
-        attached_cluster: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::GenerateAttachedClusterAgentToken {
         super::builder::attached_clusters::GenerateAttachedClusterAgentToken::new(
             self.inner.clone(),
         )
-        .set_attached_cluster(attached_cluster.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::attached_clusters::ListOperations {
+    pub fn list_operations(&self) -> super::builder::attached_clusters::ListOperations {
         super::builder::attached_clusters::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::attached_clusters::GetOperation {
+    pub fn get_operation(&self) -> super::builder::attached_clusters::GetOperation {
         super::builder::attached_clusters::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::attached_clusters::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::attached_clusters::DeleteOperation {
         super::builder::attached_clusters::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::attached_clusters::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::attached_clusters::CancelOperation {
         super::builder::attached_clusters::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -451,12 +415,8 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_aws_cluster(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::CreateAwsCluster {
+    pub fn create_aws_cluster(&self) -> super::builder::aws_clusters::CreateAwsCluster {
         super::builder::aws_clusters::CreateAwsCluster::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
@@ -472,35 +432,24 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_aws_cluster(
-        &self,
-        aws_cluster: impl Into<crate::model::AwsCluster>,
-    ) -> super::builder::aws_clusters::UpdateAwsCluster {
+    pub fn update_aws_cluster(&self) -> super::builder::aws_clusters::UpdateAwsCluster {
         super::builder::aws_clusters::UpdateAwsCluster::new(self.inner.clone())
-            .set_aws_cluster(aws_cluster.into())
     }
 
     /// Describes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
     /// resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
-    pub fn get_aws_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::GetAwsCluster {
-        super::builder::aws_clusters::GetAwsCluster::new(self.inner.clone()).set_name(name.into())
+    pub fn get_aws_cluster(&self) -> super::builder::aws_clusters::GetAwsCluster {
+        super::builder::aws_clusters::GetAwsCluster::new(self.inner.clone())
     }
 
     /// Lists all [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
     /// on a given Google Cloud project and region.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
-    pub fn list_aws_clusters(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::ListAwsClusters {
+    pub fn list_aws_clusters(&self) -> super::builder::aws_clusters::ListAwsClusters {
         super::builder::aws_clusters::ListAwsClusters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
@@ -526,21 +475,15 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_aws_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::DeleteAwsCluster {
+    pub fn delete_aws_cluster(&self) -> super::builder::aws_clusters::DeleteAwsCluster {
         super::builder::aws_clusters::DeleteAwsCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Generates an access token for a cluster agent.
     pub fn generate_aws_cluster_agent_token(
         &self,
-        aws_cluster: impl Into<std::string::String>,
     ) -> super::builder::aws_clusters::GenerateAwsClusterAgentToken {
         super::builder::aws_clusters::GenerateAwsClusterAgentToken::new(self.inner.clone())
-            .set_aws_cluster(aws_cluster.into())
     }
 
     /// Generates a short-lived access token to authenticate to a given
@@ -549,10 +492,8 @@ impl AwsClusters {
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     pub fn generate_aws_access_token(
         &self,
-        aws_cluster: impl Into<std::string::String>,
     ) -> super::builder::aws_clusters::GenerateAwsAccessToken {
         super::builder::aws_clusters::GenerateAwsAccessToken::new(self.inner.clone())
-            .set_aws_cluster(aws_cluster.into())
     }
 
     /// Creates a new [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool],
@@ -575,12 +516,8 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_aws_node_pool(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::CreateAwsNodePool {
+    pub fn create_aws_node_pool(&self) -> super::builder::aws_clusters::CreateAwsNodePool {
         super::builder::aws_clusters::CreateAwsNodePool::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
@@ -596,12 +533,8 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_aws_node_pool(
-        &self,
-        aws_node_pool: impl Into<crate::model::AwsNodePool>,
-    ) -> super::builder::aws_clusters::UpdateAwsNodePool {
+    pub fn update_aws_node_pool(&self) -> super::builder::aws_clusters::UpdateAwsNodePool {
         super::builder::aws_clusters::UpdateAwsNodePool::new(self.inner.clone())
-            .set_aws_node_pool(aws_node_pool.into())
     }
 
     /// Rolls back a previously aborted or failed
@@ -624,21 +557,16 @@ impl AwsClusters {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn rollback_aws_node_pool_update(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::aws_clusters::RollbackAwsNodePoolUpdate {
         super::builder::aws_clusters::RollbackAwsNodePoolUpdate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Describes a specific
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
-    pub fn get_aws_node_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::GetAwsNodePool {
-        super::builder::aws_clusters::GetAwsNodePool::new(self.inner.clone()).set_name(name.into())
+    pub fn get_aws_node_pool(&self) -> super::builder::aws_clusters::GetAwsNodePool {
+        super::builder::aws_clusters::GetAwsNodePool::new(self.inner.clone())
     }
 
     /// Lists all [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
@@ -647,12 +575,8 @@ impl AwsClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
-    pub fn list_aws_node_pools(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::ListAwsNodePools {
+    pub fn list_aws_node_pools(&self) -> super::builder::aws_clusters::ListAwsNodePools {
         super::builder::aws_clusters::ListAwsNodePools::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a specific [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
@@ -674,12 +598,8 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_aws_node_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::DeleteAwsNodePool {
+    pub fn delete_aws_node_pool(&self) -> super::builder::aws_clusters::DeleteAwsNodePool {
         super::builder::aws_clusters::DeleteAwsNodePool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the OIDC discovery document for the cluster.
@@ -687,72 +607,48 @@ impl AwsClusters {
     /// [OpenID Connect Discovery 1.0
     /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
     /// for details.
-    pub fn get_aws_open_id_config(
-        &self,
-        aws_cluster: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::GetAwsOpenIdConfig {
+    pub fn get_aws_open_id_config(&self) -> super::builder::aws_clusters::GetAwsOpenIdConfig {
         super::builder::aws_clusters::GetAwsOpenIdConfig::new(self.inner.clone())
-            .set_aws_cluster(aws_cluster.into())
     }
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
-    pub fn get_aws_json_web_keys(
-        &self,
-        aws_cluster: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::GetAwsJsonWebKeys {
+    pub fn get_aws_json_web_keys(&self) -> super::builder::aws_clusters::GetAwsJsonWebKeys {
         super::builder::aws_clusters::GetAwsJsonWebKeys::new(self.inner.clone())
-            .set_aws_cluster(aws_cluster.into())
     }
 
     /// Returns information, such as supported AWS regions and Kubernetes
     /// versions, on a given Google Cloud location.
-    pub fn get_aws_server_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::GetAwsServerConfig {
+    pub fn get_aws_server_config(&self) -> super::builder::aws_clusters::GetAwsServerConfig {
         super::builder::aws_clusters::GetAwsServerConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::ListOperations {
-        super::builder::aws_clusters::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::aws_clusters::ListOperations {
+        super::builder::aws_clusters::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::GetOperation {
-        super::builder::aws_clusters::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::aws_clusters::GetOperation {
+        super::builder::aws_clusters::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::DeleteOperation {
-        super::builder::aws_clusters::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::aws_clusters::DeleteOperation {
+        super::builder::aws_clusters::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::aws_clusters::CancelOperation {
-        super::builder::aws_clusters::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::aws_clusters::CancelOperation {
+        super::builder::aws_clusters::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -880,36 +776,24 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_azure_client(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::CreateAzureClient {
+    pub fn create_azure_client(&self) -> super::builder::azure_clusters::CreateAzureClient {
         super::builder::azure_clusters::CreateAzureClient::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Describes a specific
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
-    pub fn get_azure_client(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetAzureClient {
+    pub fn get_azure_client(&self) -> super::builder::azure_clusters::GetAzureClient {
         super::builder::azure_clusters::GetAzureClient::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
     /// resources on a given Google Cloud project and region.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
-    pub fn list_azure_clients(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::ListAzureClients {
+    pub fn list_azure_clients(&self) -> super::builder::azure_clusters::ListAzureClients {
         super::builder::azure_clusters::ListAzureClients::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a specific [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
@@ -934,12 +818,8 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_azure_client(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::DeleteAzureClient {
+    pub fn delete_azure_client(&self) -> super::builder::azure_clusters::DeleteAzureClient {
         super::builder::azure_clusters::DeleteAzureClient::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
@@ -961,12 +841,8 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_azure_cluster(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::CreateAzureCluster {
+    pub fn create_azure_cluster(&self) -> super::builder::azure_clusters::CreateAzureCluster {
         super::builder::azure_clusters::CreateAzureCluster::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster].
@@ -982,36 +858,24 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_azure_cluster(
-        &self,
-        azure_cluster: impl Into<crate::model::AzureCluster>,
-    ) -> super::builder::azure_clusters::UpdateAzureCluster {
+    pub fn update_azure_cluster(&self) -> super::builder::azure_clusters::UpdateAzureCluster {
         super::builder::azure_clusters::UpdateAzureCluster::new(self.inner.clone())
-            .set_azure_cluster(azure_cluster.into())
     }
 
     /// Describes a specific
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
-    pub fn get_azure_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetAzureCluster {
+    pub fn get_azure_cluster(&self) -> super::builder::azure_clusters::GetAzureCluster {
         super::builder::azure_clusters::GetAzureCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resources on a given Google Cloud project and region.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
-    pub fn list_azure_clusters(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::ListAzureClusters {
+    pub fn list_azure_clusters(&self) -> super::builder::azure_clusters::ListAzureClusters {
         super::builder::azure_clusters::ListAzureClusters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a specific
@@ -1037,21 +901,15 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_azure_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::DeleteAzureCluster {
+    pub fn delete_azure_cluster(&self) -> super::builder::azure_clusters::DeleteAzureCluster {
         super::builder::azure_clusters::DeleteAzureCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Generates an access token for a cluster agent.
     pub fn generate_azure_cluster_agent_token(
         &self,
-        azure_cluster: impl Into<std::string::String>,
     ) -> super::builder::azure_clusters::GenerateAzureClusterAgentToken {
         super::builder::azure_clusters::GenerateAzureClusterAgentToken::new(self.inner.clone())
-            .set_azure_cluster(azure_cluster.into())
     }
 
     /// Generates a short-lived access token to authenticate to a given
@@ -1060,10 +918,8 @@ impl AzureClusters {
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     pub fn generate_azure_access_token(
         &self,
-        azure_cluster: impl Into<std::string::String>,
     ) -> super::builder::azure_clusters::GenerateAzureAccessToken {
         super::builder::azure_clusters::GenerateAzureAccessToken::new(self.inner.clone())
-            .set_azure_cluster(azure_cluster.into())
     }
 
     /// Creates a new [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool],
@@ -1087,12 +943,8 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_azure_node_pool(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::CreateAzureNodePool {
+    pub fn create_azure_node_pool(&self) -> super::builder::azure_clusters::CreateAzureNodePool {
         super::builder::azure_clusters::CreateAzureNodePool::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool].
@@ -1108,24 +960,16 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_azure_node_pool(
-        &self,
-        azure_node_pool: impl Into<crate::model::AzureNodePool>,
-    ) -> super::builder::azure_clusters::UpdateAzureNodePool {
+    pub fn update_azure_node_pool(&self) -> super::builder::azure_clusters::UpdateAzureNodePool {
         super::builder::azure_clusters::UpdateAzureNodePool::new(self.inner.clone())
-            .set_azure_node_pool(azure_node_pool.into())
     }
 
     /// Describes a specific
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
-    pub fn get_azure_node_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetAzureNodePool {
+    pub fn get_azure_node_pool(&self) -> super::builder::azure_clusters::GetAzureNodePool {
         super::builder::azure_clusters::GetAzureNodePool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
@@ -1134,12 +978,8 @@ impl AzureClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
-    pub fn list_azure_node_pools(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::ListAzureNodePools {
+    pub fn list_azure_node_pools(&self) -> super::builder::azure_clusters::ListAzureNodePools {
         super::builder::azure_clusters::ListAzureNodePools::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a specific
@@ -1161,12 +1001,8 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_azure_node_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::DeleteAzureNodePool {
+    pub fn delete_azure_node_pool(&self) -> super::builder::azure_clusters::DeleteAzureNodePool {
         super::builder::azure_clusters::DeleteAzureNodePool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the OIDC discovery document for the cluster.
@@ -1174,74 +1010,47 @@ impl AzureClusters {
     /// [OpenID Connect Discovery 1.0
     /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
     /// for details.
-    pub fn get_azure_open_id_config(
-        &self,
-        azure_cluster: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetAzureOpenIdConfig {
+    pub fn get_azure_open_id_config(&self) -> super::builder::azure_clusters::GetAzureOpenIdConfig {
         super::builder::azure_clusters::GetAzureOpenIdConfig::new(self.inner.clone())
-            .set_azure_cluster(azure_cluster.into())
     }
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
-    pub fn get_azure_json_web_keys(
-        &self,
-        azure_cluster: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetAzureJsonWebKeys {
+    pub fn get_azure_json_web_keys(&self) -> super::builder::azure_clusters::GetAzureJsonWebKeys {
         super::builder::azure_clusters::GetAzureJsonWebKeys::new(self.inner.clone())
-            .set_azure_cluster(azure_cluster.into())
     }
 
     /// Returns information, such as supported Azure regions and Kubernetes
     /// versions, on a given Google Cloud location.
-    pub fn get_azure_server_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetAzureServerConfig {
+    pub fn get_azure_server_config(&self) -> super::builder::azure_clusters::GetAzureServerConfig {
         super::builder::azure_clusters::GetAzureServerConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::ListOperations {
+    pub fn list_operations(&self) -> super::builder::azure_clusters::ListOperations {
         super::builder::azure_clusters::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::GetOperation {
-        super::builder::azure_clusters::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::azure_clusters::GetOperation {
+        super::builder::azure_clusters::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::azure_clusters::DeleteOperation {
         super::builder::azure_clusters::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::azure_clusters::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::azure_clusters::CancelOperation {
         super::builder::azure_clusters::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

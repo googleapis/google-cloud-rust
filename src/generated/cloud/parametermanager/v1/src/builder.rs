@@ -69,6 +69,25 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::list_parameters][super::super::client::ParameterManager::list_parameters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::ListParameters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListParameters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
 
@@ -164,6 +183,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::get_parameter][super::super::client::ParameterManager::get_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::GetParameter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
 
@@ -211,6 +245,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::create_parameter][super::super::client::ParameterManager::create_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::CreateParameter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
 
@@ -283,6 +332,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::update_parameter][super::super::client::ParameterManager::update_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::UpdateParameter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
 
@@ -348,6 +412,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::delete_parameter][super::super::client::ParameterManager::delete_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::DeleteParameter;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
 
@@ -401,6 +480,25 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::list_parameter_versions][super::super::client::ParameterManager::list_parameter_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::ListParameterVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListParameterVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
 
@@ -501,6 +599,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::get_parameter_version][super::super::client::ParameterManager::get_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::GetParameterVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
 
@@ -557,6 +670,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::render_parameter_version][super::super::client::ParameterManager::render_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::RenderParameterVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenderParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
 
@@ -607,6 +735,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::create_parameter_version][super::super::client::ParameterManager::create_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::CreateParameterVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
 
@@ -684,6 +827,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::update_parameter_version][super::super::client::ParameterManager::update_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::UpdateParameterVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
 
@@ -754,6 +912,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::delete_parameter_version][super::super::client::ParameterManager::delete_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::DeleteParameterVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
 
@@ -810,6 +983,25 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::list_locations][super::super::client::ParameterManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -900,6 +1092,21 @@ pub mod parameter_manager {
     }
 
     /// The request builder for [ParameterManager::get_location][super::super::client::ParameterManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

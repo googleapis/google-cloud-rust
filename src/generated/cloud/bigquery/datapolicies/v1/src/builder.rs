@@ -69,6 +69,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::create_data_policy][super::super::client::DataPolicyService::create_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::CreateDataPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
@@ -130,6 +145,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::update_data_policy][super::super::client::DataPolicyService::update_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::UpdateDataPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
@@ -192,6 +222,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::rename_data_policy][super::super::client::DataPolicyService::rename_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::RenameDataPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameDataPolicy(RequestBuilder<crate::model::RenameDataPolicyRequest>);
 
@@ -250,6 +295,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::delete_data_policy][super::super::client::DataPolicyService::delete_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::DeleteDataPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
@@ -300,6 +360,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::get_data_policy][super::super::client::DataPolicyService::get_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::GetDataPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
 
@@ -347,6 +422,25 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::list_data_policies][super::super::client::DataPolicyService::list_data_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::ListDataPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
@@ -439,6 +533,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::get_iam_policy][super::super::client::DataPolicyService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -495,6 +604,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::set_iam_policy][super::super::client::DataPolicyService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -562,6 +686,21 @@ pub mod data_policy_service {
     }
 
     /// The request builder for [DataPolicyService::test_iam_permissions][super::super::client::DataPolicyService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 

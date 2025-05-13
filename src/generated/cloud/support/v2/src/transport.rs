@@ -46,12 +46,16 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/attachments", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/attachments", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -93,9 +97,16 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -112,9 +123,16 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/cases", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/cases", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -134,12 +152,16 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/cases:search", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v2/{}/cases:search", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -159,9 +181,16 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/cases", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}/cases", req.parent))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -176,18 +205,20 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}", {
+            let arg = &req
+                .case
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("case"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("case.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v2/{}",
-                    req.case
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("case"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -208,9 +239,16 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:escalate", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:escalate", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -225,9 +263,16 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}:close", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v2/{}:close", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -242,12 +287,10 @@ impl super::stub::CaseService for CaseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = "/v2/caseClassifications:search".to_string();
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                "/v2/caseClassifications:search".to_string(),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -290,9 +333,16 @@ impl super::stub::CommentService for CommentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v2/{}/comments", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v2/{}/comments", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -311,12 +361,16 @@ impl super::stub::CommentService for CommentService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Comment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v2/{}/comments", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v2/{}/comments", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

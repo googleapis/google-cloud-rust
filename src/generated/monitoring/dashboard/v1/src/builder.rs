@@ -69,6 +69,21 @@ pub mod dashboards_service {
     }
 
     /// The request builder for [DashboardsService::create_dashboard][super::super::client::DashboardsService::create_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::CreateDashboard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
 
@@ -133,6 +148,25 @@ pub mod dashboards_service {
     }
 
     /// The request builder for [DashboardsService::list_dashboards][super::super::client::DashboardsService::list_dashboards] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::ListDashboards;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDashboards {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
 
@@ -216,6 +250,21 @@ pub mod dashboards_service {
     }
 
     /// The request builder for [DashboardsService::get_dashboard][super::super::client::DashboardsService::get_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::GetDashboard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
 
@@ -263,6 +312,21 @@ pub mod dashboards_service {
     }
 
     /// The request builder for [DashboardsService::delete_dashboard][super::super::client::DashboardsService::delete_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::DeleteDashboard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
 
@@ -310,6 +374,21 @@ pub mod dashboards_service {
     }
 
     /// The request builder for [DashboardsService::update_dashboard][super::super::client::DashboardsService::update_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::UpdateDashboard;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
 

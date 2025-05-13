@@ -46,12 +46,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GoogleServiceAccount>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/googleServiceAccounts/{}", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/googleServiceAccounts/{}", req.project_id),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -68,9 +72,10 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v1/transferJobs".to_string();
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, "/v1/transferJobs".to_string())
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -87,9 +92,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req.job_name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("job_name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::PATCH, format!("/v1/{}", req.job_name))
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -104,9 +116,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.job_name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("job_name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.job_name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -124,9 +143,10 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTransferJobsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = "/v1/transferJobs".to_string();
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, "/v1/transferJobs".to_string())
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -146,9 +166,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:pause", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:pause", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -168,9 +195,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:resume", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:resume", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -190,9 +224,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:run", {
+            let arg = &req.job_name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("job_name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:run", req.job_name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -207,9 +248,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.job_name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("job_name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.job_name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -231,12 +279,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/projects/{}/agentPools", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/agentPools", req.project_id),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -254,18 +306,20 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .agent_pool
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("agent_pool"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("agent_pool.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.agent_pool
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("agent_pool"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -288,9 +342,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -307,12 +368,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAgentPoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/agentPools", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/agentPools", req.project_id),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -332,9 +397,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -355,9 +427,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -377,9 +456,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -396,9 +482,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

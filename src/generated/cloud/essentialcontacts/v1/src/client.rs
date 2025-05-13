@@ -121,69 +121,41 @@ impl EssentialContactsService {
     }
 
     /// Adds a new contact for a resource.
-    pub fn create_contact(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::CreateContact {
+    pub fn create_contact(&self) -> super::builder::essential_contacts_service::CreateContact {
         super::builder::essential_contacts_service::CreateContact::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a contact.
     /// Note: A contact's email address cannot be changed.
-    pub fn update_contact(
-        &self,
-        contact: impl Into<crate::model::Contact>,
-    ) -> super::builder::essential_contacts_service::UpdateContact {
+    pub fn update_contact(&self) -> super::builder::essential_contacts_service::UpdateContact {
         super::builder::essential_contacts_service::UpdateContact::new(self.inner.clone())
-            .set_contact(contact.into())
     }
 
     /// Lists the contacts that have been set on a resource.
-    pub fn list_contacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::ListContacts {
+    pub fn list_contacts(&self) -> super::builder::essential_contacts_service::ListContacts {
         super::builder::essential_contacts_service::ListContacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a single contact.
-    pub fn get_contact(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::GetContact {
+    pub fn get_contact(&self) -> super::builder::essential_contacts_service::GetContact {
         super::builder::essential_contacts_service::GetContact::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a contact.
-    pub fn delete_contact(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::DeleteContact {
+    pub fn delete_contact(&self) -> super::builder::essential_contacts_service::DeleteContact {
         super::builder::essential_contacts_service::DeleteContact::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all contacts for the resource that are subscribed to the
     /// specified notification categories, including contacts inherited from
     /// any parent resources.
-    pub fn compute_contacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::ComputeContacts {
+    pub fn compute_contacts(&self) -> super::builder::essential_contacts_service::ComputeContacts {
         super::builder::essential_contacts_service::ComputeContacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Allows a contact admin to send a test message to contact to verify that it
     /// has been configured correctly.
-    pub fn send_test_message(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::SendTestMessage {
+    pub fn send_test_message(&self) -> super::builder::essential_contacts_service::SendTestMessage {
         super::builder::essential_contacts_service::SendTestMessage::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 }

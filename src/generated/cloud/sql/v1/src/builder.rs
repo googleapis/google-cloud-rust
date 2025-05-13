@@ -69,6 +69,21 @@ pub mod sql_backup_runs_service {
     }
 
     /// The request builder for [SqlBackupRunsService::delete][super::super::client::SqlBackupRunsService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::Delete;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlBackupRunsDeleteRequest>);
 
@@ -129,6 +144,21 @@ pub mod sql_backup_runs_service {
     }
 
     /// The request builder for [SqlBackupRunsService::get][super::super::client::SqlBackupRunsService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::Get;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlBackupRunsGetRequest>);
 
@@ -189,6 +219,21 @@ pub mod sql_backup_runs_service {
     }
 
     /// The request builder for [SqlBackupRunsService::insert][super::super::client::SqlBackupRunsService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::Insert;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlBackupRunsInsertRequest>);
 
@@ -252,6 +297,25 @@ pub mod sql_backup_runs_service {
     }
 
     /// The request builder for [SqlBackupRunsService::list][super::super::client::SqlBackupRunsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlBackupRunsListRequest>);
 
@@ -283,6 +347,30 @@ pub mod sql_backup_runs_service {
                 .list(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::BackupRunsListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::BackupRunsListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
@@ -373,6 +461,21 @@ pub mod sql_connect_service {
     }
 
     /// The request builder for [SqlConnectService::get_connect_settings][super::super::client::SqlConnectService::get_connect_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_connect_service::GetConnectSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectSettings(RequestBuilder<crate::model::GetConnectSettingsRequest>);
 
@@ -433,6 +536,21 @@ pub mod sql_connect_service {
     }
 
     /// The request builder for [SqlConnectService::generate_ephemeral_cert][super::super::client::SqlConnectService::generate_ephemeral_cert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_connect_service::GenerateEphemeralCert;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateEphemeralCert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateEphemeralCert(RequestBuilder<crate::model::GenerateEphemeralCertRequest>);
 
@@ -569,6 +687,21 @@ pub mod sql_databases_service {
     }
 
     /// The request builder for [SqlDatabasesService::delete][super::super::client::SqlDatabasesService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Delete;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlDatabasesDeleteRequest>);
 
@@ -629,6 +762,21 @@ pub mod sql_databases_service {
     }
 
     /// The request builder for [SqlDatabasesService::get][super::super::client::SqlDatabasesService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Get;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlDatabasesGetRequest>);
 
@@ -686,6 +834,21 @@ pub mod sql_databases_service {
     }
 
     /// The request builder for [SqlDatabasesService::insert][super::super::client::SqlDatabasesService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Insert;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlDatabasesInsertRequest>);
 
@@ -749,6 +912,21 @@ pub mod sql_databases_service {
     }
 
     /// The request builder for [SqlDatabasesService::list][super::super::client::SqlDatabasesService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlDatabasesListRequest>);
 
@@ -803,6 +981,21 @@ pub mod sql_databases_service {
     }
 
     /// The request builder for [SqlDatabasesService::patch][super::super::client::SqlDatabasesService::patch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Patch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Patch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Patch(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
@@ -872,6 +1065,21 @@ pub mod sql_databases_service {
     }
 
     /// The request builder for [SqlDatabasesService::update][super::super::client::SqlDatabasesService::update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Update;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Update {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
@@ -996,6 +1204,21 @@ pub mod sql_flags_service {
     }
 
     /// The request builder for [SqlFlagsService::list][super::super::client::SqlFlagsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_flags_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlFlagsListRequest>);
 
@@ -1096,6 +1319,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::add_server_ca][super::super::client::SqlInstancesService::add_server_ca] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::AddServerCa;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddServerCa {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddServerCa(RequestBuilder<crate::model::SqlInstancesAddServerCaRequest>);
 
@@ -1150,6 +1388,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::clone][super::super::client::SqlInstancesService::clone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Clone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Clone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Clone(RequestBuilder<crate::model::SqlInstancesCloneRequest>);
 
@@ -1213,6 +1466,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::delete][super::super::client::SqlInstancesService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Delete;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlInstancesDeleteRequest>);
 
@@ -1267,6 +1535,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::demote_master][super::super::client::SqlInstancesService::demote_master] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::DemoteMaster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DemoteMaster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DemoteMaster(RequestBuilder<crate::model::SqlInstancesDemoteMasterRequest>);
 
@@ -1332,6 +1615,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::demote][super::super::client::SqlInstancesService::demote] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Demote;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Demote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Demote(RequestBuilder<crate::model::SqlInstancesDemoteRequest>);
 
@@ -1401,6 +1699,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::export][super::super::client::SqlInstancesService::export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Export;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Export {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Export(RequestBuilder<crate::model::SqlInstancesExportRequest>);
 
@@ -1464,6 +1777,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::failover][super::super::client::SqlInstancesService::failover] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Failover;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Failover {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Failover(RequestBuilder<crate::model::SqlInstancesFailoverRequest>);
 
@@ -1527,6 +1855,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::reencrypt][super::super::client::SqlInstancesService::reencrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Reencrypt;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Reencrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Reencrypt(RequestBuilder<crate::model::SqlInstancesReencryptRequest>);
 
@@ -1590,6 +1933,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::get][super::super::client::SqlInstancesService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Get;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlInstancesGetRequest>);
 
@@ -1641,6 +1999,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::import][super::super::client::SqlInstancesService::import] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Import;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Import {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Import(RequestBuilder<crate::model::SqlInstancesImportRequest>);
 
@@ -1704,6 +2077,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::insert][super::super::client::SqlInstancesService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Insert;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlInstancesInsertRequest>);
 
@@ -1761,6 +2149,25 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::list][super::super::client::SqlInstancesService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlInstancesListRequest>);
 
@@ -1792,6 +2199,30 @@ pub mod sql_instances_service {
                 .list(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstancesListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::InstancesListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
@@ -1827,6 +2258,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::list_server_cas][super::super::client::SqlInstancesService::list_server_cas] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ListServerCas;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServerCas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServerCas(RequestBuilder<crate::model::SqlInstancesListServerCasRequest>);
 
@@ -1881,6 +2327,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::patch][super::super::client::SqlInstancesService::patch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Patch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Patch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Patch(RequestBuilder<crate::model::SqlInstancesPatchRequest>);
 
@@ -1944,6 +2405,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::promote_replica][super::super::client::SqlInstancesService::promote_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::PromoteReplica;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PromoteReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PromoteReplica(RequestBuilder<crate::model::SqlInstancesPromoteReplicaRequest>);
 
@@ -2004,6 +2480,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::switchover][super::super::client::SqlInstancesService::switchover] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Switchover;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Switchover {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Switchover(RequestBuilder<crate::model::SqlInstancesSwitchoverRequest>);
 
@@ -2064,6 +2555,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::reset_ssl_config][super::super::client::SqlInstancesService::reset_ssl_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ResetSslConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetSslConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetSslConfig(RequestBuilder<crate::model::SqlInstancesResetSslConfigRequest>);
 
@@ -2118,6 +2624,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::restart][super::super::client::SqlInstancesService::restart] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Restart;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Restart {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Restart(RequestBuilder<crate::model::SqlInstancesRestartRequest>);
 
@@ -2172,6 +2693,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::restore_backup][super::super::client::SqlInstancesService::restore_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::RestoreBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreBackup(RequestBuilder<crate::model::SqlInstancesRestoreBackupRequest>);
 
@@ -2237,6 +2773,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::rotate_server_ca][super::super::client::SqlInstancesService::rotate_server_ca] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::RotateServerCa;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RotateServerCa {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RotateServerCa(RequestBuilder<crate::model::SqlInstancesRotateServerCaRequest>);
 
@@ -2302,6 +2853,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::start_replica][super::super::client::SqlInstancesService::start_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::StartReplica;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartReplica(RequestBuilder<crate::model::SqlInstancesStartReplicaRequest>);
 
@@ -2356,6 +2922,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::stop_replica][super::super::client::SqlInstancesService::stop_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::StopReplica;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopReplica(RequestBuilder<crate::model::SqlInstancesStopReplicaRequest>);
 
@@ -2410,6 +2991,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::truncate_log][super::super::client::SqlInstancesService::truncate_log] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::TruncateLog;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TruncateLog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TruncateLog(RequestBuilder<crate::model::SqlInstancesTruncateLogRequest>);
 
@@ -2473,6 +3069,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::update][super::super::client::SqlInstancesService::update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Update;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Update {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlInstancesUpdateRequest>);
 
@@ -2536,6 +3147,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::create_ephemeral][super::super::client::SqlInstancesService::create_ephemeral] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::CreateEphemeral;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEphemeral {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEphemeral(
         RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>,
@@ -2603,6 +3229,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::reschedule_maintenance][super::super::client::SqlInstancesService::reschedule_maintenance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::RescheduleMaintenance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RescheduleMaintenance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RescheduleMaintenance(
         RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>,
@@ -2670,6 +3311,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::verify_external_sync_settings][super::super::client::SqlInstancesService::verify_external_sync_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::VerifyExternalSyncSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> VerifyExternalSyncSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyExternalSyncSettings(
         RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>,
@@ -2808,6 +3464,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::start_external_sync][super::super::client::SqlInstancesService::start_external_sync] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::StartExternalSync;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartExternalSync {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartExternalSync(
         RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>,
@@ -2932,6 +3603,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::perform_disk_shrink][super::super::client::SqlInstancesService::perform_disk_shrink] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::PerformDiskShrink;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PerformDiskShrink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PerformDiskShrink(
         RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>,
@@ -2997,6 +3683,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::get_disk_shrink_config][super::super::client::SqlInstancesService::get_disk_shrink_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::GetDiskShrinkConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiskShrinkConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiskShrinkConfig(
         RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>,
@@ -3053,6 +3754,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::reset_replica_size][super::super::client::SqlInstancesService::reset_replica_size] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ResetReplicaSize;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetReplicaSize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetReplicaSize(RequestBuilder<crate::model::SqlInstancesResetReplicaSizeRequest>);
 
@@ -3107,6 +3823,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::get_latest_recovery_time][super::super::client::SqlInstancesService::get_latest_recovery_time] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::GetLatestRecoveryTime;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLatestRecoveryTime {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLatestRecoveryTime(
         RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>,
@@ -3163,6 +3894,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::acquire_ssrs_lease][super::super::client::SqlInstancesService::acquire_ssrs_lease] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::AcquireSsrsLease;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AcquireSsrsLease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AcquireSsrsLease(RequestBuilder<crate::model::SqlInstancesAcquireSsrsLeaseRequest>);
 
@@ -3234,6 +3980,21 @@ pub mod sql_instances_service {
     }
 
     /// The request builder for [SqlInstancesService::release_ssrs_lease][super::super::client::SqlInstancesService::release_ssrs_lease] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ReleaseSsrsLease;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReleaseSsrsLease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReleaseSsrsLease(RequestBuilder<crate::model::SqlInstancesReleaseSsrsLeaseRequest>);
 
@@ -3347,6 +4108,21 @@ pub mod sql_operations_service {
     }
 
     /// The request builder for [SqlOperationsService::get][super::super::client::SqlOperationsService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_operations_service::Get;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlOperationsGetRequest>);
 
@@ -3401,6 +4177,25 @@ pub mod sql_operations_service {
     }
 
     /// The request builder for [SqlOperationsService::list][super::super::client::SqlOperationsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_operations_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlOperationsListRequest>);
 
@@ -3432,6 +4227,30 @@ pub mod sql_operations_service {
                 .list(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::OperationsListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::OperationsListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
@@ -3467,6 +4286,21 @@ pub mod sql_operations_service {
     }
 
     /// The request builder for [SqlOperationsService::cancel][super::super::client::SqlOperationsService::cancel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_operations_service::Cancel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Cancel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Cancel(RequestBuilder<crate::model::SqlOperationsCancelRequest>);
 
@@ -3576,6 +4410,21 @@ pub mod sql_ssl_certs_service {
     }
 
     /// The request builder for [SqlSslCertsService::delete][super::super::client::SqlSslCertsService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::Delete;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlSslCertsDeleteRequest>);
 
@@ -3636,6 +4485,21 @@ pub mod sql_ssl_certs_service {
     }
 
     /// The request builder for [SqlSslCertsService::get][super::super::client::SqlSslCertsService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::Get;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlSslCertsGetRequest>);
 
@@ -3693,6 +4557,21 @@ pub mod sql_ssl_certs_service {
     }
 
     /// The request builder for [SqlSslCertsService::insert][super::super::client::SqlSslCertsService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::Insert;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlSslCertsInsertRequest>);
 
@@ -3756,6 +4635,21 @@ pub mod sql_ssl_certs_service {
     }
 
     /// The request builder for [SqlSslCertsService::list][super::super::client::SqlSslCertsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlSslCertsListRequest>);
 
@@ -3862,6 +4756,21 @@ pub mod sql_tiers_service {
     }
 
     /// The request builder for [SqlTiersService::list][super::super::client::SqlTiersService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_tiers_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlTiersListRequest>);
 
@@ -3962,6 +4871,21 @@ pub mod sql_users_service {
     }
 
     /// The request builder for [SqlUsersService::delete][super::super::client::SqlUsersService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Delete;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlUsersDeleteRequest>);
 
@@ -4025,6 +4949,21 @@ pub mod sql_users_service {
     }
 
     /// The request builder for [SqlUsersService::get][super::super::client::SqlUsersService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Get;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlUsersGetRequest>);
 
@@ -4088,6 +5027,21 @@ pub mod sql_users_service {
     }
 
     /// The request builder for [SqlUsersService::insert][super::super::client::SqlUsersService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Insert;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlUsersInsertRequest>);
 
@@ -4145,6 +5099,21 @@ pub mod sql_users_service {
     }
 
     /// The request builder for [SqlUsersService::list][super::super::client::SqlUsersService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::List;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlUsersListRequest>);
 
@@ -4196,6 +5165,21 @@ pub mod sql_users_service {
     }
 
     /// The request builder for [SqlUsersService::update][super::super::client::SqlUsersService::update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Update;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Update {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlUsersUpdateRequest>);
 

@@ -119,74 +119,49 @@ impl ServiceHealth {
     }
 
     /// Lists events under a given project and location.
-    pub fn list_events(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_health::ListEvents {
+    pub fn list_events(&self) -> super::builder::service_health::ListEvents {
         super::builder::service_health::ListEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a resource containing information about an event.
-    pub fn get_event(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_health::GetEvent {
-        super::builder::service_health::GetEvent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_event(&self) -> super::builder::service_health::GetEvent {
+        super::builder::service_health::GetEvent::new(self.inner.clone())
     }
 
     /// Lists organization events under a given organization and location.
     pub fn list_organization_events(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::service_health::ListOrganizationEvents {
         super::builder::service_health::ListOrganizationEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a resource containing information about an event affecting an
     /// organization .
-    pub fn get_organization_event(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_health::GetOrganizationEvent {
+    pub fn get_organization_event(&self) -> super::builder::service_health::GetOrganizationEvent {
         super::builder::service_health::GetOrganizationEvent::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists assets impacted by organization events under a given organization and
     /// location.
     pub fn list_organization_impacts(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::service_health::ListOrganizationImpacts {
         super::builder::service_health::ListOrganizationImpacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a resource containing information about impact to an asset under
     /// an organization affected by a service health event.
-    pub fn get_organization_impact(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_health::GetOrganizationImpact {
+    pub fn get_organization_impact(&self) -> super::builder::service_health::GetOrganizationImpact {
         super::builder::service_health::GetOrganizationImpact::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_health::ListLocations {
-        super::builder::service_health::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::service_health::ListLocations {
+        super::builder::service_health::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_health::GetLocation {
-        super::builder::service_health::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::service_health::GetLocation {
+        super::builder::service_health::GetLocation::new(self.inner.clone())
     }
 }

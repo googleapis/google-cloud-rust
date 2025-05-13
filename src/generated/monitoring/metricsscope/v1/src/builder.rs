@@ -69,6 +69,21 @@ pub mod metrics_scopes {
     }
 
     /// The request builder for [MetricsScopes::get_metrics_scope][super::super::client::MetricsScopes::get_metrics_scope] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::GetMetricsScope;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMetricsScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
@@ -116,6 +131,21 @@ pub mod metrics_scopes {
     }
 
     /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][super::super::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMetricsScopesByMonitoredProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMetricsScopesByMonitoredProject(
         RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>,
@@ -173,6 +203,22 @@ pub mod metrics_scopes {
     }
 
     /// The request builder for [MetricsScopes::create_monitored_project][super::super::client::MetricsScopes::create_monitored_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::CreateMonitoredProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_monitoring_metricsscope_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMonitoredProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
@@ -277,6 +323,22 @@ pub mod metrics_scopes {
     }
 
     /// The request builder for [MetricsScopes::delete_monitored_project][super::super::client::MetricsScopes::delete_monitored_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::DeleteMonitoredProject;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_monitoring_metricsscope_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMonitoredProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
@@ -367,6 +429,21 @@ pub mod metrics_scopes {
     }
 
     /// The request builder for [MetricsScopes::get_operation][super::super::client::MetricsScopes::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

@@ -69,6 +69,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::create_certificate][super::super::client::CertificateAuthorityService::create_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
@@ -157,6 +172,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_certificate][super::super::client::CertificateAuthorityService::get_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
@@ -204,6 +234,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_certificates][super::super::client::CertificateAuthorityService::list_certificates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
@@ -302,6 +351,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::revoke_certificate][super::super::client::CertificateAuthorityService::revoke_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::RevokeCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevokeCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeCertificate(RequestBuilder<crate::model::RevokeCertificateRequest>);
 
@@ -366,6 +430,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::update_certificate][super::super::client::CertificateAuthorityService::update_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
@@ -436,6 +515,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ActivateCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ActivateCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ActivateCertificateAuthority(
         RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>,
@@ -556,6 +651,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateAuthority(
         RequestBuilder<crate::model::CreateCertificateAuthorityRequest>,
@@ -676,6 +787,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DisableCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableCertificateAuthority(
         RequestBuilder<crate::model::DisableCertificateAuthorityRequest>,
@@ -781,6 +908,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::EnableCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableCertificateAuthority(
         RequestBuilder<crate::model::EnableCertificateAuthorityRequest>,
@@ -880,6 +1023,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::fetch_certificate_authority_csr][super::super::client::CertificateAuthorityService::fetch_certificate_authority_csr] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::FetchCertificateAuthorityCsr;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchCertificateAuthorityCsr {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchCertificateAuthorityCsr(
         RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>,
@@ -932,6 +1090,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_certificate_authority][super::super::client::CertificateAuthorityService::get_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
         RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
@@ -984,6 +1157,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_certificate_authorities][super::super::client::CertificateAuthorityService::list_certificate_authorities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificateAuthorities;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateAuthorities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateAuthorities(
         RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>,
@@ -1088,6 +1280,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UndeleteCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteCertificateAuthority(
         RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>,
@@ -1187,6 +1395,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateAuthority(
         RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>,
@@ -1304,6 +1528,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateAuthority(
         RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>,
@@ -1419,6 +1659,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCaPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCaPool(RequestBuilder<crate::model::CreateCaPoolRequest>);
 
@@ -1529,6 +1785,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCaPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCaPool(RequestBuilder<crate::model::UpdateCaPoolRequest>);
 
@@ -1634,6 +1906,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_ca_pool][super::super::client::CertificateAuthorityService::get_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCaPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCaPool(RequestBuilder<crate::model::GetCaPoolRequest>);
 
@@ -1681,6 +1968,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_ca_pools][super::super::client::CertificateAuthorityService::list_ca_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCaPools;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCaPools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCaPools(RequestBuilder<crate::model::ListCaPoolsRequest>);
 
@@ -1776,6 +2082,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteCaPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCaPool(RequestBuilder<crate::model::DeleteCaPoolRequest>);
 
@@ -1875,6 +2197,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::fetch_ca_certs][super::super::client::CertificateAuthorityService::fetch_ca_certs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::FetchCaCerts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchCaCerts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchCaCerts(RequestBuilder<crate::model::FetchCaCertsRequest>);
 
@@ -1928,6 +2265,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_certificate_revocation_list][super::super::client::CertificateAuthorityService::get_certificate_revocation_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificateRevocationList;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateRevocationList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateRevocationList(
         RequestBuilder<crate::model::GetCertificateRevocationListRequest>,
@@ -1980,6 +2332,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_certificate_revocation_lists][super::super::client::CertificateAuthorityService::list_certificate_revocation_lists] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificateRevocationLists;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateRevocationLists {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateRevocationLists(
         RequestBuilder<crate::model::ListCertificateRevocationListsRequest>,
@@ -2084,6 +2455,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificateRevocationList;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateRevocationList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateRevocationList(
         RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>,
@@ -2199,6 +2586,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateTemplate(
         RequestBuilder<crate::model::CreateCertificateTemplateRequest>,
@@ -2319,6 +2722,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateTemplate(
         RequestBuilder<crate::model::DeleteCertificateTemplateRequest>,
@@ -2417,6 +2836,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_certificate_template][super::super::client::CertificateAuthorityService::get_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateTemplate(RequestBuilder<crate::model::GetCertificateTemplateRequest>);
 
@@ -2467,6 +2901,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_certificate_templates][super::super::client::CertificateAuthorityService::list_certificate_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificateTemplates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateTemplates(
         RequestBuilder<crate::model::ListCertificateTemplatesRequest>,
@@ -2571,6 +3024,22 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_security_privateca_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateTemplate(
         RequestBuilder<crate::model::UpdateCertificateTemplateRequest>,
@@ -2686,6 +3155,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_locations][super::super::client::CertificateAuthorityService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2776,6 +3264,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_location][super::super::client::CertificateAuthorityService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2821,6 +3324,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::set_iam_policy][super::super::client::CertificateAuthorityService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2888,6 +3406,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_iam_policy][super::super::client::CertificateAuthorityService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2944,6 +3477,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::test_iam_permissions][super::super::client::CertificateAuthorityService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3007,6 +3555,25 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::list_operations][super::super::client::CertificateAuthorityService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3099,6 +3666,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::get_operation][super::super::client::CertificateAuthorityService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3147,6 +3729,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::delete_operation][super::super::client::CertificateAuthorityService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3195,6 +3792,21 @@ pub mod certificate_authority_service {
     }
 
     /// The request builder for [CertificateAuthorityService::cancel_operation][super::super::client::CertificateAuthorityService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

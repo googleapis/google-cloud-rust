@@ -76,6 +76,12 @@ Manager API, do the following:
    cargo add google-cloud-secretmanager-v1
    ```
 
+1. Add the [google-cloud-gax] crate to the new project
+
+   ```shell
+   cargo add google-cloud-gax
+   ```
+
 1. Add the [tokio] crate to the new project
 
    ```shell
@@ -130,6 +136,7 @@ Note: The source of the Cloud Client Libraries for Rust is
 [authn-client-libraries]: https://cloud.google.com/docs/authentication/client-libraries
 [documentation for google cloud products]: https://cloud.google.com/products
 [google cloud cli]: https://cloud.google.com/sdk/
+[google-cloud-gax]: https://crates.io/crates/google-cloud-gax
 [rust]: https://www.rust-lang.org/
 [rust-getting-started]: https://www.rust-lang.org/learn/get-started
 [secret manager]: https://cloud.google.com/secret-manager/docs/overview

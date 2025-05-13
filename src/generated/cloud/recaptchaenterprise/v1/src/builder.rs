@@ -69,6 +69,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::create_assessment][super::super::client::RecaptchaEnterpriseService::create_assessment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::CreateAssessment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAssessment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAssessment(RequestBuilder<crate::model::CreateAssessmentRequest>);
 
@@ -130,6 +145,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][super::super::client::RecaptchaEnterpriseService::annotate_assessment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::AnnotateAssessment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnnotateAssessment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnnotateAssessment(RequestBuilder<crate::model::AnnotateAssessmentRequest>);
 
@@ -223,6 +253,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::create_key][super::super::client::RecaptchaEnterpriseService::create_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::CreateKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
@@ -278,6 +323,25 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::list_keys][super::super::client::RecaptchaEnterpriseService::list_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListKeys;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
@@ -361,6 +425,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][super::super::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveLegacySecretKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveLegacySecretKey(
         RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>,
@@ -413,6 +492,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::get_key][super::super::client::RecaptchaEnterpriseService::get_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::GetKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
@@ -460,6 +554,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::update_key][super::super::client::RecaptchaEnterpriseService::update_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::UpdateKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
@@ -516,6 +625,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::delete_key][super::super::client::RecaptchaEnterpriseService::delete_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::DeleteKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
@@ -563,6 +687,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::migrate_key][super::super::client::RecaptchaEnterpriseService::migrate_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::MigrateKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MigrateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MigrateKey(RequestBuilder<crate::model::MigrateKeyRequest>);
 
@@ -616,6 +755,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::add_ip_override][super::super::client::RecaptchaEnterpriseService::add_ip_override] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::AddIpOverride;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddIpOverride {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddIpOverride(RequestBuilder<crate::model::AddIpOverrideRequest>);
 
@@ -674,6 +828,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][super::super::client::RecaptchaEnterpriseService::remove_ip_override] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::RemoveIpOverride;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveIpOverride {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveIpOverride(RequestBuilder<crate::model::RemoveIpOverrideRequest>);
 
@@ -735,6 +904,25 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][super::super::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListIpOverrides;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIpOverrides {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIpOverrides(RequestBuilder<crate::model::ListIpOverridesRequest>);
 
@@ -818,6 +1006,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::get_metrics][super::super::client::RecaptchaEnterpriseService::get_metrics] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::GetMetrics;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMetrics(RequestBuilder<crate::model::GetMetricsRequest>);
 
@@ -865,6 +1068,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][super::super::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::CreateFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFirewallPolicy(RequestBuilder<crate::model::CreateFirewallPolicyRequest>);
 
@@ -926,6 +1144,25 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][super::super::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListFirewallPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFirewallPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFirewallPolicies(RequestBuilder<crate::model::ListFirewallPoliciesRequest>);
 
@@ -1014,6 +1251,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][super::super::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::GetFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFirewallPolicy(RequestBuilder<crate::model::GetFirewallPolicyRequest>);
 
@@ -1064,6 +1316,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][super::super::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFirewallPolicy(RequestBuilder<crate::model::UpdateFirewallPolicyRequest>);
 
@@ -1126,6 +1393,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][super::super::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFirewallPolicy(RequestBuilder<crate::model::DeleteFirewallPolicyRequest>);
 
@@ -1176,6 +1458,21 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][super::super::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReorderFirewallPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReorderFirewallPolicies(
         RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>,
@@ -1241,6 +1538,25 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][super::super::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRelatedAccountGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroups(
         RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>,
@@ -1333,6 +1649,25 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRelatedAccountGroupMemberships {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroupMemberships(
         RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>,
@@ -1427,6 +1762,25 @@ pub mod recaptcha_enterprise_service {
     }
 
     /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchRelatedAccountGroupMemberships {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchRelatedAccountGroupMemberships(
         RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>,

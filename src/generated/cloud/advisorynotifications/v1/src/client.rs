@@ -123,36 +123,26 @@ impl AdvisoryNotificationsService {
     /// Lists notifications under a given parent.
     pub fn list_notifications(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::advisory_notifications_service::ListNotifications {
         super::builder::advisory_notifications_service::ListNotifications::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a notification.
     pub fn get_notification(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::advisory_notifications_service::GetNotification {
         super::builder::advisory_notifications_service::GetNotification::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get notification settings.
-    pub fn get_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::advisory_notifications_service::GetSettings {
+    pub fn get_settings(&self) -> super::builder::advisory_notifications_service::GetSettings {
         super::builder::advisory_notifications_service::GetSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update notification settings.
     pub fn update_settings(
         &self,
-        settings: impl Into<crate::model::Settings>,
     ) -> super::builder::advisory_notifications_service::UpdateSettings {
         super::builder::advisory_notifications_service::UpdateSettings::new(self.inner.clone())
-            .set_settings(settings.into())
     }
 }

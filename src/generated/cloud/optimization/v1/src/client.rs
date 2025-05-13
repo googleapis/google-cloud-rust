@@ -148,12 +148,8 @@ impl FleetRouting {
     /// The goal is to provide an assignment of `ShipmentRoute`s to `Vehicle`s that
     /// minimizes the total cost where cost has many components defined in the
     /// `ShipmentModel`.
-    pub fn optimize_tours(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::fleet_routing::OptimizeTours {
+    pub fn optimize_tours(&self) -> super::builder::fleet_routing::OptimizeTours {
         super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Optimizes vehicle tours for one or more `OptimizeToursRequest`
@@ -176,21 +172,14 @@ impl FleetRouting {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_optimize_tours(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::fleet_routing::BatchOptimizeTours {
+    pub fn batch_optimize_tours(&self) -> super::builder::fleet_routing::BatchOptimizeTours {
         super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fleet_routing::GetOperation {
-        super::builder::fleet_routing::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation {
+        super::builder::fleet_routing::GetOperation::new(self.inner.clone())
     }
 }

@@ -33,10 +33,10 @@ rust-version.workspace = true
 features = ["unstable-stream"]
 
 [dependencies]
-futures     = { version = "0.3", optional = true }
-pin-project = { version = "1", optional = true }
-serde       = "1"
-tokio       = { version = "1", features = ["time"] }
+futures         = { workspace = true, optional = true }
+pin-project     = { workspace = true, optional = true }
+serde.workspace = true
+tokio           = { workspace = true, features = ["time"] }
 # Local crates
 gax.workspace         = true
 longrunning.workspace = true

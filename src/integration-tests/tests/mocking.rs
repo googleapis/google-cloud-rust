@@ -32,7 +32,8 @@ mod mocking {
         id: &str,
     ) -> gax::Result<sm::model::Secret> {
         client
-            .create_secret(format!("projects/{project}/locations/{region}"))
+            .create_secret()
+            .set_parent(format!("projects/{project}/locations/{region}"))
             .set_secret_id(id)
             .send()
             .await

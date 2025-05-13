@@ -69,6 +69,21 @@ pub mod image_annotator {
     }
 
     /// The request builder for [ImageAnnotator::batch_annotate_images][super::super::client::ImageAnnotator::batch_annotate_images] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::image_annotator::BatchAnnotateImages;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchAnnotateImages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchAnnotateImages(RequestBuilder<crate::model::BatchAnnotateImagesRequest>);
 
@@ -141,6 +156,21 @@ pub mod image_annotator {
     }
 
     /// The request builder for [ImageAnnotator::batch_annotate_files][super::super::client::ImageAnnotator::batch_annotate_files] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::image_annotator::BatchAnnotateFiles;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchAnnotateFiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchAnnotateFiles(RequestBuilder<crate::model::BatchAnnotateFilesRequest>);
 
@@ -213,6 +243,22 @@ pub mod image_annotator {
     }
 
     /// The request builder for [ImageAnnotator::async_batch_annotate_images][super::super::client::ImageAnnotator::async_batch_annotate_images] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::image_annotator::AsyncBatchAnnotateImages;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_vision_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AsyncBatchAnnotateImages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AsyncBatchAnnotateImages(
         RequestBuilder<crate::model::AsyncBatchAnnotateImagesRequest>,
@@ -341,6 +387,22 @@ pub mod image_annotator {
     }
 
     /// The request builder for [ImageAnnotator::async_batch_annotate_files][super::super::client::ImageAnnotator::async_batch_annotate_files] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::image_annotator::AsyncBatchAnnotateFiles;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_vision_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AsyncBatchAnnotateFiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AsyncBatchAnnotateFiles(
         RequestBuilder<crate::model::AsyncBatchAnnotateFilesRequest>,
@@ -458,6 +520,21 @@ pub mod image_annotator {
     }
 
     /// The request builder for [ImageAnnotator::get_operation][super::super::client::ImageAnnotator::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::image_annotator::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -561,6 +638,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::create_product_set][super::super::client::ProductSearch::create_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::CreateProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProductSet(RequestBuilder<crate::model::CreateProductSetRequest>);
 
@@ -628,6 +720,25 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::list_product_sets][super::super::client::ProductSearch::list_product_sets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::ListProductSets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProductSets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProductSets(RequestBuilder<crate::model::ListProductSetsRequest>);
 
@@ -711,6 +822,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::get_product_set][super::super::client::ProductSearch::get_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::GetProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProductSet(RequestBuilder<crate::model::GetProductSetRequest>);
 
@@ -758,6 +884,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::update_product_set][super::super::client::ProductSearch::update_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::UpdateProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProductSet(RequestBuilder<crate::model::UpdateProductSetRequest>);
 
@@ -820,6 +961,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::delete_product_set][super::super::client::ProductSearch::delete_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::DeleteProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProductSet(RequestBuilder<crate::model::DeleteProductSetRequest>);
 
@@ -870,6 +1026,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::create_product][super::super::client::ProductSearch::create_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::CreateProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
 
@@ -934,6 +1105,25 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::list_products][super::super::client::ProductSearch::list_products] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::ListProducts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
@@ -1017,6 +1207,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::get_product][super::super::client::ProductSearch::get_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::GetProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
@@ -1064,6 +1269,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::update_product][super::super::client::ProductSearch::update_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::UpdateProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
 
@@ -1123,6 +1343,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::delete_product][super::super::client::ProductSearch::delete_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::DeleteProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
 
@@ -1170,6 +1405,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::create_reference_image][super::super::client::ProductSearch::create_reference_image] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::CreateReferenceImage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReferenceImage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReferenceImage(RequestBuilder<crate::model::CreateReferenceImageRequest>);
 
@@ -1237,6 +1487,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::delete_reference_image][super::super::client::ProductSearch::delete_reference_image] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::DeleteReferenceImage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteReferenceImage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteReferenceImage(RequestBuilder<crate::model::DeleteReferenceImageRequest>);
 
@@ -1287,6 +1552,25 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::list_reference_images][super::super::client::ProductSearch::list_reference_images] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::ListReferenceImages;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReferenceImages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReferenceImages(RequestBuilder<crate::model::ListReferenceImagesRequest>);
 
@@ -1375,6 +1659,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::get_reference_image][super::super::client::ProductSearch::get_reference_image] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::GetReferenceImage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReferenceImage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReferenceImage(RequestBuilder<crate::model::GetReferenceImageRequest>);
 
@@ -1425,6 +1724,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::add_product_to_product_set][super::super::client::ProductSearch::add_product_to_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::AddProductToProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddProductToProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddProductToProductSet(RequestBuilder<crate::model::AddProductToProductSetRequest>);
 
@@ -1483,6 +1797,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::remove_product_from_product_set][super::super::client::ProductSearch::remove_product_from_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::RemoveProductFromProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveProductFromProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveProductFromProductSet(
         RequestBuilder<crate::model::RemoveProductFromProductSetRequest>,
@@ -1543,6 +1872,25 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::list_products_in_product_set][super::super::client::ProductSearch::list_products_in_product_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::ListProductsInProductSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProductsInProductSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProductsInProductSet(
         RequestBuilder<crate::model::ListProductsInProductSetRequest>,
@@ -1635,6 +1983,22 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::import_product_sets][super::super::client::ProductSearch::import_product_sets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::ImportProductSets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_vision_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportProductSets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportProductSets(RequestBuilder<crate::model::ImportProductSetsRequest>);
 
@@ -1741,6 +2105,22 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::purge_products][super::super::client::ProductSearch::purge_products] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::PurgeProducts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_vision_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PurgeProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
 
@@ -1872,6 +2252,21 @@ pub mod product_search {
     }
 
     /// The request builder for [ProductSearch::get_operation][super::super::client::ProductSearch::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vision_v1::builder;
+    /// use builder::product_search::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

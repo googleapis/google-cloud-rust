@@ -69,6 +69,21 @@ pub mod container_analysis {
     }
 
     /// The request builder for [ContainerAnalysis::set_iam_policy][super::super::client::ContainerAnalysis::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -136,6 +151,21 @@ pub mod container_analysis {
     }
 
     /// The request builder for [ContainerAnalysis::get_iam_policy][super::super::client::ContainerAnalysis::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -192,6 +222,21 @@ pub mod container_analysis {
     }
 
     /// The request builder for [ContainerAnalysis::test_iam_permissions][super::super::client::ContainerAnalysis::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -255,6 +300,21 @@ pub mod container_analysis {
     }
 
     /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][super::super::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::GetVulnerabilityOccurrencesSummary;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVulnerabilityOccurrencesSummary {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityOccurrencesSummary(
         RequestBuilder<crate::model::GetVulnerabilityOccurrencesSummaryRequest>,
@@ -313,6 +373,21 @@ pub mod container_analysis {
     }
 
     /// The request builder for [ContainerAnalysis::export_sbom][super::super::client::ContainerAnalysis::export_sbom] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::ExportSBOM;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportSBOM {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
 

@@ -121,19 +121,13 @@ impl DepService {
     /// Lists `LbTrafficExtension` resources in a given project and location.
     pub fn list_lb_traffic_extensions(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::dep_service::ListLbTrafficExtensions {
         super::builder::dep_service::ListLbTrafficExtensions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of the specified `LbTrafficExtension` resource.
-    pub fn get_lb_traffic_extension(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::GetLbTrafficExtension {
+    pub fn get_lb_traffic_extension(&self) -> super::builder::dep_service::GetLbTrafficExtension {
         super::builder::dep_service::GetLbTrafficExtension::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new `LbTrafficExtension` resource in a given project and
@@ -150,10 +144,8 @@ impl DepService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_lb_traffic_extension(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::dep_service::CreateLbTrafficExtension {
         super::builder::dep_service::CreateLbTrafficExtension::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of the specified `LbTrafficExtension` resource.
@@ -169,10 +161,8 @@ impl DepService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_lb_traffic_extension(
         &self,
-        lb_traffic_extension: impl Into<crate::model::LbTrafficExtension>,
     ) -> super::builder::dep_service::UpdateLbTrafficExtension {
         super::builder::dep_service::UpdateLbTrafficExtension::new(self.inner.clone())
-            .set_lb_traffic_extension(lb_traffic_extension.into())
     }
 
     /// Deletes the specified `LbTrafficExtension` resource.
@@ -188,28 +178,18 @@ impl DepService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_lb_traffic_extension(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::dep_service::DeleteLbTrafficExtension {
         super::builder::dep_service::DeleteLbTrafficExtension::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists `LbRouteExtension` resources in a given project and location.
-    pub fn list_lb_route_extensions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::ListLbRouteExtensions {
+    pub fn list_lb_route_extensions(&self) -> super::builder::dep_service::ListLbRouteExtensions {
         super::builder::dep_service::ListLbRouteExtensions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of the specified `LbRouteExtension` resource.
-    pub fn get_lb_route_extension(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::GetLbRouteExtension {
+    pub fn get_lb_route_extension(&self) -> super::builder::dep_service::GetLbRouteExtension {
         super::builder::dep_service::GetLbRouteExtension::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new `LbRouteExtension` resource in a given project and location.
@@ -223,12 +203,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_lb_route_extension(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::CreateLbRouteExtension {
+    pub fn create_lb_route_extension(&self) -> super::builder::dep_service::CreateLbRouteExtension {
         super::builder::dep_service::CreateLbRouteExtension::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of the specified `LbRouteExtension` resource.
@@ -242,12 +218,8 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_lb_route_extension(
-        &self,
-        lb_route_extension: impl Into<crate::model::LbRouteExtension>,
-    ) -> super::builder::dep_service::UpdateLbRouteExtension {
+    pub fn update_lb_route_extension(&self) -> super::builder::dep_service::UpdateLbRouteExtension {
         super::builder::dep_service::UpdateLbRouteExtension::new(self.inner.clone())
-            .set_lb_route_extension(lb_route_extension.into())
     }
 
     /// Deletes the specified `LbRouteExtension` resource.
@@ -261,28 +233,18 @@ impl DepService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_lb_route_extension(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::DeleteLbRouteExtension {
+    pub fn delete_lb_route_extension(&self) -> super::builder::dep_service::DeleteLbRouteExtension {
         super::builder::dep_service::DeleteLbRouteExtension::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::ListLocations {
-        super::builder::dep_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::dep_service::ListLocations {
+        super::builder::dep_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::GetLocation {
-        super::builder::dep_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::dep_service::GetLocation {
+        super::builder::dep_service::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -290,22 +252,14 @@ impl DepService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::dep_service::SetIamPolicy {
         super::builder::dep_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::dep_service::GetIamPolicy {
         super::builder::dep_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -315,52 +269,36 @@ impl DepService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::dep_service::TestIamPermissions {
         super::builder::dep_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::ListOperations {
-        super::builder::dep_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::dep_service::ListOperations {
+        super::builder::dep_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::GetOperation {
-        super::builder::dep_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::dep_service::GetOperation {
+        super::builder::dep_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::DeleteOperation {
-        super::builder::dep_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::dep_service::DeleteOperation {
+        super::builder::dep_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dep_service::CancelOperation {
-        super::builder::dep_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::dep_service::CancelOperation {
+        super::builder::dep_service::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -467,21 +405,13 @@ impl NetworkServices {
     }
 
     /// Lists EndpointPolicies in a given project and location.
-    pub fn list_endpoint_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListEndpointPolicies {
+    pub fn list_endpoint_policies(&self) -> super::builder::network_services::ListEndpointPolicies {
         super::builder::network_services::ListEndpointPolicies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single EndpointPolicy.
-    pub fn get_endpoint_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetEndpointPolicy {
+    pub fn get_endpoint_policy(&self) -> super::builder::network_services::GetEndpointPolicy {
         super::builder::network_services::GetEndpointPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new EndpointPolicy in a given project and location.
@@ -495,12 +425,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_endpoint_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateEndpointPolicy {
+    pub fn create_endpoint_policy(&self) -> super::builder::network_services::CreateEndpointPolicy {
         super::builder::network_services::CreateEndpointPolicy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single EndpointPolicy.
@@ -514,12 +440,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_endpoint_policy(
-        &self,
-        endpoint_policy: impl Into<crate::model::EndpointPolicy>,
-    ) -> super::builder::network_services::UpdateEndpointPolicy {
+    pub fn update_endpoint_policy(&self) -> super::builder::network_services::UpdateEndpointPolicy {
         super::builder::network_services::UpdateEndpointPolicy::new(self.inner.clone())
-            .set_endpoint_policy(endpoint_policy.into())
     }
 
     /// Deletes a single EndpointPolicy.
@@ -533,29 +455,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_endpoint_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteEndpointPolicy {
+    pub fn delete_endpoint_policy(&self) -> super::builder::network_services::DeleteEndpointPolicy {
         super::builder::network_services::DeleteEndpointPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Gateways in a given project and location.
-    pub fn list_gateways(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListGateways {
+    pub fn list_gateways(&self) -> super::builder::network_services::ListGateways {
         super::builder::network_services::ListGateways::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Gateway.
-    pub fn get_gateway(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetGateway {
-        super::builder::network_services::GetGateway::new(self.inner.clone()).set_name(name.into())
+    pub fn get_gateway(&self) -> super::builder::network_services::GetGateway {
+        super::builder::network_services::GetGateway::new(self.inner.clone())
     }
 
     /// Creates a new Gateway in a given project and location.
@@ -569,12 +480,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_gateway(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateGateway {
+    pub fn create_gateway(&self) -> super::builder::network_services::CreateGateway {
         super::builder::network_services::CreateGateway::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Gateway.
@@ -588,12 +495,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_gateway(
-        &self,
-        gateway: impl Into<crate::model::Gateway>,
-    ) -> super::builder::network_services::UpdateGateway {
+    pub fn update_gateway(&self) -> super::builder::network_services::UpdateGateway {
         super::builder::network_services::UpdateGateway::new(self.inner.clone())
-            .set_gateway(gateway.into())
     }
 
     /// Deletes a single Gateway.
@@ -607,30 +510,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_gateway(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteGateway {
+    pub fn delete_gateway(&self) -> super::builder::network_services::DeleteGateway {
         super::builder::network_services::DeleteGateway::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists GrpcRoutes in a given project and location.
-    pub fn list_grpc_routes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListGrpcRoutes {
+    pub fn list_grpc_routes(&self) -> super::builder::network_services::ListGrpcRoutes {
         super::builder::network_services::ListGrpcRoutes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single GrpcRoute.
-    pub fn get_grpc_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetGrpcRoute {
+    pub fn get_grpc_route(&self) -> super::builder::network_services::GetGrpcRoute {
         super::builder::network_services::GetGrpcRoute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new GrpcRoute in a given project and location.
@@ -644,12 +535,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_grpc_route(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateGrpcRoute {
+    pub fn create_grpc_route(&self) -> super::builder::network_services::CreateGrpcRoute {
         super::builder::network_services::CreateGrpcRoute::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single GrpcRoute.
@@ -663,12 +550,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_grpc_route(
-        &self,
-        grpc_route: impl Into<crate::model::GrpcRoute>,
-    ) -> super::builder::network_services::UpdateGrpcRoute {
+    pub fn update_grpc_route(&self) -> super::builder::network_services::UpdateGrpcRoute {
         super::builder::network_services::UpdateGrpcRoute::new(self.inner.clone())
-            .set_grpc_route(grpc_route.into())
     }
 
     /// Deletes a single GrpcRoute.
@@ -682,30 +565,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_grpc_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteGrpcRoute {
+    pub fn delete_grpc_route(&self) -> super::builder::network_services::DeleteGrpcRoute {
         super::builder::network_services::DeleteGrpcRoute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists HttpRoute in a given project and location.
-    pub fn list_http_routes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListHttpRoutes {
+    pub fn list_http_routes(&self) -> super::builder::network_services::ListHttpRoutes {
         super::builder::network_services::ListHttpRoutes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single HttpRoute.
-    pub fn get_http_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetHttpRoute {
+    pub fn get_http_route(&self) -> super::builder::network_services::GetHttpRoute {
         super::builder::network_services::GetHttpRoute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new HttpRoute in a given project and location.
@@ -719,12 +590,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_http_route(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateHttpRoute {
+    pub fn create_http_route(&self) -> super::builder::network_services::CreateHttpRoute {
         super::builder::network_services::CreateHttpRoute::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single HttpRoute.
@@ -738,12 +605,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_http_route(
-        &self,
-        http_route: impl Into<crate::model::HttpRoute>,
-    ) -> super::builder::network_services::UpdateHttpRoute {
+    pub fn update_http_route(&self) -> super::builder::network_services::UpdateHttpRoute {
         super::builder::network_services::UpdateHttpRoute::new(self.inner.clone())
-            .set_http_route(http_route.into())
     }
 
     /// Deletes a single HttpRoute.
@@ -757,29 +620,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_http_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteHttpRoute {
+    pub fn delete_http_route(&self) -> super::builder::network_services::DeleteHttpRoute {
         super::builder::network_services::DeleteHttpRoute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists TcpRoute in a given project and location.
-    pub fn list_tcp_routes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListTcpRoutes {
+    pub fn list_tcp_routes(&self) -> super::builder::network_services::ListTcpRoutes {
         super::builder::network_services::ListTcpRoutes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single TcpRoute.
-    pub fn get_tcp_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetTcpRoute {
-        super::builder::network_services::GetTcpRoute::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tcp_route(&self) -> super::builder::network_services::GetTcpRoute {
+        super::builder::network_services::GetTcpRoute::new(self.inner.clone())
     }
 
     /// Creates a new TcpRoute in a given project and location.
@@ -793,12 +645,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tcp_route(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateTcpRoute {
+    pub fn create_tcp_route(&self) -> super::builder::network_services::CreateTcpRoute {
         super::builder::network_services::CreateTcpRoute::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single TcpRoute.
@@ -812,12 +660,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_tcp_route(
-        &self,
-        tcp_route: impl Into<crate::model::TcpRoute>,
-    ) -> super::builder::network_services::UpdateTcpRoute {
+    pub fn update_tcp_route(&self) -> super::builder::network_services::UpdateTcpRoute {
         super::builder::network_services::UpdateTcpRoute::new(self.inner.clone())
-            .set_tcp_route(tcp_route.into())
     }
 
     /// Deletes a single TcpRoute.
@@ -831,29 +675,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tcp_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteTcpRoute {
+    pub fn delete_tcp_route(&self) -> super::builder::network_services::DeleteTcpRoute {
         super::builder::network_services::DeleteTcpRoute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists TlsRoute in a given project and location.
-    pub fn list_tls_routes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListTlsRoutes {
+    pub fn list_tls_routes(&self) -> super::builder::network_services::ListTlsRoutes {
         super::builder::network_services::ListTlsRoutes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single TlsRoute.
-    pub fn get_tls_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetTlsRoute {
-        super::builder::network_services::GetTlsRoute::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tls_route(&self) -> super::builder::network_services::GetTlsRoute {
+        super::builder::network_services::GetTlsRoute::new(self.inner.clone())
     }
 
     /// Creates a new TlsRoute in a given project and location.
@@ -867,12 +700,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tls_route(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateTlsRoute {
+    pub fn create_tls_route(&self) -> super::builder::network_services::CreateTlsRoute {
         super::builder::network_services::CreateTlsRoute::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single TlsRoute.
@@ -886,12 +715,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_tls_route(
-        &self,
-        tls_route: impl Into<crate::model::TlsRoute>,
-    ) -> super::builder::network_services::UpdateTlsRoute {
+    pub fn update_tls_route(&self) -> super::builder::network_services::UpdateTlsRoute {
         super::builder::network_services::UpdateTlsRoute::new(self.inner.clone())
-            .set_tls_route(tls_route.into())
     }
 
     /// Deletes a single TlsRoute.
@@ -905,30 +730,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tls_route(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteTlsRoute {
+    pub fn delete_tls_route(&self) -> super::builder::network_services::DeleteTlsRoute {
         super::builder::network_services::DeleteTlsRoute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ServiceBinding in a given project and location.
-    pub fn list_service_bindings(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListServiceBindings {
+    pub fn list_service_bindings(&self) -> super::builder::network_services::ListServiceBindings {
         super::builder::network_services::ListServiceBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ServiceBinding.
-    pub fn get_service_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetServiceBinding {
+    pub fn get_service_binding(&self) -> super::builder::network_services::GetServiceBinding {
         super::builder::network_services::GetServiceBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ServiceBinding in a given project and location.
@@ -942,12 +755,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service_binding(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateServiceBinding {
+    pub fn create_service_binding(&self) -> super::builder::network_services::CreateServiceBinding {
         super::builder::network_services::CreateServiceBinding::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single ServiceBinding.
@@ -961,29 +770,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteServiceBinding {
+    pub fn delete_service_binding(&self) -> super::builder::network_services::DeleteServiceBinding {
         super::builder::network_services::DeleteServiceBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Meshes in a given project and location.
-    pub fn list_meshes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListMeshes {
+    pub fn list_meshes(&self) -> super::builder::network_services::ListMeshes {
         super::builder::network_services::ListMeshes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Mesh.
-    pub fn get_mesh(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetMesh {
-        super::builder::network_services::GetMesh::new(self.inner.clone()).set_name(name.into())
+    pub fn get_mesh(&self) -> super::builder::network_services::GetMesh {
+        super::builder::network_services::GetMesh::new(self.inner.clone())
     }
 
     /// Creates a new Mesh in a given project and location.
@@ -997,12 +795,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_mesh(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CreateMesh {
+    pub fn create_mesh(&self) -> super::builder::network_services::CreateMesh {
         super::builder::network_services::CreateMesh::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Mesh.
@@ -1016,11 +810,8 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_mesh(
-        &self,
-        mesh: impl Into<crate::model::Mesh>,
-    ) -> super::builder::network_services::UpdateMesh {
-        super::builder::network_services::UpdateMesh::new(self.inner.clone()).set_mesh(mesh.into())
+    pub fn update_mesh(&self) -> super::builder::network_services::UpdateMesh {
+        super::builder::network_services::UpdateMesh::new(self.inner.clone())
     }
 
     /// Deletes a single Mesh.
@@ -1034,28 +825,18 @@ impl NetworkServices {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_mesh(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteMesh {
-        super::builder::network_services::DeleteMesh::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_mesh(&self) -> super::builder::network_services::DeleteMesh {
+        super::builder::network_services::DeleteMesh::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListLocations {
+    pub fn list_locations(&self) -> super::builder::network_services::ListLocations {
         super::builder::network_services::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetLocation {
-        super::builder::network_services::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::network_services::GetLocation {
+        super::builder::network_services::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -1063,22 +844,14 @@ impl NetworkServices {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::network_services::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::network_services::SetIamPolicy {
         super::builder::network_services::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::network_services::GetIamPolicy {
         super::builder::network_services::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -1088,55 +861,35 @@ impl NetworkServices {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::network_services::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::network_services::TestIamPermissions {
         super::builder::network_services::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::ListOperations {
+    pub fn list_operations(&self) -> super::builder::network_services::ListOperations {
         super::builder::network_services::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::GetOperation {
+    pub fn get_operation(&self) -> super::builder::network_services::GetOperation {
         super::builder::network_services::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::network_services::DeleteOperation {
         super::builder::network_services::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::network_services::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::network_services::CancelOperation {
         super::builder::network_services::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

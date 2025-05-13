@@ -69,6 +69,21 @@ pub mod cloud_shell_service {
     }
 
     /// The request builder for [CloudShellService::get_environment][super::super::client::CloudShellService::get_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_shell_v1::builder;
+    /// use builder::cloud_shell_service::GetEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
@@ -116,6 +131,22 @@ pub mod cloud_shell_service {
     }
 
     /// The request builder for [CloudShellService::start_environment][super::super::client::CloudShellService::start_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_shell_v1::builder;
+    /// use builder::cloud_shell_service::StartEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_shell_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartEnvironment(RequestBuilder<crate::model::StartEnvironmentRequest>);
 
@@ -224,6 +255,22 @@ pub mod cloud_shell_service {
     }
 
     /// The request builder for [CloudShellService::authorize_environment][super::super::client::CloudShellService::authorize_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_shell_v1::builder;
+    /// use builder::cloud_shell_service::AuthorizeEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_shell_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AuthorizeEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AuthorizeEnvironment(RequestBuilder<crate::model::AuthorizeEnvironmentRequest>);
 
@@ -336,6 +383,22 @@ pub mod cloud_shell_service {
     }
 
     /// The request builder for [CloudShellService::add_public_key][super::super::client::CloudShellService::add_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_shell_v1::builder;
+    /// use builder::cloud_shell_service::AddPublicKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_shell_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddPublicKey(RequestBuilder<crate::model::AddPublicKeyRequest>);
 
@@ -428,6 +491,22 @@ pub mod cloud_shell_service {
     }
 
     /// The request builder for [CloudShellService::remove_public_key][super::super::client::CloudShellService::remove_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_shell_v1::builder;
+    /// use builder::cloud_shell_service::RemovePublicKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_shell_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemovePublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemovePublicKey(RequestBuilder<crate::model::RemovePublicKeyRequest>);
 
@@ -520,6 +599,21 @@ pub mod cloud_shell_service {
     }
 
     /// The request builder for [CloudShellService::get_operation][super::super::client::CloudShellService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_shell_v1::builder;
+    /// use builder::cloud_shell_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

@@ -721,17 +721,21 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		InputTypeID:   "..ListLocationsRequest",
 		OutputTypeID:  "..ListLocationsResponse",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("locations"),
-			},
-			QueryParameters: map[string]bool{
-				"filter":    true,
-				"pageSize":  true,
-				"pageToken": true,
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewLiteralPathSegment("projects"),
+						api.NewFieldPathPathSegment("project"),
+						api.NewLiteralPathSegment("locations"),
+					},
+					QueryParameters: map[string]bool{
+						"filter":    true,
+						"pageSize":  true,
+						"pageToken": true,
+					},
+				},
 			},
 		},
 		Pagination: &api.Field{
@@ -746,7 +750,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 	})
 
 	cs := sample.MethodCreate()
-	cs.PathInfo.PathTemplate = []api.PathSegment{
+	cs.PathInfo.Bindings[0].PathTemplate = []api.PathSegment{
 		api.NewLiteralPathSegment("v1"),
 		api.NewLiteralPathSegment("projects"),
 		api.NewFieldPathPathSegment("project"),
@@ -903,14 +907,18 @@ func TestOpenAPI_Pagination(t *testing.T) {
 				InputTypeID:  "..ListFoosRequest",
 				OutputTypeID: "..ListFoosResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("project"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewLiteralPathSegment("projects"),
+								api.NewFieldPathPathSegment("project"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
+						},
 					},
-					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
 				},
 				Pagination: &api.Field{
 					Name:          "pageToken",
@@ -1112,15 +1120,19 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 		InputTypeID:  "..RpcARequest",
 		OutputTypeID: "..Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("rpc"),
-				api.NewLiteralPathSegment("a"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewLiteralPathSegment("projects"),
+						api.NewFieldPathPathSegment("project"),
+						api.NewLiteralPathSegment("rpc"),
+						api.NewLiteralPathSegment("a"),
+					},
+					QueryParameters: map[string]bool{"filter": true},
+				},
 			},
-			QueryParameters: map[string]bool{"filter": true},
 		},
 	})
 
@@ -1131,15 +1143,19 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 		InputTypeID:  "..RpcBRequest",
 		OutputTypeID: "..Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("rpc"),
-				api.NewLiteralPathSegment("b"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewLiteralPathSegment("projects"),
+						api.NewFieldPathPathSegment("project"),
+						api.NewLiteralPathSegment("rpc"),
+						api.NewLiteralPathSegment("b"),
+					},
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
 		},
 	})
 

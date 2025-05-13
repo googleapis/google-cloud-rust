@@ -17,15 +17,6 @@ language             = 'rust'
 specification-source = 'google/storage/control/v2'
 service-config       = 'google/storage/control/v2/storage_v2.yaml'
 
-[source]
-# TODO(#2037) - Add support for LROs
-skipped-ids = """\
-    .google.storage.control.v2.StorageControl.CreateAnywhereCache,\
-    .google.storage.control.v2.StorageControl.UpdateAnywhereCache,\
-    .google.storage.control.v2.StorageControl.RenameFolder,\
-    .google.storage.control.v2.StorageControl.GetOperation\
-    """
-
 [codec]
 copyright-year            = '2025'
 template-override         = 'templates/grpc-client'

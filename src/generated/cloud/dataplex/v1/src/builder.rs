@@ -69,6 +69,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::create_entry_type][super::super::client::CatalogService::create_entry_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CreateEntryType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntryType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntryType(RequestBuilder<crate::model::CreateEntryTypeRequest>);
 
@@ -179,6 +195,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_entry_type][super::super::client::CatalogService::update_entry_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::UpdateEntryType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntryType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntryType(RequestBuilder<crate::model::UpdateEntryTypeRequest>);
 
@@ -284,6 +316,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::delete_entry_type][super::super::client::CatalogService::delete_entry_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::DeleteEntryType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntryType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntryType(RequestBuilder<crate::model::DeleteEntryTypeRequest>);
 
@@ -377,6 +425,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_entry_types][super::super::client::CatalogService::list_entry_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListEntryTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntryTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntryTypes(RequestBuilder<crate::model::ListEntryTypesRequest>);
 
@@ -472,6 +539,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_entry_type][super::super::client::CatalogService::get_entry_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetEntryType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntryType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntryType(RequestBuilder<crate::model::GetEntryTypeRequest>);
 
@@ -519,6 +601,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::create_aspect_type][super::super::client::CatalogService::create_aspect_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CreateAspectType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAspectType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAspectType(RequestBuilder<crate::model::CreateAspectTypeRequest>);
 
@@ -632,6 +730,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_aspect_type][super::super::client::CatalogService::update_aspect_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::UpdateAspectType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAspectType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAspectType(RequestBuilder<crate::model::UpdateAspectTypeRequest>);
 
@@ -740,6 +854,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::delete_aspect_type][super::super::client::CatalogService::delete_aspect_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::DeleteAspectType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAspectType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAspectType(RequestBuilder<crate::model::DeleteAspectTypeRequest>);
 
@@ -836,6 +966,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_aspect_types][super::super::client::CatalogService::list_aspect_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListAspectTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAspectTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAspectTypes(RequestBuilder<crate::model::ListAspectTypesRequest>);
 
@@ -931,6 +1080,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_aspect_type][super::super::client::CatalogService::get_aspect_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetAspectType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAspectType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAspectType(RequestBuilder<crate::model::GetAspectTypeRequest>);
 
@@ -978,6 +1142,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::create_entry_group][super::super::client::CatalogService::create_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CreateEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
@@ -1091,6 +1271,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_entry_group][super::super::client::CatalogService::update_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::UpdateEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
@@ -1199,6 +1395,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::delete_entry_group][super::super::client::CatalogService::delete_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::DeleteEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
@@ -1295,6 +1507,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_entry_groups][super::super::client::CatalogService::list_entry_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListEntryGroups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntryGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
@@ -1390,6 +1621,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_entry_group][super::super::client::CatalogService::get_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetEntryGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
@@ -1437,6 +1683,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::create_entry][super::super::client::CatalogService::create_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CreateEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
@@ -1503,6 +1764,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_entry][super::super::client::CatalogService::update_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::UpdateEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
@@ -1585,6 +1861,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::delete_entry][super::super::client::CatalogService::delete_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::DeleteEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
@@ -1632,6 +1923,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_entries][super::super::client::CatalogService::list_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListEntries;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
@@ -1721,6 +2031,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_entry][super::super::client::CatalogService::get_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
@@ -1796,6 +2121,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::lookup_entry][super::super::client::CatalogService::lookup_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::LookupEntry;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
@@ -1879,6 +2219,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::search_entries][super::super::client::CatalogService::search_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::SearchEntries;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchEntries(RequestBuilder<crate::model::SearchEntriesRequest>);
 
@@ -1982,6 +2341,22 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::create_metadata_job][super::super::client::CatalogService::create_metadata_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CreateMetadataJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMetadataJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMetadataJob(RequestBuilder<crate::model::CreateMetadataJobRequest>);
 
@@ -2095,6 +2470,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_metadata_job][super::super::client::CatalogService::get_metadata_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetMetadataJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMetadataJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMetadataJob(RequestBuilder<crate::model::GetMetadataJobRequest>);
 
@@ -2142,6 +2532,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_metadata_jobs][super::super::client::CatalogService::list_metadata_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListMetadataJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMetadataJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMetadataJobs(RequestBuilder<crate::model::ListMetadataJobsRequest>);
 
@@ -2240,6 +2649,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::cancel_metadata_job][super::super::client::CatalogService::cancel_metadata_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CancelMetadataJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelMetadataJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelMetadataJob(RequestBuilder<crate::model::CancelMetadataJobRequest>);
 
@@ -2290,6 +2714,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_locations][super::super::client::CatalogService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2380,6 +2823,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_location][super::super::client::CatalogService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2425,6 +2883,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::set_iam_policy][super::super::client::CatalogService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2492,6 +2965,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_iam_policy][super::super::client::CatalogService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2548,6 +3036,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::test_iam_permissions][super::super::client::CatalogService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2611,6 +3114,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_operations][super::super::client::CatalogService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2703,6 +3225,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_operation][super::super::client::CatalogService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2751,6 +3288,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::delete_operation][super::super::client::CatalogService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2799,6 +3351,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::cancel_operation][super::super::client::CatalogService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::catalog_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2902,6 +3469,22 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::create_encryption_config][super::super::client::CmekService::create_encryption_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::CreateEncryptionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEncryptionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEncryptionConfig(RequestBuilder<crate::model::CreateEncryptionConfigRequest>);
 
@@ -3014,6 +3597,22 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::update_encryption_config][super::super::client::CmekService::update_encryption_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::UpdateEncryptionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEncryptionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEncryptionConfig(RequestBuilder<crate::model::UpdateEncryptionConfigRequest>);
 
@@ -3119,6 +3718,22 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::delete_encryption_config][super::super::client::CmekService::delete_encryption_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::DeleteEncryptionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEncryptionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEncryptionConfig(RequestBuilder<crate::model::DeleteEncryptionConfigRequest>);
 
@@ -3215,6 +3830,25 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::list_encryption_configs][super::super::client::CmekService::list_encryption_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::ListEncryptionConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEncryptionConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEncryptionConfigs(RequestBuilder<crate::model::ListEncryptionConfigsRequest>);
 
@@ -3315,6 +3949,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::get_encryption_config][super::super::client::CmekService::get_encryption_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::GetEncryptionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEncryptionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEncryptionConfig(RequestBuilder<crate::model::GetEncryptionConfigRequest>);
 
@@ -3365,6 +4014,25 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::list_locations][super::super::client::CmekService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3455,6 +4123,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::get_location][super::super::client::CmekService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3500,6 +4183,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::set_iam_policy][super::super::client::CmekService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3567,6 +4265,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::get_iam_policy][super::super::client::CmekService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3623,6 +4336,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::test_iam_permissions][super::super::client::CmekService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3686,6 +4414,25 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::list_operations][super::super::client::CmekService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3778,6 +4525,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::get_operation][super::super::client::CmekService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3826,6 +4588,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::delete_operation][super::super::client::CmekService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3874,6 +4651,21 @@ pub mod cmek_service {
     }
 
     /// The request builder for [CmekService::cancel_operation][super::super::client::CmekService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::cmek_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3977,6 +4769,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::create_content][super::super::client::ContentService::create_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::CreateContent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateContent(RequestBuilder<crate::model::CreateContentRequest>);
 
@@ -4041,6 +4848,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::update_content][super::super::client::ContentService::update_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::UpdateContent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateContent(RequestBuilder<crate::model::UpdateContentRequest>);
 
@@ -4108,6 +4930,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::delete_content][super::super::client::ContentService::delete_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::DeleteContent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteContent(RequestBuilder<crate::model::DeleteContentRequest>);
 
@@ -4155,6 +4992,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::get_content][super::super::client::ContentService::get_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::GetContent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetContent(RequestBuilder<crate::model::GetContentRequest>);
 
@@ -4211,6 +5063,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::get_iam_policy][super::super::client::ContentService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4267,6 +5134,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::set_iam_policy][super::super::client::ContentService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4334,6 +5216,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::test_iam_permissions][super::super::client::ContentService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4397,6 +5294,25 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::list_content][super::super::client::ContentService::list_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::ListContent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListContent(RequestBuilder<crate::model::ListContentRequest>);
 
@@ -4486,6 +5402,25 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::list_locations][super::super::client::ContentService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4576,6 +5511,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::get_location][super::super::client::ContentService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4621,6 +5571,25 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::list_operations][super::super::client::ContentService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4713,6 +5682,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::get_operation][super::super::client::ContentService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4761,6 +5745,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::delete_operation][super::super::client::ContentService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4809,6 +5808,21 @@ pub mod content_service {
     }
 
     /// The request builder for [ContentService::cancel_operation][super::super::client::ContentService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::content_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -4912,6 +5926,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::create_data_taxonomy][super::super::client::DataTaxonomyService::create_data_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::CreateDataTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataTaxonomy(RequestBuilder<crate::model::CreateDataTaxonomyRequest>);
 
@@ -5027,6 +6057,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::update_data_taxonomy][super::super::client::DataTaxonomyService::update_data_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::UpdateDataTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataTaxonomy(RequestBuilder<crate::model::UpdateDataTaxonomyRequest>);
 
@@ -5137,6 +6183,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::delete_data_taxonomy][super::super::client::DataTaxonomyService::delete_data_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::DeleteDataTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataTaxonomy(RequestBuilder<crate::model::DeleteDataTaxonomyRequest>);
 
@@ -5233,6 +6295,25 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::list_data_taxonomies][super::super::client::DataTaxonomyService::list_data_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::ListDataTaxonomies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataTaxonomies(RequestBuilder<crate::model::ListDataTaxonomiesRequest>);
 
@@ -5333,6 +6414,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::get_data_taxonomy][super::super::client::DataTaxonomyService::get_data_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::GetDataTaxonomy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataTaxonomy(RequestBuilder<crate::model::GetDataTaxonomyRequest>);
 
@@ -5380,6 +6476,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::create_data_attribute_binding][super::super::client::DataTaxonomyService::create_data_attribute_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::CreateDataAttributeBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataAttributeBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataAttributeBinding(
         RequestBuilder<crate::model::CreateDataAttributeBindingRequest>,
@@ -5500,6 +6612,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::update_data_attribute_binding][super::super::client::DataTaxonomyService::update_data_attribute_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::UpdateDataAttributeBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataAttributeBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataAttributeBinding(
         RequestBuilder<crate::model::UpdateDataAttributeBindingRequest>,
@@ -5615,6 +6743,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::delete_data_attribute_binding][super::super::client::DataTaxonomyService::delete_data_attribute_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::DeleteDataAttributeBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataAttributeBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataAttributeBinding(
         RequestBuilder<crate::model::DeleteDataAttributeBindingRequest>,
@@ -5715,6 +6859,25 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::list_data_attribute_bindings][super::super::client::DataTaxonomyService::list_data_attribute_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::ListDataAttributeBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataAttributeBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataAttributeBindings(
         RequestBuilder<crate::model::ListDataAttributeBindingsRequest>,
@@ -5819,6 +6982,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::get_data_attribute_binding][super::super::client::DataTaxonomyService::get_data_attribute_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::GetDataAttributeBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataAttributeBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataAttributeBinding(
         RequestBuilder<crate::model::GetDataAttributeBindingRequest>,
@@ -5871,6 +7049,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::create_data_attribute][super::super::client::DataTaxonomyService::create_data_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::CreateDataAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataAttribute(RequestBuilder<crate::model::CreateDataAttributeRequest>);
 
@@ -5987,6 +7181,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::update_data_attribute][super::super::client::DataTaxonomyService::update_data_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::UpdateDataAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataAttribute(RequestBuilder<crate::model::UpdateDataAttributeRequest>);
 
@@ -6098,6 +7308,22 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::delete_data_attribute][super::super::client::DataTaxonomyService::delete_data_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::DeleteDataAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataAttribute(RequestBuilder<crate::model::DeleteDataAttributeRequest>);
 
@@ -6194,6 +7420,25 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::list_data_attributes][super::super::client::DataTaxonomyService::list_data_attributes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::ListDataAttributes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataAttributes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataAttributes(RequestBuilder<crate::model::ListDataAttributesRequest>);
 
@@ -6294,6 +7539,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::get_data_attribute][super::super::client::DataTaxonomyService::get_data_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::GetDataAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataAttribute(RequestBuilder<crate::model::GetDataAttributeRequest>);
 
@@ -6344,6 +7604,25 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::list_locations][super::super::client::DataTaxonomyService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -6434,6 +7713,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::get_location][super::super::client::DataTaxonomyService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -6479,6 +7773,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::set_iam_policy][super::super::client::DataTaxonomyService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -6546,6 +7855,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::get_iam_policy][super::super::client::DataTaxonomyService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -6602,6 +7926,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::test_iam_permissions][super::super::client::DataTaxonomyService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -6665,6 +8004,25 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::list_operations][super::super::client::DataTaxonomyService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6757,6 +8115,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::get_operation][super::super::client::DataTaxonomyService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6805,6 +8178,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::delete_operation][super::super::client::DataTaxonomyService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -6853,6 +8241,21 @@ pub mod data_taxonomy_service {
     }
 
     /// The request builder for [DataTaxonomyService::cancel_operation][super::super::client::DataTaxonomyService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_taxonomy_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -6956,6 +8359,22 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::create_data_scan][super::super::client::DataScanService::create_data_scan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::CreateDataScan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataScan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataScan(RequestBuilder<crate::model::CreateDataScanRequest>);
 
@@ -7066,6 +8485,22 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::update_data_scan][super::super::client::DataScanService::update_data_scan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::UpdateDataScan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataScan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataScan(RequestBuilder<crate::model::UpdateDataScanRequest>);
 
@@ -7169,6 +8604,22 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::delete_data_scan][super::super::client::DataScanService::delete_data_scan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::DeleteDataScan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataScan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataScan(RequestBuilder<crate::model::DeleteDataScanRequest>);
 
@@ -7262,6 +8713,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::get_data_scan][super::super::client::DataScanService::get_data_scan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::GetDataScan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataScan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataScan(RequestBuilder<crate::model::GetDataScanRequest>);
 
@@ -7318,6 +8784,25 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::list_data_scans][super::super::client::DataScanService::list_data_scans] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::ListDataScans;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataScans {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataScans(RequestBuilder<crate::model::ListDataScansRequest>);
 
@@ -7413,6 +8898,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::run_data_scan][super::super::client::DataScanService::run_data_scan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::RunDataScan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunDataScan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunDataScan(RequestBuilder<crate::model::RunDataScanRequest>);
 
@@ -7460,6 +8960,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::get_data_scan_job][super::super::client::DataScanService::get_data_scan_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::GetDataScanJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataScanJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataScanJob(RequestBuilder<crate::model::GetDataScanJobRequest>);
 
@@ -7516,6 +9031,25 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::list_data_scan_jobs][super::super::client::DataScanService::list_data_scan_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::ListDataScanJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataScanJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataScanJobs(RequestBuilder<crate::model::ListDataScanJobsRequest>);
 
@@ -7608,6 +9142,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::generate_data_quality_rules][super::super::client::DataScanService::generate_data_quality_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::GenerateDataQualityRules;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateDataQualityRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateDataQualityRules(
         RequestBuilder<crate::model::GenerateDataQualityRulesRequest>,
@@ -7660,6 +9209,25 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::list_locations][super::super::client::DataScanService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -7750,6 +9318,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::get_location][super::super::client::DataScanService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -7795,6 +9378,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::set_iam_policy][super::super::client::DataScanService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -7862,6 +9460,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::get_iam_policy][super::super::client::DataScanService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -7918,6 +9531,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::test_iam_permissions][super::super::client::DataScanService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -7981,6 +9609,25 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::list_operations][super::super::client::DataScanService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -8073,6 +9720,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::get_operation][super::super::client::DataScanService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -8121,6 +9783,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::delete_operation][super::super::client::DataScanService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -8169,6 +9846,21 @@ pub mod data_scan_service {
     }
 
     /// The request builder for [DataScanService::cancel_operation][super::super::client::DataScanService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::data_scan_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -8272,6 +9964,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::create_entity][super::super::client::MetadataService::create_entity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::CreateEntity;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntity(RequestBuilder<crate::model::CreateEntityRequest>);
 
@@ -8336,6 +10043,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::update_entity][super::super::client::MetadataService::update_entity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::UpdateEntity;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntity(RequestBuilder<crate::model::UpdateEntityRequest>);
 
@@ -8392,6 +10114,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::delete_entity][super::super::client::MetadataService::delete_entity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::DeleteEntity;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntity(RequestBuilder<crate::model::DeleteEntityRequest>);
 
@@ -8447,6 +10184,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::get_entity][super::super::client::MetadataService::get_entity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::GetEntity;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntity(RequestBuilder<crate::model::GetEntityRequest>);
 
@@ -8503,6 +10255,25 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::list_entities][super::super::client::MetadataService::list_entities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::ListEntities;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntities(RequestBuilder<crate::model::ListEntitiesRequest>);
 
@@ -8603,6 +10374,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::create_partition][super::super::client::MetadataService::create_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::CreatePartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePartition(RequestBuilder<crate::model::CreatePartitionRequest>);
 
@@ -8667,6 +10453,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::delete_partition][super::super::client::MetadataService::delete_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::DeletePartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePartition(RequestBuilder<crate::model::DeletePartitionRequest>);
 
@@ -8721,6 +10522,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::get_partition][super::super::client::MetadataService::get_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::GetPartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPartition(RequestBuilder<crate::model::GetPartitionRequest>);
 
@@ -8768,6 +10584,25 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::list_partitions][super::super::client::MetadataService::list_partitions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::ListPartitions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPartitions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPartitions(RequestBuilder<crate::model::ListPartitionsRequest>);
 
@@ -8857,6 +10692,25 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::list_locations][super::super::client::MetadataService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -8947,6 +10801,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::get_location][super::super::client::MetadataService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -8992,6 +10861,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::set_iam_policy][super::super::client::MetadataService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -9059,6 +10943,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::get_iam_policy][super::super::client::MetadataService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -9115,6 +11014,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::test_iam_permissions][super::super::client::MetadataService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -9178,6 +11092,25 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::list_operations][super::super::client::MetadataService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -9270,6 +11203,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::get_operation][super::super::client::MetadataService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -9318,6 +11266,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::delete_operation][super::super::client::MetadataService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -9366,6 +11329,21 @@ pub mod metadata_service {
     }
 
     /// The request builder for [MetadataService::cancel_operation][super::super::client::MetadataService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::metadata_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -9469,6 +11447,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::create_lake][super::super::client::DataplexService::create_lake] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CreateLake;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLake {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLake(RequestBuilder<crate::model::CreateLakeRequest>);
 
@@ -9576,6 +11570,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::update_lake][super::super::client::DataplexService::update_lake] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::UpdateLake;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateLake {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateLake(RequestBuilder<crate::model::UpdateLakeRequest>);
 
@@ -9678,6 +11688,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::delete_lake][super::super::client::DataplexService::delete_lake] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::DeleteLake;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLake {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLake(RequestBuilder<crate::model::DeleteLakeRequest>);
 
@@ -9765,6 +11791,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_lakes][super::super::client::DataplexService::list_lakes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListLakes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLakes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLakes(RequestBuilder<crate::model::ListLakesRequest>);
 
@@ -9860,6 +11905,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_lake][super::super::client::DataplexService::get_lake] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetLake;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLake {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLake(RequestBuilder<crate::model::GetLakeRequest>);
 
@@ -9907,6 +11967,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_lake_actions][super::super::client::DataplexService::list_lake_actions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListLakeActions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLakeActions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLakeActions(RequestBuilder<crate::model::ListLakeActionsRequest>);
 
@@ -9990,6 +12069,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::create_zone][super::super::client::DataplexService::create_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CreateZone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateZone(RequestBuilder<crate::model::CreateZoneRequest>);
 
@@ -10097,6 +12192,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::update_zone][super::super::client::DataplexService::update_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::UpdateZone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateZone(RequestBuilder<crate::model::UpdateZoneRequest>);
 
@@ -10199,6 +12310,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::delete_zone][super::super::client::DataplexService::delete_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::DeleteZone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteZone(RequestBuilder<crate::model::DeleteZoneRequest>);
 
@@ -10286,6 +12413,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_zones][super::super::client::DataplexService::list_zones] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListZones;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListZones {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListZones(RequestBuilder<crate::model::ListZonesRequest>);
 
@@ -10381,6 +12527,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_zone][super::super::client::DataplexService::get_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetZone;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetZone(RequestBuilder<crate::model::GetZoneRequest>);
 
@@ -10428,6 +12589,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_zone_actions][super::super::client::DataplexService::list_zone_actions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListZoneActions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListZoneActions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListZoneActions(RequestBuilder<crate::model::ListZoneActionsRequest>);
 
@@ -10511,6 +12691,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::create_asset][super::super::client::DataplexService::create_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CreateAsset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
 
@@ -10621,6 +12817,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::update_asset][super::super::client::DataplexService::update_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::UpdateAsset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
 
@@ -10726,6 +12938,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::delete_asset][super::super::client::DataplexService::delete_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::DeleteAsset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
@@ -10813,6 +13041,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_assets][super::super::client::DataplexService::list_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListAssets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
@@ -10908,6 +13155,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_asset][super::super::client::DataplexService::get_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetAsset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
@@ -10955,6 +13217,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_asset_actions][super::super::client::DataplexService::list_asset_actions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListAssetActions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssetActions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssetActions(RequestBuilder<crate::model::ListAssetActionsRequest>);
 
@@ -11041,6 +13322,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::create_task][super::super::client::DataplexService::create_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CreateTask;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
@@ -11148,6 +13445,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::update_task][super::super::client::DataplexService::update_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::UpdateTask;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTask(RequestBuilder<crate::model::UpdateTaskRequest>);
 
@@ -11250,6 +13563,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::delete_task][super::super::client::DataplexService::delete_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::DeleteTask;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
@@ -11337,6 +13666,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_tasks][super::super::client::DataplexService::list_tasks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListTasks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTasks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
@@ -11432,6 +13780,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_task][super::super::client::DataplexService::get_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetTask;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
@@ -11479,6 +13842,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_jobs][super::super::client::DataplexService::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -11562,6 +13944,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::run_task][super::super::client::DataplexService::run_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::RunTask;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
@@ -11631,6 +14028,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_job][super::super::client::DataplexService::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -11678,6 +14090,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::cancel_job][super::super::client::DataplexService::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CancelJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
@@ -11725,6 +14152,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::create_environment][super::super::client::DataplexService::create_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CreateEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
@@ -11840,6 +14283,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::update_environment][super::super::client::DataplexService::update_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::UpdateEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
@@ -11950,6 +14409,22 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::delete_environment][super::super::client::DataplexService::delete_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::DeleteEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataplex_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
@@ -12040,6 +14515,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_environments][super::super::client::DataplexService::list_environments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListEnvironments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEnvironments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
@@ -12138,6 +14632,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_environment][super::super::client::DataplexService::get_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
@@ -12185,6 +14694,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_sessions][super::super::client::DataplexService::list_sessions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListSessions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSessions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
@@ -12274,6 +14802,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_locations][super::super::client::DataplexService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -12364,6 +14911,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_location][super::super::client::DataplexService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -12409,6 +14971,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::set_iam_policy][super::super::client::DataplexService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -12476,6 +15053,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_iam_policy][super::super::client::DataplexService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -12532,6 +15124,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::test_iam_permissions][super::super::client::DataplexService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -12595,6 +15202,25 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::list_operations][super::super::client::DataplexService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -12687,6 +15313,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::get_operation][super::super::client::DataplexService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -12735,6 +15376,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::delete_operation][super::super::client::DataplexService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -12783,6 +15439,21 @@ pub mod dataplex_service {
     }
 
     /// The request builder for [DataplexService::cancel_operation][super::super::client::DataplexService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataplex_v1::builder;
+    /// use builder::dataplex_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

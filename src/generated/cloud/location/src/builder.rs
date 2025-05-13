@@ -69,6 +69,25 @@ pub mod locations {
     }
 
     /// The request builder for [Locations::list_locations][super::super::client::Locations::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_location::builder;
+    /// use builder::locations::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
 
@@ -156,6 +175,21 @@ pub mod locations {
     }
 
     /// The request builder for [Locations::get_location][super::super::client::Locations::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_location::builder;
+    /// use builder::locations::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
 

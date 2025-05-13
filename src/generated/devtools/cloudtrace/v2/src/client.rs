@@ -126,19 +126,12 @@ impl TraceService {
 
     /// Batch writes new spans to new or existing traces. You cannot update
     /// existing spans.
-    pub fn batch_write_spans(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::trace_service::BatchWriteSpans {
+    pub fn batch_write_spans(&self) -> super::builder::trace_service::BatchWriteSpans {
         super::builder::trace_service::BatchWriteSpans::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new span.
-    pub fn create_span(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::trace_service::CreateSpan {
-        super::builder::trace_service::CreateSpan::new(self.inner.clone()).set_name(name.into())
+    pub fn create_span(&self) -> super::builder::trace_service::CreateSpan {
+        super::builder::trace_service::CreateSpan::new(self.inner.clone())
     }
 }

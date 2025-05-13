@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use auth::credentials::{
-    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, create_api_key_credentials,
+    Builder as AccessTokenCredentialBuilder,
+    api_key_credentials::Builder as ApiKeyCredentialsBuilder,
 };
 use gax::error::Error;
 use language::client::LanguageService;
@@ -33,7 +34,8 @@ pub async fn service_account() -> Result<()> {
     // Load the ADC json for the principal under test, in this case, a
     // service account.
     let response = client
-        .access_secret_version(format!(
+        .access_secret_version()
+        .set_name(format!(
             "projects/{}/secrets/test-sa-creds-json/versions/latest",
             project
         ))
@@ -63,7 +65,8 @@ pub async fn service_account() -> Result<()> {
 
     // Access a secret, which only this principal has permissions to do.
     let response = client
-        .access_secret_version(format!(
+        .access_secret_version()
+        .set_name(format!(
             "projects/{}/secrets/test-sa-creds-secret/versions/latest",
             project
         ))
@@ -87,7 +90,8 @@ pub async fn api_key() -> Result<()> {
 
     // Load the API key under test.
     let response = client
-        .access_secret_version(format!(
+        .access_secret_version()
+        .set_name(format!(
             "projects/{}/secrets/test-api-key/versions/latest",
             project
         ))
@@ -100,9 +104,7 @@ pub async fn api_key() -> Result<()> {
     let api_key = std::str::from_utf8(&api_key).unwrap();
 
     // Create credentials using the API key.
-    let creds = create_api_key_credentials(api_key, ApiKeyOptions::default())
-        .await
-        .map_err(Error::authentication)?;
+    let creds = ApiKeyCredentialsBuilder::new(api_key).build();
 
     // Construct a Natural Language client using the credentials.
     let client = LanguageService::builder()

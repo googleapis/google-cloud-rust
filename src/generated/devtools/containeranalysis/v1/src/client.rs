@@ -140,12 +140,8 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::container_analysis::SetIamPolicy {
         super::builder::container_analysis::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a note or an occurrence resource.
@@ -156,12 +152,8 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::container_analysis::GetIamPolicy {
         super::builder::container_analysis::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the permissions that a caller has on the specified note or
@@ -171,31 +163,21 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::container_analysis::TestIamPermissions {
         super::builder::container_analysis::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets a summary of the number and severity of occurrences.
     pub fn get_vulnerability_occurrences_summary(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::container_analysis::GetVulnerabilityOccurrencesSummary {
         super::builder::container_analysis::GetVulnerabilityOccurrencesSummary::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Generates an SBOM for the given resource.
-    pub fn export_sbom(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::ExportSBOM {
+    pub fn export_sbom(&self) -> super::builder::container_analysis::ExportSBOM {
         super::builder::container_analysis::ExportSBOM::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

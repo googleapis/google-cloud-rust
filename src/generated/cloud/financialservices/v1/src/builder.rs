@@ -67,6 +67,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_instances][super::super::client::Aml::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -160,6 +179,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_instance][super::super::client::Aml::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -205,6 +239,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::create_instance][super::super::client::Aml::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -313,6 +363,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::update_instance][super::super::client::Aml::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -414,6 +480,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_instance][super::super::client::Aml::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -505,6 +587,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::import_registered_parties][super::super::client::Aml::import_registered_parties] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ImportRegisteredParties;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportRegisteredParties {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportRegisteredParties(
         RequestBuilder<crate::model::ImportRegisteredPartiesRequest>,
@@ -634,6 +732,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::export_registered_parties][super::super::client::Aml::export_registered_parties] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportRegisteredParties;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportRegisteredParties {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRegisteredParties(
         RequestBuilder<crate::model::ExportRegisteredPartiesRequest>,
@@ -746,6 +860,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_datasets][super::super::client::Aml::list_datasets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListDatasets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatasets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
@@ -839,6 +972,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_dataset][super::super::client::Aml::get_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
@@ -884,6 +1032,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::create_dataset][super::super::client::Aml::create_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
@@ -992,6 +1156,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::update_dataset][super::super::client::Aml::update_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateDatasetRequest>);
 
@@ -1093,6 +1273,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_dataset][super::super::client::Aml::delete_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteDataset;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
@@ -1184,6 +1380,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_models][super::super::client::Aml::list_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListModels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
@@ -1277,6 +1492,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_model][super::super::client::Aml::get_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
@@ -1322,6 +1552,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::create_model][super::super::client::Aml::create_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
@@ -1430,6 +1676,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::update_model][super::super::client::Aml::update_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateModel(RequestBuilder<crate::model::UpdateModelRequest>);
 
@@ -1531,6 +1793,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::export_model_metadata][super::super::client::Aml::export_model_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportModelMetadata;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportModelMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportModelMetadata(RequestBuilder<crate::model::ExportModelMetadataRequest>);
 
@@ -1633,6 +1911,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_model][super::super::client::Aml::delete_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
@@ -1724,6 +2018,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_engine_configs][super::super::client::Aml::list_engine_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListEngineConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEngineConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEngineConfigs(RequestBuilder<crate::model::ListEngineConfigsRequest>);
 
@@ -1820,6 +2133,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_engine_config][super::super::client::Aml::get_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEngineConfig(RequestBuilder<crate::model::GetEngineConfigRequest>);
 
@@ -1865,6 +2193,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::create_engine_config][super::super::client::Aml::create_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEngineConfig(RequestBuilder<crate::model::CreateEngineConfigRequest>);
 
@@ -1978,6 +2322,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::update_engine_config][super::super::client::Aml::update_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEngineConfig(RequestBuilder<crate::model::UpdateEngineConfigRequest>);
 
@@ -2084,6 +2444,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportEngineConfigMetadata;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportEngineConfigMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportEngineConfigMetadata(
         RequestBuilder<crate::model::ExportEngineConfigMetadataRequest>,
@@ -2190,6 +2566,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_engine_config][super::super::client::Aml::delete_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEngineConfig(RequestBuilder<crate::model::DeleteEngineConfigRequest>);
 
@@ -2284,6 +2676,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_engine_version][super::super::client::Aml::get_engine_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetEngineVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEngineVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEngineVersion(RequestBuilder<crate::model::GetEngineVersionRequest>);
 
@@ -2332,6 +2739,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_engine_versions][super::super::client::Aml::list_engine_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListEngineVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEngineVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEngineVersions(RequestBuilder<crate::model::ListEngineVersionsRequest>);
 
@@ -2430,6 +2856,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_prediction_results][super::super::client::Aml::list_prediction_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListPredictionResults;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPredictionResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPredictionResults(RequestBuilder<crate::model::ListPredictionResultsRequest>);
 
@@ -2528,6 +2973,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_prediction_result][super::super::client::Aml::get_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetPredictionResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPredictionResult(RequestBuilder<crate::model::GetPredictionResultRequest>);
 
@@ -2576,6 +3036,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::create_prediction_result][super::super::client::Aml::create_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreatePredictionResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePredictionResult(RequestBuilder<crate::model::CreatePredictionResultRequest>);
 
@@ -2692,6 +3168,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::update_prediction_result][super::super::client::Aml::update_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdatePredictionResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePredictionResult(RequestBuilder<crate::model::UpdatePredictionResultRequest>);
 
@@ -2801,6 +3293,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportPredictionResultMetadata;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportPredictionResultMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportPredictionResultMetadata(
         RequestBuilder<crate::model::ExportPredictionResultMetadataRequest>,
@@ -2907,6 +3415,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_prediction_result][super::super::client::Aml::delete_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeletePredictionResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePredictionResult(RequestBuilder<crate::model::DeletePredictionResultRequest>);
 
@@ -3001,6 +3525,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_backtest_results][super::super::client::Aml::list_backtest_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListBacktestResults;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBacktestResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBacktestResults(RequestBuilder<crate::model::ListBacktestResultsRequest>);
 
@@ -3099,6 +3642,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_backtest_result][super::super::client::Aml::get_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBacktestResult(RequestBuilder<crate::model::GetBacktestResultRequest>);
 
@@ -3147,6 +3705,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::create_backtest_result][super::super::client::Aml::create_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBacktestResult(RequestBuilder<crate::model::CreateBacktestResultRequest>);
 
@@ -3261,6 +3835,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::update_backtest_result][super::super::client::Aml::update_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBacktestResult(RequestBuilder<crate::model::UpdateBacktestResultRequest>);
 
@@ -3368,6 +3958,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportBacktestResultMetadata;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportBacktestResultMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportBacktestResultMetadata(
         RequestBuilder<crate::model::ExportBacktestResultMetadataRequest>,
@@ -3474,6 +4080,22 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_backtest_result][super::super::client::Aml::delete_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_financialservices_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBacktestResult(RequestBuilder<crate::model::DeleteBacktestResultRequest>);
 
@@ -3568,6 +4190,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_locations][super::super::client::Aml::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3656,6 +4297,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_location][super::super::client::Aml::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3699,6 +4355,25 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::list_operations][super::super::client::Aml::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3789,6 +4464,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::get_operation][super::super::client::Aml::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3835,6 +4525,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::delete_operation][super::super::client::Aml::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3881,6 +4586,21 @@ pub mod aml {
     }
 
     /// The request builder for [Aml::cancel_operation][super::super::client::Aml::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

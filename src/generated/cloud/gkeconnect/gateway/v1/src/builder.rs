@@ -69,6 +69,21 @@ pub mod gateway_control {
     }
 
     /// The request builder for [GatewayControl::generate_credentials][super::super::client::GatewayControl::generate_credentials] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkeconnect_gateway_v1::builder;
+    /// use builder::gateway_control::GenerateCredentials;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateCredentials {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateCredentials(RequestBuilder<crate::model::GenerateCredentialsRequest>);
 

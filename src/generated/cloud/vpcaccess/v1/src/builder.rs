@@ -69,6 +69,22 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::create_connector][super::super::client::VpcAccessService::create_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::CreateConnector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_vpcaccess_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
 
@@ -173,6 +189,21 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::get_connector][super::super::client::VpcAccessService::get_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::GetConnector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
@@ -220,6 +251,25 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::list_connectors][super::super::client::VpcAccessService::list_connectors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::ListConnectors;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
@@ -303,6 +353,22 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::delete_connector][super::super::client::VpcAccessService::delete_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::DeleteConnector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_vpcaccess_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
 
@@ -390,6 +456,25 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::list_locations][super::super::client::VpcAccessService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -480,6 +565,25 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::list_operations][super::super::client::VpcAccessService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -572,6 +676,21 @@ pub mod vpc_access_service {
     }
 
     /// The request builder for [VpcAccessService::get_operation][super::super::client::VpcAccessService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

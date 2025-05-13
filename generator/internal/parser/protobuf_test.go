@@ -443,14 +443,17 @@ func TestProtobuf_Comments(t *testing.T) {
 				InputTypeID:   ".test.Request",
 				OutputTypeID:  ".test.Response",
 				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "POST",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{}},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
+					BodyFieldPath: "*",
 				},
 			},
 		},
@@ -824,13 +827,17 @@ func TestProtobuf_Service(t *testing.T) {
 				InputTypeID:   ".test.GetFooRequest",
 				OutputTypeID:  ".test.Foo",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("name"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "",
+					BodyFieldPath: "",
 				},
 			},
 			{
@@ -840,14 +847,18 @@ func TestProtobuf_Service(t *testing.T) {
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
 				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "POST",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"foo_id": true},
+						},
 					},
-					QueryParameters: map[string]bool{"foo_id": true},
-					BodyFieldPath:   "foo",
+					BodyFieldPath: "foo",
 				},
 			},
 			{
@@ -857,12 +868,16 @@ func TestProtobuf_Service(t *testing.T) {
 				InputTypeID:   ".test.DeleteFooRequest",
 				OutputTypeID:  ".google.protobuf.Empty",
 				PathInfo: &api.PathInfo{
-					Verb: "DELETE",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "DELETE",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("name"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
 				},
 				ReturnsEmpty: true,
 			},
@@ -873,10 +888,14 @@ func TestProtobuf_Service(t *testing.T) {
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
 				PathInfo: &api.PathInfo{
-					Verb:            "POST",
-					PathTemplate:    []api.PathSegment{},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
+					Bindings: []*api.PathBinding{
+						{
+							Verb:            "POST",
+							PathTemplate:    []api.PathSegment{},
+							QueryParameters: map[string]bool{},
+						},
+					},
+					BodyFieldPath: "*",
 				},
 				ClientSideStreaming: true,
 			},
@@ -887,14 +906,18 @@ func TestProtobuf_Service(t *testing.T) {
 				InputTypeID:   ".test.GetFooRequest",
 				OutputTypeID:  ".test.Foo",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
-						api.NewVerbPathSegment("Download"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("name"),
+								api.NewVerbPathSegment("Download"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "",
+					BodyFieldPath: "",
 				},
 				ServerSideStreaming: true,
 			},
@@ -905,10 +928,14 @@ func TestProtobuf_Service(t *testing.T) {
 				InputTypeID:   ".test.Foo",
 				OutputTypeID:  ".test.Foo",
 				PathInfo: &api.PathInfo{
-					Verb:            "POST",
-					PathTemplate:    []api.PathSegment{},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
+					Bindings: []*api.PathBinding{
+						{
+							Verb:            "POST",
+							PathTemplate:    []api.PathSegment{},
+							QueryParameters: map[string]bool{},
+						},
+					},
+					BodyFieldPath: "*",
 				},
 				ClientSideStreaming: true,
 				ServerSideStreaming: true,
@@ -937,14 +964,18 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
 				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "POST",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"foo_id": true},
+						},
 					},
-					QueryParameters: map[string]bool{"foo_id": true},
-					BodyFieldPath:   "bar",
+					BodyFieldPath: "bar",
 				},
 			},
 			{
@@ -954,14 +985,18 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 				InputTypeID:   ".test.AddBarRequest",
 				OutputTypeID:  ".test.Bar",
 				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewVerbPathSegment("addFoo"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "POST",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewVerbPathSegment("addFoo"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
+					BodyFieldPath: "*",
 				},
 			},
 		},
@@ -1035,17 +1070,73 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooRequest",
 				OutputTypeID: ".test.ListFooResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"page_size": true, "page_token": true},
+						},
 					},
-					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 				},
 				Pagination: &api.Field{
 					Name:     "page_token",
 					ID:       ".test.ListFooRequest.page_token",
+					Typez:    9,
+					JSONName: "pageToken",
+					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
+				},
+			},
+			{
+				Name:         "ListFooWithMaxResultsInt32",
+				ID:           ".test.TestService.ListFooWithMaxResultsInt32",
+				InputTypeID:  ".test.ListFooMaxResultsInt32Request",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+						},
+					},
+				},
+				Pagination: &api.Field{
+					Name:     "page_token",
+					ID:       ".test.ListFooMaxResultsInt32Request.page_token",
+					Typez:    9,
+					JSONName: "pageToken",
+					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
+				},
+			},
+			{
+				Name:         "ListFooWithMaxResultsUInt32",
+				ID:           ".test.TestService.ListFooWithMaxResultsUInt32",
+				InputTypeID:  ".test.ListFooMaxResultsUInt32Request",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+						},
+					},
+				},
+				Pagination: &api.Field{
+					Name:     "page_token",
+					ID:       ".test.ListFooMaxResultsUInt32Request.page_token",
 					Typez:    9,
 					JSONName: "pageToken",
 					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
@@ -1057,13 +1148,17 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooRequest",
 				OutputTypeID: ".test.ListFooMissingNextPageTokenResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"page_size": true, "page_token": true},
+						},
 					},
-					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 				},
 			},
 			{
@@ -1072,13 +1167,17 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooMissingPageSizeRequest",
 				OutputTypeID: ".test.ListFooResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"page_token": true},
+						},
 					},
-					QueryParameters: map[string]bool{"page_token": true},
 				},
 			},
 			{
@@ -1087,13 +1186,17 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooMissingPageTokenRequest",
 				OutputTypeID: ".test.ListFooResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"page_size": true},
+						},
 					},
-					QueryParameters: map[string]bool{"page_size": true},
 				},
 			},
 			{
@@ -1102,13 +1205,17 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooRequest",
 				OutputTypeID: ".test.ListFooMissingRepeatedItemResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"page_size": true, "page_token": true},
+						},
 					},
-					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 				},
 			},
 		},
@@ -1217,14 +1324,18 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".google.longrunning.Operation",
 				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "POST",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "foo",
+					BodyFieldPath: "foo",
 				},
 				OperationInfo: &api.OperationInfo{
 					MetadataTypeID: ".google.protobuf.Empty",
@@ -1238,14 +1349,18 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".google.longrunning.Operation",
 				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "POST",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "foo",
+					BodyFieldPath: "foo",
 				},
 				OperationInfo: &api.OperationInfo{
 					MetadataTypeID: ".test.CreateMetadata",
@@ -1259,13 +1374,17 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 				InputTypeID:   ".google.longrunning.GetOperationRequest",
 				OutputTypeID:  ".google.longrunning.Operation",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v2"),
-						api.NewFieldPathPathSegment("name"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v2"),
+								api.NewFieldPathPathSegment("name"),
+							},
+							QueryParameters: map[string]bool{},
+						},
 					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
+					BodyFieldPath: "*",
 				},
 			},
 		},
@@ -1453,10 +1572,14 @@ func TestProtobuf_Deprecated(t *testing.T) {
 				InputTypeID:  ".test.Request",
 				OutputTypeID: ".test.Response",
 				PathInfo: &api.PathInfo{
-					Verb:            "POST",
-					PathTemplate:    []api.PathSegment{},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
+					Bindings: []*api.PathBinding{
+						{
+							Verb:            "POST",
+							PathTemplate:    []api.PathSegment{},
+							QueryParameters: map[string]bool{},
+						},
+					},
+					BodyFieldPath: "*",
 				},
 			},
 		},

@@ -123,120 +123,70 @@ impl WebSecurityScanner {
     }
 
     /// Creates a new ScanConfig.
-    pub fn create_scan_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::CreateScanConfig {
+    pub fn create_scan_config(&self) -> super::builder::web_security_scanner::CreateScanConfig {
         super::builder::web_security_scanner::CreateScanConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an existing ScanConfig and its child resources.
-    pub fn delete_scan_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::DeleteScanConfig {
+    pub fn delete_scan_config(&self) -> super::builder::web_security_scanner::DeleteScanConfig {
         super::builder::web_security_scanner::DeleteScanConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a ScanConfig.
-    pub fn get_scan_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::GetScanConfig {
+    pub fn get_scan_config(&self) -> super::builder::web_security_scanner::GetScanConfig {
         super::builder::web_security_scanner::GetScanConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ScanConfigs under a given project.
-    pub fn list_scan_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::ListScanConfigs {
+    pub fn list_scan_configs(&self) -> super::builder::web_security_scanner::ListScanConfigs {
         super::builder::web_security_scanner::ListScanConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a ScanConfig. This method support partial update of a ScanConfig.
-    pub fn update_scan_config(
-        &self,
-        scan_config: impl Into<crate::model::ScanConfig>,
-    ) -> super::builder::web_security_scanner::UpdateScanConfig {
+    pub fn update_scan_config(&self) -> super::builder::web_security_scanner::UpdateScanConfig {
         super::builder::web_security_scanner::UpdateScanConfig::new(self.inner.clone())
-            .set_scan_config(scan_config.into())
     }
 
     /// Start a ScanRun according to the given ScanConfig.
-    pub fn start_scan_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::StartScanRun {
+    pub fn start_scan_run(&self) -> super::builder::web_security_scanner::StartScanRun {
         super::builder::web_security_scanner::StartScanRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a ScanRun.
-    pub fn get_scan_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::GetScanRun {
+    pub fn get_scan_run(&self) -> super::builder::web_security_scanner::GetScanRun {
         super::builder::web_security_scanner::GetScanRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ScanRuns under a given ScanConfig, in descending order of ScanRun
     /// stop time.
-    pub fn list_scan_runs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::ListScanRuns {
+    pub fn list_scan_runs(&self) -> super::builder::web_security_scanner::ListScanRuns {
         super::builder::web_security_scanner::ListScanRuns::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Stops a ScanRun. The stopped ScanRun is returned.
-    pub fn stop_scan_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::StopScanRun {
+    pub fn stop_scan_run(&self) -> super::builder::web_security_scanner::StopScanRun {
         super::builder::web_security_scanner::StopScanRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List CrawledUrls under a given ScanRun.
-    pub fn list_crawled_urls(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::ListCrawledUrls {
+    pub fn list_crawled_urls(&self) -> super::builder::web_security_scanner::ListCrawledUrls {
         super::builder::web_security_scanner::ListCrawledUrls::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a Finding.
-    pub fn get_finding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::GetFinding {
+    pub fn get_finding(&self) -> super::builder::web_security_scanner::GetFinding {
         super::builder::web_security_scanner::GetFinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List Findings under a given ScanRun.
-    pub fn list_findings(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_security_scanner::ListFindings {
+    pub fn list_findings(&self) -> super::builder::web_security_scanner::ListFindings {
         super::builder::web_security_scanner::ListFindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// List all FindingTypeStats under a given ScanRun.
     pub fn list_finding_type_stats(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::web_security_scanner::ListFindingTypeStats {
         super::builder::web_security_scanner::ListFindingTypeStats::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

@@ -69,6 +69,21 @@ pub mod policy_troubleshooter {
     }
 
     /// The request builder for [PolicyTroubleshooter::troubleshoot_iam_policy][super::super::client::PolicyTroubleshooter::troubleshoot_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policytroubleshooter_iam_v3::builder;
+    /// use builder::policy_troubleshooter::TroubleshootIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TroubleshootIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TroubleshootIamPolicy(RequestBuilder<crate::model::TroubleshootIamPolicyRequest>);
 

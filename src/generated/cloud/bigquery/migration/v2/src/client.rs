@@ -123,37 +123,29 @@ impl MigrationService {
     /// Creates a migration workflow.
     pub fn create_migration_workflow(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::migration_service::CreateMigrationWorkflow {
         super::builder::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a previously created migration workflow.
     pub fn get_migration_workflow(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::migration_service::GetMigrationWorkflow {
         super::builder::migration_service::GetMigrationWorkflow::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists previously created migration workflow.
     pub fn list_migration_workflows(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::migration_service::ListMigrationWorkflows {
         super::builder::migration_service::ListMigrationWorkflows::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a migration workflow by name.
     pub fn delete_migration_workflow(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::migration_service::DeleteMigrationWorkflow {
         super::builder::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Starts a previously created migration workflow. I.e., the state transitions
@@ -162,27 +154,19 @@ impl MigrationService {
     /// RUNNING.
     pub fn start_migration_workflow(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::migration_service::StartMigrationWorkflow {
         super::builder::migration_service::StartMigrationWorkflow::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a previously created migration subtask.
-    pub fn get_migration_subtask(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::migration_service::GetMigrationSubtask {
+    pub fn get_migration_subtask(&self) -> super::builder::migration_service::GetMigrationSubtask {
         super::builder::migration_service::GetMigrationSubtask::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists previously created migration subtasks.
     pub fn list_migration_subtasks(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::migration_service::ListMigrationSubtasks {
         super::builder::migration_service::ListMigrationSubtasks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

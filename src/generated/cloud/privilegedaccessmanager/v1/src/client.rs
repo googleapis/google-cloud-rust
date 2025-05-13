@@ -144,38 +144,26 @@ impl PrivilegedAccessManager {
     /// fixed before PAM can be used on the resource.
     pub fn check_onboarding_status(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::privileged_access_manager::CheckOnboardingStatus {
         super::builder::privileged_access_manager::CheckOnboardingStatus::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists entitlements in a given project/folder/organization and location.
-    pub fn list_entitlements(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::ListEntitlements {
+    pub fn list_entitlements(&self) -> super::builder::privileged_access_manager::ListEntitlements {
         super::builder::privileged_access_manager::ListEntitlements::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// `SearchEntitlements` returns entitlements on which the caller has the
     /// specified access.
     pub fn search_entitlements(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::privileged_access_manager::SearchEntitlements {
         super::builder::privileged_access_manager::SearchEntitlements::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single entitlement.
-    pub fn get_entitlement(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::GetEntitlement {
+    pub fn get_entitlement(&self) -> super::builder::privileged_access_manager::GetEntitlement {
         super::builder::privileged_access_manager::GetEntitlement::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new entitlement in a given project/folder/organization and
@@ -192,10 +180,8 @@ impl PrivilegedAccessManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_entitlement(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::privileged_access_manager::CreateEntitlement {
         super::builder::privileged_access_manager::CreateEntitlement::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single entitlement. This method can only be called when there
@@ -213,10 +199,8 @@ impl PrivilegedAccessManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_entitlement(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::privileged_access_manager::DeleteEntitlement {
         super::builder::privileged_access_manager::DeleteEntitlement::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the entitlement specified in the request. Updated fields in the
@@ -251,70 +235,44 @@ impl PrivilegedAccessManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_entitlement(
         &self,
-        entitlement: impl Into<crate::model::Entitlement>,
     ) -> super::builder::privileged_access_manager::UpdateEntitlement {
         super::builder::privileged_access_manager::UpdateEntitlement::new(self.inner.clone())
-            .set_entitlement(entitlement.into())
     }
 
     /// Lists grants for a given entitlement.
-    pub fn list_grants(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::ListGrants {
+    pub fn list_grants(&self) -> super::builder::privileged_access_manager::ListGrants {
         super::builder::privileged_access_manager::ListGrants::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// `SearchGrants` returns grants that are related to the calling user in the
     /// specified way.
-    pub fn search_grants(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::SearchGrants {
+    pub fn search_grants(&self) -> super::builder::privileged_access_manager::SearchGrants {
         super::builder::privileged_access_manager::SearchGrants::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get details of a single grant.
-    pub fn get_grant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::GetGrant {
+    pub fn get_grant(&self) -> super::builder::privileged_access_manager::GetGrant {
         super::builder::privileged_access_manager::GetGrant::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new grant in a given project/folder/organization and
     /// location.
-    pub fn create_grant(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::CreateGrant {
+    pub fn create_grant(&self) -> super::builder::privileged_access_manager::CreateGrant {
         super::builder::privileged_access_manager::CreateGrant::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// `ApproveGrant` is used to approve a grant. This method can only be called
     /// on a grant when it's in the `APPROVAL_AWAITED` state. This operation can't
     /// be undone.
-    pub fn approve_grant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::ApproveGrant {
+    pub fn approve_grant(&self) -> super::builder::privileged_access_manager::ApproveGrant {
         super::builder::privileged_access_manager::ApproveGrant::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// `DenyGrant` is used to deny a grant. This method can only be called on a
     /// grant when it's in the `APPROVAL_AWAITED` state. This operation can't be
     /// undone.
-    pub fn deny_grant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::DenyGrant {
+    pub fn deny_grant(&self) -> super::builder::privileged_access_manager::DenyGrant {
         super::builder::privileged_access_manager::DenyGrant::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// `RevokeGrant` is used to immediately revoke access for a grant. This method
@@ -329,62 +287,38 @@ impl PrivilegedAccessManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn revoke_grant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::RevokeGrant {
+    pub fn revoke_grant(&self) -> super::builder::privileged_access_manager::RevokeGrant {
         super::builder::privileged_access_manager::RevokeGrant::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::privileged_access_manager::ListLocations {
         super::builder::privileged_access_manager::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::GetLocation {
+    pub fn get_location(&self) -> super::builder::privileged_access_manager::GetLocation {
         super::builder::privileged_access_manager::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::privileged_access_manager::ListOperations {
         super::builder::privileged_access_manager::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::GetOperation {
+    pub fn get_operation(&self) -> super::builder::privileged_access_manager::GetOperation {
         super::builder::privileged_access_manager::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::privileged_access_manager::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::privileged_access_manager::DeleteOperation {
         super::builder::privileged_access_manager::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

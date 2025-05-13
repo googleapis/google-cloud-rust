@@ -69,6 +69,21 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::create_contact][super::super::client::EssentialContactsService::create_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::CreateContact;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateContact(RequestBuilder<crate::model::CreateContactRequest>);
 
@@ -127,6 +142,21 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::update_contact][super::super::client::EssentialContactsService::update_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::UpdateContact;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateContact(RequestBuilder<crate::model::UpdateContactRequest>);
 
@@ -186,6 +216,25 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::list_contacts][super::super::client::EssentialContactsService::list_contacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::ListContacts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListContacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListContacts(RequestBuilder<crate::model::ListContactsRequest>);
 
@@ -269,6 +318,21 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::get_contact][super::super::client::EssentialContactsService::get_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::GetContact;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetContact(RequestBuilder<crate::model::GetContactRequest>);
 
@@ -316,6 +380,21 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::delete_contact][super::super::client::EssentialContactsService::delete_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::DeleteContact;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteContact(RequestBuilder<crate::model::DeleteContactRequest>);
 
@@ -363,6 +442,25 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::compute_contacts][super::super::client::EssentialContactsService::compute_contacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::ComputeContacts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ComputeContacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeContacts(RequestBuilder<crate::model::ComputeContactsRequest>);
 
@@ -457,6 +555,21 @@ pub mod essential_contacts_service {
     }
 
     /// The request builder for [EssentialContactsService::send_test_message][super::super::client::EssentialContactsService::send_test_message] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::SendTestMessage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SendTestMessage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SendTestMessage(RequestBuilder<crate::model::SendTestMessageRequest>);
 

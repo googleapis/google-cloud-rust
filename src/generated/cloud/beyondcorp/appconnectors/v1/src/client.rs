@@ -134,21 +134,13 @@ impl AppConnectorsService {
     }
 
     /// Lists AppConnectors in a given project and location.
-    pub fn list_app_connectors(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::ListAppConnectors {
+    pub fn list_app_connectors(&self) -> super::builder::app_connectors_service::ListAppConnectors {
         super::builder::app_connectors_service::ListAppConnectors::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single AppConnector.
-    pub fn get_app_connector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::GetAppConnector {
+    pub fn get_app_connector(&self) -> super::builder::app_connectors_service::GetAppConnector {
         super::builder::app_connectors_service::GetAppConnector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new AppConnector in a given project and location.
@@ -164,10 +156,8 @@ impl AppConnectorsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_app_connector(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::app_connectors_service::CreateAppConnector {
         super::builder::app_connectors_service::CreateAppConnector::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single AppConnector.
@@ -183,10 +173,8 @@ impl AppConnectorsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_app_connector(
         &self,
-        app_connector: impl Into<crate::model::AppConnector>,
     ) -> super::builder::app_connectors_service::UpdateAppConnector {
         super::builder::app_connectors_service::UpdateAppConnector::new(self.inner.clone())
-            .set_app_connector(app_connector.into())
     }
 
     /// Deletes a single AppConnector.
@@ -202,10 +190,8 @@ impl AppConnectorsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_app_connector(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::app_connectors_service::DeleteAppConnector {
         super::builder::app_connectors_service::DeleteAppConnector::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Report status for a given connector.
@@ -219,30 +205,18 @@ impl AppConnectorsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn report_status(
-        &self,
-        app_connector: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::ReportStatus {
+    pub fn report_status(&self) -> super::builder::app_connectors_service::ReportStatus {
         super::builder::app_connectors_service::ReportStatus::new(self.inner.clone())
-            .set_app_connector(app_connector.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::app_connectors_service::ListLocations {
         super::builder::app_connectors_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::app_connectors_service::GetLocation {
         super::builder::app_connectors_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -250,22 +224,14 @@ impl AppConnectorsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::app_connectors_service::SetIamPolicy {
         super::builder::app_connectors_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::app_connectors_service::GetIamPolicy {
         super::builder::app_connectors_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -277,53 +243,35 @@ impl AppConnectorsService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::app_connectors_service::TestIamPermissions {
         super::builder::app_connectors_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::app_connectors_service::ListOperations {
         super::builder::app_connectors_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::app_connectors_service::GetOperation {
         super::builder::app_connectors_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::app_connectors_service::DeleteOperation {
         super::builder::app_connectors_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connectors_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::app_connectors_service::CancelOperation {
         super::builder::app_connectors_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

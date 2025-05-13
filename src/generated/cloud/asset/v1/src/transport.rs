@@ -46,12 +46,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:exportAssets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:exportAssets", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -66,9 +70,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAssetsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/assets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/assets", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -105,12 +116,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:batchGetAssetsHistory", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:batchGetAssetsHistory", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -145,9 +160,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/feeds", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}/feeds", req.parent))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -162,9 +184,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -181,9 +210,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFeedsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/feeds", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/feeds", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -200,18 +236,20 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .feed
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("feed"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feed.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.feed
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("feed"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -226,9 +264,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -249,12 +294,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchAllResourcesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:searchAllResources", {
+            let arg = &req.scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:searchAllResources", req.scope),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -285,12 +334,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchAllIamPoliciesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:searchAllIamPolicies", {
+            let arg = &req.scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:searchAllIamPolicies", req.scope),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -315,18 +368,20 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:analyzeIamPolicy", {
+            let arg = &req
+                .analysis_query
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("analysis_query"))?
+                .scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("analysis_query.scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/{}:analyzeIamPolicy",
-                    req.analysis_query
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("analysis_query"))?
-                        .scope
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -364,18 +419,20 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:analyzeIamPolicyLongrunning", {
+            let arg = &req
+                .analysis_query
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("analysis_query"))?
+                .scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("analysis_query.scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/{}:analyzeIamPolicyLongrunning",
-                    req.analysis_query
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("analysis_query"))?
-                        .scope
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -390,12 +447,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeMoveResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:analyzeMove", {
+            let arg = &req.resource;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("resource"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:analyzeMove", req.resource),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -414,12 +475,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryAssetsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:queryAssets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:queryAssets", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -434,12 +499,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/savedQueries", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/savedQueries", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -457,9 +526,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -476,12 +552,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSavedQueriesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/savedQueries", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/savedQueries", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -501,18 +581,20 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .saved_query
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("saved_query"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("saved_query.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.saved_query
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("saved_query"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -535,9 +617,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -558,12 +647,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/effectiveIamPolicies:batchGet", {
+            let arg = &req.scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/effectiveIamPolicies:batchGet", req.scope),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -584,12 +677,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:analyzeOrgPolicies", {
+            let arg = &req.scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:analyzeOrgPolicies", req.scope),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -614,12 +711,16 @@ impl super::stub::AssetService for AssetService {
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>
     {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:analyzeOrgPolicyGovernedContainers", {
+            let arg = &req.scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:analyzeOrgPolicyGovernedContainers", req.scope),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -643,12 +744,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:analyzeOrgPolicyGovernedAssets", {
+            let arg = &req.scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("scope"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}:analyzeOrgPolicyGovernedAssets", req.scope),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -672,9 +777,16 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

@@ -74,6 +74,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn rename_folder(
+        &self,
+        req: crate::model::RenameFolderRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.rename_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,
@@ -119,6 +128,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_anywhere_cache(
+        &self,
+        req: crate::model::CreateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_anywhere_cache(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_anywhere_cache(
+        &self,
+        req: crate::model::UpdateAnywhereCacheRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_anywhere_cache(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn disable_anywhere_cache(
         &self,
         req: crate::model::DisableAnywhereCacheRequest,
@@ -161,5 +188,28 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
         self.inner.list_anywhere_caches(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }

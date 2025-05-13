@@ -90,6 +90,19 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
+    /// Implements [super::client::StorageControl::rename_folder].
+    fn rename_folder(
+        &self,
+        _req: crate::model::RenameFolderRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::StorageControl::get_storage_layout].
     fn get_storage_layout(
         &self,
@@ -151,6 +164,32 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         std::future::ready::<
             crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
         >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::StorageControl::create_anywhere_cache].
+    fn create_anywhere_cache(
+        &self,
+        _req: crate::model::CreateAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::update_anywhere_cache].
+    fn update_anywhere_cache(
+        &self,
+        _req: crate::model::UpdateAnywhereCacheRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::StorageControl::disable_anywhere_cache].
@@ -216,5 +255,40 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         std::future::ready::<
             crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
         >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::StorageControl::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

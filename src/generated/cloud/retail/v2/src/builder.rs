@@ -69,6 +69,22 @@ pub mod analytics_service {
     }
 
     /// The request builder for [AnalyticsService::export_analytics_metrics][super::super::client::AnalyticsService::export_analytics_metrics] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::analytics_service::ExportAnalyticsMetrics;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportAnalyticsMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportAnalyticsMetrics(RequestBuilder<crate::model::ExportAnalyticsMetricsRequest>);
 
@@ -177,6 +193,25 @@ pub mod analytics_service {
     }
 
     /// The request builder for [AnalyticsService::list_operations][super::super::client::AnalyticsService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::analytics_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -269,6 +304,21 @@ pub mod analytics_service {
     }
 
     /// The request builder for [AnalyticsService::get_operation][super::super::client::AnalyticsService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::analytics_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -372,6 +422,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_catalogs][super::super::client::CatalogService::list_catalogs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::ListCatalogs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCatalogs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCatalogs(RequestBuilder<crate::model::ListCatalogsRequest>);
 
@@ -455,6 +524,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_catalog][super::super::client::CatalogService::update_catalog] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::UpdateCatalog;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCatalog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCatalog(RequestBuilder<crate::model::UpdateCatalogRequest>);
 
@@ -514,6 +598,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::set_default_branch][super::super::client::CatalogService::set_default_branch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::SetDefaultBranch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetDefaultBranch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetDefaultBranch(RequestBuilder<crate::model::SetDefaultBranchRequest>);
 
@@ -580,6 +679,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_default_branch][super::super::client::CatalogService::get_default_branch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::GetDefaultBranch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDefaultBranch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDefaultBranch(RequestBuilder<crate::model::GetDefaultBranchRequest>);
 
@@ -628,6 +742,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_completion_config][super::super::client::CatalogService::get_completion_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::GetCompletionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCompletionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCompletionConfig(RequestBuilder<crate::model::GetCompletionConfigRequest>);
 
@@ -678,6 +807,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_completion_config][super::super::client::CatalogService::update_completion_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::UpdateCompletionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCompletionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCompletionConfig(RequestBuilder<crate::model::UpdateCompletionConfigRequest>);
 
@@ -742,6 +886,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_attributes_config][super::super::client::CatalogService::get_attributes_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::GetAttributesConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAttributesConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttributesConfig(RequestBuilder<crate::model::GetAttributesConfigRequest>);
 
@@ -792,6 +951,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::update_attributes_config][super::super::client::CatalogService::update_attributes_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::UpdateAttributesConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAttributesConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAttributesConfig(RequestBuilder<crate::model::UpdateAttributesConfigRequest>);
 
@@ -856,6 +1030,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::add_catalog_attribute][super::super::client::CatalogService::add_catalog_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::AddCatalogAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddCatalogAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddCatalogAttribute(RequestBuilder<crate::model::AddCatalogAttributeRequest>);
 
@@ -919,6 +1108,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::remove_catalog_attribute][super::super::client::CatalogService::remove_catalog_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::RemoveCatalogAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveCatalogAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveCatalogAttribute(RequestBuilder<crate::model::RemoveCatalogAttributeRequest>);
 
@@ -977,6 +1181,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::replace_catalog_attribute][super::super::client::CatalogService::replace_catalog_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::ReplaceCatalogAttribute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceCatalogAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceCatalogAttribute(
         RequestBuilder<crate::model::ReplaceCatalogAttributeRequest>,
@@ -1051,6 +1270,25 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::list_operations][super::super::client::CatalogService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1143,6 +1381,21 @@ pub mod catalog_service {
     }
 
     /// The request builder for [CatalogService::get_operation][super::super::client::CatalogService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::catalog_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1246,6 +1499,21 @@ pub mod completion_service {
     }
 
     /// The request builder for [CompletionService::complete_query][super::super::client::CompletionService::complete_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::completion_service::CompleteQuery;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CompleteQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CompleteQuery(RequestBuilder<crate::model::CompleteQueryRequest>);
 
@@ -1348,6 +1616,22 @@ pub mod completion_service {
     }
 
     /// The request builder for [CompletionService::import_completion_data][super::super::client::CompletionService::import_completion_data] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::completion_service::ImportCompletionData;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportCompletionData {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportCompletionData(RequestBuilder<crate::model::ImportCompletionDataRequest>);
 
@@ -1458,6 +1742,25 @@ pub mod completion_service {
     }
 
     /// The request builder for [CompletionService::list_operations][super::super::client::CompletionService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::completion_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1550,6 +1853,21 @@ pub mod completion_service {
     }
 
     /// The request builder for [CompletionService::get_operation][super::super::client::CompletionService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::completion_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1653,6 +1971,21 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::create_control][super::super::client::ControlService::create_control] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::CreateControl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateControl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateControl(RequestBuilder<crate::model::CreateControlRequest>);
 
@@ -1719,6 +2052,21 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::delete_control][super::super::client::ControlService::delete_control] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::DeleteControl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteControl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteControl(RequestBuilder<crate::model::DeleteControlRequest>);
 
@@ -1766,6 +2114,21 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::update_control][super::super::client::ControlService::update_control] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::UpdateControl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateControl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateControl(RequestBuilder<crate::model::UpdateControlRequest>);
 
@@ -1825,6 +2188,21 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::get_control][super::super::client::ControlService::get_control] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::GetControl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetControl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetControl(RequestBuilder<crate::model::GetControlRequest>);
 
@@ -1872,6 +2250,25 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::list_controls][super::super::client::ControlService::list_controls] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::ListControls;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListControls {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListControls(RequestBuilder<crate::model::ListControlsRequest>);
 
@@ -1961,6 +2358,25 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::list_operations][super::super::client::ControlService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2053,6 +2469,21 @@ pub mod control_service {
     }
 
     /// The request builder for [ControlService::get_operation][super::super::client::ControlService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::control_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2156,6 +2587,21 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::update_generative_questions_feature_config][super::super::client::GenerativeQuestionService::update_generative_questions_feature_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGenerativeQuestionsFeatureConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGenerativeQuestionsFeatureConfig(
         RequestBuilder<crate::model::UpdateGenerativeQuestionsFeatureConfigRequest>,
@@ -2224,6 +2670,21 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::get_generative_questions_feature_config][super::super::client::GenerativeQuestionService::get_generative_questions_feature_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::GetGenerativeQuestionsFeatureConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGenerativeQuestionsFeatureConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGenerativeQuestionsFeatureConfig(
         RequestBuilder<crate::model::GetGenerativeQuestionsFeatureConfigRequest>,
@@ -2276,6 +2737,21 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::list_generative_question_configs][super::super::client::GenerativeQuestionService::list_generative_question_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::ListGenerativeQuestionConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGenerativeQuestionConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGenerativeQuestionConfigs(
         RequestBuilder<crate::model::ListGenerativeQuestionConfigsRequest>,
@@ -2328,6 +2804,21 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::update_generative_question_config][super::super::client::GenerativeQuestionService::update_generative_question_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::UpdateGenerativeQuestionConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGenerativeQuestionConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGenerativeQuestionConfig(
         RequestBuilder<crate::model::UpdateGenerativeQuestionConfigRequest>,
@@ -2394,6 +2885,21 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::batch_update_generative_question_configs][super::super::client::GenerativeQuestionService::batch_update_generative_question_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchUpdateGenerativeQuestionConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchUpdateGenerativeQuestionConfigs(
         RequestBuilder<crate::model::BatchUpdateGenerativeQuestionConfigsRequest>,
@@ -2459,6 +2965,25 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::list_operations][super::super::client::GenerativeQuestionService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2551,6 +3076,21 @@ pub mod generative_question_service {
     }
 
     /// The request builder for [GenerativeQuestionService::get_operation][super::super::client::GenerativeQuestionService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::generative_question_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2654,6 +3194,22 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::create_model][super::super::client::ModelService::create_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::CreateModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
@@ -2756,6 +3312,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::get_model][super::super::client::ModelService::get_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::GetModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
@@ -2803,6 +3374,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::pause_model][super::super::client::ModelService::pause_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::PauseModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseModel(RequestBuilder<crate::model::PauseModelRequest>);
 
@@ -2850,6 +3436,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::resume_model][super::super::client::ModelService::resume_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::ResumeModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeModel(RequestBuilder<crate::model::ResumeModelRequest>);
 
@@ -2897,6 +3498,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::delete_model][super::super::client::ModelService::delete_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::DeleteModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
@@ -2944,6 +3560,25 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::list_models][super::super::client::ModelService::list_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::ListModels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
@@ -3027,6 +3662,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::update_model][super::super::client::ModelService::update_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::UpdateModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateModel(RequestBuilder<crate::model::UpdateModelRequest>);
 
@@ -3086,6 +3736,22 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::tune_model][super::super::client::ModelService::tune_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::TuneModel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TuneModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TuneModel(RequestBuilder<crate::model::TuneModelRequest>);
 
@@ -3174,6 +3840,25 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::list_operations][super::super::client::ModelService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3266,6 +3951,21 @@ pub mod model_service {
     }
 
     /// The request builder for [ModelService::get_operation][super::super::client::ModelService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::model_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3369,6 +4069,21 @@ pub mod prediction_service {
     }
 
     /// The request builder for [PredictionService::predict][super::super::client::PredictionService::predict] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::prediction_service::Predict;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Predict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Predict(RequestBuilder<crate::model::PredictRequest>);
 
@@ -3474,6 +4189,25 @@ pub mod prediction_service {
     }
 
     /// The request builder for [PredictionService::list_operations][super::super::client::PredictionService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::prediction_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3566,6 +4300,21 @@ pub mod prediction_service {
     }
 
     /// The request builder for [PredictionService::get_operation][super::super::client::PredictionService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::prediction_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3669,6 +4418,21 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::create_product][super::super::client::ProductService::create_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::CreateProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProduct(RequestBuilder<crate::model::CreateProductRequest>);
 
@@ -3735,6 +4499,21 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::get_product][super::super::client::ProductService::get_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::GetProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
@@ -3782,6 +4561,25 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::list_products][super::super::client::ProductService::list_products] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::ListProducts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
@@ -3877,6 +4675,21 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::update_product][super::super::client::ProductService::update_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::UpdateProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProduct(RequestBuilder<crate::model::UpdateProductRequest>);
 
@@ -3942,6 +4755,21 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::delete_product][super::super::client::ProductService::delete_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::DeleteProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProduct(RequestBuilder<crate::model::DeleteProductRequest>);
 
@@ -3989,6 +4817,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::purge_products][super::super::client::ProductService::purge_products] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::PurgeProducts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PurgeProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PurgeProducts(RequestBuilder<crate::model::PurgeProductsRequest>);
 
@@ -4091,6 +4935,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::import_products][super::super::client::ProductService::import_products] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::ImportProducts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportProducts(RequestBuilder<crate::model::ImportProductsRequest>);
 
@@ -4232,6 +5092,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::set_inventory][super::super::client::ProductService::set_inventory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::SetInventory;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetInventory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetInventory(RequestBuilder<crate::model::SetInventoryRequest>);
 
@@ -4341,6 +5217,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::add_fulfillment_places][super::super::client::ProductService::add_fulfillment_places] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::AddFulfillmentPlaces;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddFulfillmentPlaces {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddFulfillmentPlaces(RequestBuilder<crate::model::AddFulfillmentPlacesRequest>);
 
@@ -4467,6 +5359,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::remove_fulfillment_places][super::super::client::ProductService::remove_fulfillment_places] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::RemoveFulfillmentPlaces;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveFulfillmentPlaces {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveFulfillmentPlaces(
         RequestBuilder<crate::model::RemoveFulfillmentPlacesRequest>,
@@ -4598,6 +5506,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::add_local_inventories][super::super::client::ProductService::add_local_inventories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::AddLocalInventories;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddLocalInventories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddLocalInventories(RequestBuilder<crate::model::AddLocalInventoriesRequest>);
 
@@ -4722,6 +5646,22 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::remove_local_inventories][super::super::client::ProductService::remove_local_inventories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::RemoveLocalInventories;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveLocalInventories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveLocalInventories(RequestBuilder<crate::model::RemoveLocalInventoriesRequest>);
 
@@ -4843,6 +5783,25 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::list_operations][super::super::client::ProductService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4935,6 +5894,21 @@ pub mod product_service {
     }
 
     /// The request builder for [ProductService::get_operation][super::super::client::ProductService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::product_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5038,6 +6012,25 @@ pub mod search_service {
     }
 
     /// The request builder for [SearchService::search][super::super::client::SearchService::search] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::search_service::Search;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Search {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Search(RequestBuilder<crate::model::SearchRequest>);
 
@@ -5329,6 +6322,25 @@ pub mod search_service {
     }
 
     /// The request builder for [SearchService::list_operations][super::super::client::SearchService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::search_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5421,6 +6433,21 @@ pub mod search_service {
     }
 
     /// The request builder for [SearchService::get_operation][super::super::client::SearchService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::search_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5524,6 +6551,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::create_serving_config][super::super::client::ServingConfigService::create_serving_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::CreateServingConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServingConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServingConfig(RequestBuilder<crate::model::CreateServingConfigRequest>);
 
@@ -5593,6 +6635,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::delete_serving_config][super::super::client::ServingConfigService::delete_serving_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::DeleteServingConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServingConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServingConfig(RequestBuilder<crate::model::DeleteServingConfigRequest>);
 
@@ -5643,6 +6700,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::update_serving_config][super::super::client::ServingConfigService::update_serving_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::UpdateServingConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServingConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServingConfig(RequestBuilder<crate::model::UpdateServingConfigRequest>);
 
@@ -5705,6 +6777,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::get_serving_config][super::super::client::ServingConfigService::get_serving_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::GetServingConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServingConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServingConfig(RequestBuilder<crate::model::GetServingConfigRequest>);
 
@@ -5755,6 +6842,25 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::list_serving_configs][super::super::client::ServingConfigService::list_serving_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::ListServingConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServingConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServingConfigs(RequestBuilder<crate::model::ListServingConfigsRequest>);
 
@@ -5843,6 +6949,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::add_control][super::super::client::ServingConfigService::add_control] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::AddControl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddControl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddControl(RequestBuilder<crate::model::AddControlRequest>);
 
@@ -5898,6 +7019,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::remove_control][super::super::client::ServingConfigService::remove_control] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::RemoveControl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveControl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveControl(RequestBuilder<crate::model::RemoveControlRequest>);
 
@@ -5953,6 +7089,25 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::list_operations][super::super::client::ServingConfigService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6045,6 +7200,21 @@ pub mod serving_config_service {
     }
 
     /// The request builder for [ServingConfigService::get_operation][super::super::client::ServingConfigService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::serving_config_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6148,6 +7318,21 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::write_user_event][super::super::client::UserEventService::write_user_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::WriteUserEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> WriteUserEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct WriteUserEvent(RequestBuilder<crate::model::WriteUserEventRequest>);
 
@@ -6212,6 +7397,21 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::collect_user_event][super::super::client::UserEventService::collect_user_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::CollectUserEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CollectUserEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CollectUserEvent(RequestBuilder<crate::model::CollectUserEventRequest>);
 
@@ -6315,6 +7515,22 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::purge_user_events][super::super::client::UserEventService::purge_user_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::PurgeUserEvents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PurgeUserEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PurgeUserEvents(RequestBuilder<crate::model::PurgeUserEventsRequest>);
 
@@ -6417,6 +7633,22 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::import_user_events][super::super::client::UserEventService::import_user_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::ImportUserEvents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportUserEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportUserEvents(RequestBuilder<crate::model::ImportUserEventsRequest>);
 
@@ -6530,6 +7762,22 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::rejoin_user_events][super::super::client::UserEventService::rejoin_user_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::RejoinUserEvents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_retail_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RejoinUserEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RejoinUserEvents(RequestBuilder<crate::model::RejoinUserEventsRequest>);
 
@@ -6634,6 +7882,25 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::list_operations][super::super::client::UserEventService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6726,6 +7993,21 @@ pub mod user_event_service {
     }
 
     /// The request builder for [UserEventService::get_operation][super::super::client::UserEventService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_retail_v2::builder;
+    /// use builder::user_event_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

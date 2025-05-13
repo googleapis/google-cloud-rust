@@ -56,7 +56,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.cnv();
+        let got = proto.cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -73,7 +73,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -99,7 +99,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -112,7 +112,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -125,7 +125,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -143,7 +143,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -180,7 +180,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }
@@ -228,7 +228,7 @@ mod test {
         let got = sidekick.clone().to_proto()?;
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.clone().cnv()?;
         assert_eq!(got, sidekick);
         Ok(())
     }

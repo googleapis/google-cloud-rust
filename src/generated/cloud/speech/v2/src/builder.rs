@@ -67,6 +67,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::create_recognizer][super::super::client::Speech::create_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CreateRecognizer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRecognizer(RequestBuilder<crate::model::CreateRecognizerRequest>);
 
@@ -176,6 +192,25 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::list_recognizers][super::super::client::Speech::list_recognizers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListRecognizers;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRecognizers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRecognizers(RequestBuilder<crate::model::ListRecognizersRequest>);
 
@@ -263,6 +298,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::get_recognizer][super::super::client::Speech::get_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetRecognizer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRecognizer(RequestBuilder<crate::model::GetRecognizerRequest>);
 
@@ -308,6 +358,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::update_recognizer][super::super::client::Speech::update_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdateRecognizer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRecognizer(RequestBuilder<crate::model::UpdateRecognizerRequest>);
 
@@ -412,6 +478,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::delete_recognizer][super::super::client::Speech::delete_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeleteRecognizer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRecognizer(RequestBuilder<crate::model::DeleteRecognizerRequest>);
 
@@ -516,6 +598,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::undelete_recognizer][super::super::client::Speech::undelete_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UndeleteRecognizer;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteRecognizer(RequestBuilder<crate::model::UndeleteRecognizerRequest>);
 
@@ -614,6 +712,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::recognize][super::super::client::Speech::recognize] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::Recognize;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Recognize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Recognize(RequestBuilder<crate::model::RecognizeRequest>);
 
@@ -709,6 +822,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::batch_recognize][super::super::client::Speech::batch_recognize] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::BatchRecognize;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchRecognize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchRecognize(RequestBuilder<crate::model::BatchRecognizeRequest>);
 
@@ -846,6 +975,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::get_config][super::super::client::Speech::get_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
@@ -891,6 +1035,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::update_config][super::super::client::Speech::update_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdateConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
 
@@ -948,6 +1107,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::create_custom_class][super::super::client::Speech::create_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CreateCustomClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCustomClass(RequestBuilder<crate::model::CreateCustomClassRequest>);
 
@@ -1059,6 +1234,25 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::list_custom_classes][super::super::client::Speech::list_custom_classes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListCustomClasses;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomClasses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomClasses(RequestBuilder<crate::model::ListCustomClassesRequest>);
 
@@ -1149,6 +1343,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::get_custom_class][super::super::client::Speech::get_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetCustomClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomClass(RequestBuilder<crate::model::GetCustomClassRequest>);
 
@@ -1194,6 +1403,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::update_custom_class][super::super::client::Speech::update_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdateCustomClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomClass(RequestBuilder<crate::model::UpdateCustomClassRequest>);
 
@@ -1300,6 +1525,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::delete_custom_class][super::super::client::Speech::delete_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeleteCustomClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomClass(RequestBuilder<crate::model::DeleteCustomClassRequest>);
 
@@ -1406,6 +1647,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::undelete_custom_class][super::super::client::Speech::undelete_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UndeleteCustomClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteCustomClass(RequestBuilder<crate::model::UndeleteCustomClassRequest>);
 
@@ -1506,6 +1763,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::create_phrase_set][super::super::client::Speech::create_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CreatePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePhraseSet(RequestBuilder<crate::model::CreatePhraseSetRequest>);
 
@@ -1612,6 +1885,25 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::list_phrase_sets][super::super::client::Speech::list_phrase_sets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListPhraseSets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPhraseSets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPhraseSets(RequestBuilder<crate::model::ListPhraseSetsRequest>);
 
@@ -1699,6 +1991,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::get_phrase_set][super::super::client::Speech::get_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetPhraseSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPhraseSet(RequestBuilder<crate::model::GetPhraseSetRequest>);
 
@@ -1744,6 +2051,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::update_phrase_set][super::super::client::Speech::update_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdatePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePhraseSet(RequestBuilder<crate::model::UpdatePhraseSetRequest>);
 
@@ -1845,6 +2168,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::delete_phrase_set][super::super::client::Speech::delete_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeletePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePhraseSet(RequestBuilder<crate::model::DeletePhraseSetRequest>);
 
@@ -1946,6 +2285,22 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::undelete_phrase_set][super::super::client::Speech::undelete_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UndeletePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_speech_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeletePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeletePhraseSet(RequestBuilder<crate::model::UndeletePhraseSetRequest>);
 
@@ -2044,6 +2399,25 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::list_locations][super::super::client::Speech::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2132,6 +2506,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::get_location][super::super::client::Speech::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -2175,6 +2564,25 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::list_operations][super::super::client::Speech::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2265,6 +2673,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::get_operation][super::super::client::Speech::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2311,6 +2734,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::delete_operation][super::super::client::Speech::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2357,6 +2795,21 @@ pub mod speech {
     }
 
     /// The request builder for [Speech::cancel_operation][super::super::client::Speech::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

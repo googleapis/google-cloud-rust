@@ -129,37 +129,29 @@ impl DataAccessControlService {
     /// to UDM queries over event data.
     pub fn create_data_access_label(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::CreateDataAccessLabel {
         super::builder::data_access_control_service::CreateDataAccessLabel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a data access label.
     pub fn get_data_access_label(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::GetDataAccessLabel {
         super::builder::data_access_control_service::GetDataAccessLabel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all data access labels for the customer.
     pub fn list_data_access_labels(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::ListDataAccessLabels {
         super::builder::data_access_control_service::ListDataAccessLabels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a data access label.
     pub fn update_data_access_label(
         &self,
-        data_access_label: impl Into<crate::model::DataAccessLabel>,
     ) -> super::builder::data_access_control_service::UpdateDataAccessLabel {
         super::builder::data_access_control_service::UpdateDataAccessLabel::new(self.inner.clone())
-            .set_data_access_label(data_access_label.into())
     }
 
     /// Deletes a data access label. When a label is deleted, new
@@ -167,10 +159,8 @@ impl DataAccessControlService {
     /// will not be removed from old data that still refers to it.
     pub fn delete_data_access_label(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::DeleteDataAccessLabel {
         super::builder::data_access_control_service::DeleteDataAccessLabel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a data access scope.
@@ -181,90 +171,64 @@ impl DataAccessControlService {
     /// not labeled with either C or D.
     pub fn create_data_access_scope(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::CreateDataAccessScope {
         super::builder::data_access_control_service::CreateDataAccessScope::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves an existing data access scope.
     pub fn get_data_access_scope(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::GetDataAccessScope {
         super::builder::data_access_control_service::GetDataAccessScope::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all existing data access scopes for the customer.
     pub fn list_data_access_scopes(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::ListDataAccessScopes {
         super::builder::data_access_control_service::ListDataAccessScopes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a data access scope.
     pub fn update_data_access_scope(
         &self,
-        data_access_scope: impl Into<crate::model::DataAccessScope>,
     ) -> super::builder::data_access_control_service::UpdateDataAccessScope {
         super::builder::data_access_control_service::UpdateDataAccessScope::new(self.inner.clone())
-            .set_data_access_scope(data_access_scope.into())
     }
 
     /// Deletes a data access scope.
     pub fn delete_data_access_scope(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::DeleteDataAccessScope {
         super::builder::data_access_control_service::DeleteDataAccessScope::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_access_control_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::data_access_control_service::ListOperations {
         super::builder::data_access_control_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_access_control_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::data_access_control_service::GetOperation {
         super::builder::data_access_control_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_access_control_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::data_access_control_service::DeleteOperation {
         super::builder::data_access_control_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_access_control_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::data_access_control_service::CancelOperation {
         super::builder::data_access_control_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -369,91 +333,57 @@ impl EntityService {
     }
 
     /// Gets watchlist details for the given watchlist ID.
-    pub fn get_watchlist(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::GetWatchlist {
-        super::builder::entity_service::GetWatchlist::new(self.inner.clone()).set_name(name.into())
+    pub fn get_watchlist(&self) -> super::builder::entity_service::GetWatchlist {
+        super::builder::entity_service::GetWatchlist::new(self.inner.clone())
     }
 
     /// Lists all watchlists for the given instance.
-    pub fn list_watchlists(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::ListWatchlists {
+    pub fn list_watchlists(&self) -> super::builder::entity_service::ListWatchlists {
         super::builder::entity_service::ListWatchlists::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a watchlist for the given instance.
     /// Note that there can be at most 200 watchlists per instance.
-    pub fn create_watchlist(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::CreateWatchlist {
+    pub fn create_watchlist(&self) -> super::builder::entity_service::CreateWatchlist {
         super::builder::entity_service::CreateWatchlist::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the watchlist for the given instance.
-    pub fn update_watchlist(
-        &self,
-        watchlist: impl Into<crate::model::Watchlist>,
-    ) -> super::builder::entity_service::UpdateWatchlist {
+    pub fn update_watchlist(&self) -> super::builder::entity_service::UpdateWatchlist {
         super::builder::entity_service::UpdateWatchlist::new(self.inner.clone())
-            .set_watchlist(watchlist.into())
     }
 
     /// Deletes the watchlist for the given instance.
-    pub fn delete_watchlist(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::DeleteWatchlist {
+    pub fn delete_watchlist(&self) -> super::builder::entity_service::DeleteWatchlist {
         super::builder::entity_service::DeleteWatchlist::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::entity_service::ListOperations {
         super::builder::entity_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::GetOperation {
-        super::builder::entity_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::entity_service::GetOperation {
+        super::builder::entity_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::entity_service::DeleteOperation {
         super::builder::entity_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::entity_service::CancelOperation {
         super::builder::entity_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -560,55 +490,36 @@ impl InstanceService {
     }
 
     /// Gets a Instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_service::GetInstance {
-        super::builder::instance_service::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::instance_service::GetInstance {
+        super::builder::instance_service::GetInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::instance_service::ListOperations {
         super::builder::instance_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::instance_service::GetOperation {
         super::builder::instance_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::instance_service::DeleteOperation {
         super::builder::instance_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instance_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::instance_service::CancelOperation {
         super::builder::instance_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -715,83 +626,57 @@ impl ReferenceListService {
     }
 
     /// Gets a single reference list.
-    pub fn get_reference_list(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reference_list_service::GetReferenceList {
+    pub fn get_reference_list(&self) -> super::builder::reference_list_service::GetReferenceList {
         super::builder::reference_list_service::GetReferenceList::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists a collection of reference lists.
     pub fn list_reference_lists(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reference_list_service::ListReferenceLists {
         super::builder::reference_list_service::ListReferenceLists::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new reference list.
     pub fn create_reference_list(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reference_list_service::CreateReferenceList {
         super::builder::reference_list_service::CreateReferenceList::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing reference list.
     pub fn update_reference_list(
         &self,
-        reference_list: impl Into<crate::model::ReferenceList>,
     ) -> super::builder::reference_list_service::UpdateReferenceList {
         super::builder::reference_list_service::UpdateReferenceList::new(self.inner.clone())
-            .set_reference_list(reference_list.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reference_list_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::reference_list_service::ListOperations {
         super::builder::reference_list_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reference_list_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::reference_list_service::GetOperation {
         super::builder::reference_list_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reference_list_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::reference_list_service::DeleteOperation {
         super::builder::reference_list_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reference_list_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::reference_list_service::CancelOperation {
         super::builder::reference_list_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -896,52 +781,33 @@ impl RuleService {
     }
 
     /// Creates a new Rule.
-    pub fn create_rule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::CreateRule {
-        super::builder::rule_service::CreateRule::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_rule(&self) -> super::builder::rule_service::CreateRule {
+        super::builder::rule_service::CreateRule::new(self.inner.clone())
     }
 
     /// Gets a Rule.
-    pub fn get_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::GetRule {
-        super::builder::rule_service::GetRule::new(self.inner.clone()).set_name(name.into())
+    pub fn get_rule(&self) -> super::builder::rule_service::GetRule {
+        super::builder::rule_service::GetRule::new(self.inner.clone())
     }
 
     /// Lists Rules.
-    pub fn list_rules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::ListRules {
-        super::builder::rule_service::ListRules::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_rules(&self) -> super::builder::rule_service::ListRules {
+        super::builder::rule_service::ListRules::new(self.inner.clone())
     }
 
     /// Updates a Rule.
-    pub fn update_rule(
-        &self,
-        rule: impl Into<crate::model::Rule>,
-    ) -> super::builder::rule_service::UpdateRule {
-        super::builder::rule_service::UpdateRule::new(self.inner.clone()).set_rule(rule.into())
+    pub fn update_rule(&self) -> super::builder::rule_service::UpdateRule {
+        super::builder::rule_service::UpdateRule::new(self.inner.clone())
     }
 
     /// Deletes a Rule.
-    pub fn delete_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::DeleteRule {
-        super::builder::rule_service::DeleteRule::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_rule(&self) -> super::builder::rule_service::DeleteRule {
+        super::builder::rule_service::DeleteRule::new(self.inner.clone())
     }
 
     /// Lists all revisions of the rule.
-    pub fn list_rule_revisions(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::ListRuleRevisions {
+    pub fn list_rule_revisions(&self) -> super::builder::rule_service::ListRuleRevisions {
         super::builder::rule_service::ListRuleRevisions::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Create a Retrohunt.
@@ -955,98 +821,63 @@ impl RuleService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_retrohunt(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::CreateRetrohunt {
+    pub fn create_retrohunt(&self) -> super::builder::rule_service::CreateRetrohunt {
         super::builder::rule_service::CreateRetrohunt::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get a Retrohunt.
-    pub fn get_retrohunt(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::GetRetrohunt {
-        super::builder::rule_service::GetRetrohunt::new(self.inner.clone()).set_name(name.into())
+    pub fn get_retrohunt(&self) -> super::builder::rule_service::GetRetrohunt {
+        super::builder::rule_service::GetRetrohunt::new(self.inner.clone())
     }
 
     /// List Retrohunts.
-    pub fn list_retrohunts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::ListRetrohunts {
+    pub fn list_retrohunts(&self) -> super::builder::rule_service::ListRetrohunts {
         super::builder::rule_service::ListRetrohunts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a RuleDeployment.
-    pub fn get_rule_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::GetRuleDeployment {
+    pub fn get_rule_deployment(&self) -> super::builder::rule_service::GetRuleDeployment {
         super::builder::rule_service::GetRuleDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists RuleDeployments across all Rules.
-    pub fn list_rule_deployments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::ListRuleDeployments {
+    pub fn list_rule_deployments(&self) -> super::builder::rule_service::ListRuleDeployments {
         super::builder::rule_service::ListRuleDeployments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a RuleDeployment.
     /// Failures are not necessarily atomic. If there is a request to update
     /// multiple fields, and any update to a single field fails, an error will be
     /// returned, but other fields may remain successfully updated.
-    pub fn update_rule_deployment(
-        &self,
-        rule_deployment: impl Into<crate::model::RuleDeployment>,
-    ) -> super::builder::rule_service::UpdateRuleDeployment {
+    pub fn update_rule_deployment(&self) -> super::builder::rule_service::UpdateRuleDeployment {
         super::builder::rule_service::UpdateRuleDeployment::new(self.inner.clone())
-            .set_rule_deployment(rule_deployment.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::ListOperations {
-        super::builder::rule_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::rule_service::ListOperations {
+        super::builder::rule_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::GetOperation {
-        super::builder::rule_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::rule_service::GetOperation {
+        super::builder::rule_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::DeleteOperation {
-        super::builder::rule_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::rule_service::DeleteOperation {
+        super::builder::rule_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::rule_service::CancelOperation {
-        super::builder::rule_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::rule_service::CancelOperation {
+        super::builder::rule_service::CancelOperation::new(self.inner.clone())
     }
 }

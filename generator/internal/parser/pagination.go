@@ -18,6 +18,7 @@ import "github.com/googleapis/google-cloud-rust/generator/internal/api"
 
 const (
 	pageSize      = "pageSize"
+	maxResults    = "maxResults"
 	pageToken     = "pageToken"
 	nextPageToken = "nextPageToken"
 )
@@ -37,8 +38,20 @@ func updateMethodPagination(a *api.API) {
 		var hasPageSize bool
 		var hasPageToken *api.Field
 		for _, f := range reqMsg.Fields {
-			if f.JSONName == pageSize && f.Typez == api.INT32_TYPE {
-				hasPageSize = true
+			// Some legacy services (e.g. sqladmin.googleapis.com)
+			// predate AIP-4233 and use `maxResults` instead of
+			// `pageSize` for the field name.
+			// Furthermore, some of these services use both
+			// `uint32` and `int32` for the `maxResults` field type.
+			switch f.JSONName {
+			case pageSize:
+				if f.Typez == api.INT32_TYPE {
+					hasPageSize = true
+				}
+			case maxResults:
+				if f.Typez == api.INT32_TYPE || f.Typez == api.UINT32_TYPE {
+					hasPageSize = true
+				}
 			}
 			if f.JSONName == pageToken && f.Typez == api.STRING_TYPE {
 				hasPageToken = f

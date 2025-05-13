@@ -69,6 +69,25 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::list_service_connection_maps][super::super::client::CrossNetworkAutomationService::list_service_connection_maps] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::ListServiceConnectionMaps;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceConnectionMaps {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConnectionMaps(
         RequestBuilder<crate::model::ListServiceConnectionMapsRequest>,
@@ -173,6 +192,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_service_connection_map][super::super::client::CrossNetworkAutomationService::get_service_connection_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetServiceConnectionMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceConnectionMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConnectionMap(
         RequestBuilder<crate::model::GetServiceConnectionMapRequest>,
@@ -225,6 +259,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::create_service_connection_map][super::super::client::CrossNetworkAutomationService::create_service_connection_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::CreateServiceConnectionMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceConnectionMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConnectionMap(
         RequestBuilder<crate::model::CreateServiceConnectionMapRequest>,
@@ -343,6 +393,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::update_service_connection_map][super::super::client::CrossNetworkAutomationService::update_service_connection_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::UpdateServiceConnectionMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServiceConnectionMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServiceConnectionMap(
         RequestBuilder<crate::model::UpdateServiceConnectionMapRequest>,
@@ -456,6 +522,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::delete_service_connection_map][super::super::client::CrossNetworkAutomationService::delete_service_connection_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::DeleteServiceConnectionMap;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServiceConnectionMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceConnectionMap(
         RequestBuilder<crate::model::DeleteServiceConnectionMapRequest>,
@@ -560,6 +642,25 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::list_service_connection_policies][super::super::client::CrossNetworkAutomationService::list_service_connection_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::ListServiceConnectionPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceConnectionPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConnectionPolicies(
         RequestBuilder<crate::model::ListServiceConnectionPoliciesRequest>,
@@ -664,6 +765,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_service_connection_policy][super::super::client::CrossNetworkAutomationService::get_service_connection_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetServiceConnectionPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceConnectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConnectionPolicy(
         RequestBuilder<crate::model::GetServiceConnectionPolicyRequest>,
@@ -716,6 +832,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::create_service_connection_policy][super::super::client::CrossNetworkAutomationService::create_service_connection_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::CreateServiceConnectionPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceConnectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConnectionPolicy(
         RequestBuilder<crate::model::CreateServiceConnectionPolicyRequest>,
@@ -837,6 +969,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::update_service_connection_policy][super::super::client::CrossNetworkAutomationService::update_service_connection_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::UpdateServiceConnectionPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServiceConnectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServiceConnectionPolicy(
         RequestBuilder<crate::model::UpdateServiceConnectionPolicyRequest>,
@@ -950,6 +1098,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::delete_service_connection_policy][super::super::client::CrossNetworkAutomationService::delete_service_connection_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::DeleteServiceConnectionPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServiceConnectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceConnectionPolicy(
         RequestBuilder<crate::model::DeleteServiceConnectionPolicyRequest>,
@@ -1054,6 +1218,25 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::list_service_classes][super::super::client::CrossNetworkAutomationService::list_service_classes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::ListServiceClasses;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceClasses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceClasses(RequestBuilder<crate::model::ListServiceClassesRequest>);
 
@@ -1154,6 +1337,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_service_class][super::super::client::CrossNetworkAutomationService::get_service_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetServiceClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceClass(RequestBuilder<crate::model::GetServiceClassRequest>);
 
@@ -1201,6 +1399,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::update_service_class][super::super::client::CrossNetworkAutomationService::update_service_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::UpdateServiceClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServiceClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServiceClass(RequestBuilder<crate::model::UpdateServiceClassRequest>);
 
@@ -1309,6 +1523,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::delete_service_class][super::super::client::CrossNetworkAutomationService::delete_service_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::DeleteServiceClass;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServiceClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceClass(RequestBuilder<crate::model::DeleteServiceClassRequest>);
 
@@ -1411,6 +1641,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_service_connection_token][super::super::client::CrossNetworkAutomationService::get_service_connection_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetServiceConnectionToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceConnectionToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConnectionToken(
         RequestBuilder<crate::model::GetServiceConnectionTokenRequest>,
@@ -1463,6 +1708,25 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::list_service_connection_tokens][super::super::client::CrossNetworkAutomationService::list_service_connection_tokens] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::ListServiceConnectionTokens;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceConnectionTokens {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConnectionTokens(
         RequestBuilder<crate::model::ListServiceConnectionTokensRequest>,
@@ -1567,6 +1831,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::create_service_connection_token][super::super::client::CrossNetworkAutomationService::create_service_connection_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::CreateServiceConnectionToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceConnectionToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConnectionToken(
         RequestBuilder<crate::model::CreateServiceConnectionTokenRequest>,
@@ -1688,6 +1968,22 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::delete_service_connection_token][super::super::client::CrossNetworkAutomationService::delete_service_connection_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::DeleteServiceConnectionToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServiceConnectionToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceConnectionToken(
         RequestBuilder<crate::model::DeleteServiceConnectionTokenRequest>,
@@ -1792,6 +2088,25 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::list_locations][super::super::client::CrossNetworkAutomationService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1882,6 +2197,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_location][super::super::client::CrossNetworkAutomationService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1927,6 +2257,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::set_iam_policy][super::super::client::CrossNetworkAutomationService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1994,6 +2339,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_iam_policy][super::super::client::CrossNetworkAutomationService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2050,6 +2410,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::test_iam_permissions][super::super::client::CrossNetworkAutomationService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2113,6 +2488,25 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::list_operations][super::super::client::CrossNetworkAutomationService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2205,6 +2599,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::get_operation][super::super::client::CrossNetworkAutomationService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2253,6 +2662,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::delete_operation][super::super::client::CrossNetworkAutomationService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2301,6 +2725,21 @@ pub mod cross_network_automation_service {
     }
 
     /// The request builder for [CrossNetworkAutomationService::cancel_operation][super::super::client::CrossNetworkAutomationService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::cross_network_automation_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2404,6 +2843,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_hubs][super::super::client::HubService::list_hubs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListHubs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListHubs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListHubs(RequestBuilder<crate::model::ListHubsRequest>);
 
@@ -2499,6 +2957,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_hub][super::super::client::HubService::get_hub] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetHub;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetHub {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetHub(RequestBuilder<crate::model::GetHubRequest>);
 
@@ -2546,6 +3019,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::create_hub][super::super::client::HubService::create_hub] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::CreateHub;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateHub {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateHub(RequestBuilder<crate::model::CreateHubRequest>);
 
@@ -2653,6 +3142,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::update_hub][super::super::client::HubService::update_hub] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::UpdateHub;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateHub {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateHub(RequestBuilder<crate::model::UpdateHubRequest>);
 
@@ -2753,6 +3258,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::delete_hub][super::super::client::HubService::delete_hub] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::DeleteHub;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteHub {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteHub(RequestBuilder<crate::model::DeleteHubRequest>);
 
@@ -2846,6 +3367,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_hub_spokes][super::super::client::HubService::list_hub_spokes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListHubSpokes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListHubSpokes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListHubSpokes(RequestBuilder<crate::model::ListHubSpokesRequest>);
 
@@ -2961,6 +3501,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::query_hub_status][super::super::client::HubService::query_hub_status] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::QueryHubStatus;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryHubStatus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryHubStatus(RequestBuilder<crate::model::QueryHubStatusRequest>);
 
@@ -3062,6 +3621,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_spokes][super::super::client::HubService::list_spokes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListSpokes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSpokes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSpokes(RequestBuilder<crate::model::ListSpokesRequest>);
 
@@ -3157,6 +3735,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_spoke][super::super::client::HubService::get_spoke] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetSpoke;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSpoke {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSpoke(RequestBuilder<crate::model::GetSpokeRequest>);
 
@@ -3204,6 +3797,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::create_spoke][super::super::client::HubService::create_spoke] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::CreateSpoke;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSpoke {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSpoke(RequestBuilder<crate::model::CreateSpokeRequest>);
 
@@ -3314,6 +3923,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::update_spoke][super::super::client::HubService::update_spoke] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::UpdateSpoke;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSpoke {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSpoke(RequestBuilder<crate::model::UpdateSpokeRequest>);
 
@@ -3417,6 +4042,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::reject_hub_spoke][super::super::client::HubService::reject_hub_spoke] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::RejectHubSpoke;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RejectHubSpoke {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RejectHubSpoke(RequestBuilder<crate::model::RejectHubSpokeRequest>);
 
@@ -3525,6 +4166,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::accept_hub_spoke][super::super::client::HubService::accept_hub_spoke] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::AcceptHubSpoke;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AcceptHubSpoke {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AcceptHubSpoke(RequestBuilder<crate::model::AcceptHubSpokeRequest>);
 
@@ -3627,6 +4284,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::accept_spoke_update][super::super::client::HubService::accept_spoke_update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::AcceptSpokeUpdate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AcceptSpokeUpdate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AcceptSpokeUpdate(RequestBuilder<crate::model::AcceptSpokeUpdateRequest>);
 
@@ -3740,6 +4413,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::reject_spoke_update][super::super::client::HubService::reject_spoke_update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::RejectSpokeUpdate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RejectSpokeUpdate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RejectSpokeUpdate(RequestBuilder<crate::model::RejectSpokeUpdateRequest>);
 
@@ -3859,6 +4548,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::delete_spoke][super::super::client::HubService::delete_spoke] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::DeleteSpoke;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSpoke {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSpoke(RequestBuilder<crate::model::DeleteSpokeRequest>);
 
@@ -3952,6 +4657,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_route_table][super::super::client::HubService::get_route_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetRouteTable;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRouteTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRouteTable(RequestBuilder<crate::model::GetRouteTableRequest>);
 
@@ -3999,6 +4719,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_route][super::super::client::HubService::get_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetRoute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
 
@@ -4046,6 +4781,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_routes][super::super::client::HubService::list_routes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListRoutes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRoutes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
 
@@ -4141,6 +4895,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_route_tables][super::super::client::HubService::list_route_tables] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListRouteTables;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRouteTables {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRouteTables(RequestBuilder<crate::model::ListRouteTablesRequest>);
 
@@ -4236,6 +5009,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_group][super::super::client::HubService::get_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
@@ -4283,6 +5071,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_groups][super::super::client::HubService::list_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListGroups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
@@ -4378,6 +5185,22 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::update_group][super::super::client::HubService::update_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::UpdateGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
@@ -4481,6 +5304,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_locations][super::super::client::HubService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4571,6 +5413,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_location][super::super::client::HubService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4616,6 +5473,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::set_iam_policy][super::super::client::HubService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4683,6 +5555,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_iam_policy][super::super::client::HubService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4739,6 +5626,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::test_iam_permissions][super::super::client::HubService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4802,6 +5704,25 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::list_operations][super::super::client::HubService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4894,6 +5815,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::get_operation][super::super::client::HubService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4942,6 +5878,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::delete_operation][super::super::client::HubService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4990,6 +5941,21 @@ pub mod hub_service {
     }
 
     /// The request builder for [HubService::cancel_operation][super::super::client::HubService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::hub_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -5093,6 +6059,25 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::list_policy_based_routes][super::super::client::PolicyBasedRoutingService::list_policy_based_routes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::ListPolicyBasedRoutes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicyBasedRoutes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicyBasedRoutes(RequestBuilder<crate::model::ListPolicyBasedRoutesRequest>);
 
@@ -5193,6 +6178,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::get_policy_based_route][super::super::client::PolicyBasedRoutingService::get_policy_based_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::GetPolicyBasedRoute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicyBasedRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicyBasedRoute(RequestBuilder<crate::model::GetPolicyBasedRouteRequest>);
 
@@ -5243,6 +6243,22 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::create_policy_based_route][super::super::client::PolicyBasedRoutingService::create_policy_based_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::CreatePolicyBasedRoute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicyBasedRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicyBasedRoute(RequestBuilder<crate::model::CreatePolicyBasedRouteRequest>);
 
@@ -5361,6 +6377,22 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::delete_policy_based_route][super::super::client::PolicyBasedRoutingService::delete_policy_based_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::DeletePolicyBasedRoute;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networkconnectivity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicyBasedRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicyBasedRoute(RequestBuilder<crate::model::DeletePolicyBasedRouteRequest>);
 
@@ -5457,6 +6489,25 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::list_locations][super::super::client::PolicyBasedRoutingService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -5547,6 +6598,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::get_location][super::super::client::PolicyBasedRoutingService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -5592,6 +6658,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::set_iam_policy][super::super::client::PolicyBasedRoutingService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -5659,6 +6740,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::get_iam_policy][super::super::client::PolicyBasedRoutingService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -5715,6 +6811,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::test_iam_permissions][super::super::client::PolicyBasedRoutingService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -5778,6 +6889,25 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::list_operations][super::super::client::PolicyBasedRoutingService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5870,6 +7000,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::get_operation][super::super::client::PolicyBasedRoutingService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5918,6 +7063,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::delete_operation][super::super::client::PolicyBasedRoutingService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -5966,6 +7126,21 @@ pub mod policy_based_routing_service {
     }
 
     /// The request builder for [PolicyBasedRoutingService::cancel_operation][super::super::client::PolicyBasedRoutingService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkconnectivity_v1::builder;
+    /// use builder::policy_based_routing_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

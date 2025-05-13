@@ -29,7 +29,8 @@ pub async fn client_retry(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-retry-request
     let mut list = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .by_item();
     while let Some(secret) = list.next().await {
         let secret = secret?;
@@ -62,7 +63,8 @@ pub async fn client_retry_full(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-retry-full-request
     let mut list = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .by_item();
     while let Some(secret) = list.next().await {
         let secret = secret?;
@@ -88,7 +90,8 @@ pub async fn request_retry(
 
     // ANCHOR: request-retry-request
     client
-        .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+        .delete_secret()
+        .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
         .with_retry_policy(
             AlwaysRetry
                 .with_attempt_limit(5)

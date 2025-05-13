@@ -158,12 +158,8 @@ impl WebRiskService {
     /// protect users that could get exposed to this threat in the future. Only
     /// allowlisted projects can use this method during Early Access. Please reach
     /// out to Sales or your customer engineer to obtain access.
-    pub fn create_submission(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::CreateSubmission {
+    pub fn create_submission(&self) -> super::builder::web_risk_service::CreateSubmission {
         super::builder::web_risk_service::CreateSubmission::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Submits a URI suspected of containing malicious content to be reviewed.
@@ -186,55 +182,35 @@ impl WebRiskService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn submit_uri(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::SubmitUri {
+    pub fn submit_uri(&self) -> super::builder::web_risk_service::SubmitUri {
         super::builder::web_risk_service::SubmitUri::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::web_risk_service::ListOperations {
         super::builder::web_risk_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::web_risk_service::GetOperation {
         super::builder::web_risk_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::web_risk_service::DeleteOperation {
         super::builder::web_risk_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::web_risk_service::CancelOperation {
         super::builder::web_risk_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

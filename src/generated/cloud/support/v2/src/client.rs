@@ -121,12 +121,8 @@ impl CaseAttachmentService {
     }
 
     /// Retrieve all attachments associated with a support case.
-    pub fn list_attachments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::case_attachment_service::ListAttachments {
+    pub fn list_attachments(&self) -> super::builder::case_attachment_service::ListAttachments {
         super::builder::case_attachment_service::ListAttachments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }
 
@@ -231,11 +227,8 @@ impl CaseService {
     }
 
     /// Retrieve the specified case.
-    pub fn get_case(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::case_service::GetCase {
-        super::builder::case_service::GetCase::new(self.inner.clone()).set_name(name.into())
+    pub fn get_case(&self) -> super::builder::case_service::GetCase {
+        super::builder::case_service::GetCase::new(self.inner.clone())
     }
 
     /// Retrieve all cases under the specified parent.
@@ -244,37 +237,25 @@ impl CaseService {
     /// parented by that organization. To retrieve all cases under an organization,
     /// including cases parented by projects under that organization, use
     /// `cases.search`.
-    pub fn list_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::case_service::ListCases {
-        super::builder::case_service::ListCases::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_cases(&self) -> super::builder::case_service::ListCases {
+        super::builder::case_service::ListCases::new(self.inner.clone())
     }
 
     /// Search cases using the specified query.
-    pub fn search_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::case_service::SearchCases {
-        super::builder::case_service::SearchCases::new(self.inner.clone()).set_parent(parent.into())
+    pub fn search_cases(&self) -> super::builder::case_service::SearchCases {
+        super::builder::case_service::SearchCases::new(self.inner.clone())
     }
 
     /// Create a new case and associate it with the given Google Cloud Resource.
     /// The case object must have the following fields set: `display_name`,
     /// `description`, `classification`, and `priority`.
-    pub fn create_case(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::case_service::CreateCase {
-        super::builder::case_service::CreateCase::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_case(&self) -> super::builder::case_service::CreateCase {
+        super::builder::case_service::CreateCase::new(self.inner.clone())
     }
 
     /// Update the specified case. Only a subset of fields can be updated.
-    pub fn update_case(
-        &self,
-        case: impl Into<crate::model::Case>,
-    ) -> super::builder::case_service::UpdateCase {
-        super::builder::case_service::UpdateCase::new(self.inner.clone()).set_case(case.into())
+    pub fn update_case(&self) -> super::builder::case_service::UpdateCase {
+        super::builder::case_service::UpdateCase::new(self.inner.clone())
     }
 
     /// Escalate a case. Escalating a case will initiate the Google Cloud Support
@@ -284,19 +265,13 @@ impl CaseService {
     /// <https://cloud.google.com/support> and look for 'Technical support
     /// escalations' in the feature list to find out which tiers are able to
     /// perform escalations.
-    pub fn escalate_case(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::case_service::EscalateCase {
-        super::builder::case_service::EscalateCase::new(self.inner.clone()).set_name(name.into())
+    pub fn escalate_case(&self) -> super::builder::case_service::EscalateCase {
+        super::builder::case_service::EscalateCase::new(self.inner.clone())
     }
 
     /// Close the specified case.
-    pub fn close_case(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::case_service::CloseCase {
-        super::builder::case_service::CloseCase::new(self.inner.clone()).set_name(name.into())
+    pub fn close_case(&self) -> super::builder::case_service::CloseCase {
+        super::builder::case_service::CloseCase::new(self.inner.clone())
     }
 
     /// Retrieve valid classifications to be used when creating a support case.
@@ -411,21 +386,13 @@ impl CommentService {
     }
 
     /// Retrieve all Comments associated with the Case object.
-    pub fn list_comments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::comment_service::ListComments {
+    pub fn list_comments(&self) -> super::builder::comment_service::ListComments {
         super::builder::comment_service::ListComments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Add a new comment to the specified Case.
     /// The comment object must have the following fields set: body.
-    pub fn create_comment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::comment_service::CreateComment {
+    pub fn create_comment(&self) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

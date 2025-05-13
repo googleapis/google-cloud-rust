@@ -142,12 +142,10 @@ impl Client {
         let mut headers = headers;
         let auth_headers = self
             .credentials
-            .headers()
+            .headers(http::Extensions::new())
             .await
             .map_err(Error::authentication)?;
-        for (key, value) in auth_headers.into_iter() {
-            headers.append(key, value);
-        }
+        headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
@@ -250,6 +248,7 @@ where
     let (metadata, body, _extensions) = response.into_parts();
     gax::response::Response::from_parts(
         gax::response::Parts::new().set_headers(metadata.into_headers()),
-        body.cnv(),
+        // TODO(#2037) - handle conversion from proto errors.
+        body.cnv().unwrap(),
     )
 }

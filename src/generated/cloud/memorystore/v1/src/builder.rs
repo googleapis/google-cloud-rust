@@ -69,6 +69,25 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::list_instances][super::super::client::Memorystore::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -164,6 +183,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::get_instance][super::super::client::Memorystore::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -211,6 +245,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::create_instance][super::super::client::Memorystore::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -321,6 +371,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::update_instance][super::super::client::Memorystore::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -424,6 +490,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::delete_instance][super::super::client::Memorystore::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -517,6 +599,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::get_certificate_authority][super::super::client::Memorystore::get_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::GetCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
         RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
@@ -569,6 +666,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::reschedule_maintenance][super::super::client::Memorystore::reschedule_maintenance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::RescheduleMaintenance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RescheduleMaintenance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
 
@@ -679,6 +792,25 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::list_backup_collections][super::super::client::Memorystore::list_backup_collections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::ListBackupCollections;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupCollections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupCollections(RequestBuilder<crate::model::ListBackupCollectionsRequest>);
 
@@ -767,6 +899,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::get_backup_collection][super::super::client::Memorystore::get_backup_collection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::GetBackupCollection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupCollection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupCollection(RequestBuilder<crate::model::GetBackupCollectionRequest>);
 
@@ -817,6 +964,25 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::list_backups][super::super::client::Memorystore::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -900,6 +1066,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::get_backup][super::super::client::Memorystore::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::GetBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -947,6 +1128,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::delete_backup][super::super::client::Memorystore::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1040,6 +1237,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::export_backup][super::super::client::Memorystore::export_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::ExportBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportBackup(RequestBuilder<crate::model::ExportBackupRequest>);
 
@@ -1149,6 +1362,22 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::backup_instance][super::super::client::Memorystore::backup_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::BackupInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_memorystore_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BackupInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BackupInstance(RequestBuilder<crate::model::BackupInstanceRequest>);
 
@@ -1249,6 +1478,25 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::list_locations][super::super::client::Memorystore::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1339,6 +1587,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::get_location][super::super::client::Memorystore::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1384,6 +1647,25 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::list_operations][super::super::client::Memorystore::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1476,6 +1758,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::get_operation][super::super::client::Memorystore::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1524,6 +1821,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::delete_operation][super::super::client::Memorystore::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1572,6 +1884,21 @@ pub mod memorystore {
     }
 
     /// The request builder for [Memorystore::cancel_operation][super::super::client::Memorystore::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_memorystore_v1::builder;
+    /// use builder::memorystore::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

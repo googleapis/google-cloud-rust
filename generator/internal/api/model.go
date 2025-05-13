@@ -240,6 +240,21 @@ func (m *Method) HasRouting() bool {
 
 // Normalized request path information.
 type PathInfo struct {
+	// The list of bindings, including the top-level binding.
+	Bindings []*PathBinding
+	// Body is the name of the field that should be used as the body of the
+	// request.
+	//
+	// This is a string that may be "*" which indicates that the entire request
+	// should be used as the body.
+	//
+	// If this is empty then the body is not used.
+	BodyFieldPath string
+	// Language specific annotations
+	Codec any
+}
+
+type PathBinding struct {
 	// HTTP Verb.
 	//
 	// This is one of:
@@ -253,16 +268,6 @@ type PathInfo struct {
 	PathTemplate []PathSegment
 	// Query parameter fields.
 	QueryParameters map[string]bool
-	// Body is the name of the field that should be used as the body of the
-	// request.
-	//
-	// This is a string that may be "*" which indicates that the entire request
-	// should be used as the body.
-	//
-	// If this is empty then the body is not used.
-	BodyFieldPath string
-	// Language specific annotations
-	Codec any
 }
 
 // Normalized long running operation info

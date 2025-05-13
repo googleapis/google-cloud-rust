@@ -69,6 +69,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::create_connection][super::super::client::ConnectionService::create_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::CreateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
@@ -136,6 +151,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::get_connection][super::super::client::ConnectionService::get_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::GetConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
@@ -183,6 +213,25 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::list_connections][super::super::client::ConnectionService::list_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::ListConnections;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
@@ -268,6 +317,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::update_connection][super::super::client::ConnectionService::update_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::UpdateConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
@@ -340,6 +404,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::delete_connection][super::super::client::ConnectionService::delete_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::DeleteConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
@@ -390,6 +469,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::get_iam_policy][super::super::client::ConnectionService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -446,6 +540,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::set_iam_policy][super::super::client::ConnectionService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -513,6 +622,21 @@ pub mod connection_service {
     }
 
     /// The request builder for [ConnectionService::test_iam_permissions][super::super::client::ConnectionService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_connection_v1::builder;
+    /// use builder::connection_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 

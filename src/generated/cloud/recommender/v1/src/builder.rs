@@ -69,6 +69,25 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::list_insights][super::super::client::Recommender::list_insights] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::ListInsights;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInsights {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
@@ -158,6 +177,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::get_insight][super::super::client::Recommender::get_insight] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetInsight;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInsight {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
@@ -205,6 +239,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::mark_insight_accepted][super::super::client::Recommender::mark_insight_accepted] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkInsightAccepted;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkInsightAccepted {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
@@ -275,6 +324,25 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::list_recommendations][super::super::client::Recommender::list_recommendations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::ListRecommendations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRecommendations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
@@ -369,6 +437,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::get_recommendation][super::super::client::Recommender::get_recommendation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetRecommendation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRecommendation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
@@ -419,6 +502,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::mark_recommendation_dismissed][super::super::client::Recommender::mark_recommendation_dismissed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationDismissed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationDismissed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationDismissed(
         RequestBuilder<crate::model::MarkRecommendationDismissedRequest>,
@@ -477,6 +575,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::mark_recommendation_claimed][super::super::client::Recommender::mark_recommendation_claimed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationClaimed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationClaimed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationClaimed(
         RequestBuilder<crate::model::MarkRecommendationClaimedRequest>,
@@ -549,6 +662,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::mark_recommendation_succeeded][super::super::client::Recommender::mark_recommendation_succeeded] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationSucceeded;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationSucceeded {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationSucceeded(
         RequestBuilder<crate::model::MarkRecommendationSucceededRequest>,
@@ -621,6 +749,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::mark_recommendation_failed][super::super::client::Recommender::mark_recommendation_failed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationFailed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationFailed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationFailed(
         RequestBuilder<crate::model::MarkRecommendationFailedRequest>,
@@ -693,6 +836,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::get_recommender_config][super::super::client::Recommender::get_recommender_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetRecommenderConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRecommenderConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
@@ -743,6 +901,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::update_recommender_config][super::super::client::Recommender::update_recommender_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::UpdateRecommenderConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRecommenderConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRecommenderConfig(
         RequestBuilder<crate::model::UpdateRecommenderConfigRequest>,
@@ -815,6 +988,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::get_insight_type_config][super::super::client::Recommender::get_insight_type_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetInsightTypeConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInsightTypeConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
@@ -865,6 +1053,21 @@ pub mod recommender {
     }
 
     /// The request builder for [Recommender::update_insight_type_config][super::super::client::Recommender::update_insight_type_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::UpdateInsightTypeConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInsightTypeConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInsightTypeConfig(
         RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>,

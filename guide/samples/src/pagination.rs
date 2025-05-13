@@ -26,7 +26,8 @@ pub async fn paginator_iterate_pages(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: paginator-iterate-pages
     let mut list = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .by_page();
     while let Some(page) = list.next().await {
         let page = page?;
@@ -51,7 +52,8 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: paginator-stream-pages
     let list = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .by_page()
         .into_stream();
     list.enumerate()
@@ -80,7 +82,8 @@ pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: paginator-iterate-items
     let mut list = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .by_item();
     while let Some(secret) = list.next().await {
         let secret = secret?;
@@ -102,7 +105,8 @@ pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: paginator-stream-items
     let list = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .by_item()
         .into_stream();
     list.map(|secret| -> gax::Result<()> {
@@ -127,7 +131,8 @@ pub async fn pagination_page_token(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: paginator-page-token
     let page = client
-        .list_secrets(format!("projects/{project_id}"))
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
         .send()
         .await;
     let page = page?;
@@ -140,7 +145,8 @@ pub async fn pagination_page_token(project_id: &str) -> crate::Result<()> {
         println!("  next_page_token={}", next_page_token);
 
         let page = client
-            .list_secrets(format!("projects/{project_id}"))
+            .list_secrets()
+            .set_parent(format!("projects/{project_id}"))
             .set_page_token(next_page_token)
             .send()
             .await;

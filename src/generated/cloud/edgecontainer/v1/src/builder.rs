@@ -69,6 +69,25 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::list_clusters][super::super::client::EdgeContainer::list_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListClusters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -164,6 +183,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_cluster][super::super::client::EdgeContainer::get_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -211,6 +245,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::create_cluster][super::super::client::EdgeContainer::create_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CreateCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -321,6 +371,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::update_cluster][super::super::client::EdgeContainer::update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::UpdateCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -422,6 +488,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::UpgradeCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpgradeCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
@@ -530,6 +612,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::delete_cluster][super::super::client::EdgeContainer::delete_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -623,6 +721,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::generate_access_token][super::super::client::EdgeContainer::generate_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GenerateAccessToken;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
@@ -673,6 +786,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::generate_offline_credential][super::super::client::EdgeContainer::generate_offline_credential] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GenerateOfflineCredential;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateOfflineCredential {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateOfflineCredential(
         RequestBuilder<crate::model::GenerateOfflineCredentialRequest>,
@@ -725,6 +853,25 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::list_node_pools][super::super::client::EdgeContainer::list_node_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListNodePools;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNodePools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
@@ -820,6 +967,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_node_pool][super::super::client::EdgeContainer::get_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetNodePool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
@@ -867,6 +1029,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::create_node_pool][super::super::client::EdgeContainer::create_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CreateNodePool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
@@ -977,6 +1155,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::update_node_pool][super::super::client::EdgeContainer::update_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::UpdateNodePool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
@@ -1078,6 +1272,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::delete_node_pool][super::super::client::EdgeContainer::delete_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteNodePool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
@@ -1171,6 +1381,25 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::list_machines][super::super::client::EdgeContainer::list_machines] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListMachines;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMachines {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
@@ -1266,6 +1495,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_machine][super::super::client::EdgeContainer::get_machine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetMachine;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMachine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
@@ -1313,6 +1557,25 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::list_vpn_connections][super::super::client::EdgeContainer::list_vpn_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListVpnConnections;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVpnConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
@@ -1413,6 +1676,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_vpn_connection][super::super::client::EdgeContainer::get_vpn_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetVpnConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVpnConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
@@ -1463,6 +1741,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CreateVpnConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVpnConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
@@ -1579,6 +1873,22 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteVpnConnection;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_edgecontainer_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVpnConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
@@ -1675,6 +1985,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_server_config][super::super::client::EdgeContainer::get_server_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetServerConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServerConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
@@ -1722,6 +2047,25 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::list_locations][super::super::client::EdgeContainer::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1812,6 +2156,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_location][super::super::client::EdgeContainer::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1857,6 +2216,25 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::list_operations][super::super::client::EdgeContainer::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1949,6 +2327,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::get_operation][super::super::client::EdgeContainer::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1997,6 +2390,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::delete_operation][super::super::client::EdgeContainer::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2045,6 +2453,21 @@ pub mod edge_container {
     }
 
     /// The request builder for [EdgeContainer::cancel_operation][super::super::client::EdgeContainer::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

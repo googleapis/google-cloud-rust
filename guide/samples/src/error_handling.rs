@@ -74,7 +74,8 @@ async fn update_attempt(
 ) -> gax::Result<sm::model::SecretVersion> {
     let checksum = crc32c::crc32c(&data) as i64;
     client
-        .add_secret_version(format!("projects/{project_id}/secrets/{secret_id}"))
+        .add_secret_version()
+        .set_parent(format!("projects/{project_id}/secrets/{secret_id}"))
         .set_payload(
             sm::model::SecretPayload::new()
                 .set_data(data)
@@ -97,7 +98,8 @@ pub async fn create_secret(
     use std::time::Duration;
 
     client
-        .create_secret(format!("projects/{project_id}"))
+        .create_secret()
+        .set_parent(format!("projects/{project_id}"))
         .with_retry_policy(
             AlwaysRetry
                 .with_attempt_limit(5)

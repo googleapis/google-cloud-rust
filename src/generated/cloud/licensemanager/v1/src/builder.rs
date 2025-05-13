@@ -69,6 +69,25 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::list_configurations][super::super::client::LicenseManager::list_configurations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::ListConfigurations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConfigurations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConfigurations(RequestBuilder<crate::model::ListConfigurationsRequest>);
 
@@ -169,6 +188,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::get_configuration][super::super::client::LicenseManager::get_configuration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::GetConfiguration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConfiguration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConfiguration(RequestBuilder<crate::model::GetConfigurationRequest>);
 
@@ -219,6 +253,22 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::create_configuration][super::super::client::LicenseManager::create_configuration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::CreateConfiguration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_licensemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConfiguration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConfiguration(RequestBuilder<crate::model::CreateConfigurationRequest>);
 
@@ -335,6 +385,22 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::update_configuration][super::super::client::LicenseManager::update_configuration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::UpdateConfiguration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_licensemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConfiguration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConfiguration(RequestBuilder<crate::model::UpdateConfigurationRequest>);
 
@@ -444,6 +510,22 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::delete_configuration][super::super::client::LicenseManager::delete_configuration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::DeleteConfiguration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_licensemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConfiguration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConfiguration(RequestBuilder<crate::model::DeleteConfigurationRequest>);
 
@@ -540,6 +622,25 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::list_instances][super::super::client::LicenseManager::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -635,6 +736,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::get_instance][super::super::client::LicenseManager::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -682,6 +798,22 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::deactivate_configuration][super::super::client::LicenseManager::deactivate_configuration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::DeactivateConfiguration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_licensemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeactivateConfiguration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeactivateConfiguration(
         RequestBuilder<crate::model::DeactivateConfigurationRequest>,
@@ -781,6 +913,22 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::reactivate_configuration][super::super::client::LicenseManager::reactivate_configuration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::ReactivateConfiguration;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_licensemanager_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReactivateConfiguration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReactivateConfiguration(
         RequestBuilder<crate::model::ReactivateConfigurationRequest>,
@@ -880,6 +1028,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::query_configuration_license_usage][super::super::client::LicenseManager::query_configuration_license_usage] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::QueryConfigurationLicenseUsage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryConfigurationLicenseUsage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryConfigurationLicenseUsage(
         RequestBuilder<crate::model::QueryConfigurationLicenseUsageRequest>,
@@ -951,6 +1114,25 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::aggregate_usage][super::super::client::LicenseManager::aggregate_usage] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::AggregateUsage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AggregateUsage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AggregateUsage(RequestBuilder<crate::model::AggregateUsageRequest>);
 
@@ -1065,6 +1247,25 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::list_products][super::super::client::LicenseManager::list_products] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::ListProducts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProducts(RequestBuilder<crate::model::ListProductsRequest>);
 
@@ -1160,6 +1361,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::get_product][super::super::client::LicenseManager::get_product] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::GetProduct;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProduct(RequestBuilder<crate::model::GetProductRequest>);
 
@@ -1207,6 +1423,25 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::list_locations][super::super::client::LicenseManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1297,6 +1532,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::get_location][super::super::client::LicenseManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1342,6 +1592,25 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::list_operations][super::super::client::LicenseManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1434,6 +1703,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::get_operation][super::super::client::LicenseManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1482,6 +1766,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::delete_operation][super::super::client::LicenseManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1530,6 +1829,21 @@ pub mod license_manager {
     }
 
     /// The request builder for [LicenseManager::cancel_operation][super::super::client::LicenseManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_licensemanager_v1::builder;
+    /// use builder::license_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

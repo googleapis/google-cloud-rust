@@ -127,12 +127,8 @@ impl CloudShellService {
     }
 
     /// Gets an environment. Returns NOT_FOUND if the environment does not exist.
-    pub fn get_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::GetEnvironment {
+    pub fn get_environment(&self) -> super::builder::cloud_shell_service::GetEnvironment {
         super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Starts an existing environment, allowing clients to connect to it. The
@@ -151,12 +147,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::StartEnvironment {
+    pub fn start_environment(&self) -> super::builder::cloud_shell_service::StartEnvironment {
         super::builder::cloud_shell_service::StartEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sends OAuth credentials to a running environment on behalf of a user. When
@@ -175,10 +167,8 @@ impl CloudShellService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn authorize_environment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_shell_service::AuthorizeEnvironment {
         super::builder::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds a public SSH key to an environment, allowing clients with the
@@ -194,12 +184,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_public_key(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::AddPublicKey {
+    pub fn add_public_key(&self) -> super::builder::cloud_shell_service::AddPublicKey {
         super::builder::cloud_shell_service::AddPublicKey::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Removes a public SSH key from an environment. Clients will no longer be
@@ -216,22 +202,14 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_public_key(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::RemovePublicKey {
+    pub fn remove_public_key(&self) -> super::builder::cloud_shell_service::RemovePublicKey {
         super::builder::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::cloud_shell_service::GetOperation {
         super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

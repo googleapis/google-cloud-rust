@@ -122,29 +122,18 @@ impl DataFusion {
 
     /// Lists possible versions for Data Fusion instances in the specified project
     /// and location.
-    pub fn list_available_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::ListAvailableVersions {
+    pub fn list_available_versions(&self) -> super::builder::data_fusion::ListAvailableVersions {
         super::builder::data_fusion::ListAvailableVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists Data Fusion instances in the specified project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::ListInstances {
+    pub fn list_instances(&self) -> super::builder::data_fusion::ListInstances {
         super::builder::data_fusion::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Data Fusion instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::GetInstance {
-        super::builder::data_fusion::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::data_fusion::GetInstance {
+        super::builder::data_fusion::GetInstance::new(self.inner.clone())
     }
 
     /// Creates a new Data Fusion instance in the specified project and location.
@@ -158,12 +147,8 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::data_fusion::CreateInstance {
         super::builder::data_fusion::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single Date Fusion instance.
@@ -177,11 +162,8 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::DeleteInstance {
-        super::builder::data_fusion::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::data_fusion::DeleteInstance {
+        super::builder::data_fusion::DeleteInstance::new(self.inner.clone())
     }
 
     /// Updates a single Data Fusion instance.
@@ -195,12 +177,8 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::data_fusion::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::data_fusion::UpdateInstance {
         super::builder::data_fusion::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Restart a single Data Fusion instance.
@@ -215,50 +193,35 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restart_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::RestartInstance {
-        super::builder::data_fusion::RestartInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn restart_instance(&self) -> super::builder::data_fusion::RestartInstance {
+        super::builder::data_fusion::RestartInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::ListOperations {
-        super::builder::data_fusion::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::data_fusion::ListOperations {
+        super::builder::data_fusion::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::GetOperation {
-        super::builder::data_fusion::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::data_fusion::GetOperation {
+        super::builder::data_fusion::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::DeleteOperation {
-        super::builder::data_fusion::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::data_fusion::DeleteOperation {
+        super::builder::data_fusion::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::CancelOperation {
-        super::builder::data_fusion::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::data_fusion::CancelOperation {
+        super::builder::data_fusion::CancelOperation::new(self.inner.clone())
     }
 }

@@ -67,6 +67,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::process_open_lineage_run_event][super::super::client::Lineage::process_open_lineage_run_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ProcessOpenLineageRunEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ProcessOpenLineageRunEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ProcessOpenLineageRunEvent(
         RequestBuilder<crate::model::ProcessOpenLineageRunEventRequest>,
@@ -131,6 +146,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::create_process][super::super::client::Lineage::create_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CreateProcess;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProcess(RequestBuilder<crate::model::CreateProcessRequest>);
 
@@ -193,6 +223,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::update_process][super::super::client::Lineage::update_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::UpdateProcess;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProcess(RequestBuilder<crate::model::UpdateProcessRequest>);
 
@@ -256,6 +301,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::get_process][super::super::client::Lineage::get_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetProcess;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcess(RequestBuilder<crate::model::GetProcessRequest>);
 
@@ -301,6 +361,25 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::list_processes][super::super::client::Lineage::list_processes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListProcesses;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcesses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcesses(RequestBuilder<crate::model::ListProcessesRequest>);
 
@@ -382,6 +461,22 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::delete_process][super::super::client::Lineage::delete_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteProcess;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datacatalog_lineage_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProcess(RequestBuilder<crate::model::DeleteProcessRequest>);
 
@@ -473,6 +568,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::create_run][super::super::client::Lineage::create_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CreateRun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRun(RequestBuilder<crate::model::CreateRunRequest>);
 
@@ -532,6 +642,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::update_run][super::super::client::Lineage::update_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::UpdateRun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRun(RequestBuilder<crate::model::UpdateRunRequest>);
 
@@ -592,6 +717,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::get_run][super::super::client::Lineage::get_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetRun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRun(RequestBuilder<crate::model::GetRunRequest>);
 
@@ -637,6 +777,25 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::list_runs][super::super::client::Lineage::list_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListRuns;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuns(RequestBuilder<crate::model::ListRunsRequest>);
 
@@ -718,6 +877,22 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::delete_run][super::super::client::Lineage::delete_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteRun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datacatalog_lineage_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRun(RequestBuilder<crate::model::DeleteRunRequest>);
 
@@ -809,6 +984,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::create_lineage_event][super::super::client::Lineage::create_lineage_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CreateLineageEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLineageEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLineageEvent(RequestBuilder<crate::model::CreateLineageEventRequest>);
 
@@ -874,6 +1064,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::get_lineage_event][super::super::client::Lineage::get_lineage_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetLineageEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLineageEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLineageEvent(RequestBuilder<crate::model::GetLineageEventRequest>);
 
@@ -919,6 +1124,25 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::list_lineage_events][super::super::client::Lineage::list_lineage_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListLineageEvents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLineageEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLineageEvents(RequestBuilder<crate::model::ListLineageEventsRequest>);
 
@@ -1003,6 +1227,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::delete_lineage_event][super::super::client::Lineage::delete_lineage_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteLineageEvent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLineageEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLineageEvent(RequestBuilder<crate::model::DeleteLineageEventRequest>);
 
@@ -1057,6 +1296,25 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::search_links][super::super::client::Lineage::search_links] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::SearchLinks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchLinks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchLinks(RequestBuilder<crate::model::SearchLinksRequest>);
 
@@ -1176,6 +1434,25 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::batch_search_link_processes][super::super::client::Lineage::batch_search_link_processes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::BatchSearchLinkProcesses;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchSearchLinkProcesses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchSearchLinkProcesses(
         RequestBuilder<crate::model::BatchSearchLinkProcessesRequest>,
@@ -1279,6 +1556,25 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::list_operations][super::super::client::Lineage::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1369,6 +1665,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::get_operation][super::super::client::Lineage::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1415,6 +1726,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::delete_operation][super::super::client::Lineage::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1461,6 +1787,21 @@ pub mod lineage {
     }
 
     /// The request builder for [Lineage::cancel_operation][super::super::client::Lineage::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

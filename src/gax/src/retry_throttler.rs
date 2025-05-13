@@ -67,9 +67,10 @@ use std::sync::{Arc, Mutex};
 
 /// Implementations of this trait prevent a client from sending too many retries.
 ///
-/// Retry throttlers are shared by all the requests in a client, and may be even
-/// shared by multiple clients. The library providers a default implementation
-/// (and instance) on each client, but the application may override them.
+/// Retry throttlers are shared by all the requests in a client, and may even be
+/// shared by multiple clients. The library provides a default implementation
+/// (and instance) on each client. The application may choose a different
+/// implementation or instance if the default is not suitable.
 ///
 /// Implementations of this trait must also implement [Debug][std::fmt::Debug]
 /// because the application may need to log the client state. The trait is

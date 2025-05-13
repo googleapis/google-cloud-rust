@@ -142,12 +142,8 @@ impl ProfilerService {
     /// status. To a gRPC client, the extension will be return as a
     /// binary-serialized proto in the trailing metadata item named
     /// "google.rpc.retryinfo-bin".
-    pub fn create_profile(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::profiler_service::CreateProfile {
+    pub fn create_profile(&self) -> super::builder::profiler_service::CreateProfile {
         super::builder::profiler_service::CreateProfile::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// CreateOfflineProfile creates a new profile resource in the offline
@@ -158,12 +154,8 @@ impl ProfilerService {
     /// profiler
     /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
     /// instead for profile collection._
-    pub fn create_offline_profile(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::profiler_service::CreateOfflineProfile {
+    pub fn create_offline_profile(&self) -> super::builder::profiler_service::CreateOfflineProfile {
         super::builder::profiler_service::CreateOfflineProfile::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// UpdateProfile updates the profile bytes and labels on the profile resource
@@ -175,12 +167,8 @@ impl ProfilerService {
     /// profiler
     /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
     /// instead for profile collection._
-    pub fn update_profile(
-        &self,
-        profile: impl Into<crate::model::Profile>,
-    ) -> super::builder::profiler_service::UpdateProfile {
+    pub fn update_profile(&self) -> super::builder::profiler_service::UpdateProfile {
         super::builder::profiler_service::UpdateProfile::new(self.inner.clone())
-            .set_profile(profile.into())
     }
 }
 
@@ -287,11 +275,7 @@ impl ExportService {
 
     /// Lists profiles which have been collected so far and for which the caller
     /// has permission to view.
-    pub fn list_profiles(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::export_service::ListProfiles {
+    pub fn list_profiles(&self) -> super::builder::export_service::ListProfiles {
         super::builder::export_service::ListProfiles::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

@@ -67,6 +67,25 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::list_agents][super::super::client::Agents::list_agents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::ListAgents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAgents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAgents(RequestBuilder<crate::model::ListAgentsRequest>);
 
@@ -148,6 +167,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::get_agent][super::super::client::Agents::get_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::GetAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAgent(RequestBuilder<crate::model::GetAgentRequest>);
 
@@ -193,6 +227,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::create_agent][super::super::client::Agents::create_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::CreateAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAgent(RequestBuilder<crate::model::CreateAgentRequest>);
 
@@ -249,6 +298,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::update_agent][super::super::client::Agents::update_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::UpdateAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAgent(RequestBuilder<crate::model::UpdateAgentRequest>);
 
@@ -306,6 +370,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::delete_agent][super::super::client::Agents::delete_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::DeleteAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAgent(RequestBuilder<crate::model::DeleteAgentRequest>);
 
@@ -351,6 +430,22 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::export_agent][super::super::client::Agents::export_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::ExportAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportAgent(RequestBuilder<crate::model::ExportAgentRequest>);
 
@@ -470,6 +565,22 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::restore_agent][super::super::client::Agents::restore_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::RestoreAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreAgent(RequestBuilder<crate::model::RestoreAgentRequest>);
 
@@ -611,6 +722,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::validate_agent][super::super::client::Agents::validate_agent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::ValidateAgent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateAgent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateAgent(RequestBuilder<crate::model::ValidateAgentRequest>);
 
@@ -662,6 +788,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::get_agent_validation_result][super::super::client::Agents::get_agent_validation_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::GetAgentValidationResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAgentValidationResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAgentValidationResult(
         RequestBuilder<crate::model::GetAgentValidationResultRequest>,
@@ -718,6 +859,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::get_generative_settings][super::super::client::Agents::get_generative_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::GetGenerativeSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGenerativeSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGenerativeSettings(RequestBuilder<crate::model::GetGenerativeSettingsRequest>);
 
@@ -774,6 +930,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::update_generative_settings][super::super::client::Agents::update_generative_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::UpdateGenerativeSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGenerativeSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGenerativeSettings(
         RequestBuilder<crate::model::UpdateGenerativeSettingsRequest>,
@@ -838,6 +1009,25 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::list_locations][super::super::client::Agents::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -926,6 +1116,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::get_location][super::super::client::Agents::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -969,6 +1174,25 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::list_operations][super::super::client::Agents::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1059,6 +1283,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::get_operation][super::super::client::Agents::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1105,6 +1344,21 @@ pub mod agents {
     }
 
     /// The request builder for [Agents::cancel_operation][super::super::client::Agents::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::agents::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1206,6 +1460,25 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::list_changelogs][super::super::client::Changelogs::list_changelogs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::ListChangelogs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListChangelogs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListChangelogs(RequestBuilder<crate::model::ListChangelogsRequest>);
 
@@ -1295,6 +1568,21 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::get_changelog][super::super::client::Changelogs::get_changelog] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::GetChangelog;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetChangelog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetChangelog(RequestBuilder<crate::model::GetChangelogRequest>);
 
@@ -1342,6 +1630,25 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::list_locations][super::super::client::Changelogs::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1432,6 +1739,21 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::get_location][super::super::client::Changelogs::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1477,6 +1799,25 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::list_operations][super::super::client::Changelogs::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1569,6 +1910,21 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::get_operation][super::super::client::Changelogs::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1617,6 +1973,21 @@ pub mod changelogs {
     }
 
     /// The request builder for [Changelogs::cancel_operation][super::super::client::Changelogs::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::changelogs::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1720,6 +2091,25 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::list_deployments][super::super::client::Deployments::list_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::ListDeployments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
@@ -1803,6 +2193,21 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::get_deployment][super::super::client::Deployments::get_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::GetDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
@@ -1850,6 +2255,25 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::list_locations][super::super::client::Deployments::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1940,6 +2364,21 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::get_location][super::super::client::Deployments::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1985,6 +2424,25 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::list_operations][super::super::client::Deployments::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2077,6 +2535,21 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::get_operation][super::super::client::Deployments::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2125,6 +2598,21 @@ pub mod deployments {
     }
 
     /// The request builder for [Deployments::cancel_operation][super::super::client::Deployments::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::deployments::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -2228,6 +2716,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::get_entity_type][super::super::client::EntityTypes::get_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::GetEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntityType(RequestBuilder<crate::model::GetEntityTypeRequest>);
 
@@ -2281,6 +2784,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::create_entity_type][super::super::client::EntityTypes::create_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::CreateEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntityType(RequestBuilder<crate::model::CreateEntityTypeRequest>);
 
@@ -2348,6 +2866,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::update_entity_type][super::super::client::EntityTypes::update_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::UpdateEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntityType(RequestBuilder<crate::model::UpdateEntityTypeRequest>);
 
@@ -2416,6 +2949,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::delete_entity_type][super::super::client::EntityTypes::delete_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::DeleteEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntityType(RequestBuilder<crate::model::DeleteEntityTypeRequest>);
 
@@ -2472,6 +3020,25 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::list_entity_types][super::super::client::EntityTypes::list_entity_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::ListEntityTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntityTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntityTypes(RequestBuilder<crate::model::ListEntityTypesRequest>);
 
@@ -2561,6 +3128,22 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::export_entity_types][super::super::client::EntityTypes::export_entity_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::ExportEntityTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportEntityTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportEntityTypes(RequestBuilder<crate::model::ExportEntityTypesRequest>);
 
@@ -2722,6 +3305,22 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::import_entity_types][super::super::client::EntityTypes::import_entity_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::ImportEntityTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportEntityTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportEntityTypes(RequestBuilder<crate::model::ImportEntityTypesRequest>);
 
@@ -2874,6 +3473,25 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::list_locations][super::super::client::EntityTypes::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -2964,6 +3582,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::get_location][super::super::client::EntityTypes::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3009,6 +3642,25 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::list_operations][super::super::client::EntityTypes::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3101,6 +3753,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::get_operation][super::super::client::EntityTypes::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3149,6 +3816,21 @@ pub mod entity_types {
     }
 
     /// The request builder for [EntityTypes::cancel_operation][super::super::client::EntityTypes::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::entity_types::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3252,6 +3934,25 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::list_environments][super::super::client::Environments::list_environments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::ListEnvironments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEnvironments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
@@ -3338,6 +4039,21 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::get_environment][super::super::client::Environments::get_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::GetEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
@@ -3385,6 +4101,22 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::create_environment][super::super::client::Environments::create_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::CreateEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
@@ -3481,6 +4213,22 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::update_environment][super::super::client::Environments::update_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::UpdateEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
@@ -3580,6 +4328,21 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::delete_environment][super::super::client::Environments::delete_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::DeleteEnvironment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
@@ -3630,6 +4393,25 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::lookup_environment_history][super::super::client::Environments::lookup_environment_history] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::LookupEnvironmentHistory;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupEnvironmentHistory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupEnvironmentHistory(
         RequestBuilder<crate::model::LookupEnvironmentHistoryRequest>,
@@ -3722,6 +4504,22 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::run_continuous_test][super::super::client::Environments::run_continuous_test] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::RunContinuousTest;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunContinuousTest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunContinuousTest(RequestBuilder<crate::model::RunContinuousTestRequest>);
 
@@ -3815,6 +4613,25 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::list_continuous_test_results][super::super::client::Environments::list_continuous_test_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::ListContinuousTestResults;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListContinuousTestResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListContinuousTestResults(
         RequestBuilder<crate::model::ListContinuousTestResultsRequest>,
@@ -3907,6 +4724,22 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::deploy_flow][super::super::client::Environments::deploy_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::DeployFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployFlow(RequestBuilder<crate::model::DeployFlowRequest>);
 
@@ -4003,6 +4836,25 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::list_locations][super::super::client::Environments::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4093,6 +4945,21 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::get_location][super::super::client::Environments::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4138,6 +5005,25 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::list_operations][super::super::client::Environments::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4230,6 +5116,21 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::get_operation][super::super::client::Environments::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4278,6 +5179,21 @@ pub mod environments {
     }
 
     /// The request builder for [Environments::cancel_operation][super::super::client::Environments::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::environments::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -4381,6 +5297,25 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::list_experiments][super::super::client::Experiments::list_experiments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::ListExperiments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListExperiments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListExperiments(RequestBuilder<crate::model::ListExperimentsRequest>);
 
@@ -4464,6 +5399,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::get_experiment][super::super::client::Experiments::get_experiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::GetExperiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetExperiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetExperiment(RequestBuilder<crate::model::GetExperimentRequest>);
 
@@ -4511,6 +5461,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::create_experiment][super::super::client::Experiments::create_experiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::CreateExperiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExperiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExperiment(RequestBuilder<crate::model::CreateExperimentRequest>);
 
@@ -4572,6 +5537,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::update_experiment][super::super::client::Experiments::update_experiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::UpdateExperiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateExperiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExperiment(RequestBuilder<crate::model::UpdateExperimentRequest>);
 
@@ -4636,6 +5616,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::delete_experiment][super::super::client::Experiments::delete_experiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::DeleteExperiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteExperiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteExperiment(RequestBuilder<crate::model::DeleteExperimentRequest>);
 
@@ -4686,6 +5681,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::start_experiment][super::super::client::Experiments::start_experiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::StartExperiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartExperiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartExperiment(RequestBuilder<crate::model::StartExperimentRequest>);
 
@@ -4733,6 +5743,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::stop_experiment][super::super::client::Experiments::stop_experiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::StopExperiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopExperiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopExperiment(RequestBuilder<crate::model::StopExperimentRequest>);
 
@@ -4780,6 +5805,25 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::list_locations][super::super::client::Experiments::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -4870,6 +5914,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::get_location][super::super::client::Experiments::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -4915,6 +5974,25 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::list_operations][super::super::client::Experiments::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5007,6 +6085,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::get_operation][super::super::client::Experiments::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5055,6 +6148,21 @@ pub mod experiments {
     }
 
     /// The request builder for [Experiments::cancel_operation][super::super::client::Experiments::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::experiments::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -5156,6 +6264,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::create_flow][super::super::client::Flows::create_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::CreateFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFlow(RequestBuilder<crate::model::CreateFlowRequest>);
 
@@ -5215,6 +6338,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::delete_flow][super::super::client::Flows::delete_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::DeleteFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFlow(RequestBuilder<crate::model::DeleteFlowRequest>);
 
@@ -5266,6 +6404,25 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::list_flows][super::super::client::Flows::list_flows] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::ListFlows;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFlows {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFlows(RequestBuilder<crate::model::ListFlowsRequest>);
 
@@ -5353,6 +6510,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::get_flow][super::super::client::Flows::get_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::GetFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFlow(RequestBuilder<crate::model::GetFlowRequest>);
 
@@ -5404,6 +6576,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::update_flow][super::super::client::Flows::update_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::UpdateFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFlow(RequestBuilder<crate::model::UpdateFlowRequest>);
 
@@ -5464,6 +6651,22 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::train_flow][super::super::client::Flows::train_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::TrainFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TrainFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TrainFlow(RequestBuilder<crate::model::TrainFlowRequest>);
 
@@ -5549,6 +6752,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::validate_flow][super::super::client::Flows::validate_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::ValidateFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateFlow(RequestBuilder<crate::model::ValidateFlowRequest>);
 
@@ -5600,6 +6818,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::get_flow_validation_result][super::super::client::Flows::get_flow_validation_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::GetFlowValidationResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFlowValidationResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFlowValidationResult(
         RequestBuilder<crate::model::GetFlowValidationResultRequest>,
@@ -5656,6 +6889,22 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::import_flow][super::super::client::Flows::import_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::ImportFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportFlow(RequestBuilder<crate::model::ImportFlowRequest>);
 
@@ -5789,6 +7038,22 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::export_flow][super::super::client::Flows::export_flow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::ExportFlow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportFlow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportFlow(RequestBuilder<crate::model::ExportFlowRequest>);
 
@@ -5882,6 +7147,25 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::list_locations][super::super::client::Flows::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -5970,6 +7254,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::get_location][super::super::client::Flows::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -6013,6 +7312,25 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::list_operations][super::super::client::Flows::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6103,6 +7421,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::get_operation][super::super::client::Flows::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6149,6 +7482,21 @@ pub mod flows {
     }
 
     /// The request builder for [Flows::cancel_operation][super::super::client::Flows::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::flows::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -6250,6 +7598,25 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::list_generators][super::super::client::Generators::list_generators] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::ListGenerators;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGenerators {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGenerators(RequestBuilder<crate::model::ListGeneratorsRequest>);
 
@@ -6339,6 +7706,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::get_generator][super::super::client::Generators::get_generator] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::GetGenerator;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGenerator {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGenerator(RequestBuilder<crate::model::GetGeneratorRequest>);
 
@@ -6392,6 +7774,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::create_generator][super::super::client::Generators::create_generator] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::CreateGenerator;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGenerator {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGenerator(RequestBuilder<crate::model::CreateGeneratorRequest>);
 
@@ -6456,6 +7853,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::update_generator][super::super::client::Generators::update_generator] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::UpdateGenerator;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGenerator {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGenerator(RequestBuilder<crate::model::UpdateGeneratorRequest>);
 
@@ -6521,6 +7933,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::delete_generator][super::super::client::Generators::delete_generator] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::DeleteGenerator;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGenerator {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGenerator(RequestBuilder<crate::model::DeleteGeneratorRequest>);
 
@@ -6574,6 +8001,25 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::list_locations][super::super::client::Generators::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -6664,6 +8110,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::get_location][super::super::client::Generators::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -6709,6 +8170,25 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::list_operations][super::super::client::Generators::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6801,6 +8281,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::get_operation][super::super::client::Generators::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6849,6 +8344,21 @@ pub mod generators {
     }
 
     /// The request builder for [Generators::cancel_operation][super::super::client::Generators::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::generators::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -6950,6 +8460,25 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::list_intents][super::super::client::Intents::list_intents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::ListIntents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIntents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIntents(RequestBuilder<crate::model::ListIntentsRequest>);
 
@@ -7043,6 +8572,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::get_intent][super::super::client::Intents::get_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::GetIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIntent(RequestBuilder<crate::model::GetIntentRequest>);
 
@@ -7094,6 +8638,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::create_intent][super::super::client::Intents::create_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::CreateIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateIntent(RequestBuilder<crate::model::CreateIntentRequest>);
 
@@ -7156,6 +8715,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::update_intent][super::super::client::Intents::update_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::UpdateIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateIntent(RequestBuilder<crate::model::UpdateIntentRequest>);
 
@@ -7219,6 +8793,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::delete_intent][super::super::client::Intents::delete_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::DeleteIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIntent(RequestBuilder<crate::model::DeleteIntentRequest>);
 
@@ -7264,6 +8853,22 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::import_intents][super::super::client::Intents::import_intents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::ImportIntents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportIntents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportIntents(RequestBuilder<crate::model::ImportIntentsRequest>);
 
@@ -7396,6 +9001,22 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::export_intents][super::super::client::Intents::export_intents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::ExportIntents;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportIntents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportIntents(RequestBuilder<crate::model::ExportIntentsRequest>);
 
@@ -7538,6 +9159,25 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::list_locations][super::super::client::Intents::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -7626,6 +9266,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::get_location][super::super::client::Intents::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -7669,6 +9324,25 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::list_operations][super::super::client::Intents::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -7759,6 +9433,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::get_operation][super::super::client::Intents::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -7805,6 +9494,21 @@ pub mod intents {
     }
 
     /// The request builder for [Intents::cancel_operation][super::super::client::Intents::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::intents::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -7904,6 +9608,25 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::list_pages][super::super::client::Pages::list_pages] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::ListPages;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPages(RequestBuilder<crate::model::ListPagesRequest>);
 
@@ -7991,6 +9714,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::get_page][super::super::client::Pages::get_page] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::GetPage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPage(RequestBuilder<crate::model::GetPageRequest>);
 
@@ -8042,6 +9780,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::create_page][super::super::client::Pages::create_page] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::CreatePage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePage(RequestBuilder<crate::model::CreatePageRequest>);
 
@@ -8101,6 +9854,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::update_page][super::super::client::Pages::update_page] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::UpdatePage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePage(RequestBuilder<crate::model::UpdatePageRequest>);
 
@@ -8161,6 +9929,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::delete_page][super::super::client::Pages::delete_page] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::DeletePage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePage(RequestBuilder<crate::model::DeletePageRequest>);
 
@@ -8212,6 +9995,25 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::list_locations][super::super::client::Pages::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -8300,6 +10102,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::get_location][super::super::client::Pages::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -8343,6 +10160,25 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::list_operations][super::super::client::Pages::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -8433,6 +10269,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::get_operation][super::super::client::Pages::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -8479,6 +10330,21 @@ pub mod pages {
     }
 
     /// The request builder for [Pages::cancel_operation][super::super::client::Pages::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::pages::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -8580,6 +10446,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::create_security_settings][super::super::client::SecuritySettingsService::create_security_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::CreateSecuritySettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSecuritySettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecuritySettings(RequestBuilder<crate::model::CreateSecuritySettingsRequest>);
 
@@ -8643,6 +10524,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::get_security_settings][super::super::client::SecuritySettingsService::get_security_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::GetSecuritySettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecuritySettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecuritySettings(RequestBuilder<crate::model::GetSecuritySettingsRequest>);
 
@@ -8693,6 +10589,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::update_security_settings][super::super::client::SecuritySettingsService::update_security_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::UpdateSecuritySettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecuritySettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecuritySettings(RequestBuilder<crate::model::UpdateSecuritySettingsRequest>);
 
@@ -8759,6 +10670,25 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::list_security_settings][super::super::client::SecuritySettingsService::list_security_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::ListSecuritySettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecuritySettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecuritySettings(RequestBuilder<crate::model::ListSecuritySettingsRequest>);
 
@@ -8847,6 +10777,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::delete_security_settings][super::super::client::SecuritySettingsService::delete_security_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::DeleteSecuritySettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSecuritySettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecuritySettings(RequestBuilder<crate::model::DeleteSecuritySettingsRequest>);
 
@@ -8897,6 +10842,25 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::list_locations][super::super::client::SecuritySettingsService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -8987,6 +10951,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::get_location][super::super::client::SecuritySettingsService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -9032,6 +11011,25 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::list_operations][super::super::client::SecuritySettingsService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -9124,6 +11122,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::get_operation][super::super::client::SecuritySettingsService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -9172,6 +11185,21 @@ pub mod security_settings_service {
     }
 
     /// The request builder for [SecuritySettingsService::cancel_operation][super::super::client::SecuritySettingsService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::security_settings_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -9273,6 +11301,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::detect_intent][super::super::client::Sessions::detect_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::DetectIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetectIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetectIntent(RequestBuilder<crate::model::DetectIntentRequest>);
 
@@ -9349,6 +11392,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::match_intent][super::super::client::Sessions::match_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::MatchIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MatchIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MatchIntent(RequestBuilder<crate::model::MatchIntentRequest>);
 
@@ -9420,6 +11478,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::fulfill_intent][super::super::client::Sessions::fulfill_intent] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::FulfillIntent;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FulfillIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FulfillIntent(RequestBuilder<crate::model::FulfillIntentRequest>);
 
@@ -9488,6 +11561,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::submit_answer_feedback][super::super::client::Sessions::submit_answer_feedback] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::SubmitAnswerFeedback;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitAnswerFeedback {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitAnswerFeedback(RequestBuilder<crate::model::SubmitAnswerFeedbackRequest>);
 
@@ -9564,6 +11652,25 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::list_locations][super::super::client::Sessions::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -9652,6 +11759,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::get_location][super::super::client::Sessions::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -9695,6 +11817,25 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::list_operations][super::super::client::Sessions::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -9785,6 +11926,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::get_operation][super::super::client::Sessions::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -9831,6 +11987,21 @@ pub mod sessions {
     }
 
     /// The request builder for [Sessions::cancel_operation][super::super::client::Sessions::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::sessions::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -9932,6 +12103,25 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::list_session_entity_types][super::super::client::SessionEntityTypes::list_session_entity_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::ListSessionEntityTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSessionEntityTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSessionEntityTypes(RequestBuilder<crate::model::ListSessionEntityTypesRequest>);
 
@@ -10022,6 +12212,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::get_session_entity_type][super::super::client::SessionEntityTypes::get_session_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::GetSessionEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSessionEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSessionEntityType(RequestBuilder<crate::model::GetSessionEntityTypeRequest>);
 
@@ -10072,6 +12277,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::create_session_entity_type][super::super::client::SessionEntityTypes::create_session_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::CreateSessionEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSessionEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSessionEntityType(
         RequestBuilder<crate::model::CreateSessionEntityTypeRequest>,
@@ -10137,6 +12357,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::update_session_entity_type][super::super::client::SessionEntityTypes::update_session_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::UpdateSessionEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSessionEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSessionEntityType(
         RequestBuilder<crate::model::UpdateSessionEntityTypeRequest>,
@@ -10203,6 +12438,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::delete_session_entity_type][super::super::client::SessionEntityTypes::delete_session_entity_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::DeleteSessionEntityType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSessionEntityType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSessionEntityType(
         RequestBuilder<crate::model::DeleteSessionEntityTypeRequest>,
@@ -10255,6 +12505,25 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::list_locations][super::super::client::SessionEntityTypes::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -10345,6 +12614,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::get_location][super::super::client::SessionEntityTypes::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -10390,6 +12674,25 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::list_operations][super::super::client::SessionEntityTypes::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -10482,6 +12785,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::get_operation][super::super::client::SessionEntityTypes::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -10530,6 +12848,21 @@ pub mod session_entity_types {
     }
 
     /// The request builder for [SessionEntityTypes::cancel_operation][super::super::client::SessionEntityTypes::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::session_entity_types::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -10633,6 +12966,25 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::list_test_cases][super::super::client::TestCases::list_test_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::ListTestCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTestCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTestCases(RequestBuilder<crate::model::ListTestCasesRequest>);
 
@@ -10725,6 +13077,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::batch_delete_test_cases][super::super::client::TestCases::batch_delete_test_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::BatchDeleteTestCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchDeleteTestCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteTestCases(RequestBuilder<crate::model::BatchDeleteTestCasesRequest>);
 
@@ -10788,6 +13155,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::get_test_case][super::super::client::TestCases::get_test_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::GetTestCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTestCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTestCase(RequestBuilder<crate::model::GetTestCaseRequest>);
 
@@ -10835,6 +13217,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::create_test_case][super::super::client::TestCases::create_test_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::CreateTestCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTestCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTestCase(RequestBuilder<crate::model::CreateTestCaseRequest>);
 
@@ -10893,6 +13290,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::update_test_case][super::super::client::TestCases::update_test_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::UpdateTestCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTestCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTestCase(RequestBuilder<crate::model::UpdateTestCaseRequest>);
 
@@ -10954,6 +13366,22 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::run_test_case][super::super::client::TestCases::run_test_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::RunTestCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunTestCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunTestCase(RequestBuilder<crate::model::RunTestCaseRequest>);
 
@@ -11048,6 +13476,22 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::batch_run_test_cases][super::super::client::TestCases::batch_run_test_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::BatchRunTestCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchRunTestCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchRunTestCases(RequestBuilder<crate::model::BatchRunTestCasesRequest>);
 
@@ -11160,6 +13604,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::calculate_coverage][super::super::client::TestCases::calculate_coverage] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::CalculateCoverage;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CalculateCoverage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CalculateCoverage(RequestBuilder<crate::model::CalculateCoverageRequest>);
 
@@ -11221,6 +13680,22 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::import_test_cases][super::super::client::TestCases::import_test_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::ImportTestCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportTestCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportTestCases(RequestBuilder<crate::model::ImportTestCasesRequest>);
 
@@ -11341,6 +13816,22 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::export_test_cases][super::super::client::TestCases::export_test_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::ExportTestCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportTestCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportTestCases(RequestBuilder<crate::model::ExportTestCasesRequest>);
 
@@ -11468,6 +13959,25 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::list_test_case_results][super::super::client::TestCases::list_test_case_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::ListTestCaseResults;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTestCaseResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTestCaseResults(RequestBuilder<crate::model::ListTestCaseResultsRequest>);
 
@@ -11562,6 +14072,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::get_test_case_result][super::super::client::TestCases::get_test_case_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::GetTestCaseResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTestCaseResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTestCaseResult(RequestBuilder<crate::model::GetTestCaseResultRequest>);
 
@@ -11612,6 +14137,25 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::list_locations][super::super::client::TestCases::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -11702,6 +14246,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::get_location][super::super::client::TestCases::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -11747,6 +14306,25 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::list_operations][super::super::client::TestCases::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -11839,6 +14417,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::get_operation][super::super::client::TestCases::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -11887,6 +14480,21 @@ pub mod test_cases {
     }
 
     /// The request builder for [TestCases::cancel_operation][super::super::client::TestCases::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::test_cases::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -11990,6 +14598,25 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::list_transition_route_groups][super::super::client::TransitionRouteGroups::list_transition_route_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::ListTransitionRouteGroups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransitionRouteGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransitionRouteGroups(
         RequestBuilder<crate::model::ListTransitionRouteGroupsRequest>,
@@ -12088,6 +14715,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::get_transition_route_group][super::super::client::TransitionRouteGroups::get_transition_route_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::GetTransitionRouteGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTransitionRouteGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTransitionRouteGroup(
         RequestBuilder<crate::model::GetTransitionRouteGroupRequest>,
@@ -12146,6 +14788,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::create_transition_route_group][super::super::client::TransitionRouteGroups::create_transition_route_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::CreateTransitionRouteGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTransitionRouteGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTransitionRouteGroup(
         RequestBuilder<crate::model::CreateTransitionRouteGroupRequest>,
@@ -12217,6 +14874,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::update_transition_route_group][super::super::client::TransitionRouteGroups::update_transition_route_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::UpdateTransitionRouteGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTransitionRouteGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTransitionRouteGroup(
         RequestBuilder<crate::model::UpdateTransitionRouteGroupRequest>,
@@ -12289,6 +14961,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::delete_transition_route_group][super::super::client::TransitionRouteGroups::delete_transition_route_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::DeleteTransitionRouteGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTransitionRouteGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTransitionRouteGroup(
         RequestBuilder<crate::model::DeleteTransitionRouteGroupRequest>,
@@ -12347,6 +15034,25 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::list_locations][super::super::client::TransitionRouteGroups::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -12437,6 +15143,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::get_location][super::super::client::TransitionRouteGroups::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -12482,6 +15203,25 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::list_operations][super::super::client::TransitionRouteGroups::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -12574,6 +15314,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::get_operation][super::super::client::TransitionRouteGroups::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -12622,6 +15377,21 @@ pub mod transition_route_groups {
     }
 
     /// The request builder for [TransitionRouteGroups::cancel_operation][super::super::client::TransitionRouteGroups::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::transition_route_groups::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -12723,6 +15493,25 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::list_versions][super::super::client::Versions::list_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::ListVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
@@ -12804,6 +15593,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::get_version][super::super::client::Versions::get_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::GetVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
@@ -12849,6 +15653,22 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::create_version][super::super::client::Versions::create_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::CreateVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVersion(RequestBuilder<crate::model::CreateVersionRequest>);
 
@@ -12946,6 +15766,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::update_version][super::super::client::Versions::update_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::UpdateVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
@@ -13005,6 +15840,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::delete_version][super::super::client::Versions::delete_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::DeleteVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
@@ -13050,6 +15900,22 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::load_version][super::super::client::Versions::load_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::LoadVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dialogflow_cx_v3::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LoadVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LoadVersion(RequestBuilder<crate::model::LoadVersionRequest>);
 
@@ -13141,6 +16007,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::compare_versions][super::super::client::Versions::compare_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::CompareVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CompareVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CompareVersions(RequestBuilder<crate::model::CompareVersionsRequest>);
 
@@ -13200,6 +16081,25 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::list_locations][super::super::client::Versions::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -13288,6 +16188,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::get_location][super::super::client::Versions::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -13331,6 +16246,25 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::list_operations][super::super::client::Versions::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -13421,6 +16355,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::get_operation][super::super::client::Versions::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -13467,6 +16416,21 @@ pub mod versions {
     }
 
     /// The request builder for [Versions::cancel_operation][super::super::client::Versions::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::versions::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -13566,6 +16530,25 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::list_webhooks][super::super::client::Webhooks::list_webhooks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::ListWebhooks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWebhooks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWebhooks(RequestBuilder<crate::model::ListWebhooksRequest>);
 
@@ -13647,6 +16630,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::get_webhook][super::super::client::Webhooks::get_webhook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::GetWebhook;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWebhook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWebhook(RequestBuilder<crate::model::GetWebhookRequest>);
 
@@ -13692,6 +16690,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::create_webhook][super::super::client::Webhooks::create_webhook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::CreateWebhook;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWebhook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWebhook(RequestBuilder<crate::model::CreateWebhookRequest>);
 
@@ -13748,6 +16761,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::update_webhook][super::super::client::Webhooks::update_webhook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::UpdateWebhook;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWebhook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWebhook(RequestBuilder<crate::model::UpdateWebhookRequest>);
 
@@ -13805,6 +16833,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::delete_webhook][super::super::client::Webhooks::delete_webhook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::DeleteWebhook;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWebhook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWebhook(RequestBuilder<crate::model::DeleteWebhookRequest>);
 
@@ -13856,6 +16899,25 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::list_locations][super::super::client::Webhooks::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -13944,6 +17006,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::get_location][super::super::client::Webhooks::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -13987,6 +17064,25 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::list_operations][super::super::client::Webhooks::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -14077,6 +17173,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::get_operation][super::super::client::Webhooks::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -14123,6 +17234,21 @@ pub mod webhooks {
     }
 
     /// The request builder for [Webhooks::cancel_operation][super::super::client::Webhooks::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dialogflow_cx_v3::builder;
+    /// use builder::webhooks::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -40,11 +40,12 @@
 //! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialsError;
+//! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let credentials: Credentials = Builder::default()
 //!     .with_quota_project_id("my-quota-project")
 //!     .build()?;
-//! let token = credentials.token().await?;
+//! let token = credentials.token(Extensions::new()).await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -60,10 +61,11 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
-use crate::token::{Token, TokenProvider};
+use crate::token::{CachedTokenProvider, Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use async_trait::async_trait;
 use bon::Builder;
-use http::header::{HeaderName, HeaderValue};
+use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::default::Default;
 use std::sync::Arc;
@@ -78,7 +80,7 @@ const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
 #[derive(Debug)]
 struct MDSCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     quota_project_id: Option<String>,
     universe_domain: Option<String>,
@@ -176,7 +178,7 @@ impl Builder {
             .endpoint(endpoint)
             .maybe_scopes(self.scopes)
             .build();
-        let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
+        let cached_token_provider = TokenCache::new(token_provider);
 
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id,
@@ -192,14 +194,14 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T> CredentialsProvider for MDSCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
-    async fn token(&self) -> Result<Token> {
-        self.token_provider.token().await
+    async fn token(&self, extensions: Extensions) -> Result<Token> {
+        self.token_provider.token(extensions).await
     }
 
-    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let token = self.token().await?;
+    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+        let token = self.token(extensions).await?;
         build_bearer_headers(&token, &self.quota_project_id)
     }
 
@@ -284,7 +286,6 @@ impl TokenProvider for MDSAccessTokenProvider {
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
@@ -338,9 +339,9 @@ mod test {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
-        let actual = mdsc.token().await.unwrap();
+        let actual = mdsc.token(Extensions::new()).await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -354,9 +355,9 @@ mod test {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
-        assert!(mdsc.token().await.is_err());
+        assert!(mdsc.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test]
@@ -374,18 +375,14 @@ mod test {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
-        let headers: Vec<HV> = HV::from(mdsc.headers().await.unwrap());
+        let headers = mdsc.headers(Extensions::new()).await.unwrap();
+        let token = headers.get(AUTHORIZATION).unwrap();
 
-        assert_eq!(
-            headers,
-            vec![HV {
-                header: AUTHORIZATION.to_string(),
-                value: "Bearer test-token".to_string(),
-                is_sensitive: true,
-            }]
-        );
+        assert_eq!(headers.len(), 1, "{headers:?}");
+        assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
+        assert!(token.is_sensitive());
     }
 
     #[tokio::test]
@@ -398,9 +395,9 @@ mod test {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
-            token_provider: mock,
+            token_provider: TokenCache::new(mock),
         };
-        assert!(mdsc.headers().await.is_err());
+        assert!(mdsc.headers(Extensions::new()).await.is_err());
     }
 
     fn handle_token_factory(
@@ -475,7 +472,7 @@ mod test {
             .with_scopes(["scope1", "scope2"])
             .build()
             .unwrap();
-        let token = mdsc.token().await.unwrap();
+        let token = mdsc.token(Extensions::new()).await.unwrap();
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
         assert_eq!(token.token, "test-access-token");
@@ -512,22 +509,18 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers: Vec<HV> = HV::from(mdsc.headers().await.unwrap());
+        let headers = mdsc.headers(Extensions::new()).await.unwrap();
+        let token = headers.get(AUTHORIZATION).unwrap();
+        let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
+
+        assert_eq!(headers.len(), 2, "{headers:?}");
         assert_eq!(
-            headers,
-            vec![
-                HV {
-                    header: AUTHORIZATION.to_string(),
-                    value: "test-token-type test-access-token".to_string(),
-                    is_sensitive: true,
-                },
-                HV {
-                    header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "test-project".to_string(),
-                    is_sensitive: false,
-                }
-            ]
+            token,
+            HeaderValue::from_static("test-token-type test-access-token")
         );
+        assert!(token.is_sensitive());
+        assert_eq!(quota_project, HeaderValue::from_static("test-project"));
+        assert!(!quota_project.is_sensitive());
         Ok(())
     }
 
@@ -561,9 +554,9 @@ mod test {
             .with_scopes(scopes)
             .with_endpoint(endpoint)
             .build()?;
-        let token = mdsc.token().await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
-        let token = mdsc.token().await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
 
         // validate that the inner token provider is called only once
@@ -575,6 +568,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_provider_full() -> TestResult {
+        let now = std::time::Instant::now();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -602,8 +596,7 @@ mod test {
             .with_scopes(scopes)
             .with_endpoint(endpoint)
             .build()?;
-        let now = std::time::Instant::now();
-        let token = mdsc.token().await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -618,6 +611,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
+        let now = std::time::Instant::now();
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -641,8 +635,7 @@ mod test {
         println!("endpoint = {endpoint}");
 
         let mdsc = Builder::default().with_endpoint(endpoint).build()?;
-        let now = std::time::Instant::now();
-        let token = mdsc.token().await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -683,7 +676,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let token = mdsc.token().await?;
+        let token = mdsc.token(Extensions::new()).await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -713,7 +706,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let e = mdsc.token().await.err().unwrap();
+        let e = mdsc.token(Extensions::new()).await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
 
@@ -743,7 +736,7 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.token().await.err().unwrap();
+        let e = mdsc.token(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
 
@@ -773,7 +766,7 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.token().await.err().unwrap();
+        let e = mdsc.token(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable());
 
         Ok(())

@@ -70,9 +70,13 @@ func serviceAnnotationsModel() *api.API {
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".test.v1.Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("/v1/resource"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/resource"),
+					},
+				},
 			},
 		},
 	}
@@ -82,9 +86,13 @@ func serviceAnnotationsModel() *api.API {
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".google.protobuf.Empty",
 		PathInfo: &api.PathInfo{
-			Verb: "DELETE",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("/v1/resource"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "DELETE",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/resource"),
+					},
+				},
 			},
 		},
 		ReturnsEmpty: true,
@@ -263,7 +271,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		OneOfs:  []*api.OneOf{group},
 	}
 	key_field := &api.Field{Name: "key", Typez: api.INT32_TYPE}
-	value_field := &api.Field{Name: "value", Typez: api.INT32_TYPE}
+	value_field := &api.Field{Name: "value", Typez: api.FLOAT_TYPE}
 	map_message := &api.Message{
 		Name:    "$Map",
 		ID:      ".test.$Map",
@@ -333,13 +341,13 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofFieldMap",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{},
-		FieldType:          "std::collections::HashMap<i32,i32>",
-		PrimitiveFieldType: "std::collections::HashMap<i32,i32>",
+		Attributes:         []string{`#[serde_as(as = "std::collections::HashMap<_, wkt::internal::F32>")]`},
+		FieldType:          "std::collections::HashMap<i32,f32>",
+		PrimitiveFieldType: "std::collections::HashMap<i32,f32>",
 		AddQueryParameter:  `let builder = req.oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
 		KeyType:            "i32",
 		KeyField:           key_field,
-		ValueType:          "i32",
+		ValueType:          "f32",
 		ValueField:         value_field,
 		IsBoxed:            true,
 	}, map_field.Codec, ignore); diff != "" {
@@ -1097,9 +1105,13 @@ func TestPathInfoAnnotations(t *testing.T) {
 			InputTypeID:  ".test.v1.Request",
 			OutputTypeID: ".test.v1.Response",
 			PathInfo: &api.PathInfo{
-				Verb: testCase.Verb,
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("/v1/resource"),
+				Bindings: []*api.PathBinding{
+					{
+						Verb: testCase.Verb,
+						PathTemplate: []api.PathSegment{
+							api.NewLiteralPathSegment("/v1/resource"),
+						},
+					},
 				},
 			},
 		}

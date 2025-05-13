@@ -69,6 +69,25 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::list_locations][super::super::client::SecretManagerService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
 
@@ -164,6 +183,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_location][super::super::client::SecretManagerService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
 
@@ -219,6 +253,25 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::list_secrets][super::super::client::SecretManagerService::list_secrets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecrets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecrets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecrets(RequestBuilder<crate::model::ListSecretsRequest>);
 
@@ -314,6 +367,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::create_secret][super::super::client::SecretManagerService::create_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::CreateSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecret(RequestBuilder<crate::model::CreateSecretRequest>);
 
@@ -378,6 +446,25 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::list_secrets_by_project_and_location][super::super::client::SecretManagerService::list_secrets_by_project_and_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecretsByProjectAndLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretsByProjectAndLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretsByProjectAndLocation(
         RequestBuilder<crate::model::ListSecretsByProjectAndLocationRequest>,
@@ -486,6 +573,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::create_secret_by_project_and_location][super::super::client::SecretManagerService::create_secret_by_project_and_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::CreateSecretByProjectAndLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSecretByProjectAndLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecretByProjectAndLocation(
         RequestBuilder<crate::model::CreateSecretByProjectAndLocationRequest>,
@@ -563,6 +665,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::add_secret_version][super::super::client::SecretManagerService::add_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AddSecretVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddSecretVersion(RequestBuilder<crate::model::AddSecretVersionRequest>);
 
@@ -638,6 +755,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::add_secret_version_by_project_and_location_and_secret][super::super::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddSecretVersionByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddSecretVersionByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::AddSecretVersionRequest>,
@@ -718,6 +850,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_secret][super::super::client::SecretManagerService::get_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecret(RequestBuilder<crate::model::GetSecretRequest>);
 
@@ -773,6 +920,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::delete_secret][super::super::client::SecretManagerService::delete_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DeleteSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecret(RequestBuilder<crate::model::DeleteSecretRequest>);
 
@@ -834,6 +996,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::update_secret][super::super::client::SecretManagerService::update_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::UpdateSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecret(RequestBuilder<crate::model::UpdateSecretRequest>);
 
@@ -906,6 +1083,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::get_secret_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::GetSecretByProjectAndLocationAndSecretRequest>,
@@ -976,6 +1168,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::delete_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::delete_secret_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSecretByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecretByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::DeleteSecretByProjectAndLocationAndSecretRequest>,
@@ -1052,6 +1259,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::update_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::update_secret_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecretByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecretByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::UpdateSecretByProjectAndLocationAndSecretRequest>,
@@ -1139,6 +1361,25 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::list_secret_versions][super::super::client::SecretManagerService::list_secret_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecretVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretVersions(RequestBuilder<crate::model::ListSecretVersionsRequest>);
 
@@ -1247,6 +1488,25 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::list_secret_versions_by_project_and_location_and_secret][super::super::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretVersionsByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretVersionsByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest>,
@@ -1370,6 +1630,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_secret_version][super::super::client::SecretManagerService::get_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecretVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretVersion(RequestBuilder<crate::model::GetSecretVersionRequest>);
 
@@ -1436,6 +1711,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<
@@ -1521,6 +1811,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::access_secret_version][super::super::client::SecretManagerService::access_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AccessSecretVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AccessSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersion(RequestBuilder<crate::model::AccessSecretVersionRequest>);
 
@@ -1587,6 +1892,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<
@@ -1672,6 +1992,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::disable_secret_version][super::super::client::SecretManagerService::disable_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DisableSecretVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersion(RequestBuilder<crate::model::DisableSecretVersionRequest>);
 
@@ -1752,6 +2087,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<crate::model::DisableSecretVersionRequest>,
@@ -1839,6 +2189,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::enable_secret_version][super::super::client::SecretManagerService::enable_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::EnableSecretVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersion(RequestBuilder<crate::model::EnableSecretVersionRequest>);
 
@@ -1919,6 +2284,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<crate::model::EnableSecretVersionRequest>,
@@ -2006,6 +2386,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::destroy_secret_version][super::super::client::SecretManagerService::destroy_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DestroySecretVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DestroySecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersion(RequestBuilder<crate::model::DestroySecretVersionRequest>);
 
@@ -2086,6 +2481,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<crate::model::DestroySecretVersionRequest>,
@@ -2173,6 +2583,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::set_iam_policy][super::super::client::SecretManagerService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<crate::model::SetIamPolicyRequest>);
 
@@ -2254,6 +2679,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::set_iam_policy_by_project_and_location_and_secret][super::super::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicyByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicyByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::SetIamPolicyRequest>,
@@ -2337,6 +2777,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_iam_policy][super::super::client::SecretManagerService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<crate::model::GetIamPolicyRequest>);
 
@@ -2401,6 +2856,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::get_iam_policy_by_project_and_location_and_secret][super::super::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicyByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicyByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest>,
@@ -2480,6 +2950,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::test_iam_permissions][super::super::client::SecretManagerService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<crate::model::TestIamPermissionsRequest>);
 
@@ -2557,6 +3042,21 @@ pub mod secret_manager_service {
     }
 
     /// The request builder for [SecretManagerService::test_iam_permissions_by_project_and_location_and_secret][super::super::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissionsByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissionsByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::TestIamPermissionsRequest>,

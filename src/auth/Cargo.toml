@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-auth"
-version     = "0.21.0"
+version     = "0.20.0"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -26,33 +26,34 @@ repository.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-async-trait    = "0.1"
-http           = "1"
-reqwest        = { version = "0.12", features = ["json"] }
-serde          = { version = "1", features = ["derive"] }
-serde_json     = "1"
-thiserror      = "2"
-time           = { version = "0.3", features = ["serde"] }
-rustls         = { version = "0.23", default-features = false, features = ["logging", "ring", "std", "tls12"] }
-rustls-pemfile = "2"
-tokio          = { version = "1", features = ["fs"] }
-base64         = "0.22"
-bon            = "3"
+async-trait.workspace = true
+base64.workspace      = true
+http.workspace        = true
+reqwest               = { workspace = true, features = ["json", "rustls-tls"] }
+rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
+rustls-pemfile        = { workspace = true, features = ["std"] }
+serde.workspace       = true
+serde_json.workspace  = true
+thiserror.workspace   = true
+time                  = { workspace = true, features = ["serde"] }
+tokio                 = { workspace = true, features = ["fs"] }
+bon.workspace         = true
 # Local dependencies
 gax.workspace = true
 
 [dev-dependencies]
-axum.workspace      = true
-mockall             = "0.13"
-rand                = "0.8"
-regex               = "1"
-rsa                 = { version = "0.9", features = ["pem"] }
-scoped-env          = "2"
-serial_test         = "3"
-tempfile            = "3"
-test-case.workspace = true
-tokio               = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
-tokio-test          = "0.4"
+axum.workspace        = true
+mockall.workspace     = true
+regex.workspace       = true
+rsa                   = { workspace = true, features = ["pem"] }
+scoped-env.workspace  = true
+serial_test.workspace = true
+tempfile.workspace    = true
+test-case.workspace   = true
+tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
+tokio-test.workspace  = true
+url.workspace         = true
+mutants.workspace     = true
+# Blocked by https://github.com/RustCrypto/RSA/issues/466
+rand = "0.8"
 httptest          = "0.16.3"
-url                 = "2"
-mutants.workspace   = true

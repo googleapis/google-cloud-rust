@@ -132,120 +132,77 @@ impl Grafeas {
     }
 
     /// Gets the specified occurrence.
-    pub fn get_occurrence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::GetOccurrence {
-        super::builder::grafeas::GetOccurrence::new(self.inner.clone()).set_name(name.into())
+    pub fn get_occurrence(&self) -> super::builder::grafeas::GetOccurrence {
+        super::builder::grafeas::GetOccurrence::new(self.inner.clone())
     }
 
     /// Lists occurrences for the specified project.
-    pub fn list_occurrences(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::ListOccurrences {
-        super::builder::grafeas::ListOccurrences::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_occurrences(&self) -> super::builder::grafeas::ListOccurrences {
+        super::builder::grafeas::ListOccurrences::new(self.inner.clone())
     }
 
     /// Deletes the specified occurrence. For example, use this method to delete an
     /// occurrence when the occurrence is no longer applicable for the given
     /// resource.
-    pub fn delete_occurrence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::DeleteOccurrence {
-        super::builder::grafeas::DeleteOccurrence::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_occurrence(&self) -> super::builder::grafeas::DeleteOccurrence {
+        super::builder::grafeas::DeleteOccurrence::new(self.inner.clone())
     }
 
     /// Creates a new occurrence.
-    pub fn create_occurrence(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::CreateOccurrence {
-        super::builder::grafeas::CreateOccurrence::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_occurrence(&self) -> super::builder::grafeas::CreateOccurrence {
+        super::builder::grafeas::CreateOccurrence::new(self.inner.clone())
     }
 
     /// Creates new occurrences in batch.
-    pub fn batch_create_occurrences(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::BatchCreateOccurrences {
+    pub fn batch_create_occurrences(&self) -> super::builder::grafeas::BatchCreateOccurrences {
         super::builder::grafeas::BatchCreateOccurrences::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified occurrence.
-    pub fn update_occurrence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::UpdateOccurrence {
-        super::builder::grafeas::UpdateOccurrence::new(self.inner.clone()).set_name(name.into())
+    pub fn update_occurrence(&self) -> super::builder::grafeas::UpdateOccurrence {
+        super::builder::grafeas::UpdateOccurrence::new(self.inner.clone())
     }
 
     /// Gets the note attached to the specified occurrence. Consumer projects can
     /// use this method to get a note that belongs to a provider project.
-    pub fn get_occurrence_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::GetOccurrenceNote {
-        super::builder::grafeas::GetOccurrenceNote::new(self.inner.clone()).set_name(name.into())
+    pub fn get_occurrence_note(&self) -> super::builder::grafeas::GetOccurrenceNote {
+        super::builder::grafeas::GetOccurrenceNote::new(self.inner.clone())
     }
 
     /// Gets the specified note.
-    pub fn get_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::GetNote {
-        super::builder::grafeas::GetNote::new(self.inner.clone()).set_name(name.into())
+    pub fn get_note(&self) -> super::builder::grafeas::GetNote {
+        super::builder::grafeas::GetNote::new(self.inner.clone())
     }
 
     /// Lists notes for the specified project.
-    pub fn list_notes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::ListNotes {
-        super::builder::grafeas::ListNotes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_notes(&self) -> super::builder::grafeas::ListNotes {
+        super::builder::grafeas::ListNotes::new(self.inner.clone())
     }
 
     /// Deletes the specified note.
-    pub fn delete_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::DeleteNote {
-        super::builder::grafeas::DeleteNote::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_note(&self) -> super::builder::grafeas::DeleteNote {
+        super::builder::grafeas::DeleteNote::new(self.inner.clone())
     }
 
     /// Creates a new note.
-    pub fn create_note(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::CreateNote {
-        super::builder::grafeas::CreateNote::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_note(&self) -> super::builder::grafeas::CreateNote {
+        super::builder::grafeas::CreateNote::new(self.inner.clone())
     }
 
     /// Creates new notes in batch.
-    pub fn batch_create_notes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::BatchCreateNotes {
-        super::builder::grafeas::BatchCreateNotes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn batch_create_notes(&self) -> super::builder::grafeas::BatchCreateNotes {
+        super::builder::grafeas::BatchCreateNotes::new(self.inner.clone())
     }
 
     /// Updates the specified note.
-    pub fn update_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::UpdateNote {
-        super::builder::grafeas::UpdateNote::new(self.inner.clone()).set_name(name.into())
+    pub fn update_note(&self) -> super::builder::grafeas::UpdateNote {
+        super::builder::grafeas::UpdateNote::new(self.inner.clone())
     }
 
     /// Lists occurrences referencing the specified note. Provider projects can use
     /// this method to get all occurrences across consumer projects referencing the
     /// specified note.
-    pub fn list_note_occurrences(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::ListNoteOccurrences {
-        super::builder::grafeas::ListNoteOccurrences::new(self.inner.clone()).set_name(name.into())
+    pub fn list_note_occurrences(&self) -> super::builder::grafeas::ListNoteOccurrences {
+        super::builder::grafeas::ListNoteOccurrences::new(self.inner.clone())
     }
 }

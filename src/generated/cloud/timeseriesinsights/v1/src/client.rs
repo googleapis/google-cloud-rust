@@ -126,12 +126,8 @@ impl TimeseriesInsightsController {
     /// of this list.
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn list_data_sets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::timeseries_insights_controller::ListDataSets {
+    pub fn list_data_sets(&self) -> super::builder::timeseries_insights_controller::ListDataSets {
         super::builder::timeseries_insights_controller::ListDataSets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a [DataSet][google.cloud.timeseriesinsights.v1.DataSet] from data stored on Cloud
@@ -142,12 +138,8 @@ impl TimeseriesInsightsController {
     /// might result.  For more information, see [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn create_data_set(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::timeseries_insights_controller::CreateDataSet {
+    pub fn create_data_set(&self) -> super::builder::timeseries_insights_controller::CreateDataSet {
         super::builder::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Delete a [DataSet][google.cloud.timeseriesinsights.v1.DataSet] from the system.
@@ -156,54 +148,36 @@ impl TimeseriesInsightsController {
     /// processed, it will be aborted and deleted.
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn delete_data_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::timeseries_insights_controller::DeleteDataSet {
+    pub fn delete_data_set(&self) -> super::builder::timeseries_insights_controller::DeleteDataSet {
         super::builder::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Append events to a `LOADED` [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn append_events(
-        &self,
-        dataset: impl Into<std::string::String>,
-    ) -> super::builder::timeseries_insights_controller::AppendEvents {
+    pub fn append_events(&self) -> super::builder::timeseries_insights_controller::AppendEvents {
         super::builder::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
-            .set_dataset(dataset.into())
     }
 
     /// Execute a Timeseries Insights query over a loaded
     /// [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn query_data_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::timeseries_insights_controller::QueryDataSet {
+    pub fn query_data_set(&self) -> super::builder::timeseries_insights_controller::QueryDataSet {
         super::builder::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Evaluate an explicit slice from a loaded [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn evaluate_slice(
-        &self,
-        dataset: impl Into<std::string::String>,
-    ) -> super::builder::timeseries_insights_controller::EvaluateSlice {
+    pub fn evaluate_slice(&self) -> super::builder::timeseries_insights_controller::EvaluateSlice {
         super::builder::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
-            .set_dataset(dataset.into())
     }
 
     /// Evaluate an explicit timeseries.
     pub fn evaluate_timeseries(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::timeseries_insights_controller::EvaluateTimeseries {
         super::builder::timeseries_insights_controller::EvaluateTimeseries::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

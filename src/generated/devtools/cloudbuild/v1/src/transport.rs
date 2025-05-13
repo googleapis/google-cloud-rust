@@ -46,12 +46,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/projects/{}/builds", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/builds", req.project_id),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -67,12 +71,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Build>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/builds/{}",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/builds/{}", req.project_id, req.id),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -90,12 +108,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBuildsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/builds", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/builds", req.project_id),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -116,12 +138,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Build>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/builds/{}:cancel",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/builds/{}:cancel", req.project_id, req.id),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -136,12 +172,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/builds/{}:retry",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/builds/{}:retry", req.project_id, req.id),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -156,9 +206,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:approve", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:approve", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -173,12 +230,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/projects/{}/triggers", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/projects/{}/triggers", req.project_id),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -196,15 +257,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/triggers/{}",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.trigger_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("trigger_id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!(
-                    "/v1/projects/{}/triggers/{}",
-                    req.project_id, req.trigger_id
-                ),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -222,12 +294,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBuildTriggersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/projects/{}/triggers", {
+            let arg = &req.project_id;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_id"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/projects/{}/triggers", req.project_id),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -247,15 +323,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!(
+            "/v1/projects/{}/triggers/{}",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.trigger_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("trigger_id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::DELETE,
-                format!(
-                    "/v1/projects/{}/triggers/{}",
-                    req.project_id, req.trigger_id
-                ),
-            )
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -277,15 +364,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/triggers/{}",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.trigger_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("trigger_id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/projects/{}/triggers/{}",
-                    req.project_id, req.trigger_id
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -308,15 +406,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/triggers/{}:run",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.trigger_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("trigger_id"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/triggers/{}:run",
-                    req.project_id, req.trigger_id
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -332,15 +441,26 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!(
+            "/v1/projects/{}/triggers/{}:webhook",
+            {
+                let arg = &req.project_id;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("project_id"));
+                }
+                arg
+            },
+            {
+                let arg = &req.trigger;
+                if arg.is_empty() {
+                    return Err(gaxi::path_parameter::missing("trigger"));
+                }
+                arg
+            },
+        );
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!(
-                    "/v1/projects/{}/triggers/{}:webhook",
-                    req.project_id, req.trigger
-                ),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -357,12 +477,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/workerPools", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/workerPools", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -381,9 +505,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::WorkerPool>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -400,9 +531,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -422,18 +560,20 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .worker_pool
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("worker_pool"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("worker_pool.name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::PATCH,
-                format!(
-                    "/v1/{}",
-                    req.worker_pool
-                        .as_ref()
-                        .ok_or_else(|| gaxi::path_parameter::missing("worker_pool"))?
-                        .name
-                ),
-            )
+            .builder(reqwest::Method::PATCH, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -457,12 +597,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/workerPools", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::GET,
-                format!("/v1/{}/workerPools", req.parent),
-            )
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -481,9 +625,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -500,9 +651,16 @@ impl super::stub::CloudBuild for CloudBuild {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:cancel", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

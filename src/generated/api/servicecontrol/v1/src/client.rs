@@ -134,12 +134,8 @@ impl QuotaController {
     /// `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
     /// reliability, the server may inject these errors to prohibit any hard
     /// dependency on the quota functionality.
-    pub fn allocate_quota(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::quota_controller::AllocateQuota {
+    pub fn allocate_quota(&self) -> super::builder::quota_controller::AllocateQuota {
         super::builder::quota_controller::AllocateQuota::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 }
 
@@ -267,12 +263,8 @@ impl ServiceController {
     /// [Cloud IAM](https://cloud.google.com/iam).
     ///
     /// [google.api.servicecontrol.v1.CheckRequest]: crate::model::CheckRequest
-    pub fn check(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_controller::Check {
+    pub fn check(&self) -> super::builder::service_controller::Check {
         super::builder::service_controller::Check::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Reports operation results to Google Service Control, such as logs and
@@ -292,11 +284,7 @@ impl ServiceController {
     /// [Google Cloud IAM](https://cloud.google.com/iam).
     ///
     /// [google.api.servicecontrol.v1.ReportRequest]: crate::model::ReportRequest
-    pub fn report(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_controller::Report {
+    pub fn report(&self) -> super::builder::service_controller::Report {
         super::builder::service_controller::Report::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 }
