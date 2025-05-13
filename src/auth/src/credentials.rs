@@ -622,8 +622,7 @@ mod test {
             .to_str()
             .unwrap()
             .split_whitespace()
-            .skip(1)
-            .next()
+            .nth(1)
             .unwrap()
             .to_string()
     }

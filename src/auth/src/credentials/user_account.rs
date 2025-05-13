@@ -670,7 +670,7 @@ mod test {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
-            endpoint: endpoint,
+            endpoint,
             scopes: Some("scope1 scope2".to_string()),
         };
         let now = Instant::now();
