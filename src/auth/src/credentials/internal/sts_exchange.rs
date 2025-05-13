@@ -29,21 +29,21 @@ pub(crate) const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:acc
 /// JWT TokenType for a sts exchange.
 pub(crate) const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
-/// Client that handles OAuth2 Secure Token Service (STS) exchange.
+/// Handles OAuth2 Secure Token Service (STS) exchange.
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
-struct Client {
+struct STSHandler {
     client: reqwest::Client,
 }
 
-impl Client {
+impl STSHandler {
     pub fn new() -> Self {
         let client = reqwest::Client::new();
         Self { client }
     }
 
     /// performs the token exchange using a refresh token flow with
-    /// the provided [RefreshTokenRequest] information.
-    async fn refresh_token(&self, req: RefreshTokenRequest) -> Result<TokenResponse> {
+    /// the provided [RefreshAccessTokenRequest] information.
+    async fn refresh_access_token(&self, req: RefreshAccessTokenRequest) -> Result<TokenResponse> {
         let mut params: HashMap<&str, String> = HashMap::new();
         params.insert("grant_type", REFRESH_TOKEN_GRANT_TYPE.to_string());
         params.insert("refresh_token", req.refresh_token);
@@ -62,7 +62,7 @@ impl Client {
         params.insert("subject_token", req.subject_token);
         params.insert("subject_token_type", req.subject_token_type);
 
-        if req.scope.len() > 0 {
+        if req.scope.is_empty() {
             params.insert("scope", req.scope.join(" "));
         }
 
@@ -140,15 +140,16 @@ pub(crate) struct TokenResponse {
 }
 
 /// Authentication style via headers or form params.
+/// See https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
 #[derive(Debug, Clone)]
 enum ClientAuthStyle {
-    Unknown,
     InParams,
     InHeader,
 }
 
 /// ClientAuthentication represents an OAuth client ID and secret and the
-/// mechanism for passing these credentials as stated in rfc6749#2.3.1.
+/// mechanism for passing these credentials as stated
+/// in https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
 #[derive(Clone, Debug)]
 pub(crate) struct ClientAuthentication {
     auth_style: ClientAuthStyle,
@@ -159,7 +160,7 @@ pub(crate) struct ClientAuthentication {
 impl Default for ClientAuthentication {
     fn default() -> Self {
         Self {
-            auth_style: ClientAuthStyle::Unknown,
+            auth_style: ClientAuthStyle::InParams,
             client_id: None,
             client_secret: None,
         }
@@ -214,7 +215,7 @@ pub struct ExchangeTokenRequest {
 
 /// Information required to perform the token exchange using a refresh token flow.
 #[derive(Default)]
-pub struct RefreshTokenRequest {
+pub struct RefreshAccessTokenRequest {
     url: String,
     authentication: ClientAuthentication,
     headers: http::HeaderMap,
@@ -240,7 +241,7 @@ mod test {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
-                request::method_path("POST", "/token"),
+                request::method_path("POST", "/sts"),
                 request::body(url_decoded(contains((
                     "grant_type",
                     TOKEN_EXCHANGE_GRANT_TYPE
@@ -260,7 +261,7 @@ mod test {
                 )))),
                 request::body(url_decoded(contains((
                     "scope",
-                    "https://www.googleapis.com/auth/devstorage.full_control"
+                    "https://www.googleapis.com/auth/cloud-platform"
                 )))),
                 request::headers(contains((
                     "authorization",
@@ -274,7 +275,7 @@ mod test {
             .respond_with(status_code(200).body(response_body)),
         );
 
-        let url = server.url("/token");
+        let url = server.url("/sts");
         let mut headers = http::HeaderMap::new();
         headers.insert(
             http::header::CONTENT_TYPE,
@@ -285,13 +286,13 @@ mod test {
             headers: headers,
             authentication: client_auth,
             audience: Some("32555940559.apps.googleusercontent.com".to_string()),
-            scope: ["https://www.googleapis.com/auth/devstorage.full_control".to_string()].to_vec(),
+            scope: ["https://www.googleapis.com/auth/cloud-platform".to_string()].to_vec(),
             subject_token: "an_example_token".to_string(),
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let client = Client::new();
-        let resp = client.exchange_token(token_req).await?;
+        let handler = STSHandler::new();
+        let resp = handler.exchange_token(token_req).await?;
 
         assert_eq!(
             resp,
@@ -352,8 +353,8 @@ mod test {
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let client = Client::new();
-        let err = assert_err!(client.exchange_token(token_req).await);
+        let handler = STSHandler::new();
+        let err = assert_err!(handler.exchange_token(token_req).await);
 
         let expected_err = crate::errors::CredentialsError::from_str(
             false,
@@ -365,7 +366,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn refresh_token() -> TestResult {
+    async fn refresh_access_token() -> TestResult {
         let client_auth = ClientAuthentication {
             auth_style: ClientAuthStyle::InParams,
             client_id: Some("client_id".to_string()),
@@ -402,14 +403,14 @@ mod test {
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/x-www-form-urlencoded"),
         );
-        let token_req = RefreshTokenRequest {
+        let token_req = RefreshAccessTokenRequest {
             url: url.to_string(),
             authentication: client_auth,
             headers: headers,
             refresh_token: "an_example_refresh_token".to_string(),
         };
-        let client = Client::new();
-        let resp = client.refresh_token(token_req).await?;
+        let handler = STSHandler::new();
+        let resp = handler.refresh_access_token(token_req).await?;
 
         assert_eq!(
             resp,
