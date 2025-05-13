@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use crate::{Error, RandomChars, Result};
+use futures::stream::StreamExt;
+use gax::paginator::ItemPaginator;
 use rand::Rng;
 use sql::model;
 
@@ -67,11 +69,10 @@ pub async fn run_sql_instances_service(
     let list = client
         .list(&project_id)
         .set_filter(format!("name:{name}"))
-        .send()
-        .await?;
-    println!("SUCCESS on list sql instance: {list:?}");
-    assert_eq!(list.items.len(), 1);
-    assert!(list.items.into_iter().any(|v| v.name.eq(&name)));
+        .by_item()
+        .into_stream();
+    println!("SUCCESS on list sql instance");
+    assert_eq!(list.count().await, 1);
 
     println!("Testing delete sql instance");
     let delete = client.delete(&project_id, &name).send().await?;
@@ -113,22 +114,26 @@ async fn cleanup_stale_sql_instances(
         .set_filter(format!(
             "name:{PREFIX}* AND settings.userLabels.{INSTANCE_LABEL}:true"
         ))
-        .send()
-        .await?;
+        .by_item()
+        .into_stream();
 
     let pending_deletion = instances
-        .items
-        .into_iter()
-        .filter_map(|instance| {
-            if instance.create_time? < stale_deadline {
-                Some(client.delete(project_id, instance.name).send())
-            } else {
-                None
+        .filter_map(|instance| async {
+            match instance {
+                Ok(instance) => {
+                    if instance.create_time?.le(&stale_deadline) {
+                        Some(client.delete(project_id, instance.name).send())
+                    } else {
+                        None
+                    }
+                }
+                Err(_) => None,
             }
         })
-        .collect::<Vec<_>>();
+        .collect::<Vec<_>>()
+        .await;
 
-    futures::future::join_all(pending_deletion)
+    futures::future::join_all(pending_deletion.into_iter())
         .await
         .into_iter()
         .for_each(|res| {

@@ -564,6 +564,20 @@ impl wkt::message::Message for BackupRunsListResponse {
     }
 }
 
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for BackupRunsListResponse {
+    type PageItem = crate::model::BackupRun;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Connect settings retrieval request.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4267,6 +4281,20 @@ impl InstancesListResponse {
 impl wkt::message::Message for InstancesListResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.InstancesListResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for InstancesListResponse {
+    type PageItem = crate::model::DatabaseInstance;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -8150,6 +8178,20 @@ impl OperationsListResponse {
 impl wkt::message::Message for OperationsListResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.OperationsListResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for OperationsListResponse {
+    type PageItem = crate::model::Operation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.items
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
