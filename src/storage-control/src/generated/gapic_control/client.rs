@@ -90,6 +90,24 @@ impl StorageControl {
         super::builder::storage_control::ListFolders::new(self.inner.clone())
     }
 
+    /// Renames a source folder to a destination folder. This operation is only
+    /// applicable to a hierarchical namespace enabled bucket. During a rename, the
+    /// source and destination folders are locked until the long running operation
+    /// completes.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
+        super::builder::storage_control::RenameFolder::new(self.inner.clone())
+    }
+
     /// Returns the storage layout configuration for a given bucket.
     pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout {
         super::builder::storage_control::GetStorageLayout::new(self.inner.clone())
@@ -113,6 +131,37 @@ impl StorageControl {
     /// Retrieves a list of managed folders for a given bucket.
     pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
         super::builder::storage_control::ListManagedFolders::new(self.inner.clone())
+    }
+
+    /// Creates an Anywhere Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache {
+        super::builder::storage_control::CreateAnywhereCache::new(self.inner.clone())
+    }
+
+    /// Updates an Anywhere Cache instance. Mutable fields include `ttl` and
+    /// `admission_policy`.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache {
+        super::builder::storage_control::UpdateAnywhereCache::new(self.inner.clone())
     }
 
     /// Disables an Anywhere Cache instance. A disabled instance is read-only. The
@@ -141,5 +190,12 @@ impl StorageControl {
     /// Lists Anywhere Cache instances for a given bucket.
     pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
         super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation {
+        super::builder::storage_control::GetOperation::new(self.inner.clone())
     }
 }
