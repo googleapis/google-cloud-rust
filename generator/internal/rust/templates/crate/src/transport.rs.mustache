@@ -94,7 +94,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
                     },
                 {{/PathInfo.Codec.PathArgs}}
             );
-            {{/PathInfo.Codec.HasPathArgs}};
+            {{/PathInfo.Codec.HasPathArgs}}
         let builder = self
             .inner
             .builder(reqwest::Method::{{PathInfo.Codec.Method}}, path)

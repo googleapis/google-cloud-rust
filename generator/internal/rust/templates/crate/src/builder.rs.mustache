@@ -79,6 +79,36 @@ pub mod {{Codec.ModuleName}} {
     {{! TODO(#1813) - fix and generate builder docs for veneers }}
     {{^Codec.HasVeneer}}
     /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][super::super::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use {{Model.Codec.PackageNamespace}}::builder;
+    /// use builder::{{Service.Codec.ModuleName}}::{{Codec.BuilderName}};
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    {{#OperationInfo}}
+    /// use {{Model.Codec.PackageNamespace}}::Poller;
+    /// let response = builder.poller().until_done().await?;
+    {{/OperationInfo}}
+    {{^OperationInfo}}
+    {{#Pagination}}
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    {{/Pagination}}
+    {{^Pagination}}
+    /// let response = builder.send().await?;
+    {{/Pagination}}
+    {{/OperationInfo}}
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> {{Codec.BuilderName}} {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     {{/Codec.HasVeneer}}
     #[derive(Clone, Debug)]
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
