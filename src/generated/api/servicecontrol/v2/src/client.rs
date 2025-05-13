@@ -149,12 +149,8 @@ impl ServiceController {
     /// on the specified service. For more information, see
     /// [Service Control API Access
     /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
-    pub fn check(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_controller::Check {
+    pub fn check(&self) -> super::builder::service_controller::Check {
         super::builder::service_controller::Check::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Private Preview. This feature is only available for approved services.
@@ -175,11 +171,7 @@ impl ServiceController {
     /// on the specified service. For more information, see
     /// [Service Control API Access
     /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
-    pub fn report(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_controller::Report {
+    pub fn report(&self) -> super::builder::service_controller::Report {
         super::builder::service_controller::Report::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 }

@@ -121,119 +121,77 @@ impl ParameterManager {
     }
 
     /// Lists Parameters in a given project and location.
-    pub fn list_parameters(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::ListParameters {
+    pub fn list_parameters(&self) -> super::builder::parameter_manager::ListParameters {
         super::builder::parameter_manager::ListParameters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Parameter.
-    pub fn get_parameter(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::GetParameter {
+    pub fn get_parameter(&self) -> super::builder::parameter_manager::GetParameter {
         super::builder::parameter_manager::GetParameter::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Parameter in a given project and location.
-    pub fn create_parameter(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::CreateParameter {
+    pub fn create_parameter(&self) -> super::builder::parameter_manager::CreateParameter {
         super::builder::parameter_manager::CreateParameter::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a single Parameter.
-    pub fn update_parameter(
-        &self,
-        parameter: impl Into<crate::model::Parameter>,
-    ) -> super::builder::parameter_manager::UpdateParameter {
+    pub fn update_parameter(&self) -> super::builder::parameter_manager::UpdateParameter {
         super::builder::parameter_manager::UpdateParameter::new(self.inner.clone())
-            .set_parameter(parameter.into())
     }
 
     /// Deletes a single Parameter.
-    pub fn delete_parameter(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::DeleteParameter {
+    pub fn delete_parameter(&self) -> super::builder::parameter_manager::DeleteParameter {
         super::builder::parameter_manager::DeleteParameter::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ParameterVersions in a given project, location, and parameter.
     pub fn list_parameter_versions(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::parameter_manager::ListParameterVersions {
         super::builder::parameter_manager::ListParameterVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ParameterVersion.
-    pub fn get_parameter_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::GetParameterVersion {
+    pub fn get_parameter_version(&self) -> super::builder::parameter_manager::GetParameterVersion {
         super::builder::parameter_manager::GetParameterVersion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets rendered version of a ParameterVersion.
     pub fn render_parameter_version(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::parameter_manager::RenderParameterVersion {
         super::builder::parameter_manager::RenderParameterVersion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ParameterVersion in a given project, location, and parameter.
     pub fn create_parameter_version(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::parameter_manager::CreateParameterVersion {
         super::builder::parameter_manager::CreateParameterVersion::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a single ParameterVersion.
     pub fn update_parameter_version(
         &self,
-        parameter_version: impl Into<crate::model::ParameterVersion>,
     ) -> super::builder::parameter_manager::UpdateParameterVersion {
         super::builder::parameter_manager::UpdateParameterVersion::new(self.inner.clone())
-            .set_parameter_version(parameter_version.into())
     }
 
     /// Deletes a single ParameterVersion.
     pub fn delete_parameter_version(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::parameter_manager::DeleteParameterVersion {
         super::builder::parameter_manager::DeleteParameterVersion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::parameter_manager::ListLocations {
         super::builder::parameter_manager::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parameter_manager::GetLocation {
+    pub fn get_location(&self) -> super::builder::parameter_manager::GetLocation {
         super::builder::parameter_manager::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

@@ -123,19 +123,13 @@ impl Policies {
     ///
     /// The response lists only policy metadata. In particular, policy rules are
     /// omitted.
-    pub fn list_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policies::ListPolicies {
-        super::builder::policies::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_policies(&self) -> super::builder::policies::ListPolicies {
+        super::builder::policies::ListPolicies::new(self.inner.clone())
     }
 
     /// Gets a policy.
-    pub fn get_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policies::GetPolicy {
-        super::builder::policies::GetPolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn get_policy(&self) -> super::builder::policies::GetPolicy {
+        super::builder::policies::GetPolicy::new(self.inner.clone())
     }
 
     /// Creates a policy.
@@ -149,11 +143,8 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policies::CreatePolicy {
-        super::builder::policies::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_policy(&self) -> super::builder::policies::CreatePolicy {
+        super::builder::policies::CreatePolicy::new(self.inner.clone())
     }
 
     /// Updates the specified policy.
@@ -179,11 +170,8 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_policy(
-        &self,
-        policy: impl Into<crate::model::Policy>,
-    ) -> super::builder::policies::UpdatePolicy {
-        super::builder::policies::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
+    pub fn update_policy(&self) -> super::builder::policies::UpdatePolicy {
+        super::builder::policies::UpdatePolicy::new(self.inner.clone())
     }
 
     /// Deletes a policy. This action is permanent.
@@ -197,20 +185,14 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policies::DeletePolicy {
-        super::builder::policies::DeletePolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_policy(&self) -> super::builder::policies::DeletePolicy {
+        super::builder::policies::DeletePolicy::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policies::GetOperation {
-        super::builder::policies::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::policies::GetOperation {
+        super::builder::policies::GetOperation::new(self.inner.clone())
     }
 }

@@ -155,21 +155,13 @@ impl AccessApproval {
     /// Lists approval requests associated with a project, folder, or organization.
     /// Approval requests can be filtered by state (pending, active, dismissed).
     /// The order is reverse chronological.
-    pub fn list_approval_requests(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::access_approval::ListApprovalRequests {
+    pub fn list_approval_requests(&self) -> super::builder::access_approval::ListApprovalRequests {
         super::builder::access_approval::ListApprovalRequests::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an approval request. Returns NOT_FOUND if the request does not exist.
-    pub fn get_approval_request(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::access_approval::GetApprovalRequest {
+    pub fn get_approval_request(&self) -> super::builder::access_approval::GetApprovalRequest {
         super::builder::access_approval::GetApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Approves a request and returns the updated ApprovalRequest.
@@ -178,10 +170,8 @@ impl AccessApproval {
     /// FAILED_PRECONDITION if the request exists but is not in a pending state.
     pub fn approve_approval_request(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::ApproveApprovalRequest {
         super::builder::access_approval::ApproveApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Dismisses a request. Returns the updated ApprovalRequest.
@@ -196,10 +186,8 @@ impl AccessApproval {
     /// state.
     pub fn dismiss_approval_request(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::DismissApprovalRequest {
         super::builder::access_approval::DismissApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Invalidates an existing ApprovalRequest. Returns the updated
@@ -212,29 +200,23 @@ impl AccessApproval {
     /// state.
     pub fn invalidate_approval_request(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::InvalidateApprovalRequest {
         super::builder::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the settings associated with a project, folder, or organization.
     pub fn get_access_approval_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::GetAccessApprovalSettings {
         super::builder::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the settings associated with a project, folder, or organization.
     /// Settings to update are determined by the value of field_mask.
     pub fn update_access_approval_settings(
         &self,
-        settings: impl Into<crate::model::AccessApprovalSettings>,
     ) -> super::builder::access_approval::UpdateAccessApprovalSettings {
         super::builder::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
-            .set_settings(settings.into())
     }
 
     /// Deletes the settings associated with a project, folder, or organization.
@@ -245,19 +227,15 @@ impl AccessApproval {
     /// the settings are inherited.
     pub fn delete_access_approval_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::DeleteAccessApprovalSettings {
         super::builder::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves the service account that is used by Access Approval to access KMS
     /// keys for signing approved approval requests.
     pub fn get_access_approval_service_account(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::GetAccessApprovalServiceAccount {
         super::builder::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

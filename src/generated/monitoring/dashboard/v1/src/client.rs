@@ -127,12 +127,8 @@ impl DashboardsService {
     /// method requires the `monitoring.dashboards.create` permission on the
     /// specified project. For more information about permissions, see [Cloud
     /// Identity and Access Management](https://cloud.google.com/iam).
-    pub fn create_dashboard(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::CreateDashboard {
+    pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard {
         super::builder::dashboards_service::CreateDashboard::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists the existing dashboards.
@@ -140,12 +136,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.list` permission
     /// on the specified project. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn list_dashboards(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::ListDashboards {
+    pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards {
         super::builder::dashboards_service::ListDashboards::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Fetches a specific dashboard.
@@ -153,12 +145,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.get` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn get_dashboard(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::GetDashboard {
+    pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard {
         super::builder::dashboards_service::GetDashboard::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes an existing custom dashboard.
@@ -166,12 +154,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.delete` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn delete_dashboard(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::DeleteDashboard {
+    pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard {
         super::builder::dashboards_service::DeleteDashboard::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Replaces an existing custom dashboard with a new definition.
@@ -179,11 +163,7 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.update` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn update_dashboard(
-        &self,
-        dashboard: impl Into<crate::model::Dashboard>,
-    ) -> super::builder::dashboards_service::UpdateDashboard {
+    pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard {
         super::builder::dashboards_service::UpdateDashboard::new(self.inner.clone())
-            .set_dashboard(dashboard.into())
     }
 }

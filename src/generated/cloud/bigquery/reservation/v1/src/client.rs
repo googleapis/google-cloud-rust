@@ -135,50 +135,30 @@ impl ReservationService {
     }
 
     /// Creates a new reservation resource.
-    pub fn create_reservation(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::CreateReservation {
+    pub fn create_reservation(&self) -> super::builder::reservation_service::CreateReservation {
         super::builder::reservation_service::CreateReservation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all the reservations for the project in the specified location.
-    pub fn list_reservations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::ListReservations {
+    pub fn list_reservations(&self) -> super::builder::reservation_service::ListReservations {
         super::builder::reservation_service::ListReservations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns information about the reservation.
-    pub fn get_reservation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::GetReservation {
+    pub fn get_reservation(&self) -> super::builder::reservation_service::GetReservation {
         super::builder::reservation_service::GetReservation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a reservation.
     /// Returns `google.rpc.Code.FAILED_PRECONDITION` when reservation has
     /// assignments.
-    pub fn delete_reservation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::DeleteReservation {
+    pub fn delete_reservation(&self) -> super::builder::reservation_service::DeleteReservation {
         super::builder::reservation_service::DeleteReservation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an existing reservation resource.
-    pub fn update_reservation(
-        &self,
-        reservation: impl Into<crate::model::Reservation>,
-    ) -> super::builder::reservation_service::UpdateReservation {
+    pub fn update_reservation(&self) -> super::builder::reservation_service::UpdateReservation {
         super::builder::reservation_service::UpdateReservation::new(self.inner.clone())
-            .set_reservation(reservation.into())
     }
 
     /// Fail over a reservation to the secondary location. The operation should be
@@ -186,39 +166,29 @@ impl ReservationService {
     /// new primary location for the reservation.
     /// Attempting to failover a reservation in the current primary location will
     /// fail with the error code `google.rpc.Code.FAILED_PRECONDITION`.
-    pub fn failover_reservation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::FailoverReservation {
+    pub fn failover_reservation(&self) -> super::builder::reservation_service::FailoverReservation {
         super::builder::reservation_service::FailoverReservation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new capacity commitment resource.
     pub fn create_capacity_commitment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::CreateCapacityCommitment {
         super::builder::reservation_service::CreateCapacityCommitment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all the capacity commitments for the admin project.
     pub fn list_capacity_commitments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::ListCapacityCommitments {
         super::builder::reservation_service::ListCapacityCommitments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns information about the capacity commitment.
     pub fn get_capacity_commitment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::GetCapacityCommitment {
         super::builder::reservation_service::GetCapacityCommitment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a capacity commitment. Attempting to delete capacity commitment
@@ -226,10 +196,8 @@ impl ReservationService {
     /// `google.rpc.Code.FAILED_PRECONDITION`.
     pub fn delete_capacity_commitment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::DeleteCapacityCommitment {
         super::builder::reservation_service::DeleteCapacityCommitment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an existing capacity commitment.
@@ -241,10 +209,8 @@ impl ReservationService {
     /// with the error code `google.rpc.Code.FAILED_PRECONDITION`.
     pub fn update_capacity_commitment(
         &self,
-        capacity_commitment: impl Into<crate::model::CapacityCommitment>,
     ) -> super::builder::reservation_service::UpdateCapacityCommitment {
         super::builder::reservation_service::UpdateCapacityCommitment::new(self.inner.clone())
-            .set_capacity_commitment(capacity_commitment.into())
     }
 
     /// Splits capacity commitment to two commitments of the same plan and
@@ -257,10 +223,8 @@ impl ReservationService {
     /// you delete the first one after the commitment end time passes.
     pub fn split_capacity_commitment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::SplitCapacityCommitment {
         super::builder::reservation_service::SplitCapacityCommitment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Merges capacity commitments of the same plan into a single commitment.
@@ -272,10 +236,8 @@ impl ReservationService {
     /// with the error code `google.rpc.Code.FAILED_PRECONDITION`.
     pub fn merge_capacity_commitments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::MergeCapacityCommitments {
         super::builder::reservation_service::MergeCapacityCommitments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates an assignment object which allows the given project to submit jobs
@@ -313,12 +275,8 @@ impl ReservationService {
     ///
     /// Returns `google.rpc.Code.INVALID_ARGUMENT` when location of the assignment
     /// does not match location of the reservation.
-    pub fn create_assignment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::CreateAssignment {
+    pub fn create_assignment(&self) -> super::builder::reservation_service::CreateAssignment {
         super::builder::reservation_service::CreateAssignment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists assignments.
@@ -342,12 +300,8 @@ impl ReservationService {
     /// specified project and location will be listed.
     ///
     /// **Note** "-" cannot be used for projects nor locations.
-    pub fn list_assignments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::ListAssignments {
+    pub fn list_assignments(&self) -> super::builder::reservation_service::ListAssignments {
         super::builder::reservation_service::ListAssignments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a assignment. No expansion will happen.
@@ -365,12 +319,8 @@ impl ReservationService {
     /// affect the other assignment `<project1, res1>`. After said deletion,
     /// queries from `project1` will still use `res1` while queries from
     /// `project2` will switch to use on-demand mode.
-    pub fn delete_assignment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::DeleteAssignment {
+    pub fn delete_assignment(&self) -> super::builder::reservation_service::DeleteAssignment {
         super::builder::reservation_service::DeleteAssignment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deprecated: Looks up assignments for a specified resource for a particular
@@ -397,12 +347,8 @@ impl ReservationService {
     /// **Note** "-" cannot be used for projects
     /// nor locations.
     #[deprecated]
-    pub fn search_assignments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::SearchAssignments {
+    pub fn search_assignments(&self) -> super::builder::reservation_service::SearchAssignments {
         super::builder::reservation_service::SearchAssignments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Looks up assignments for a specified resource for a particular region.
@@ -427,10 +373,8 @@ impl ReservationService {
     ///   `projects/*/locations/*reservations/*`.
     pub fn search_all_assignments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reservation_service::SearchAllAssignments {
         super::builder::reservation_service::SearchAllAssignments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Moves an assignment under a new reservation.
@@ -438,32 +382,20 @@ impl ReservationService {
     /// This differs from removing an existing assignment and recreating a new one
     /// by providing a transactional change that ensures an assignee always has an
     /// associated reservation.
-    pub fn move_assignment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::MoveAssignment {
+    pub fn move_assignment(&self) -> super::builder::reservation_service::MoveAssignment {
         super::builder::reservation_service::MoveAssignment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates an existing assignment.
     ///
     /// Only the `priority` field can be updated.
-    pub fn update_assignment(
-        &self,
-        assignment: impl Into<crate::model::Assignment>,
-    ) -> super::builder::reservation_service::UpdateAssignment {
+    pub fn update_assignment(&self) -> super::builder::reservation_service::UpdateAssignment {
         super::builder::reservation_service::UpdateAssignment::new(self.inner.clone())
-            .set_assignment(assignment.into())
     }
 
     /// Retrieves a BI reservation.
-    pub fn get_bi_reservation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reservation_service::GetBiReservation {
+    pub fn get_bi_reservation(&self) -> super::builder::reservation_service::GetBiReservation {
         super::builder::reservation_service::GetBiReservation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a BI reservation.
@@ -476,9 +408,7 @@ impl ReservationService {
     /// must be set to 0.
     pub fn update_bi_reservation(
         &self,
-        bi_reservation: impl Into<crate::model::BiReservation>,
     ) -> super::builder::reservation_service::UpdateBiReservation {
         super::builder::reservation_service::UpdateBiReservation::new(self.inner.clone())
-            .set_bi_reservation(bi_reservation.into())
     }
 }

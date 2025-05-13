@@ -133,23 +133,19 @@ impl ClientConnectorServicesService {
     /// Lists ClientConnectorServices in a given project and location.
     pub fn list_client_connector_services(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::ListClientConnectorServices {
         super::builder::client_connector_services_service::ListClientConnectorServices::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Gets details of a single ClientConnectorService.
     pub fn get_client_connector_service(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::GetClientConnectorService {
         super::builder::client_connector_services_service::GetClientConnectorService::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Creates a new ClientConnectorService in a given project and location.
@@ -165,12 +161,10 @@ impl ClientConnectorServicesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_client_connector_service(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::CreateClientConnectorService {
         super::builder::client_connector_services_service::CreateClientConnectorService::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single ClientConnectorService.
@@ -186,12 +180,10 @@ impl ClientConnectorServicesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_client_connector_service(
         &self,
-        client_connector_service: impl Into<crate::model::ClientConnectorService>,
     ) -> super::builder::client_connector_services_service::UpdateClientConnectorService {
         super::builder::client_connector_services_service::UpdateClientConnectorService::new(
             self.inner.clone(),
         )
-        .set_client_connector_service(client_connector_service.into())
     }
 
     /// Deletes a single ClientConnectorService.
@@ -207,30 +199,22 @@ impl ClientConnectorServicesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_client_connector_service(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::DeleteClientConnectorService {
         super::builder::client_connector_services_service::DeleteClientConnectorService::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::ListLocations {
         super::builder::client_connector_services_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_connector_services_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::client_connector_services_service::GetLocation {
         super::builder::client_connector_services_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -240,20 +224,16 @@ impl ClientConnectorServicesService {
     /// errors.
     pub fn set_iam_policy(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::SetIamPolicy {
         super::builder::client_connector_services_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
     pub fn get_iam_policy(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::GetIamPolicy {
         super::builder::client_connector_services_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -265,12 +245,10 @@ impl ClientConnectorServicesService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::TestIamPermissions {
         super::builder::client_connector_services_service::TestIamPermissions::new(
             self.inner.clone(),
         )
-        .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -278,21 +256,15 @@ impl ClientConnectorServicesService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::ListOperations {
         super::builder::client_connector_services_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::client_connector_services_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::client_connector_services_service::GetOperation {
         super::builder::client_connector_services_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -300,10 +272,8 @@ impl ClientConnectorServicesService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::DeleteOperation {
         super::builder::client_connector_services_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -311,9 +281,7 @@ impl ClientConnectorServicesService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::client_connector_services_service::CancelOperation {
         super::builder::client_connector_services_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

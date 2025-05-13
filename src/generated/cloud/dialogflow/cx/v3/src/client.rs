@@ -121,19 +121,13 @@ impl Agents {
     }
 
     /// Returns the list of all agents in the specified location.
-    pub fn list_agents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::ListAgents {
-        super::builder::agents::ListAgents::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_agents(&self) -> super::builder::agents::ListAgents {
+        super::builder::agents::ListAgents::new(self.inner.clone())
     }
 
     /// Retrieves the specified agent.
-    pub fn get_agent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetAgent {
-        super::builder::agents::GetAgent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_agent(&self) -> super::builder::agents::GetAgent {
+        super::builder::agents::GetAgent::new(self.inner.clone())
     }
 
     /// Creates an agent in the specified location.
@@ -141,11 +135,8 @@ impl Agents {
     /// Note: You should always train flows prior to sending them queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn create_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::CreateAgent {
-        super::builder::agents::CreateAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_agent(&self) -> super::builder::agents::CreateAgent {
+        super::builder::agents::CreateAgent::new(self.inner.clone())
     }
 
     /// Updates the specified agent.
@@ -153,19 +144,13 @@ impl Agents {
     /// Note: You should always train flows prior to sending them queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn update_agent(
-        &self,
-        agent: impl Into<crate::model::Agent>,
-    ) -> super::builder::agents::UpdateAgent {
-        super::builder::agents::UpdateAgent::new(self.inner.clone()).set_agent(agent.into())
+    pub fn update_agent(&self) -> super::builder::agents::UpdateAgent {
+        super::builder::agents::UpdateAgent::new(self.inner.clone())
     }
 
     /// Deletes the specified agent.
-    pub fn delete_agent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::DeleteAgent {
-        super::builder::agents::DeleteAgent::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_agent(&self) -> super::builder::agents::DeleteAgent {
+        super::builder::agents::DeleteAgent::new(self.inner.clone())
     }
 
     /// Exports the specified agent to a binary file.
@@ -190,11 +175,8 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_agent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::ExportAgent {
-        super::builder::agents::ExportAgent::new(self.inner.clone()).set_name(name.into())
+    pub fn export_agent(&self) -> super::builder::agents::ExportAgent {
+        super::builder::agents::ExportAgent::new(self.inner.clone())
     }
 
     /// Restores the specified agent from a binary file.
@@ -224,94 +206,62 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_agent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::RestoreAgent {
-        super::builder::agents::RestoreAgent::new(self.inner.clone()).set_name(name.into())
+    pub fn restore_agent(&self) -> super::builder::agents::RestoreAgent {
+        super::builder::agents::RestoreAgent::new(self.inner.clone())
     }
 
     /// Validates the specified agent and creates or updates validation results.
     /// The agent in draft version is validated. Please call this API after the
     /// training is completed to get the complete validation results.
-    pub fn validate_agent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::ValidateAgent {
-        super::builder::agents::ValidateAgent::new(self.inner.clone()).set_name(name.into())
+    pub fn validate_agent(&self) -> super::builder::agents::ValidateAgent {
+        super::builder::agents::ValidateAgent::new(self.inner.clone())
     }
 
     /// Gets the latest agent validation result. Agent validation is performed
     /// when ValidateAgent is called.
-    pub fn get_agent_validation_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetAgentValidationResult {
+    pub fn get_agent_validation_result(&self) -> super::builder::agents::GetAgentValidationResult {
         super::builder::agents::GetAgentValidationResult::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the generative settings for the agent.
-    pub fn get_generative_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetGenerativeSettings {
-        super::builder::agents::GetGenerativeSettings::new(self.inner.clone()).set_name(name.into())
+    pub fn get_generative_settings(&self) -> super::builder::agents::GetGenerativeSettings {
+        super::builder::agents::GetGenerativeSettings::new(self.inner.clone())
     }
 
     /// Updates the generative settings for the agent.
-    pub fn update_generative_settings(
-        &self,
-        generative_settings: impl Into<crate::model::GenerativeSettings>,
-    ) -> super::builder::agents::UpdateGenerativeSettings {
+    pub fn update_generative_settings(&self) -> super::builder::agents::UpdateGenerativeSettings {
         super::builder::agents::UpdateGenerativeSettings::new(self.inner.clone())
-            .set_generative_settings(generative_settings.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::ListLocations {
-        super::builder::agents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::agents::ListLocations {
+        super::builder::agents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetLocation {
-        super::builder::agents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::agents::GetLocation {
+        super::builder::agents::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::ListOperations {
-        super::builder::agents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::agents::ListOperations {
+        super::builder::agents::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetOperation {
-        super::builder::agents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::agents::GetOperation {
+        super::builder::agents::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::CancelOperation {
-        super::builder::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::agents::CancelOperation {
+        super::builder::agents::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -418,66 +368,44 @@ impl Changelogs {
     }
 
     /// Returns the list of Changelogs.
-    pub fn list_changelogs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::ListChangelogs {
+    pub fn list_changelogs(&self) -> super::builder::changelogs::ListChangelogs {
         super::builder::changelogs::ListChangelogs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified Changelog.
-    pub fn get_changelog(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::GetChangelog {
-        super::builder::changelogs::GetChangelog::new(self.inner.clone()).set_name(name.into())
+    pub fn get_changelog(&self) -> super::builder::changelogs::GetChangelog {
+        super::builder::changelogs::GetChangelog::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::ListLocations {
-        super::builder::changelogs::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::changelogs::ListLocations {
+        super::builder::changelogs::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::GetLocation {
-        super::builder::changelogs::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::changelogs::GetLocation {
+        super::builder::changelogs::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::ListOperations {
-        super::builder::changelogs::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::changelogs::ListOperations {
+        super::builder::changelogs::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::GetOperation {
-        super::builder::changelogs::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::changelogs::GetOperation {
+        super::builder::changelogs::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::changelogs::CancelOperation {
-        super::builder::changelogs::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::changelogs::CancelOperation {
+        super::builder::changelogs::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -587,69 +515,47 @@ impl Deployments {
     /// [Environment][google.cloud.dialogflow.cx.v3.Environment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
-    pub fn list_deployments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::deployments::ListDeployments {
+    pub fn list_deployments(&self) -> super::builder::deployments::ListDeployments {
         super::builder::deployments::ListDeployments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified
     /// [Deployment][google.cloud.dialogflow.cx.v3.Deployment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Deployment]: crate::model::Deployment
-    pub fn get_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::deployments::GetDeployment {
-        super::builder::deployments::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_deployment(&self) -> super::builder::deployments::GetDeployment {
+        super::builder::deployments::GetDeployment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::deployments::ListLocations {
-        super::builder::deployments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::deployments::ListLocations {
+        super::builder::deployments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::deployments::GetLocation {
-        super::builder::deployments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::deployments::GetLocation {
+        super::builder::deployments::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::deployments::ListOperations {
-        super::builder::deployments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::deployments::ListOperations {
+        super::builder::deployments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::deployments::GetOperation {
-        super::builder::deployments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::deployments::GetOperation {
+        super::builder::deployments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::deployments::CancelOperation {
-        super::builder::deployments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::deployments::CancelOperation {
+        super::builder::deployments::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -756,11 +662,8 @@ impl EntityTypes {
     }
 
     /// Retrieves the specified entity type.
-    pub fn get_entity_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::GetEntityType {
-        super::builder::entity_types::GetEntityType::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entity_type(&self) -> super::builder::entity_types::GetEntityType {
+        super::builder::entity_types::GetEntityType::new(self.inner.clone())
     }
 
     /// Creates an entity type in the specified agent.
@@ -768,12 +671,8 @@ impl EntityTypes {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn create_entity_type(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::CreateEntityType {
+    pub fn create_entity_type(&self) -> super::builder::entity_types::CreateEntityType {
         super::builder::entity_types::CreateEntityType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified entity type.
@@ -781,12 +680,8 @@ impl EntityTypes {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn update_entity_type(
-        &self,
-        entity_type: impl Into<crate::model::EntityType>,
-    ) -> super::builder::entity_types::UpdateEntityType {
+    pub fn update_entity_type(&self) -> super::builder::entity_types::UpdateEntityType {
         super::builder::entity_types::UpdateEntityType::new(self.inner.clone())
-            .set_entity_type(entity_type.into())
     }
 
     /// Deletes the specified entity type.
@@ -794,21 +689,13 @@ impl EntityTypes {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn delete_entity_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::DeleteEntityType {
+    pub fn delete_entity_type(&self) -> super::builder::entity_types::DeleteEntityType {
         super::builder::entity_types::DeleteEntityType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns the list of all entity types in the specified agent.
-    pub fn list_entity_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ListEntityTypes {
+    pub fn list_entity_types(&self) -> super::builder::entity_types::ListEntityTypes {
         super::builder::entity_types::ListEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Exports the selected entity types.
@@ -822,12 +709,8 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_entity_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ExportEntityTypes {
+    pub fn export_entity_types(&self) -> super::builder::entity_types::ExportEntityTypes {
         super::builder::entity_types::ExportEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Imports the specified entitytypes into the agent.
@@ -841,58 +724,39 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_entity_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ImportEntityTypes {
+    pub fn import_entity_types(&self) -> super::builder::entity_types::ImportEntityTypes {
         super::builder::entity_types::ImportEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ListLocations {
-        super::builder::entity_types::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::entity_types::ListLocations {
+        super::builder::entity_types::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::GetLocation {
-        super::builder::entity_types::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::entity_types::GetLocation {
+        super::builder::entity_types::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ListOperations {
-        super::builder::entity_types::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::entity_types::ListOperations {
+        super::builder::entity_types::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::GetOperation {
-        super::builder::entity_types::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::entity_types::GetOperation {
+        super::builder::entity_types::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::CancelOperation {
-        super::builder::entity_types::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::entity_types::CancelOperation {
+        super::builder::entity_types::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1003,23 +867,16 @@ impl Environments {
     /// [Agent][google.cloud.dialogflow.cx.v3.Agent].
     ///
     /// [google.cloud.dialogflow.cx.v3.Agent]: crate::model::Agent
-    pub fn list_environments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListEnvironments {
+    pub fn list_environments(&self) -> super::builder::environments::ListEnvironments {
         super::builder::environments::ListEnvironments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified
     /// [Environment][google.cloud.dialogflow.cx.v3.Environment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
-    pub fn get_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetEnvironment {
-        super::builder::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_environment(&self) -> super::builder::environments::GetEnvironment {
+        super::builder::environments::GetEnvironment::new(self.inner.clone())
     }
 
     /// Creates an [Environment][google.cloud.dialogflow.cx.v3.Environment] in the
@@ -1045,12 +902,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_environment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::CreateEnvironment {
+    pub fn create_environment(&self) -> super::builder::environments::CreateEnvironment {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified
@@ -1075,24 +928,16 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_environment(
-        &self,
-        environment: impl Into<crate::model::Environment>,
-    ) -> super::builder::environments::UpdateEnvironment {
+    pub fn update_environment(&self) -> super::builder::environments::UpdateEnvironment {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Deletes the specified
     /// [Environment][google.cloud.dialogflow.cx.v3.Environment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
-    pub fn delete_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::DeleteEnvironment {
+    pub fn delete_environment(&self) -> super::builder::environments::DeleteEnvironment {
         super::builder::environments::DeleteEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Looks up the history of the specified
@@ -1101,10 +946,8 @@ impl Environments {
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     pub fn lookup_environment_history(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::environments::LookupEnvironmentHistory {
         super::builder::environments::LookupEnvironmentHistory::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Kicks off a continuous test under the specified
@@ -1132,21 +975,15 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_continuous_test(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::RunContinuousTest {
+    pub fn run_continuous_test(&self) -> super::builder::environments::RunContinuousTest {
         super::builder::environments::RunContinuousTest::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Fetches a list of continuous test results for a given environment.
     pub fn list_continuous_test_results(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::environments::ListContinuousTestResults {
         super::builder::environments::ListContinuousTestResults::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deploys a flow to the specified
@@ -1174,58 +1011,39 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn deploy_flow(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::DeployFlow {
+    pub fn deploy_flow(&self) -> super::builder::environments::DeployFlow {
         super::builder::environments::DeployFlow::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListLocations {
-        super::builder::environments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::environments::ListLocations {
+        super::builder::environments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetLocation {
-        super::builder::environments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::environments::GetLocation {
+        super::builder::environments::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListOperations {
-        super::builder::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::environments::ListOperations {
+        super::builder::environments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetOperation {
-        super::builder::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::environments::GetOperation {
+        super::builder::environments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::CancelOperation {
-        super::builder::environments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::environments::CancelOperation {
+        super::builder::environments::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1335,23 +1153,16 @@ impl Experiments {
     /// [Environment][google.cloud.dialogflow.cx.v3.Environment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
-    pub fn list_experiments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::experiments::ListExperiments {
+    pub fn list_experiments(&self) -> super::builder::experiments::ListExperiments {
         super::builder::experiments::ListExperiments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified
     /// [Experiment][google.cloud.dialogflow.cx.v3.Experiment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Experiment]: crate::model::Experiment
-    pub fn get_experiment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::GetExperiment {
-        super::builder::experiments::GetExperiment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_experiment(&self) -> super::builder::experiments::GetExperiment {
+        super::builder::experiments::GetExperiment::new(self.inner.clone())
     }
 
     /// Creates an [Experiment][google.cloud.dialogflow.cx.v3.Experiment] in the
@@ -1359,35 +1170,24 @@ impl Experiments {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     /// [google.cloud.dialogflow.cx.v3.Experiment]: crate::model::Experiment
-    pub fn create_experiment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::experiments::CreateExperiment {
+    pub fn create_experiment(&self) -> super::builder::experiments::CreateExperiment {
         super::builder::experiments::CreateExperiment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified
     /// [Experiment][google.cloud.dialogflow.cx.v3.Experiment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Experiment]: crate::model::Experiment
-    pub fn update_experiment(
-        &self,
-        experiment: impl Into<crate::model::Experiment>,
-    ) -> super::builder::experiments::UpdateExperiment {
+    pub fn update_experiment(&self) -> super::builder::experiments::UpdateExperiment {
         super::builder::experiments::UpdateExperiment::new(self.inner.clone())
-            .set_experiment(experiment.into())
     }
 
     /// Deletes the specified
     /// [Experiment][google.cloud.dialogflow.cx.v3.Experiment].
     ///
     /// [google.cloud.dialogflow.cx.v3.Experiment]: crate::model::Experiment
-    pub fn delete_experiment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::DeleteExperiment {
-        super::builder::experiments::DeleteExperiment::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_experiment(&self) -> super::builder::experiments::DeleteExperiment {
+        super::builder::experiments::DeleteExperiment::new(self.inner.clone())
     }
 
     /// Starts the specified
@@ -1395,68 +1195,47 @@ impl Experiments {
     /// changes the state of experiment from PENDING to RUNNING.
     ///
     /// [google.cloud.dialogflow.cx.v3.Experiment]: crate::model::Experiment
-    pub fn start_experiment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::StartExperiment {
-        super::builder::experiments::StartExperiment::new(self.inner.clone()).set_name(name.into())
+    pub fn start_experiment(&self) -> super::builder::experiments::StartExperiment {
+        super::builder::experiments::StartExperiment::new(self.inner.clone())
     }
 
     /// Stops the specified [Experiment][google.cloud.dialogflow.cx.v3.Experiment].
     /// This rpc only changes the state of experiment from RUNNING to DONE.
     ///
     /// [google.cloud.dialogflow.cx.v3.Experiment]: crate::model::Experiment
-    pub fn stop_experiment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::StopExperiment {
-        super::builder::experiments::StopExperiment::new(self.inner.clone()).set_name(name.into())
+    pub fn stop_experiment(&self) -> super::builder::experiments::StopExperiment {
+        super::builder::experiments::StopExperiment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::ListLocations {
-        super::builder::experiments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::experiments::ListLocations {
+        super::builder::experiments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::GetLocation {
-        super::builder::experiments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::experiments::GetLocation {
+        super::builder::experiments::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::ListOperations {
-        super::builder::experiments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::experiments::ListOperations {
+        super::builder::experiments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::GetOperation {
-        super::builder::experiments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::experiments::GetOperation {
+        super::builder::experiments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::experiments::CancelOperation {
-        super::builder::experiments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::experiments::CancelOperation {
+        super::builder::experiments::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1565,32 +1344,23 @@ impl Flows {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn create_flow(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::flows::CreateFlow {
-        super::builder::flows::CreateFlow::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_flow(&self) -> super::builder::flows::CreateFlow {
+        super::builder::flows::CreateFlow::new(self.inner.clone())
     }
 
     /// Deletes a specified flow.
-    pub fn delete_flow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::DeleteFlow {
-        super::builder::flows::DeleteFlow::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_flow(&self) -> super::builder::flows::DeleteFlow {
+        super::builder::flows::DeleteFlow::new(self.inner.clone())
     }
 
     /// Returns the list of all flows in the specified agent.
-    pub fn list_flows(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::flows::ListFlows {
-        super::builder::flows::ListFlows::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_flows(&self) -> super::builder::flows::ListFlows {
+        super::builder::flows::ListFlows::new(self.inner.clone())
     }
 
     /// Retrieves the specified flow.
-    pub fn get_flow(&self, name: impl Into<std::string::String>) -> super::builder::flows::GetFlow {
-        super::builder::flows::GetFlow::new(self.inner.clone()).set_name(name.into())
+    pub fn get_flow(&self) -> super::builder::flows::GetFlow {
+        super::builder::flows::GetFlow::new(self.inner.clone())
     }
 
     /// Updates the specified flow.
@@ -1598,11 +1368,8 @@ impl Flows {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn update_flow(
-        &self,
-        flow: impl Into<crate::model::Flow>,
-    ) -> super::builder::flows::UpdateFlow {
-        super::builder::flows::UpdateFlow::new(self.inner.clone()).set_flow(flow.into())
+    pub fn update_flow(&self) -> super::builder::flows::UpdateFlow {
+        super::builder::flows::UpdateFlow::new(self.inner.clone())
     }
 
     /// Trains the specified flow. Note that only the flow in 'draft' environment
@@ -1630,31 +1397,21 @@ impl Flows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn train_flow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::TrainFlow {
-        super::builder::flows::TrainFlow::new(self.inner.clone()).set_name(name.into())
+    pub fn train_flow(&self) -> super::builder::flows::TrainFlow {
+        super::builder::flows::TrainFlow::new(self.inner.clone())
     }
 
     /// Validates the specified flow and creates or updates validation results.
     /// Please call this API after the training is completed to get the complete
     /// validation results.
-    pub fn validate_flow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::ValidateFlow {
-        super::builder::flows::ValidateFlow::new(self.inner.clone()).set_name(name.into())
+    pub fn validate_flow(&self) -> super::builder::flows::ValidateFlow {
+        super::builder::flows::ValidateFlow::new(self.inner.clone())
     }
 
     /// Gets the latest flow validation result. Flow validation is performed
     /// when ValidateFlow is called.
-    pub fn get_flow_validation_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::GetFlowValidationResult {
+    pub fn get_flow_validation_result(&self) -> super::builder::flows::GetFlowValidationResult {
         super::builder::flows::GetFlowValidationResult::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Imports the specified flow to the specified agent from a binary file.
@@ -1683,11 +1440,8 @@ impl Flows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_flow(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::flows::ImportFlow {
-        super::builder::flows::ImportFlow::new(self.inner.clone()).set_parent(parent.into())
+    pub fn import_flow(&self) -> super::builder::flows::ImportFlow {
+        super::builder::flows::ImportFlow::new(self.inner.clone())
     }
 
     /// Exports the specified flow to a binary file.
@@ -1715,57 +1469,39 @@ impl Flows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_flow(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::ExportFlow {
-        super::builder::flows::ExportFlow::new(self.inner.clone()).set_name(name.into())
+    pub fn export_flow(&self) -> super::builder::flows::ExportFlow {
+        super::builder::flows::ExportFlow::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::ListLocations {
-        super::builder::flows::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::flows::ListLocations {
+        super::builder::flows::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::GetLocation {
-        super::builder::flows::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::flows::GetLocation {
+        super::builder::flows::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::ListOperations {
-        super::builder::flows::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::flows::ListOperations {
+        super::builder::flows::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::GetOperation {
-        super::builder::flows::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::flows::GetOperation {
+        super::builder::flows::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::flows::CancelOperation {
-        super::builder::flows::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::flows::CancelOperation {
+        super::builder::flows::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1872,92 +1608,59 @@ impl Generators {
     }
 
     /// Returns the list of all generators in the specified agent.
-    pub fn list_generators(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::generators::ListGenerators {
+    pub fn list_generators(&self) -> super::builder::generators::ListGenerators {
         super::builder::generators::ListGenerators::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified generator.
-    pub fn get_generator(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::GetGenerator {
-        super::builder::generators::GetGenerator::new(self.inner.clone()).set_name(name.into())
+    pub fn get_generator(&self) -> super::builder::generators::GetGenerator {
+        super::builder::generators::GetGenerator::new(self.inner.clone())
     }
 
     /// Creates a generator in the specified agent.
-    pub fn create_generator(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::generators::CreateGenerator {
+    pub fn create_generator(&self) -> super::builder::generators::CreateGenerator {
         super::builder::generators::CreateGenerator::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update the specified generator.
-    pub fn update_generator(
-        &self,
-        generator: impl Into<crate::model::Generator>,
-    ) -> super::builder::generators::UpdateGenerator {
+    pub fn update_generator(&self) -> super::builder::generators::UpdateGenerator {
         super::builder::generators::UpdateGenerator::new(self.inner.clone())
-            .set_generator(generator.into())
     }
 
     /// Deletes the specified generators.
-    pub fn delete_generator(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::DeleteGenerator {
-        super::builder::generators::DeleteGenerator::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_generator(&self) -> super::builder::generators::DeleteGenerator {
+        super::builder::generators::DeleteGenerator::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::ListLocations {
-        super::builder::generators::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::generators::ListLocations {
+        super::builder::generators::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::GetLocation {
-        super::builder::generators::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::generators::GetLocation {
+        super::builder::generators::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::ListOperations {
-        super::builder::generators::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::generators::ListOperations {
+        super::builder::generators::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::GetOperation {
-        super::builder::generators::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::generators::GetOperation {
+        super::builder::generators::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::CancelOperation {
-        super::builder::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::generators::CancelOperation {
+        super::builder::generators::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2064,19 +1767,13 @@ impl Intents {
     }
 
     /// Returns the list of all intents in the specified agent.
-    pub fn list_intents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::ListIntents {
-        super::builder::intents::ListIntents::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_intents(&self) -> super::builder::intents::ListIntents {
+        super::builder::intents::ListIntents::new(self.inner.clone())
     }
 
     /// Retrieves the specified intent.
-    pub fn get_intent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::GetIntent {
-        super::builder::intents::GetIntent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_intent(&self) -> super::builder::intents::GetIntent {
+        super::builder::intents::GetIntent::new(self.inner.clone())
     }
 
     /// Creates an intent in the specified agent.
@@ -2084,11 +1781,8 @@ impl Intents {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn create_intent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::CreateIntent {
-        super::builder::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_intent(&self) -> super::builder::intents::CreateIntent {
+        super::builder::intents::CreateIntent::new(self.inner.clone())
     }
 
     /// Updates the specified intent.
@@ -2096,11 +1790,8 @@ impl Intents {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn update_intent(
-        &self,
-        intent: impl Into<crate::model::Intent>,
-    ) -> super::builder::intents::UpdateIntent {
-        super::builder::intents::UpdateIntent::new(self.inner.clone()).set_intent(intent.into())
+    pub fn update_intent(&self) -> super::builder::intents::UpdateIntent {
+        super::builder::intents::UpdateIntent::new(self.inner.clone())
     }
 
     /// Deletes the specified intent.
@@ -2108,11 +1799,8 @@ impl Intents {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn delete_intent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::DeleteIntent {
-        super::builder::intents::DeleteIntent::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_intent(&self) -> super::builder::intents::DeleteIntent {
+        super::builder::intents::DeleteIntent::new(self.inner.clone())
     }
 
     /// Imports the specified intents into the agent.
@@ -2138,11 +1826,8 @@ impl Intents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_intents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::ImportIntents {
-        super::builder::intents::ImportIntents::new(self.inner.clone()).set_parent(parent.into())
+    pub fn import_intents(&self) -> super::builder::intents::ImportIntents {
+        super::builder::intents::ImportIntents::new(self.inner.clone())
     }
 
     /// Exports the selected intents.
@@ -2168,57 +1853,39 @@ impl Intents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_intents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::ExportIntents {
-        super::builder::intents::ExportIntents::new(self.inner.clone()).set_parent(parent.into())
+    pub fn export_intents(&self) -> super::builder::intents::ExportIntents {
+        super::builder::intents::ExportIntents::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::ListLocations {
-        super::builder::intents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::intents::ListLocations {
+        super::builder::intents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::GetLocation {
-        super::builder::intents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::intents::GetLocation {
+        super::builder::intents::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::ListOperations {
-        super::builder::intents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::intents::ListOperations {
+        super::builder::intents::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::GetOperation {
-        super::builder::intents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::intents::GetOperation {
+        super::builder::intents::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::CancelOperation {
-        super::builder::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::intents::CancelOperation {
+        super::builder::intents::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2323,16 +1990,13 @@ impl Pages {
     }
 
     /// Returns the list of all pages in the specified flow.
-    pub fn list_pages(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::pages::ListPages {
-        super::builder::pages::ListPages::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_pages(&self) -> super::builder::pages::ListPages {
+        super::builder::pages::ListPages::new(self.inner.clone())
     }
 
     /// Retrieves the specified page.
-    pub fn get_page(&self, name: impl Into<std::string::String>) -> super::builder::pages::GetPage {
-        super::builder::pages::GetPage::new(self.inner.clone()).set_name(name.into())
+    pub fn get_page(&self) -> super::builder::pages::GetPage {
+        super::builder::pages::GetPage::new(self.inner.clone())
     }
 
     /// Creates a page in the specified flow.
@@ -2340,11 +2004,8 @@ impl Pages {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn create_page(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::pages::CreatePage {
-        super::builder::pages::CreatePage::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_page(&self) -> super::builder::pages::CreatePage {
+        super::builder::pages::CreatePage::new(self.inner.clone())
     }
 
     /// Updates the specified page.
@@ -2352,11 +2013,8 @@ impl Pages {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn update_page(
-        &self,
-        page: impl Into<crate::model::Page>,
-    ) -> super::builder::pages::UpdatePage {
-        super::builder::pages::UpdatePage::new(self.inner.clone()).set_page(page.into())
+    pub fn update_page(&self) -> super::builder::pages::UpdatePage {
+        super::builder::pages::UpdatePage::new(self.inner.clone())
     }
 
     /// Deletes the specified page.
@@ -2364,57 +2022,39 @@ impl Pages {
     /// Note: You should always train a flow prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/cx/docs/concept/training).
-    pub fn delete_page(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::pages::DeletePage {
-        super::builder::pages::DeletePage::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_page(&self) -> super::builder::pages::DeletePage {
+        super::builder::pages::DeletePage::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::pages::ListLocations {
-        super::builder::pages::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::pages::ListLocations {
+        super::builder::pages::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::pages::GetLocation {
-        super::builder::pages::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::pages::GetLocation {
+        super::builder::pages::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::pages::ListOperations {
-        super::builder::pages::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::pages::ListOperations {
+        super::builder::pages::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::pages::GetOperation {
-        super::builder::pages::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::pages::GetOperation {
+        super::builder::pages::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::pages::CancelOperation {
-        super::builder::pages::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::pages::CancelOperation {
+        super::builder::pages::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2523,10 +2163,8 @@ impl SecuritySettingsService {
     /// Create security settings in the specified location.
     pub fn create_security_settings(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::security_settings_service::CreateSecuritySettings {
         super::builder::security_settings_service::CreateSecuritySettings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified
@@ -2536,10 +2174,8 @@ impl SecuritySettingsService {
     /// [google.cloud.dialogflow.cx.v3.SecuritySettings]: crate::model::SecuritySettings
     pub fn get_security_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::security_settings_service::GetSecuritySettings {
         super::builder::security_settings_service::GetSecuritySettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified
@@ -2548,19 +2184,15 @@ impl SecuritySettingsService {
     /// [google.cloud.dialogflow.cx.v3.SecuritySettings]: crate::model::SecuritySettings
     pub fn update_security_settings(
         &self,
-        security_settings: impl Into<crate::model::SecuritySettings>,
     ) -> super::builder::security_settings_service::UpdateSecuritySettings {
         super::builder::security_settings_service::UpdateSecuritySettings::new(self.inner.clone())
-            .set_security_settings(security_settings.into())
     }
 
     /// Returns the list of all security settings in the specified location.
     pub fn list_security_settings(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::security_settings_service::ListSecuritySettings {
         super::builder::security_settings_service::ListSecuritySettings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified
@@ -2569,61 +2201,39 @@ impl SecuritySettingsService {
     /// [google.cloud.dialogflow.cx.v3.SecuritySettings]: crate::model::SecuritySettings
     pub fn delete_security_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::security_settings_service::DeleteSecuritySettings {
         super::builder::security_settings_service::DeleteSecuritySettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::security_settings_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::security_settings_service::ListLocations {
         super::builder::security_settings_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::security_settings_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::security_settings_service::GetLocation {
         super::builder::security_settings_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::security_settings_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::security_settings_service::ListOperations {
         super::builder::security_settings_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::security_settings_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::security_settings_service::GetOperation {
         super::builder::security_settings_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::security_settings_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::security_settings_service::CancelOperation {
         super::builder::security_settings_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -2740,20 +2350,14 @@ impl Sessions {
     /// Note: Always use agent versions for production traffic.
     /// See [Versions and
     /// environments](https://cloud.google.com/dialogflow/cx/docs/concept/version).
-    pub fn detect_intent(
-        &self,
-        session: impl Into<std::string::String>,
-    ) -> super::builder::sessions::DetectIntent {
-        super::builder::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
+    pub fn detect_intent(&self) -> super::builder::sessions::DetectIntent {
+        super::builder::sessions::DetectIntent::new(self.inner.clone())
     }
 
     /// Returns preliminary intent match results, doesn't change the session
     /// status.
-    pub fn match_intent(
-        &self,
-        session: impl Into<std::string::String>,
-    ) -> super::builder::sessions::MatchIntent {
-        super::builder::sessions::MatchIntent::new(self.inner.clone()).set_session(session.into())
+    pub fn match_intent(&self) -> super::builder::sessions::MatchIntent {
+        super::builder::sessions::MatchIntent::new(self.inner.clone())
     }
 
     /// Fulfills a matched intent returned by
@@ -2766,68 +2370,45 @@ impl Sessions {
     ///
     /// [google.cloud.dialogflow.cx.v3.MatchIntentResponse]: crate::model::MatchIntentResponse
     /// [google.cloud.dialogflow.cx.v3.Sessions.MatchIntent]: crate::client::Sessions::match_intent
-    pub fn fulfill_intent(
-        &self,
-        match_intent_request: impl Into<crate::model::MatchIntentRequest>,
-    ) -> super::builder::sessions::FulfillIntent {
+    pub fn fulfill_intent(&self) -> super::builder::sessions::FulfillIntent {
         super::builder::sessions::FulfillIntent::new(self.inner.clone())
-            .set_match_intent_request(match_intent_request.into())
     }
 
     /// Updates the feedback received from the user for a single turn of the bot
     /// response.
-    pub fn submit_answer_feedback(
-        &self,
-        session: impl Into<std::string::String>,
-    ) -> super::builder::sessions::SubmitAnswerFeedback {
+    pub fn submit_answer_feedback(&self) -> super::builder::sessions::SubmitAnswerFeedback {
         super::builder::sessions::SubmitAnswerFeedback::new(self.inner.clone())
-            .set_session(session.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::ListLocations {
-        super::builder::sessions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::sessions::ListLocations {
+        super::builder::sessions::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::GetLocation {
-        super::builder::sessions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::sessions::GetLocation {
+        super::builder::sessions::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::ListOperations {
-        super::builder::sessions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::sessions::ListOperations {
+        super::builder::sessions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::GetOperation {
-        super::builder::sessions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::sessions::GetOperation {
+        super::builder::sessions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::CancelOperation {
-        super::builder::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::sessions::CancelOperation {
+        super::builder::sessions::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2939,97 +2520,67 @@ impl SessionEntityTypes {
     /// Returns the list of all session entity types in the specified session.
     pub fn list_session_entity_types(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::ListSessionEntityTypes {
         super::builder::session_entity_types::ListSessionEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified session entity type.
     pub fn get_session_entity_type(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::GetSessionEntityType {
         super::builder::session_entity_types::GetSessionEntityType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a session entity type.
     pub fn create_session_entity_type(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::CreateSessionEntityType {
         super::builder::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified session entity type.
     pub fn update_session_entity_type(
         &self,
-        session_entity_type: impl Into<crate::model::SessionEntityType>,
     ) -> super::builder::session_entity_types::UpdateSessionEntityType {
         super::builder::session_entity_types::UpdateSessionEntityType::new(self.inner.clone())
-            .set_session_entity_type(session_entity_type.into())
     }
 
     /// Deletes the specified session entity type.
     pub fn delete_session_entity_type(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::DeleteSessionEntityType {
         super::builder::session_entity_types::DeleteSessionEntityType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::ListLocations {
+    pub fn list_locations(&self) -> super::builder::session_entity_types::ListLocations {
         super::builder::session_entity_types::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::GetLocation {
+    pub fn get_location(&self) -> super::builder::session_entity_types::GetLocation {
         super::builder::session_entity_types::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::ListOperations {
+    pub fn list_operations(&self) -> super::builder::session_entity_types::ListOperations {
         super::builder::session_entity_types::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::GetOperation {
+    pub fn get_operation(&self) -> super::builder::session_entity_types::GetOperation {
         super::builder::session_entity_types::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::session_entity_types::CancelOperation {
         super::builder::session_entity_types::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -3138,46 +2689,28 @@ impl TestCases {
     }
 
     /// Fetches a list of test cases for a given agent.
-    pub fn list_test_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::ListTestCases {
-        super::builder::test_cases::ListTestCases::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_test_cases(&self) -> super::builder::test_cases::ListTestCases {
+        super::builder::test_cases::ListTestCases::new(self.inner.clone())
     }
 
     /// Batch deletes test cases.
-    pub fn batch_delete_test_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::BatchDeleteTestCases {
+    pub fn batch_delete_test_cases(&self) -> super::builder::test_cases::BatchDeleteTestCases {
         super::builder::test_cases::BatchDeleteTestCases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a test case.
-    pub fn get_test_case(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::GetTestCase {
-        super::builder::test_cases::GetTestCase::new(self.inner.clone()).set_name(name.into())
+    pub fn get_test_case(&self) -> super::builder::test_cases::GetTestCase {
+        super::builder::test_cases::GetTestCase::new(self.inner.clone())
     }
 
     /// Creates a test case for the given agent.
-    pub fn create_test_case(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::CreateTestCase {
+    pub fn create_test_case(&self) -> super::builder::test_cases::CreateTestCase {
         super::builder::test_cases::CreateTestCase::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified test case.
-    pub fn update_test_case(
-        &self,
-        test_case: impl Into<crate::model::TestCase>,
-    ) -> super::builder::test_cases::UpdateTestCase {
+    pub fn update_test_case(&self) -> super::builder::test_cases::UpdateTestCase {
         super::builder::test_cases::UpdateTestCase::new(self.inner.clone())
-            .set_test_case(test_case.into())
     }
 
     /// Kicks off a test case run.
@@ -3203,11 +2736,8 @@ impl TestCases {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_test_case(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::RunTestCase {
-        super::builder::test_cases::RunTestCase::new(self.inner.clone()).set_name(name.into())
+    pub fn run_test_case(&self) -> super::builder::test_cases::RunTestCase {
+        super::builder::test_cases::RunTestCase::new(self.inner.clone())
     }
 
     /// Kicks off a batch run of test cases.
@@ -3233,21 +2763,13 @@ impl TestCases {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_run_test_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::BatchRunTestCases {
+    pub fn batch_run_test_cases(&self) -> super::builder::test_cases::BatchRunTestCases {
         super::builder::test_cases::BatchRunTestCases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Calculates the test coverage for an agent.
-    pub fn calculate_coverage(
-        &self,
-        agent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::CalculateCoverage {
+    pub fn calculate_coverage(&self) -> super::builder::test_cases::CalculateCoverage {
         super::builder::test_cases::CalculateCoverage::new(self.inner.clone())
-            .set_agent(agent.into())
     }
 
     /// Imports the test cases from a Cloud Storage bucket or a local file. It
@@ -3275,12 +2797,8 @@ impl TestCases {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_test_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::ImportTestCases {
+    pub fn import_test_cases(&self) -> super::builder::test_cases::ImportTestCases {
         super::builder::test_cases::ImportTestCases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Exports the test cases under the agent to a Cloud Storage bucket or a local
@@ -3307,76 +2825,50 @@ impl TestCases {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_test_cases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::ExportTestCases {
+    pub fn export_test_cases(&self) -> super::builder::test_cases::ExportTestCases {
         super::builder::test_cases::ExportTestCases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Fetches the list of run results for the given test case. A maximum of 100
     /// results are kept for each test case.
-    pub fn list_test_case_results(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::ListTestCaseResults {
+    pub fn list_test_case_results(&self) -> super::builder::test_cases::ListTestCaseResults {
         super::builder::test_cases::ListTestCaseResults::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a test case result.
-    pub fn get_test_case_result(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::GetTestCaseResult {
-        super::builder::test_cases::GetTestCaseResult::new(self.inner.clone()).set_name(name.into())
+    pub fn get_test_case_result(&self) -> super::builder::test_cases::GetTestCaseResult {
+        super::builder::test_cases::GetTestCaseResult::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::ListLocations {
-        super::builder::test_cases::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::test_cases::ListLocations {
+        super::builder::test_cases::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::GetLocation {
-        super::builder::test_cases::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::test_cases::GetLocation {
+        super::builder::test_cases::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::ListOperations {
-        super::builder::test_cases::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::test_cases::ListOperations {
+        super::builder::test_cases::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::GetOperation {
-        super::builder::test_cases::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::test_cases::GetOperation {
+        super::builder::test_cases::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::test_cases::CancelOperation {
-        super::builder::test_cases::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::test_cases::CancelOperation {
+        super::builder::test_cases::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3488,10 +2980,8 @@ impl TransitionRouteGroups {
     /// Returns the list of all transition route groups in the specified flow.
     pub fn list_transition_route_groups(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::transition_route_groups::ListTransitionRouteGroups {
         super::builder::transition_route_groups::ListTransitionRouteGroups::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified
@@ -3500,10 +2990,8 @@ impl TransitionRouteGroups {
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     pub fn get_transition_route_group(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::transition_route_groups::GetTransitionRouteGroup {
         super::builder::transition_route_groups::GetTransitionRouteGroup::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an
@@ -3517,10 +3005,8 @@ impl TransitionRouteGroups {
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     pub fn create_transition_route_group(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::transition_route_groups::CreateTransitionRouteGroup {
         super::builder::transition_route_groups::CreateTransitionRouteGroup::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified
@@ -3533,10 +3019,8 @@ impl TransitionRouteGroups {
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     pub fn update_transition_route_group(
         &self,
-        transition_route_group: impl Into<crate::model::TransitionRouteGroup>,
     ) -> super::builder::transition_route_groups::UpdateTransitionRouteGroup {
         super::builder::transition_route_groups::UpdateTransitionRouteGroup::new(self.inner.clone())
-            .set_transition_route_group(transition_route_group.into())
     }
 
     /// Deletes the specified
@@ -3549,61 +3033,39 @@ impl TransitionRouteGroups {
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     pub fn delete_transition_route_group(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::transition_route_groups::DeleteTransitionRouteGroup {
         super::builder::transition_route_groups::DeleteTransitionRouteGroup::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transition_route_groups::ListLocations {
+    pub fn list_locations(&self) -> super::builder::transition_route_groups::ListLocations {
         super::builder::transition_route_groups::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transition_route_groups::GetLocation {
+    pub fn get_location(&self) -> super::builder::transition_route_groups::GetLocation {
         super::builder::transition_route_groups::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transition_route_groups::ListOperations {
+    pub fn list_operations(&self) -> super::builder::transition_route_groups::ListOperations {
         super::builder::transition_route_groups::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transition_route_groups::GetOperation {
+    pub fn get_operation(&self) -> super::builder::transition_route_groups::GetOperation {
         super::builder::transition_route_groups::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transition_route_groups::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::transition_route_groups::CancelOperation {
         super::builder::transition_route_groups::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -3713,21 +3175,15 @@ impl Versions {
     /// [Flow][google.cloud.dialogflow.cx.v3.Flow].
     ///
     /// [google.cloud.dialogflow.cx.v3.Flow]: crate::model::Flow
-    pub fn list_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListVersions {
-        super::builder::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_versions(&self) -> super::builder::versions::ListVersions {
+        super::builder::versions::ListVersions::new(self.inner.clone())
     }
 
     /// Retrieves the specified [Version][google.cloud.dialogflow.cx.v3.Version].
     ///
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
-    pub fn get_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetVersion {
-        super::builder::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_version(&self) -> super::builder::versions::GetVersion {
+        super::builder::versions::GetVersion::new(self.inner.clone())
     }
 
     /// Creates a [Version][google.cloud.dialogflow.cx.v3.Version] in the specified
@@ -3754,31 +3210,22 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_version(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::versions::CreateVersion {
-        super::builder::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_version(&self) -> super::builder::versions::CreateVersion {
+        super::builder::versions::CreateVersion::new(self.inner.clone())
     }
 
     /// Updates the specified [Version][google.cloud.dialogflow.cx.v3.Version].
     ///
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
-    pub fn update_version(
-        &self,
-        version: impl Into<crate::model::Version>,
-    ) -> super::builder::versions::UpdateVersion {
-        super::builder::versions::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+    pub fn update_version(&self) -> super::builder::versions::UpdateVersion {
+        super::builder::versions::UpdateVersion::new(self.inner.clone())
     }
 
     /// Deletes the specified [Version][google.cloud.dialogflow.cx.v3.Version].
     ///
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
-    pub fn delete_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::DeleteVersion {
-        super::builder::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_version(&self) -> super::builder::versions::DeleteVersion {
+        super::builder::versions::DeleteVersion::new(self.inner.clone())
     }
 
     /// Loads resources in the specified version to the draft flow.
@@ -3801,66 +3248,44 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn load_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::LoadVersion {
-        super::builder::versions::LoadVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn load_version(&self) -> super::builder::versions::LoadVersion {
+        super::builder::versions::LoadVersion::new(self.inner.clone())
     }
 
     /// Compares the specified base version with target version.
-    pub fn compare_versions(
-        &self,
-        base_version: impl Into<std::string::String>,
-    ) -> super::builder::versions::CompareVersions {
+    pub fn compare_versions(&self) -> super::builder::versions::CompareVersions {
         super::builder::versions::CompareVersions::new(self.inner.clone())
-            .set_base_version(base_version.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListLocations {
-        super::builder::versions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::versions::ListLocations {
+        super::builder::versions::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetLocation {
-        super::builder::versions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::versions::GetLocation {
+        super::builder::versions::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListOperations {
-        super::builder::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::versions::ListOperations {
+        super::builder::versions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetOperation {
-        super::builder::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::versions::GetOperation {
+        super::builder::versions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::CancelOperation {
-        super::builder::versions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::versions::CancelOperation {
+        super::builder::versions::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3967,88 +3392,58 @@ impl Webhooks {
     }
 
     /// Returns the list of all webhooks in the specified agent.
-    pub fn list_webhooks(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::ListWebhooks {
-        super::builder::webhooks::ListWebhooks::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_webhooks(&self) -> super::builder::webhooks::ListWebhooks {
+        super::builder::webhooks::ListWebhooks::new(self.inner.clone())
     }
 
     /// Retrieves the specified webhook.
-    pub fn get_webhook(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::GetWebhook {
-        super::builder::webhooks::GetWebhook::new(self.inner.clone()).set_name(name.into())
+    pub fn get_webhook(&self) -> super::builder::webhooks::GetWebhook {
+        super::builder::webhooks::GetWebhook::new(self.inner.clone())
     }
 
     /// Creates a webhook in the specified agent.
-    pub fn create_webhook(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::CreateWebhook {
-        super::builder::webhooks::CreateWebhook::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_webhook(&self) -> super::builder::webhooks::CreateWebhook {
+        super::builder::webhooks::CreateWebhook::new(self.inner.clone())
     }
 
     /// Updates the specified webhook.
-    pub fn update_webhook(
-        &self,
-        webhook: impl Into<crate::model::Webhook>,
-    ) -> super::builder::webhooks::UpdateWebhook {
-        super::builder::webhooks::UpdateWebhook::new(self.inner.clone()).set_webhook(webhook.into())
+    pub fn update_webhook(&self) -> super::builder::webhooks::UpdateWebhook {
+        super::builder::webhooks::UpdateWebhook::new(self.inner.clone())
     }
 
     /// Deletes the specified webhook.
-    pub fn delete_webhook(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::DeleteWebhook {
-        super::builder::webhooks::DeleteWebhook::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_webhook(&self) -> super::builder::webhooks::DeleteWebhook {
+        super::builder::webhooks::DeleteWebhook::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::ListLocations {
-        super::builder::webhooks::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::webhooks::ListLocations {
+        super::builder::webhooks::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::GetLocation {
-        super::builder::webhooks::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::webhooks::GetLocation {
+        super::builder::webhooks::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::ListOperations {
-        super::builder::webhooks::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::webhooks::ListOperations {
+        super::builder::webhooks::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::GetOperation {
-        super::builder::webhooks::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::webhooks::GetOperation {
+        super::builder::webhooks::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::webhooks::CancelOperation {
-        super::builder::webhooks::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::webhooks::CancelOperation {
+        super::builder::webhooks::CancelOperation::new(self.inner.clone())
     }
 }

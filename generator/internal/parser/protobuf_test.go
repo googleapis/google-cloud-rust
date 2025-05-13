@@ -1091,6 +1091,58 @@ func TestProtobuf_Pagination(t *testing.T) {
 				},
 			},
 			{
+				Name:         "ListFooWithMaxResultsInt32",
+				ID:           ".test.TestService.ListFooWithMaxResultsInt32",
+				InputTypeID:  ".test.ListFooMaxResultsInt32Request",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+						},
+					},
+				},
+				Pagination: &api.Field{
+					Name:     "page_token",
+					ID:       ".test.ListFooMaxResultsInt32Request.page_token",
+					Typez:    9,
+					JSONName: "pageToken",
+					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
+				},
+			},
+			{
+				Name:         "ListFooWithMaxResultsUInt32",
+				ID:           ".test.TestService.ListFooWithMaxResultsUInt32",
+				InputTypeID:  ".test.ListFooMaxResultsUInt32Request",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+						},
+					},
+				},
+				Pagination: &api.Field{
+					Name:     "page_token",
+					ID:       ".test.ListFooMaxResultsUInt32Request.page_token",
+					Typez:    9,
+					JSONName: "pageToken",
+					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
+				},
+			},
+			{
 				Name:         "ListFooMissingNextPageToken",
 				ID:           ".test.TestService.ListFooMissingNextPageToken",
 				InputTypeID:  ".test.ListFooRequest",

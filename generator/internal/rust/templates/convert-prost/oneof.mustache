@@ -31,15 +31,15 @@ impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
 }
 
 impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
-    fn cnv(self) -> {{Codec.QualifiedName}} {
+    fn cnv(self) -> std::result::Result<{{Codec.QualifiedName}}, gaxi::prost::ConvertError> {
         use {{Codec.QualifiedName}} as T;
         match self {
             {{#Fields}}
             {{^IsEnum}}
-            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v.cnv()),
+            Self::{{Codec.BranchName}}(v) => Ok(T::from_{{Codec.SetterName}}(v.cnv()?)),
             {{/IsEnum}}
             {{#IsEnum}}
-            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v),
+            Self::{{Codec.BranchName}}(v) => Ok(T::from_{{Codec.SetterName}}(v)),
             {{/IsEnum}}
             {{/Fields}}
         }

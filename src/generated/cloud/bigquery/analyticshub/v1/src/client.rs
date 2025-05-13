@@ -126,103 +126,67 @@ impl AnalyticsHubService {
     }
 
     /// Lists all data exchanges in a given project and location.
-    pub fn list_data_exchanges(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::ListDataExchanges {
+    pub fn list_data_exchanges(&self) -> super::builder::analytics_hub_service::ListDataExchanges {
         super::builder::analytics_hub_service::ListDataExchanges::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all data exchanges from projects in a given organization and
     /// location.
     pub fn list_org_data_exchanges(
         &self,
-        organization: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::ListOrgDataExchanges {
         super::builder::analytics_hub_service::ListOrgDataExchanges::new(self.inner.clone())
-            .set_organization(organization.into())
     }
 
     /// Gets the details of a data exchange.
-    pub fn get_data_exchange(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::GetDataExchange {
+    pub fn get_data_exchange(&self) -> super::builder::analytics_hub_service::GetDataExchange {
         super::builder::analytics_hub_service::GetDataExchange::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new data exchange.
     pub fn create_data_exchange(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::CreateDataExchange {
         super::builder::analytics_hub_service::CreateDataExchange::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing data exchange.
     pub fn update_data_exchange(
         &self,
-        data_exchange: impl Into<crate::model::DataExchange>,
     ) -> super::builder::analytics_hub_service::UpdateDataExchange {
         super::builder::analytics_hub_service::UpdateDataExchange::new(self.inner.clone())
-            .set_data_exchange(data_exchange.into())
     }
 
     /// Deletes an existing data exchange.
     pub fn delete_data_exchange(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::DeleteDataExchange {
         super::builder::analytics_hub_service::DeleteDataExchange::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all listings in a given project and location.
-    pub fn list_listings(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::ListListings {
+    pub fn list_listings(&self) -> super::builder::analytics_hub_service::ListListings {
         super::builder::analytics_hub_service::ListListings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a listing.
-    pub fn get_listing(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::GetListing {
+    pub fn get_listing(&self) -> super::builder::analytics_hub_service::GetListing {
         super::builder::analytics_hub_service::GetListing::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new listing.
-    pub fn create_listing(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::CreateListing {
+    pub fn create_listing(&self) -> super::builder::analytics_hub_service::CreateListing {
         super::builder::analytics_hub_service::CreateListing::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing listing.
-    pub fn update_listing(
-        &self,
-        listing: impl Into<crate::model::Listing>,
-    ) -> super::builder::analytics_hub_service::UpdateListing {
+    pub fn update_listing(&self) -> super::builder::analytics_hub_service::UpdateListing {
         super::builder::analytics_hub_service::UpdateListing::new(self.inner.clone())
-            .set_listing(listing.into())
     }
 
     /// Deletes a listing.
-    pub fn delete_listing(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::DeleteListing {
+    pub fn delete_listing(&self) -> super::builder::analytics_hub_service::DeleteListing {
         super::builder::analytics_hub_service::DeleteListing::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Subscribes to a listing.
@@ -231,12 +195,8 @@ impl AnalyticsHubService {
     /// reference only BigQuery datasets.
     /// Upon subscription to a listing for a BigQuery dataset, Analytics Hub
     /// creates a linked dataset in the subscriber's project.
-    pub fn subscribe_listing(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::SubscribeListing {
+    pub fn subscribe_listing(&self) -> super::builder::analytics_hub_service::SubscribeListing {
         super::builder::analytics_hub_service::SubscribeListing::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a Subscription to a Data Clean Room. This is a long-running
@@ -253,10 +213,8 @@ impl AnalyticsHubService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn subscribe_data_exchange(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::SubscribeDataExchange {
         super::builder::analytics_hub_service::SubscribeDataExchange::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Refreshes a Subscription to a Data Exchange. A Data Exchange can become
@@ -274,48 +232,32 @@ impl AnalyticsHubService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn refresh_subscription(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::RefreshSubscription {
         super::builder::analytics_hub_service::RefreshSubscription::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the details of a Subscription.
-    pub fn get_subscription(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::GetSubscription {
+    pub fn get_subscription(&self) -> super::builder::analytics_hub_service::GetSubscription {
         super::builder::analytics_hub_service::GetSubscription::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all subscriptions in a given project and location.
-    pub fn list_subscriptions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::ListSubscriptions {
+    pub fn list_subscriptions(&self) -> super::builder::analytics_hub_service::ListSubscriptions {
         super::builder::analytics_hub_service::ListSubscriptions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all subscriptions on a given Data Exchange or Listing.
     pub fn list_shared_resource_subscriptions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::ListSharedResourceSubscriptions {
         super::builder::analytics_hub_service::ListSharedResourceSubscriptions::new(
             self.inner.clone(),
         )
-        .set_resource(resource.into())
     }
 
     /// Revokes a given subscription.
-    pub fn revoke_subscription(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::RevokeSubscription {
+    pub fn revoke_subscription(&self) -> super::builder::analytics_hub_service::RevokeSubscription {
         super::builder::analytics_hub_service::RevokeSubscription::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a subscription.
@@ -329,49 +271,31 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_subscription(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::DeleteSubscription {
+    pub fn delete_subscription(&self) -> super::builder::analytics_hub_service::DeleteSubscription {
         super::builder::analytics_hub_service::DeleteSubscription::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the IAM policy.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::analytics_hub_service::GetIamPolicy {
         super::builder::analytics_hub_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the IAM policy.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::analytics_hub_service::SetIamPolicy {
         super::builder::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the permissions that a caller has.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::TestIamPermissions {
         super::builder::analytics_hub_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_hub_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::analytics_hub_service::GetOperation {
         super::builder::analytics_hub_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

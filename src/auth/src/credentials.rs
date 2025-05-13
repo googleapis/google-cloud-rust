@@ -613,10 +613,12 @@ mod test {
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
     use std::error::Error;
+    use std::sync::LazyLock;
     use test_case::test_case;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
+<<<<<<< HEAD
     pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> String {
         let token = headers.get(AUTHORIZATION).unwrap();
         token
@@ -641,6 +643,9 @@ mod test {
     }
 
     pub fn generate_pkcs8_private_key() -> String {
+=======
+    pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
+>>>>>>> 509dfe01dd82e1a7513d8a35a346d5140ec917d3
         let mut rng = rand::thread_rng();
         let bits = 2048;
         let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
@@ -648,7 +653,7 @@ mod test {
             .to_pkcs8_pem(LineEnding::LF)
             .expect("Failed to encode key to PKCS#8 PEM")
             .to_string()
-    }
+    });
 
     pub fn b64_decode_to_json(s: String) -> serde_json::Value {
         let decoded = String::from_utf8(
@@ -822,7 +827,7 @@ mod test {
         let scopes =
             ["https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate"];
 
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
         let sac = Builder::new(service_account_key)
             .with_quota_project_id("test-quota-project")

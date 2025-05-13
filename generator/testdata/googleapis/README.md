@@ -6,7 +6,7 @@ testing the generator.
 To update:
 
 ```shell
-git -C $HOME clone https://github.com/googleapis/gooleapis
+git -C $HOME clone https://github.com/googleapis/googleapis
 git -C $HOME/googleapis checkout 2d08f07eab9bbe8300cd20b871d0811bbb693fab
 cp $HOME/googleapis/google/api/annotations.proto    ./google/api
 cp $HOME/googleapis/google/api/client.proto         ./google/api

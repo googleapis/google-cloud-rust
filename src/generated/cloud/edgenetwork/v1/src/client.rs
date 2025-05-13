@@ -122,56 +122,37 @@ impl EdgeNetwork {
     }
 
     /// InitializeZone will initialize resources for a zone in a project.
-    pub fn initialize_zone(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::InitializeZone {
-        super::builder::edge_network::InitializeZone::new(self.inner.clone()).set_name(name.into())
+    pub fn initialize_zone(&self) -> super::builder::edge_network::InitializeZone {
+        super::builder::edge_network::InitializeZone::new(self.inner.clone())
     }
 
     /// Deprecated: not implemented.
     /// Lists Zones in a given project and location.
     #[deprecated]
-    pub fn list_zones(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListZones {
-        super::builder::edge_network::ListZones::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_zones(&self) -> super::builder::edge_network::ListZones {
+        super::builder::edge_network::ListZones::new(self.inner.clone())
     }
 
     /// Deprecated: not implemented.
     /// Gets details of a single Zone.
     #[deprecated]
-    pub fn get_zone(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetZone {
-        super::builder::edge_network::GetZone::new(self.inner.clone()).set_name(name.into())
+    pub fn get_zone(&self) -> super::builder::edge_network::GetZone {
+        super::builder::edge_network::GetZone::new(self.inner.clone())
     }
 
     /// Lists Networks in a given project and location.
-    pub fn list_networks(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListNetworks {
+    pub fn list_networks(&self) -> super::builder::edge_network::ListNetworks {
         super::builder::edge_network::ListNetworks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Network.
-    pub fn get_network(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetNetwork {
-        super::builder::edge_network::GetNetwork::new(self.inner.clone()).set_name(name.into())
+    pub fn get_network(&self) -> super::builder::edge_network::GetNetwork {
+        super::builder::edge_network::GetNetwork::new(self.inner.clone())
     }
 
     /// Get the diagnostics of a single network resource.
-    pub fn diagnose_network(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DiagnoseNetwork {
-        super::builder::edge_network::DiagnoseNetwork::new(self.inner.clone()).set_name(name.into())
+    pub fn diagnose_network(&self) -> super::builder::edge_network::DiagnoseNetwork {
+        super::builder::edge_network::DiagnoseNetwork::new(self.inner.clone())
     }
 
     /// Creates a new Network in a given project and location.
@@ -185,12 +166,8 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_network(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::CreateNetwork {
+    pub fn create_network(&self) -> super::builder::edge_network::CreateNetwork {
         super::builder::edge_network::CreateNetwork::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single Network.
@@ -204,27 +181,18 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_network(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DeleteNetwork {
-        super::builder::edge_network::DeleteNetwork::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_network(&self) -> super::builder::edge_network::DeleteNetwork {
+        super::builder::edge_network::DeleteNetwork::new(self.inner.clone())
     }
 
     /// Lists Subnets in a given project and location.
-    pub fn list_subnets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListSubnets {
-        super::builder::edge_network::ListSubnets::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_subnets(&self) -> super::builder::edge_network::ListSubnets {
+        super::builder::edge_network::ListSubnets::new(self.inner.clone())
     }
 
     /// Gets details of a single Subnet.
-    pub fn get_subnet(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetSubnet {
-        super::builder::edge_network::GetSubnet::new(self.inner.clone()).set_name(name.into())
+    pub fn get_subnet(&self) -> super::builder::edge_network::GetSubnet {
+        super::builder::edge_network::GetSubnet::new(self.inner.clone())
     }
 
     /// Creates a new Subnet in a given project and location.
@@ -238,12 +206,8 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_subnet(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::CreateSubnet {
+    pub fn create_subnet(&self) -> super::builder::edge_network::CreateSubnet {
         super::builder::edge_network::CreateSubnet::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Subnet.
@@ -257,12 +221,8 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_subnet(
-        &self,
-        subnet: impl Into<crate::model::Subnet>,
-    ) -> super::builder::edge_network::UpdateSubnet {
+    pub fn update_subnet(&self) -> super::builder::edge_network::UpdateSubnet {
         super::builder::edge_network::UpdateSubnet::new(self.inner.clone())
-            .set_subnet(subnet.into())
     }
 
     /// Deletes a single Subnet.
@@ -276,55 +236,37 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_subnet(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DeleteSubnet {
-        super::builder::edge_network::DeleteSubnet::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_subnet(&self) -> super::builder::edge_network::DeleteSubnet {
+        super::builder::edge_network::DeleteSubnet::new(self.inner.clone())
     }
 
     /// Lists Interconnects in a given project and location.
-    pub fn list_interconnects(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListInterconnects {
+    pub fn list_interconnects(&self) -> super::builder::edge_network::ListInterconnects {
         super::builder::edge_network::ListInterconnects::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Interconnect.
-    pub fn get_interconnect(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetInterconnect {
-        super::builder::edge_network::GetInterconnect::new(self.inner.clone()).set_name(name.into())
+    pub fn get_interconnect(&self) -> super::builder::edge_network::GetInterconnect {
+        super::builder::edge_network::GetInterconnect::new(self.inner.clone())
     }
 
     /// Get the diagnostics of a single interconnect resource.
-    pub fn diagnose_interconnect(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DiagnoseInterconnect {
+    pub fn diagnose_interconnect(&self) -> super::builder::edge_network::DiagnoseInterconnect {
         super::builder::edge_network::DiagnoseInterconnect::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists InterconnectAttachments in a given project and location.
     pub fn list_interconnect_attachments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::edge_network::ListInterconnectAttachments {
         super::builder::edge_network::ListInterconnectAttachments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single InterconnectAttachment.
     pub fn get_interconnect_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::edge_network::GetInterconnectAttachment {
         super::builder::edge_network::GetInterconnectAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new InterconnectAttachment in a given project and location.
@@ -340,10 +282,8 @@ impl EdgeNetwork {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_interconnect_attachment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::edge_network::CreateInterconnectAttachment {
         super::builder::edge_network::CreateInterconnectAttachment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single InterconnectAttachment.
@@ -359,34 +299,23 @@ impl EdgeNetwork {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_interconnect_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::edge_network::DeleteInterconnectAttachment {
         super::builder::edge_network::DeleteInterconnectAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Routers in a given project and location.
-    pub fn list_routers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListRouters {
-        super::builder::edge_network::ListRouters::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_routers(&self) -> super::builder::edge_network::ListRouters {
+        super::builder::edge_network::ListRouters::new(self.inner.clone())
     }
 
     /// Gets details of a single Router.
-    pub fn get_router(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetRouter {
-        super::builder::edge_network::GetRouter::new(self.inner.clone()).set_name(name.into())
+    pub fn get_router(&self) -> super::builder::edge_network::GetRouter {
+        super::builder::edge_network::GetRouter::new(self.inner.clone())
     }
 
     /// Get the diagnostics of a single router resource.
-    pub fn diagnose_router(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DiagnoseRouter {
-        super::builder::edge_network::DiagnoseRouter::new(self.inner.clone()).set_name(name.into())
+    pub fn diagnose_router(&self) -> super::builder::edge_network::DiagnoseRouter {
+        super::builder::edge_network::DiagnoseRouter::new(self.inner.clone())
     }
 
     /// Creates a new Router in a given project and location.
@@ -400,12 +329,8 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_router(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::CreateRouter {
+    pub fn create_router(&self) -> super::builder::edge_network::CreateRouter {
         super::builder::edge_network::CreateRouter::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Router.
@@ -419,12 +344,8 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_router(
-        &self,
-        router: impl Into<crate::model::Router>,
-    ) -> super::builder::edge_network::UpdateRouter {
+    pub fn update_router(&self) -> super::builder::edge_network::UpdateRouter {
         super::builder::edge_network::UpdateRouter::new(self.inner.clone())
-            .set_router(router.into())
     }
 
     /// Deletes a single Router.
@@ -438,66 +359,45 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_router(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DeleteRouter {
-        super::builder::edge_network::DeleteRouter::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_router(&self) -> super::builder::edge_network::DeleteRouter {
+        super::builder::edge_network::DeleteRouter::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListLocations {
-        super::builder::edge_network::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::edge_network::ListLocations {
+        super::builder::edge_network::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetLocation {
-        super::builder::edge_network::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::edge_network::GetLocation {
+        super::builder::edge_network::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::ListOperations {
-        super::builder::edge_network::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::edge_network::ListOperations {
+        super::builder::edge_network::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::GetOperation {
-        super::builder::edge_network::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::edge_network::GetOperation {
+        super::builder::edge_network::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::DeleteOperation {
-        super::builder::edge_network::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::edge_network::DeleteOperation {
+        super::builder::edge_network::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_network::CancelOperation {
-        super::builder::edge_network::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::edge_network::CancelOperation {
+        super::builder::edge_network::CancelOperation::new(self.inner.clone())
     }
 }

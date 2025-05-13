@@ -124,21 +124,13 @@ impl StorageBatchOperations {
     }
 
     /// Lists Jobs in a given project.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::ListJobs {
+    pub fn list_jobs(&self) -> super::builder::storage_batch_operations::ListJobs {
         super::builder::storage_batch_operations::ListJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a batch job.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::GetJob {
+    pub fn get_job(&self) -> super::builder::storage_batch_operations::GetJob {
         super::builder::storage_batch_operations::GetJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a batch job.
@@ -152,91 +144,55 @@ impl StorageBatchOperations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::CreateJob {
+    pub fn create_job(&self) -> super::builder::storage_batch_operations::CreateJob {
         super::builder::storage_batch_operations::CreateJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a batch job.
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::DeleteJob {
+    pub fn delete_job(&self) -> super::builder::storage_batch_operations::DeleteJob {
         super::builder::storage_batch_operations::DeleteJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Cancels a batch job.
-    pub fn cancel_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::CancelJob {
+    pub fn cancel_job(&self) -> super::builder::storage_batch_operations::CancelJob {
         super::builder::storage_batch_operations::CancelJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::ListLocations {
+    pub fn list_locations(&self) -> super::builder::storage_batch_operations::ListLocations {
         super::builder::storage_batch_operations::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::GetLocation {
+    pub fn get_location(&self) -> super::builder::storage_batch_operations::GetLocation {
         super::builder::storage_batch_operations::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::ListOperations {
+    pub fn list_operations(&self) -> super::builder::storage_batch_operations::ListOperations {
         super::builder::storage_batch_operations::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::GetOperation {
+    pub fn get_operation(&self) -> super::builder::storage_batch_operations::GetOperation {
         super::builder::storage_batch_operations::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::storage_batch_operations::DeleteOperation {
         super::builder::storage_batch_operations::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_batch_operations::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::storage_batch_operations::CancelOperation {
         super::builder::storage_batch_operations::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

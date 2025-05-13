@@ -654,6 +654,7 @@ mod test {
 
     #[tokio::test(start_paused = true)]
     async fn token_provider_full() -> TestResult {
+        let now = std::time::Instant::now();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),

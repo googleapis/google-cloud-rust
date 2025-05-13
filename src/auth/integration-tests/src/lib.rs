@@ -34,7 +34,8 @@ pub async fn service_account() -> Result<()> {
     // Load the ADC json for the principal under test, in this case, a
     // service account.
     let response = client
-        .access_secret_version(format!(
+        .access_secret_version()
+        .set_name(format!(
             "projects/{}/secrets/test-sa-creds-json/versions/latest",
             project
         ))
@@ -64,7 +65,8 @@ pub async fn service_account() -> Result<()> {
 
     // Access a secret, which only this principal has permissions to do.
     let response = client
-        .access_secret_version(format!(
+        .access_secret_version()
+        .set_name(format!(
             "projects/{}/secrets/test-sa-creds-secret/versions/latest",
             project
         ))
@@ -88,7 +90,8 @@ pub async fn api_key() -> Result<()> {
 
     // Load the API key under test.
     let response = client
-        .access_secret_version(format!(
+        .access_secret_version()
+        .set_name(format!(
             "projects/{}/secrets/test-api-key/versions/latest",
             project
         ))

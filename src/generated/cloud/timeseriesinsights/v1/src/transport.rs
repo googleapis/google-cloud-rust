@@ -46,9 +46,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/datasets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::GET, format!("/v1/{}/datasets", req.parent))
+            .builder(reqwest::Method::GET, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -67,12 +74,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataSet>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/datasets", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/datasets", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -89,9 +100,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .builder(reqwest::Method::DELETE, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -112,12 +130,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:appendEvents", {
+            let arg = &req.dataset;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dataset"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:appendEvents", req.dataset),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -132,9 +154,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:query", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, format!("/v1/{}:query", req.name))
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -149,12 +178,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:evaluateSlice", {
+            let arg = &req.dataset;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dataset"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}:evaluateSlice", req.dataset),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
@@ -169,12 +202,16 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/datasets:evaluateTimeseries", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
         let builder = self
             .inner
-            .builder(
-                reqwest::Method::POST,
-                format!("/v1/{}/datasets:evaluateTimeseries", req.parent),
-            )
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

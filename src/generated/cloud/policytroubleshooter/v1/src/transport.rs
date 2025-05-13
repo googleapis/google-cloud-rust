@@ -46,9 +46,10 @@ impl super::stub::IamChecker for IamChecker {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = "/v1/iam:troubleshoot".to_string();
         let builder = self
             .inner
-            .builder(reqwest::Method::POST, "/v1/iam:troubleshoot".to_string())
+            .builder(reqwest::Method::POST, path)
             .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",

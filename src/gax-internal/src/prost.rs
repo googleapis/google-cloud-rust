@@ -18,9 +18,12 @@
 use std::collections::BTreeMap;
 
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
+#[non_exhaustive]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
     EnumNoIntegerValue(&'static str),
+    #[error("Conversion unimplemented")]
+    Unimplemented,
 }
 
 type Result<T> = std::result::Result<T, ConvertError>;
@@ -33,7 +36,7 @@ pub trait ToProto<T>: Sized {
 
 /// Converts from `Self` into `T`, where `Self` is expected to be a Protobuf-generated type.
 pub trait FromProto<T>: Sized {
-    fn cnv(self) -> T;
+    fn cnv(self) -> Result<T>;
 }
 
 /// A helper for map conversions.
@@ -55,8 +58,8 @@ macro_rules! impl_primitive {
         }
 
         impl FromProto<$t> for $t {
-            fn cnv(self) -> $t {
-                self
+            fn cnv(self) -> Result<$t> {
+                Ok(self)
             }
         }
     };
@@ -74,8 +77,8 @@ impl_primitive!(String);
 impl_primitive!(bytes::Bytes);
 
 impl FromProto<wkt::Duration> for prost_types::Duration {
-    fn cnv(self) -> wkt::Duration {
-        wkt::Duration::clamp(self.seconds, self.nanos)
+    fn cnv(self) -> Result<wkt::Duration> {
+        Ok(wkt::Duration::clamp(self.seconds, self.nanos))
     }
 }
 
@@ -90,8 +93,8 @@ impl ToProto<prost_types::Duration> for wkt::Duration {
 }
 
 impl FromProto<wkt::FieldMask> for prost_types::FieldMask {
-    fn cnv(self) -> wkt::FieldMask {
-        wkt::FieldMask::default().set_paths(self.paths)
+    fn cnv(self) -> Result<wkt::FieldMask> {
+        Ok(wkt::FieldMask::default().set_paths(self.paths))
     }
 }
 
@@ -103,8 +106,8 @@ impl ToProto<prost_types::FieldMask> for wkt::FieldMask {
 }
 
 impl FromProto<wkt::Timestamp> for prost_types::Timestamp {
-    fn cnv(self) -> wkt::Timestamp {
-        wkt::Timestamp::clamp(self.seconds, self.nanos)
+    fn cnv(self) -> Result<wkt::Timestamp> {
+        Ok(wkt::Timestamp::clamp(self.seconds, self.nanos))
     }
 }
 
@@ -119,11 +122,11 @@ impl ToProto<prost_types::Timestamp> for wkt::Timestamp {
 }
 
 impl FromProto<wkt::Struct> for prost_types::Struct {
-    fn cnv(self) -> wkt::Struct {
+    fn cnv(self) -> Result<wkt::Struct> {
         self.fields
             .into_iter()
-            .map(|(k, v)| (k.cnv(), v.cnv()))
-            .collect()
+            .map(|(k, v)| pair_transpose(k.cnv(), v.cnv()))
+            .collect::<Result<serde_json::Map<_, _>>>()
     }
 }
 
@@ -133,18 +136,16 @@ impl ToProto<prost_types::Struct> for wkt::Struct {
         Ok(prost_types::Struct {
             fields: self
                 .into_iter()
-                .map(|(k, v)| -> Result<(String, prost_types::Value)> {
-                    Ok((k.to_proto()?, v.to_proto()?))
-                })
+                .map(|(k, v)| pair_transpose(k.to_proto(), v.to_proto()))
                 .collect::<Result<BTreeMap<_, _>>>()?,
         })
     }
 }
 
 impl FromProto<wkt::Value> for prost_types::Value {
-    fn cnv(self) -> wkt::Value {
+    fn cnv(self) -> Result<wkt::Value> {
         use prost_types::value::Kind;
-        match self.kind {
+        let kind = match self.kind {
             None => wkt::Value::Null,
             Some(kind) => match kind {
                 Kind::NullValue(_) => wkt::Value::Null,
@@ -155,10 +156,11 @@ impl FromProto<wkt::Value> for prost_types::Value {
                 }
                 Kind::StringValue(v) => wkt::Value::String(v),
                 Kind::BoolValue(v) => wkt::Value::Bool(v),
-                Kind::StructValue(v) => wkt::Value::Object(v.cnv()),
-                Kind::ListValue(v) => wkt::Value::Array(v.cnv()),
+                Kind::StructValue(v) => wkt::Value::Object(v.cnv()?),
+                Kind::ListValue(v) => wkt::Value::Array(v.cnv()?),
             },
-        }
+        };
+        Ok(kind)
     }
 }
 
@@ -179,8 +181,11 @@ impl ToProto<prost_types::Value> for wkt::Value {
 }
 
 impl FromProto<wkt::ListValue> for prost_types::ListValue {
-    fn cnv(self) -> wkt::ListValue {
-        self.values.into_iter().map(|v| v.cnv()).collect()
+    fn cnv(self) -> Result<wkt::ListValue> {
+        self.values
+            .into_iter()
+            .map(|v| v.cnv())
+            .collect::<Result<Vec<_>>>()
     }
 }
 
@@ -206,8 +211,8 @@ impl ToProto<prost_types::NullValue> for wkt::NullValue {
 impl FromProto<wkt::NullValue> for prost_types::NullValue {
     // By convention `from_*` functions do not consume a `self`. And we need
     // `self` so we can write generic code for repeated fields, maps, etc.
-    fn cnv(self) -> wkt::NullValue {
-        wkt::NullValue
+    fn cnv(self) -> Result<wkt::NullValue> {
+        Ok(wkt::NullValue)
     }
 }
 
@@ -239,14 +244,14 @@ mod test {
 
     #[test]
     fn primitive_unit() {
-        let _: () = ().cnv();
+        assert_eq!(().cnv(), Ok(()));
     }
 
     #[test]
     fn primitive_bool() {
         let input: bool = true;
-        let got: bool = input.cnv();
-        assert_eq!(got, input);
+        let got = input.cnv();
+        assert_eq!(got, Ok(input));
     }
 
     #[test_case(0 as f32)]
@@ -259,8 +264,8 @@ mod test {
     where
         T: std::fmt::Debug + Copy + PartialEq + FromProto<T>,
     {
-        let got: T = input.cnv();
-        assert_eq!(got, input);
+        let got = input.cnv();
+        assert_eq!(got, Ok(input));
     }
 
     #[test_case(0 as f32)]
@@ -281,7 +286,7 @@ mod test {
     fn primitive_string() {
         let input = "abc".to_string();
         let got = input.cnv();
-        assert_eq!(&got, "abc");
+        assert_eq!(got, Ok("abc".into()));
         let input = "abc".to_string();
         let got = input.to_proto();
         assert_eq!(got, Ok("abc".into()));
@@ -291,7 +296,7 @@ mod test {
     fn primitive_bytes() {
         let input = bytes::Bytes::from_static(b"abc");
         let got = input.clone().cnv();
-        assert_eq!(got, input);
+        assert_eq!(got, Ok(input));
         let input = bytes::Bytes::from_static(b"abc");
         let got = input.clone().to_proto();
         assert_eq!(got, Ok(input));
@@ -303,8 +308,8 @@ mod test {
             seconds: 123,
             nanos: 456,
         };
-        let got: wkt::Duration = input.cnv();
-        assert_eq!(got, wkt::Duration::clamp(123, 456));
+        let got = input.cnv();
+        assert_eq!(got, Ok(wkt::Duration::clamp(123, 456)));
     }
 
     #[test]
@@ -326,7 +331,10 @@ mod test {
             paths: ["a", "b", "c"].map(str::to_string).to_vec(),
         };
         let got = input.cnv();
-        assert_eq!(got, wkt::FieldMask::default().set_paths(["a", "b", "c"]));
+        assert_eq!(
+            got,
+            Ok(wkt::FieldMask::default().set_paths(["a", "b", "c"]))
+        );
     }
 
     #[test]
@@ -348,7 +356,7 @@ mod test {
             nanos: 456,
         };
         let got = input.cnv();
-        assert_eq!(got, wkt::Timestamp::clamp(123, 456));
+        assert_eq!(got, Ok(wkt::Timestamp::clamp(123, 456)));
     }
 
     #[test]
@@ -371,7 +379,7 @@ mod test {
     #[test_case(json!({"a": true, "b": "xyz"}))]
     fn wkt_value_roundtrip(input: wkt::Value) -> anyhow::Result<()> {
         let convert = input.clone().to_proto()?;
-        let got = convert.cnv();
+        let got = convert.cnv()?;
         assert_eq!(got, input);
         Ok(())
     }
@@ -388,6 +396,6 @@ mod test {
     fn from_prost_null_value() {
         let input = prost_types::NullValue::NullValue;
         let got = input.cnv();
-        assert_eq!(got, wkt::NullValue);
+        assert_eq!(got, Ok(wkt::NullValue));
     }
 }

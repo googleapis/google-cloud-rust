@@ -925,9 +925,33 @@ func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState)
 	return expression.String()
 }
 
+func leafFieldTypez(fieldPath string, message *api.Message, state *api.APIState) api.Typez {
+	typez := api.UNDEFINED_TYPE
+	components := strings.Split(fieldPath, ".")
+	msg := message
+	for _, name := range components {
+		if msg == nil {
+			slog.Error("cannot find leaf field type", "fieldPath", fieldPath, "message", msg)
+			return typez
+		}
+		for _, field := range msg.Fields {
+			if name != field.Name {
+				continue
+			}
+			typez = field.Typez
+			if field.Typez == api.MESSAGE_TYPE {
+				msg = state.MessageByID[field.TypezID]
+			}
+			break
+		}
+	}
+	return typez
+}
+
 type pathArg struct {
-	Name     string
-	Accessor string
+	Name          string
+	Accessor      string
+	CheckForEmpty bool
 }
 
 func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pathArg {
@@ -939,9 +963,11 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 	var params []pathArg
 	for _, arg := range h.Bindings[0].PathTemplate {
 		if arg.FieldPath != nil {
+			leafTypez := leafFieldTypez(*arg.FieldPath, message, state)
 			params = append(params, pathArg{
-				Name:     *arg.FieldPath,
-				Accessor: derefFieldPath(*arg.FieldPath, message, state),
+				Name:          *arg.FieldPath,
+				Accessor:      derefFieldPath(*arg.FieldPath, message, state),
+				CheckForEmpty: leafTypez == api.STRING_TYPE,
 			})
 		}
 	}

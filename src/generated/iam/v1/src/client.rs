@@ -146,23 +146,15 @@ impl IAMPolicy {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::iam_policy::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::iam_policy::SetIamPolicy {
         super::builder::iam_policy::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::iam_policy::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::iam_policy::GetIamPolicy {
         super::builder::iam_policy::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -172,11 +164,7 @@ impl IAMPolicy {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::iam_policy::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::iam_policy::TestIamPermissions {
         super::builder::iam_policy::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 }

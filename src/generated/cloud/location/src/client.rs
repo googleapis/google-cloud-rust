@@ -123,18 +123,12 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::locations::ListLocations {
-        super::builder::locations::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::locations::ListLocations {
+        super::builder::locations::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::locations::GetLocation {
-        super::builder::locations::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::locations::GetLocation {
+        super::builder::locations::GetLocation::new(self.inner.clone())
     }
 }

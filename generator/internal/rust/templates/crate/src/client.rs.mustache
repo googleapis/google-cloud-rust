@@ -153,17 +153,12 @@ impl {{Codec.Name}} {
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
-    pub fn {{Codec.Name}}(
-        &self,
-        {{#Codec.PathParams}}
-        {{{Codec.FieldName}}}: impl Into<{{{Codec.PrimitiveFieldType}}}>,
-        {{/Codec.PathParams}}
-    ) -> super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
+    {{#Codec.Attributes}}
+    {{{.}}}
+    {{/Codec.Attributes}}
+    pub fn {{Codec.Name}}(&self) -> super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
-        {{#Codec.PathParams}}
-            .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
-        {{/Codec.PathParams}}
     }
     {{/Codec.Methods}}
 }

@@ -26,11 +26,13 @@ impl gaxi::prost::ToProto<Date> for gtype::model::Date {
 }
 
 impl gaxi::prost::FromProto<gtype::model::Date> for Date {
-    fn cnv(self) -> gtype::model::Date {
-        gtype::model::Date::new()
-            .set_year(self.year)
-            .set_month(self.month)
-            .set_day(self.day)
+    fn cnv(self) -> std::result::Result<gtype::model::Date, gaxi::prost::ConvertError> {
+        Ok(
+            gtype::model::Date::new()
+                .set_year(self.year)
+                .set_month(self.month)
+                .set_day(self.day)
+        )
     }
 }
 
@@ -47,11 +49,13 @@ impl gaxi::prost::ToProto<Expr> for gtype::model::Expr {
 }
 
 impl gaxi::prost::FromProto<gtype::model::Expr> for Expr {
-    fn cnv(self) -> gtype::model::Expr {
-        gtype::model::Expr::new()
-            .set_expression(self.expression)
-            .set_title(self.title)
-            .set_description(self.description)
-            .set_location(self.location)
+    fn cnv(self) -> std::result::Result<gtype::model::Expr, gaxi::prost::ConvertError> {
+        Ok(
+            gtype::model::Expr::new()
+                .set_expression(self.expression)
+                .set_title(self.title)
+                .set_description(self.description)
+                .set_location(self.location)
+        )
     }
 }

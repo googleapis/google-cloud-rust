@@ -52,7 +52,8 @@ main:
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let response = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::new()
@@ -68,7 +69,8 @@ main:
 
     println!("\n\nStart delete_workflow() LRO and poll it to completion");
     client
-        .delete_workflow(format!(
+        .delete_workflow()
+        .set_name(format!(
             "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
         ))
         .poller()
@@ -112,7 +114,8 @@ main:
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let mut create = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::new()
@@ -146,7 +149,8 @@ main:
 
     println!("\n\nStart delete_workflow() LRO and poll it to completion");
     let mut delete = client
-        .delete_workflow(format!(
+        .delete_workflow()
+        .set_name(format!(
             "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
         ))
         .poller();
@@ -194,7 +198,8 @@ async fn cleanup_stale_workflows(
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut paginator = client
-        .list_workflows(format!("projects/{project_id}/locations/{location_id}"))
+        .list_workflows()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .by_item();
     let mut stale_workflows = Vec::new();
     while let Some(workflow) = paginator.next().await {
@@ -207,7 +212,13 @@ async fn cleanup_stale_workflows(
     }
     let pending = stale_workflows
         .iter()
-        .map(|name| client.delete_workflow(name).poller().until_done())
+        .map(|name| {
+            client
+                .delete_workflow()
+                .set_name(name)
+                .poller()
+                .until_done()
+        })
         .collect::<Vec<_>>();
 
     futures::future::join_all(pending)
@@ -229,7 +240,8 @@ pub async fn manual(
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let create = client
-        .create_workflow(format!("projects/{project_id}/locations/{region_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{region_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(workflow)
         .send()
@@ -259,7 +271,7 @@ pub async fn manual(
     }
     let name = create.name;
     loop {
-        let operation = client.get_operation(name.clone()).send().await?;
+        let operation = client.get_operation().set_name(name.clone()).send().await?;
         if !operation.done {
             println!("operation is pending {operation:?}");
             if let Some(any) = operation.metadata {
