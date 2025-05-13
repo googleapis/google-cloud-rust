@@ -15,8 +15,6 @@
 use crate::Result;
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::errors;
-use crate::token::Token;
-
 
 use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
@@ -46,11 +44,6 @@ pub(crate) fn build_api_key_headers(
         |token| HeaderValue::from_str(&token.token).map_err(errors::non_retryable),
     )
 }
-
-// pub(crate) fn get_token_from_headers(headers: HeaderMap) -> Result<Token> {
-//     let token = headers.get(AUTHORIZATION).unwrap();
-
-// }
 
 /// A helper to create auth headers.
 fn build_headers(

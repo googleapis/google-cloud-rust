@@ -70,6 +70,7 @@ use reqwest::Client;
 use std::default::Default;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::time::Instant;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
@@ -271,7 +272,7 @@ impl TokenProvider for MDSAccessTokenProvider {
             token_type: response.token_type,
             expires_at: response
                 .expires_in
-                .map(|d| std::time::Instant::now() + Duration::from_secs(d)),
+                .map(|d| Instant::now() + Duration::from_secs(d)),
             metadata: None,
         };
         Ok(token)
@@ -282,6 +283,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
+    use crate::credentials::test::{get_token_from_headers, get_token_type_from_headers};
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
@@ -315,45 +317,6 @@ mod test {
         let token_endpoint_address =
             Url::parse(&format!("{}{}/token", METADATA_ROOT, MDS_DEFAULT_URI));
         assert!(token_endpoint_address.is_ok());
-    }
-
-    #[tokio::test]
-    async fn token_success() {
-        let expected = Token {
-            token: "test-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        };
-        let expected_clone = expected.clone();
-
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|| Ok(expected_clone));
-
-        let mdsc = MDSCredentials {
-            quota_project_id: None,
-            universe_domain: None,
-            token_provider: TokenCache::new(mock),
-        };
-        let actual = mdsc.token(Extensions::new()).await.unwrap();
-        assert_eq!(actual, expected);
-    }
-
-    #[tokio::test]
-    async fn token_failure() {
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|| Err(errors::non_retryable_from_str("fail")));
-
-        let mdsc = MDSCredentials {
-            quota_project_id: None,
-            universe_domain: None,
-            token_provider: TokenCache::new(mock),
-        };
-        assert!(mdsc.token(Extensions::new()).await.is_err());
     }
 
     #[tokio::test]
@@ -468,10 +431,10 @@ mod test {
             .with_scopes(["scope1", "scope2"])
             .build()
             .unwrap();
-        let token = mdsc.token(Extensions::new()).await.unwrap();
+        let headers = mdsc.headers(Extensions::new()).await.unwrap();
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        assert_eq!(token.token, "test-access-token");
+        assert_eq!(get_token_from_headers(&headers), "test-access-token");
     }
 
     #[tokio::test]
@@ -550,10 +513,10 @@ mod test {
             .with_scopes(scopes)
             .with_endpoint(endpoint)
             .build()?;
-        let token = mdsc.token(Extensions::new()).await?;
-        assert_eq!(token.token, "test-access-token");
-        let token = mdsc.token(Extensions::new()).await?;
-        assert_eq!(token.token, "test-access-token");
+        let headers = mdsc.headers(Extensions::new()).await?;
+        assert_eq!(get_token_from_headers(&headers), "test-access-token");
+        let headers = mdsc.headers(Extensions::new()).await?;
+        assert_eq!(get_token_from_headers(&headers), "test-access-token");
 
         // validate that the inner token provider is called only once
         assert_eq!(*call_count.lock().unwrap(), 1);
@@ -561,7 +524,7 @@ mod test {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test(start_paused = true)]
     #[parallel]
     async fn token_provider_full() -> TestResult {
         let scopes = vec!["scope1".to_string()];
@@ -587,12 +550,13 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = Builder::default()
-            .with_scopes(scopes)
-            .with_endpoint(endpoint)
-            .build()?;
-        let now = std::time::Instant::now();
-        let token = mdsc.token(Extensions::new()).await?;
+        let token = MDSAccessTokenProvider {
+            scopes: Some(scopes.clone()),
+            endpoint,
+        }
+        .token()
+        .await?;
+        let now = tokio::time::Instant::now();
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -604,7 +568,7 @@ mod test {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test(start_paused = true)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
         let response = MDSTokenResponse {
@@ -628,16 +592,20 @@ mod test {
         )]))
         .await;
         println!("endpoint = {endpoint}");
+        let token = MDSAccessTokenProvider {
+            scopes: None,
+            endpoint,
+        }
+        .token()
+        .await?;
 
-        let mdsc = Builder::default().with_endpoint(endpoint).build()?;
-        let now = std::time::Instant::now();
-        let token = mdsc.token(Extensions::new()).await?;
+        let now = Instant::now();
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
             token
                 .expires_at
-                .is_some_and(|d| d >= now + Duration::from_secs(3600))
+                .is_some_and(|d| d == now + Duration::from_secs(3600))
         );
 
         Ok(())
@@ -645,7 +613,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
-    async fn token_provider_partial() -> TestResult {
+    async fn credential_provider_full() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -672,17 +640,16 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let token = mdsc.token(Extensions::new()).await?;
-        assert_eq!(token.token, "test-access-token");
-        assert_eq!(token.token_type, "test-token-type");
-        assert_eq!(token.expires_at, None);
+        let headers = mdsc.headers(Extensions::new()).await?;
+        assert_eq!(get_token_from_headers(&headers), "test-access-token");
+        assert_eq!(get_token_type_from_headers(&headers), "test-token-type");
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
-    async fn token_provider_retryable_error() -> TestResult {
+    async fn credentials_headers_retryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
             format!("{}/token", MDS_DEFAULT_URI),
@@ -702,7 +669,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let e = mdsc.token(Extensions::new()).await.err().unwrap();
+        let e = mdsc.headers(Extensions::new()).await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
 
@@ -711,7 +678,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
-    async fn token_provider_nonretryable_error() -> TestResult {
+    async fn credentials_headers_nonretryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
             format!("{}/token", MDS_DEFAULT_URI),
@@ -732,7 +699,7 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.token(Extensions::new()).await.err().unwrap();
+        let e = mdsc.headers(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
 
@@ -741,7 +708,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
-    async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
+    async fn credentials_headers_malformed_response_is_nonretryable() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
             format!("{}/token", MDS_DEFAULT_URI),
@@ -762,7 +729,7 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.token(Extensions::new()).await.err().unwrap();
+        let e = mdsc.headers(Extensions::new()).await.err().unwrap();
         assert!(!e.is_retryable());
 
         Ok(())

@@ -133,12 +133,8 @@ impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
-        self.token_provider.token().await
-    }
-
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
-        let token = self.token(extensions).await?;
+    async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
+        let token = self.token_provider.token().await?;
         build_api_key_headers(&token, &self.quota_project_id)
     }
 }
@@ -162,14 +158,12 @@ mod test {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
-    async fn create_api_key_credentials_basic() {
-        let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
-
-        let creds = Builder::new("test-api-key").build();
-        let token = creds.token(Extensions::new()).await.unwrap();
+    async fn api_key_credentials_token_provider() {
+        let tp = ApiKeyTokenProvider {
+            api_key: "test-api-key".to_string(),
+        };
         assert_eq!(
-            token,
+            tp.token().await.unwrap(),
             Token {
                 token: "test-api-key".to_string(),
                 token_type: String::new(),
@@ -177,6 +171,14 @@ mod test {
                 metadata: None,
             }
         );
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_api_key_credentials_basic() {
+        let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
+
+        let creds = Builder::new("test-api-key").build();
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 

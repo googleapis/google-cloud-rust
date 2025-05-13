@@ -392,7 +392,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let token = Token {
             token,
             token_type: "Bearer".to_string(),
-            expires_at: Some(expires_at.into_std()),
+            expires_at: Some(expires_at),
             metadata: None,
         };
         Ok(token)
@@ -446,7 +446,9 @@ where
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{b64_decode_to_json, generate_pkcs8_private_key};
+    use crate::credentials::test::{
+        b64_decode_to_json, generate_pkcs8_private_key, get_token_from_headers,
+    };
     use crate::token::test::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -493,43 +495,6 @@ mod test {
     }
 
     #[tokio::test]
-    async fn token_success() {
-        let expected = Token {
-            token: "test-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        };
-        let expected_clone = expected.clone();
-
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|| Ok(expected_clone));
-
-        let sac = ServiceAccountCredentials {
-            token_provider: TokenCache::new(mock),
-            quota_project_id: None,
-        };
-        let actual = sac.token(Extensions::new()).await.unwrap();
-        assert_eq!(actual, expected);
-    }
-
-    #[tokio::test]
-    async fn token_failure() {
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token()
-            .times(1)
-            .return_once(|| Err(errors::non_retryable_from_str("fail")));
-
-        let sac = ServiceAccountCredentials {
-            token_provider: TokenCache::new(mock),
-            quota_project_id: None,
-        };
-        assert!(sac.token(Extensions::new()).await.is_err());
-    }
-
-    #[tokio::test]
     async fn headers_success_without_quota_project() {
         let token = Token {
             token: "test-token".to_string(),
@@ -556,7 +521,7 @@ mod test {
 
     #[tokio::test]
     async fn headers_success_with_quota_project() {
-        let token = Token {
+        let token: Token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
             expires_at: None,
@@ -621,13 +586,13 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_service_account_token_pkcs1_private_key_failure() -> TestResult {
+    async fn get_service_account_headers_pkcs1_private_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs1_private_key());
         let cred = Builder::new(service_account_key).build()?;
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(
-            cred.token(Extensions::new())
+            cred.headers(Extensions::new())
                 .await
                 .is_err_and(|e| e.to_string().contains(expected_error_message))
         );
@@ -638,8 +603,14 @@ mod test {
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let cred = Builder::new(service_account_key.clone()).build()?;
-        let token = cred.token(Extensions::new()).await?;
+        let tp = ServiceAccountTokenProvider {
+            service_account_key: serde_json::from_value::<ServiceAccountKey>(
+                service_account_key.clone(),
+            )
+            .unwrap(),
+            access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
+        };
+        let token = tp.token().await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
             format!(
@@ -663,7 +634,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn token_caching() -> TestResult {
+    async fn header_caching() -> TestResult {
         let private_key = generate_pkcs8_private_key();
 
         let json_value = json!({
@@ -676,10 +647,12 @@ mod test {
 
         let credentials = Builder::new(json_value).build()?;
 
-        let token = credentials.token(Extensions::new()).await?;
+        let headers = credentials.headers(Extensions::new()).await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let captures = re.captures(&token.token).unwrap();
+        let token = get_token_from_headers(&headers);
+
+        let captures = re.captures(&token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
         let first_iat = claims["iat"].as_i64().unwrap();
@@ -691,8 +664,8 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = credentials.token(Extensions::new()).await?;
-        let captures = re.captures(&token.token).unwrap();
+        let token = get_token_from_headers(&credentials.headers(Extensions::new()).await?);
+        let captures = re.captures(&token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
         let second_iat = claims["iat"].as_i64().unwrap();
@@ -705,20 +678,20 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_service_account_token_invalid_key_failure() -> TestResult {
+    async fn get_service_account_headers_invalid_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAg==\n-----END PRIVATE KEY-----";
         service_account_key["private_key"] = Value::from(pem_data);
         let cred = Builder::new(service_account_key).build()?;
 
-        let token = cred.token(Extensions::new()).await;
+        let token = cred.headers(Extensions::new()).await;
         let expected_error_message = "failed to parse private key";
         assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
 
     #[tokio::test]
-    async fn get_service_account_token_invalid_json_failure() -> TestResult {
+    async fn get_service_account_invalid_json_failure() -> TestResult {
         let service_account_key = Value::from(" ");
         let e = Builder::new(service_account_key).build().err().unwrap();
 
@@ -754,26 +727,27 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_service_account_token_with_audience() -> TestResult {
+    async fn get_service_account_headers_with_audience() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let token = Builder::new(service_account_key.clone())
+        let headers = Builder::new(service_account_key.clone())
             .with_access_specifier(AccessSpecifier::from_audience("test-audience"))
             .build()?
-            .token(Extensions::new())
+            .headers(Extensions::new())
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let captures = re.captures(&token.token).ok_or_else(|| {
+        let token = get_token_from_headers(&headers);
+        let captures = re.captures(&token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
-                token.token
+                token
             )
         })?;
-        let header = b64_decode_to_json(captures["header"].to_string());
-        assert_eq!(header["alg"], "RS256");
-        assert_eq!(header["typ"], "JWT");
-        assert_eq!(header["kid"], service_account_key["private_key_id"]);
+        let token_header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(token_header["alg"], "RS256");
+        assert_eq!(token_header["typ"], "JWT");
+        assert_eq!(token_header["kid"], service_account_key["private_key_id"]);
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
         assert_eq!(claims["iss"], service_account_key["client_email"]);
@@ -790,41 +764,45 @@ mod test {
         let now = Instant::now();
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let token = Builder::new(service_account_key.clone())
-            .build()?
-            .token(Extensions::new())
-            .await?;
+        let token = ServiceAccountTokenProvider {
+            service_account_key: serde_json::from_value::<ServiceAccountKey>(service_account_key)
+                .unwrap(),
+            access_specifier: AccessSpecifier::Scopes(vec![]),
+        }
+        .token()
+        .await?;
 
         let expected_expiry = now + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
 
-        assert_eq!(token.expires_at.unwrap(), expected_expiry.into_std());
+        assert_eq!(token.expires_at.unwrap(), expected_expiry);
         Ok(())
     }
 
     #[tokio::test]
-    async fn get_service_account_token_with_custom_scopes() -> TestResult {
+    async fn get_service_account_headers_with_custom_scopes() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         let scopes = vec![
             "https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate",
         ];
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let token = Builder::new(service_account_key.clone())
+        let headers = Builder::new(service_account_key.clone())
             .with_access_specifier(AccessSpecifier::from_scopes(scopes.clone()))
             .build()?
-            .token(Extensions::new())
+            .headers(Extensions::new())
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let captures = re.captures(&token.token).ok_or_else(|| {
+        let token = get_token_from_headers(&headers);
+        let captures = re.captures(&token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
-                token.token
+                token
             )
         })?;
-        let header = b64_decode_to_json(captures["header"].to_string());
-        assert_eq!(header["alg"], "RS256");
-        assert_eq!(header["typ"], "JWT");
-        assert_eq!(header["kid"], service_account_key["private_key_id"]);
+        let token_header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(token_header["alg"], "RS256");
+        assert_eq!(token_header["typ"], "JWT");
+        assert_eq!(token_header["kid"], service_account_key["private_key_id"]);
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
         assert_eq!(claims["iss"], service_account_key["client_email"]);

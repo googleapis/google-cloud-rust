@@ -608,6 +608,7 @@ pub mod testing {
 mod test {
     use super::*;
     use base64::Engine;
+    use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
@@ -615,6 +616,29 @@ mod test {
     use test_case::test_case;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> String {
+        let token = headers.get(AUTHORIZATION).unwrap();
+        token
+            .to_str()
+            .unwrap()
+            .split_whitespace()
+            .skip(1)
+            .next()
+            .unwrap()
+            .to_string()
+    }
+
+    pub(crate) fn get_token_type_from_headers(headers: &HeaderMap) -> String {
+        let token = headers.get(AUTHORIZATION).unwrap();
+        token
+            .to_str()
+            .unwrap()
+            .split_whitespace()
+            .next()
+            .unwrap()
+            .to_string()
+    }
 
     pub fn generate_pkcs8_private_key() -> String {
         let mut rng = rand::thread_rng();
@@ -762,7 +786,7 @@ mod test {
             credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
-        let err = credentials.token(Extensions::new()).await.err().unwrap();
+        let err = credentials.headers(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
         let err = credentials.headers(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
@@ -806,8 +830,9 @@ mod test {
             .build()
             .unwrap();
 
-        let token = sac.token(Extensions::new()).await?;
-        let parts: Vec<_> = token.token.split('.').collect();
+        let headers = sac.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(&headers);
+        let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
 

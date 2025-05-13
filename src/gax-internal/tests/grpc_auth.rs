@@ -16,7 +16,6 @@
 mod test {
     use auth::credentials::{Credentials, CredentialsProvider};
     use auth::errors::CredentialsError;
-    use auth::token::Token;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc;
@@ -32,7 +31,6 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self, extensions: Extensions) -> AuthResult<Token>;
             async fn headers(&self, extensions: Extensions) -> AuthResult<HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }
