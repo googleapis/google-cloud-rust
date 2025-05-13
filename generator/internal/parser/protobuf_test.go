@@ -1103,6 +1103,17 @@ func TestProtobuf_Pagination(t *testing.T) {
 						api.NewLiteralPathSegment("foos"),
 					},
 					QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+						},
+					},
 				},
 				Pagination: &api.Field{
 					Name:     "page_token",
@@ -1125,6 +1136,17 @@ func TestProtobuf_Pagination(t *testing.T) {
 						api.NewLiteralPathSegment("foos"),
 					},
 					QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: []api.PathSegment{
+								api.NewLiteralPathSegment("v1"),
+								api.NewFieldPathPathSegment("parent"),
+								api.NewLiteralPathSegment("foos"),
+							},
+							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
+						},
+					},
 				},
 				Pagination: &api.Field{
 					Name:     "page_token",
