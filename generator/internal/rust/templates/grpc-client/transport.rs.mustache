@@ -131,24 +131,23 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         ].into_iter().fold(String::new(), |b, p| b + "&" + &p);
         {{/HasRouting}}
 
+        {{#ReturnsEmpty}}
+        type TR = ();
+        {{/ReturnsEmpty}}
+        {{^ReturnsEmpty}}
+        type TR = crate::{{OutputType.Codec.PackageModuleName}}::{{OutputType.Codec.Name}};
+        {{/ReturnsEmpty}}
         self.inner
-          .execute(
-              extensions,
-              path,
-              req.to_proto().map_err(Error::other)?,
-              options,
-              &info::X_GOOG_API_CLIENT_HEADER,
-              &x_goog_request_params,
-          )
-          .await
-          .map(gaxi::grpc::to_gax_response::<
-          {{#ReturnsEmpty}}
-          (),
-          {{/ReturnsEmpty}}
-          {{^ReturnsEmpty}}
-          crate::{{OutputType.Codec.PackageModuleName}}::{{OutputType.Codec.Name}},
-          {{/ReturnsEmpty}}
-          {{Codec.ReturnType}}>)
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, {{Codec.ReturnType}}>)
     }
 
     {{/Codec.Methods}}
