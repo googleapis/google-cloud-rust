@@ -372,14 +372,11 @@ mod v1 {
 
     #[cfg(test)]
     mod tests {
-        use serde_json::json;
-
         use super::*;
-        // use control::model; // For control::model::Object and control::model::ObjectChecksums
 
         #[test]
         fn test_deserialize_object() {
-            let json = json!({
+            let json = serde_json::json!({
                 // string fields:
                 "id": "obj1",
                 "name": "test-object.txt",
