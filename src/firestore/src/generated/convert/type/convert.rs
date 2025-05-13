@@ -25,9 +25,11 @@ impl gaxi::prost::ToProto<LatLng> for gtype::model::LatLng {
 }
 
 impl gaxi::prost::FromProto<gtype::model::LatLng> for LatLng {
-    fn cnv(self) -> gtype::model::LatLng {
-        gtype::model::LatLng::new()
-            .set_latitude(self.latitude)
-            .set_longitude(self.longitude)
+    fn cnv(self) -> std::result::Result<gtype::model::LatLng, gaxi::prost::ConvertError> {
+        Ok(
+            gtype::model::LatLng::new()
+                .set_latitude(self.latitude)
+                .set_longitude(self.longitude)
+        )
     }
 }

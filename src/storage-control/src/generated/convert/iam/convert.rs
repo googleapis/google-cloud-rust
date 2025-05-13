@@ -26,11 +26,13 @@ impl gaxi::prost::ToProto<SetIamPolicyRequest> for iam_v1::model::SetIamPolicyRe
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::SetIamPolicyRequest> for SetIamPolicyRequest {
-    fn cnv(self) -> iam_v1::model::SetIamPolicyRequest {
-        iam_v1::model::SetIamPolicyRequest::new()
-            .set_resource(self.resource)
-            .set_policy(self.policy.map(|v| v.cnv()))
-            .set_update_mask(self.update_mask.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::SetIamPolicyRequest, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::SetIamPolicyRequest::new()
+                .set_resource(self.resource)
+                .set_policy(self.policy.map(|v| v.cnv()).transpose()?)
+                .set_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -45,10 +47,12 @@ impl gaxi::prost::ToProto<GetIamPolicyRequest> for iam_v1::model::GetIamPolicyRe
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::GetIamPolicyRequest> for GetIamPolicyRequest {
-    fn cnv(self) -> iam_v1::model::GetIamPolicyRequest {
-        iam_v1::model::GetIamPolicyRequest::new()
-            .set_resource(self.resource)
-            .set_options(self.options.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::GetIamPolicyRequest, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::GetIamPolicyRequest::new()
+                .set_resource(self.resource)
+                .set_options(self.options.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -66,10 +70,13 @@ impl gaxi::prost::ToProto<TestIamPermissionsRequest> for iam_v1::model::TestIamP
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::TestIamPermissionsRequest> for TestIamPermissionsRequest {
-    fn cnv(self) -> iam_v1::model::TestIamPermissionsRequest {
-        iam_v1::model::TestIamPermissionsRequest::new()
-            .set_resource(self.resource)
-            .set_permissions(self.permissions.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::TestIamPermissionsRequest, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::TestIamPermissionsRequest::new()
+                .set_resource(self.resource)
+                .set_permissions(self.permissions.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -86,9 +93,12 @@ impl gaxi::prost::ToProto<TestIamPermissionsResponse> for iam_v1::model::TestIam
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::TestIamPermissionsResponse> for TestIamPermissionsResponse {
-    fn cnv(self) -> iam_v1::model::TestIamPermissionsResponse {
-        iam_v1::model::TestIamPermissionsResponse::new()
-            .set_permissions(self.permissions.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::TestIamPermissionsResponse, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::TestIamPermissionsResponse::new()
+                .set_permissions(self.permissions.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -102,9 +112,11 @@ impl gaxi::prost::ToProto<GetPolicyOptions> for iam_v1::model::GetPolicyOptions 
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::GetPolicyOptions> for GetPolicyOptions {
-    fn cnv(self) -> iam_v1::model::GetPolicyOptions {
-        iam_v1::model::GetPolicyOptions::new()
-            .set_requested_policy_version(self.requested_policy_version)
+    fn cnv(self) -> std::result::Result<iam_v1::model::GetPolicyOptions, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::GetPolicyOptions::new()
+                .set_requested_policy_version(self.requested_policy_version)
+        )
     }
 }
 
@@ -127,12 +139,16 @@ impl gaxi::prost::ToProto<Policy> for iam_v1::model::Policy {
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::Policy> for Policy {
-    fn cnv(self) -> iam_v1::model::Policy {
-        iam_v1::model::Policy::new()
-            .set_version(self.version)
-            .set_bindings(self.bindings.into_iter().map(|v| v.cnv()))
-            .set_audit_configs(self.audit_configs.into_iter().map(|v| v.cnv()))
-            .set_etag(self.etag)
+    fn cnv(self) -> std::result::Result<iam_v1::model::Policy, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::Policy::new()
+                .set_version(self.version)
+                .set_bindings(self.bindings.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_audit_configs(self.audit_configs.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_etag(self.etag)
+        )
     }
 }
 
@@ -151,11 +167,14 @@ impl gaxi::prost::ToProto<Binding> for iam_v1::model::Binding {
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::Binding> for Binding {
-    fn cnv(self) -> iam_v1::model::Binding {
-        iam_v1::model::Binding::new()
-            .set_role(self.role)
-            .set_members(self.members.into_iter().map(|v| v.cnv()))
-            .set_condition(self.condition.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::Binding, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::Binding::new()
+                .set_role(self.role)
+                .set_members(self.members.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_condition(self.condition.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -173,10 +192,13 @@ impl gaxi::prost::ToProto<AuditConfig> for iam_v1::model::AuditConfig {
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::AuditConfig> for AuditConfig {
-    fn cnv(self) -> iam_v1::model::AuditConfig {
-        iam_v1::model::AuditConfig::new()
-            .set_service(self.service)
-            .set_audit_log_configs(self.audit_log_configs.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::AuditConfig, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::AuditConfig::new()
+                .set_service(self.service)
+                .set_audit_log_configs(self.audit_log_configs.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -201,10 +223,13 @@ impl gaxi::prost::ToProto<AuditLogConfig> for iam_v1::model::AuditLogConfig {
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::AuditLogConfig> for AuditLogConfig {
-    fn cnv(self) -> iam_v1::model::AuditLogConfig {
-        iam_v1::model::AuditLogConfig::new()
-            .set_log_type(self.log_type)
-            .set_exempted_members(self.exempted_members.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::AuditLogConfig, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::AuditLogConfig::new()
+                .set_log_type(self.log_type)
+                .set_exempted_members(self.exempted_members.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -225,10 +250,14 @@ impl gaxi::prost::ToProto<PolicyDelta> for iam_v1::model::PolicyDelta {
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::PolicyDelta> for PolicyDelta {
-    fn cnv(self) -> iam_v1::model::PolicyDelta {
-        iam_v1::model::PolicyDelta::new()
-            .set_binding_deltas(self.binding_deltas.into_iter().map(|v| v.cnv()))
-            .set_audit_config_deltas(self.audit_config_deltas.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::PolicyDelta, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::PolicyDelta::new()
+                .set_binding_deltas(self.binding_deltas.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_audit_config_deltas(self.audit_config_deltas.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -252,12 +281,14 @@ impl gaxi::prost::ToProto<BindingDelta> for iam_v1::model::BindingDelta {
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::BindingDelta> for BindingDelta {
-    fn cnv(self) -> iam_v1::model::BindingDelta {
-        iam_v1::model::BindingDelta::new()
-            .set_action(self.action)
-            .set_role(self.role)
-            .set_member(self.member)
-            .set_condition(self.condition.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<iam_v1::model::BindingDelta, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::BindingDelta::new()
+                .set_action(self.action)
+                .set_role(self.role)
+                .set_member(self.member)
+                .set_condition(self.condition.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -281,11 +312,13 @@ impl gaxi::prost::ToProto<AuditConfigDelta> for iam_v1::model::AuditConfigDelta 
 }
 
 impl gaxi::prost::FromProto<iam_v1::model::AuditConfigDelta> for AuditConfigDelta {
-    fn cnv(self) -> iam_v1::model::AuditConfigDelta {
-        iam_v1::model::AuditConfigDelta::new()
-            .set_action(self.action)
-            .set_service(self.service)
-            .set_exempted_member(self.exempted_member)
-            .set_log_type(self.log_type)
+    fn cnv(self) -> std::result::Result<iam_v1::model::AuditConfigDelta, gaxi::prost::ConvertError> {
+        Ok(
+            iam_v1::model::AuditConfigDelta::new()
+                .set_action(self.action)
+                .set_service(self.service)
+                .set_exempted_member(self.exempted_member)
+                .set_log_type(self.log_type)
+        )
     }
 }
