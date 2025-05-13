@@ -53,8 +53,8 @@
 //!     // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
-//! let token = credentials.token(Extensions::new()).await?;
-//! println!("Token: {}", token.token);
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
 //! # Ok::<(), CredentialsError>(())
 //! # });
 //! ```

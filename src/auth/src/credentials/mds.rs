@@ -45,8 +45,8 @@
 //! let credentials: Credentials = Builder::default()
 //!     .with_quota_project_id("my-quota-project")
 //!     .build()?;
-//! let token = credentials.token(Extensions::new()).await?;
-//! println!("Token: {}", token.token);
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
 //! # Ok::<(), CredentialsError>(())
 //! # });
 //! ```

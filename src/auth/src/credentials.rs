@@ -238,11 +238,11 @@ enum CredentialsSource {
 /// # use google_cloud_auth::errors::CredentialsError;
 /// # use http::Extensions;
 /// # tokio_test::block_on(async {
-/// let creds = Builder::default()
+/// let credentials = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.headers(Extensions::new()).await?;
-/// println!("Token: {}", token.token);
+/// let headers = credentials.headers(Extensions::new()).await?;
+/// println!("Headers: {headers:?}");
 /// # Ok::<(), CredentialsError>(())
 /// # });
 /// ```
@@ -266,8 +266,8 @@ enum CredentialsSource {
 /// let creds = Builder::new(authorized_user)
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token(Extensions::new()).await?;
-/// println!("Token: {}", token.token);
+/// let headers = creds.headers(Extensions::new()).await?;
+/// println!("Headers: {headers:?}");
 /// # Ok::<(), CredentialsError>(())
 /// # });
 /// ```
