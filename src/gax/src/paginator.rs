@@ -26,7 +26,7 @@
 //!
 //! For more information on the RPCs with paginated responses see [AIP-4233].
 //!
-//! //! # Example: stream each item for a list operation
+//! # Example: stream each item for a list operation
 //! ```no_run
 //! # use google_cloud_gax::{paginator, Result, error::Error};
 //! struct Page { items: Vec<String>, token: String }

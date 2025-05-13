@@ -14,13 +14,14 @@
 
 //! Defines traits for backoff policies and a common implementations.
 //!
-//! The client libraries automatically retry RPCs based on the a [RetryPolicy].
-//! Even when the policy determines that an operation is safe to retry, the
-//! client library does not retry failed requests immediately, as the service
-//! may need time to recover. [Exponential backoff] is a well known algorithm to
-//! find an acceptable delay between retries, but some application may need
-//! slight variations on this algorithm. The client libraries use a
-//! [BackoffPolicy] to configure the delays between retry attempts.
+//! The client libraries automatically retry RPCs based on the [RetryPolicy]
+//! configured for the request or client. Even when the policy determines that
+//! an operation is safe to retry, the client library does not retry failed
+//! requests immediately, as the service may need time to recover.
+//! [Exponential backoff] is a well known algorithm to find an acceptable delay
+//! between retries, but some application may need slight variations on this
+//! algorithm. The client libraries use a [BackoffPolicy] to configure the
+//! delays between retry attempts.
 //!
 //! While exponential backoff improves the system behavior when there are small
 //! faults, something like a [RetryThrottler] may be needed to improve recovery
