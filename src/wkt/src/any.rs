@@ -57,28 +57,55 @@ use crate::message::MessageSerializer;
 pub struct Any(serde_json::Map<String, serde_json::Value>);
 
 /// Indicates a problem trying to use an [Any].
+///
+/// # Example
+/// ```rust
+/// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
+/// use serde_json::json;
+/// let any = serde_json::from_value::<Any>(json!({
+///     "@type": "type.googleapis.com/google.protobuf.Duration",
+///     "value": "123.5" // missing `s` suffix
+/// }))?;
+/// let extracted = any.try_into_message::<Duration>();
+/// assert!(matches!(extracted, Err(AnyError::Deserialization(_))));
+/// # Ok::<(), Box<dyn std::error::Error>>(())
+/// ```
+///
+/// # Example
+/// ```rust
+/// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
+/// let duration = Duration::clamp(60, 0);
+/// let any = Any::try_from(&duration)?;
+/// let extracted = any.try_into_message::<Timestamp>();
+/// assert!(matches!(extracted, Err(AnyError::TypeMismatch(_))));
+/// # Ok::<(), AnyError>(())
+/// ```
 #[derive(thiserror::Error, Debug)]
 pub enum AnyError {
     /// Problem serializing an object into an [Any].
     #[error("cannot serialize object into an Any, source={0:?}")]
-    SerializationError(#[source] BoxedError),
+    Serialization(#[source] BoxedError),
 
     /// Problem deserializing an object from an [Any].
     #[error("cannot deserialize from an Any, source={0:?}")]
-    DeserializationError(#[source] BoxedError),
+    Deserialization(#[source] BoxedError),
 
     /// Mismatched type, the [Any] does not contain the desired type.
     #[error("expected type mismatch in Any deserialization type={0}")]
-    TypeMismatchError(String),
+    TypeMismatch(String),
 }
 
 impl AnyError {
     pub(crate) fn ser<T: Into<BoxedError>>(v: T) -> Self {
-        Self::SerializationError(v.into())
+        Self::Serialization(v.into())
     }
 
     pub(crate) fn deser<T: Into<BoxedError>>(v: T) -> Self {
-        Self::DeserializationError(v.into())
+        Self::Deserialization(v.into())
+    }
+
+    pub(crate) fn mismatch<T: Into<String>>(v: T) -> Self {
+        Self::TypeMismatch(v.into())
     }
 }
 
@@ -131,7 +158,7 @@ impl Any {
         if got == want {
             return Ok(());
         }
-        Err(Error::deser(format!(
+        Err(Error::mismatch(format!(
             "mismatched typenames extracting from Any, the any has {got}, the target type is {want}"
         )))
     }
