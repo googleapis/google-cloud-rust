@@ -73,10 +73,15 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.policy
+            let arg = &req
+                .policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -149,10 +154,15 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
     ) -> Result<gax::response::Response<crate::model::Attestor>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.attestor
+            let arg = &req
+                .attestor
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("attestor"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attestor.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

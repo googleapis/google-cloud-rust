@@ -75,10 +75,15 @@ impl super::stub::AttachedClusters for AttachedClusters {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.attached_cluster
+            let arg = &req
+                .attached_cluster
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("attached_cluster"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attached_cluster.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -484,10 +489,15 @@ impl super::stub::AwsClusters for AwsClusters {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.aws_cluster
+            let arg = &req
+                .aws_cluster
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("aws_cluster"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_cluster.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -678,10 +688,15 @@ impl super::stub::AwsClusters for AwsClusters {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.aws_node_pool
+            let arg = &req
+                .aws_node_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("aws_node_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("aws_node_pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1185,10 +1200,15 @@ impl super::stub::AzureClusters for AzureClusters {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.azure_cluster
+            let arg = &req
+                .azure_cluster
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("azure_cluster"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_cluster.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1379,10 +1399,15 @@ impl super::stub::AzureClusters for AzureClusters {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.azure_node_pool
+            let arg = &req
+                .azure_node_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("azure_node_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("azure_node_pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

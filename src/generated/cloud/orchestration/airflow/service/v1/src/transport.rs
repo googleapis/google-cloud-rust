@@ -390,10 +390,15 @@ impl super::stub::Environments for Environments {
     ) -> Result<gax::response::Response<crate::model::UserWorkloadsSecret>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.user_workloads_secret
+            let arg = &req
+                .user_workloads_secret
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("user_workloads_secret"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("user_workloads_secret.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -525,10 +530,17 @@ impl super::stub::Environments for Environments {
     ) -> Result<gax::response::Response<crate::model::UserWorkloadsConfigMap>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.user_workloads_config_map
+            let arg = &req
+                .user_workloads_config_map
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("user_workloads_config_map"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "user_workloads_config_map.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner

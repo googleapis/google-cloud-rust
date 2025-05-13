@@ -114,10 +114,15 @@ impl super::stub::AccessContextManager for AccessContextManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.policy
+            let arg = &req
+                .policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -251,10 +256,15 @@ impl super::stub::AccessContextManager for AccessContextManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.access_level
+            let arg = &req
+                .access_level
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("access_level"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("access_level.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -412,10 +422,15 @@ impl super::stub::AccessContextManager for AccessContextManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service_perimeter
+            let arg = &req
+                .service_perimeter
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service_perimeter"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service_perimeter.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -597,10 +612,17 @@ impl super::stub::AccessContextManager for AccessContextManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.gcp_user_access_binding
+            let arg = &req
+                .gcp_user_access_binding
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("gcp_user_access_binding"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "gcp_user_access_binding.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner

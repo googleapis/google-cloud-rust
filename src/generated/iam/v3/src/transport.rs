@@ -101,10 +101,15 @@ impl super::stub::PolicyBindings for PolicyBindings {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.policy_binding
+            let arg = &req
+                .policy_binding
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy_binding"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy_binding.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -339,10 +344,17 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.principal_access_boundary_policy
+            let arg = &req
+                .principal_access_boundary_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("principal_access_boundary_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "principal_access_boundary_policy.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -145,10 +145,15 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
     ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}:iapSettings", {
-            &req.iap_settings
+            let arg = &req
+                .iap_settings
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("iap_settings"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("iap_settings.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -314,10 +319,15 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tunnel_dest_group
+            let arg = &req
+                .tunnel_dest_group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tunnel_dest_group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tunnel_dest_group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

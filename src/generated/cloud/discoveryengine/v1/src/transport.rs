@@ -351,10 +351,15 @@ impl super::stub::ControlService for ControlService {
     ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.control
+            let arg = &req
+                .control
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("control"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("control.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -624,10 +629,15 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.conversation
+            let arg = &req
+                .conversation
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("conversation"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("conversation.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -817,10 +827,15 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
     ) -> Result<gax::response::Response<crate::model::Session>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.session
+            let arg = &req
+                .session
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("session"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("session.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1126,10 +1141,15 @@ impl super::stub::DataStoreService for DataStoreService {
     ) -> Result<gax::response::Response<crate::model::DataStore>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.data_store
+            let arg = &req
+                .data_store
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("data_store"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("data_store.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1359,10 +1379,15 @@ impl super::stub::DocumentService for DocumentService {
     ) -> Result<gax::response::Response<crate::model::Document>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.document
+            let arg = &req
+                .document
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("document"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("document.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1677,10 +1702,15 @@ impl super::stub::EngineService for EngineService {
     ) -> Result<gax::response::Response<crate::model::Engine>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.engine
+            let arg = &req
+                .engine
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("engine"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("engine.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2523,10 +2553,15 @@ impl super::stub::SchemaService for SchemaService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.schema
+            let arg = &req
+                .schema
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("schema"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("schema.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3020,10 +3055,15 @@ impl super::stub::ServingConfigService for ServingConfigService {
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.serving_config
+            let arg = &req
+                .serving_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("serving_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("serving_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3260,10 +3300,15 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.target_site
+            let arg = &req
+                .target_site
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("target_site"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("target_site.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

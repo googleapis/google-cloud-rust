@@ -147,10 +147,15 @@ impl super::stub::Iam for Iam {
     ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service_account
+            let arg = &req
+                .service_account
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service_account"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service_account.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -131,10 +131,15 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service_connection_map
+            let arg = &req
+                .service_connection_map
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service_connection_map"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service_connection_map.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -281,10 +286,17 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service_connection_policy
+            let arg = &req
+                .service_connection_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service_connection_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "service_connection_policy.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -400,10 +412,15 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service_class
+            let arg = &req
+                .service_class
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service_class"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service_class.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -951,10 +968,15 @@ impl super::stub::HubService for HubService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.hub
+            let arg = &req
+                .hub
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("hub"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("hub.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1155,10 +1177,15 @@ impl super::stub::HubService for HubService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.spoke
+            let arg = &req
+                .spoke
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("spoke"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("spoke.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1476,10 +1503,15 @@ impl super::stub::HubService for HubService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.group
+            let arg = &req
+                .group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

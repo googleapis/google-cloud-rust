@@ -124,10 +124,15 @@ impl super::stub::DataCatalog for DataCatalog {
     ) -> Result<gax::response::Response<crate::model::EntryGroup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.entry_group
+            let arg = &req
+                .entry_group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("entry_group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("entry_group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -239,10 +244,15 @@ impl super::stub::DataCatalog for DataCatalog {
     ) -> Result<gax::response::Response<crate::model::Entry>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.entry
+            let arg = &req
+                .entry
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("entry"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("entry.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -494,10 +504,15 @@ impl super::stub::DataCatalog for DataCatalog {
     ) -> Result<gax::response::Response<crate::model::TagTemplate>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tag_template
+            let arg = &req
+                .tag_template
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tag_template"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tag_template.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -718,10 +733,15 @@ impl super::stub::DataCatalog for DataCatalog {
     ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tag
+            let arg = &req
+                .tag
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tag"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tag.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1257,10 +1277,15 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
     ) -> Result<gax::response::Response<crate::model::Taxonomy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.taxonomy
+            let arg = &req
+                .taxonomy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("taxonomy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("taxonomy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1399,10 +1424,15 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
     ) -> Result<gax::response::Response<crate::model::PolicyTag>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.policy_tag
+            let arg = &req
+                .policy_tag
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy_tag"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy_tag.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

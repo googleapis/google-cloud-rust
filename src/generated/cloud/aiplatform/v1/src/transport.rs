@@ -143,10 +143,15 @@ impl super::stub::DatasetService for DatasetService {
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.dataset
+            let arg = &req
+                .dataset
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("dataset"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dataset.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -310,10 +315,15 @@ impl super::stub::DatasetService for DatasetService {
     ) -> Result<gax::response::Response<crate::model::DatasetVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.dataset_version
+            let arg = &req
+                .dataset_version
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("dataset_version"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dataset_version.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1097,10 +1107,17 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.deployment_resource_pool
+            let arg = &req
+                .deployment_resource_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("deployment_resource_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "deployment_resource_pool.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1608,10 +1625,15 @@ impl super::stub::EndpointService for EndpointService {
     ) -> Result<gax::response::Response<crate::model::Endpoint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.endpoint
+            let arg = &req
+                .endpoint
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("endpoint"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("endpoint.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1639,10 +1661,15 @@ impl super::stub::EndpointService for EndpointService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}:update", {
-            &req.endpoint
+            let arg = &req
+                .endpoint
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("endpoint"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("endpoint.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2527,10 +2554,15 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feature_online_store
+            let arg = &req
+                .feature_online_store
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feature_online_store"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feature_online_store.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2669,10 +2701,15 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feature_view
+            let arg = &req
+                .feature_view
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feature_view"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feature_view.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3597,10 +3634,15 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feature_group
+            let arg = &req
+                .feature_group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feature_group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feature_group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3769,10 +3811,15 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feature
+            let arg = &req
+                .feature
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feature"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feature.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -4623,10 +4670,15 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.featurestore
+            let arg = &req
+                .featurestore
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("featurestore"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("featurestore.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -4770,10 +4822,15 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.entity_type
+            let arg = &req
+                .entity_type
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("entity_type"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("entity_type.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -4942,10 +4999,15 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
     ) -> Result<gax::response::Response<crate::model::Feature>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feature
+            let arg = &req
+                .feature
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feature"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feature.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -5513,10 +5575,15 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
     ) -> Result<gax::response::Response<crate::model::CachedContent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.cached_content
+            let arg = &req
+                .cached_content
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("cached_content"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("cached_content.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -6483,10 +6550,15 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
     ) -> Result<gax::response::Response<crate::model::IndexEndpoint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.index_endpoint
+            let arg = &req
+                .index_endpoint
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("index_endpoint"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("index_endpoint.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -7036,10 +7108,15 @@ impl super::stub::IndexService for IndexService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.index
+            let arg = &req
+                .index
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("index"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("index.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -8359,10 +8436,17 @@ impl super::stub::JobService for JobService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.model_deployment_monitoring_job
+            let arg = &req
+                .model_deployment_monitoring_job
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("model_deployment_monitoring_job"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "model_deployment_monitoring_job.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -9744,10 +9828,15 @@ impl super::stub::MetadataService for MetadataService {
     ) -> Result<gax::response::Response<crate::model::Artifact>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.artifact
+            let arg = &req
+                .artifact
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("artifact"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("artifact.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -9910,10 +9999,15 @@ impl super::stub::MetadataService for MetadataService {
     ) -> Result<gax::response::Response<crate::model::Context>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.context
+            let arg = &req
+                .context
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("context"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("context.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -10176,10 +10270,15 @@ impl super::stub::MetadataService for MetadataService {
     ) -> Result<gax::response::Response<crate::model::Execution>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.execution
+            let arg = &req
+                .execution
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("execution"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("execution.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -11644,10 +11743,15 @@ impl super::stub::ModelService for ModelService {
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.model
+            let arg = &req
+                .model
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("model"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("model.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -12472,10 +12576,17 @@ impl super::stub::NotebookService for NotebookService {
     ) -> Result<gax::response::Response<crate::model::NotebookRuntimeTemplate>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.notebook_runtime_template
+            let arg = &req
+                .notebook_runtime_template
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("notebook_runtime_template"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "notebook_runtime_template.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -13242,10 +13353,15 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.persistent_resource
+            let arg = &req
+                .persistent_resource
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("persistent_resource"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("persistent_resource.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -15200,10 +15316,15 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.reasoning_engine
+            let arg = &req
+                .reasoning_engine
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("reasoning_engine"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("reasoning_engine.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -15761,10 +15882,15 @@ impl super::stub::ScheduleService for ScheduleService {
     ) -> Result<gax::response::Response<crate::model::Schedule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.schedule
+            let arg = &req
+                .schedule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("schedule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("schedule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -16242,10 +16368,15 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.specialist_pool
+            let arg = &req
+                .specialist_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("specialist_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("specialist_pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -16662,10 +16793,15 @@ impl super::stub::TensorboardService for TensorboardService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tensorboard
+            let arg = &req
+                .tensorboard
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tensorboard"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tensorboard.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -16860,10 +16996,15 @@ impl super::stub::TensorboardService for TensorboardService {
     ) -> Result<gax::response::Response<crate::model::TensorboardExperiment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tensorboard_experiment
+            let arg = &req
+                .tensorboard_experiment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tensorboard_experiment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tensorboard_experiment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -17030,10 +17171,15 @@ impl super::stub::TensorboardService for TensorboardService {
     ) -> Result<gax::response::Response<crate::model::TensorboardRun>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tensorboard_run
+            let arg = &req
+                .tensorboard_run
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tensorboard_run"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tensorboard_run.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -17202,10 +17348,17 @@ impl super::stub::TensorboardService for TensorboardService {
     ) -> Result<gax::response::Response<crate::model::TensorboardTimeSeries>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tensorboard_time_series
+            let arg = &req
+                .tensorboard_time_series
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tensorboard_time_series"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "tensorboard_time_series.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -17790,10 +17943,15 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.rag_corpus
+            let arg = &req
+                .rag_corpus
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("rag_corpus"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("rag_corpus.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

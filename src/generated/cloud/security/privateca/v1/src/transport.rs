@@ -160,10 +160,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
     ) -> Result<gax::response::Response<crate::model::Certificate>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.certificate
+            let arg = &req
+                .certificate
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("certificate"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("certificate.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -430,10 +435,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.certificate_authority
+            let arg = &req
+                .certificate_authority
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("certificate_authority"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("certificate_authority.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -490,10 +500,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.ca_pool
+            let arg = &req
+                .ca_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("ca_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("ca_pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -687,10 +702,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.certificate_revocation_list
+            let arg = &req
+                .certificate_revocation_list
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("certificate_revocation_list"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "certificate_revocation_list.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -830,10 +852,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.certificate_template
+            let arg = &req
+                .certificate_template
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("certificate_template"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("certificate_template.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -99,10 +99,15 @@ impl super::stub::CompanyService for CompanyService {
     ) -> Result<gax::response::Response<crate::model::Company>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v4/{}", {
-            &req.company
+            let arg = &req
+                .company
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("company"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("company.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -471,10 +476,15 @@ impl super::stub::JobService for JobService {
     ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v4/{}", {
-            &req.job
+            let arg = &req
+                .job
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("job"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("job.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -769,10 +779,15 @@ impl super::stub::TenantService for TenantService {
     ) -> Result<gax::response::Response<crate::model::Tenant>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v4/{}", {
-            &req.tenant
+            let arg = &req
+                .tenant
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tenant"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tenant.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

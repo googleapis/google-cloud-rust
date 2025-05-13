@@ -191,10 +191,15 @@ impl super::stub::CatalogService for CatalogService {
     ) -> Result<gax::response::Response<crate::model::Catalog>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.catalog
+            let arg = &req
+                .catalog
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("catalog"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("catalog.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -303,10 +308,15 @@ impl super::stub::CatalogService for CatalogService {
     ) -> Result<gax::response::Response<crate::model::CompletionConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.completion_config
+            let arg = &req
+                .completion_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("completion_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("completion_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -360,10 +370,15 @@ impl super::stub::CatalogService for CatalogService {
     ) -> Result<gax::response::Response<crate::model::AttributesConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.attributes_config
+            let arg = &req
+                .attributes_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("attributes_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attributes_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -754,10 +769,15 @@ impl super::stub::ControlService for ControlService {
     ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.control
+            let arg = &req
+                .control
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("control"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("control.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -918,12 +938,19 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}/generativeQuestionFeature", {
-            &req.generative_questions_feature_config
+            let arg = &req
+                .generative_questions_feature_config
                 .as_ref()
                 .ok_or_else(|| {
                     gaxi::path_parameter::missing("generative_questions_feature_config")
                 })?
-                .catalog
+                .catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "generative_questions_feature_config.catalog",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1007,10 +1034,17 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
     ) -> Result<gax::response::Response<crate::model::GenerativeQuestionConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}/generativeQuestion", {
-            &req.generative_question_config
+            let arg = &req
+                .generative_question_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("generative_question_config"))?
-                .catalog
+                .catalog;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "generative_question_config.catalog",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1298,10 +1332,15 @@ impl super::stub::ModelService for ModelService {
     ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.model
+            let arg = &req
+                .model
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("model"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("model.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1633,10 +1672,15 @@ impl super::stub::ProductService for ProductService {
     ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.product
+            let arg = &req
+                .product
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("product"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1743,10 +1787,15 @@ impl super::stub::ProductService for ProductService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}:setInventory", {
-            &req.inventory
+            let arg = &req
+                .inventory
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("inventory"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("inventory.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2113,10 +2162,15 @@ impl super::stub::ServingConfigService for ServingConfigService {
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.serving_config
+            let arg = &req
+                .serving_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("serving_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("serving_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -909,10 +909,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.big_query_export
+            let arg = &req
+                .big_query_export
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("big_query_export"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("big_query_export.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -940,10 +945,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::ExternalSystem>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.external_system
+            let arg = &req
+                .external_system
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("external_system"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("external_system.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -971,10 +981,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.finding
+            let arg = &req
+                .finding
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("finding"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("finding.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1002,10 +1017,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.mute_config
+            let arg = &req
+                .mute_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("mute_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("mute_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1033,10 +1053,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.notification_config
+            let arg = &req
+                .notification_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("notification_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("notification_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1064,10 +1089,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::ResourceValueConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.resource_value_config
+            let arg = &req
+                .resource_value_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("resource_value_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("resource_value_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1095,10 +1125,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::SecurityMarks>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.security_marks
+            let arg = &req
+                .security_marks
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("security_marks"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("security_marks.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1126,10 +1161,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
     ) -> Result<gax::response::Response<crate::model::Source>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.source
+            let arg = &req
+                .source
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("source"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("source.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

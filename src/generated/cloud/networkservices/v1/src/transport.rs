@@ -131,10 +131,15 @@ impl super::stub::DepService for DepService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.lb_traffic_extension
+            let arg = &req
+                .lb_traffic_extension
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("lb_traffic_extension"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("lb_traffic_extension.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -274,10 +279,15 @@ impl super::stub::DepService for DepService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.lb_route_extension
+            let arg = &req
+                .lb_route_extension
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("lb_route_extension"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("lb_route_extension.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -704,10 +714,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.endpoint_policy
+            let arg = &req
+                .endpoint_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("endpoint_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("endpoint_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -842,10 +857,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.gateway
+            let arg = &req
+                .gateway
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("gateway"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("gateway.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -980,10 +1000,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.grpc_route
+            let arg = &req
+                .grpc_route
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("grpc_route"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("grpc_route.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1118,10 +1143,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.http_route
+            let arg = &req
+                .http_route
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("http_route"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("http_route.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1256,10 +1286,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tcp_route
+            let arg = &req
+                .tcp_route
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tcp_route"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tcp_route.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1394,10 +1429,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tls_route
+            let arg = &req
+                .tls_route
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tls_route"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tls_route.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1637,10 +1677,15 @@ impl super::stub::NetworkServices for NetworkServices {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.mesh
+            let arg = &req
+                .mesh
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("mesh"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("mesh.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

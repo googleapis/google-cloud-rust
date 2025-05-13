@@ -132,10 +132,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.private_cloud
+            let arg = &req
+                .private_cloud
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("private_cloud"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("private_cloud.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -305,10 +310,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.cluster
+            let arg = &req
+                .cluster
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("cluster"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("cluster.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -532,10 +542,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.external_address
+            let arg = &req
+                .external_address
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("external_address"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("external_address.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -645,10 +660,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.subnet
+            let arg = &req
+                .subnet
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("subnet"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("subnet.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -758,10 +778,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.external_access_rule
+            let arg = &req
+                .external_access_rule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("external_access_rule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("external_access_rule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -901,10 +926,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.logging_server
+            let arg = &req
+                .logging_server
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("logging_server"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("logging_server.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1142,10 +1172,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.dns_forwarding
+            let arg = &req
+                .dns_forwarding
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("dns_forwarding"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dns_forwarding.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1285,10 +1320,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.network_peering
+            let arg = &req
+                .network_peering
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("network_peering"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("network_peering.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1512,10 +1552,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.network_policy
+            let arg = &req
+                .network_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("network_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("network_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1658,10 +1703,17 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.management_dns_zone_binding
+            let arg = &req
+                .management_dns_zone_binding
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("management_dns_zone_binding"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "management_dns_zone_binding.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1769,10 +1821,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.vmware_engine_network
+            let arg = &req
+                .vmware_engine_network
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("vmware_engine_network"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("vmware_engine_network.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1969,10 +2026,15 @@ impl super::stub::VmwareEngine for VmwareEngine {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.private_connection
+            let arg = &req
+                .private_connection
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("private_connection"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("private_connection.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

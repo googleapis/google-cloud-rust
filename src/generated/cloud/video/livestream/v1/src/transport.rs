@@ -159,10 +159,15 @@ impl super::stub::LivestreamService for LivestreamService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.channel
+            let arg = &req
+                .channel
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("channel"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("channel.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -348,10 +353,15 @@ impl super::stub::LivestreamService for LivestreamService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.input
+            let arg = &req
+                .input
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("input"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("input.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -735,10 +745,15 @@ impl super::stub::LivestreamService for LivestreamService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.pool
+            let arg = &req
+                .pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

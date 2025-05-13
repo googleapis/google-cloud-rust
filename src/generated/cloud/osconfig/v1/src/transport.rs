@@ -290,10 +290,15 @@ impl super::stub::OsConfigService for OsConfigService {
     ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.patch_deployment
+            let arg = &req
+                .patch_deployment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("patch_deployment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("patch_deployment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -474,10 +479,15 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.os_policy_assignment
+            let arg = &req
+                .os_policy_assignment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("os_policy_assignment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("os_policy_assignment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

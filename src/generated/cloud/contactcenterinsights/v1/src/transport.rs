@@ -98,10 +98,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.conversation
+            let arg = &req
+                .conversation
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("conversation"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("conversation.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -451,10 +456,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::IssueModel>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.issue_model
+            let arg = &req
+                .issue_model
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("issue_model"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("issue_model.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -708,10 +718,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::Issue>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.issue
+            let arg = &req
+                .issue
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("issue"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("issue.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -904,10 +919,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.phrase_matcher
+            let arg = &req
+                .phrase_matcher
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("phrase_matcher"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("phrase_matcher.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -988,10 +1008,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.settings
+            let arg = &req
+                .settings
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("settings"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("settings.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1099,10 +1124,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.analysis_rule
+            let arg = &req
+                .analysis_rule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("analysis_rule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("analysis_rule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1186,10 +1216,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}:initialize", {
-            &req.encryption_spec
+            let arg = &req
+                .encryption_spec
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("encryption_spec"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("encryption_spec.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1287,10 +1322,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::View>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.view
+            let arg = &req
+                .view
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("view"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("view.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1423,10 +1463,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.qa_question
+            let arg = &req
+                .qa_question
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("qa_question"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("qa_question.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1565,10 +1610,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.qa_scorecard
+            let arg = &req
+                .qa_scorecard
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("qa_scorecard"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("qa_scorecard.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1922,10 +1972,15 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
     ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feedback_label
+            let arg = &req
+                .feedback_label
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feedback_label"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feedback_label.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

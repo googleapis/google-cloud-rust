@@ -125,10 +125,15 @@ impl super::stub::CloudScheduler for CloudScheduler {
     ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.job
+            let arg = &req
+                .job
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("job"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("job.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

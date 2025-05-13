@@ -296,10 +296,15 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
     ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.blueprint
+            let arg = &req
+                .blueprint
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("blueprint"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("blueprint.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -676,10 +681,15 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.deployment
+            let arg = &req
+                .deployment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("deployment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("deployment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -972,10 +982,15 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
     ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.hydrated_deployment
+            let arg = &req
+                .hydrated_deployment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("hydrated_deployment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("hydrated_deployment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -105,10 +105,15 @@ impl super::stub::MigrationCenter for MigrationCenter {
     ) -> Result<gax::response::Response<crate::model::Asset>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.asset
+            let arg = &req
+                .asset
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("asset"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("asset.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -382,10 +387,15 @@ impl super::stub::MigrationCenter for MigrationCenter {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.import_job
+            let arg = &req
+                .import_job
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("import_job"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("import_job.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -655,10 +665,15 @@ impl super::stub::MigrationCenter for MigrationCenter {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.group
+            let arg = &req
+                .group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -898,10 +913,15 @@ impl super::stub::MigrationCenter for MigrationCenter {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.source
+            let arg = &req
+                .source
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("source"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("source.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1038,10 +1058,15 @@ impl super::stub::MigrationCenter for MigrationCenter {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.preference_set
+            let arg = &req
+                .preference_set
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("preference_set"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("preference_set.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1123,10 +1148,15 @@ impl super::stub::MigrationCenter for MigrationCenter {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.settings
+            let arg = &req
+                .settings
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("settings"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("settings.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

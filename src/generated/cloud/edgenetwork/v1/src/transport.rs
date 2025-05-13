@@ -346,10 +346,15 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.subnet
+            let arg = &req
+                .subnet
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("subnet"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("subnet.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -705,10 +710,15 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.router
+            let arg = &req
+                .router
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("router"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("router.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

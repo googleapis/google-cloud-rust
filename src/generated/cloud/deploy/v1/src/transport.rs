@@ -132,10 +132,15 @@ impl super::stub::CloudDeploy for CloudDeploy {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.delivery_pipeline
+            let arg = &req
+                .delivery_pipeline
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("delivery_pipeline"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("delivery_pipeline.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -304,10 +309,15 @@ impl super::stub::CloudDeploy for CloudDeploy {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.target
+            let arg = &req
+                .target
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("target"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("target.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -451,10 +461,15 @@ impl super::stub::CloudDeploy for CloudDeploy {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.custom_target_type
+            let arg = &req
+                .custom_target_type
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("custom_target_type"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("custom_target_type.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -659,10 +674,15 @@ impl super::stub::CloudDeploy for CloudDeploy {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.deploy_policy
+            let arg = &req
+                .deploy_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("deploy_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("deploy_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1126,10 +1146,15 @@ impl super::stub::CloudDeploy for CloudDeploy {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.automation
+            let arg = &req
+                .automation
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("automation"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("automation.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

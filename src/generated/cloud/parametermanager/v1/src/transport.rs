@@ -131,10 +131,15 @@ impl super::stub::ParameterManager for ParameterManager {
     ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.parameter
+            let arg = &req
+                .parameter
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("parameter"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parameter.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -305,10 +310,15 @@ impl super::stub::ParameterManager for ParameterManager {
     ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.parameter_version
+            let arg = &req
+                .parameter_version
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("parameter_version"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parameter_version.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

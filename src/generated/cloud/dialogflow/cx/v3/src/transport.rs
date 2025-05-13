@@ -125,10 +125,15 @@ impl super::stub::Agents for Agents {
     ) -> Result<gax::response::Response<crate::model::Agent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.agent
+            let arg = &req
+                .agent
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("agent"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("agent.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -310,10 +315,15 @@ impl super::stub::Agents for Agents {
     ) -> Result<gax::response::Response<crate::model::GenerativeSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.generative_settings
+            let arg = &req
+                .generative_settings
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("generative_settings"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("generative_settings.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1007,10 +1017,15 @@ impl super::stub::EntityTypes for EntityTypes {
     ) -> Result<gax::response::Response<crate::model::EntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.entity_type
+            let arg = &req
+                .entity_type
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("entity_type"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("entity_type.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1404,10 +1419,15 @@ impl super::stub::Environments for Environments {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.environment
+            let arg = &req
+                .environment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("environment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("environment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1826,10 +1846,15 @@ impl super::stub::Experiments for Experiments {
     ) -> Result<gax::response::Response<crate::model::Experiment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.experiment
+            let arg = &req
+                .experiment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("experiment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("experiment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2208,10 +2233,15 @@ impl super::stub::Flows for Flows {
     ) -> Result<gax::response::Response<crate::model::Flow>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.flow
+            let arg = &req
+                .flow
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("flow"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("flow.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2621,10 +2651,15 @@ impl super::stub::Generators for Generators {
     ) -> Result<gax::response::Response<crate::model::Generator>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.generator
+            let arg = &req
+                .generator
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("generator"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("generator.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2929,10 +2964,15 @@ impl super::stub::Intents for Intents {
     ) -> Result<gax::response::Response<crate::model::Intent>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.intent
+            let arg = &req
+                .intent
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("intent"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("intent.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3293,10 +3333,15 @@ impl super::stub::Pages for Pages {
     ) -> Result<gax::response::Response<crate::model::Page>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.page
+            let arg = &req
+                .page
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("page"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("page.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3569,10 +3614,15 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
     ) -> Result<gax::response::Response<crate::model::SecuritySettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.security_settings
+            let arg = &req
+                .security_settings
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("security_settings"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("security_settings.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -3869,10 +3919,17 @@ impl super::stub::Sessions for Sessions {
     ) -> Result<gax::response::Response<crate::model::FulfillIntentResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}:fulfillIntent", {
-            &req.match_intent_request
+            let arg = &req
+                .match_intent_request
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("match_intent_request"))?
-                .session
+                .session;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "match_intent_request.session",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -4159,10 +4216,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
     ) -> Result<gax::response::Response<crate::model::SessionEntityType>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.session_entity_type
+            let arg = &req
+                .session_entity_type
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("session_entity_type"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("session_entity_type.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -4493,10 +4555,15 @@ impl super::stub::TestCases for TestCases {
     ) -> Result<gax::response::Response<crate::model::TestCase>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.test_case
+            let arg = &req
+                .test_case
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("test_case"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("test_case.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -4962,10 +5029,15 @@ impl super::stub::TransitionRouteGroups for TransitionRouteGroups {
     ) -> Result<gax::response::Response<crate::model::TransitionRouteGroup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.transition_route_group
+            let arg = &req
+                .transition_route_group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("transition_route_group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("transition_route_group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -5268,10 +5340,15 @@ impl super::stub::Versions for Versions {
     ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.version
+            let arg = &req
+                .version
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("version"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("version.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -5634,10 +5711,15 @@ impl super::stub::Webhooks for Webhooks {
     ) -> Result<gax::response::Response<crate::model::Webhook>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.webhook
+            let arg = &req
+                .webhook
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("webhook"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("webhook.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

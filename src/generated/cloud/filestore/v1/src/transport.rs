@@ -130,10 +130,15 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.instance
+            let arg = &req
+                .instance
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("instance.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -346,10 +351,15 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.snapshot
+            let arg = &req
+                .snapshot
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("snapshot"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("snapshot.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -484,10 +494,15 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup
+            let arg = &req
+                .backup
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

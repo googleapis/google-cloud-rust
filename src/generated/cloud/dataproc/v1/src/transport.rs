@@ -71,10 +71,15 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
     ) -> Result<gax::response::Response<crate::model::AutoscalingPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.policy
+            let arg = &req
+                .policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2138,10 +2143,15 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
     ) -> Result<gax::response::Response<crate::model::SessionTemplate>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.session_template
+            let arg = &req
+                .session_template
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("session_template"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("session_template.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -2920,10 +2930,15 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
     ) -> Result<gax::response::Response<crate::model::WorkflowTemplate>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.template
+            let arg = &req
+                .template
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("template"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("template.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -130,10 +130,15 @@ impl super::stub::Speech for Speech {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.recognizer
+            let arg = &req
+                .recognizer
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("recognizer"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("recognizer.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -289,10 +294,15 @@ impl super::stub::Speech for Speech {
     ) -> Result<gax::response::Response<crate::model::Config>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.config
+            let arg = &req
+                .config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -401,10 +411,15 @@ impl super::stub::Speech for Speech {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.custom_class
+            let arg = &req
+                .custom_class
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("custom_class"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("custom_class.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -569,10 +584,15 @@ impl super::stub::Speech for Speech {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.phrase_set
+            let arg = &req
+                .phrase_set
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("phrase_set"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("phrase_set.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

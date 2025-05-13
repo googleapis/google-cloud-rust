@@ -125,10 +125,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.database
+            let arg = &req
+                .database
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("database"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("database.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -393,10 +398,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
     ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup
+            let arg = &req
+                .backup
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -668,10 +678,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
     ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup_schedule
+            let arg = &req
+                .backup_schedule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup_schedule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup_schedule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

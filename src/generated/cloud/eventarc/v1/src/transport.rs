@@ -131,10 +131,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.trigger
+            let arg = &req
+                .trigger
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("trigger"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("trigger.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -276,10 +281,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.channel
+            let arg = &req
+                .channel
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("channel"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("channel.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -524,10 +534,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<crate::model::GoogleChannelConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.google_channel_config
+            let arg = &req
+                .google_channel_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("google_channel_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("google_channel_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -667,10 +682,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.message_bus
+            let arg = &req
+                .message_bus
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("message_bus"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("message_bus.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -813,10 +833,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.enrollment
+            let arg = &req
+                .enrollment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("enrollment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("enrollment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -959,10 +984,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.pipeline
+            let arg = &req
+                .pipeline
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("pipeline"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("pipeline.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1105,10 +1135,15 @@ impl super::stub::Eventarc for Eventarc {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.google_api_source
+            let arg = &req
+                .google_api_source
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("google_api_source"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("google_api_source.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

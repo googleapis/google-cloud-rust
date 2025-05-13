@@ -303,10 +303,15 @@ impl super::stub::Recommender for Recommender {
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.recommender_config
+            let arg = &req
+                .recommender_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("recommender_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("recommender_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -361,10 +366,15 @@ impl super::stub::Recommender for Recommender {
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.insight_type_config
+            let arg = &req
+                .insight_type_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("insight_type_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("insight_type_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

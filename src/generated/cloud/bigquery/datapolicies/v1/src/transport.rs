@@ -73,10 +73,15 @@ impl super::stub::DataPolicyService for DataPolicyService {
     ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.data_policy
+            let arg = &req
+                .data_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("data_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("data_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

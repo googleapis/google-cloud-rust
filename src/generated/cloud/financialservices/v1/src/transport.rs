@@ -129,10 +129,15 @@ impl super::stub::Aml for Aml {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.instance
+            let arg = &req
+                .instance
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("instance.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -320,10 +325,15 @@ impl super::stub::Aml for Aml {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.dataset
+            let arg = &req
+                .dataset
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("dataset"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dataset.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -461,10 +471,15 @@ impl super::stub::Aml for Aml {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.model
+            let arg = &req
+                .model
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("model"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("model.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -626,10 +641,15 @@ impl super::stub::Aml for Aml {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.engine_config
+            let arg = &req
+                .engine_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("engine_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("engine_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -849,10 +869,15 @@ impl super::stub::Aml for Aml {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.prediction_result
+            let arg = &req
+                .prediction_result
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("prediction_result"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("prediction_result.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1016,10 +1041,15 @@ impl super::stub::Aml for Aml {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backtest_result
+            let arg = &req
+                .backtest_result
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backtest_result"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backtest_result.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

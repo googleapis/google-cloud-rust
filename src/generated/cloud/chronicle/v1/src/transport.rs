@@ -129,10 +129,15 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
     ) -> Result<gax::response::Response<crate::model::DataAccessLabel>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.data_access_label
+            let arg = &req
+                .data_access_label
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("data_access_label"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("data_access_label.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -272,10 +277,15 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
     ) -> Result<gax::response::Response<crate::model::DataAccessScope>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.data_access_scope
+            let arg = &req
+                .data_access_scope
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("data_access_scope"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("data_access_scope.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -552,10 +562,15 @@ impl super::stub::EntityService for EntityService {
     ) -> Result<gax::response::Response<crate::model::Watchlist>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.watchlist
+            let arg = &req
+                .watchlist
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("watchlist"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("watchlist.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -997,10 +1012,15 @@ impl super::stub::ReferenceListService for ReferenceListService {
     ) -> Result<gax::response::Response<crate::model::ReferenceList>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.reference_list
+            let arg = &req
+                .reference_list
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("reference_list"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("reference_list.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1246,10 +1266,15 @@ impl super::stub::RuleService for RuleService {
     ) -> Result<gax::response::Response<crate::model::Rule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.rule
+            let arg = &req
+                .rule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("rule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("rule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1471,10 +1496,15 @@ impl super::stub::RuleService for RuleService {
     ) -> Result<gax::response::Response<crate::model::RuleDeployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.rule_deployment
+            let arg = &req
+                .rule_deployment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("rule_deployment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("rule_deployment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

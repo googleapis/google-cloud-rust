@@ -133,10 +133,15 @@ impl super::stub::Datastream for Datastream {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.connection_profile
+            let arg = &req
+                .connection_profile
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("connection_profile"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("connection_profile.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -302,10 +307,15 @@ impl super::stub::Datastream for Datastream {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.stream
+            let arg = &req
+                .stream
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("stream"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("stream.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

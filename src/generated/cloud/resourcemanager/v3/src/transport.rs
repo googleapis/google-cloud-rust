@@ -138,10 +138,15 @@ impl super::stub::Folders for Folders {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.folder
+            let arg = &req
+                .folder
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("folder"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("folder.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -639,10 +644,15 @@ impl super::stub::Projects for Projects {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.project
+            let arg = &req
+                .project
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("project"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1272,10 +1282,15 @@ impl super::stub::TagKeys for TagKeys {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.tag_key
+            let arg = &req
+                .tag_key
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tag_key"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tag_key.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1558,10 +1573,15 @@ impl super::stub::TagValues for TagValues {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.tag_value
+            let arg = &req
+                .tag_value
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tag_value"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tag_value.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -156,10 +156,15 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.cdn_key
+            let arg = &req
+                .cdn_key
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("cdn_key"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("cdn_key.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -483,10 +488,15 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.slate
+            let arg = &req
+                .slate
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("slate"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("slate.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -700,10 +710,15 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.live_config
+            let arg = &req
+                .live_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("live_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("live_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -841,10 +856,15 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.vod_config
+            let arg = &req
+                .vod_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("vod_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("vod_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

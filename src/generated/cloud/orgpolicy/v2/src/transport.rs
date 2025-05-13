@@ -179,10 +179,15 @@ impl super::stub::OrgPolicy for OrgPolicy {
     ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.policy
+            let arg = &req
+                .policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -265,10 +270,15 @@ impl super::stub::OrgPolicy for OrgPolicy {
     ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.custom_constraint
+            let arg = &req
+                .custom_constraint
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("custom_constraint"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("custom_constraint.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

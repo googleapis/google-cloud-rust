@@ -201,10 +201,15 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
     ) -> Result<gax::response::Response<crate::model::Key>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.key
+            let arg = &req
+                .key
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("key"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("key.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -466,10 +471,15 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
     ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.firewall_policy
+            let arg = &req
+                .firewall_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("firewall_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("firewall_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -100,10 +100,15 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}", {
-            &req.deployment
+            let arg = &req
+                .deployment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("deployment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("deployment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

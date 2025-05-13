@@ -263,10 +263,15 @@ impl super::stub::ProductSearch for ProductSearch {
     ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.product_set
+            let arg = &req
+                .product_set
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("product_set"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product_set.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -405,10 +410,15 @@ impl super::stub::ProductSearch for ProductSearch {
     ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.product
+            let arg = &req
+                .product
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("product"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("product.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

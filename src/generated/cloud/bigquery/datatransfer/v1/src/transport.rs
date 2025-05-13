@@ -130,10 +130,15 @@ impl super::stub::DataTransferService for DataTransferService {
     ) -> Result<gax::response::Response<crate::model::TransferConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.transfer_config
+            let arg = &req
+                .transfer_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("transfer_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("transfer_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

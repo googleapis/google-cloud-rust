@@ -101,10 +101,15 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.cluster
+            let arg = &req
+                .cluster
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("cluster"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("cluster.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -130,10 +130,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.storage_pool
+            let arg = &req
+                .storage_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("storage_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("storage_pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -316,10 +321,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.volume
+            let arg = &req
+                .volume
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("volume"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("volume.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -505,10 +515,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.snapshot
+            let arg = &req
+                .snapshot
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("snapshot"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("snapshot.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -619,10 +634,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.active_directory
+            let arg = &req
+                .active_directory
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("active_directory"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("active_directory.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -759,10 +779,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.kms_config
+            let arg = &req
+                .kms_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("kms_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("kms_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -973,10 +998,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.replication
+            let arg = &req
+                .replication
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("replication"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("replication.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1207,10 +1237,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup_vault
+            let arg = &req
+                .backup_vault
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup_vault"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup_vault.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1371,10 +1406,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup
+            let arg = &req
+                .backup
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1483,10 +1523,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup_policy
+            let arg = &req
+                .backup_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1623,10 +1668,15 @@ impl super::stub::NetApp for NetApp {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.quota_rule
+            let arg = &req
+                .quota_rule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("quota_rule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("quota_rule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

@@ -294,10 +294,15 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
     ) -> Result<gax::response::Response<crate::model::Customer>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.customer
+            let arg = &req
+                .customer
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("customer"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("customer.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

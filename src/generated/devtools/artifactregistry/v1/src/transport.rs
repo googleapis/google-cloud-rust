@@ -395,10 +395,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::Repository>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.repository
+            let arg = &req
+                .repository
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("repository"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("repository.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -643,10 +648,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.version
+            let arg = &req
+                .version
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("version"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("version.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -756,10 +766,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::File>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.file
+            let arg = &req
+                .file
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("file"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("file.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -865,10 +880,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.tag
+            let arg = &req
+                .tag
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("tag"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("tag.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1003,10 +1023,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::Rule>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.rule
+            let arg = &req
+                .rule
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("rule"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("rule.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1172,10 +1197,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::ProjectSettings>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.project_settings
+            let arg = &req
+                .project_settings
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("project_settings"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("project_settings.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1229,10 +1259,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::VPCSCConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.vpcsc_config
+            let arg = &req
+                .vpcsc_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("vpcsc_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("vpcsc_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1260,10 +1295,15 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
     ) -> Result<gax::response::Response<crate::model::Package>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.package
+            let arg = &req
+                .package
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("package"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("package.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

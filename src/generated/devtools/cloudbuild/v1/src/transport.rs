@@ -561,10 +561,15 @@ impl super::stub::CloudBuild for CloudBuild {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.worker_pool
+            let arg = &req
+                .worker_pool
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("worker_pool"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("worker_pool.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

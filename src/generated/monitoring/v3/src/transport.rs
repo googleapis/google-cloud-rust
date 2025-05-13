@@ -159,10 +159,15 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
     ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.alert_policy
+            let arg = &req
+                .alert_policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("alert_policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("alert_policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -304,10 +309,15 @@ impl super::stub::GroupService for GroupService {
     ) -> Result<gax::response::Response<crate::model::Group>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v3/{}", {
-            &req.group
+            let arg = &req
+                .group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -868,10 +878,15 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
     ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.notification_channel
+            let arg = &req
+                .notification_channel
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("notification_channel"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("notification_channel.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1160,10 +1175,15 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
     ) -> Result<gax::response::Response<crate::model::Service>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.service
+            let arg = &req
+                .service
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1306,10 +1326,17 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
     ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.service_level_objective
+            let arg = &req
+                .service_level_objective
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service_level_objective"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing(
+                    "service_level_objective.name",
+                ));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1469,10 +1496,15 @@ impl super::stub::SnoozeService for SnoozeService {
     ) -> Result<gax::response::Response<crate::model::Snooze>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.snooze
+            let arg = &req
+                .snooze
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("snooze"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("snooze.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1602,10 +1634,15 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
     ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.uptime_check_config
+            let arg = &req
+                .uptime_check_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("uptime_check_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("uptime_check_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

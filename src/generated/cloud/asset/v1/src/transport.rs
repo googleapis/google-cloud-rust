@@ -237,10 +237,15 @@ impl super::stub::AssetService for AssetService {
     ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.feed
+            let arg = &req
+                .feed
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("feed"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("feed.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -364,10 +369,15 @@ impl super::stub::AssetService for AssetService {
     ) -> Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v1/{}:analyzeIamPolicy", {
-            &req.analysis_query
+            let arg = &req
+                .analysis_query
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("analysis_query"))?
-                .scope
+                .scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("analysis_query.scope"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -410,10 +420,15 @@ impl super::stub::AssetService for AssetService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}:analyzeIamPolicyLongrunning", {
-            &req.analysis_query
+            let arg = &req
+                .analysis_query
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("analysis_query"))?
-                .scope
+                .scope;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("analysis_query.scope"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -567,10 +582,15 @@ impl super::stub::AssetService for AssetService {
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.saved_query
+            let arg = &req
+                .saved_query
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("saved_query"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("saved_query.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

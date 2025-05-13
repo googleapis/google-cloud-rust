@@ -131,10 +131,15 @@ impl super::stub::ModelArmor for ModelArmor {
     ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.template
+            let arg = &req
+                .template
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("template"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("template.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -220,10 +225,15 @@ impl super::stub::ModelArmor for ModelArmor {
     ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.floor_setting
+            let arg = &req
+                .floor_setting
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("floor_setting"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("floor_setting.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

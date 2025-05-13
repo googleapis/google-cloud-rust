@@ -281,10 +281,15 @@ impl super::stub::BackupDR for BackupDR {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup_vault
+            let arg = &req
+                .backup_vault
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup_vault"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup_vault.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -406,10 +411,15 @@ impl super::stub::BackupDR for BackupDR {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.data_source
+            let arg = &req
+                .data_source
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("data_source"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("data_source.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -497,10 +507,15 @@ impl super::stub::BackupDR for BackupDR {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.backup
+            let arg = &req
+                .backup
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

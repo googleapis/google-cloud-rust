@@ -130,10 +130,15 @@ impl super::stub::ReachabilityService for ReachabilityService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.resource
+            let arg = &req
+                .resource
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("resource"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("resource.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -584,10 +589,15 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.vpc_flow_logs_config
+            let arg = &req
+                .vpc_flow_logs_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("vpc_flow_logs_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("vpc_flow_logs_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

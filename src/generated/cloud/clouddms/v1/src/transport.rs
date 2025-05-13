@@ -131,10 +131,15 @@ impl super::stub::DataMigrationService for DataMigrationService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.migration_job
+            let arg = &req
+                .migration_job
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("migration_job"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("migration_job.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -469,10 +474,15 @@ impl super::stub::DataMigrationService for DataMigrationService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.connection_profile
+            let arg = &req
+                .connection_profile
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("connection_profile"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("connection_profile.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -726,10 +736,15 @@ impl super::stub::DataMigrationService for DataMigrationService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.conversion_workspace
+            let arg = &req
+                .conversion_workspace
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("conversion_workspace"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("conversion_workspace.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

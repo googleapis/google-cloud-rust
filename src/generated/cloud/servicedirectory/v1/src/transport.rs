@@ -232,10 +232,15 @@ impl super::stub::RegistrationService for RegistrationService {
     ) -> Result<gax::response::Response<crate::model::Namespace>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.namespace
+            let arg = &req
+                .namespace
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("namespace"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("namespace.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -376,10 +381,15 @@ impl super::stub::RegistrationService for RegistrationService {
     ) -> Result<gax::response::Response<crate::model::Service>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service
+            let arg = &req
+                .service
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -520,10 +530,15 @@ impl super::stub::RegistrationService for RegistrationService {
     ) -> Result<gax::response::Response<crate::model::Endpoint>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.endpoint
+            let arg = &req
+                .endpoint
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("endpoint"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("endpoint.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

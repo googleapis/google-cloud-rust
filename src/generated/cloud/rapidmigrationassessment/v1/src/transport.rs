@@ -184,10 +184,15 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.collector
+            let arg = &req
+                .collector
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("collector"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("collector.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

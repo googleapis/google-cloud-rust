@@ -378,10 +378,15 @@ impl super::stub::AppHub for AppHub {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.service
+            let arg = &req
+                .service
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("service"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("service.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -604,10 +609,15 @@ impl super::stub::AppHub for AppHub {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.workload
+            let arg = &req
+                .workload
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("workload"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("workload.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -747,10 +757,15 @@ impl super::stub::AppHub for AppHub {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.application
+            let arg = &req
+                .application
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("application"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("application.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

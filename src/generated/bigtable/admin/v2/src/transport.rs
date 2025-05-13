@@ -148,10 +148,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.instance
+            let arg = &req
+                .instance
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("instance"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("instance.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -313,10 +318,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.cluster
+            let arg = &req
+                .cluster
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("cluster"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("cluster.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -456,10 +466,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.app_profile
+            let arg = &req
+                .app_profile
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("app_profile"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("app_profile.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -720,10 +735,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.logical_view
+            let arg = &req
+                .logical_view
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("logical_view"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("logical_view.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -863,10 +883,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.materialized_view
+            let arg = &req
+                .materialized_view
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("materialized_view"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("materialized_view.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1181,10 +1206,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.table
+            let arg = &req
+                .table
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("table"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("table.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1348,10 +1378,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.authorized_view
+            let arg = &req
+                .authorized_view
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("authorized_view"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("authorized_view.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1671,10 +1706,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
     ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v2/{}", {
-            &req.backup
+            let arg = &req
+                .backup
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("backup"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("backup.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

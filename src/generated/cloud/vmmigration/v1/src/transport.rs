@@ -129,10 +129,15 @@ impl super::stub::VmMigration for VmMigration {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.source
+            let arg = &req
+                .source
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("source"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("source.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -547,10 +552,15 @@ impl super::stub::VmMigration for VmMigration {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.migrating_vm
+            let arg = &req
+                .migrating_vm
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("migrating_vm"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("migrating_vm.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -999,10 +1009,15 @@ impl super::stub::VmMigration for VmMigration {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.group
+            let arg = &req
+                .group
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("group"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("group.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1188,10 +1203,15 @@ impl super::stub::VmMigration for VmMigration {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.target_project
+            let arg = &req
+                .target_project
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("target_project"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("target_project.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

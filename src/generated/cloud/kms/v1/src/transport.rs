@@ -331,10 +331,15 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
     ) -> Result<gax::response::Response<crate::model::AutokeyConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.autokey_config
+            let arg = &req
+                .autokey_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("autokey_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("autokey_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -685,10 +690,15 @@ impl super::stub::EkmService for EkmService {
     ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.ekm_connection
+            let arg = &req
+                .ekm_connection
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("ekm_connection"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("ekm_connection.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -742,10 +752,15 @@ impl super::stub::EkmService for EkmService {
     ) -> Result<gax::response::Response<crate::model::EkmConfig>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.ekm_config
+            let arg = &req
+                .ekm_config
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("ekm_config"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("ekm_config.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1375,10 +1390,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
     ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.crypto_key
+            let arg = &req
+                .crypto_key
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("crypto_key"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("crypto_key.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1406,10 +1426,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
     ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.crypto_key_version
+            let arg = &req
+                .crypto_key_version
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("crypto_key_version"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("crypto_key_version.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

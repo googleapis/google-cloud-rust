@@ -127,10 +127,15 @@ impl super::stub::ApiHub for ApiHub {
     ) -> Result<gax::response::Response<crate::model::Api>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.api
+            let arg = &req
+                .api
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("api"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("api.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -269,10 +274,15 @@ impl super::stub::ApiHub for ApiHub {
     ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.version
+            let arg = &req
+                .version
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("version"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("version.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -437,10 +447,15 @@ impl super::stub::ApiHub for ApiHub {
     ) -> Result<gax::response::Response<crate::model::Spec>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.spec
+            let arg = &req
+                .spec
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("spec"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("spec.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -659,10 +674,15 @@ impl super::stub::ApiHub for ApiHub {
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.deployment
+            let arg = &req
+                .deployment
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("deployment"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("deployment.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -773,10 +793,15 @@ impl super::stub::ApiHub for ApiHub {
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.attribute
+            let arg = &req
+                .attribute
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("attribute"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("attribute.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -940,10 +965,15 @@ impl super::stub::ApiHub for ApiHub {
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.external_api
+            let arg = &req
+                .external_api
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("external_api"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("external_api.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1274,10 +1304,15 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.dependency
+            let arg = &req
+                .dependency
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("dependency"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dependency.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -1860,10 +1895,15 @@ impl super::stub::LintingService for LintingService {
     ) -> Result<gax::response::Response<crate::model::StyleGuide>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v1/{}", {
-            &req.style_guide
+            let arg = &req
+                .style_guide
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("style_guide"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("style_guide.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

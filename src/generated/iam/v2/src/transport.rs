@@ -126,10 +126,15 @@ impl super::stub::Policies for Policies {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
         let path = format!("/v2/{}", {
-            &req.policy
+            let arg = &req
+                .policy
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("policy"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("policy.name"));
+            }
+            arg
         },);
         let builder = self
             .inner

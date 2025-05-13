@@ -245,10 +245,15 @@ impl super::stub::TranslationService for TranslationService {
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.glossary
+            let arg = &req
+                .glossary
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("glossary"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("glossary.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
@@ -437,10 +442,15 @@ impl super::stub::TranslationService for TranslationService {
     ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
         let path = format!("/v3/{}", {
-            &req.glossary_entry
+            let arg = &req
+                .glossary_entry
                 .as_ref()
                 .ok_or_else(|| gaxi::path_parameter::missing("glossary_entry"))?
-                .name
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("glossary_entry.name"));
+            }
+            arg
         },);
         let builder = self
             .inner
