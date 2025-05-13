@@ -316,6 +316,7 @@ scoped-env    = { version = "2" }
 serial_test   = { version = "3" }
 tempfile      = { version = "3" }
 test-case     = { version = "3" }
+tokio-stream  = { version = "0.1", default-features = false }
 tokio-test    = { version = "0.4", default-features = false }
 url           = { version = "2" }
 
