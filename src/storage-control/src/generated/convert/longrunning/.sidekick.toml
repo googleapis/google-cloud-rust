@@ -14,12 +14,12 @@
 
 [general]
 language             = 'rust'
-specification-source = 'google/storage/control/v2'
-service-config       = 'google/storage/control/v2/storage_v2.yaml'
+specification-source = 'google/longrunning'
+
+[source]
+skipped-ids = '.google.longrunning.Operation'
 
 [codec]
-copyright-year            = '2025'
-template-override         = 'templates/grpc-client'
-package-name-override     = 'google-cloud-storage-control'
-include-grpc-only-methods = 'true'
-has-veneer                = 'true'
+copyright-year    = '2025'
+template-override = 'templates/convert-prost'
+module-path       = 'longrunning::model'

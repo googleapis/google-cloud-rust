@@ -21,6 +21,8 @@ use std::collections::BTreeMap;
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
     EnumNoIntegerValue(&'static str),
+    #[error("Conversion unimplemented")]
+    Unimplemented,
 }
 
 type Result<T> = std::result::Result<T, ConvertError>;
