@@ -200,7 +200,6 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self, extensions: Extensions) -> Result<Token>;
             async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
             async fn universe_domain(&self) -> Option<String>;
         }

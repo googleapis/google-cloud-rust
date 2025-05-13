@@ -196,12 +196,8 @@ impl<T> CredentialsProvider for MDSCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn token(&self, extensions: Extensions) -> Result<Token> {
-        self.token_provider.token(extensions).await
-    }
-
     async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
-        let token = self.token(extensions).await?;
+        let token = self.token_provider.token(extensions).await?;
         build_bearer_headers(&token, &self.quota_project_id)
     }
 

@@ -32,8 +32,8 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// An implementation of [crate::credentials::CredentialsProvider].
 ///
-/// Represents a [Credentials] used to obtain auth [Token][crate::token::Token]s
-/// and the corresponding request headers.
+/// Represents a [Credentials] used to obtain the corresponding request headers,
+/// the underlying header implementaiton fet.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that provide
 /// proof of identity", the archetype may be a username and password
@@ -88,10 +88,6 @@ where
 }
 
 impl Credentials {
-    pub async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
-        self.inner.token(extensions).await
-    }
-
     pub async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         self.inner.headers(extensions).await
     }
@@ -142,17 +138,6 @@ impl Credentials {
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
 pub trait CredentialsProvider: std::fmt::Debug {
-    /// Asynchronously retrieves a token.
-    ///
-    /// Returns a [Token][crate::token::Token] for the current credentials.
-    /// The underlying implementation refreshes the token as needed.
-    // TODO(#2036): After the return type is updated to return a cacheable resource
-    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
-    fn token(
-        &self,
-        extensions: Extensions,
-    ) -> impl Future<Output = Result<crate::token::Token>> + Send;
-
     /// Asynchronously constructs the auth headers.
     ///
     /// Different auth tokens are sent via different headers. The
@@ -175,14 +160,6 @@ pub(crate) mod dynamic {
     /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
     pub trait CredentialsProvider: Send + Sync + std::fmt::Debug {
-        /// Asynchronously retrieves a token.
-        ///
-        /// Returns a [Token][crate::token::Token] for the current credentials.
-        /// The underlying implementation refreshes the token as needed.
-        // TODO(#2036): After the return type is updated to return cacheable resource
-        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token>;
-
         /// Asynchronously constructs the auth headers.
         ///
         /// Different auth tokens are sent via different headers. The
@@ -206,9 +183,6 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
-            T::token(self, extensions).await
-        }
         async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
             T::headers(self, extensions).await
         }
@@ -270,7 +244,7 @@ enum CredentialsSource {
 /// let creds = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token(Extensions::new()).await?;
+/// let token = creds.headers(Extensions::new()).await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -569,7 +543,6 @@ pub mod testing {
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
-    use crate::token::Token;
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
 
@@ -587,15 +560,6 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn token(&self, _extensions: Extensions) -> Result<Token> {
-            Ok(Token {
-                token: "test-only-token".to_string(),
-                token_type: "Bearer".to_string(),
-                expires_at: None,
-                metadata: None,
-            })
-        }
-
         async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Ok(HeaderMap::new())
         }
@@ -619,10 +583,6 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn token(&self, _extensions: Extensions) -> Result<Token> {
-            Err(super::CredentialsError::from_str(self.0, "test-only"))
-        }
-
         async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
