@@ -527,7 +527,6 @@ mod test {
     #[tokio::test(start_paused = true)]
     #[parallel]
     async fn token_provider_full() -> TestResult {
-        let now = std::time::Instant::now();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -572,7 +571,6 @@ mod test {
     #[tokio::test(start_paused = true)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
-        let now = std::time::Instant::now();
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),

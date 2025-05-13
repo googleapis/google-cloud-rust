@@ -730,10 +730,10 @@ mod test {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
         let headers = Builder::new(service_account_key.clone())
-        .with_access_specifier(AccessSpecifier::from_audience("test-audience"))
-        .build()?
-        .headers(Extensions::new())
-        .await?;
+            .with_access_specifier(AccessSpecifier::from_audience("test-audience"))
+            .build()?
+            .headers(Extensions::new())
+            .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let token = get_token_from_headers(&headers);

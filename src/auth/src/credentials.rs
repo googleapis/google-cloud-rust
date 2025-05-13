@@ -618,7 +618,6 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-<<<<<<< HEAD
     pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> String {
         let token = headers.get(AUTHORIZATION).unwrap();
         token
@@ -642,10 +641,7 @@ mod test {
             .to_string()
     }
 
-    pub fn generate_pkcs8_private_key() -> String {
-=======
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
->>>>>>> 509dfe01dd82e1a7513d8a35a346d5140ec917d3
         let mut rng = rand::thread_rng();
         let bits = 2048;
         let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
