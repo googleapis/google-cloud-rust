@@ -29,7 +29,7 @@ rust-version.workspace = true
 async-trait.workspace = true
 base64.workspace      = true
 http.workspace        = true
-reqwest               = { workspace = true, features = ["default-tls", "json"] }
+reqwest               = { workspace = true, features = ["rustls-tls", "json"] }
 rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
 rustls-pemfile        = { workspace = true, features = ["std"] }
 serde.workspace       = true
