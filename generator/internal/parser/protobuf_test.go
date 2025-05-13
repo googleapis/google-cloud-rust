@@ -1096,13 +1096,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooMaxResultsInt32Request",
 				OutputTypeID: ".test.ListFooResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
-					},
-					QueryParameters: map[string]bool{"max_results": true, "page_token": true},
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
@@ -1129,13 +1122,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 				InputTypeID:  ".test.ListFooMaxResultsUInt32Request",
 				OutputTypeID: ".test.ListFooResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
-					},
-					QueryParameters: map[string]bool{"max_results": true, "page_token": true},
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
