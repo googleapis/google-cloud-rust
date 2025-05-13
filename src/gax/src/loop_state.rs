@@ -15,8 +15,8 @@
 //! Polling and retry loop control types.
 //!
 //! This module contains types to control polling loops and retry loops.
-//! Applications rarely only need to use these types when implementing their
-//! own retry and polling policies.
+//! Applications only need to use these types when implementing their own retry
+//! and polling policies.
 
 use crate::error::Error;
 

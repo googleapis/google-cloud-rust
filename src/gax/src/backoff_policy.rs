@@ -14,13 +14,14 @@
 
 //! Defines traits for backoff policies and a common implementations.
 //!
-//! The client libraries automatically retry RPCs when (1) they fail due to
-//! transient errors **and** the RPC is [idempotent], (2) or failed before an
-//! RPC was started. That is, when it is safe to attempt the RPC more than once.
-//!
-//! Retry strategies should avoid immediately retrying an RPC, as the service
-//! may need time to recover. [Exponential backoff] is a well known algorithm to
-//! find an acceptable delay between retries.
+//! The client libraries automatically retry RPCs based on the [RetryPolicy]
+//! configured for the request or client. Even when the policy determines that
+//! an operation is safe to retry, the client library does not retry failed
+//! requests immediately, as the service may need time to recover.
+//! [Exponential backoff] is a well known algorithm to find an acceptable delay
+//! between retries, but some application may need slight variations on this
+//! algorithm. The client libraries use a [BackoffPolicy] to configure the
+//! delays between retry attempts.
 //!
 //! While exponential backoff improves the system behavior when there are small
 //! faults, something like a [RetryThrottler] may be needed to improve recovery
@@ -33,6 +34,7 @@
 //!
 //! [ClientBuilder::with_backoff_policy]: crate::client_builder::ClientBuilder::with_backoff_policy
 //! [RequestOptionsBuilder::with_backoff_policy]: crate::options::RequestOptionsBuilder::with_backoff_policy
+//! [RetryPolicy]: crate::retry_policy::RetryPolicy
 //!
 //! # Example
 //! ```

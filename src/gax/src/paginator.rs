@@ -15,8 +15,8 @@
 //! Defines some types and traits to simplify working with list RPCs.
 //!
 //! When listing large collections of items Google Cloud services typically
-//! break the responses in "pages", where each page contains a limited number
-//! of items, and a token to request the next page. The caller must
+//! break the responses in "pages". Each one of these pages contains a limited
+//! number of items, and a token to request the next page. The caller must
 //! repeatedly call the list RPC (using the token from the previous page) to
 //! obtain additional items.
 //!
@@ -25,32 +25,6 @@
 //! these paginated APIs.
 //!
 //! For more information on the RPCs with paginated responses see [AIP-4233].
-//!
-//! # Example: stream all the pages for a list operation
-//! ```no_run
-//! # use google_cloud_gax::{paginator, Result, error::Error};
-//! struct Page { items: Vec<String>, token: String }
-//! # impl paginator::internal::PageableResponse for Page {
-//! #     type PageItem = String;
-//! #     fn items(self) -> Vec<String> { self.items }
-//! #     fn next_page_token(&self) -> String { self.token.clone() }
-//! # }
-//! # async fn get_page(_: String) -> Result<Page> { panic!(); }
-//! use paginator::Paginator;
-//! async fn list() -> impl Paginator<Page, Error> {
-//!     // ... details omitted ...
-//!     # async fn execute(_: String) -> Result<Page> { panic!(); }
-//!     # paginator::internal::new_paginator(String::new(), get_page)
-//! }
-//! # tokio_test::block_on(async {
-//! let mut pages = list().await;
-//! while let Some(page) = pages.next().await {
-//!     let page = page?;
-//!     println!("a page with {} items", page.items.len());
-//!     page.items.into_iter().enumerate().for_each(|(n, i)| println!("  item[{n}]= {i}"));
-//! }
-//! # Result::<()>::Ok(()) });
-//! ```
 //!
 //! # Example: stream each item for a list operation
 //! ```no_run
@@ -63,16 +37,42 @@
 //! # }
 //! # async fn get_page(_: String) -> Result<Page> { panic!(); }
 //! use paginator::{Paginator, ItemPaginator};
-//! async fn list() -> impl Paginator<Page, Error> {
+//! fn list() -> impl Paginator<Page, Error> {
 //!     // ... details omitted ...
-//!     # async fn execute(_: String) -> Result<Page> { panic!(); }
+//!     # fn execute(_: String) -> Result<Page> { panic!(); }
 //!     # paginator::internal::new_paginator(String::new(), get_page)
 //! }
 //! # tokio_test::block_on(async {
-//! let mut items = list().await.items();
+//! let mut items = list().items();
 //! while let Some(item) = items.next().await {
 //!     let item = item?;
 //!     println!("  item = {item}");
+//! }
+//! # Result::<()>::Ok(()) });
+//! ```
+//!
+//! # Example: manually iterate over all the pages for a list operation
+//! ```no_run
+//! # use google_cloud_gax::{paginator, Result, error::Error};
+//! struct Page { items: Vec<String>, token: String }
+//! # impl paginator::internal::PageableResponse for Page {
+//! #     type PageItem = String;
+//! #     fn items(self) -> Vec<String> { self.items }
+//! #     fn next_page_token(&self) -> String { self.token.clone() }
+//! # }
+//! # async fn get_page(_: String) -> Result<Page> { panic!(); }
+//! use paginator::Paginator;
+//! fn list() -> impl Paginator<Page, Error> {
+//!     // ... details omitted ...
+//!     # fn execute(_: String) -> Result<Page> { panic!(); }
+//!     # paginator::internal::new_paginator(String::new(), get_page)
+//! }
+//! # tokio_test::block_on(async {
+//! let mut pages = list();
+//! while let Some(page) = pages.next().await {
+//!     let page = page?;
+//!     println!("a page with {} items", page.items.len());
+//!     page.items.into_iter().enumerate().for_each(|(n, i)| println!("  item[{n}]= {i}"));
 //! }
 //! # Result::<()>::Ok(()) });
 //! ```
@@ -135,6 +135,8 @@ mod sealed {
 /// Sequencing these calls can be tedious. The Google Cloud client libraries
 /// for Rust provide implementations of this trait to simplify the use of
 /// these paginated APIs.
+///
+/// Enable the `unstable-stream` feature to convert this type to a [Stream].
 ///
 /// For more information on the RPCs with paginated responses see [AIP-4233].
 ///
@@ -256,6 +258,8 @@ impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
 /// automatically iterate over each item and then fetch the next page, stopping
 /// when all the pages are processed.
 ///
+/// Enable the `unstable-stream` feature to convert this type to a [Stream].
+///
 /// For more information on the RPCs with paginated responses see [AIP-4233].
 ///
 /// [AIP-4233]: https://google.aip.dev/client-libraries/4233
@@ -264,9 +268,6 @@ where
     T: internal::PageableResponse,
 {
     /// Returns the next item from the stream of (paginated) responses.
-    ///
-    /// Enable the `unstable-stream` feature to convert this type to a
-    /// [Stream].
     fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
