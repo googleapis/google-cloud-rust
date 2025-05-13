@@ -67,6 +67,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_deployments][super::super::client::Config::list_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListDeployments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
@@ -160,6 +179,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_deployment][super::super::client::Config::get_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
@@ -205,6 +239,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::create_deployment][super::super::client::Config::create_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::CreateDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
@@ -316,6 +366,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::update_deployment][super::super::client::Config::update_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::UpdateDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
@@ -420,6 +486,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::delete_deployment][super::super::client::Config::delete_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::DeleteDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
@@ -527,6 +609,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_revisions][super::super::client::Config::list_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListRevisions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRevisions(RequestBuilder<crate::model::ListRevisionsRequest>);
 
@@ -620,6 +721,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_revision][super::super::client::Config::get_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetRevision;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRevision(RequestBuilder<crate::model::GetRevisionRequest>);
 
@@ -665,6 +781,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_resource][super::super::client::Config::get_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetResource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetResource(RequestBuilder<crate::model::GetResourceRequest>);
 
@@ -710,6 +841,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_resources][super::super::client::Config::list_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListResources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListResources(RequestBuilder<crate::model::ListResourcesRequest>);
 
@@ -803,6 +953,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::export_deployment_statefile][super::super::client::Config::export_deployment_statefile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ExportDeploymentStatefile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportDeploymentStatefile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportDeploymentStatefile(
         RequestBuilder<crate::model::ExportDeploymentStatefileRequest>,
@@ -859,6 +1024,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::export_revision_statefile][super::super::client::Config::export_revision_statefile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ExportRevisionStatefile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportRevisionStatefile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRevisionStatefile(
         RequestBuilder<crate::model::ExportRevisionStatefileRequest>,
@@ -909,6 +1089,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::import_statefile][super::super::client::Config::import_statefile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ImportStatefile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportStatefile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportStatefile(RequestBuilder<crate::model::ImportStatefileRequest>);
 
@@ -968,6 +1163,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::delete_statefile][super::super::client::Config::delete_statefile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::DeleteStatefile;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteStatefile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteStatefile(RequestBuilder<crate::model::DeleteStatefileRequest>);
 
@@ -1021,6 +1231,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::lock_deployment][super::super::client::Config::lock_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::LockDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LockDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LockDeployment(RequestBuilder<crate::model::LockDeploymentRequest>);
 
@@ -1104,6 +1330,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::unlock_deployment][super::super::client::Config::unlock_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::UnlockDeployment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnlockDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UnlockDeployment(RequestBuilder<crate::model::UnlockDeploymentRequest>);
 
@@ -1198,6 +1440,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::export_lock_info][super::super::client::Config::export_lock_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ExportLockInfo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportLockInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportLockInfo(RequestBuilder<crate::model::ExportLockInfoRequest>);
 
@@ -1243,6 +1500,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::create_preview][super::super::client::Config::create_preview] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::CreatePreview;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePreview {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePreview(RequestBuilder<crate::model::CreatePreviewRequest>);
 
@@ -1349,6 +1622,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_preview][super::super::client::Config::get_preview] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetPreview;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPreview {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPreview(RequestBuilder<crate::model::GetPreviewRequest>);
 
@@ -1394,6 +1682,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_previews][super::super::client::Config::list_previews] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListPreviews;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPreviews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPreviews(RequestBuilder<crate::model::ListPreviewsRequest>);
 
@@ -1487,6 +1794,22 @@ pub mod config {
     }
 
     /// The request builder for [Config::delete_preview][super::super::client::Config::delete_preview] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::DeletePreview;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_config_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePreview {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePreview(RequestBuilder<crate::model::DeletePreviewRequest>);
 
@@ -1576,6 +1899,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::export_preview_result][super::super::client::Config::export_preview_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ExportPreviewResult;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportPreviewResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportPreviewResult(RequestBuilder<crate::model::ExportPreviewResultRequest>);
 
@@ -1624,6 +1962,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_terraform_versions][super::super::client::Config::list_terraform_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListTerraformVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTerraformVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTerraformVersions(RequestBuilder<crate::model::ListTerraformVersionsRequest>);
 
@@ -1722,6 +2079,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_terraform_version][super::super::client::Config::get_terraform_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetTerraformVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTerraformVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTerraformVersion(RequestBuilder<crate::model::GetTerraformVersionRequest>);
 
@@ -1770,6 +2142,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_locations][super::super::client::Config::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1858,6 +2249,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_location][super::super::client::Config::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1901,6 +2307,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::set_iam_policy][super::super::client::Config::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1966,6 +2387,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_iam_policy][super::super::client::Config::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2020,6 +2456,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::test_iam_permissions][super::super::client::Config::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2081,6 +2532,25 @@ pub mod config {
     }
 
     /// The request builder for [Config::list_operations][super::super::client::Config::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2171,6 +2641,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::get_operation][super::super::client::Config::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2217,6 +2702,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::delete_operation][super::super::client::Config::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2263,6 +2763,21 @@ pub mod config {
     }
 
     /// The request builder for [Config::cancel_operation][super::super::client::Config::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_config_v1::builder;
+    /// use builder::config::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

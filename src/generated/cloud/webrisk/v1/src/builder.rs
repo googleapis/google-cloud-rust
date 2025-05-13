@@ -69,6 +69,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::compute_threat_list_diff][super::super::client::WebRiskService::compute_threat_list_diff] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::ComputeThreatListDiff;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ComputeThreatListDiff {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
 
@@ -138,6 +153,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::search_uris][super::super::client::WebRiskService::search_uris] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::SearchUris;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchUris {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
 
@@ -198,6 +228,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::search_hashes][super::super::client::WebRiskService::search_hashes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::SearchHashes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchHashes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
 
@@ -256,6 +301,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::create_submission][super::super::client::WebRiskService::create_submission] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::CreateSubmission;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSubmission {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
 
@@ -317,6 +377,22 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::submit_uri][super::super::client::WebRiskService::submit_uri] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::SubmitUri;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_webrisk_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitUri {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
 
@@ -431,6 +507,25 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::list_operations][super::super::client::WebRiskService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -523,6 +618,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::get_operation][super::super::client::WebRiskService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -571,6 +681,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::delete_operation][super::super::client::WebRiskService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -619,6 +744,21 @@ pub mod web_risk_service {
     }
 
     /// The request builder for [WebRiskService::cancel_operation][super::super::client::WebRiskService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

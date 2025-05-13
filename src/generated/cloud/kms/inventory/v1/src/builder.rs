@@ -69,6 +69,25 @@ pub mod key_dashboard_service {
     }
 
     /// The request builder for [KeyDashboardService::list_crypto_keys][super::super::client::KeyDashboardService::list_crypto_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_inventory_v1::builder;
+    /// use builder::key_dashboard_service::ListCryptoKeys;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCryptoKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
@@ -207,6 +226,21 @@ pub mod key_tracking_service {
     }
 
     /// The request builder for [KeyTrackingService::get_protected_resources_summary][super::super::client::KeyTrackingService::get_protected_resources_summary] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_inventory_v1::builder;
+    /// use builder::key_tracking_service::GetProtectedResourcesSummary;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProtectedResourcesSummary {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProtectedResourcesSummary(
         RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>,
@@ -259,6 +293,25 @@ pub mod key_tracking_service {
     }
 
     /// The request builder for [KeyTrackingService::search_protected_resources][super::super::client::KeyTrackingService::search_protected_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_inventory_v1::builder;
+    /// use builder::key_tracking_service::SearchProtectedResources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchProtectedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchProtectedResources(
         RequestBuilder<crate::model::SearchProtectedResourcesRequest>,

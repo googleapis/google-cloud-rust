@@ -69,6 +69,25 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::list_templates][super::super::client::ModelArmor::list_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::ListTemplates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
 
@@ -164,6 +183,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::get_template][super::super::client::ModelArmor::get_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::GetTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
 
@@ -211,6 +245,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::create_template][super::super::client::ModelArmor::create_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::CreateTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
 
@@ -283,6 +332,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::update_template][super::super::client::ModelArmor::update_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::UpdateTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
 
@@ -350,6 +414,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::delete_template][super::super::client::ModelArmor::delete_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::DeleteTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
 
@@ -403,6 +482,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::get_floor_setting][super::super::client::ModelArmor::get_floor_setting] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::GetFloorSetting;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFloorSetting {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
 
@@ -450,6 +544,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::update_floor_setting][super::super::client::ModelArmor::update_floor_setting] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::UpdateFloorSetting;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFloorSetting {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
 
@@ -512,6 +621,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::sanitize_user_prompt][super::super::client::ModelArmor::sanitize_user_prompt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::SanitizeUserPrompt;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SanitizeUserPrompt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
 
@@ -573,6 +697,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::sanitize_model_response][super::super::client::ModelArmor::sanitize_model_response] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::SanitizeModelResponse;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SanitizeModelResponse {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
 
@@ -640,6 +779,25 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::list_locations][super::super::client::ModelArmor::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -730,6 +888,21 @@ pub mod model_armor {
     }
 
     /// The request builder for [ModelArmor::get_location][super::super::client::ModelArmor::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

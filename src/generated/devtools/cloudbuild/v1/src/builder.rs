@@ -69,6 +69,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::create_build][super::super::client::CloudBuild::create_build] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::CreateBuild;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBuild {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBuild(RequestBuilder<crate::model::CreateBuildRequest>);
 
@@ -171,6 +187,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::get_build][super::super::client::CloudBuild::get_build] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::GetBuild;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBuild {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBuild(RequestBuilder<crate::model::GetBuildRequest>);
 
@@ -232,6 +263,25 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::list_builds][super::super::client::CloudBuild::list_builds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::ListBuilds;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBuilds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBuilds(RequestBuilder<crate::model::ListBuildsRequest>);
 
@@ -327,6 +377,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::cancel_build][super::super::client::CloudBuild::cancel_build] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::CancelBuild;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelBuild {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelBuild(RequestBuilder<crate::model::CancelBuildRequest>);
 
@@ -388,6 +453,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::retry_build][super::super::client::CloudBuild::retry_build] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::RetryBuild;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetryBuild {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetryBuild(RequestBuilder<crate::model::RetryBuildRequest>);
 
@@ -487,6 +568,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::approve_build][super::super::client::CloudBuild::approve_build] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::ApproveBuild;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveBuild {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveBuild(RequestBuilder<crate::model::ApproveBuildRequest>);
 
@@ -581,6 +678,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::create_build_trigger][super::super::client::CloudBuild::create_build_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::CreateBuildTrigger;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBuildTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBuildTrigger(RequestBuilder<crate::model::CreateBuildTriggerRequest>);
 
@@ -648,6 +760,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::get_build_trigger][super::super::client::CloudBuild::get_build_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::GetBuildTrigger;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBuildTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBuildTrigger(RequestBuilder<crate::model::GetBuildTriggerRequest>);
 
@@ -709,6 +836,25 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::list_build_triggers][super::super::client::CloudBuild::list_build_triggers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::ListBuildTriggers;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBuildTriggers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBuildTriggers(RequestBuilder<crate::model::ListBuildTriggersRequest>);
 
@@ -801,6 +947,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::delete_build_trigger][super::super::client::CloudBuild::delete_build_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::DeleteBuildTrigger;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBuildTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBuildTrigger(RequestBuilder<crate::model::DeleteBuildTriggerRequest>);
 
@@ -865,6 +1026,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::update_build_trigger][super::super::client::CloudBuild::update_build_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::UpdateBuildTrigger;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBuildTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBuildTrigger(RequestBuilder<crate::model::UpdateBuildTriggerRequest>);
 
@@ -943,6 +1119,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::run_build_trigger][super::super::client::CloudBuild::run_build_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::RunBuildTrigger;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunBuildTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunBuildTrigger(RequestBuilder<crate::model::RunBuildTriggerRequest>);
 
@@ -1051,6 +1243,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::receive_trigger_webhook][super::super::client::CloudBuild::receive_trigger_webhook] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::ReceiveTriggerWebhook;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReceiveTriggerWebhook {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReceiveTriggerWebhook(RequestBuilder<crate::model::ReceiveTriggerWebhookRequest>);
 
@@ -1126,6 +1333,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::create_worker_pool][super::super::client::CloudBuild::create_worker_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::CreateWorkerPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkerPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkerPool(RequestBuilder<crate::model::CreateWorkerPoolRequest>);
 
@@ -1242,6 +1465,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::get_worker_pool][super::super::client::CloudBuild::get_worker_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::GetWorkerPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkerPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkerPool(RequestBuilder<crate::model::GetWorkerPoolRequest>);
 
@@ -1289,6 +1527,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::delete_worker_pool][super::super::client::CloudBuild::delete_worker_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::DeleteWorkerPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkerPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkerPool(RequestBuilder<crate::model::DeleteWorkerPoolRequest>);
 
@@ -1402,6 +1656,22 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::update_worker_pool][super::super::client::CloudBuild::update_worker_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::UpdateWorkerPool;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_build_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkerPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkerPool(RequestBuilder<crate::model::UpdateWorkerPoolRequest>);
 
@@ -1511,6 +1781,25 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::list_worker_pools][super::super::client::CloudBuild::list_worker_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::ListWorkerPools;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkerPools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkerPools(RequestBuilder<crate::model::ListWorkerPoolsRequest>);
 
@@ -1594,6 +1883,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::get_operation][super::super::client::CloudBuild::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1642,6 +1946,21 @@ pub mod cloud_build {
     }
 
     /// The request builder for [CloudBuild::cancel_operation][super::super::client::CloudBuild::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

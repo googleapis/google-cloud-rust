@@ -69,6 +69,22 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::export_assets][super::super::client::AssetService::export_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::ExportAssets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_asset_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportAssets(RequestBuilder<crate::model::ExportAssetsRequest>);
 
@@ -202,6 +218,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::list_assets][super::super::client::AssetService::list_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::ListAssets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
@@ -319,6 +354,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::batch_get_assets_history][super::super::client::AssetService::batch_get_assets_history] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::BatchGetAssetsHistory;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchGetAssetsHistory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchGetAssetsHistory(RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>);
 
@@ -406,6 +456,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::create_feed][super::super::client::AssetService::create_feed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::CreateFeed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFeed(RequestBuilder<crate::model::CreateFeedRequest>);
 
@@ -469,6 +534,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::get_feed][super::super::client::AssetService::get_feed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::GetFeed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFeed(RequestBuilder<crate::model::GetFeedRequest>);
 
@@ -516,6 +596,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::list_feeds][super::super::client::AssetService::list_feeds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::ListFeeds;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFeeds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFeeds(RequestBuilder<crate::model::ListFeedsRequest>);
 
@@ -563,6 +658,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::update_feed][super::super::client::AssetService::update_feed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::UpdateFeed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFeed(RequestBuilder<crate::model::UpdateFeedRequest>);
 
@@ -621,6 +731,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::delete_feed][super::super::client::AssetService::delete_feed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::DeleteFeed;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFeed(RequestBuilder<crate::model::DeleteFeedRequest>);
 
@@ -668,6 +793,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::search_all_resources][super::super::client::AssetService::search_all_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::SearchAllResources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchAllResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAllResources(RequestBuilder<crate::model::SearchAllResourcesRequest>);
 
@@ -785,6 +929,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::search_all_iam_policies][super::super::client::AssetService::search_all_iam_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::SearchAllIamPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchAllIamPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAllIamPolicies(RequestBuilder<crate::model::SearchAllIamPoliciesRequest>);
 
@@ -896,6 +1059,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::analyze_iam_policy][super::super::client::AssetService::analyze_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::AnalyzeIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeIamPolicy(RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
 
@@ -966,6 +1144,22 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::analyze_iam_policy_longrunning][super::super::client::AssetService::analyze_iam_policy_longrunning] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::AnalyzeIamPolicyLongrunning;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_asset_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeIamPolicyLongrunning {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeIamPolicyLongrunning(
         RequestBuilder<crate::model::AnalyzeIamPolicyLongrunningRequest>,
@@ -1085,6 +1279,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::analyze_move][super::super::client::AssetService::analyze_move] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::AnalyzeMove;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeMove {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeMove(RequestBuilder<crate::model::AnalyzeMoveRequest>);
 
@@ -1149,6 +1358,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::query_assets][super::super::client::AssetService::query_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::QueryAssets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryAssets(RequestBuilder<crate::model::QueryAssetsRequest>);
 
@@ -1300,6 +1524,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::create_saved_query][super::super::client::AssetService::create_saved_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::CreateSavedQuery;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSavedQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSavedQuery(RequestBuilder<crate::model::CreateSavedQueryRequest>);
 
@@ -1369,6 +1608,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::get_saved_query][super::super::client::AssetService::get_saved_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::GetSavedQuery;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSavedQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSavedQuery(RequestBuilder<crate::model::GetSavedQueryRequest>);
 
@@ -1416,6 +1670,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::list_saved_queries][super::super::client::AssetService::list_saved_queries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::ListSavedQueries;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSavedQueries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSavedQueries(RequestBuilder<crate::model::ListSavedQueriesRequest>);
 
@@ -1508,6 +1781,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::update_saved_query][super::super::client::AssetService::update_saved_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::UpdateSavedQuery;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSavedQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSavedQuery(RequestBuilder<crate::model::UpdateSavedQueryRequest>);
 
@@ -1572,6 +1860,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::delete_saved_query][super::super::client::AssetService::delete_saved_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::DeleteSavedQuery;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSavedQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSavedQuery(RequestBuilder<crate::model::DeleteSavedQueryRequest>);
 
@@ -1622,6 +1925,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::batch_get_effective_iam_policies][super::super::client::AssetService::batch_get_effective_iam_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::BatchGetEffectiveIamPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchGetEffectiveIamPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchGetEffectiveIamPolicies(
         RequestBuilder<crate::model::BatchGetEffectiveIamPoliciesRequest>,
@@ -1687,6 +2005,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::analyze_org_policies][super::super::client::AssetService::analyze_org_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::AnalyzeOrgPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeOrgPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicies(RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>);
 
@@ -1789,6 +2126,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::analyze_org_policy_governed_containers][super::super::client::AssetService::analyze_org_policy_governed_containers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::AnalyzeOrgPolicyGovernedContainers;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeOrgPolicyGovernedContainers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicyGovernedContainers(
         RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>,
@@ -1897,6 +2253,25 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::analyze_org_policy_governed_assets][super::super::client::AssetService::analyze_org_policy_governed_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::AnalyzeOrgPolicyGovernedAssets;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeOrgPolicyGovernedAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeOrgPolicyGovernedAssets(
         RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>,
@@ -2003,6 +2378,21 @@ pub mod asset_service {
     }
 
     /// The request builder for [AssetService::get_operation][super::super::client::AssetService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_asset_v1::builder;
+    /// use builder::asset_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

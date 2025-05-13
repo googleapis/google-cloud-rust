@@ -69,6 +69,25 @@ pub mod advisory_notifications_service {
     }
 
     /// The request builder for [AdvisoryNotificationsService::list_notifications][super::super::client::AdvisoryNotificationsService::list_notifications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::ListNotifications;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNotifications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotifications(RequestBuilder<crate::model::ListNotificationsRequest>);
 
@@ -167,6 +186,21 @@ pub mod advisory_notifications_service {
     }
 
     /// The request builder for [AdvisoryNotificationsService::get_notification][super::super::client::AdvisoryNotificationsService::get_notification] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::GetNotification;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNotification {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotification(RequestBuilder<crate::model::GetNotificationRequest>);
 
@@ -220,6 +254,21 @@ pub mod advisory_notifications_service {
     }
 
     /// The request builder for [AdvisoryNotificationsService::get_settings][super::super::client::AdvisoryNotificationsService::get_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::GetSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
@@ -267,6 +316,21 @@ pub mod advisory_notifications_service {
     }
 
     /// The request builder for [AdvisoryNotificationsService::update_settings][super::super::client::AdvisoryNotificationsService::update_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::UpdateSettings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 

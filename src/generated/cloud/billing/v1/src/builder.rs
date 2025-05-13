@@ -69,6 +69,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::get_billing_account][super::super::client::CloudBilling::get_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::GetBillingAccount;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBillingAccount(RequestBuilder<crate::model::GetBillingAccountRequest>);
 
@@ -119,6 +134,25 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::list_billing_accounts][super::super::client::CloudBilling::list_billing_accounts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::ListBillingAccounts;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBillingAccounts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBillingAccounts(RequestBuilder<crate::model::ListBillingAccountsRequest>);
 
@@ -211,6 +245,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::update_billing_account][super::super::client::CloudBilling::update_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::UpdateBillingAccount;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBillingAccount(RequestBuilder<crate::model::UpdateBillingAccountRequest>);
 
@@ -281,6 +330,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::create_billing_account][super::super::client::CloudBilling::create_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::CreateBillingAccount;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBillingAccount(RequestBuilder<crate::model::CreateBillingAccountRequest>);
 
@@ -340,6 +404,25 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::list_project_billing_info][super::super::client::CloudBilling::list_project_billing_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::ListProjectBillingInfo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProjectBillingInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProjectBillingInfo(RequestBuilder<crate::model::ListProjectBillingInfoRequest>);
 
@@ -430,6 +513,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::get_project_billing_info][super::super::client::CloudBilling::get_project_billing_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::GetProjectBillingInfo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProjectBillingInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProjectBillingInfo(RequestBuilder<crate::model::GetProjectBillingInfoRequest>);
 
@@ -480,6 +578,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::update_project_billing_info][super::super::client::CloudBilling::update_project_billing_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::UpdateProjectBillingInfo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProjectBillingInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProjectBillingInfo(
         RequestBuilder<crate::model::UpdateProjectBillingInfoRequest>,
@@ -543,6 +656,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::get_iam_policy][super::super::client::CloudBilling::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -599,6 +727,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::set_iam_policy][super::super::client::CloudBilling::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -666,6 +809,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::test_iam_permissions][super::super::client::CloudBilling::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -729,6 +887,21 @@ pub mod cloud_billing {
     }
 
     /// The request builder for [CloudBilling::move_billing_account][super::super::client::CloudBilling::move_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::MoveBillingAccount;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveBillingAccount(RequestBuilder<crate::model::MoveBillingAccountRequest>);
 
@@ -842,6 +1015,25 @@ pub mod cloud_catalog {
     }
 
     /// The request builder for [CloudCatalog::list_services][super::super::client::CloudCatalog::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_catalog::ListServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -917,6 +1109,25 @@ pub mod cloud_catalog {
     }
 
     /// The request builder for [CloudCatalog::list_skus][super::super::client::CloudCatalog::list_skus] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_catalog::ListSkus;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSkus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSkus(RequestBuilder<crate::model::ListSkusRequest>);
 

@@ -69,6 +69,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][super::super::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::CreateAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAutoscalingPolicy(
         RequestBuilder<crate::model::CreateAutoscalingPolicyRequest>,
@@ -132,6 +147,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][super::super::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::UpdateAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutoscalingPolicy(
         RequestBuilder<crate::model::UpdateAutoscalingPolicyRequest>,
@@ -187,6 +217,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][super::super::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::GetAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutoscalingPolicy(RequestBuilder<crate::model::GetAutoscalingPolicyRequest>);
 
@@ -237,6 +282,25 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][super::super::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::ListAutoscalingPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAutoscalingPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutoscalingPolicies(
         RequestBuilder<crate::model::ListAutoscalingPoliciesRequest>,
@@ -329,6 +393,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][super::super::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::DeleteAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAutoscalingPolicy(
         RequestBuilder<crate::model::DeleteAutoscalingPolicyRequest>,
@@ -381,6 +460,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::set_iam_policy][super::super::client::AutoscalingPolicyService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -448,6 +542,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::get_iam_policy][super::super::client::AutoscalingPolicyService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -504,6 +613,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::test_iam_permissions][super::super::client::AutoscalingPolicyService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -567,6 +691,25 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::list_operations][super::super::client::AutoscalingPolicyService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -659,6 +802,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::get_operation][super::super::client::AutoscalingPolicyService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -707,6 +865,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::delete_operation][super::super::client::AutoscalingPolicyService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -755,6 +928,21 @@ pub mod autoscaling_policy_service {
     }
 
     /// The request builder for [AutoscalingPolicyService::cancel_operation][super::super::client::AutoscalingPolicyService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -858,6 +1046,22 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::create_batch][super::super::client::BatchController::create_batch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::CreateBatch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBatch(RequestBuilder<crate::model::CreateBatchRequest>);
 
@@ -966,6 +1170,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::get_batch][super::super::client::BatchController::get_batch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::GetBatch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBatch(RequestBuilder<crate::model::GetBatchRequest>);
 
@@ -1013,6 +1232,25 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::list_batches][super::super::client::BatchController::list_batches] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::ListBatches;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBatches {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBatches(RequestBuilder<crate::model::ListBatchesRequest>);
 
@@ -1108,6 +1346,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::delete_batch][super::super::client::BatchController::delete_batch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::DeleteBatch;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBatch(RequestBuilder<crate::model::DeleteBatchRequest>);
 
@@ -1155,6 +1408,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::set_iam_policy][super::super::client::BatchController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1222,6 +1490,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::get_iam_policy][super::super::client::BatchController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1278,6 +1561,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::test_iam_permissions][super::super::client::BatchController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1341,6 +1639,25 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::list_operations][super::super::client::BatchController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1433,6 +1750,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::get_operation][super::super::client::BatchController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1481,6 +1813,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::delete_operation][super::super::client::BatchController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1529,6 +1876,21 @@ pub mod batch_controller {
     }
 
     /// The request builder for [BatchController::cancel_operation][super::super::client::BatchController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -1632,6 +1994,22 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::create_cluster][super::super::client::ClusterController::create_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::CreateCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
@@ -1754,6 +2132,22 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::update_cluster][super::super::client::ClusterController::update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::UpdateCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
@@ -1895,6 +2289,22 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::stop_cluster][super::super::client::ClusterController::stop_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::StopCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopCluster(RequestBuilder<crate::model::StopClusterRequest>);
 
@@ -2011,6 +2421,22 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::start_cluster][super::super::client::ClusterController::start_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::StartCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartCluster(RequestBuilder<crate::model::StartClusterRequest>);
 
@@ -2127,6 +2553,22 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::delete_cluster][super::super::client::ClusterController::delete_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::DeleteCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
@@ -2243,6 +2685,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::get_cluster][super::super::client::ClusterController::get_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::GetCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
@@ -2306,6 +2763,25 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::list_clusters][super::super::client::ClusterController::list_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::ListClusters;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
@@ -2403,6 +2879,22 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::diagnose_cluster][super::super::client::ClusterController::diagnose_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::DiagnoseCluster;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiagnoseCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiagnoseCluster(RequestBuilder<crate::model::DiagnoseClusterRequest>);
 
@@ -2555,6 +3047,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::set_iam_policy][super::super::client::ClusterController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -2622,6 +3129,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::get_iam_policy][super::super::client::ClusterController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -2678,6 +3200,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::test_iam_permissions][super::super::client::ClusterController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -2741,6 +3278,25 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::list_operations][super::super::client::ClusterController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -2833,6 +3389,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::get_operation][super::super::client::ClusterController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -2881,6 +3452,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::delete_operation][super::super::client::ClusterController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2929,6 +3515,21 @@ pub mod cluster_controller {
     }
 
     /// The request builder for [ClusterController::cancel_operation][super::super::client::ClusterController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -3032,6 +3633,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::submit_job][super::super::client::JobController::submit_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::SubmitJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitJob(RequestBuilder<crate::model::SubmitJobRequest>);
 
@@ -3101,6 +3717,22 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::submit_job_as_operation][super::super::client::JobController::submit_job_as_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::SubmitJobAsOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitJobAsOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitJobAsOperation(RequestBuilder<crate::model::SubmitJobRequest>);
 
@@ -3205,6 +3837,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::get_job][super::super::client::JobController::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::GetJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -3268,6 +3915,25 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::list_jobs][super::super::client::JobController::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -3380,6 +4046,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::update_job][super::super::client::JobController::update_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::UpdateJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
@@ -3462,6 +4143,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::cancel_job][super::super::client::JobController::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::CancelJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
@@ -3525,6 +4221,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::delete_job][super::super::client::JobController::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::DeleteJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -3588,6 +4299,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::set_iam_policy][super::super::client::JobController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3655,6 +4381,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::get_iam_policy][super::super::client::JobController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3711,6 +4452,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::test_iam_permissions][super::super::client::JobController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3774,6 +4530,25 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::list_operations][super::super::client::JobController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3866,6 +4641,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::get_operation][super::super::client::JobController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3914,6 +4704,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::delete_operation][super::super::client::JobController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3962,6 +4767,21 @@ pub mod job_controller {
     }
 
     /// The request builder for [JobController::cancel_operation][super::super::client::JobController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -4065,6 +4885,22 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::create_node_group][super::super::client::NodeGroupController::create_node_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::CreateNodeGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNodeGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNodeGroup(RequestBuilder<crate::model::CreateNodeGroupRequest>);
 
@@ -4176,6 +5012,22 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::resize_node_group][super::super::client::NodeGroupController::resize_node_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::ResizeNodeGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResizeNodeGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResizeNodeGroup(RequestBuilder<crate::model::ResizeNodeGroupRequest>);
 
@@ -4287,6 +5139,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::get_node_group][super::super::client::NodeGroupController::get_node_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::GetNodeGroup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNodeGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNodeGroup(RequestBuilder<crate::model::GetNodeGroupRequest>);
 
@@ -4334,6 +5201,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::set_iam_policy][super::super::client::NodeGroupController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -4401,6 +5283,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::get_iam_policy][super::super::client::NodeGroupController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -4457,6 +5354,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::test_iam_permissions][super::super::client::NodeGroupController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -4520,6 +5432,25 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::list_operations][super::super::client::NodeGroupController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -4612,6 +5543,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::get_operation][super::super::client::NodeGroupController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -4660,6 +5606,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::delete_operation][super::super::client::NodeGroupController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -4708,6 +5669,21 @@ pub mod node_group_controller {
     }
 
     /// The request builder for [NodeGroupController::cancel_operation][super::super::client::NodeGroupController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -4811,6 +5787,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::create_session_template][super::super::client::SessionTemplateController::create_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::CreateSessionTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSessionTemplate(RequestBuilder<crate::model::CreateSessionTemplateRequest>);
 
@@ -4872,6 +5863,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::update_session_template][super::super::client::SessionTemplateController::update_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::UpdateSessionTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSessionTemplate(RequestBuilder<crate::model::UpdateSessionTemplateRequest>);
 
@@ -4925,6 +5931,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::get_session_template][super::super::client::SessionTemplateController::get_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::GetSessionTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSessionTemplate(RequestBuilder<crate::model::GetSessionTemplateRequest>);
 
@@ -4975,6 +5996,25 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::list_session_templates][super::super::client::SessionTemplateController::list_session_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::ListSessionTemplates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSessionTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSessionTemplates(RequestBuilder<crate::model::ListSessionTemplatesRequest>);
 
@@ -5069,6 +6109,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::delete_session_template][super::super::client::SessionTemplateController::delete_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::DeleteSessionTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSessionTemplate(RequestBuilder<crate::model::DeleteSessionTemplateRequest>);
 
@@ -5119,6 +6174,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::set_iam_policy][super::super::client::SessionTemplateController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -5186,6 +6256,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::get_iam_policy][super::super::client::SessionTemplateController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -5242,6 +6327,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::test_iam_permissions][super::super::client::SessionTemplateController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -5305,6 +6405,25 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::list_operations][super::super::client::SessionTemplateController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -5397,6 +6516,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::get_operation][super::super::client::SessionTemplateController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -5445,6 +6579,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::delete_operation][super::super::client::SessionTemplateController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -5493,6 +6642,21 @@ pub mod session_template_controller {
     }
 
     /// The request builder for [SessionTemplateController::cancel_operation][super::super::client::SessionTemplateController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -5596,6 +6760,22 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::create_session][super::super::client::SessionController::create_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::CreateSession;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSession(RequestBuilder<crate::model::CreateSessionRequest>);
 
@@ -5709,6 +6889,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::get_session][super::super::client::SessionController::get_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::GetSession;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSession(RequestBuilder<crate::model::GetSessionRequest>);
 
@@ -5756,6 +6951,25 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::list_sessions][super::super::client::SessionController::list_sessions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::ListSessions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSessions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
@@ -5845,6 +7059,22 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::terminate_session][super::super::client::SessionController::terminate_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::TerminateSession;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TerminateSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TerminateSession(RequestBuilder<crate::model::TerminateSessionRequest>);
 
@@ -5942,6 +7172,22 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::delete_session][super::super::client::SessionController::delete_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::DeleteSession;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSession(RequestBuilder<crate::model::DeleteSessionRequest>);
 
@@ -6036,6 +7282,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::set_iam_policy][super::super::client::SessionController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -6103,6 +7364,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::get_iam_policy][super::super::client::SessionController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -6159,6 +7435,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::test_iam_permissions][super::super::client::SessionController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -6222,6 +7513,25 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::list_operations][super::super::client::SessionController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -6314,6 +7624,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::get_operation][super::super::client::SessionController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -6362,6 +7687,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::delete_operation][super::super::client::SessionController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -6410,6 +7750,21 @@ pub mod session_controller {
     }
 
     /// The request builder for [SessionController::cancel_operation][super::super::client::SessionController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
@@ -6513,6 +7868,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::create_workflow_template][super::super::client::WorkflowTemplateService::create_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::CreateWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkflowTemplate(RequestBuilder<crate::model::CreateWorkflowTemplateRequest>);
 
@@ -6574,6 +7944,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::get_workflow_template][super::super::client::WorkflowTemplateService::get_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::GetWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkflowTemplate(RequestBuilder<crate::model::GetWorkflowTemplateRequest>);
 
@@ -6630,6 +8015,22 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][super::super::client::WorkflowTemplateService::instantiate_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::InstantiateWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InstantiateWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InstantiateWorkflowTemplate(
         RequestBuilder<crate::model::InstantiateWorkflowTemplateRequest>,
@@ -6745,6 +8146,22 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][super::super::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_dataproc_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InstantiateInlineWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InstantiateInlineWorkflowTemplate(
         RequestBuilder<crate::model::InstantiateInlineWorkflowTemplateRequest>,
@@ -6854,6 +8271,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::update_workflow_template][super::super::client::WorkflowTemplateService::update_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::UpdateWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkflowTemplate(RequestBuilder<crate::model::UpdateWorkflowTemplateRequest>);
 
@@ -6907,6 +8339,25 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::list_workflow_templates][super::super::client::WorkflowTemplateService::list_workflow_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::ListWorkflowTemplates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkflowTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflowTemplates(RequestBuilder<crate::model::ListWorkflowTemplatesRequest>);
 
@@ -6995,6 +8446,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::delete_workflow_template][super::super::client::WorkflowTemplateService::delete_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::DeleteWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflowTemplate(RequestBuilder<crate::model::DeleteWorkflowTemplateRequest>);
 
@@ -7051,6 +8517,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::set_iam_policy][super::super::client::WorkflowTemplateService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -7118,6 +8599,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::get_iam_policy][super::super::client::WorkflowTemplateService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -7174,6 +8670,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::test_iam_permissions][super::super::client::WorkflowTemplateService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -7237,6 +8748,25 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::list_operations][super::super::client::WorkflowTemplateService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -7329,6 +8859,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::get_operation][super::super::client::WorkflowTemplateService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -7377,6 +8922,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::delete_operation][super::super::client::WorkflowTemplateService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -7425,6 +8985,21 @@ pub mod workflow_template_service {
     }
 
     /// The request builder for [WorkflowTemplateService::cancel_operation][super::super::client::WorkflowTemplateService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

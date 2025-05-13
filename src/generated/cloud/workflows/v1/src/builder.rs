@@ -69,6 +69,25 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::list_workflows][super::super::client::Workflows::list_workflows] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListWorkflows;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkflows {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflows(RequestBuilder<crate::model::ListWorkflowsRequest>);
 
@@ -164,6 +183,21 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::get_workflow][super::super::client::Workflows::get_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::GetWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkflow(RequestBuilder<crate::model::GetWorkflowRequest>);
 
@@ -217,6 +251,22 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::create_workflow][super::super::client::Workflows::create_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::CreateWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workflows_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkflow(RequestBuilder<crate::model::CreateWorkflowRequest>);
 
@@ -321,6 +371,22 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::delete_workflow][super::super::client::Workflows::delete_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::DeleteWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workflows_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflow(RequestBuilder<crate::model::DeleteWorkflowRequest>);
 
@@ -408,6 +474,22 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::update_workflow][super::super::client::Workflows::update_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::UpdateWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_workflows_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkflow(RequestBuilder<crate::model::UpdateWorkflowRequest>);
 
@@ -505,6 +587,25 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::list_workflow_revisions][super::super::client::Workflows::list_workflow_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListWorkflowRevisions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkflowRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflowRevisions(RequestBuilder<crate::model::ListWorkflowRevisionsRequest>);
 
@@ -593,6 +694,25 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::list_locations][super::super::client::Workflows::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -683,6 +803,21 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::get_location][super::super::client::Workflows::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -728,6 +863,25 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::list_operations][super::super::client::Workflows::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -820,6 +974,21 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::get_operation][super::super::client::Workflows::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -868,6 +1037,21 @@ pub mod workflows {
     }
 
     /// The request builder for [Workflows::delete_operation][super::super::client::Workflows::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 

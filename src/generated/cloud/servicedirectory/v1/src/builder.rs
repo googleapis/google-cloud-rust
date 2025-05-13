@@ -69,6 +69,21 @@ pub mod lookup_service {
     }
 
     /// The request builder for [LookupService::resolve_service][super::super::client::LookupService::resolve_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::lookup_service::ResolveService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResolveService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResolveService(RequestBuilder<crate::model::ResolveServiceRequest>);
 
@@ -128,6 +143,25 @@ pub mod lookup_service {
     }
 
     /// The request builder for [LookupService::list_locations][super::super::client::LookupService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::lookup_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -218,6 +252,21 @@ pub mod lookup_service {
     }
 
     /// The request builder for [LookupService::get_location][super::super::client::LookupService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::lookup_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -318,6 +367,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::create_namespace][super::super::client::RegistrationService::create_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::CreateNamespace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNamespace(RequestBuilder<crate::model::CreateNamespaceRequest>);
 
@@ -384,6 +448,25 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::list_namespaces][super::super::client::RegistrationService::list_namespaces] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListNamespaces;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNamespaces {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNamespaces(RequestBuilder<crate::model::ListNamespacesRequest>);
 
@@ -479,6 +562,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::get_namespace][super::super::client::RegistrationService::get_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetNamespace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNamespace(RequestBuilder<crate::model::GetNamespaceRequest>);
 
@@ -526,6 +624,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::update_namespace][super::super::client::RegistrationService::update_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::UpdateNamespace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNamespace(RequestBuilder<crate::model::UpdateNamespaceRequest>);
 
@@ -587,6 +700,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::delete_namespace][super::super::client::RegistrationService::delete_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::DeleteNamespace;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNamespace(RequestBuilder<crate::model::DeleteNamespaceRequest>);
 
@@ -634,6 +762,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::create_service][super::super::client::RegistrationService::create_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::CreateService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
@@ -700,6 +843,25 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::list_services][super::super::client::RegistrationService::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListServices;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
@@ -795,6 +957,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::get_service][super::super::client::RegistrationService::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
@@ -842,6 +1019,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::update_service][super::super::client::RegistrationService::update_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::UpdateService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
@@ -903,6 +1095,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::delete_service][super::super::client::RegistrationService::delete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::DeleteService;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
@@ -950,6 +1157,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::create_endpoint][super::super::client::RegistrationService::create_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::CreateEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
@@ -1016,6 +1238,25 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::list_endpoints][super::super::client::RegistrationService::list_endpoints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListEndpoints;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEndpoints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
@@ -1111,6 +1352,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::get_endpoint][super::super::client::RegistrationService::get_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
@@ -1158,6 +1414,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::update_endpoint][super::super::client::RegistrationService::update_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::UpdateEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEndpoint(RequestBuilder<crate::model::UpdateEndpointRequest>);
 
@@ -1219,6 +1490,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::delete_endpoint][super::super::client::RegistrationService::delete_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::DeleteEndpoint;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
@@ -1266,6 +1552,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::get_iam_policy][super::super::client::RegistrationService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1322,6 +1623,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::set_iam_policy][super::super::client::RegistrationService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1389,6 +1705,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::test_iam_permissions][super::super::client::RegistrationService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1452,6 +1783,25 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::list_locations][super::super::client::RegistrationService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1542,6 +1892,21 @@ pub mod registration_service {
     }
 
     /// The request builder for [RegistrationService::get_location][super::super::client::RegistrationService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

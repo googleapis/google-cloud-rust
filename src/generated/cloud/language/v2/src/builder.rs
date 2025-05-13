@@ -69,6 +69,21 @@ pub mod language_service {
     }
 
     /// The request builder for [LanguageService::analyze_sentiment][super::super::client::LanguageService::analyze_sentiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::AnalyzeSentiment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeSentiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeSentiment(RequestBuilder<crate::model::AnalyzeSentimentRequest>);
 
@@ -128,6 +143,21 @@ pub mod language_service {
     }
 
     /// The request builder for [LanguageService::analyze_entities][super::super::client::LanguageService::analyze_entities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::AnalyzeEntities;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeEntities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeEntities(RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
 
@@ -184,6 +214,21 @@ pub mod language_service {
     }
 
     /// The request builder for [LanguageService::classify_text][super::super::client::LanguageService::classify_text] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::ClassifyText;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ClassifyText {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ClassifyText(RequestBuilder<crate::model::ClassifyTextRequest>);
 
@@ -234,6 +279,21 @@ pub mod language_service {
     }
 
     /// The request builder for [LanguageService::moderate_text][super::super::client::LanguageService::moderate_text] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::ModerateText;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModerateText {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModerateText(RequestBuilder<crate::model::ModerateTextRequest>);
 
@@ -293,6 +353,21 @@ pub mod language_service {
     }
 
     /// The request builder for [LanguageService::annotate_text][super::super::client::LanguageService::annotate_text] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::AnnotateText;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnnotateText {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnnotateText(RequestBuilder<crate::model::AnnotateTextRequest>);
 

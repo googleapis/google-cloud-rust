@@ -69,6 +69,22 @@ pub mod video_intelligence_service {
     }
 
     /// The request builder for [VideoIntelligenceService::annotate_video][super::super::client::VideoIntelligenceService::annotate_video] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::AnnotateVideo;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_videointelligence_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnnotateVideo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnnotateVideo(RequestBuilder<crate::model::AnnotateVideoRequest>);
 
@@ -195,6 +211,25 @@ pub mod video_intelligence_service {
     }
 
     /// The request builder for [VideoIntelligenceService::list_operations][super::super::client::VideoIntelligenceService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -287,6 +322,21 @@ pub mod video_intelligence_service {
     }
 
     /// The request builder for [VideoIntelligenceService::get_operation][super::super::client::VideoIntelligenceService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -335,6 +385,21 @@ pub mod video_intelligence_service {
     }
 
     /// The request builder for [VideoIntelligenceService::delete_operation][super::super::client::VideoIntelligenceService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -383,6 +448,21 @@ pub mod video_intelligence_service {
     }
 
     /// The request builder for [VideoIntelligenceService::cancel_operation][super::super::client::VideoIntelligenceService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

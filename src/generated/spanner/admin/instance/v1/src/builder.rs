@@ -69,6 +69,25 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::list_instance_configs][super::super::client::InstanceAdmin::list_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
@@ -157,6 +176,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::get_instance_config][super::super::client::InstanceAdmin::get_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetInstanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
@@ -207,6 +241,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::create_instance_config][super::super::client::InstanceAdmin::create_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CreateInstanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
@@ -323,6 +373,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::update_instance_config][super::super::client::InstanceAdmin::update_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::UpdateInstanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
@@ -434,6 +500,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::delete_instance_config][super::super::client::InstanceAdmin::delete_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteInstanceConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
@@ -496,6 +577,25 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::list_instance_config_operations][super::super::client::InstanceAdmin::list_instance_config_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstanceConfigOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstanceConfigOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigOperations(
         RequestBuilder<crate::model::ListInstanceConfigOperationsRequest>,
@@ -594,6 +694,25 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::list_instances][super::super::client::InstanceAdmin::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -692,6 +811,25 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::list_instance_partitions][super::super::client::InstanceAdmin::list_instance_partitions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstancePartitions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstancePartitions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
@@ -791,6 +929,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::get_instance][super::super::client::InstanceAdmin::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -847,6 +1000,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::create_instance][super::super::client::InstanceAdmin::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -954,6 +1123,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::update_instance][super::super::client::InstanceAdmin::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -1056,6 +1241,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::delete_instance][super::super::client::InstanceAdmin::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -1103,6 +1303,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::set_iam_policy][super::super::client::InstanceAdmin::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1170,6 +1385,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::get_iam_policy][super::super::client::InstanceAdmin::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1226,6 +1456,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::test_iam_permissions][super::super::client::InstanceAdmin::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1289,6 +1534,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::get_instance_partition][super::super::client::InstanceAdmin::get_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetInstancePartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
@@ -1339,6 +1599,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CreateInstancePartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstancePartition(
         RequestBuilder<crate::model::CreateInstancePartitionRequest>,
@@ -1455,6 +1731,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::delete_instance_partition][super::super::client::InstanceAdmin::delete_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteInstancePartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstancePartition(
         RequestBuilder<crate::model::DeleteInstancePartitionRequest>,
@@ -1513,6 +1804,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::UpdateInstancePartition;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstancePartition(
         RequestBuilder<crate::model::UpdateInstancePartitionRequest>,
@@ -1624,6 +1931,25 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::list_instance_partition_operations][super::super::client::InstanceAdmin::list_instance_partition_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstancePartitionOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstancePartitionOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitionOperations(
         RequestBuilder<crate::model::ListInstancePartitionOperationsRequest>,
@@ -1731,6 +2057,22 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::move_instance][super::super::client::InstanceAdmin::move_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::MoveInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
@@ -1827,6 +2169,25 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::list_operations][super::super::client::InstanceAdmin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1919,6 +2280,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::get_operation][super::super::client::InstanceAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1967,6 +2343,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::delete_operation][super::super::client::InstanceAdmin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -2015,6 +2406,21 @@ pub mod instance_admin {
     }
 
     /// The request builder for [InstanceAdmin::cancel_operation][super::super::client::InstanceAdmin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

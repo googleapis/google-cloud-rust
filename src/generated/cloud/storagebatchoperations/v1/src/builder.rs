@@ -69,6 +69,25 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::list_jobs][super::super::client::StorageBatchOperations::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -164,6 +183,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::get_job][super::super::client::StorageBatchOperations::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::GetJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -211,6 +245,22 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::create_job][super::super::client::StorageBatchOperations::create_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::CreateJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_storagebatchoperations_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
@@ -318,6 +368,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::delete_job][super::super::client::StorageBatchOperations::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::DeleteJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -371,6 +436,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::cancel_job][super::super::client::StorageBatchOperations::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::CancelJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
@@ -424,6 +504,25 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::list_locations][super::super::client::StorageBatchOperations::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -514,6 +613,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::get_location][super::super::client::StorageBatchOperations::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -559,6 +673,25 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::list_operations][super::super::client::StorageBatchOperations::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -651,6 +784,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::get_operation][super::super::client::StorageBatchOperations::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -699,6 +847,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::delete_operation][super::super::client::StorageBatchOperations::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -747,6 +910,21 @@ pub mod storage_batch_operations {
     }
 
     /// The request builder for [StorageBatchOperations::cancel_operation][super::super::client::StorageBatchOperations::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

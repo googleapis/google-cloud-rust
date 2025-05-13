@@ -69,6 +69,21 @@ pub mod simulator {
     }
 
     /// The request builder for [Simulator::get_replay][super::super::client::Simulator::get_replay] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::GetReplay;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReplay {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReplay(RequestBuilder<crate::model::GetReplayRequest>);
 
@@ -116,6 +131,22 @@ pub mod simulator {
     }
 
     /// The request builder for [Simulator::create_replay][super::super::client::Simulator::create_replay] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::CreateReplay;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_policysimulator_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReplay {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReplay(RequestBuilder<crate::model::CreateReplayRequest>);
 
@@ -214,6 +245,25 @@ pub mod simulator {
     }
 
     /// The request builder for [Simulator::list_replay_results][super::super::client::Simulator::list_replay_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::ListReplayResults;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReplayResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReplayResults(RequestBuilder<crate::model::ListReplayResultsRequest>);
 
@@ -300,6 +350,25 @@ pub mod simulator {
     }
 
     /// The request builder for [Simulator::list_operations][super::super::client::Simulator::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -392,6 +461,21 @@ pub mod simulator {
     }
 
     /// The request builder for [Simulator::get_operation][super::super::client::Simulator::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

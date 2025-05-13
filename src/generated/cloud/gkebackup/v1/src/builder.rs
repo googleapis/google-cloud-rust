@@ -69,6 +69,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::create_backup_plan][super::super::client::BackupForGKE::create_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CreateBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
@@ -176,6 +192,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_backup_plans][super::super::client::BackupForGKE::list_backup_plans] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListBackupPlans;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupPlans {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
@@ -271,6 +306,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_backup_plan][super::super::client::BackupForGKE::get_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
@@ -318,6 +368,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::update_backup_plan][super::super::client::BackupForGKE::update_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::UpdateBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupPlan(RequestBuilder<crate::model::UpdateBackupPlanRequest>);
 
@@ -418,6 +484,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_backup_plan][super::super::client::BackupForGKE::delete_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
@@ -514,6 +596,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::create_backup_channel][super::super::client::BackupForGKE::create_backup_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CreateBackupChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupChannel(RequestBuilder<crate::model::CreateBackupChannelRequest>);
 
@@ -622,6 +720,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_backup_channels][super::super::client::BackupForGKE::list_backup_channels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListBackupChannels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupChannels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupChannels(RequestBuilder<crate::model::ListBackupChannelsRequest>);
 
@@ -722,6 +839,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_backup_channel][super::super::client::BackupForGKE::get_backup_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetBackupChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupChannel(RequestBuilder<crate::model::GetBackupChannelRequest>);
 
@@ -772,6 +904,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::update_backup_channel][super::super::client::BackupForGKE::update_backup_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::UpdateBackupChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupChannel(RequestBuilder<crate::model::UpdateBackupChannelRequest>);
 
@@ -875,6 +1023,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_backup_channel][super::super::client::BackupForGKE::delete_backup_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteBackupChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupChannel(RequestBuilder<crate::model::DeleteBackupChannelRequest>);
 
@@ -977,6 +1141,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_backup_plan_bindings][super::super::client::BackupForGKE::list_backup_plan_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListBackupPlanBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupPlanBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPlanBindings(RequestBuilder<crate::model::ListBackupPlanBindingsRequest>);
 
@@ -1079,6 +1262,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_backup_plan_binding][super::super::client::BackupForGKE::get_backup_plan_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetBackupPlanBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupPlanBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupPlanBinding(RequestBuilder<crate::model::GetBackupPlanBindingRequest>);
 
@@ -1129,6 +1327,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::create_backup][super::super::client::BackupForGKE::create_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CreateBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
@@ -1229,6 +1443,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_backups][super::super::client::BackupForGKE::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
@@ -1330,6 +1563,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_backup][super::super::client::BackupForGKE::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
@@ -1377,6 +1625,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::update_backup][super::super::client::BackupForGKE::update_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::UpdateBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
@@ -1474,6 +1738,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_backup][super::super::client::BackupForGKE::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
@@ -1573,6 +1853,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_volume_backups][super::super::client::BackupForGKE::list_volume_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListVolumeBackups;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumeBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumeBackups(RequestBuilder<crate::model::ListVolumeBackupsRequest>);
 
@@ -1671,6 +1970,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_volume_backup][super::super::client::BackupForGKE::get_volume_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetVolumeBackup;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolumeBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolumeBackup(RequestBuilder<crate::model::GetVolumeBackupRequest>);
 
@@ -1718,6 +2032,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::create_restore_plan][super::super::client::BackupForGKE::create_restore_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CreateRestorePlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRestorePlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRestorePlan(RequestBuilder<crate::model::CreateRestorePlanRequest>);
 
@@ -1827,6 +2157,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_restore_plans][super::super::client::BackupForGKE::list_restore_plans] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListRestorePlans;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRestorePlans {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestorePlans(RequestBuilder<crate::model::ListRestorePlansRequest>);
 
@@ -1925,6 +2274,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_restore_plan][super::super::client::BackupForGKE::get_restore_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetRestorePlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRestorePlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestorePlan(RequestBuilder<crate::model::GetRestorePlanRequest>);
 
@@ -1972,6 +2336,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::update_restore_plan][super::super::client::BackupForGKE::update_restore_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::UpdateRestorePlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRestorePlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRestorePlan(RequestBuilder<crate::model::UpdateRestorePlanRequest>);
 
@@ -2074,6 +2454,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_restore_plan][super::super::client::BackupForGKE::delete_restore_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteRestorePlan;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRestorePlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRestorePlan(RequestBuilder<crate::model::DeleteRestorePlanRequest>);
 
@@ -2176,6 +2572,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::create_restore_channel][super::super::client::BackupForGKE::create_restore_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CreateRestoreChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRestoreChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRestoreChannel(RequestBuilder<crate::model::CreateRestoreChannelRequest>);
 
@@ -2284,6 +2696,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_restore_channels][super::super::client::BackupForGKE::list_restore_channels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListRestoreChannels;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRestoreChannels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestoreChannels(RequestBuilder<crate::model::ListRestoreChannelsRequest>);
 
@@ -2384,6 +2815,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_restore_channel][super::super::client::BackupForGKE::get_restore_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetRestoreChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRestoreChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestoreChannel(RequestBuilder<crate::model::GetRestoreChannelRequest>);
 
@@ -2434,6 +2880,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::update_restore_channel][super::super::client::BackupForGKE::update_restore_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::UpdateRestoreChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRestoreChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRestoreChannel(RequestBuilder<crate::model::UpdateRestoreChannelRequest>);
 
@@ -2537,6 +2999,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_restore_channel][super::super::client::BackupForGKE::delete_restore_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteRestoreChannel;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRestoreChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRestoreChannel(RequestBuilder<crate::model::DeleteRestoreChannelRequest>);
 
@@ -2633,6 +3111,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_restore_plan_bindings][super::super::client::BackupForGKE::list_restore_plan_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListRestorePlanBindings;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRestorePlanBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestorePlanBindings(
         RequestBuilder<crate::model::ListRestorePlanBindingsRequest>,
@@ -2737,6 +3234,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_restore_plan_binding][super::super::client::BackupForGKE::get_restore_plan_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetRestorePlanBinding;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRestorePlanBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestorePlanBinding(RequestBuilder<crate::model::GetRestorePlanBindingRequest>);
 
@@ -2787,6 +3299,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::create_restore][super::super::client::BackupForGKE::create_restore] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CreateRestore;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRestore {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRestore(RequestBuilder<crate::model::CreateRestoreRequest>);
 
@@ -2891,6 +3419,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_restores][super::super::client::BackupForGKE::list_restores] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListRestores;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRestores {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRestores(RequestBuilder<crate::model::ListRestoresRequest>);
 
@@ -2986,6 +3533,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_restore][super::super::client::BackupForGKE::get_restore] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetRestore;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRestore {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRestore(RequestBuilder<crate::model::GetRestoreRequest>);
 
@@ -3033,6 +3595,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::update_restore][super::super::client::BackupForGKE::update_restore] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::UpdateRestore;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRestore {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRestore(RequestBuilder<crate::model::UpdateRestoreRequest>);
 
@@ -3130,6 +3708,22 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_restore][super::super::client::BackupForGKE::delete_restore] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteRestore;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_gkebackup_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRestore {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRestore(RequestBuilder<crate::model::DeleteRestoreRequest>);
 
@@ -3229,6 +3823,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_volume_restores][super::super::client::BackupForGKE::list_volume_restores] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListVolumeRestores;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumeRestores {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumeRestores(RequestBuilder<crate::model::ListVolumeRestoresRequest>);
 
@@ -3329,6 +3942,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_volume_restore][super::super::client::BackupForGKE::get_volume_restore] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetVolumeRestore;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolumeRestore {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolumeRestore(RequestBuilder<crate::model::GetVolumeRestoreRequest>);
 
@@ -3379,6 +4007,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_backup_index_download_url][super::super::client::BackupForGKE::get_backup_index_download_url] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetBackupIndexDownloadUrl;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupIndexDownloadUrl {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupIndexDownloadUrl(
         RequestBuilder<crate::model::GetBackupIndexDownloadUrlRequest>,
@@ -3431,6 +4074,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_locations][super::super::client::BackupForGKE::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -3521,6 +4183,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_location][super::super::client::BackupForGKE::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -3566,6 +4243,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::set_iam_policy][super::super::client::BackupForGKE::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -3633,6 +4325,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_iam_policy][super::super::client::BackupForGKE::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -3689,6 +4396,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::test_iam_permissions][super::super::client::BackupForGKE::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -3752,6 +4474,25 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::list_operations][super::super::client::BackupForGKE::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -3844,6 +4585,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::get_operation][super::super::client::BackupForGKE::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -3892,6 +4648,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::delete_operation][super::super::client::BackupForGKE::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -3940,6 +4711,21 @@ pub mod backup_for_gke {
     }
 
     /// The request builder for [BackupForGKE::cancel_operation][super::super::client::BackupForGKE::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkebackup_v1::builder;
+    /// use builder::backup_for_gke::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

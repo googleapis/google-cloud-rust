@@ -69,6 +69,25 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::list_authorization_policies][super::super::client::NetworkSecurity::list_authorization_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListAuthorizationPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAuthorizationPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAuthorizationPolicies(
         RequestBuilder<crate::model::ListAuthorizationPoliciesRequest>,
@@ -161,6 +180,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::get_authorization_policy][super::super::client::NetworkSecurity::get_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAuthorizationPolicy(RequestBuilder<crate::model::GetAuthorizationPolicyRequest>);
 
@@ -211,6 +245,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CreateAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAuthorizationPolicy(
         RequestBuilder<crate::model::CreateAuthorizationPolicyRequest>,
@@ -325,6 +375,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::UpdateAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAuthorizationPolicy(
         RequestBuilder<crate::model::UpdateAuthorizationPolicyRequest>,
@@ -432,6 +498,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAuthorizationPolicy(
         RequestBuilder<crate::model::DeleteAuthorizationPolicyRequest>,
@@ -524,6 +606,25 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::list_server_tls_policies][super::super::client::NetworkSecurity::list_server_tls_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListServerTlsPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServerTlsPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServerTlsPolicies(RequestBuilder<crate::model::ListServerTlsPoliciesRequest>);
 
@@ -612,6 +713,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::get_server_tls_policy][super::super::client::NetworkSecurity::get_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServerTlsPolicy(RequestBuilder<crate::model::GetServerTlsPolicyRequest>);
 
@@ -662,6 +778,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CreateServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServerTlsPolicy(RequestBuilder<crate::model::CreateServerTlsPolicyRequest>);
 
@@ -774,6 +906,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::UpdateServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServerTlsPolicy(RequestBuilder<crate::model::UpdateServerTlsPolicyRequest>);
 
@@ -879,6 +1027,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServerTlsPolicy(RequestBuilder<crate::model::DeleteServerTlsPolicyRequest>);
 
@@ -969,6 +1133,25 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::list_client_tls_policies][super::super::client::NetworkSecurity::list_client_tls_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListClientTlsPolicies;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClientTlsPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClientTlsPolicies(RequestBuilder<crate::model::ListClientTlsPoliciesRequest>);
 
@@ -1057,6 +1240,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::get_client_tls_policy][super::super::client::NetworkSecurity::get_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetClientTlsPolicy(RequestBuilder<crate::model::GetClientTlsPolicyRequest>);
 
@@ -1107,6 +1305,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CreateClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateClientTlsPolicy(RequestBuilder<crate::model::CreateClientTlsPolicyRequest>);
 
@@ -1219,6 +1433,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::UpdateClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateClientTlsPolicy(RequestBuilder<crate::model::UpdateClientTlsPolicyRequest>);
 
@@ -1324,6 +1554,22 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_networksecurity_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteClientTlsPolicy(RequestBuilder<crate::model::DeleteClientTlsPolicyRequest>);
 
@@ -1414,6 +1660,25 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::list_locations][super::super::client::NetworkSecurity::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1504,6 +1769,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::get_location][super::super::client::NetworkSecurity::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1549,6 +1829,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::set_iam_policy][super::super::client::NetworkSecurity::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
@@ -1616,6 +1911,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::get_iam_policy][super::super::client::NetworkSecurity::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
@@ -1672,6 +1982,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::test_iam_permissions][super::super::client::NetworkSecurity::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
@@ -1735,6 +2060,25 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::list_operations][super::super::client::NetworkSecurity::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1827,6 +2171,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::get_operation][super::super::client::NetworkSecurity::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1875,6 +2234,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::delete_operation][super::super::client::NetworkSecurity::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1923,6 +2297,21 @@ pub mod network_security {
     }
 
     /// The request builder for [NetworkSecurity::cancel_operation][super::super::client::NetworkSecurity::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

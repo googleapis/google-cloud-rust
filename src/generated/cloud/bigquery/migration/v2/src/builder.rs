@@ -69,6 +69,21 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::create_migration_workflow][super::super::client::MigrationService::create_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::CreateMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMigrationWorkflow(
         RequestBuilder<crate::model::CreateMigrationWorkflowRequest>,
@@ -134,6 +149,21 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::get_migration_workflow][super::super::client::MigrationService::get_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::GetMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMigrationWorkflow(RequestBuilder<crate::model::GetMigrationWorkflowRequest>);
 
@@ -190,6 +220,25 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::list_migration_workflows][super::super::client::MigrationService::list_migration_workflows] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::ListMigrationWorkflows;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMigrationWorkflows {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMigrationWorkflows(RequestBuilder<crate::model::ListMigrationWorkflowsRequest>);
 
@@ -286,6 +335,21 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::delete_migration_workflow][super::super::client::MigrationService::delete_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::DeleteMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMigrationWorkflow(
         RequestBuilder<crate::model::DeleteMigrationWorkflowRequest>,
@@ -338,6 +402,21 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::start_migration_workflow][super::super::client::MigrationService::start_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::StartMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartMigrationWorkflow(RequestBuilder<crate::model::StartMigrationWorkflowRequest>);
 
@@ -388,6 +467,21 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::get_migration_subtask][super::super::client::MigrationService::get_migration_subtask] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::GetMigrationSubtask;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMigrationSubtask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMigrationSubtask(RequestBuilder<crate::model::GetMigrationSubtaskRequest>);
 
@@ -444,6 +538,25 @@ pub mod migration_service {
     }
 
     /// The request builder for [MigrationService::list_migration_subtasks][super::super::client::MigrationService::list_migration_subtasks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::ListMigrationSubtasks;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMigrationSubtasks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMigrationSubtasks(RequestBuilder<crate::model::ListMigrationSubtasksRequest>);
 

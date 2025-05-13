@@ -69,6 +69,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::get_data_source][super::super::client::DataTransferService::get_data_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetDataSource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
@@ -116,6 +131,25 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::list_data_sources][super::super::client::DataTransferService::list_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListDataSources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
@@ -199,6 +233,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::create_transfer_config][super::super::client::DataTransferService::create_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::CreateTransferConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTransferConfig(RequestBuilder<crate::model::CreateTransferConfigRequest>);
 
@@ -279,6 +328,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::update_transfer_config][super::super::client::DataTransferService::update_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::UpdateTransferConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTransferConfig(RequestBuilder<crate::model::UpdateTransferConfigRequest>);
 
@@ -362,6 +426,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::delete_transfer_config][super::super::client::DataTransferService::delete_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::DeleteTransferConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTransferConfig(RequestBuilder<crate::model::DeleteTransferConfigRequest>);
 
@@ -412,6 +491,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::get_transfer_config][super::super::client::DataTransferService::get_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetTransferConfig;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTransferConfig(RequestBuilder<crate::model::GetTransferConfigRequest>);
 
@@ -462,6 +556,25 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::list_transfer_configs][super::super::client::DataTransferService::list_transfer_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListTransferConfigs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferConfigs(RequestBuilder<crate::model::ListTransferConfigsRequest>);
 
@@ -561,6 +674,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::schedule_transfer_runs][super::super::client::DataTransferService::schedule_transfer_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ScheduleTransferRuns;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ScheduleTransferRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ScheduleTransferRuns(RequestBuilder<crate::model::ScheduleTransferRunsRequest>);
 
@@ -630,6 +758,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::start_manual_transfer_runs][super::super::client::DataTransferService::start_manual_transfer_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::StartManualTransferRuns;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartManualTransferRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartManualTransferRuns(
         RequestBuilder<crate::model::StartManualTransferRunsRequest>,
@@ -724,6 +867,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::get_transfer_run][super::super::client::DataTransferService::get_transfer_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetTransferRun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTransferRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTransferRun(RequestBuilder<crate::model::GetTransferRunRequest>);
 
@@ -771,6 +929,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::delete_transfer_run][super::super::client::DataTransferService::delete_transfer_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::DeleteTransferRun;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTransferRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTransferRun(RequestBuilder<crate::model::DeleteTransferRunRequest>);
 
@@ -821,6 +994,25 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::list_transfer_runs][super::super::client::DataTransferService::list_transfer_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListTransferRuns;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferRuns(RequestBuilder<crate::model::ListTransferRunsRequest>);
 
@@ -927,6 +1119,25 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::list_transfer_logs][super::super::client::DataTransferService::list_transfer_logs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListTransferLogs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferLogs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferLogs(RequestBuilder<crate::model::ListTransferLogsRequest>);
 
@@ -1024,6 +1235,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::check_valid_creds][super::super::client::DataTransferService::check_valid_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::CheckValidCreds;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckValidCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckValidCreds(RequestBuilder<crate::model::CheckValidCredsRequest>);
 
@@ -1071,6 +1297,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::enroll_data_sources][super::super::client::DataTransferService::enroll_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::EnrollDataSources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnrollDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnrollDataSources(RequestBuilder<crate::model::EnrollDataSourcesRequest>);
 
@@ -1132,6 +1373,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::unenroll_data_sources][super::super::client::DataTransferService::unenroll_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::UnenrollDataSources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnenrollDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UnenrollDataSources(RequestBuilder<crate::model::UnenrollDataSourcesRequest>);
 
@@ -1193,6 +1449,25 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::list_locations][super::super::client::DataTransferService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1283,6 +1558,21 @@ pub mod data_transfer_service {
     }
 
     /// The request builder for [DataTransferService::get_location][super::super::client::DataTransferService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 

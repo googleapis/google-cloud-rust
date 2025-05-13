@@ -67,6 +67,25 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::list_nodes][super::super::client::Tpu::list_nodes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListNodes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNodes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
@@ -148,6 +167,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_node][super::super::client::Tpu::get_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetNode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
@@ -193,6 +227,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::create_node][super::super::client::Tpu::create_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::CreateNode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNode(RequestBuilder<crate::model::CreateNodeRequest>);
 
@@ -290,6 +340,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::delete_node][super::super::client::Tpu::delete_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::DeleteNode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNode(RequestBuilder<crate::model::DeleteNodeRequest>);
 
@@ -375,6 +441,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::stop_node][super::super::client::Tpu::stop_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::StopNode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopNode(RequestBuilder<crate::model::StopNodeRequest>);
 
@@ -458,6 +540,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::start_node][super::super::client::Tpu::start_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::StartNode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartNode(RequestBuilder<crate::model::StartNodeRequest>);
 
@@ -541,6 +639,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::update_node][super::super::client::Tpu::update_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::UpdateNode;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNode(RequestBuilder<crate::model::UpdateNodeRequest>);
 
@@ -635,6 +749,25 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::list_queued_resources][super::super::client::Tpu::list_queued_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListQueuedResources;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQueuedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQueuedResources(RequestBuilder<crate::model::ListQueuedResourcesRequest>);
 
@@ -721,6 +854,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_queued_resource][super::super::client::Tpu::get_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQueuedResource(RequestBuilder<crate::model::GetQueuedResourceRequest>);
 
@@ -769,6 +917,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::create_queued_resource][super::super::client::Tpu::create_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::CreateQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQueuedResource(RequestBuilder<crate::model::CreateQueuedResourceRequest>);
 
@@ -881,6 +1045,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::delete_queued_resource][super::super::client::Tpu::delete_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::DeleteQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQueuedResource(RequestBuilder<crate::model::DeleteQueuedResourceRequest>);
 
@@ -981,6 +1161,22 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::reset_queued_resource][super::super::client::Tpu::reset_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ResetQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_tpu_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetQueuedResource(RequestBuilder<crate::model::ResetQueuedResourceRequest>);
 
@@ -1070,6 +1266,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::generate_service_identity][super::super::client::Tpu::generate_service_identity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GenerateServiceIdentity;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateServiceIdentity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateServiceIdentity(
         RequestBuilder<crate::model::GenerateServiceIdentityRequest>,
@@ -1120,6 +1331,25 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::list_accelerator_types][super::super::client::Tpu::list_accelerator_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListAcceleratorTypes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAcceleratorTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAcceleratorTypes(RequestBuilder<crate::model::ListAcceleratorTypesRequest>);
 
@@ -1218,6 +1448,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_accelerator_type][super::super::client::Tpu::get_accelerator_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetAcceleratorType;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAcceleratorType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAcceleratorType(RequestBuilder<crate::model::GetAcceleratorTypeRequest>);
 
@@ -1266,6 +1511,25 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::list_runtime_versions][super::super::client::Tpu::list_runtime_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListRuntimeVersions;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuntimeVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuntimeVersions(RequestBuilder<crate::model::ListRuntimeVersionsRequest>);
 
@@ -1364,6 +1628,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_runtime_version][super::super::client::Tpu::get_runtime_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetRuntimeVersion;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRuntimeVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRuntimeVersion(RequestBuilder<crate::model::GetRuntimeVersionRequest>);
 
@@ -1412,6 +1691,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_guest_attributes][super::super::client::Tpu::get_guest_attributes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetGuestAttributes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGuestAttributes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGuestAttributes(RequestBuilder<crate::model::GetGuestAttributesRequest>);
 
@@ -1477,6 +1771,25 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::list_locations][super::super::client::Tpu::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1565,6 +1878,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_location][super::super::client::Tpu::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1608,6 +1936,25 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::list_operations][super::super::client::Tpu::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1698,6 +2045,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::get_operation][super::super::client::Tpu::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1744,6 +2106,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::delete_operation][super::super::client::Tpu::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1790,6 +2167,21 @@ pub mod tpu {
     }
 
     /// The request builder for [Tpu::cancel_operation][super::super::client::Tpu::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

@@ -67,6 +67,22 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::create_key][super::super::client::ApiKeys::create_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::CreateKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apikeys_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
@@ -166,6 +182,25 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::list_keys][super::super::client::ApiKeys::list_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::ListKeys;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
@@ -253,6 +288,21 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::get_key][super::super::client::ApiKeys::get_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::GetKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
@@ -298,6 +348,21 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::get_key_string][super::super::client::ApiKeys::get_key_string] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::GetKeyString;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKeyString {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
@@ -343,6 +408,22 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::update_key][super::super::client::ApiKeys::update_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::UpdateKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apikeys_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
@@ -437,6 +518,22 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::delete_key][super::super::client::ApiKeys::delete_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::DeleteKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apikeys_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
@@ -528,6 +625,22 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::undelete_key][super::super::client::ApiKeys::undelete_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::UndeleteKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_apikeys_v2::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
@@ -613,6 +726,21 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::lookup_key][super::super::client::ApiKeys::lookup_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::LookupKey;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
@@ -658,6 +786,21 @@ pub mod api_keys {
     }
 
     /// The request builder for [ApiKeys::get_operation][super::super::client::ApiKeys::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 

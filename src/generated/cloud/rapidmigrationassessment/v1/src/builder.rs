@@ -69,6 +69,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::create_collector][super::super::client::RapidMigrationAssessment::create_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::CreateCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCollector(RequestBuilder<crate::model::CreateCollectorRequest>);
 
@@ -179,6 +195,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::create_annotation][super::super::client::RapidMigrationAssessment::create_annotation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::CreateAnnotation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnnotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnnotation(RequestBuilder<crate::model::CreateAnnotationRequest>);
 
@@ -284,6 +316,21 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::get_annotation][super::super::client::RapidMigrationAssessment::get_annotation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetAnnotation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnnotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnnotation(RequestBuilder<crate::model::GetAnnotationRequest>);
 
@@ -331,6 +378,25 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::list_collectors][super::super::client::RapidMigrationAssessment::list_collectors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ListCollectors;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCollectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCollectors(RequestBuilder<crate::model::ListCollectorsRequest>);
 
@@ -426,6 +492,21 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::get_collector][super::super::client::RapidMigrationAssessment::get_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCollector(RequestBuilder<crate::model::GetCollectorRequest>);
 
@@ -473,6 +554,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::update_collector][super::super::client::RapidMigrationAssessment::update_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::UpdateCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCollector(RequestBuilder<crate::model::UpdateCollectorRequest>);
 
@@ -578,6 +675,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::delete_collector][super::super::client::RapidMigrationAssessment::delete_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::DeleteCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCollector(RequestBuilder<crate::model::DeleteCollectorRequest>);
 
@@ -669,6 +782,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::resume_collector][super::super::client::RapidMigrationAssessment::resume_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ResumeCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeCollector(RequestBuilder<crate::model::ResumeCollectorRequest>);
 
@@ -760,6 +889,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::register_collector][super::super::client::RapidMigrationAssessment::register_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::RegisterCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RegisterCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RegisterCollector(RequestBuilder<crate::model::RegisterCollectorRequest>);
 
@@ -854,6 +999,22 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::pause_collector][super::super::client::RapidMigrationAssessment::pause_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::PauseCollector;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseCollector(RequestBuilder<crate::model::PauseCollectorRequest>);
 
@@ -945,6 +1106,25 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::list_locations][super::super::client::RapidMigrationAssessment::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -1035,6 +1215,21 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::get_location][super::super::client::RapidMigrationAssessment::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -1080,6 +1275,25 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::list_operations][super::super::client::RapidMigrationAssessment::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1172,6 +1386,21 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::get_operation][super::super::client::RapidMigrationAssessment::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1220,6 +1449,21 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::delete_operation][super::super::client::RapidMigrationAssessment::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1268,6 +1512,21 @@ pub mod rapid_migration_assessment {
     }
 
     /// The request builder for [RapidMigrationAssessment::cancel_operation][super::super::client::RapidMigrationAssessment::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

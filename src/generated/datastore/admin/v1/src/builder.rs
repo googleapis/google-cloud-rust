@@ -69,6 +69,22 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::export_entities][super::super::client::DatastoreAdmin::export_entities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::ExportEntities;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datastore_admin_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportEntities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
 
@@ -185,6 +201,22 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::import_entities][super::super::client::DatastoreAdmin::import_entities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::ImportEntities;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datastore_admin_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportEntities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
 
@@ -301,6 +333,22 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::create_index][super::super::client::DatastoreAdmin::create_index] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::CreateIndex;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datastore_admin_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIndex {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
@@ -393,6 +441,22 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::delete_index][super::super::client::DatastoreAdmin::delete_index] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::DeleteIndex;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_datastore_admin_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIndex {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
@@ -482,6 +546,21 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::get_index][super::super::client::DatastoreAdmin::get_index] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::GetIndex;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIndex {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
@@ -533,6 +612,25 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::list_indexes][super::super::client::DatastoreAdmin::list_indexes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::ListIndexes;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIndexes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
@@ -620,6 +718,25 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::list_operations][super::super::client::DatastoreAdmin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -712,6 +829,21 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::get_operation][super::super::client::DatastoreAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -760,6 +892,21 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::delete_operation][super::super::client::DatastoreAdmin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -808,6 +955,21 @@ pub mod datastore_admin {
     }
 
     /// The request builder for [DatastoreAdmin::cancel_operation][super::super::client::DatastoreAdmin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastore_admin_v1::builder;
+    /// use builder::datastore_admin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

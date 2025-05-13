@@ -69,6 +69,21 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::create_job][super::super::client::TranscoderService::create_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::CreateJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
@@ -124,6 +139,25 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::list_jobs][super::super::client::TranscoderService::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
@@ -219,6 +253,21 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::get_job][super::super::client::TranscoderService::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::GetJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
@@ -266,6 +315,21 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::delete_job][super::super::client::TranscoderService::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::DeleteJob;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
@@ -319,6 +383,21 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::create_job_template][super::super::client::TranscoderService::create_job_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::CreateJobTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJobTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
@@ -388,6 +467,25 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::list_job_templates][super::super::client::TranscoderService::list_job_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::ListJobTemplates;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
@@ -486,6 +584,21 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::get_job_template][super::super::client::TranscoderService::get_job_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::GetJobTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJobTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
 
@@ -533,6 +646,21 @@ pub mod transcoder_service {
     }
 
     /// The request builder for [TranscoderService::delete_job_template][super::super::client::TranscoderService::delete_job_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::DeleteJobTemplate;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJobTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 

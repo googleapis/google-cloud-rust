@@ -69,6 +69,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::CreateMicrosoftAdDomain;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMicrosoftAdDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMicrosoftAdDomain(
         RequestBuilder<crate::model::CreateMicrosoftAdDomainRequest>,
@@ -176,6 +192,21 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::reset_admin_password][super::super::client::ManagedIdentitiesService::reset_admin_password] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ResetAdminPassword;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetAdminPassword {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetAdminPassword(RequestBuilder<crate::model::ResetAdminPasswordRequest>);
 
@@ -226,6 +257,25 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::list_domains][super::super::client::ManagedIdentitiesService::list_domains] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ListDomains;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDomains {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDomains(RequestBuilder<crate::model::ListDomainsRequest>);
 
@@ -321,6 +371,21 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::get_domain][super::super::client::ManagedIdentitiesService::get_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::GetDomain;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDomain(RequestBuilder<crate::model::GetDomainRequest>);
 
@@ -368,6 +433,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::update_domain][super::super::client::ManagedIdentitiesService::update_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::UpdateDomain;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDomain(RequestBuilder<crate::model::UpdateDomainRequest>);
 
@@ -465,6 +546,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::delete_domain][super::super::client::ManagedIdentitiesService::delete_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::DeleteDomain;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDomain(RequestBuilder<crate::model::DeleteDomainRequest>);
 
@@ -552,6 +649,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::attach_trust][super::super::client::ManagedIdentitiesService::attach_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::AttachTrust;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AttachTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AttachTrust(RequestBuilder<crate::model::AttachTrustRequest>);
 
@@ -646,6 +759,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ReconfigureTrust;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReconfigureTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReconfigureTrust(RequestBuilder<crate::model::ReconfigureTrustRequest>);
 
@@ -753,6 +882,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::detach_trust][super::super::client::ManagedIdentitiesService::detach_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::DetachTrust;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetachTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetachTrust(RequestBuilder<crate::model::DetachTrustRequest>);
 
@@ -847,6 +992,22 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::validate_trust][super::super::client::ManagedIdentitiesService::validate_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ValidateTrust;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_managedidentities_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateTrust(RequestBuilder<crate::model::ValidateTrustRequest>);
 
@@ -941,6 +1102,25 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::list_operations][super::super::client::ManagedIdentitiesService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1033,6 +1213,21 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::get_operation][super::super::client::ManagedIdentitiesService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1081,6 +1276,21 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::delete_operation][super::super::client::ManagedIdentitiesService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1129,6 +1339,21 @@ pub mod managed_identities_service {
     }
 
     /// The request builder for [ManagedIdentitiesService::cancel_operation][super::super::client::ManagedIdentitiesService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

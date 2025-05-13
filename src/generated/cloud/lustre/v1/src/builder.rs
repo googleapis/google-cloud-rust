@@ -67,6 +67,25 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::list_instances][super::super::client::Lustre::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
@@ -160,6 +179,21 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::get_instance][super::super::client::Lustre::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::GetInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
@@ -205,6 +239,22 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::create_instance][super::super::client::Lustre::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_lustre_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
@@ -313,6 +363,22 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::update_instance][super::super::client::Lustre::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_lustre_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
@@ -414,6 +480,22 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::delete_instance][super::super::client::Lustre::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_lustre_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
@@ -505,6 +587,22 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::import_data][super::super::client::Lustre::import_data] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::ImportData;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_lustre_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportData {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
@@ -653,6 +751,22 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::export_data][super::super::client::Lustre::export_data] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::ExportData;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use google_cloud_lustre_v1::Poller;
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportData {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
@@ -801,6 +915,25 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::list_locations][super::super::client::Lustre::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
@@ -889,6 +1022,21 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::get_location][super::super::client::Lustre::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::GetLocation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
@@ -932,6 +1080,25 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::list_operations][super::super::client::Lustre::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
@@ -1022,6 +1189,21 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::get_operation][super::super::client::Lustre::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::GetOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
@@ -1068,6 +1250,21 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::delete_operation][super::super::client::Lustre::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
@@ -1114,6 +1311,21 @@ pub mod lustre {
     }
 
     /// The request builder for [Lustre::cancel_operation][super::super::client::Lustre::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_lustre_v1::builder;
+    /// use builder::lustre::CancelOperation;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 

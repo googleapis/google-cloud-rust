@@ -69,6 +69,25 @@ pub mod case_attachment_service {
     }
 
     /// The request builder for [CaseAttachmentService::list_attachments][super::super::client::CaseAttachmentService::list_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_attachment_service::ListAttachments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
@@ -207,6 +226,21 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::get_case][super::super::client::CaseService::get_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::GetCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
 
@@ -254,6 +288,25 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::list_cases][super::super::client::CaseService::list_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::ListCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
 
@@ -343,6 +396,25 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::search_cases][super::super::client::CaseService::search_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::SearchCases;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
 
@@ -430,6 +502,21 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::create_case][super::super::client::CaseService::create_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::CreateCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
 
@@ -485,6 +572,21 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::update_case][super::super::client::CaseService::update_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::UpdateCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
 
@@ -541,6 +643,21 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::escalate_case][super::super::client::CaseService::escalate_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::EscalateCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EscalateCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
 
@@ -597,6 +714,21 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::close_case][super::super::client::CaseService::close_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::CloseCase;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CloseCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
 
@@ -644,6 +776,25 @@ pub mod case_service {
     }
 
     /// The request builder for [CaseService::search_case_classifications][super::super::client::CaseService::search_case_classifications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::SearchCaseClassifications;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchCaseClassifications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCaseClassifications(
         RequestBuilder<crate::model::SearchCaseClassificationsRequest>,
@@ -789,6 +940,25 @@ pub mod comment_service {
     }
 
     /// The request builder for [CommentService::list_comments][super::super::client::CommentService::list_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::comment_service::ListComments;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// use gax::paginator::ItemPaginator;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
 
@@ -872,6 +1042,21 @@ pub mod comment_service {
     }
 
     /// The request builder for [CommentService::create_comment][super::super::client::CommentService::create_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::comment_service::CreateComment;
+    /// # tokio_test::block_on(async {
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
 
