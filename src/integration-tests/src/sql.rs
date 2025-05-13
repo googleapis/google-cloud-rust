@@ -72,7 +72,7 @@ pub async fn run_sql_instances_service(
     assert_eq!(settings.tier, "db-f1-micro");
 
     println!("Testing list sql instances");
-    let list = client
+    let _list = client
         .list()
         .set_project(&project_id)
         .set_filter(format!("name:{name}"))
@@ -137,7 +137,13 @@ async fn cleanup_stale_sql_instances(
             match instance {
                 Ok(instance) => {
                     if instance.create_time? < stale_deadline {
-                        Some(client.delete(project_id, instance.name).send())
+                        Some(
+                            client
+                                .delete()
+                                .set_project(project_id)
+                                .set_instance(instance.name)
+                                .send(),
+                        )
                     } else {
                         None
                     }
