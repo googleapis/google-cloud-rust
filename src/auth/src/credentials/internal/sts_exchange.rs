@@ -20,18 +20,17 @@ use std::collections::HashMap;
 type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Token Exchange grant type for a sts exchange.
-pub(crate) const TOKEN_EXCHANGE_GRANT_TYPE: &str =
-    "urn:ietf:params:oauth:grant-type:token-exchange";
+pub const TOKEN_EXCHANGE_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:token-exchange";
 /// Refresh Token Exchange grant type for a sts exchange.
-pub(crate) const REFRESH_TOKEN_GRANT_TYPE: &str = "refresh_token";
+pub const REFRESH_TOKEN_GRANT_TYPE: &str = "refresh_token";
 /// TokenType for a sts exchange.
-pub(crate) const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
+pub const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT TokenType for a sts exchange.
-pub(crate) const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
+pub const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
-struct STSHandler {
+pub struct STSHandler {
     client: reqwest::Client,
 }
 
@@ -43,7 +42,10 @@ impl STSHandler {
 
     /// performs the token exchange using a refresh token flow with
     /// the provided [RefreshAccessTokenRequest] information.
-    async fn refresh_access_token(&self, req: RefreshAccessTokenRequest) -> Result<TokenResponse> {
+    pub async fn refresh_access_token(
+        &self,
+        req: RefreshAccessTokenRequest,
+    ) -> Result<TokenResponse> {
         let mut params: HashMap<&str, String> = HashMap::new();
         params.insert("grant_type", REFRESH_TOKEN_GRANT_TYPE.to_string());
         params.insert("refresh_token", req.refresh_token);
@@ -53,7 +55,7 @@ impl STSHandler {
     }
 
     /// performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
-    async fn exchange_token(&self, req: ExchangeTokenRequest) -> Result<TokenResponse> {
+    pub async fn exchange_token(&self, req: ExchangeTokenRequest) -> Result<TokenResponse> {
         let mut params: HashMap<&str, String> = HashMap::new();
 
         params.insert("grant_type", TOKEN_EXCHANGE_GRANT_TYPE.to_string());
@@ -90,7 +92,7 @@ impl STSHandler {
     }
 
     /// execute http request and token exchange
-    pub(crate) async fn execute(
+    pub async fn execute(
         &self,
         url: String,
         client_auth: ClientAuthentication,
@@ -116,13 +118,13 @@ impl STSHandler {
 
         let status = res.status();
         println!("[execute] status: {:?}", status);
+        println!("[execute] response: {:?}", res);
         if !status.is_success() {
             return Err(CredentialsError::from_str(
                 false,
                 format!("error requesting token, failed with status {status}"),
             ));
         }
-        println!("[execute] response: {:?}", res);
         let token_res = res
             .json::<TokenResponse>()
             .await
@@ -134,19 +136,19 @@ impl STSHandler {
 /// TokenResponse is used to decode the remote server response during
 /// an oauth2 token exchange.
 #[derive(Deserialize, Default, PartialEq, Debug)]
-pub(crate) struct TokenResponse {
-    access_token: String,
-    issued_token_type: String,
-    token_type: String,
-    expires_in: u64,
-    scope: String,
-    refresh_token: Option<String>,
+pub struct TokenResponse {
+    pub access_token: String,
+    pub issued_token_type: String,
+    pub token_type: String,
+    pub expires_in: u64,
+    pub scope: String,
+    pub refresh_token: Option<String>,
 }
 
 /// Authentication style via headers or form params.
 /// See https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
 #[derive(Debug, Clone)]
-enum ClientAuthStyle {
+pub enum ClientAuthStyle {
     InParams,
     InHeader,
 }
@@ -155,10 +157,10 @@ enum ClientAuthStyle {
 /// mechanism for passing these credentials as stated
 /// in https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
 #[derive(Clone, Debug)]
-pub(crate) struct ClientAuthentication {
-    auth_style: ClientAuthStyle,
-    client_id: Option<String>,
-    client_secret: Option<String>,
+pub struct ClientAuthentication {
+    pub auth_style: ClientAuthStyle,
+    pub client_id: Option<String>,
+    pub client_secret: Option<String>,
 }
 
 impl Default for ClientAuthentication {
@@ -205,26 +207,26 @@ impl ClientAuthentication {
 /// Information required to perform an oauth2 token exchange with the provided endpoint.
 #[derive(Default)]
 pub struct ExchangeTokenRequest {
-    url: String,
-    authentication: ClientAuthentication,
-    headers: http::HeaderMap,
-    resource: Option<String>,
-    subject_token: String,
-    subject_token_type: String,
-    audience: Option<String>,
-    scope: Vec<String>,
-    actor_token: Option<String>,
-    actor_token_type: Option<String>,
-    extra_options: Option<HashMap<String, String>>,
+    pub url: String,
+    pub authentication: ClientAuthentication,
+    pub headers: http::HeaderMap,
+    pub resource: Option<String>,
+    pub subject_token: String,
+    pub subject_token_type: String,
+    pub audience: Option<String>,
+    pub scope: Vec<String>,
+    pub actor_token: Option<String>,
+    pub actor_token_type: Option<String>,
+    pub extra_options: Option<HashMap<String, String>>,
 }
 
 /// Information required to perform the token exchange using a refresh token flow.
 #[derive(Default)]
 pub struct RefreshAccessTokenRequest {
-    url: String,
-    authentication: ClientAuthentication,
-    headers: http::HeaderMap,
-    refresh_token: String,
+    pub url: String,
+    pub authentication: ClientAuthentication,
+    pub headers: http::HeaderMap,
+    pub refresh_token: String,
 }
 
 #[cfg(test)]
