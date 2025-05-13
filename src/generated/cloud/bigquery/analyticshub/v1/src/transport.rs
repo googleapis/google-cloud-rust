@@ -353,6 +353,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = builder.query(&[("deleteCommercial", &req.delete_commercial)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

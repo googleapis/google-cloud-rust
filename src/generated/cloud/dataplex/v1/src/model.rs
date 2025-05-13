@@ -5505,19 +5505,20 @@ pub mod metadata_job {
         }
     }
 
-    /// Export Job Results. The result is based on the snapshot at the time when
-    /// the job is created.
+    /// Summary results from a metadata export job. The results are a snapshot of
+    /// the metadata at the time when the job was created. The exported entries are
+    /// saved to a Cloud Storage bucket.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ExportJobResult {
-        /// Output only. The number of entries that have been exported.
+        /// Output only. The number of entries that were exported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub exported_entries: i64,
 
-        /// Output only. The error message if the export job failed.
+        /// Output only. The error message if the metadata export job failed.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub error_message: std::string::String,
 
@@ -5572,8 +5573,9 @@ pub mod metadata_job {
         /// this job.
         ///
         /// A metadata import file defines the values to set for each of the entries
-        /// and aspects in a metadata job. For more information about how to create a
-        /// metadata import file and the file requirements, see [Metadata import
+        /// and aspects in a metadata import job. For more information about how to
+        /// create a metadata import file and the file requirements, see [Metadata
+        /// import
         /// file](https://cloud.google.com/dataplex/docs/import-metadata#metadata-import-file).
         ///
         /// You can provide multiple metadata import files in the same metadata job.
@@ -5800,8 +5802,8 @@ pub mod metadata_job {
             }
         }
 
-        /// Specifies how the entries and aspects in a metadata job are updated. For
-        /// more information, see [Sync
+        /// Specifies how the entries and aspects in a metadata import job are
+        /// updated. For more information, see [Sync
         /// mode](https://cloud.google.com/dataplex/docs/import-metadata#sync-mode).
         ///
         /// # Working with unknown values
@@ -6104,22 +6106,25 @@ pub mod metadata_job {
         }
     }
 
-    /// Export job specification.
+    /// Job specification for a metadata export job.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ExportJobSpec {
-        /// Required. Selects the entries to be exported by this job.
+        /// Required. The scope of the export job.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub scope: std::option::Option<crate::model::metadata_job::export_job_spec::ExportJobScope>,
 
-        /// Required. The root path of the exported metadata.
-        /// Must be in the format: "gs://<bucket_id>"
-        /// Or specify a customized prefix after the bucket:
-        /// "gs://<bucket_id>/\<folder1\>/\<folder2\>/.../".
-        /// The length limit of the customized prefix is 128 characters.
-        /// The bucket must be in the same VPC-SC perimeter with the job.
+        /// Required. The root path of the Cloud Storage bucket to export the
+        /// metadata to, in the format `gs://{bucket}/`. You can optionally specify a
+        /// custom prefix after the bucket name, in the format
+        /// `gs://{bucket}/{prefix}/`. The maximum length of the custom prefix is 128
+        /// characters. Dataplex constructs the object path for the exported files by
+        /// using the bucket name and prefix that you provide, followed by a
+        /// system-generated path.
+        ///
+        /// The bucket must be in the same VPC Service Controls perimeter as the job.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub output_path: std::string::String,
 
@@ -6165,56 +6170,65 @@ pub mod metadata_job {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Scope of the export job.
+        /// The scope of the export job.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct ExportJobScope {
-            /// Indicating if it is an organization level export job.
+            /// Whether the metadata export job is an organization-level export job.
             ///
-            /// - When set to true, exports all entries from entry groups and projects
-            ///   sharing the same organization id of the Metadata Job. Only projects and
-            ///   entry groups in the VPC-SC perimeter will be exported. The projects and
-            ///   entry groups are ignored.
-            /// - When set to false, one of the projects or entry groups must be
-            ///   specified.
-            /// - Default to false.
+            /// - If `true`, the job exports the entries from the same organization and
+            ///   VPC Service Controls perimeter as the job. The project that the job
+            ///   belongs to determines the VPC Service Controls perimeter. If you set
+            ///   the job scope to be at the organization level, then don't provide a
+            ///   list of projects or entry groups.
+            /// - If `false`, you must specify a list of projects or a list of entry
+            ///   groups whose entries you want to export.
+            ///
+            /// The default is `false`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub organization_level: bool,
 
-            /// The projects that are in the scope of the export job. Can either be
-            /// project numbers or project IDs. If specified, only the entries from the
-            /// specified projects will be exported. The projects must be in the same
-            /// organization and in the VPC-SC perimeter. Either projects or
-            /// entry_groups can be specified when organization_level_export is set to
-            /// false.
-            /// Must follow the format: "projects/<project_id_or_number>"
+            /// The projects whose metadata you want to export, in the format
+            /// `projects/{project_id_or_number}`. Only the entries from
+            /// the specified projects are exported.
+            ///
+            /// The projects must be in the same organization and VPC Service Controls
+            /// perimeter as the job.
+            ///
+            /// If you set the job scope to be a list of projects, then set the
+            /// organization-level export flag to false and don't provide a list of
+            /// entry groups.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub projects: std::vec::Vec<std::string::String>,
 
-            /// The entry groups that are in scope for the export job. Optional. If
-            /// specified, only entries in the specified entry groups will be exported
-            /// by the job. Must be in the VPC-SC perimeter of the job. The location of
-            /// the entry groups must be the same as the job. Either projects or
-            /// entry_groups can be specified when organization_level_export is set to
-            /// false. Must follow the format:
-            /// "projects/<project_id_or_number>/locations/\<location\>/entryGroups/<entry_group_id>"
+            /// The entry groups whose metadata you want to export, in the format
+            /// `projects/{project_id_or_number}/locations/{location_id}/entryGroups/{entry_group_id}`.
+            /// Only the entries in the specified entry groups are exported.
+            ///
+            /// The entry groups must be in the same location and the same VPC Service
+            /// Controls perimeter as the job.
+            ///
+            /// If you set the job scope to be a list of entry groups, then set the
+            /// organization-level export flag to false and don't provide a list of
+            /// projects.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub entry_groups: std::vec::Vec<std::string::String>,
 
-            /// If specified, only entries of the specified types will be
-            /// affected by the job.
-            /// Must follow the format:
-            /// "projects/<project_id_or_number>/locations/\<location\>/entryTypes/<entry_type_id>"
+            /// The entry types that are in scope for the export job, specified as
+            /// relative resource names in the format
+            /// `projects/{project_id_or_number}/locations/{location}/entryTypes/{entry_type_id}`.
+            /// Only entries that belong to the specified entry types are affected by
+            /// the job.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub entry_types: std::vec::Vec<std::string::String>,
 
-            /// The aspect types that are in scope for the export job.
-            /// Optional. If specified, only aspects of the specified types will be
-            /// affected by the job.
-            /// Must follow the format:
-            /// "projects/<project_id_or_number>/locations/\<location\>/aspectTypes/<aspect_type_id>"
+            /// The aspect types that are in scope for the export job, specified as
+            /// relative resource names in the format
+            /// `projects/{project_id_or_number}/locations/{location}/aspectTypes/{aspect_type_id}`.
+            /// Only aspects that belong to the specified aspect types are affected by
+            /// the job.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub aspect_types: std::vec::Vec<std::string::String>,
 
@@ -6550,7 +6564,7 @@ pub mod metadata_job {
         Unspecified,
         /// Import job.
         Import,
-        /// Export job type.
+        /// Export job.
         Export,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -6876,7 +6890,7 @@ pub mod encryption_config {
         pub enum ErrorCode {
             /// The error code is not specified
             Unknown,
-            /// Error because of internal server error, will be retried automatically..
+            /// Error because of internal server error, will be retried automatically.
             InternalError,
             /// User action is required to resolve the error.
             RequireUserAction,
@@ -7147,12 +7161,11 @@ pub struct CreateEncryptionConfigRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Required. The ID of the EncryptionConfig to create.
-    /// The ID must contain only letters (a-z, A-Z), numbers (0-9),
-    /// and hyphens (-).
-    /// The maximum size is 63 characters.
-    /// The first character must be a letter.
-    /// The last character must be a letter or a number.
+    /// Required. The ID of the
+    /// [EncryptionConfig][google.cloud.dataplex.v1.EncryptionConfig] to create.
+    /// Currently, only a value of "default" is supported.
+    ///
+    /// [google.cloud.dataplex.v1.EncryptionConfig]: crate::model::EncryptionConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub encryption_config_id: std::string::String,
 
@@ -8558,7 +8571,7 @@ pub struct DataDiscoveryResult {
     pub bigquery_publishing:
         std::option::Option<crate::model::data_discovery_result::BigQueryPublishing>,
 
-    /// Output only. Statistics of the DataDiscoveryScan.
+    /// Output only. Describes result statistics of a data scan discovery job.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub scan_statistics: std::option::Option<crate::model::data_discovery_result::ScanStatistics>,
 
@@ -8651,7 +8664,7 @@ pub mod data_discovery_result {
         }
     }
 
-    /// Statistics of the DataDiscoveryScan.
+    /// Describes result statistics of a data scan discovery job.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]

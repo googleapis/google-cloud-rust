@@ -944,6 +944,12 @@ pub mod analytics_hub_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [delete_commercial][crate::model::DeleteListingRequest::delete_commercial].
+        pub fn set_delete_commercial<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.delete_commercial = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1653,6 +1659,12 @@ pub mod analytics_hub_service {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [revoke_commercial][crate::model::RevokeSubscriptionRequest::revoke_commercial].
+        pub fn set_revoke_commercial<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.revoke_commercial = v.into();
             self
         }
     }

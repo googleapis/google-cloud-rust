@@ -25,6 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [AlloyDBCSQLAdmin](client/struct.AlloyDBCSQLAdmin.html)
 //! * [AlloyDBAdmin](client/struct.AlloyDBAdmin.html)
 
 #![allow(deprecated)]

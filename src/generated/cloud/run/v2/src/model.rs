@@ -1064,6 +1064,8 @@ pub mod condition {
         PostponedRetry,
         /// An internal error occurred. Further information may be in the message.
         Internal,
+        /// User-provided VPC network was not found.
+        VpcNetworkNotFound,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CommonReason::value] or
@@ -1101,6 +1103,7 @@ pub mod condition {
                 Self::ImmediateRetry => std::option::Option::Some(14),
                 Self::PostponedRetry => std::option::Option::Some(15),
                 Self::Internal => std::option::Option::Some(16),
+                Self::VpcNetworkNotFound => std::option::Option::Some(17),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1140,6 +1143,7 @@ pub mod condition {
                 Self::ImmediateRetry => std::option::Option::Some("IMMEDIATE_RETRY"),
                 Self::PostponedRetry => std::option::Option::Some("POSTPONED_RETRY"),
                 Self::Internal => std::option::Option::Some("INTERNAL"),
+                Self::VpcNetworkNotFound => std::option::Option::Some("VPC_NETWORK_NOT_FOUND"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1176,6 +1180,7 @@ pub mod condition {
                 14 => Self::ImmediateRetry,
                 15 => Self::PostponedRetry,
                 16 => Self::Internal,
+                17 => Self::VpcNetworkNotFound,
                 _ => Self::UnknownValue(common_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1204,6 +1209,7 @@ pub mod condition {
                 "IMMEDIATE_RETRY" => Self::ImmediateRetry,
                 "POSTPONED_RETRY" => Self::PostponedRetry,
                 "INTERNAL" => Self::Internal,
+                "VPC_NETWORK_NOT_FOUND" => Self::VpcNetworkNotFound,
                 _ => Self::UnknownValue(common_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1232,6 +1238,7 @@ pub mod condition {
                 Self::ImmediateRetry => serializer.serialize_i32(14),
                 Self::PostponedRetry => serializer.serialize_i32(15),
                 Self::Internal => serializer.serialize_i32(16),
+                Self::VpcNetworkNotFound => serializer.serialize_i32(17),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2325,13 +2332,12 @@ pub struct ExecutionTemplate {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Specifies the maximum desired number of tasks the execution should run at
-    /// given time. Must be <= task_count.
-    /// When the job is run, if this field is 0 or unset, the maximum possible
-    /// value will be used for that execution.
-    /// The actual number of tasks running in steady state will be less than this
-    /// number when there are fewer tasks waiting to be completed remaining,
-    /// i.e. when the work left to do is less than max parallelism.
+    /// Optional. Specifies the maximum desired number of tasks the execution
+    /// should run at given time. When the job is run, if this field is 0 or unset,
+    /// the maximum possible value will be used for that execution. The actual
+    /// number of tasks running in steady state will be less than this number when
+    /// there are fewer tasks waiting to be completed remaining, i.e. when the work
+    /// left to do is less than max parallelism.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parallelism: i32,
 
@@ -5758,6 +5764,15 @@ pub struct Revision {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
 
+    /// Optional. Output only. True if GPU zonal redundancy is disabled on this
+    /// revision.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
+    /// Output only. Email address of the authenticated creator.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub creator: std::string::String,
+
     /// Output only. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -6042,6 +6057,21 @@ impl Revision {
         self
     }
 
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Revision::gpu_zonal_redundancy_disabled].
+    pub fn set_gpu_zonal_redundancy_disabled<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gpu_zonal_redundancy_disabled = v.into();
+        self
+    }
+
+    /// Sets the value of [creator][crate::model::Revision::creator].
+    pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.creator = v.into();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Revision::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -6150,6 +6180,10 @@ pub struct RevisionTemplate {
     /// Optional. The node selector for the revision template.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
+    /// Optional. True if GPU zonal redundancy is disabled on this revision.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6324,6 +6358,15 @@ impl RevisionTemplate {
         v: T,
     ) -> Self {
         self.node_selector = v.into();
+        self
+    }
+
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::RevisionTemplate::gpu_zonal_redundancy_disabled].
+    pub fn set_gpu_zonal_redundancy_disabled<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gpu_zonal_redundancy_disabled = v.into();
         self
     }
 }
@@ -7589,6 +7632,10 @@ pub struct Task {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
+    /// Output only. The node selector for the task.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
     /// Output only. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -7845,6 +7892,17 @@ impl Task {
         self
     }
 
+    /// Sets the value of [node_selector][crate::model::Task::node_selector].
+    pub fn set_node_selector<
+        T: std::convert::Into<std::option::Option<crate::model::NodeSelector>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.node_selector = v.into();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Task::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -7952,6 +8010,10 @@ pub struct TaskTemplate {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vpc_access: std::option::Option<crate::model::VpcAccess>,
 
+    /// Optional. The node selector for the task template.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub retries: std::option::Option<crate::model::task_template::Retries>,
 
@@ -8022,6 +8084,17 @@ impl TaskTemplate {
         v: T,
     ) -> Self {
         self.vpc_access = v.into();
+        self
+    }
+
+    /// Sets the value of [node_selector][crate::model::TaskTemplate::node_selector].
+    pub fn set_node_selector<
+        T: std::convert::Into<std::option::Option<crate::model::NodeSelector>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.node_selector = v.into();
         self
     }
 

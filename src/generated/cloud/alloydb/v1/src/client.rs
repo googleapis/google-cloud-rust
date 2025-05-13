@@ -23,6 +23,164 @@ use crate::Result;
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+/// let client = AlloyDBCSQLAdmin::builder().build().await?;
+/// // use `client` to make requests to the AlloyDB API.
+/// # gax::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for interactions with CloudSQL.
+///
+/// # Configuration
+///
+/// To configure `AlloyDBCSQLAdmin` use the `with_*` methods in the type returned
+/// by [builder()][AlloyDBCSQLAdmin::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://alloydb.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::alloy_dbcsql_admin::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::alloy_dbcsql_admin::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `AlloyDBCSQLAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `AlloyDBCSQLAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct AlloyDBCSQLAdmin {
+    inner: std::sync::Arc<dyn super::stub::dynamic::AlloyDBCSQLAdmin>,
+}
+
+impl AlloyDBCSQLAdmin {
+    /// Returns a builder for [AlloyDBCSQLAdmin].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// let client = AlloyDBCSQLAdmin::builder().build().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::alloy_dbcsql_admin::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::alloy_dbcsql_admin::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::AlloyDBCSQLAdmin + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::AlloyDBCSQLAdmin>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<impl super::stub::AlloyDBCSQLAdmin> {
+        super::transport::AlloyDBCSQLAdmin::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> Result<impl super::stub::AlloyDBCSQLAdmin> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AlloyDBCSQLAdmin::new)
+    }
+
+    /// Restores an AlloyDB cluster from a CloudSQL resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn restore_from_cloud_sql(
+        &self,
+    ) -> super::builder::alloy_dbcsql_admin::RestoreFromCloudSQL {
+        super::builder::alloy_dbcsql_admin::RestoreFromCloudSQL::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::alloy_dbcsql_admin::ListLocations {
+        super::builder::alloy_dbcsql_admin::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::alloy_dbcsql_admin::GetLocation {
+        super::builder::alloy_dbcsql_admin::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::alloy_dbcsql_admin::ListOperations {
+        super::builder::alloy_dbcsql_admin::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::alloy_dbcsql_admin::GetOperation {
+        super::builder::alloy_dbcsql_admin::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::alloy_dbcsql_admin::DeleteOperation {
+        super::builder::alloy_dbcsql_admin::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::alloy_dbcsql_admin::CancelOperation {
+        super::builder::alloy_dbcsql_admin::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the AlloyDB API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
 /// let client = AlloyDBAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
@@ -156,6 +314,54 @@ impl AlloyDBAdmin {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_cluster(&self) -> super::builder::alloy_db_admin::UpdateCluster {
         super::builder::alloy_db_admin::UpdateCluster::new(self.inner.clone())
+    }
+
+    /// Exports data from the cluster.
+    /// Imperative only.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn export_cluster(&self) -> super::builder::alloy_db_admin::ExportCluster {
+        super::builder::alloy_db_admin::ExportCluster::new(self.inner.clone())
+    }
+
+    /// Imports data to the cluster.
+    /// Imperative only.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn import_cluster(&self) -> super::builder::alloy_db_admin::ImportCluster {
+        super::builder::alloy_db_admin::ImportCluster::new(self.inner.clone())
+    }
+
+    /// Upgrades a single Cluster.
+    /// Imperative only.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn upgrade_cluster(&self) -> super::builder::alloy_db_admin::UpgradeCluster {
+        super::builder::alloy_db_admin::UpgradeCluster::new(self.inner.clone())
     }
 
     /// Deletes a single Cluster.
