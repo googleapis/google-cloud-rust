@@ -24,9 +24,11 @@ impl gaxi::prost::ToProto<PendingRenameInfo> for crate::generated::gapic_control
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::PendingRenameInfo> for PendingRenameInfo {
-    fn cnv(self) -> crate::generated::gapic_control::model::PendingRenameInfo {
-        crate::generated::gapic_control::model::PendingRenameInfo::new()
-            .set_operation(self.operation)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::PendingRenameInfo, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::PendingRenameInfo::new()
+                .set_operation(self.operation)
+        )
     }
 }
 
@@ -44,13 +46,15 @@ impl gaxi::prost::ToProto<Folder> for crate::generated::gapic_control::model::Fo
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::Folder> for Folder {
-    fn cnv(self) -> crate::generated::gapic_control::model::Folder {
-        crate::generated::gapic_control::model::Folder::new()
-            .set_name(self.name)
-            .set_metageneration(self.metageneration)
-            .set_create_time(self.create_time.map(|v| v.cnv()))
-            .set_update_time(self.update_time.map(|v| v.cnv()))
-            .set_pending_rename_info(self.pending_rename_info.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::Folder, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::Folder::new()
+                .set_name(self.name)
+                .set_metageneration(self.metageneration)
+                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_pending_rename_info(self.pending_rename_info.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -67,12 +71,14 @@ impl gaxi::prost::ToProto<GetFolderRequest> for crate::generated::gapic_control:
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetFolderRequest> for GetFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::GetFolderRequest {
-        crate::generated::gapic_control::model::GetFolderRequest::new()
-            .set_name(self.name)
-            .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()))
-            .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()))
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::GetFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::GetFolderRequest::new()
+                .set_name(self.name)
+                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -90,13 +96,15 @@ impl gaxi::prost::ToProto<CreateFolderRequest> for crate::generated::gapic_contr
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateFolderRequest> for CreateFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::CreateFolderRequest {
-        crate::generated::gapic_control::model::CreateFolderRequest::new()
-            .set_parent(self.parent)
-            .set_folder(self.folder.map(|v| v.cnv()))
-            .set_folder_id(self.folder_id)
-            .set_recursive(self.recursive)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CreateFolderRequest::new()
+                .set_parent(self.parent)
+                .set_folder(self.folder.map(|v| v.cnv()).transpose()?)
+                .set_folder_id(self.folder_id)
+                .set_recursive(self.recursive)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -113,12 +121,14 @@ impl gaxi::prost::ToProto<DeleteFolderRequest> for crate::generated::gapic_contr
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DeleteFolderRequest> for DeleteFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::DeleteFolderRequest {
-        crate::generated::gapic_control::model::DeleteFolderRequest::new()
-            .set_name(self.name)
-            .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()))
-            .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()))
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DeleteFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DeleteFolderRequest::new()
+                .set_name(self.name)
+                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -139,16 +149,18 @@ impl gaxi::prost::ToProto<ListFoldersRequest> for crate::generated::gapic_contro
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListFoldersRequest> for ListFoldersRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::ListFoldersRequest {
-        crate::generated::gapic_control::model::ListFoldersRequest::new()
-            .set_parent(self.parent)
-            .set_page_size(self.page_size)
-            .set_page_token(self.page_token)
-            .set_prefix(self.prefix)
-            .set_delimiter(self.delimiter)
-            .set_lexicographic_start(self.lexicographic_start)
-            .set_lexicographic_end(self.lexicographic_end)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListFoldersRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListFoldersRequest::new()
+                .set_parent(self.parent)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_prefix(self.prefix)
+                .set_delimiter(self.delimiter)
+                .set_lexicographic_start(self.lexicographic_start)
+                .set_lexicographic_end(self.lexicographic_end)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -166,10 +178,13 @@ impl gaxi::prost::ToProto<ListFoldersResponse> for crate::generated::gapic_contr
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListFoldersResponse> for ListFoldersResponse {
-    fn cnv(self) -> crate::generated::gapic_control::model::ListFoldersResponse {
-        crate::generated::gapic_control::model::ListFoldersResponse::new()
-            .set_folders(self.folders.into_iter().map(|v| v.cnv()))
-            .set_next_page_token(self.next_page_token)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListFoldersResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListFoldersResponse::new()
+                .set_folders(self.folders.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_next_page_token(self.next_page_token)
+        )
     }
 }
 
@@ -187,13 +202,15 @@ impl gaxi::prost::ToProto<RenameFolderRequest> for crate::generated::gapic_contr
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RenameFolderRequest> for RenameFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::RenameFolderRequest {
-        crate::generated::gapic_control::model::RenameFolderRequest::new()
-            .set_name(self.name)
-            .set_destination_folder_id(self.destination_folder_id)
-            .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()))
-            .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()))
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::RenameFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::RenameFolderRequest::new()
+                .set_name(self.name)
+                .set_destination_folder_id(self.destination_folder_id)
+                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -212,14 +229,16 @@ impl gaxi::prost::ToProto<CommonLongRunningOperationMetadata> for crate::generat
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CommonLongRunningOperationMetadata> for CommonLongRunningOperationMetadata {
-    fn cnv(self) -> crate::generated::gapic_control::model::CommonLongRunningOperationMetadata {
-        crate::generated::gapic_control::model::CommonLongRunningOperationMetadata::new()
-            .set_create_time(self.create_time.map(|v| v.cnv()))
-            .set_end_time(self.end_time.map(|v| v.cnv()))
-            .set_update_time(self.update_time.map(|v| v.cnv()))
-            .set_type(self.r#type)
-            .set_requested_cancellation(self.requested_cancellation)
-            .set_progress_percent(self.progress_percent)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CommonLongRunningOperationMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CommonLongRunningOperationMetadata::new()
+                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
+                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_type(self.r#type)
+                .set_requested_cancellation(self.requested_cancellation)
+                .set_progress_percent(self.progress_percent)
+        )
     }
 }
 
@@ -235,11 +254,13 @@ impl gaxi::prost::ToProto<RenameFolderMetadata> for crate::generated::gapic_cont
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::RenameFolderMetadata> for RenameFolderMetadata {
-    fn cnv(self) -> crate::generated::gapic_control::model::RenameFolderMetadata {
-        crate::generated::gapic_control::model::RenameFolderMetadata::new()
-            .set_common_metadata(self.common_metadata.map(|v| v.cnv()))
-            .set_source_folder_id(self.source_folder_id)
-            .set_destination_folder_id(self.destination_folder_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::RenameFolderMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::RenameFolderMetadata::new()
+                .set_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_source_folder_id(self.source_folder_id)
+                .set_destination_folder_id(self.destination_folder_id)
+        )
     }
 }
 
@@ -256,9 +277,12 @@ impl gaxi::prost::ToProto<storage_layout::CustomPlacementConfig> for crate::gene
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::storage_layout::CustomPlacementConfig> for storage_layout::CustomPlacementConfig {
-    fn cnv(self) -> crate::generated::gapic_control::model::storage_layout::CustomPlacementConfig {
-        crate::generated::gapic_control::model::storage_layout::CustomPlacementConfig::new()
-            .set_data_locations(self.data_locations.into_iter().map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::storage_layout::CustomPlacementConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::storage_layout::CustomPlacementConfig::new()
+                .set_data_locations(self.data_locations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -272,9 +296,11 @@ impl gaxi::prost::ToProto<storage_layout::HierarchicalNamespace> for crate::gene
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::storage_layout::HierarchicalNamespace> for storage_layout::HierarchicalNamespace {
-    fn cnv(self) -> crate::generated::gapic_control::model::storage_layout::HierarchicalNamespace {
-        crate::generated::gapic_control::model::storage_layout::HierarchicalNamespace::new()
-            .set_enabled(self.enabled)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::storage_layout::HierarchicalNamespace, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::storage_layout::HierarchicalNamespace::new()
+                .set_enabled(self.enabled)
+        )
     }
 }
 
@@ -292,13 +318,15 @@ impl gaxi::prost::ToProto<StorageLayout> for crate::generated::gapic_control::mo
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::StorageLayout> for StorageLayout {
-    fn cnv(self) -> crate::generated::gapic_control::model::StorageLayout {
-        crate::generated::gapic_control::model::StorageLayout::new()
-            .set_name(self.name)
-            .set_location(self.location)
-            .set_location_type(self.location_type)
-            .set_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()))
-            .set_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::StorageLayout, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::StorageLayout::new()
+                .set_name(self.name)
+                .set_location(self.location)
+                .set_location_type(self.location_type)
+                .set_custom_placement_config(self.custom_placement_config.map(|v| v.cnv()).transpose()?)
+                .set_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -314,11 +342,13 @@ impl gaxi::prost::ToProto<GetStorageLayoutRequest> for crate::generated::gapic_c
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetStorageLayoutRequest> for GetStorageLayoutRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::GetStorageLayoutRequest {
-        crate::generated::gapic_control::model::GetStorageLayoutRequest::new()
-            .set_name(self.name)
-            .set_prefix(self.prefix)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::GetStorageLayoutRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::GetStorageLayoutRequest::new()
+                .set_name(self.name)
+                .set_prefix(self.prefix)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -335,12 +365,14 @@ impl gaxi::prost::ToProto<ManagedFolder> for crate::generated::gapic_control::mo
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ManagedFolder> for ManagedFolder {
-    fn cnv(self) -> crate::generated::gapic_control::model::ManagedFolder {
-        crate::generated::gapic_control::model::ManagedFolder::new()
-            .set_name(self.name)
-            .set_metageneration(self.metageneration)
-            .set_create_time(self.create_time.map(|v| v.cnv()))
-            .set_update_time(self.update_time.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ManagedFolder, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ManagedFolder::new()
+                .set_name(self.name)
+                .set_metageneration(self.metageneration)
+                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -357,12 +389,14 @@ impl gaxi::prost::ToProto<GetManagedFolderRequest> for crate::generated::gapic_c
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetManagedFolderRequest> for GetManagedFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::GetManagedFolderRequest {
-        crate::generated::gapic_control::model::GetManagedFolderRequest::new()
-            .set_name(self.name)
-            .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()))
-            .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()))
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::GetManagedFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::GetManagedFolderRequest::new()
+                .set_name(self.name)
+                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -379,12 +413,14 @@ impl gaxi::prost::ToProto<CreateManagedFolderRequest> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateManagedFolderRequest> for CreateManagedFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::CreateManagedFolderRequest {
-        crate::generated::gapic_control::model::CreateManagedFolderRequest::new()
-            .set_parent(self.parent)
-            .set_managed_folder(self.managed_folder.map(|v| v.cnv()))
-            .set_managed_folder_id(self.managed_folder_id)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateManagedFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CreateManagedFolderRequest::new()
+                .set_parent(self.parent)
+                .set_managed_folder(self.managed_folder.map(|v| v.cnv()).transpose()?)
+                .set_managed_folder_id(self.managed_folder_id)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -402,13 +438,15 @@ impl gaxi::prost::ToProto<DeleteManagedFolderRequest> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DeleteManagedFolderRequest> for DeleteManagedFolderRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::DeleteManagedFolderRequest {
-        crate::generated::gapic_control::model::DeleteManagedFolderRequest::new()
-            .set_name(self.name)
-            .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()))
-            .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()))
-            .set_allow_non_empty(self.allow_non_empty)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DeleteManagedFolderRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DeleteManagedFolderRequest::new()
+                .set_name(self.name)
+                .set_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_allow_non_empty(self.allow_non_empty)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -426,13 +464,15 @@ impl gaxi::prost::ToProto<ListManagedFoldersRequest> for crate::generated::gapic
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListManagedFoldersRequest> for ListManagedFoldersRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::ListManagedFoldersRequest {
-        crate::generated::gapic_control::model::ListManagedFoldersRequest::new()
-            .set_parent(self.parent)
-            .set_page_size(self.page_size)
-            .set_page_token(self.page_token)
-            .set_prefix(self.prefix)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListManagedFoldersRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListManagedFoldersRequest::new()
+                .set_parent(self.parent)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_prefix(self.prefix)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -450,10 +490,13 @@ impl gaxi::prost::ToProto<ListManagedFoldersResponse> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListManagedFoldersResponse> for ListManagedFoldersResponse {
-    fn cnv(self) -> crate::generated::gapic_control::model::ListManagedFoldersResponse {
-        crate::generated::gapic_control::model::ListManagedFoldersResponse::new()
-            .set_managed_folders(self.managed_folders.into_iter().map(|v| v.cnv()))
-            .set_next_page_token(self.next_page_token)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListManagedFoldersResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListManagedFoldersResponse::new()
+                .set_managed_folders(self.managed_folders.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_next_page_token(self.next_page_token)
+        )
     }
 }
 
@@ -471,13 +514,15 @@ impl gaxi::prost::ToProto<CreateAnywhereCacheMetadata> for crate::generated::gap
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhereCacheMetadata> for CreateAnywhereCacheMetadata {
-    fn cnv(self) -> crate::generated::gapic_control::model::CreateAnywhereCacheMetadata {
-        crate::generated::gapic_control::model::CreateAnywhereCacheMetadata::new()
-            .set_common_metadata(self.common_metadata.map(|v| v.cnv()))
-            .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()))
-            .set_zone(self.zone.map(|v| v.cnv()))
-            .set_ttl(self.ttl.map(|v| v.cnv()))
-            .set_admission_policy(self.admission_policy.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CreateAnywhereCacheMetadata::new()
+                .set_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()).transpose()?)
+                .set_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .set_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .set_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -495,13 +540,15 @@ impl gaxi::prost::ToProto<UpdateAnywhereCacheMetadata> for crate::generated::gap
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata> for UpdateAnywhereCacheMetadata {
-    fn cnv(self) -> crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata {
-        crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata::new()
-            .set_common_metadata(self.common_metadata.map(|v| v.cnv()))
-            .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()))
-            .set_zone(self.zone.map(|v| v.cnv()))
-            .set_ttl(self.ttl.map(|v| v.cnv()))
-            .set_admission_policy(self.admission_policy.map(|v| v.cnv()))
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::UpdateAnywhereCacheMetadata::new()
+                .set_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_anywhere_cache_id(self.anywhere_cache_id.map(|v| v.cnv()).transpose()?)
+                .set_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .set_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .set_admission_policy(self.admission_policy.map(|v| v.cnv()).transpose()?)
+        )
     }
 }
 
@@ -522,16 +569,18 @@ impl gaxi::prost::ToProto<AnywhereCache> for crate::generated::gapic_control::mo
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::AnywhereCache> for AnywhereCache {
-    fn cnv(self) -> crate::generated::gapic_control::model::AnywhereCache {
-        crate::generated::gapic_control::model::AnywhereCache::new()
-            .set_name(self.name)
-            .set_zone(self.zone)
-            .set_ttl(self.ttl.map(|v| v.cnv()))
-            .set_admission_policy(self.admission_policy)
-            .set_state(self.state)
-            .set_create_time(self.create_time.map(|v| v.cnv()))
-            .set_update_time(self.update_time.map(|v| v.cnv()))
-            .set_pending_update(self.pending_update)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::AnywhereCache, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::AnywhereCache::new()
+                .set_name(self.name)
+                .set_zone(self.zone)
+                .set_ttl(self.ttl.map(|v| v.cnv()).transpose()?)
+                .set_admission_policy(self.admission_policy)
+                .set_state(self.state)
+                .set_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_pending_update(self.pending_update)
+        )
     }
 }
 
@@ -547,11 +596,13 @@ impl gaxi::prost::ToProto<CreateAnywhereCacheRequest> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::CreateAnywhereCacheRequest> for CreateAnywhereCacheRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::CreateAnywhereCacheRequest {
-        crate::generated::gapic_control::model::CreateAnywhereCacheRequest::new()
-            .set_parent(self.parent)
-            .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()))
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::CreateAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::CreateAnywhereCacheRequest::new()
+                .set_parent(self.parent)
+                .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -567,11 +618,13 @@ impl gaxi::prost::ToProto<UpdateAnywhereCacheRequest> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateAnywhereCacheRequest> for UpdateAnywhereCacheRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::UpdateAnywhereCacheRequest {
-        crate::generated::gapic_control::model::UpdateAnywhereCacheRequest::new()
-            .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()))
-            .set_update_mask(self.update_mask.map(|v| v.cnv()))
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::UpdateAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::UpdateAnywhereCacheRequest::new()
+                .set_anywhere_cache(self.anywhere_cache.map(|v| v.cnv()).transpose()?)
+                .set_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -586,10 +639,12 @@ impl gaxi::prost::ToProto<DisableAnywhereCacheRequest> for crate::generated::gap
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DisableAnywhereCacheRequest> for DisableAnywhereCacheRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::DisableAnywhereCacheRequest {
-        crate::generated::gapic_control::model::DisableAnywhereCacheRequest::new()
-            .set_name(self.name)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DisableAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DisableAnywhereCacheRequest::new()
+                .set_name(self.name)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -604,10 +659,12 @@ impl gaxi::prost::ToProto<PauseAnywhereCacheRequest> for crate::generated::gapic
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::PauseAnywhereCacheRequest> for PauseAnywhereCacheRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::PauseAnywhereCacheRequest {
-        crate::generated::gapic_control::model::PauseAnywhereCacheRequest::new()
-            .set_name(self.name)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::PauseAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::PauseAnywhereCacheRequest::new()
+                .set_name(self.name)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -622,10 +679,12 @@ impl gaxi::prost::ToProto<ResumeAnywhereCacheRequest> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ResumeAnywhereCacheRequest> for ResumeAnywhereCacheRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::ResumeAnywhereCacheRequest {
-        crate::generated::gapic_control::model::ResumeAnywhereCacheRequest::new()
-            .set_name(self.name)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ResumeAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ResumeAnywhereCacheRequest::new()
+                .set_name(self.name)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -640,10 +699,12 @@ impl gaxi::prost::ToProto<GetAnywhereCacheRequest> for crate::generated::gapic_c
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::GetAnywhereCacheRequest> for GetAnywhereCacheRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::GetAnywhereCacheRequest {
-        crate::generated::gapic_control::model::GetAnywhereCacheRequest::new()
-            .set_name(self.name)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::GetAnywhereCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::GetAnywhereCacheRequest::new()
+                .set_name(self.name)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -660,12 +721,14 @@ impl gaxi::prost::ToProto<ListAnywhereCachesRequest> for crate::generated::gapic
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListAnywhereCachesRequest> for ListAnywhereCachesRequest {
-    fn cnv(self) -> crate::generated::gapic_control::model::ListAnywhereCachesRequest {
-        crate::generated::gapic_control::model::ListAnywhereCachesRequest::new()
-            .set_parent(self.parent)
-            .set_page_size(self.page_size)
-            .set_page_token(self.page_token)
-            .set_request_id(self.request_id)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListAnywhereCachesRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListAnywhereCachesRequest::new()
+                .set_parent(self.parent)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_request_id(self.request_id)
+        )
     }
 }
 
@@ -683,9 +746,12 @@ impl gaxi::prost::ToProto<ListAnywhereCachesResponse> for crate::generated::gapi
 }
 
 impl gaxi::prost::FromProto<crate::generated::gapic_control::model::ListAnywhereCachesResponse> for ListAnywhereCachesResponse {
-    fn cnv(self) -> crate::generated::gapic_control::model::ListAnywhereCachesResponse {
-        crate::generated::gapic_control::model::ListAnywhereCachesResponse::new()
-            .set_anywhere_caches(self.anywhere_caches.into_iter().map(|v| v.cnv()))
-            .set_next_page_token(self.next_page_token)
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::ListAnywhereCachesResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::ListAnywhereCachesResponse::new()
+                .set_anywhere_caches(self.anywhere_caches.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_next_page_token(self.next_page_token)
+        )
     }
 }
