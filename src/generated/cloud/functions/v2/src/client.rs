@@ -126,20 +126,13 @@ impl FunctionService {
     }
 
     /// Returns a function with the given name from the requested project.
-    pub fn get_function(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::function_service::GetFunction {
-        super::builder::function_service::GetFunction::new(self.inner.clone()).set_name(name.into())
+    pub fn get_function(&self) -> super::builder::function_service::GetFunction {
+        super::builder::function_service::GetFunction::new(self.inner.clone())
     }
 
     /// Returns a list of functions that belong to the requested project.
-    pub fn list_functions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::function_service::ListFunctions {
+    pub fn list_functions(&self) -> super::builder::function_service::ListFunctions {
         super::builder::function_service::ListFunctions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new function. If a function with the given name already exists in
@@ -155,12 +148,8 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_function(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::function_service::CreateFunction {
+    pub fn create_function(&self) -> super::builder::function_service::CreateFunction {
         super::builder::function_service::CreateFunction::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates existing function.
@@ -174,12 +163,8 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_function(
-        &self,
-        function: impl Into<crate::model::Function>,
-    ) -> super::builder::function_service::UpdateFunction {
+    pub fn update_function(&self) -> super::builder::function_service::UpdateFunction {
         super::builder::function_service::UpdateFunction::new(self.inner.clone())
-            .set_function(function.into())
     }
 
     /// Deletes a function with the given name from the specified project. If the
@@ -195,12 +180,8 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_function(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::function_service::DeleteFunction {
+    pub fn delete_function(&self) -> super::builder::function_service::DeleteFunction {
         super::builder::function_service::DeleteFunction::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns a signed URL for uploading a function source code.
@@ -226,12 +207,8 @@ impl FunctionService {
     /// Do not specify this header:
     ///
     /// * `Authorization: Bearer YOUR_TOKEN`
-    pub fn generate_upload_url(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::function_service::GenerateUploadUrl {
+    pub fn generate_upload_url(&self) -> super::builder::function_service::GenerateUploadUrl {
         super::builder::function_service::GenerateUploadUrl::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns a signed URL for downloading deployed function source code.
@@ -239,30 +216,18 @@ impl FunctionService {
     /// 30 minutes of generation.
     /// For more information about the signed URL usage see:
     /// <https://cloud.google.com/storage/docs/access-control/signed-urls>
-    pub fn generate_download_url(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::function_service::GenerateDownloadUrl {
+    pub fn generate_download_url(&self) -> super::builder::function_service::GenerateDownloadUrl {
         super::builder::function_service::GenerateDownloadUrl::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns a list of runtimes that are supported for the requested project.
-    pub fn list_runtimes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::function_service::ListRuntimes {
+    pub fn list_runtimes(&self) -> super::builder::function_service::ListRuntimes {
         super::builder::function_service::ListRuntimes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::function_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::function_service::ListLocations {
         super::builder::function_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -270,22 +235,14 @@ impl FunctionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::function_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::function_service::SetIamPolicy {
         super::builder::function_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::function_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::function_service::GetIamPolicy {
         super::builder::function_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -295,33 +252,21 @@ impl FunctionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::function_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::function_service::TestIamPermissions {
         super::builder::function_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::function_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::function_service::ListOperations {
         super::builder::function_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::function_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::function_service::GetOperation {
         super::builder::function_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

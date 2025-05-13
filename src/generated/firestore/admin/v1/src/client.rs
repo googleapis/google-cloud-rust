@@ -163,45 +163,28 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_index(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::CreateIndex {
+    pub fn create_index(&self) -> super::builder::firestore_admin::CreateIndex {
         super::builder::firestore_admin::CreateIndex::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists composite indexes.
-    pub fn list_indexes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListIndexes {
+    pub fn list_indexes(&self) -> super::builder::firestore_admin::ListIndexes {
         super::builder::firestore_admin::ListIndexes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a composite index.
-    pub fn get_index(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetIndex {
-        super::builder::firestore_admin::GetIndex::new(self.inner.clone()).set_name(name.into())
+    pub fn get_index(&self) -> super::builder::firestore_admin::GetIndex {
+        super::builder::firestore_admin::GetIndex::new(self.inner.clone())
     }
 
     /// Deletes a composite index.
-    pub fn delete_index(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DeleteIndex {
-        super::builder::firestore_admin::DeleteIndex::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_index(&self) -> super::builder::firestore_admin::DeleteIndex {
+        super::builder::firestore_admin::DeleteIndex::new(self.inner.clone())
     }
 
     /// Gets the metadata and configuration for a Field.
-    pub fn get_field(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetField {
-        super::builder::firestore_admin::GetField::new(self.inner.clone()).set_name(name.into())
+    pub fn get_field(&self) -> super::builder::firestore_admin::GetField {
+        super::builder::firestore_admin::GetField::new(self.inner.clone())
     }
 
     /// Updates a field configuration. Currently, field updates apply only to
@@ -234,12 +217,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_field(
-        &self,
-        field: impl Into<crate::model::Field>,
-    ) -> super::builder::firestore_admin::UpdateField {
+    pub fn update_field(&self) -> super::builder::firestore_admin::UpdateField {
         super::builder::firestore_admin::UpdateField::new(self.inner.clone())
-            .set_field(field.into())
     }
 
     /// Lists the field configuration and metadata for this database.
@@ -253,12 +232,8 @@ impl FirestoreAdmin {
     /// `ttlConfig:*`.
     ///
     /// [google.firestore.admin.v1.FirestoreAdmin.ListFields]: crate::client::FirestoreAdmin::list_fields
-    pub fn list_fields(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListFields {
+    pub fn list_fields(&self) -> super::builder::firestore_admin::ListFields {
         super::builder::firestore_admin::ListFields::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Exports a copy of all or a subset of documents from Google Cloud Firestore
@@ -282,12 +257,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_documents(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ExportDocuments {
+    pub fn export_documents(&self) -> super::builder::firestore_admin::ExportDocuments {
         super::builder::firestore_admin::ExportDocuments::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Imports documents into Google Cloud Firestore. Existing documents with the
@@ -305,12 +276,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_documents(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ImportDocuments {
+    pub fn import_documents(&self) -> super::builder::firestore_admin::ImportDocuments {
         super::builder::firestore_admin::ImportDocuments::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Bulk deletes a subset of documents from Google Cloud Firestore.
@@ -331,12 +298,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_delete_documents(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::BulkDeleteDocuments {
+    pub fn bulk_delete_documents(&self) -> super::builder::firestore_admin::BulkDeleteDocuments {
         super::builder::firestore_admin::BulkDeleteDocuments::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Create a database.
@@ -350,29 +313,18 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_database(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::CreateDatabase {
+    pub fn create_database(&self) -> super::builder::firestore_admin::CreateDatabase {
         super::builder::firestore_admin::CreateDatabase::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information about a database.
-    pub fn get_database(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetDatabase {
-        super::builder::firestore_admin::GetDatabase::new(self.inner.clone()).set_name(name.into())
+    pub fn get_database(&self) -> super::builder::firestore_admin::GetDatabase {
+        super::builder::firestore_admin::GetDatabase::new(self.inner.clone())
     }
 
     /// List all the databases in the project.
-    pub fn list_databases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListDatabases {
+    pub fn list_databases(&self) -> super::builder::firestore_admin::ListDatabases {
         super::builder::firestore_admin::ListDatabases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a database.
@@ -386,12 +338,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_database(
-        &self,
-        database: impl Into<crate::model::Database>,
-    ) -> super::builder::firestore_admin::UpdateDatabase {
+    pub fn update_database(&self) -> super::builder::firestore_admin::UpdateDatabase {
         super::builder::firestore_admin::UpdateDatabase::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Deletes a database.
@@ -405,101 +353,60 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_database(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DeleteDatabase {
+    pub fn delete_database(&self) -> super::builder::firestore_admin::DeleteDatabase {
         super::builder::firestore_admin::DeleteDatabase::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Create a user creds.
-    pub fn create_user_creds(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::CreateUserCreds {
+    pub fn create_user_creds(&self) -> super::builder::firestore_admin::CreateUserCreds {
         super::builder::firestore_admin::CreateUserCreds::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a user creds resource. Note that the returned resource does not
     /// contain the secret value itself.
-    pub fn get_user_creds(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetUserCreds {
-        super::builder::firestore_admin::GetUserCreds::new(self.inner.clone()).set_name(name.into())
+    pub fn get_user_creds(&self) -> super::builder::firestore_admin::GetUserCreds {
+        super::builder::firestore_admin::GetUserCreds::new(self.inner.clone())
     }
 
     /// List all user creds in the database. Note that the returned resource
     /// does not contain the secret value itself.
-    pub fn list_user_creds(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListUserCreds {
+    pub fn list_user_creds(&self) -> super::builder::firestore_admin::ListUserCreds {
         super::builder::firestore_admin::ListUserCreds::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Enables a user creds. No-op if the user creds are already enabled.
-    pub fn enable_user_creds(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::EnableUserCreds {
+    pub fn enable_user_creds(&self) -> super::builder::firestore_admin::EnableUserCreds {
         super::builder::firestore_admin::EnableUserCreds::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Disables a user creds. No-op if the user creds are already disabled.
-    pub fn disable_user_creds(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DisableUserCreds {
+    pub fn disable_user_creds(&self) -> super::builder::firestore_admin::DisableUserCreds {
         super::builder::firestore_admin::DisableUserCreds::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Resets the password of a user creds.
-    pub fn reset_user_password(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ResetUserPassword {
+    pub fn reset_user_password(&self) -> super::builder::firestore_admin::ResetUserPassword {
         super::builder::firestore_admin::ResetUserPassword::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a user creds.
-    pub fn delete_user_creds(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DeleteUserCreds {
+    pub fn delete_user_creds(&self) -> super::builder::firestore_admin::DeleteUserCreds {
         super::builder::firestore_admin::DeleteUserCreds::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a backup.
-    pub fn get_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetBackup {
-        super::builder::firestore_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup(&self) -> super::builder::firestore_admin::GetBackup {
+        super::builder::firestore_admin::GetBackup::new(self.inner.clone())
     }
 
     /// Lists all the backups.
-    pub fn list_backups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListBackups {
+    pub fn list_backups(&self) -> super::builder::firestore_admin::ListBackups {
         super::builder::firestore_admin::ListBackups::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a backup.
-    pub fn delete_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DeleteBackup {
-        super::builder::firestore_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup(&self) -> super::builder::firestore_admin::DeleteBackup {
+        super::builder::firestore_admin::DeleteBackup::new(self.inner.clone())
     }
 
     /// Creates a new database by restoring from an existing backup.
@@ -536,101 +443,62 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_database(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::RestoreDatabase {
+    pub fn restore_database(&self) -> super::builder::firestore_admin::RestoreDatabase {
         super::builder::firestore_admin::RestoreDatabase::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a backup schedule on a database.
     /// At most two backup schedules can be configured on a database, one daily
     /// backup schedule and one weekly backup schedule.
-    pub fn create_backup_schedule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::CreateBackupSchedule {
+    pub fn create_backup_schedule(&self) -> super::builder::firestore_admin::CreateBackupSchedule {
         super::builder::firestore_admin::CreateBackupSchedule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information about a backup schedule.
-    pub fn get_backup_schedule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetBackupSchedule {
+    pub fn get_backup_schedule(&self) -> super::builder::firestore_admin::GetBackupSchedule {
         super::builder::firestore_admin::GetBackupSchedule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List backup schedules.
-    pub fn list_backup_schedules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListBackupSchedules {
+    pub fn list_backup_schedules(&self) -> super::builder::firestore_admin::ListBackupSchedules {
         super::builder::firestore_admin::ListBackupSchedules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a backup schedule.
-    pub fn update_backup_schedule(
-        &self,
-        backup_schedule: impl Into<crate::model::BackupSchedule>,
-    ) -> super::builder::firestore_admin::UpdateBackupSchedule {
+    pub fn update_backup_schedule(&self) -> super::builder::firestore_admin::UpdateBackupSchedule {
         super::builder::firestore_admin::UpdateBackupSchedule::new(self.inner.clone())
-            .set_backup_schedule(backup_schedule.into())
     }
 
     /// Deletes a backup schedule.
-    pub fn delete_backup_schedule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DeleteBackupSchedule {
+    pub fn delete_backup_schedule(&self) -> super::builder::firestore_admin::DeleteBackupSchedule {
         super::builder::firestore_admin::DeleteBackupSchedule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::firestore_admin::ListOperations {
         super::builder::firestore_admin::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::GetOperation {
-        super::builder::firestore_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::firestore_admin::GetOperation {
+        super::builder::firestore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::firestore_admin::DeleteOperation {
         super::builder::firestore_admin::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firestore_admin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::firestore_admin::CancelOperation {
         super::builder::firestore_admin::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

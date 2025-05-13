@@ -117,19 +117,13 @@ impl Ids {
     }
 
     /// Lists Endpoints in a given project and location.
-    pub fn list_endpoints(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::ids::ListEndpoints {
-        super::builder::ids::ListEndpoints::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_endpoints(&self) -> super::builder::ids::ListEndpoints {
+        super::builder::ids::ListEndpoints::new(self.inner.clone())
     }
 
     /// Gets details of a single Endpoint.
-    pub fn get_endpoint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::GetEndpoint {
-        super::builder::ids::GetEndpoint::new(self.inner.clone()).set_name(name.into())
+    pub fn get_endpoint(&self) -> super::builder::ids::GetEndpoint {
+        super::builder::ids::GetEndpoint::new(self.inner.clone())
     }
 
     /// Creates a new Endpoint in a given project and location.
@@ -143,11 +137,8 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_endpoint(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::ids::CreateEndpoint {
-        super::builder::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_endpoint(&self) -> super::builder::ids::CreateEndpoint {
+        super::builder::ids::CreateEndpoint::new(self.inner.clone())
     }
 
     /// Deletes a single Endpoint.
@@ -161,50 +152,35 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_endpoint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::DeleteEndpoint {
-        super::builder::ids::DeleteEndpoint::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_endpoint(&self) -> super::builder::ids::DeleteEndpoint {
+        super::builder::ids::DeleteEndpoint::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::ListOperations {
-        super::builder::ids::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::ids::ListOperations {
+        super::builder::ids::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::GetOperation {
-        super::builder::ids::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::ids::GetOperation {
+        super::builder::ids::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::DeleteOperation {
-        super::builder::ids::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::ids::DeleteOperation {
+        super::builder::ids::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::CancelOperation {
-        super::builder::ids::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::ids::CancelOperation {
+        super::builder::ids::CancelOperation::new(self.inner.clone())
     }
 }

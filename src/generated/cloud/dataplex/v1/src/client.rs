@@ -133,12 +133,8 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_entry_type(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CreateEntryType {
+    pub fn create_entry_type(&self) -> super::builder::catalog_service::CreateEntryType {
         super::builder::catalog_service::CreateEntryType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an EntryType.
@@ -152,12 +148,8 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_entry_type(
-        &self,
-        entry_type: impl Into<crate::model::EntryType>,
-    ) -> super::builder::catalog_service::UpdateEntryType {
+    pub fn update_entry_type(&self) -> super::builder::catalog_service::UpdateEntryType {
         super::builder::catalog_service::UpdateEntryType::new(self.inner.clone())
-            .set_entry_type(entry_type.into())
     }
 
     /// Deletes an EntryType.
@@ -171,29 +163,18 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_entry_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::DeleteEntryType {
+    pub fn delete_entry_type(&self) -> super::builder::catalog_service::DeleteEntryType {
         super::builder::catalog_service::DeleteEntryType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists EntryType resources in a project and location.
-    pub fn list_entry_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListEntryTypes {
+    pub fn list_entry_types(&self) -> super::builder::catalog_service::ListEntryTypes {
         super::builder::catalog_service::ListEntryTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an EntryType.
-    pub fn get_entry_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetEntryType {
-        super::builder::catalog_service::GetEntryType::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entry_type(&self) -> super::builder::catalog_service::GetEntryType {
+        super::builder::catalog_service::GetEntryType::new(self.inner.clone())
     }
 
     /// Creates an AspectType.
@@ -207,12 +188,8 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_aspect_type(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CreateAspectType {
+    pub fn create_aspect_type(&self) -> super::builder::catalog_service::CreateAspectType {
         super::builder::catalog_service::CreateAspectType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an AspectType.
@@ -226,12 +203,8 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_aspect_type(
-        &self,
-        aspect_type: impl Into<crate::model::AspectType>,
-    ) -> super::builder::catalog_service::UpdateAspectType {
+    pub fn update_aspect_type(&self) -> super::builder::catalog_service::UpdateAspectType {
         super::builder::catalog_service::UpdateAspectType::new(self.inner.clone())
-            .set_aspect_type(aspect_type.into())
     }
 
     /// Deletes an AspectType.
@@ -245,30 +218,18 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_aspect_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::DeleteAspectType {
+    pub fn delete_aspect_type(&self) -> super::builder::catalog_service::DeleteAspectType {
         super::builder::catalog_service::DeleteAspectType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists AspectType resources in a project and location.
-    pub fn list_aspect_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListAspectTypes {
+    pub fn list_aspect_types(&self) -> super::builder::catalog_service::ListAspectTypes {
         super::builder::catalog_service::ListAspectTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an AspectType.
-    pub fn get_aspect_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetAspectType {
+    pub fn get_aspect_type(&self) -> super::builder::catalog_service::GetAspectType {
         super::builder::catalog_service::GetAspectType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an EntryGroup.
@@ -282,12 +243,8 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_entry_group(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CreateEntryGroup {
+    pub fn create_entry_group(&self) -> super::builder::catalog_service::CreateEntryGroup {
         super::builder::catalog_service::CreateEntryGroup::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an EntryGroup.
@@ -301,12 +258,8 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_entry_group(
-        &self,
-        entry_group: impl Into<crate::model::EntryGroup>,
-    ) -> super::builder::catalog_service::UpdateEntryGroup {
+    pub fn update_entry_group(&self) -> super::builder::catalog_service::UpdateEntryGroup {
         super::builder::catalog_service::UpdateEntryGroup::new(self.inner.clone())
-            .set_entry_group(entry_group.into())
     }
 
     /// Deletes an EntryGroup.
@@ -320,90 +273,53 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_entry_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::DeleteEntryGroup {
+    pub fn delete_entry_group(&self) -> super::builder::catalog_service::DeleteEntryGroup {
         super::builder::catalog_service::DeleteEntryGroup::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists EntryGroup resources in a project and location.
-    pub fn list_entry_groups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListEntryGroups {
+    pub fn list_entry_groups(&self) -> super::builder::catalog_service::ListEntryGroups {
         super::builder::catalog_service::ListEntryGroups::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an EntryGroup.
-    pub fn get_entry_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetEntryGroup {
+    pub fn get_entry_group(&self) -> super::builder::catalog_service::GetEntryGroup {
         super::builder::catalog_service::GetEntryGroup::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an Entry.
-    pub fn create_entry(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CreateEntry {
+    pub fn create_entry(&self) -> super::builder::catalog_service::CreateEntry {
         super::builder::catalog_service::CreateEntry::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an Entry.
-    pub fn update_entry(
-        &self,
-        entry: impl Into<crate::model::Entry>,
-    ) -> super::builder::catalog_service::UpdateEntry {
+    pub fn update_entry(&self) -> super::builder::catalog_service::UpdateEntry {
         super::builder::catalog_service::UpdateEntry::new(self.inner.clone())
-            .set_entry(entry.into())
     }
 
     /// Deletes an Entry.
-    pub fn delete_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::DeleteEntry {
-        super::builder::catalog_service::DeleteEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_entry(&self) -> super::builder::catalog_service::DeleteEntry {
+        super::builder::catalog_service::DeleteEntry::new(self.inner.clone())
     }
 
     /// Lists Entries within an EntryGroup.
-    pub fn list_entries(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListEntries {
+    pub fn list_entries(&self) -> super::builder::catalog_service::ListEntries {
         super::builder::catalog_service::ListEntries::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an Entry.
-    pub fn get_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetEntry {
-        super::builder::catalog_service::GetEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entry(&self) -> super::builder::catalog_service::GetEntry {
+        super::builder::catalog_service::GetEntry::new(self.inner.clone())
     }
 
     /// Looks up an entry by name using the permission on the source system.
-    pub fn lookup_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::LookupEntry {
-        super::builder::catalog_service::LookupEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn lookup_entry(&self) -> super::builder::catalog_service::LookupEntry {
+        super::builder::catalog_service::LookupEntry::new(self.inner.clone())
     }
 
     /// Searches for Entries matching the given query and scope.
-    pub fn search_entries(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::SearchEntries {
+    pub fn search_entries(&self) -> super::builder::catalog_service::SearchEntries {
         super::builder::catalog_service::SearchEntries::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a metadata job. For example, use a metadata job to import Dataplex
@@ -418,30 +334,18 @@ impl CatalogService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_metadata_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CreateMetadataJob {
+    pub fn create_metadata_job(&self) -> super::builder::catalog_service::CreateMetadataJob {
         super::builder::catalog_service::CreateMetadataJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a metadata job.
-    pub fn get_metadata_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetMetadataJob {
+    pub fn get_metadata_job(&self) -> super::builder::catalog_service::GetMetadataJob {
         super::builder::catalog_service::GetMetadataJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists metadata jobs.
-    pub fn list_metadata_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListMetadataJobs {
+    pub fn list_metadata_jobs(&self) -> super::builder::catalog_service::ListMetadataJobs {
         super::builder::catalog_service::ListMetadataJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Cancels a metadata job.
@@ -450,29 +354,18 @@ impl CatalogService {
     /// job might be partially applied. We recommend that you reset the state of
     /// the entry groups in your project by running another metadata job that
     /// reverts the changes from the canceled job.
-    pub fn cancel_metadata_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CancelMetadataJob {
+    pub fn cancel_metadata_job(&self) -> super::builder::catalog_service::CancelMetadataJob {
         super::builder::catalog_service::CancelMetadataJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::catalog_service::ListLocations {
         super::builder::catalog_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetLocation {
-        super::builder::catalog_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::catalog_service::GetLocation {
+        super::builder::catalog_service::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -480,22 +373,14 @@ impl CatalogService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::catalog_service::SetIamPolicy {
         super::builder::catalog_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::catalog_service::GetIamPolicy {
         super::builder::catalog_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -505,55 +390,36 @@ impl CatalogService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::catalog_service::TestIamPermissions {
         super::builder::catalog_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::catalog_service::ListOperations {
         super::builder::catalog_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetOperation {
-        super::builder::catalog_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation {
+        super::builder::catalog_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::catalog_service::DeleteOperation {
         super::builder::catalog_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::catalog_service::CancelOperation {
         super::builder::catalog_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -668,12 +534,8 @@ impl CmekService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_encryption_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::CreateEncryptionConfig {
+    pub fn create_encryption_config(&self) -> super::builder::cmek_service::CreateEncryptionConfig {
         super::builder::cmek_service::CreateEncryptionConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update an EncryptionConfig.
@@ -687,12 +549,8 @@ impl CmekService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_encryption_config(
-        &self,
-        encryption_config: impl Into<crate::model::EncryptionConfig>,
-    ) -> super::builder::cmek_service::UpdateEncryptionConfig {
+    pub fn update_encryption_config(&self) -> super::builder::cmek_service::UpdateEncryptionConfig {
         super::builder::cmek_service::UpdateEncryptionConfig::new(self.inner.clone())
-            .set_encryption_config(encryption_config.into())
     }
 
     /// Delete an EncryptionConfig.
@@ -706,46 +564,28 @@ impl CmekService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_encryption_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::DeleteEncryptionConfig {
+    pub fn delete_encryption_config(&self) -> super::builder::cmek_service::DeleteEncryptionConfig {
         super::builder::cmek_service::DeleteEncryptionConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List EncryptionConfigs.
-    pub fn list_encryption_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::ListEncryptionConfigs {
+    pub fn list_encryption_configs(&self) -> super::builder::cmek_service::ListEncryptionConfigs {
         super::builder::cmek_service::ListEncryptionConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get an EncryptionConfig.
-    pub fn get_encryption_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::GetEncryptionConfig {
+    pub fn get_encryption_config(&self) -> super::builder::cmek_service::GetEncryptionConfig {
         super::builder::cmek_service::GetEncryptionConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::ListLocations {
-        super::builder::cmek_service::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::cmek_service::ListLocations {
+        super::builder::cmek_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::GetLocation {
-        super::builder::cmek_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::cmek_service::GetLocation {
+        super::builder::cmek_service::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -753,22 +593,14 @@ impl CmekService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::cmek_service::SetIamPolicy {
         super::builder::cmek_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::cmek_service::GetIamPolicy {
         super::builder::cmek_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -778,52 +610,36 @@ impl CmekService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::cmek_service::TestIamPermissions {
         super::builder::cmek_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::ListOperations {
-        super::builder::cmek_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::cmek_service::ListOperations {
+        super::builder::cmek_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::GetOperation {
-        super::builder::cmek_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::cmek_service::GetOperation {
+        super::builder::cmek_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::DeleteOperation {
-        super::builder::cmek_service::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::cmek_service::DeleteOperation {
+        super::builder::cmek_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cmek_service::CancelOperation {
-        super::builder::cmek_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::cmek_service::CancelOperation {
+        super::builder::cmek_service::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -928,38 +744,23 @@ impl ContentService {
     }
 
     /// Create a content.
-    pub fn create_content(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::content_service::CreateContent {
+    pub fn create_content(&self) -> super::builder::content_service::CreateContent {
         super::builder::content_service::CreateContent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update a content. Only supports full resource update.
-    pub fn update_content(
-        &self,
-        content: impl Into<crate::model::Content>,
-    ) -> super::builder::content_service::UpdateContent {
+    pub fn update_content(&self) -> super::builder::content_service::UpdateContent {
         super::builder::content_service::UpdateContent::new(self.inner.clone())
-            .set_content(content.into())
     }
 
     /// Delete a content.
-    pub fn delete_content(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::DeleteContent {
+    pub fn delete_content(&self) -> super::builder::content_service::DeleteContent {
         super::builder::content_service::DeleteContent::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get a content resource.
-    pub fn get_content(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::GetContent {
-        super::builder::content_service::GetContent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_content(&self) -> super::builder::content_service::GetContent {
+        super::builder::content_service::GetContent::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a contentitem resource. A `NOT_FOUND`
@@ -968,12 +769,8 @@ impl ContentService {
     ///
     /// Caller must have Google IAM `dataplex.content.getIamPolicy` permission
     /// on the resource.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::content_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::content_service::GetIamPolicy {
         super::builder::content_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy on the specified contentitem resource.
@@ -981,12 +778,8 @@ impl ContentService {
     ///
     /// Caller must have Google IAM `dataplex.content.setIamPolicy` permission
     /// on the resource.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::content_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::content_service::SetIamPolicy {
         super::builder::content_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the caller's permissions on a resource.
@@ -999,81 +792,51 @@ impl ContentService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::content_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::content_service::TestIamPermissions {
         super::builder::content_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// List content.
-    pub fn list_content(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::content_service::ListContent {
+    pub fn list_content(&self) -> super::builder::content_service::ListContent {
         super::builder::content_service::ListContent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::content_service::ListLocations {
         super::builder::content_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::GetLocation {
-        super::builder::content_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::content_service::GetLocation {
+        super::builder::content_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::content_service::ListOperations {
         super::builder::content_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::GetOperation {
-        super::builder::content_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::content_service::GetOperation {
+        super::builder::content_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::content_service::DeleteOperation {
         super::builder::content_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::content_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::content_service::CancelOperation {
         super::builder::content_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1195,10 +958,8 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn create_data_taxonomy(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::CreateDataTaxonomy {
         super::builder::data_taxonomy_service::CreateDataTaxonomy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a DataTaxonomy resource.
@@ -1215,10 +976,8 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn update_data_taxonomy(
         &self,
-        data_taxonomy: impl Into<crate::model::DataTaxonomy>,
     ) -> super::builder::data_taxonomy_service::UpdateDataTaxonomy {
         super::builder::data_taxonomy_service::UpdateDataTaxonomy::new(self.inner.clone())
-            .set_data_taxonomy(data_taxonomy.into())
     }
 
     /// Deletes a DataTaxonomy resource. All attributes within the DataTaxonomy
@@ -1236,30 +995,22 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn delete_data_taxonomy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::DeleteDataTaxonomy {
         super::builder::data_taxonomy_service::DeleteDataTaxonomy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists DataTaxonomy resources in a project and location.
     #[deprecated]
     pub fn list_data_taxonomies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::ListDataTaxonomies {
         super::builder::data_taxonomy_service::ListDataTaxonomies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a DataTaxonomy resource.
     #[deprecated]
-    pub fn get_data_taxonomy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::GetDataTaxonomy {
+    pub fn get_data_taxonomy(&self) -> super::builder::data_taxonomy_service::GetDataTaxonomy {
         super::builder::data_taxonomy_service::GetDataTaxonomy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Create a DataAttributeBinding resource.
@@ -1276,10 +1027,8 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn create_data_attribute_binding(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::CreateDataAttributeBinding {
         super::builder::data_taxonomy_service::CreateDataAttributeBinding::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a DataAttributeBinding resource.
@@ -1296,10 +1045,8 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn update_data_attribute_binding(
         &self,
-        data_attribute_binding: impl Into<crate::model::DataAttributeBinding>,
     ) -> super::builder::data_taxonomy_service::UpdateDataAttributeBinding {
         super::builder::data_taxonomy_service::UpdateDataAttributeBinding::new(self.inner.clone())
-            .set_data_attribute_binding(data_attribute_binding.into())
     }
 
     /// Deletes a DataAttributeBinding resource. All attributes within the
@@ -1318,30 +1065,24 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn delete_data_attribute_binding(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::DeleteDataAttributeBinding {
         super::builder::data_taxonomy_service::DeleteDataAttributeBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists DataAttributeBinding resources in a project and location.
     #[deprecated]
     pub fn list_data_attribute_bindings(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::ListDataAttributeBindings {
         super::builder::data_taxonomy_service::ListDataAttributeBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a DataAttributeBinding resource.
     #[deprecated]
     pub fn get_data_attribute_binding(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::GetDataAttributeBinding {
         super::builder::data_taxonomy_service::GetDataAttributeBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Create a DataAttribute resource.
@@ -1358,10 +1099,8 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn create_data_attribute(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::CreateDataAttribute {
         super::builder::data_taxonomy_service::CreateDataAttribute::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a DataAttribute resource.
@@ -1378,10 +1117,8 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn update_data_attribute(
         &self,
-        data_attribute: impl Into<crate::model::DataAttribute>,
     ) -> super::builder::data_taxonomy_service::UpdateDataAttribute {
         super::builder::data_taxonomy_service::UpdateDataAttribute::new(self.inner.clone())
-            .set_data_attribute(data_attribute.into())
     }
 
     /// Deletes a Data Attribute resource.
@@ -1398,48 +1135,32 @@ impl DataTaxonomyService {
     #[deprecated]
     pub fn delete_data_attribute(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::DeleteDataAttribute {
         super::builder::data_taxonomy_service::DeleteDataAttribute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Data Attribute resources in a DataTaxonomy.
     #[deprecated]
     pub fn list_data_attributes(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::ListDataAttributes {
         super::builder::data_taxonomy_service::ListDataAttributes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a Data Attribute resource.
     #[deprecated]
-    pub fn get_data_attribute(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::GetDataAttribute {
+    pub fn get_data_attribute(&self) -> super::builder::data_taxonomy_service::GetDataAttribute {
         super::builder::data_taxonomy_service::GetDataAttribute::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::data_taxonomy_service::ListLocations {
         super::builder::data_taxonomy_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::data_taxonomy_service::GetLocation {
         super::builder::data_taxonomy_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -1447,22 +1168,14 @@ impl DataTaxonomyService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::data_taxonomy_service::SetIamPolicy {
         super::builder::data_taxonomy_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::data_taxonomy_service::GetIamPolicy {
         super::builder::data_taxonomy_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -1474,54 +1187,36 @@ impl DataTaxonomyService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::TestIamPermissions {
         super::builder::data_taxonomy_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::data_taxonomy_service::ListOperations {
         super::builder::data_taxonomy_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::data_taxonomy_service::GetOperation {
         super::builder::data_taxonomy_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::data_taxonomy_service::DeleteOperation {
         super::builder::data_taxonomy_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_taxonomy_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::data_taxonomy_service::CancelOperation {
         super::builder::data_taxonomy_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1640,12 +1335,8 @@ impl DataScanService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_data_scan(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::CreateDataScan {
+    pub fn create_data_scan(&self) -> super::builder::data_scan_service::CreateDataScan {
         super::builder::data_scan_service::CreateDataScan::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a DataScan resource.
@@ -1659,12 +1350,8 @@ impl DataScanService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_data_scan(
-        &self,
-        data_scan: impl Into<crate::model::DataScan>,
-    ) -> super::builder::data_scan_service::UpdateDataScan {
+    pub fn update_data_scan(&self) -> super::builder::data_scan_service::UpdateDataScan {
         super::builder::data_scan_service::UpdateDataScan::new(self.inner.clone())
-            .set_data_scan(data_scan.into())
     }
 
     /// Deletes a DataScan resource.
@@ -1678,57 +1365,33 @@ impl DataScanService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_data_scan(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::DeleteDataScan {
+    pub fn delete_data_scan(&self) -> super::builder::data_scan_service::DeleteDataScan {
         super::builder::data_scan_service::DeleteDataScan::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a DataScan resource.
-    pub fn get_data_scan(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::GetDataScan {
+    pub fn get_data_scan(&self) -> super::builder::data_scan_service::GetDataScan {
         super::builder::data_scan_service::GetDataScan::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists DataScans.
-    pub fn list_data_scans(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::ListDataScans {
+    pub fn list_data_scans(&self) -> super::builder::data_scan_service::ListDataScans {
         super::builder::data_scan_service::ListDataScans::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Runs an on-demand execution of a DataScan
-    pub fn run_data_scan(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::RunDataScan {
+    pub fn run_data_scan(&self) -> super::builder::data_scan_service::RunDataScan {
         super::builder::data_scan_service::RunDataScan::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a DataScanJob resource.
-    pub fn get_data_scan_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::GetDataScanJob {
+    pub fn get_data_scan_job(&self) -> super::builder::data_scan_service::GetDataScanJob {
         super::builder::data_scan_service::GetDataScanJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists DataScanJobs under the given DataScan.
-    pub fn list_data_scan_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::ListDataScanJobs {
+    pub fn list_data_scan_jobs(&self) -> super::builder::data_scan_service::ListDataScanJobs {
         super::builder::data_scan_service::ListDataScanJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Generates recommended data quality rules based on the results of a data
@@ -1737,28 +1400,18 @@ impl DataScanService {
     /// Use the recommendations to build rules for a data quality scan.
     pub fn generate_data_quality_rules(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_scan_service::GenerateDataQualityRules {
         super::builder::data_scan_service::GenerateDataQualityRules::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::data_scan_service::ListLocations {
         super::builder::data_scan_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::data_scan_service::GetLocation {
         super::builder::data_scan_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -1766,22 +1419,14 @@ impl DataScanService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::data_scan_service::SetIamPolicy {
         super::builder::data_scan_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::data_scan_service::GetIamPolicy {
         super::builder::data_scan_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -1791,56 +1436,36 @@ impl DataScanService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::data_scan_service::TestIamPermissions {
         super::builder::data_scan_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::data_scan_service::ListOperations {
         super::builder::data_scan_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::data_scan_service::GetOperation {
         super::builder::data_scan_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::data_scan_service::DeleteOperation {
         super::builder::data_scan_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_scan_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::data_scan_service::CancelOperation {
         super::builder::data_scan_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1948,100 +1573,58 @@ impl MetadataService {
     }
 
     /// Create a metadata entity.
-    pub fn create_entity(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::CreateEntity {
+    pub fn create_entity(&self) -> super::builder::metadata_service::CreateEntity {
         super::builder::metadata_service::CreateEntity::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update a metadata entity. Only supports full resource update.
-    pub fn update_entity(
-        &self,
-        entity: impl Into<crate::model::Entity>,
-    ) -> super::builder::metadata_service::UpdateEntity {
+    pub fn update_entity(&self) -> super::builder::metadata_service::UpdateEntity {
         super::builder::metadata_service::UpdateEntity::new(self.inner.clone())
-            .set_entity(entity.into())
     }
 
     /// Delete a metadata entity.
-    pub fn delete_entity(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::DeleteEntity {
+    pub fn delete_entity(&self) -> super::builder::metadata_service::DeleteEntity {
         super::builder::metadata_service::DeleteEntity::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get a metadata entity.
-    pub fn get_entity(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::GetEntity {
-        super::builder::metadata_service::GetEntity::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entity(&self) -> super::builder::metadata_service::GetEntity {
+        super::builder::metadata_service::GetEntity::new(self.inner.clone())
     }
 
     /// List metadata entities in a zone.
-    pub fn list_entities(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::ListEntities {
+    pub fn list_entities(&self) -> super::builder::metadata_service::ListEntities {
         super::builder::metadata_service::ListEntities::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a metadata partition.
-    pub fn create_partition(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::CreatePartition {
+    pub fn create_partition(&self) -> super::builder::metadata_service::CreatePartition {
         super::builder::metadata_service::CreatePartition::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Delete a metadata partition.
-    pub fn delete_partition(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::DeletePartition {
+    pub fn delete_partition(&self) -> super::builder::metadata_service::DeletePartition {
         super::builder::metadata_service::DeletePartition::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get a metadata partition of an entity.
-    pub fn get_partition(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::GetPartition {
+    pub fn get_partition(&self) -> super::builder::metadata_service::GetPartition {
         super::builder::metadata_service::GetPartition::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List metadata partitions of an entity.
-    pub fn list_partitions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::ListPartitions {
+    pub fn list_partitions(&self) -> super::builder::metadata_service::ListPartitions {
         super::builder::metadata_service::ListPartitions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::metadata_service::ListLocations {
         super::builder::metadata_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::GetLocation {
-        super::builder::metadata_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::metadata_service::GetLocation {
+        super::builder::metadata_service::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -2049,22 +1632,14 @@ impl MetadataService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::metadata_service::SetIamPolicy {
         super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::metadata_service::GetIamPolicy {
         super::builder::metadata_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -2074,56 +1649,36 @@ impl MetadataService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::metadata_service::TestIamPermissions {
         super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::metadata_service::ListOperations {
         super::builder::metadata_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::metadata_service::GetOperation {
         super::builder::metadata_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::metadata_service::DeleteOperation {
         super::builder::metadata_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metadata_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::metadata_service::CancelOperation {
         super::builder::metadata_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -2244,12 +1799,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_lake(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CreateLake {
+    pub fn create_lake(&self) -> super::builder::dataplex_service::CreateLake {
         super::builder::dataplex_service::CreateLake::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a lake resource.
@@ -2263,11 +1814,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_lake(
-        &self,
-        lake: impl Into<crate::model::Lake>,
-    ) -> super::builder::dataplex_service::UpdateLake {
-        super::builder::dataplex_service::UpdateLake::new(self.inner.clone()).set_lake(lake.into())
+    pub fn update_lake(&self) -> super::builder::dataplex_service::UpdateLake {
+        super::builder::dataplex_service::UpdateLake::new(self.inner.clone())
     }
 
     /// Deletes a lake resource. All zones within the lake must be deleted before
@@ -2282,37 +1830,23 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_lake(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::DeleteLake {
-        super::builder::dataplex_service::DeleteLake::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_lake(&self) -> super::builder::dataplex_service::DeleteLake {
+        super::builder::dataplex_service::DeleteLake::new(self.inner.clone())
     }
 
     /// Lists lake resources in a project and location.
-    pub fn list_lakes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListLakes {
+    pub fn list_lakes(&self) -> super::builder::dataplex_service::ListLakes {
         super::builder::dataplex_service::ListLakes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a lake resource.
-    pub fn get_lake(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetLake {
-        super::builder::dataplex_service::GetLake::new(self.inner.clone()).set_name(name.into())
+    pub fn get_lake(&self) -> super::builder::dataplex_service::GetLake {
+        super::builder::dataplex_service::GetLake::new(self.inner.clone())
     }
 
     /// Lists action resources in a lake.
-    pub fn list_lake_actions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListLakeActions {
+    pub fn list_lake_actions(&self) -> super::builder::dataplex_service::ListLakeActions {
         super::builder::dataplex_service::ListLakeActions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a zone resource within a lake.
@@ -2326,12 +1860,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_zone(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CreateZone {
+    pub fn create_zone(&self) -> super::builder::dataplex_service::CreateZone {
         super::builder::dataplex_service::CreateZone::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a zone resource.
@@ -2345,11 +1875,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_zone(
-        &self,
-        zone: impl Into<crate::model::Zone>,
-    ) -> super::builder::dataplex_service::UpdateZone {
-        super::builder::dataplex_service::UpdateZone::new(self.inner.clone()).set_zone(zone.into())
+    pub fn update_zone(&self) -> super::builder::dataplex_service::UpdateZone {
+        super::builder::dataplex_service::UpdateZone::new(self.inner.clone())
     }
 
     /// Deletes a zone resource. All assets within a zone must be deleted before
@@ -2364,37 +1891,23 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_zone(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::DeleteZone {
-        super::builder::dataplex_service::DeleteZone::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_zone(&self) -> super::builder::dataplex_service::DeleteZone {
+        super::builder::dataplex_service::DeleteZone::new(self.inner.clone())
     }
 
     /// Lists zone resources in a lake.
-    pub fn list_zones(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListZones {
+    pub fn list_zones(&self) -> super::builder::dataplex_service::ListZones {
         super::builder::dataplex_service::ListZones::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a zone resource.
-    pub fn get_zone(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetZone {
-        super::builder::dataplex_service::GetZone::new(self.inner.clone()).set_name(name.into())
+    pub fn get_zone(&self) -> super::builder::dataplex_service::GetZone {
+        super::builder::dataplex_service::GetZone::new(self.inner.clone())
     }
 
     /// Lists action resources in a zone.
-    pub fn list_zone_actions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListZoneActions {
+    pub fn list_zone_actions(&self) -> super::builder::dataplex_service::ListZoneActions {
         super::builder::dataplex_service::ListZoneActions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates an asset resource.
@@ -2408,12 +1921,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_asset(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CreateAsset {
+    pub fn create_asset(&self) -> super::builder::dataplex_service::CreateAsset {
         super::builder::dataplex_service::CreateAsset::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an asset resource.
@@ -2427,12 +1936,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_asset(
-        &self,
-        asset: impl Into<crate::model::Asset>,
-    ) -> super::builder::dataplex_service::UpdateAsset {
+    pub fn update_asset(&self) -> super::builder::dataplex_service::UpdateAsset {
         super::builder::dataplex_service::UpdateAsset::new(self.inner.clone())
-            .set_asset(asset.into())
     }
 
     /// Deletes an asset resource. The referenced storage resource is detached
@@ -2447,37 +1952,23 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_asset(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::DeleteAsset {
-        super::builder::dataplex_service::DeleteAsset::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_asset(&self) -> super::builder::dataplex_service::DeleteAsset {
+        super::builder::dataplex_service::DeleteAsset::new(self.inner.clone())
     }
 
     /// Lists asset resources in a zone.
-    pub fn list_assets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListAssets {
+    pub fn list_assets(&self) -> super::builder::dataplex_service::ListAssets {
         super::builder::dataplex_service::ListAssets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves an asset resource.
-    pub fn get_asset(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetAsset {
-        super::builder::dataplex_service::GetAsset::new(self.inner.clone()).set_name(name.into())
+    pub fn get_asset(&self) -> super::builder::dataplex_service::GetAsset {
+        super::builder::dataplex_service::GetAsset::new(self.inner.clone())
     }
 
     /// Lists action resources in an asset.
-    pub fn list_asset_actions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListAssetActions {
+    pub fn list_asset_actions(&self) -> super::builder::dataplex_service::ListAssetActions {
         super::builder::dataplex_service::ListAssetActions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a task resource within a lake.
@@ -2491,12 +1982,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_task(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CreateTask {
+    pub fn create_task(&self) -> super::builder::dataplex_service::CreateTask {
         super::builder::dataplex_service::CreateTask::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update the task resource.
@@ -2510,11 +1997,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_task(
-        &self,
-        task: impl Into<crate::model::Task>,
-    ) -> super::builder::dataplex_service::UpdateTask {
-        super::builder::dataplex_service::UpdateTask::new(self.inner.clone()).set_task(task.into())
+    pub fn update_task(&self) -> super::builder::dataplex_service::UpdateTask {
+        super::builder::dataplex_service::UpdateTask::new(self.inner.clone())
     }
 
     /// Delete the task resource.
@@ -2528,61 +2012,38 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_task(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::DeleteTask {
-        super::builder::dataplex_service::DeleteTask::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_task(&self) -> super::builder::dataplex_service::DeleteTask {
+        super::builder::dataplex_service::DeleteTask::new(self.inner.clone())
     }
 
     /// Lists tasks under the given lake.
-    pub fn list_tasks(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListTasks {
+    pub fn list_tasks(&self) -> super::builder::dataplex_service::ListTasks {
         super::builder::dataplex_service::ListTasks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get task resource.
-    pub fn get_task(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetTask {
-        super::builder::dataplex_service::GetTask::new(self.inner.clone()).set_name(name.into())
+    pub fn get_task(&self) -> super::builder::dataplex_service::GetTask {
+        super::builder::dataplex_service::GetTask::new(self.inner.clone())
     }
 
     /// Lists Jobs under the given task.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListJobs {
+    pub fn list_jobs(&self) -> super::builder::dataplex_service::ListJobs {
         super::builder::dataplex_service::ListJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Run an on demand execution of a Task.
-    pub fn run_task(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::RunTask {
-        super::builder::dataplex_service::RunTask::new(self.inner.clone()).set_name(name.into())
+    pub fn run_task(&self) -> super::builder::dataplex_service::RunTask {
+        super::builder::dataplex_service::RunTask::new(self.inner.clone())
     }
 
     /// Get job resource.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetJob {
-        super::builder::dataplex_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::dataplex_service::GetJob {
+        super::builder::dataplex_service::GetJob::new(self.inner.clone())
     }
 
     /// Cancel jobs running for the task resource.
-    pub fn cancel_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CancelJob {
-        super::builder::dataplex_service::CancelJob::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_job(&self) -> super::builder::dataplex_service::CancelJob {
+        super::builder::dataplex_service::CancelJob::new(self.inner.clone())
     }
 
     /// Create an environment resource.
@@ -2596,12 +2057,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_environment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CreateEnvironment {
+    pub fn create_environment(&self) -> super::builder::dataplex_service::CreateEnvironment {
         super::builder::dataplex_service::CreateEnvironment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update the environment resource.
@@ -2615,12 +2072,8 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_environment(
-        &self,
-        environment: impl Into<crate::model::Environment>,
-    ) -> super::builder::dataplex_service::UpdateEnvironment {
+    pub fn update_environment(&self) -> super::builder::dataplex_service::UpdateEnvironment {
         super::builder::dataplex_service::UpdateEnvironment::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Delete the environment resource. All the child resources must have been
@@ -2635,56 +2088,33 @@ impl DataplexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::DeleteEnvironment {
+    pub fn delete_environment(&self) -> super::builder::dataplex_service::DeleteEnvironment {
         super::builder::dataplex_service::DeleteEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists environments under the given lake.
-    pub fn list_environments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListEnvironments {
+    pub fn list_environments(&self) -> super::builder::dataplex_service::ListEnvironments {
         super::builder::dataplex_service::ListEnvironments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get environment resource.
-    pub fn get_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetEnvironment {
+    pub fn get_environment(&self) -> super::builder::dataplex_service::GetEnvironment {
         super::builder::dataplex_service::GetEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists session resources in an environment.
-    pub fn list_sessions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListSessions {
+    pub fn list_sessions(&self) -> super::builder::dataplex_service::ListSessions {
         super::builder::dataplex_service::ListSessions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::dataplex_service::ListLocations {
         super::builder::dataplex_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetLocation {
-        super::builder::dataplex_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::dataplex_service::GetLocation {
+        super::builder::dataplex_service::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -2692,22 +2122,14 @@ impl DataplexService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::dataplex_service::SetIamPolicy {
         super::builder::dataplex_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::dataplex_service::GetIamPolicy {
         super::builder::dataplex_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -2717,55 +2139,35 @@ impl DataplexService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::dataplex_service::TestIamPermissions {
         super::builder::dataplex_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::dataplex_service::ListOperations {
         super::builder::dataplex_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::dataplex_service::GetOperation {
         super::builder::dataplex_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::dataplex_service::DeleteOperation {
         super::builder::dataplex_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dataplex_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::dataplex_service::CancelOperation {
         super::builder::dataplex_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

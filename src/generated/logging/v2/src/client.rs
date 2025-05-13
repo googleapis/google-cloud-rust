@@ -124,12 +124,8 @@ impl LoggingServiceV2 {
     /// reappears if it receives new entries. Log entries written shortly before
     /// the delete operation might not be deleted. Entries received after the
     /// delete operation with a timestamp before the operation will be deleted.
-    pub fn delete_log(
-        &self,
-        log_name: impl Into<std::string::String>,
-    ) -> super::builder::logging_service_v_2::DeleteLog {
+    pub fn delete_log(&self) -> super::builder::logging_service_v_2::DeleteLog {
         super::builder::logging_service_v_2::DeleteLog::new(self.inner.clone())
-            .set_log_name(log_name.into())
     }
 
     /// Writes log entries to Logging. This API method is the
@@ -162,45 +158,29 @@ impl LoggingServiceV2 {
 
     /// Lists the logs in projects, organizations, folders, or billing accounts.
     /// Only logs that have entries are listed.
-    pub fn list_logs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::logging_service_v_2::ListLogs {
+    pub fn list_logs(&self) -> super::builder::logging_service_v_2::ListLogs {
         super::builder::logging_service_v_2::ListLogs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::logging_service_v_2::ListOperations {
+    pub fn list_operations(&self) -> super::builder::logging_service_v_2::ListOperations {
         super::builder::logging_service_v_2::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::logging_service_v_2::GetOperation {
+    pub fn get_operation(&self) -> super::builder::logging_service_v_2::GetOperation {
         super::builder::logging_service_v_2::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::logging_service_v_2::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::logging_service_v_2::CancelOperation {
         super::builder::logging_service_v_2::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -307,20 +287,13 @@ impl ConfigServiceV2 {
     }
 
     /// Lists log buckets.
-    pub fn list_buckets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::ListBuckets {
+    pub fn list_buckets(&self) -> super::builder::config_service_v_2::ListBuckets {
         super::builder::config_service_v_2::ListBuckets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a log bucket.
-    pub fn get_bucket(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetBucket {
-        super::builder::config_service_v_2::GetBucket::new(self.inner.clone()).set_name(name.into())
+    pub fn get_bucket(&self) -> super::builder::config_service_v_2::GetBucket {
+        super::builder::config_service_v_2::GetBucket::new(self.inner.clone())
     }
 
     /// Creates a log bucket asynchronously that can be used to store log entries.
@@ -336,12 +309,8 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_bucket_async(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CreateBucketAsync {
+    pub fn create_bucket_async(&self) -> super::builder::config_service_v_2::CreateBucketAsync {
         super::builder::config_service_v_2::CreateBucketAsync::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a log bucket asynchronously.
@@ -360,22 +329,14 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_bucket_async(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateBucketAsync {
+    pub fn update_bucket_async(&self) -> super::builder::config_service_v_2::UpdateBucketAsync {
         super::builder::config_service_v_2::UpdateBucketAsync::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a log bucket that can be used to store log entries. After a bucket
     /// has been created, the bucket's location cannot be changed.
-    pub fn create_bucket(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CreateBucket {
+    pub fn create_bucket(&self) -> super::builder::config_service_v_2::CreateBucket {
         super::builder::config_service_v_2::CreateBucket::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a log bucket.
@@ -384,12 +345,8 @@ impl ConfigServiceV2 {
     /// `FAILED_PRECONDITION` will be returned.
     ///
     /// After a bucket has been created, the bucket's location cannot be changed.
-    pub fn update_bucket(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateBucket {
+    pub fn update_bucket(&self) -> super::builder::config_service_v_2::UpdateBucket {
         super::builder::config_service_v_2::UpdateBucket::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a log bucket.
@@ -397,49 +354,30 @@ impl ConfigServiceV2 {
     /// Changes the bucket's `lifecycle_state` to the `DELETE_REQUESTED` state.
     /// After 7 days, the bucket will be purged and all log entries in the bucket
     /// will be permanently deleted.
-    pub fn delete_bucket(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::DeleteBucket {
+    pub fn delete_bucket(&self) -> super::builder::config_service_v_2::DeleteBucket {
         super::builder::config_service_v_2::DeleteBucket::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Undeletes a log bucket. A bucket that has been deleted can be undeleted
     /// within the grace period of 7 days.
-    pub fn undelete_bucket(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UndeleteBucket {
+    pub fn undelete_bucket(&self) -> super::builder::config_service_v_2::UndeleteBucket {
         super::builder::config_service_v_2::UndeleteBucket::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists views on a log bucket.
-    pub fn list_views(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::ListViews {
+    pub fn list_views(&self) -> super::builder::config_service_v_2::ListViews {
         super::builder::config_service_v_2::ListViews::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a view on a log bucket..
-    pub fn get_view(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetView {
-        super::builder::config_service_v_2::GetView::new(self.inner.clone()).set_name(name.into())
+    pub fn get_view(&self) -> super::builder::config_service_v_2::GetView {
+        super::builder::config_service_v_2::GetView::new(self.inner.clone())
     }
 
     /// Creates a view over log entries in a log bucket. A bucket may contain a
     /// maximum of 30 views.
-    pub fn create_view(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CreateView {
+    pub fn create_view(&self) -> super::builder::config_service_v_2::CreateView {
         super::builder::config_service_v_2::CreateView::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a view on a log bucket. This method replaces the following fields
@@ -447,54 +385,34 @@ impl ConfigServiceV2 {
     /// If an `UNAVAILABLE` error is returned, this indicates that system is not in
     /// a state where it can update the view. If this occurs, please try again in a
     /// few minutes.
-    pub fn update_view(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateView {
+    pub fn update_view(&self) -> super::builder::config_service_v_2::UpdateView {
         super::builder::config_service_v_2::UpdateView::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a view on a log bucket.
     /// If an `UNAVAILABLE` error is returned, this indicates that system is not in
     /// a state where it can delete the view. If this occurs, please try again in a
     /// few minutes.
-    pub fn delete_view(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::DeleteView {
+    pub fn delete_view(&self) -> super::builder::config_service_v_2::DeleteView {
         super::builder::config_service_v_2::DeleteView::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists sinks.
-    pub fn list_sinks(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::ListSinks {
+    pub fn list_sinks(&self) -> super::builder::config_service_v_2::ListSinks {
         super::builder::config_service_v_2::ListSinks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a sink.
-    pub fn get_sink(
-        &self,
-        sink_name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetSink {
+    pub fn get_sink(&self) -> super::builder::config_service_v_2::GetSink {
         super::builder::config_service_v_2::GetSink::new(self.inner.clone())
-            .set_sink_name(sink_name.into())
     }
 
     /// Creates a sink that exports specified log entries to a destination. The
     /// export of newly-ingested log entries begins immediately, unless the sink's
     /// `writer_identity` is not permitted to write to the destination. A sink can
     /// export log entries only from the resource owning the sink.
-    pub fn create_sink(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CreateSink {
+    pub fn create_sink(&self) -> super::builder::config_service_v_2::CreateSink {
         super::builder::config_service_v_2::CreateSink::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a sink. This method replaces the following fields in the existing
@@ -502,22 +420,14 @@ impl ConfigServiceV2 {
     ///
     /// The updated sink might also have a new `writer_identity`; see the
     /// `unique_writer_identity` field.
-    pub fn update_sink(
-        &self,
-        sink_name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateSink {
+    pub fn update_sink(&self) -> super::builder::config_service_v_2::UpdateSink {
         super::builder::config_service_v_2::UpdateSink::new(self.inner.clone())
-            .set_sink_name(sink_name.into())
     }
 
     /// Deletes a sink. If the sink has a unique `writer_identity`, then that
     /// service account is also deleted.
-    pub fn delete_sink(
-        &self,
-        sink_name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::DeleteSink {
+    pub fn delete_sink(&self) -> super::builder::config_service_v_2::DeleteSink {
         super::builder::config_service_v_2::DeleteSink::new(self.inner.clone())
-            .set_sink_name(sink_name.into())
     }
 
     /// Asynchronously creates a linked dataset in BigQuery which makes it possible
@@ -533,12 +443,8 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_link(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CreateLink {
+    pub fn create_link(&self) -> super::builder::config_service_v_2::CreateLink {
         super::builder::config_service_v_2::CreateLink::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a link. This will also delete the corresponding BigQuery linked
@@ -553,77 +459,46 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_link(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::DeleteLink {
+    pub fn delete_link(&self) -> super::builder::config_service_v_2::DeleteLink {
         super::builder::config_service_v_2::DeleteLink::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists links.
-    pub fn list_links(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::ListLinks {
+    pub fn list_links(&self) -> super::builder::config_service_v_2::ListLinks {
         super::builder::config_service_v_2::ListLinks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a link.
-    pub fn get_link(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetLink {
-        super::builder::config_service_v_2::GetLink::new(self.inner.clone()).set_name(name.into())
+    pub fn get_link(&self) -> super::builder::config_service_v_2::GetLink {
+        super::builder::config_service_v_2::GetLink::new(self.inner.clone())
     }
 
     /// Lists all the exclusions on the _Default sink in a parent resource.
-    pub fn list_exclusions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::ListExclusions {
+    pub fn list_exclusions(&self) -> super::builder::config_service_v_2::ListExclusions {
         super::builder::config_service_v_2::ListExclusions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the description of an exclusion in the _Default sink.
-    pub fn get_exclusion(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetExclusion {
+    pub fn get_exclusion(&self) -> super::builder::config_service_v_2::GetExclusion {
         super::builder::config_service_v_2::GetExclusion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new exclusion in the _Default sink in a specified parent
     /// resource. Only log entries belonging to that resource can be excluded. You
     /// can have up to 10 exclusions in a resource.
-    pub fn create_exclusion(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CreateExclusion {
+    pub fn create_exclusion(&self) -> super::builder::config_service_v_2::CreateExclusion {
         super::builder::config_service_v_2::CreateExclusion::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Changes one or more properties of an existing exclusion in the _Default
     /// sink.
-    pub fn update_exclusion(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateExclusion {
+    pub fn update_exclusion(&self) -> super::builder::config_service_v_2::UpdateExclusion {
         super::builder::config_service_v_2::UpdateExclusion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes an exclusion in the _Default sink.
-    pub fn delete_exclusion(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::DeleteExclusion {
+    pub fn delete_exclusion(&self) -> super::builder::config_service_v_2::DeleteExclusion {
         super::builder::config_service_v_2::DeleteExclusion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the Logging CMEK settings for the given resource.
@@ -636,12 +511,8 @@ impl ConfigServiceV2 {
     /// See [Enabling CMEK for Log
     /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     /// for more information.
-    pub fn get_cmek_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetCmekSettings {
+    pub fn get_cmek_settings(&self) -> super::builder::config_service_v_2::GetCmekSettings {
         super::builder::config_service_v_2::GetCmekSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the Log Router CMEK settings for the given resource.
@@ -661,12 +532,8 @@ impl ConfigServiceV2 {
     /// for more information.
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateCmekSettings]: crate::client::ConfigServiceV2::update_cmek_settings
-    pub fn update_cmek_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateCmekSettings {
+    pub fn update_cmek_settings(&self) -> super::builder::config_service_v_2::UpdateCmekSettings {
         super::builder::config_service_v_2::UpdateCmekSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the Log Router settings for the given resource.
@@ -679,12 +546,8 @@ impl ConfigServiceV2 {
     /// See [Enabling CMEK for Log
     /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     /// for more information.
-    pub fn get_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetSettings {
+    pub fn get_settings(&self) -> super::builder::config_service_v_2::GetSettings {
         super::builder::config_service_v_2::GetSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the Log Router settings for the given resource.
@@ -705,12 +568,8 @@ impl ConfigServiceV2 {
     /// for more information.
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateSettings]: crate::client::ConfigServiceV2::update_settings
-    pub fn update_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::UpdateSettings {
+    pub fn update_settings(&self) -> super::builder::config_service_v_2::UpdateSettings {
         super::builder::config_service_v_2::UpdateSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Copies a set of log entries from a log bucket to a Cloud Storage bucket.
@@ -731,34 +590,22 @@ impl ConfigServiceV2 {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::ListOperations {
+    pub fn list_operations(&self) -> super::builder::config_service_v_2::ListOperations {
         super::builder::config_service_v_2::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::GetOperation {
+    pub fn get_operation(&self) -> super::builder::config_service_v_2::GetOperation {
         super::builder::config_service_v_2::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config_service_v_2::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::config_service_v_2::CancelOperation {
         super::builder::config_service_v_2::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -865,80 +712,48 @@ impl MetricsServiceV2 {
     }
 
     /// Lists logs-based metrics.
-    pub fn list_log_metrics(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::ListLogMetrics {
+    pub fn list_log_metrics(&self) -> super::builder::metrics_service_v_2::ListLogMetrics {
         super::builder::metrics_service_v_2::ListLogMetrics::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a logs-based metric.
-    pub fn get_log_metric(
-        &self,
-        metric_name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::GetLogMetric {
+    pub fn get_log_metric(&self) -> super::builder::metrics_service_v_2::GetLogMetric {
         super::builder::metrics_service_v_2::GetLogMetric::new(self.inner.clone())
-            .set_metric_name(metric_name.into())
     }
 
     /// Creates a logs-based metric.
-    pub fn create_log_metric(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::CreateLogMetric {
+    pub fn create_log_metric(&self) -> super::builder::metrics_service_v_2::CreateLogMetric {
         super::builder::metrics_service_v_2::CreateLogMetric::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates or updates a logs-based metric.
-    pub fn update_log_metric(
-        &self,
-        metric_name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::UpdateLogMetric {
+    pub fn update_log_metric(&self) -> super::builder::metrics_service_v_2::UpdateLogMetric {
         super::builder::metrics_service_v_2::UpdateLogMetric::new(self.inner.clone())
-            .set_metric_name(metric_name.into())
     }
 
     /// Deletes a logs-based metric.
-    pub fn delete_log_metric(
-        &self,
-        metric_name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::DeleteLogMetric {
+    pub fn delete_log_metric(&self) -> super::builder::metrics_service_v_2::DeleteLogMetric {
         super::builder::metrics_service_v_2::DeleteLogMetric::new(self.inner.clone())
-            .set_metric_name(metric_name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::ListOperations {
+    pub fn list_operations(&self) -> super::builder::metrics_service_v_2::ListOperations {
         super::builder::metrics_service_v_2::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::GetOperation {
+    pub fn get_operation(&self) -> super::builder::metrics_service_v_2::GetOperation {
         super::builder::metrics_service_v_2::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::metrics_service_v_2::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::metrics_service_v_2::CancelOperation {
         super::builder::metrics_service_v_2::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

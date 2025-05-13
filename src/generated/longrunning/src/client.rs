@@ -130,32 +130,23 @@ impl Operations {
 
     /// Lists operations that match the specified filter in the request. If the
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::ListOperations {
-        super::builder::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::operations::ListOperations {
+        super::builder::operations::ListOperations::new(self.inner.clone())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
     /// method to poll the operation result at intervals as recommended by the API
     /// service.
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::GetOperation {
-        super::builder::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::operations::GetOperation {
+        super::builder::operations::GetOperation::new(self.inner.clone())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
     /// no longer interested in the operation result. It does not cancel the
     /// operation. If the server doesn't support this method, it returns
     /// `google.rpc.Code.UNIMPLEMENTED`.
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::DeleteOperation {
-        super::builder::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::operations::DeleteOperation {
+        super::builder::operations::DeleteOperation::new(self.inner.clone())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -173,10 +164,7 @@ impl Operations {
     /// [google.longrunning.Operation.error]: crate::model::Operation::result
     /// [google.longrunning.Operations.GetOperation]: crate::client::Operations::get_operation
     /// [google.rpc.Status.code]: rpc::model::Status::code
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::CancelOperation {
-        super::builder::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::operations::CancelOperation {
+        super::builder::operations::CancelOperation::new(self.inner.clone())
     }
 }

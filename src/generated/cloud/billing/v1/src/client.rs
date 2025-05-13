@@ -122,12 +122,8 @@ impl CloudBilling {
     /// Gets information about a billing account. The current authenticated user
     /// must be a [viewer of the billing
     /// account](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn get_billing_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::GetBillingAccount {
+    pub fn get_billing_account(&self) -> super::builder::cloud_billing::GetBillingAccount {
         super::builder::cloud_billing::GetBillingAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists the billing accounts that the current authenticated user has
@@ -143,12 +139,8 @@ impl CloudBilling {
     /// IAM permission, which is typically given to the
     /// [administrator](https://cloud.google.com/billing/docs/how-to/billing-access)
     /// of the billing account.
-    pub fn update_billing_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::UpdateBillingAccount {
+    pub fn update_billing_account(&self) -> super::builder::cloud_billing::UpdateBillingAccount {
         super::builder::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// This method creates [billing
@@ -176,10 +168,8 @@ impl CloudBilling {
     /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
     pub fn list_project_billing_info(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_billing::ListProjectBillingInfo {
         super::builder::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the billing information for a project. The current authenticated user
@@ -187,12 +177,8 @@ impl CloudBilling {
     /// which can be granted by assigning the [Project
     /// Viewer](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles)
     /// role.
-    pub fn get_project_billing_info(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::GetProjectBillingInfo {
+    pub fn get_project_billing_info(&self) -> super::builder::cloud_billing::GetProjectBillingInfo {
         super::builder::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets or updates the billing account associated with a project. You specify
@@ -229,22 +215,16 @@ impl CloudBilling {
     /// *open* billing account.
     pub fn update_project_billing_info(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_billing::UpdateProjectBillingInfo {
         super::builder::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the access control policy for a billing account.
     /// The caller must have the `billing.accounts.getIamPolicy` permission on the
     /// account, which is often given to billing account
     /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::cloud_billing::GetIamPolicy {
         super::builder::cloud_billing::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy for a billing account. Replaces any existing
@@ -252,32 +232,20 @@ impl CloudBilling {
     /// The caller must have the `billing.accounts.setIamPolicy` permission on the
     /// account, which is often given to billing account
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::cloud_billing::SetIamPolicy {
         super::builder::cloud_billing::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Tests the access control policy for a billing account. This method takes
     /// the resource and a set of permissions as input and returns the subset of
     /// the input permissions that the caller is allowed for that resource.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_billing::TestIamPermissions {
         super::builder::cloud_billing::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Changes which parent organization a billing account belongs to.
-    pub fn move_billing_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::MoveBillingAccount {
+    pub fn move_billing_account(&self) -> super::builder::cloud_billing::MoveBillingAccount {
         super::builder::cloud_billing::MoveBillingAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -389,10 +357,7 @@ impl CloudCatalog {
     }
 
     /// Lists all publicly available SKUs for a given cloud service.
-    pub fn list_skus(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_catalog::ListSkus {
-        super::builder::cloud_catalog::ListSkus::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_skus(&self) -> super::builder::cloud_catalog::ListSkus {
+        super::builder::cloud_catalog::ListSkus::new(self.inner.clone())
     }
 }

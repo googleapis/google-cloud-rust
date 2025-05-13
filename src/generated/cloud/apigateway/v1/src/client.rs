@@ -121,21 +121,13 @@ impl ApiGatewayService {
     }
 
     /// Lists Gateways in a given project and location.
-    pub fn list_gateways(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::ListGateways {
+    pub fn list_gateways(&self) -> super::builder::api_gateway_service::ListGateways {
         super::builder::api_gateway_service::ListGateways::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Gateway.
-    pub fn get_gateway(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::GetGateway {
+    pub fn get_gateway(&self) -> super::builder::api_gateway_service::GetGateway {
         super::builder::api_gateway_service::GetGateway::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Gateway in a given project and location.
@@ -149,12 +141,8 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_gateway(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::CreateGateway {
+    pub fn create_gateway(&self) -> super::builder::api_gateway_service::CreateGateway {
         super::builder::api_gateway_service::CreateGateway::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Gateway.
@@ -168,12 +156,8 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_gateway(
-        &self,
-        gateway: impl Into<crate::model::Gateway>,
-    ) -> super::builder::api_gateway_service::UpdateGateway {
+    pub fn update_gateway(&self) -> super::builder::api_gateway_service::UpdateGateway {
         super::builder::api_gateway_service::UpdateGateway::new(self.inner.clone())
-            .set_gateway(gateway.into())
     }
 
     /// Deletes a single Gateway.
@@ -187,29 +171,18 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_gateway(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::DeleteGateway {
+    pub fn delete_gateway(&self) -> super::builder::api_gateway_service::DeleteGateway {
         super::builder::api_gateway_service::DeleteGateway::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Apis in a given project and location.
-    pub fn list_apis(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::ListApis {
+    pub fn list_apis(&self) -> super::builder::api_gateway_service::ListApis {
         super::builder::api_gateway_service::ListApis::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Api.
-    pub fn get_api(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::GetApi {
-        super::builder::api_gateway_service::GetApi::new(self.inner.clone()).set_name(name.into())
+    pub fn get_api(&self) -> super::builder::api_gateway_service::GetApi {
+        super::builder::api_gateway_service::GetApi::new(self.inner.clone())
     }
 
     /// Creates a new Api in a given project and location.
@@ -223,12 +196,8 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_api(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::CreateApi {
+    pub fn create_api(&self) -> super::builder::api_gateway_service::CreateApi {
         super::builder::api_gateway_service::CreateApi::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Api.
@@ -242,11 +211,8 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_api(
-        &self,
-        api: impl Into<crate::model::Api>,
-    ) -> super::builder::api_gateway_service::UpdateApi {
-        super::builder::api_gateway_service::UpdateApi::new(self.inner.clone()).set_api(api.into())
+    pub fn update_api(&self) -> super::builder::api_gateway_service::UpdateApi {
+        super::builder::api_gateway_service::UpdateApi::new(self.inner.clone())
     }
 
     /// Deletes a single Api.
@@ -260,30 +226,18 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_api(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::DeleteApi {
+    pub fn delete_api(&self) -> super::builder::api_gateway_service::DeleteApi {
         super::builder::api_gateway_service::DeleteApi::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ApiConfigs in a given project and location.
-    pub fn list_api_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::ListApiConfigs {
+    pub fn list_api_configs(&self) -> super::builder::api_gateway_service::ListApiConfigs {
         super::builder::api_gateway_service::ListApiConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ApiConfig.
-    pub fn get_api_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::GetApiConfig {
+    pub fn get_api_config(&self) -> super::builder::api_gateway_service::GetApiConfig {
         super::builder::api_gateway_service::GetApiConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ApiConfig in a given project and location.
@@ -297,12 +251,8 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_api_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::CreateApiConfig {
+    pub fn create_api_config(&self) -> super::builder::api_gateway_service::CreateApiConfig {
         super::builder::api_gateway_service::CreateApiConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single ApiConfig.
@@ -316,12 +266,8 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_api_config(
-        &self,
-        api_config: impl Into<crate::model::ApiConfig>,
-    ) -> super::builder::api_gateway_service::UpdateApiConfig {
+    pub fn update_api_config(&self) -> super::builder::api_gateway_service::UpdateApiConfig {
         super::builder::api_gateway_service::UpdateApiConfig::new(self.inner.clone())
-            .set_api_config(api_config.into())
     }
 
     /// Deletes a single ApiConfig.
@@ -335,55 +281,35 @@ impl ApiGatewayService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_api_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::DeleteApiConfig {
+    pub fn delete_api_config(&self) -> super::builder::api_gateway_service::DeleteApiConfig {
         super::builder::api_gateway_service::DeleteApiConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::api_gateway_service::ListOperations {
         super::builder::api_gateway_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::api_gateway_service::GetOperation {
         super::builder::api_gateway_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::api_gateway_service::DeleteOperation {
         super::builder::api_gateway_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_gateway_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::api_gateway_service::CancelOperation {
         super::builder::api_gateway_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

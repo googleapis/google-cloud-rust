@@ -131,24 +131,16 @@ impl AssuredWorkloadsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workload(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::CreateWorkload {
+    pub fn create_workload(&self) -> super::builder::assured_workloads_service::CreateWorkload {
         super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing workload.
     /// Currently allows updating of workload display_name and labels.
     /// For force updates don't set etag field in the Workload.
     /// Only one update operation per workload can be in progress.
-    pub fn update_workload(
-        &self,
-        workload: impl Into<crate::model::Workload>,
-    ) -> super::builder::assured_workloads_service::UpdateWorkload {
+    pub fn update_workload(&self) -> super::builder::assured_workloads_service::UpdateWorkload {
         super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
-            .set_workload(workload.into())
     }
 
     /// Restrict the list of resources allowed in the Workload environment.
@@ -159,60 +151,38 @@ impl AssuredWorkloadsService {
     /// to use this functionality.
     pub fn restrict_allowed_resources(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
         super::builder::assured_workloads_service::RestrictAllowedResources::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the workload. Make sure that workload's direct children are already
     /// in a deleted state, otherwise the request will fail with a
     /// FAILED_PRECONDITION error.
-    pub fn delete_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::DeleteWorkload {
+    pub fn delete_workload(&self) -> super::builder::assured_workloads_service::DeleteWorkload {
         super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets Assured Workload associated with a CRM Node
-    pub fn get_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::GetWorkload {
+    pub fn get_workload(&self) -> super::builder::assured_workloads_service::GetWorkload {
         super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Assured Workloads under a CRM Node.
-    pub fn list_workloads(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::ListWorkloads {
+    pub fn list_workloads(&self) -> super::builder::assured_workloads_service::ListWorkloads {
         super::builder::assured_workloads_service::ListWorkloads::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::assured_workloads_service::ListOperations {
         super::builder::assured_workloads_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::assured_workloads_service::GetOperation {
         super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

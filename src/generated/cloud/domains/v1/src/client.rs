@@ -123,22 +123,16 @@ impl Domains {
     /// Availability results from this method are approximate; call
     /// `RetrieveRegisterParameters` on a domain before registering to confirm
     /// availability.
-    pub fn search_domains(
-        &self,
-        location: impl Into<std::string::String>,
-    ) -> super::builder::domains::SearchDomains {
+    pub fn search_domains(&self) -> super::builder::domains::SearchDomains {
         super::builder::domains::SearchDomains::new(self.inner.clone())
-            .set_location(location.into())
     }
 
     /// Gets parameters needed to register a new domain name, including price and
     /// up-to-date availability. Use the returned values to call `RegisterDomain`.
     pub fn retrieve_register_parameters(
         &self,
-        location: impl Into<std::string::String>,
     ) -> super::builder::domains::RetrieveRegisterParameters {
         super::builder::domains::RetrieveRegisterParameters::new(self.inner.clone())
-            .set_location(location.into())
     }
 
     /// Registers a new domain name and creates a corresponding `Registration`
@@ -164,11 +158,8 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn register_domain(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::domains::RegisterDomain {
-        super::builder::domains::RegisterDomain::new(self.inner.clone()).set_parent(parent.into())
+    pub fn register_domain(&self) -> super::builder::domains::RegisterDomain {
+        super::builder::domains::RegisterDomain::new(self.inner.clone())
     }
 
     /// Gets parameters needed to transfer a domain name from another registrar to
@@ -178,10 +169,8 @@ impl Domains {
     /// Use the returned values to call `TransferDomain`.
     pub fn retrieve_transfer_parameters(
         &self,
-        location: impl Into<std::string::String>,
     ) -> super::builder::domains::RetrieveTransferParameters {
         super::builder::domains::RetrieveTransferParameters::new(self.inner.clone())
-            .set_location(location.into())
     }
 
     /// Transfers a domain name from another registrar to Cloud Domains.  For
@@ -214,28 +203,18 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn transfer_domain(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::domains::TransferDomain {
-        super::builder::domains::TransferDomain::new(self.inner.clone()).set_parent(parent.into())
+    pub fn transfer_domain(&self) -> super::builder::domains::TransferDomain {
+        super::builder::domains::TransferDomain::new(self.inner.clone())
     }
 
     /// Lists the `Registration` resources in a project.
-    pub fn list_registrations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::domains::ListRegistrations {
+    pub fn list_registrations(&self) -> super::builder::domains::ListRegistrations {
         super::builder::domains::ListRegistrations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a `Registration` resource.
-    pub fn get_registration(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domains::GetRegistration {
-        super::builder::domains::GetRegistration::new(self.inner.clone()).set_name(name.into())
+    pub fn get_registration(&self) -> super::builder::domains::GetRegistration {
+        super::builder::domains::GetRegistration::new(self.inner.clone())
     }
 
     /// Updates select fields of a `Registration` resource, notably `labels`. To
@@ -254,12 +233,8 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_registration(
-        &self,
-        registration: impl Into<crate::model::Registration>,
-    ) -> super::builder::domains::UpdateRegistration {
+    pub fn update_registration(&self) -> super::builder::domains::UpdateRegistration {
         super::builder::domains::UpdateRegistration::new(self.inner.clone())
-            .set_registration(registration.into())
     }
 
     /// Updates a `Registration`'s management settings.
@@ -275,10 +250,8 @@ impl Domains {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn configure_management_settings(
         &self,
-        registration: impl Into<std::string::String>,
     ) -> super::builder::domains::ConfigureManagementSettings {
         super::builder::domains::ConfigureManagementSettings::new(self.inner.clone())
-            .set_registration(registration.into())
     }
 
     /// Updates a `Registration`'s DNS settings.
@@ -292,12 +265,8 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn configure_dns_settings(
-        &self,
-        registration: impl Into<std::string::String>,
-    ) -> super::builder::domains::ConfigureDnsSettings {
+    pub fn configure_dns_settings(&self) -> super::builder::domains::ConfigureDnsSettings {
         super::builder::domains::ConfigureDnsSettings::new(self.inner.clone())
-            .set_registration(registration.into())
     }
 
     /// Updates a `Registration`'s contact settings. Some changes require
@@ -312,12 +281,8 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn configure_contact_settings(
-        &self,
-        registration: impl Into<std::string::String>,
-    ) -> super::builder::domains::ConfigureContactSettings {
+    pub fn configure_contact_settings(&self) -> super::builder::domains::ConfigureContactSettings {
         super::builder::domains::ConfigureContactSettings::new(self.inner.clone())
-            .set_registration(registration.into())
     }
 
     /// Exports a `Registration` resource, such that it is no longer managed by
@@ -339,11 +304,8 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_registration(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domains::ExportRegistration {
-        super::builder::domains::ExportRegistration::new(self.inner.clone()).set_name(name.into())
+    pub fn export_registration(&self) -> super::builder::domains::ExportRegistration {
+        super::builder::domains::ExportRegistration::new(self.inner.clone())
     }
 
     /// Deletes a `Registration` resource.
@@ -375,11 +337,8 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_registration(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domains::DeleteRegistration {
-        super::builder::domains::DeleteRegistration::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_registration(&self) -> super::builder::domains::DeleteRegistration {
+        super::builder::domains::DeleteRegistration::new(self.inner.clone())
     }
 
     /// Gets the authorization code of the `Registration` for the purpose of
@@ -389,41 +348,29 @@ impl Domains {
     /// domain registration.
     pub fn retrieve_authorization_code(
         &self,
-        registration: impl Into<std::string::String>,
     ) -> super::builder::domains::RetrieveAuthorizationCode {
         super::builder::domains::RetrieveAuthorizationCode::new(self.inner.clone())
-            .set_registration(registration.into())
     }
 
     /// Resets the authorization code of the `Registration` to a new random string.
     ///
     /// You can call this method only after 60 days have elapsed since the initial
     /// domain registration.
-    pub fn reset_authorization_code(
-        &self,
-        registration: impl Into<std::string::String>,
-    ) -> super::builder::domains::ResetAuthorizationCode {
+    pub fn reset_authorization_code(&self) -> super::builder::domains::ResetAuthorizationCode {
         super::builder::domains::ResetAuthorizationCode::new(self.inner.clone())
-            .set_registration(registration.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domains::ListOperations {
-        super::builder::domains::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::domains::ListOperations {
+        super::builder::domains::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domains::GetOperation {
-        super::builder::domains::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::domains::GetOperation {
+        super::builder::domains::GetOperation::new(self.inner.clone())
     }
 }

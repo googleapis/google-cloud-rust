@@ -40,7 +40,8 @@ mod my_application {
     ) -> Result<Option<wkt::Duration>> {
         use speech::Poller;
         client
-            .batch_recognize(format!(
+            .batch_recognize()
+            .set_recognizer(format!(
                 "projects/{project_id}/locations/global/recognizers/_"
             ))
             .poller()

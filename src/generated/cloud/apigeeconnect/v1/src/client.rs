@@ -122,11 +122,7 @@ impl ConnectionService {
 
     /// Lists connections that are currently active for the given Apigee Connect
     /// endpoint.
-    pub fn list_connections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::connection_service::ListConnections {
+    pub fn list_connections(&self) -> super::builder::connection_service::ListConnections {
         super::builder::connection_service::ListConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

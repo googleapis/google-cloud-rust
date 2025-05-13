@@ -126,12 +126,8 @@ impl DatabaseAdmin {
     }
 
     /// Lists Cloud Spanner databases.
-    pub fn list_databases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::ListDatabases {
+    pub fn list_databases(&self) -> super::builder::database_admin::ListDatabases {
         super::builder::database_admin::ListDatabases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new Cloud Spanner database and starts to prepare it for serving.
@@ -158,20 +154,13 @@ impl DatabaseAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_database(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::CreateDatabase {
+    pub fn create_database(&self) -> super::builder::database_admin::CreateDatabase {
         super::builder::database_admin::CreateDatabase::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the state of a Cloud Spanner database.
-    pub fn get_database(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::GetDatabase {
-        super::builder::database_admin::GetDatabase::new(self.inner.clone()).set_name(name.into())
+    pub fn get_database(&self) -> super::builder::database_admin::GetDatabase {
+        super::builder::database_admin::GetDatabase::new(self.inner.clone())
     }
 
     /// Updates a Cloud Spanner database. The returned
@@ -228,12 +217,8 @@ impl DatabaseAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_database(
-        &self,
-        database: impl Into<crate::model::Database>,
-    ) -> super::builder::database_admin::UpdateDatabase {
+    pub fn update_database(&self) -> super::builder::database_admin::UpdateDatabase {
         super::builder::database_admin::UpdateDatabase::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Updates the schema of a Cloud Spanner database by
@@ -258,12 +243,8 @@ impl DatabaseAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_database_ddl(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::UpdateDatabaseDdl {
+    pub fn update_database_ddl(&self) -> super::builder::database_admin::UpdateDatabaseDdl {
         super::builder::database_admin::UpdateDatabaseDdl::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Drops (aka deletes) a Cloud Spanner database.
@@ -271,12 +252,8 @@ impl DatabaseAdmin {
     /// `expire_time`.
     /// Note: Cloud Spanner might continue to accept requests for a few seconds
     /// after the database has been deleted.
-    pub fn drop_database(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::DropDatabase {
+    pub fn drop_database(&self) -> super::builder::database_admin::DropDatabase {
         super::builder::database_admin::DropDatabase::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Returns the schema of a Cloud Spanner database as a list of formatted
@@ -284,12 +261,8 @@ impl DatabaseAdmin {
     /// be queried using the [Operations][google.longrunning.Operations] API.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_database_ddl(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::GetDatabaseDdl {
+    pub fn get_database_ddl(&self) -> super::builder::database_admin::GetDatabaseDdl {
         super::builder::database_admin::GetDatabaseDdl::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Sets the access control policy on a database or backup resource.
@@ -301,12 +274,8 @@ impl DatabaseAdmin {
     /// permission on [resource][google.iam.v1.SetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.SetIamPolicyRequest.resource]: iam_v1::model::SetIamPolicyRequest::resource
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::database_admin::SetIamPolicy {
         super::builder::database_admin::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a database or backup resource.
@@ -319,12 +288,8 @@ impl DatabaseAdmin {
     /// permission on [resource][google.iam.v1.GetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.GetIamPolicyRequest.resource]: iam_v1::model::GetIamPolicyRequest::resource
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::database_admin::GetIamPolicy {
         super::builder::database_admin::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that the caller has on the specified database or backup
@@ -337,12 +302,8 @@ impl DatabaseAdmin {
     /// Calling this method on a backup that does not exist will
     /// result in a NOT_FOUND error if the user has
     /// `spanner.backups.list` permission on the containing instance.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::database_admin::TestIamPermissions {
         super::builder::database_admin::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Starts creating a new Cloud Spanner Backup.
@@ -373,12 +334,8 @@ impl DatabaseAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::CreateBackup {
+    pub fn create_backup(&self) -> super::builder::database_admin::CreateBackup {
         super::builder::database_admin::CreateBackup::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Starts copying a Cloud Spanner Backup.
@@ -410,57 +367,39 @@ impl DatabaseAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn copy_backup(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::CopyBackup {
+    pub fn copy_backup(&self) -> super::builder::database_admin::CopyBackup {
         super::builder::database_admin::CopyBackup::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets metadata on a pending or completed
     /// [Backup][google.spanner.admin.database.v1.Backup].
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
-    pub fn get_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::GetBackup {
-        super::builder::database_admin::GetBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup(&self) -> super::builder::database_admin::GetBackup {
+        super::builder::database_admin::GetBackup::new(self.inner.clone())
     }
 
     /// Updates a pending or completed
     /// [Backup][google.spanner.admin.database.v1.Backup].
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
-    pub fn update_backup(
-        &self,
-        backup: impl Into<crate::model::Backup>,
-    ) -> super::builder::database_admin::UpdateBackup {
+    pub fn update_backup(&self) -> super::builder::database_admin::UpdateBackup {
         super::builder::database_admin::UpdateBackup::new(self.inner.clone())
-            .set_backup(backup.into())
     }
 
     /// Deletes a pending or completed
     /// [Backup][google.spanner.admin.database.v1.Backup].
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
-    pub fn delete_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::DeleteBackup {
-        super::builder::database_admin::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup(&self) -> super::builder::database_admin::DeleteBackup {
+        super::builder::database_admin::DeleteBackup::new(self.inner.clone())
     }
 
     /// Lists completed and pending backups.
     /// Backups returned are ordered by `create_time` in descending order,
     /// starting from the most recent `create_time`.
-    pub fn list_backups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::ListBackups {
+    pub fn list_backups(&self) -> super::builder::database_admin::ListBackups {
         super::builder::database_admin::ListBackups::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a new database by restoring from a completed backup. The new
@@ -496,12 +435,8 @@ impl DatabaseAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_database(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::RestoreDatabase {
+    pub fn restore_database(&self) -> super::builder::database_admin::RestoreDatabase {
         super::builder::database_admin::RestoreDatabase::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists database [longrunning-operations][google.longrunning.Operation].
@@ -517,10 +452,8 @@ impl DatabaseAdmin {
     /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
     pub fn list_database_operations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::database_admin::ListDatabaseOperations {
         super::builder::database_admin::ListDatabaseOperations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists the backup [long-running operations][google.longrunning.Operation] in
@@ -536,117 +469,70 @@ impl DatabaseAdmin {
     ///
     /// [google.longrunning.Operation]: longrunning::model::Operation
     /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    pub fn list_backup_operations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::ListBackupOperations {
+    pub fn list_backup_operations(&self) -> super::builder::database_admin::ListBackupOperations {
         super::builder::database_admin::ListBackupOperations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists Cloud Spanner database roles.
-    pub fn list_database_roles(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::ListDatabaseRoles {
+    pub fn list_database_roles(&self) -> super::builder::database_admin::ListDatabaseRoles {
         super::builder::database_admin::ListDatabaseRoles::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Adds split points to specified tables, indexes of a database.
-    pub fn add_split_points(
-        &self,
-        database: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::AddSplitPoints {
+    pub fn add_split_points(&self) -> super::builder::database_admin::AddSplitPoints {
         super::builder::database_admin::AddSplitPoints::new(self.inner.clone())
-            .set_database(database.into())
     }
 
     /// Creates a new backup schedule.
-    pub fn create_backup_schedule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::CreateBackupSchedule {
+    pub fn create_backup_schedule(&self) -> super::builder::database_admin::CreateBackupSchedule {
         super::builder::database_admin::CreateBackupSchedule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets backup schedule for the input schedule name.
-    pub fn get_backup_schedule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::GetBackupSchedule {
+    pub fn get_backup_schedule(&self) -> super::builder::database_admin::GetBackupSchedule {
         super::builder::database_admin::GetBackupSchedule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a backup schedule.
-    pub fn update_backup_schedule(
-        &self,
-        backup_schedule: impl Into<crate::model::BackupSchedule>,
-    ) -> super::builder::database_admin::UpdateBackupSchedule {
+    pub fn update_backup_schedule(&self) -> super::builder::database_admin::UpdateBackupSchedule {
         super::builder::database_admin::UpdateBackupSchedule::new(self.inner.clone())
-            .set_backup_schedule(backup_schedule.into())
     }
 
     /// Deletes a backup schedule.
-    pub fn delete_backup_schedule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::DeleteBackupSchedule {
+    pub fn delete_backup_schedule(&self) -> super::builder::database_admin::DeleteBackupSchedule {
         super::builder::database_admin::DeleteBackupSchedule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all the backup schedules for the database.
-    pub fn list_backup_schedules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::ListBackupSchedules {
+    pub fn list_backup_schedules(&self) -> super::builder::database_admin::ListBackupSchedules {
         super::builder::database_admin::ListBackupSchedules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::database_admin::ListOperations {
         super::builder::database_admin::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::GetOperation {
-        super::builder::database_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::database_admin::GetOperation {
+        super::builder::database_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::database_admin::DeleteOperation {
         super::builder::database_admin::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::database_admin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::database_admin::CancelOperation {
         super::builder::database_admin::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

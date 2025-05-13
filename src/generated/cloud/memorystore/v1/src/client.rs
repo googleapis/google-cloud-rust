@@ -119,20 +119,13 @@ impl Memorystore {
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::ListInstances {
+    pub fn list_instances(&self) -> super::builder::memorystore::ListInstances {
         super::builder::memorystore::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::GetInstance {
-        super::builder::memorystore::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::memorystore::GetInstance {
+        super::builder::memorystore::GetInstance::new(self.inner.clone())
     }
 
     /// Creates a new Instance in a given project and location.
@@ -146,12 +139,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::memorystore::CreateInstance {
         super::builder::memorystore::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Instance.
@@ -165,12 +154,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::memorystore::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::memorystore::UpdateInstance {
         super::builder::memorystore::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Deletes a single Instance.
@@ -184,20 +169,15 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::DeleteInstance {
-        super::builder::memorystore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::memorystore::DeleteInstance {
+        super::builder::memorystore::DeleteInstance::new(self.inner.clone())
     }
 
     /// Gets details about the certificate authority for an Instance.
     pub fn get_certificate_authority(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::memorystore::GetCertificateAuthority {
         super::builder::memorystore::GetCertificateAuthority::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Reschedules upcoming maintenance event.
@@ -211,12 +191,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reschedule_maintenance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::RescheduleMaintenance {
+    pub fn reschedule_maintenance(&self) -> super::builder::memorystore::RescheduleMaintenance {
         super::builder::memorystore::RescheduleMaintenance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all backup collections owned by a consumer project in either the
@@ -224,37 +200,23 @@ impl Memorystore {
     ///
     /// If `location_id` is specified as `-` (wildcard), then all regions
     /// available to the project are queried, and the results are aggregated.
-    pub fn list_backup_collections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::ListBackupCollections {
+    pub fn list_backup_collections(&self) -> super::builder::memorystore::ListBackupCollections {
         super::builder::memorystore::ListBackupCollections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get a backup collection.
-    pub fn get_backup_collection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::GetBackupCollection {
+    pub fn get_backup_collection(&self) -> super::builder::memorystore::GetBackupCollection {
         super::builder::memorystore::GetBackupCollection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all backups owned by a backup collection.
-    pub fn list_backups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::ListBackups {
-        super::builder::memorystore::ListBackups::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_backups(&self) -> super::builder::memorystore::ListBackups {
+        super::builder::memorystore::ListBackups::new(self.inner.clone())
     }
 
     /// Gets the details of a specific backup.
-    pub fn get_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::GetBackup {
-        super::builder::memorystore::GetBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup(&self) -> super::builder::memorystore::GetBackup {
+        super::builder::memorystore::GetBackup::new(self.inner.clone())
     }
 
     /// Deletes a specific backup.
@@ -268,11 +230,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::DeleteBackup {
-        super::builder::memorystore::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup(&self) -> super::builder::memorystore::DeleteBackup {
+        super::builder::memorystore::DeleteBackup::new(self.inner.clone())
     }
 
     /// Exports a specific backup to a customer target Cloud Storage URI.
@@ -286,11 +245,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::ExportBackup {
-        super::builder::memorystore::ExportBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn export_backup(&self) -> super::builder::memorystore::ExportBackup {
+        super::builder::memorystore::ExportBackup::new(self.inner.clone())
     }
 
     /// Backup Instance.
@@ -315,66 +271,45 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn backup_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::BackupInstance {
-        super::builder::memorystore::BackupInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn backup_instance(&self) -> super::builder::memorystore::BackupInstance {
+        super::builder::memorystore::BackupInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::ListLocations {
-        super::builder::memorystore::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::memorystore::ListLocations {
+        super::builder::memorystore::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::GetLocation {
-        super::builder::memorystore::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::memorystore::GetLocation {
+        super::builder::memorystore::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::ListOperations {
-        super::builder::memorystore::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::memorystore::ListOperations {
+        super::builder::memorystore::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::GetOperation {
-        super::builder::memorystore::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::memorystore::GetOperation {
+        super::builder::memorystore::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::DeleteOperation {
-        super::builder::memorystore::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::memorystore::DeleteOperation {
+        super::builder::memorystore::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::memorystore::CancelOperation {
-        super::builder::memorystore::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::memorystore::CancelOperation {
+        super::builder::memorystore::CancelOperation::new(self.inner.clone())
     }
 }

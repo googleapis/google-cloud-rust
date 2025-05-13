@@ -146,87 +146,51 @@ impl GSuiteAddOns {
     }
 
     /// Gets the authorization information for deployments in a given project.
-    pub fn get_authorization(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::GetAuthorization {
+    pub fn get_authorization(&self) -> super::builder::g_suite_add_ons::GetAuthorization {
         super::builder::g_suite_add_ons::GetAuthorization::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a deployment with the specified name and configuration.
-    pub fn create_deployment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::CreateDeployment {
+    pub fn create_deployment(&self) -> super::builder::g_suite_add_ons::CreateDeployment {
         super::builder::g_suite_add_ons::CreateDeployment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates or replaces a deployment with the specified name.
-    pub fn replace_deployment(
-        &self,
-        deployment: impl Into<crate::model::Deployment>,
-    ) -> super::builder::g_suite_add_ons::ReplaceDeployment {
+    pub fn replace_deployment(&self) -> super::builder::g_suite_add_ons::ReplaceDeployment {
         super::builder::g_suite_add_ons::ReplaceDeployment::new(self.inner.clone())
-            .set_deployment(deployment.into())
     }
 
     /// Gets the deployment with the specified name.
-    pub fn get_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::GetDeployment {
+    pub fn get_deployment(&self) -> super::builder::g_suite_add_ons::GetDeployment {
         super::builder::g_suite_add_ons::GetDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all deployments in a particular project.
-    pub fn list_deployments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::ListDeployments {
+    pub fn list_deployments(&self) -> super::builder::g_suite_add_ons::ListDeployments {
         super::builder::g_suite_add_ons::ListDeployments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the deployment with the given name.
-    pub fn delete_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::DeleteDeployment {
+    pub fn delete_deployment(&self) -> super::builder::g_suite_add_ons::DeleteDeployment {
         super::builder::g_suite_add_ons::DeleteDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Installs a deployment in developer mode.
     /// See:
     /// <https://developers.google.com/gsuite/add-ons/how-tos/testing-gsuite-addons>.
-    pub fn install_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::InstallDeployment {
+    pub fn install_deployment(&self) -> super::builder::g_suite_add_ons::InstallDeployment {
         super::builder::g_suite_add_ons::InstallDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Uninstalls a developer mode deployment.
     /// See:
     /// <https://developers.google.com/gsuite/add-ons/how-tos/testing-gsuite-addons>.
-    pub fn uninstall_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::UninstallDeployment {
+    pub fn uninstall_deployment(&self) -> super::builder::g_suite_add_ons::UninstallDeployment {
         super::builder::g_suite_add_ons::UninstallDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Fetches the install status of a developer mode deployment.
-    pub fn get_install_status(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::g_suite_add_ons::GetInstallStatus {
+    pub fn get_install_status(&self) -> super::builder::g_suite_add_ons::GetInstallStatus {
         super::builder::g_suite_add_ons::GetInstallStatus::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

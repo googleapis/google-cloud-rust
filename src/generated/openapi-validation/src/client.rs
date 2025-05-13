@@ -122,235 +122,135 @@ impl SecretManagerService {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        project: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations {
         super::builder::secret_manager_service::ListLocations::new(self.inner.clone())
-            .set_project(project.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation {
         super::builder::secret_manager_service::GetLocation::new(self.inner.clone())
-            .set_project(project.into())
-            .set_location(location.into())
     }
 
     /// Lists Secrets.
-    pub fn list_secrets(
-        &self,
-        project: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::ListSecrets {
+    pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets {
         super::builder::secret_manager_service::ListSecrets::new(self.inner.clone())
-            .set_project(project.into())
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub fn create_secret(
-        &self,
-        project: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::CreateSecret {
+    pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret {
         super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
-            .set_project(project.into())
     }
 
     /// Lists Secrets.
     pub fn list_secrets_by_project_and_location(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::ListSecretsByProjectAndLocation {
         super::builder::secret_manager_service::ListSecretsByProjectAndLocation::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
     }
 
     /// Creates a new Secret containing no SecretVersions.
     pub fn create_secret_by_project_and_location(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::CreateSecretByProjectAndLocation {
         super::builder::secret_manager_service::CreateSecretByProjectAndLocation::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub fn add_secret_version(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::AddSecretVersion {
+    pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion {
         super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
     pub fn add_secret_version_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
-        .set_secret(secret.into())
     }
 
     /// Gets metadata for a given Secret.
-    pub fn get_secret(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::GetSecret {
+    pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret {
         super::builder::secret_manager_service::GetSecret::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Deletes a Secret.
-    pub fn delete_secret(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::DeleteSecret {
+    pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret {
         super::builder::secret_manager_service::DeleteSecret::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Updates metadata of an existing Secret.
-    pub fn update_secret(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::UpdateSecret {
+    pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret {
         super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Gets metadata for a given Secret.
     pub fn get_secret_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
-        .set_secret(secret.into())
     }
 
     /// Deletes a Secret.
     pub fn delete_secret_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
-        .set_secret(secret.into())
     }
 
     /// Updates metadata of an existing Secret.
     pub fn update_secret_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
-        .set_secret(secret.into())
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
     pub fn list_secret_versions(
         &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::ListSecretVersions {
         super::builder::secret_manager_service::ListSecretVersions::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
     pub fn list_secret_versions_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
     {
-        super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
+        super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(
+            self.inner.clone(),
+        )
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn get_secret_version(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::GetSecretVersion {
+    pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion {
         super::builder::secret_manager_service::GetSecretVersion::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
-            .set_version(version.into())
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn get_secret_version_by_project_and_location_and_secret_and_version(
-        &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
+    pub fn get_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
-            .set_version ( version.into() )
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -359,33 +259,17 @@ impl SecretManagerService {
     /// created SecretVersion.
     pub fn access_secret_version(
         &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::AccessSecretVersion {
         super::builder::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
-            .set_version(version.into())
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn access_secret_version_by_project_and_location_and_secret_and_version(
-        &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
+    pub fn access_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
-            .set_version ( version.into() )
     }
 
     /// Disables a SecretVersion.
@@ -394,33 +278,17 @@ impl SecretManagerService {
     /// DISABLED.
     pub fn disable_secret_version(
         &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::DisableSecretVersion {
         super::builder::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
-            .set_version(version.into())
     }
 
     /// Disables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    pub fn disable_secret_version_by_project_and_location_and_secret_and_version(
-        &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
+    pub fn disable_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
-            .set_version ( version.into() )
     }
 
     /// Enables a SecretVersion.
@@ -429,33 +297,17 @@ impl SecretManagerService {
     /// ENABLED.
     pub fn enable_secret_version(
         &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::EnableSecretVersion {
         super::builder::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
-            .set_version(version.into())
     }
 
     /// Enables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    pub fn enable_secret_version_by_project_and_location_and_secret_and_version(
-        &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
+    pub fn enable_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
-            .set_version ( version.into() )
     }
 
     /// Destroys a SecretVersion.
@@ -465,14 +317,8 @@ impl SecretManagerService {
     /// secret data.
     pub fn destroy_secret_version(
         &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::DestroySecretVersion {
         super::builder::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
-            .set_version(version.into())
     }
 
     /// Destroys a SecretVersion.
@@ -480,19 +326,9 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(
-        &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-        version: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
+    pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
-            .set_version ( version.into() )
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -500,14 +336,8 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub fn set_iam_policy(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy {
         super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -517,44 +347,26 @@ impl SecretManagerService {
     /// to the policy set on the associated Secret.
     pub fn set_iam_policy_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
-        .set_secret(secret.into())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
-    ) -> super::builder::secret_manager_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy {
         super::builder::secret_manager_service::GetIamPolicy::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
     pub fn get_iam_policy_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
-        .set_project(project.into())
-        .set_location(location.into())
-        .set_secret(secret.into())
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -566,12 +378,8 @@ impl SecretManagerService {
     /// may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        project: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::TestIamPermissions {
         super::builder::secret_manager_service::TestIamPermissions::new(self.inner.clone())
-            .set_project(project.into())
-            .set_secret(secret.into())
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -583,14 +391,10 @@ impl SecretManagerService {
     /// may "fail open" without warning.
     pub fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
-        project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
-        secret: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
     {
-        super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_location ( location.into() )
-            .set_secret ( secret.into() )
+        super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(
+            self.inner.clone(),
+        )
     }
 }

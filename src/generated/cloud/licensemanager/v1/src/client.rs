@@ -119,21 +119,13 @@ impl LicenseManager {
     }
 
     /// Lists Configurations in a given project and location.
-    pub fn list_configurations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::ListConfigurations {
+    pub fn list_configurations(&self) -> super::builder::license_manager::ListConfigurations {
         super::builder::license_manager::ListConfigurations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Configuration.
-    pub fn get_configuration(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::GetConfiguration {
+    pub fn get_configuration(&self) -> super::builder::license_manager::GetConfiguration {
         super::builder::license_manager::GetConfiguration::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Configuration in a given project and location.
@@ -147,12 +139,8 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_configuration(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::CreateConfiguration {
+    pub fn create_configuration(&self) -> super::builder::license_manager::CreateConfiguration {
         super::builder::license_manager::CreateConfiguration::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Configuration.
@@ -166,12 +154,8 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_configuration(
-        &self,
-        configuration: impl Into<crate::model::Configuration>,
-    ) -> super::builder::license_manager::UpdateConfiguration {
+    pub fn update_configuration(&self) -> super::builder::license_manager::UpdateConfiguration {
         super::builder::license_manager::UpdateConfiguration::new(self.inner.clone())
-            .set_configuration(configuration.into())
     }
 
     /// Deletes a single Configuration.
@@ -185,29 +169,18 @@ impl LicenseManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_configuration(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::DeleteConfiguration {
+    pub fn delete_configuration(&self) -> super::builder::license_manager::DeleteConfiguration {
         super::builder::license_manager::DeleteConfiguration::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::ListInstances {
+    pub fn list_instances(&self) -> super::builder::license_manager::ListInstances {
         super::builder::license_manager::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::GetInstance {
-        super::builder::license_manager::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::license_manager::GetInstance {
+        super::builder::license_manager::GetInstance::new(self.inner.clone())
     }
 
     /// Deactivates the given configuration.
@@ -223,10 +196,8 @@ impl LicenseManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn deactivate_configuration(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::license_manager::DeactivateConfiguration {
         super::builder::license_manager::DeactivateConfiguration::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Reactivates the given configuration.
@@ -242,104 +213,67 @@ impl LicenseManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn reactivate_configuration(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::license_manager::ReactivateConfiguration {
         super::builder::license_manager::ReactivateConfiguration::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// License Usage information for a Configuration.
     pub fn query_configuration_license_usage(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::license_manager::QueryConfigurationLicenseUsage {
         super::builder::license_manager::QueryConfigurationLicenseUsage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Aggregates Usage per Instance for a Configuration.
-    pub fn aggregate_usage(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::AggregateUsage {
+    pub fn aggregate_usage(&self) -> super::builder::license_manager::AggregateUsage {
         super::builder::license_manager::AggregateUsage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Products in a given project and location.
-    pub fn list_products(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::ListProducts {
+    pub fn list_products(&self) -> super::builder::license_manager::ListProducts {
         super::builder::license_manager::ListProducts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Product.
-    pub fn get_product(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::GetProduct {
-        super::builder::license_manager::GetProduct::new(self.inner.clone()).set_name(name.into())
+    pub fn get_product(&self) -> super::builder::license_manager::GetProduct {
+        super::builder::license_manager::GetProduct::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::license_manager::ListLocations {
         super::builder::license_manager::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::GetLocation {
-        super::builder::license_manager::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::license_manager::GetLocation {
+        super::builder::license_manager::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::license_manager::ListOperations {
         super::builder::license_manager::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::GetOperation {
-        super::builder::license_manager::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::license_manager::GetOperation {
+        super::builder::license_manager::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::license_manager::DeleteOperation {
         super::builder::license_manager::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_manager::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::license_manager::CancelOperation {
         super::builder::license_manager::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

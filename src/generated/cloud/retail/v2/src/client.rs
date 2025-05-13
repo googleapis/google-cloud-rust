@@ -137,32 +137,22 @@ impl AnalyticsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn export_analytics_metrics(
         &self,
-        catalog: impl Into<std::string::String>,
     ) -> super::builder::analytics_service::ExportAnalyticsMetrics {
         super::builder::analytics_service::ExportAnalyticsMetrics::new(self.inner.clone())
-            .set_catalog(catalog.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::analytics_service::ListOperations {
         super::builder::analytics_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::analytics_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::analytics_service::GetOperation {
         super::builder::analytics_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -270,23 +260,15 @@ impl CatalogService {
     /// the project.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
-    pub fn list_catalogs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListCatalogs {
+    pub fn list_catalogs(&self) -> super::builder::catalog_service::ListCatalogs {
         super::builder::catalog_service::ListCatalogs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the [Catalog][google.cloud.retail.v2.Catalog]s.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
-    pub fn update_catalog(
-        &self,
-        catalog: impl Into<crate::model::Catalog>,
-    ) -> super::builder::catalog_service::UpdateCatalog {
+    pub fn update_catalog(&self) -> super::builder::catalog_service::UpdateCatalog {
         super::builder::catalog_service::UpdateCatalog::new(self.inner.clone())
-            .set_catalog(catalog.into())
     }
 
     /// Set a specified branch id as default branch. API methods such as
@@ -328,12 +310,8 @@ impl CatalogService {
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     /// [google.cloud.retail.v2.SearchRequest.branch]: crate::model::SearchRequest::branch
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
-    pub fn set_default_branch(
-        &self,
-        catalog: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::SetDefaultBranch {
+    pub fn set_default_branch(&self) -> super::builder::catalog_service::SetDefaultBranch {
         super::builder::catalog_service::SetDefaultBranch::new(self.inner.clone())
-            .set_catalog(catalog.into())
     }
 
     /// Get which branch is currently default branch set by
@@ -341,23 +319,15 @@ impl CatalogService {
     /// method under a specified parent catalog.
     ///
     /// [google.cloud.retail.v2.CatalogService.SetDefaultBranch]: crate::client::CatalogService::set_default_branch
-    pub fn get_default_branch(
-        &self,
-        catalog: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetDefaultBranch {
+    pub fn get_default_branch(&self) -> super::builder::catalog_service::GetDefaultBranch {
         super::builder::catalog_service::GetDefaultBranch::new(self.inner.clone())
-            .set_catalog(catalog.into())
     }
 
     /// Gets a [CompletionConfig][google.cloud.retail.v2.CompletionConfig].
     ///
     /// [google.cloud.retail.v2.CompletionConfig]: crate::model::CompletionConfig
-    pub fn get_completion_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetCompletionConfig {
+    pub fn get_completion_config(&self) -> super::builder::catalog_service::GetCompletionConfig {
         super::builder::catalog_service::GetCompletionConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the [CompletionConfig][google.cloud.retail.v2.CompletionConfig]s.
@@ -365,21 +335,15 @@ impl CatalogService {
     /// [google.cloud.retail.v2.CompletionConfig]: crate::model::CompletionConfig
     pub fn update_completion_config(
         &self,
-        completion_config: impl Into<crate::model::CompletionConfig>,
     ) -> super::builder::catalog_service::UpdateCompletionConfig {
         super::builder::catalog_service::UpdateCompletionConfig::new(self.inner.clone())
-            .set_completion_config(completion_config.into())
     }
 
     /// Gets an [AttributesConfig][google.cloud.retail.v2.AttributesConfig].
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
-    pub fn get_attributes_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetAttributesConfig {
+    pub fn get_attributes_config(&self) -> super::builder::catalog_service::GetAttributesConfig {
         super::builder::catalog_service::GetAttributesConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the [AttributesConfig][google.cloud.retail.v2.AttributesConfig].
@@ -394,10 +358,8 @@ impl CatalogService {
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     pub fn update_attributes_config(
         &self,
-        attributes_config: impl Into<crate::model::AttributesConfig>,
     ) -> super::builder::catalog_service::UpdateAttributesConfig {
         super::builder::catalog_service::UpdateAttributesConfig::new(self.inner.clone())
-            .set_attributes_config(attributes_config.into())
     }
 
     /// Adds the specified
@@ -409,12 +371,8 @@ impl CatalogService {
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
-    pub fn add_catalog_attribute(
-        &self,
-        attributes_config: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::AddCatalogAttribute {
+    pub fn add_catalog_attribute(&self) -> super::builder::catalog_service::AddCatalogAttribute {
         super::builder::catalog_service::AddCatalogAttribute::new(self.inner.clone())
-            .set_attributes_config(attributes_config.into())
     }
 
     /// Removes the specified
@@ -428,10 +386,8 @@ impl CatalogService {
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
     pub fn remove_catalog_attribute(
         &self,
-        attributes_config: impl Into<std::string::String>,
     ) -> super::builder::catalog_service::RemoveCatalogAttribute {
         super::builder::catalog_service::RemoveCatalogAttribute::new(self.inner.clone())
-            .set_attributes_config(attributes_config.into())
     }
 
     /// Replaces the specified
@@ -448,31 +404,22 @@ impl CatalogService {
     /// [google.cloud.retail.v2.CatalogAttribute.key]: crate::model::CatalogAttribute::key
     pub fn replace_catalog_attribute(
         &self,
-        attributes_config: impl Into<std::string::String>,
     ) -> super::builder::catalog_service::ReplaceCatalogAttribute {
         super::builder::catalog_service::ReplaceCatalogAttribute::new(self.inner.clone())
-            .set_attributes_config(attributes_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::catalog_service::ListOperations {
         super::builder::catalog_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::catalog_service::GetOperation {
-        super::builder::catalog_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation {
+        super::builder::catalog_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -585,12 +532,8 @@ impl CompletionService {
     ///
     /// This feature is only available for users who have Retail Search enabled.
     /// Enable Retail Search on Cloud Console before using this feature.
-    pub fn complete_query(
-        &self,
-        catalog: impl Into<std::string::String>,
-    ) -> super::builder::completion_service::CompleteQuery {
+    pub fn complete_query(&self) -> super::builder::completion_service::CompleteQuery {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
-            .set_catalog(catalog.into())
     }
 
     /// Bulk import of processed completion dataset.
@@ -614,32 +557,22 @@ impl CompletionService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn import_completion_data(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::completion_service::ImportCompletionData {
         super::builder::completion_service::ImportCompletionData::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::completion_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::completion_service::ListOperations {
         super::builder::completion_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::completion_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::completion_service::GetOperation {
         super::builder::completion_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -749,12 +682,8 @@ impl ControlService {
     /// an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
-    pub fn create_control(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::control_service::CreateControl {
+    pub fn create_control(&self) -> super::builder::control_service::CreateControl {
         super::builder::control_service::CreateControl::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a Control.
@@ -763,12 +692,8 @@ impl ControlService {
     /// a NOT_FOUND error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
-    pub fn delete_control(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::control_service::DeleteControl {
+    pub fn delete_control(&self) -> super::builder::control_service::DeleteControl {
         super::builder::control_service::DeleteControl::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a Control.
@@ -779,53 +704,35 @@ impl ControlService {
     /// NOT_FOUND error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
-    pub fn update_control(
-        &self,
-        control: impl Into<crate::model::Control>,
-    ) -> super::builder::control_service::UpdateControl {
+    pub fn update_control(&self) -> super::builder::control_service::UpdateControl {
         super::builder::control_service::UpdateControl::new(self.inner.clone())
-            .set_control(control.into())
     }
 
     /// Gets a Control.
-    pub fn get_control(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::control_service::GetControl {
-        super::builder::control_service::GetControl::new(self.inner.clone()).set_name(name.into())
+    pub fn get_control(&self) -> super::builder::control_service::GetControl {
+        super::builder::control_service::GetControl::new(self.inner.clone())
     }
 
     /// Lists all Controls by their parent
     /// [Catalog][google.cloud.retail.v2.Catalog].
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
-    pub fn list_controls(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::control_service::ListControls {
+    pub fn list_controls(&self) -> super::builder::control_service::ListControls {
         super::builder::control_service::ListControls::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::control_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::control_service::ListOperations {
         super::builder::control_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::control_service::GetOperation {
-        super::builder::control_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::control_service::GetOperation {
+        super::builder::control_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -935,79 +842,61 @@ impl GenerativeQuestionService {
     /// feature on and off.
     pub fn update_generative_questions_feature_config(
         &self,
-        generative_questions_feature_config: impl Into<crate::model::GenerativeQuestionsFeatureConfig>,
     ) -> super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig {
         super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig::new(
             self.inner.clone(),
         )
-        .set_generative_questions_feature_config(generative_questions_feature_config.into())
     }
 
     /// Manages overal generative question feature state -- enables toggling
     /// feature on and off.
     pub fn get_generative_questions_feature_config(
         &self,
-        catalog: impl Into<std::string::String>,
     ) -> super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig {
         super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig::new(
             self.inner.clone(),
         )
-        .set_catalog(catalog.into())
     }
 
     /// Returns all questions for a given catalog.
     pub fn list_generative_question_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::generative_question_service::ListGenerativeQuestionConfigs {
         super::builder::generative_question_service::ListGenerativeQuestionConfigs::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Allows management of individual questions.
     pub fn update_generative_question_config(
         &self,
-        generative_question_config: impl Into<crate::model::GenerativeQuestionConfig>,
     ) -> super::builder::generative_question_service::UpdateGenerativeQuestionConfig {
         super::builder::generative_question_service::UpdateGenerativeQuestionConfig::new(
             self.inner.clone(),
         )
-        .set_generative_question_config(generative_question_config.into())
     }
 
     /// Allows management of multiple questions.
     pub fn batch_update_generative_question_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs {
         super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generative_question_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::generative_question_service::ListOperations {
         super::builder::generative_question_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generative_question_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::generative_question_service::GetOperation {
         super::builder::generative_question_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1133,63 +1022,41 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_model(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::model_service::CreateModel {
+    pub fn create_model(&self) -> super::builder::model_service::CreateModel {
         super::builder::model_service::CreateModel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a model.
-    pub fn get_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::GetModel {
-        super::builder::model_service::GetModel::new(self.inner.clone()).set_name(name.into())
+    pub fn get_model(&self) -> super::builder::model_service::GetModel {
+        super::builder::model_service::GetModel::new(self.inner.clone())
     }
 
     /// Pauses the training of an existing model.
-    pub fn pause_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::PauseModel {
-        super::builder::model_service::PauseModel::new(self.inner.clone()).set_name(name.into())
+    pub fn pause_model(&self) -> super::builder::model_service::PauseModel {
+        super::builder::model_service::PauseModel::new(self.inner.clone())
     }
 
     /// Resumes the training of an existing model.
-    pub fn resume_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::ResumeModel {
-        super::builder::model_service::ResumeModel::new(self.inner.clone()).set_name(name.into())
+    pub fn resume_model(&self) -> super::builder::model_service::ResumeModel {
+        super::builder::model_service::ResumeModel::new(self.inner.clone())
     }
 
     /// Deletes an existing model.
-    pub fn delete_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::DeleteModel {
-        super::builder::model_service::DeleteModel::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
+        super::builder::model_service::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists all the models linked to this event store.
-    pub fn list_models(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::model_service::ListModels {
-        super::builder::model_service::ListModels::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_models(&self) -> super::builder::model_service::ListModels {
+        super::builder::model_service::ListModels::new(self.inner.clone())
     }
 
     /// Update of model metadata. Only fields that
     /// currently can be updated are: `filtering_option` and
     /// `periodic_tuning_state`.
     /// If other values are provided, this API method ignores them.
-    pub fn update_model(
-        &self,
-        model: impl Into<crate::model::Model>,
-    ) -> super::builder::model_service::UpdateModel {
-        super::builder::model_service::UpdateModel::new(self.inner.clone()).set_model(model.into())
+    pub fn update_model(&self) -> super::builder::model_service::UpdateModel {
+        super::builder::model_service::UpdateModel::new(self.inner.clone())
     }
 
     /// Tunes an existing model.
@@ -1203,31 +1070,22 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn tune_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::TuneModel {
-        super::builder::model_service::TuneModel::new(self.inner.clone()).set_name(name.into())
+    pub fn tune_model(&self) -> super::builder::model_service::TuneModel {
+        super::builder::model_service::TuneModel::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::ListOperations {
-        super::builder::model_service::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::model_service::ListOperations {
+        super::builder::model_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_service::GetOperation {
-        super::builder::model_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::model_service::GetOperation {
+        super::builder::model_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1334,34 +1192,22 @@ impl PredictionService {
     }
 
     /// Makes a recommendation prediction.
-    pub fn predict(
-        &self,
-        placement: impl Into<std::string::String>,
-    ) -> super::builder::prediction_service::Predict {
+    pub fn predict(&self) -> super::builder::prediction_service::Predict {
         super::builder::prediction_service::Predict::new(self.inner.clone())
-            .set_placement(placement.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::prediction_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::prediction_service::ListOperations {
         super::builder::prediction_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::prediction_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation {
         super::builder::prediction_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1471,55 +1317,36 @@ impl ProductService {
     /// Creates a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn create_product(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_service::CreateProduct {
+    pub fn create_product(&self) -> super::builder::product_service::CreateProduct {
         super::builder::product_service::CreateProduct::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn get_product(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_service::GetProduct {
-        super::builder::product_service::GetProduct::new(self.inner.clone()).set_name(name.into())
+    pub fn get_product(&self) -> super::builder::product_service::GetProduct {
+        super::builder::product_service::GetProduct::new(self.inner.clone())
     }
 
     /// Gets a list of [Product][google.cloud.retail.v2.Product]s.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn list_products(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_service::ListProducts {
+    pub fn list_products(&self) -> super::builder::product_service::ListProducts {
         super::builder::product_service::ListProducts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn update_product(
-        &self,
-        product: impl Into<crate::model::Product>,
-    ) -> super::builder::product_service::UpdateProduct {
+    pub fn update_product(&self) -> super::builder::product_service::UpdateProduct {
         super::builder::product_service::UpdateProduct::new(self.inner.clone())
-            .set_product(product.into())
     }
 
     /// Deletes a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn delete_product(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_service::DeleteProduct {
+    pub fn delete_product(&self) -> super::builder::product_service::DeleteProduct {
         super::builder::product_service::DeleteProduct::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Permanently deletes all selected [Product][google.cloud.retail.v2.Product]s
@@ -1554,12 +1381,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn purge_products(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_service::PurgeProducts {
+    pub fn purge_products(&self) -> super::builder::product_service::PurgeProducts {
         super::builder::product_service::PurgeProducts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Bulk import of multiple [Product][google.cloud.retail.v2.Product]s.
@@ -1581,12 +1404,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_products(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_service::ImportProducts {
+    pub fn import_products(&self) -> super::builder::product_service::ImportProducts {
         super::builder::product_service::ImportProducts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates inventory information for a
@@ -1661,12 +1480,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn set_inventory(
-        &self,
-        inventory: impl Into<crate::model::Product>,
-    ) -> super::builder::product_service::SetInventory {
+    pub fn set_inventory(&self) -> super::builder::product_service::SetInventory {
         super::builder::product_service::SetInventory::new(self.inner.clone())
-            .set_inventory(inventory.into())
     }
 
     /// We recommend that you use the
@@ -1718,12 +1533,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_fulfillment_places(
-        &self,
-        product: impl Into<std::string::String>,
-    ) -> super::builder::product_service::AddFulfillmentPlaces {
+    pub fn add_fulfillment_places(&self) -> super::builder::product_service::AddFulfillmentPlaces {
         super::builder::product_service::AddFulfillmentPlaces::new(self.inner.clone())
-            .set_product(product.into())
     }
 
     /// We recommend that you use the
@@ -1777,10 +1588,8 @@ impl ProductService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn remove_fulfillment_places(
         &self,
-        product: impl Into<std::string::String>,
     ) -> super::builder::product_service::RemoveFulfillmentPlaces {
         super::builder::product_service::RemoveFulfillmentPlaces::new(self.inner.clone())
-            .set_product(product.into())
     }
 
     /// Updates local inventory information for a
@@ -1829,12 +1638,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_local_inventories(
-        &self,
-        product: impl Into<std::string::String>,
-    ) -> super::builder::product_service::AddLocalInventories {
+    pub fn add_local_inventories(&self) -> super::builder::product_service::AddLocalInventories {
         super::builder::product_service::AddLocalInventories::new(self.inner.clone())
-            .set_product(product.into())
     }
 
     /// Remove local inventory information for a
@@ -1883,31 +1688,22 @@ impl ProductService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn remove_local_inventories(
         &self,
-        product: impl Into<std::string::String>,
     ) -> super::builder::product_service::RemoveLocalInventories {
         super::builder::product_service::RemoveLocalInventories::new(self.inner.clone())
-            .set_product(product.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::product_service::ListOperations {
         super::builder::product_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_service::GetOperation {
-        super::builder::product_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::product_service::GetOperation {
+        super::builder::product_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -2018,33 +1814,22 @@ impl SearchService {
     ///
     /// This feature is only available for users who have Retail Search enabled.
     /// Enable Retail Search on Cloud Console before using this feature.
-    pub fn search(
-        &self,
-        placement: impl Into<std::string::String>,
-    ) -> super::builder::search_service::Search {
+    pub fn search(&self) -> super::builder::search_service::Search {
         super::builder::search_service::Search::new(self.inner.clone())
-            .set_placement(placement.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::search_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::search_service::ListOperations {
         super::builder::search_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::search_service::GetOperation {
-        super::builder::search_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::search_service::GetOperation {
+        super::builder::search_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -2160,10 +1945,8 @@ impl ServingConfigService {
     /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
     pub fn create_serving_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::serving_config_service::CreateServingConfig {
         super::builder::serving_config_service::CreateServingConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a ServingConfig.
@@ -2171,39 +1954,29 @@ impl ServingConfigService {
     /// Returns a NotFound error if the ServingConfig does not exist.
     pub fn delete_serving_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::serving_config_service::DeleteServingConfig {
         super::builder::serving_config_service::DeleteServingConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a ServingConfig.
     pub fn update_serving_config(
         &self,
-        serving_config: impl Into<crate::model::ServingConfig>,
     ) -> super::builder::serving_config_service::UpdateServingConfig {
         super::builder::serving_config_service::UpdateServingConfig::new(self.inner.clone())
-            .set_serving_config(serving_config.into())
     }
 
     /// Gets a ServingConfig.
     ///
     /// Returns a NotFound error if the ServingConfig does not exist.
-    pub fn get_serving_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::serving_config_service::GetServingConfig {
+    pub fn get_serving_config(&self) -> super::builder::serving_config_service::GetServingConfig {
         super::builder::serving_config_service::GetServingConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all ServingConfigs linked to this catalog.
     pub fn list_serving_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::serving_config_service::ListServingConfigs {
         super::builder::serving_config_service::ListServingConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Enables a Control on the specified ServingConfig.
@@ -2213,46 +1986,30 @@ impl ServingConfigService {
     /// Returns a ALREADY_EXISTS error if the control has already been applied.
     /// Returns a FAILED_PRECONDITION error if the addition could exceed maximum
     /// number of control allowed for that type of control.
-    pub fn add_control(
-        &self,
-        serving_config: impl Into<std::string::String>,
-    ) -> super::builder::serving_config_service::AddControl {
+    pub fn add_control(&self) -> super::builder::serving_config_service::AddControl {
         super::builder::serving_config_service::AddControl::new(self.inner.clone())
-            .set_serving_config(serving_config.into())
     }
 
     /// Disables a Control on the specified ServingConfig.
     /// The control is removed from the ServingConfig.
     /// Returns a NOT_FOUND error if the Control is not enabled for the
     /// ServingConfig.
-    pub fn remove_control(
-        &self,
-        serving_config: impl Into<std::string::String>,
-    ) -> super::builder::serving_config_service::RemoveControl {
+    pub fn remove_control(&self) -> super::builder::serving_config_service::RemoveControl {
         super::builder::serving_config_service::RemoveControl::new(self.inner.clone())
-            .set_serving_config(serving_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::serving_config_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::serving_config_service::ListOperations {
         super::builder::serving_config_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::serving_config_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::serving_config_service::GetOperation {
         super::builder::serving_config_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -2359,12 +2116,8 @@ impl UserEventService {
     }
 
     /// Writes a single user event.
-    pub fn write_user_event(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::WriteUserEvent {
+    pub fn write_user_event(&self) -> super::builder::user_event_service::WriteUserEvent {
         super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Writes a single user event from the browser.
@@ -2374,12 +2127,8 @@ impl UserEventService {
     ///
     /// This method is used only by the Retail API JavaScript pixel and Google Tag
     /// Manager. Users should not call this method directly.
-    pub fn collect_user_event(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::CollectUserEvent {
+    pub fn collect_user_event(&self) -> super::builder::user_event_service::CollectUserEvent {
         super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes permanently all user events specified by the filter provided.
@@ -2396,12 +2145,8 @@ impl UserEventService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn purge_user_events(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::PurgeUserEvents {
+    pub fn purge_user_events(&self) -> super::builder::user_event_service::PurgeUserEvents {
         super::builder::user_event_service::PurgeUserEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Bulk import of User events. Request processing might be
@@ -2421,12 +2166,8 @@ impl UserEventService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_user_events(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::ImportUserEvents {
+    pub fn import_user_events(&self) -> super::builder::user_event_service::ImportUserEvents {
         super::builder::user_event_service::ImportUserEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Starts a user-event rejoin operation with latest product catalog. Events
@@ -2447,33 +2188,21 @@ impl UserEventService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rejoin_user_events(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::RejoinUserEvents {
+    pub fn rejoin_user_events(&self) -> super::builder::user_event_service::RejoinUserEvents {
         super::builder::user_event_service::RejoinUserEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::user_event_service::ListOperations {
         super::builder::user_event_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::user_event_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::user_event_service::GetOperation {
         super::builder::user_event_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
