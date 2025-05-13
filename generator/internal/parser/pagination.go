@@ -51,8 +51,6 @@ func updateMethodPagination(a *api.API) {
 				if f.Typez == api.INT32_TYPE || f.Typez == api.UINT32_TYPE {
 					hasPageSize = true
 				}
-			default:
-				break
 			}
 			if f.JSONName == pageToken && f.Typez == api.STRING_TYPE {
 				hasPageToken = f
