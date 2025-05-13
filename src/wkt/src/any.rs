@@ -58,7 +58,6 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 
 /// Indicates a problem trying to use an [Any].
 ///
-///
 /// # Example
 /// ```rust
 /// # use google_cloud_wkt::{Any, AnyError, Duration, Timestamp};
