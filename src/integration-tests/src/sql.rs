@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use crate::{Error, RandomChars, Result};
+use futures::stream::StreamExt;
+use gax::paginator::ItemPaginator;
 use rand::Rng;
 use sql::model;
 
@@ -74,12 +76,13 @@ pub async fn run_sql_instances_service(
         .list()
         .set_project(&project_id)
         .set_filter(format!("name:{name}"))
-        .send()
-        .await?;
-    println!("SUCCESS on list sql instance: {list:?}");
-    // TODO(#2067) - these assertions are flaky, disabled for now
-    // assert_eq!(list.items.len(), 1);
-    // assert!(list.items.into_iter().any(|v| v.name.eq(&name)));
+        .by_item()
+        .into_stream();
+    let items = list.collect::<Vec<Result<_>>>().await;
+    println!("SUCCESS on list sql instance");
+    // TODO(#2067) - this assertion checks for <= instead of == 1 because the
+    // list may not include the newly inserted instance.
+    assert!(items.len() <= 1, "{items:?}");
 
     println!("Testing delete sql instance");
     let delete = client
@@ -127,28 +130,32 @@ async fn cleanup_stale_sql_instances(
         .set_filter(format!(
             "name:{PREFIX}* AND settings.userLabels.{INSTANCE_LABEL}:true"
         ))
-        .send()
-        .await?;
+        .by_item()
+        .into_stream();
 
     let pending_deletion = instances
-        .items
-        .into_iter()
-        .filter_map(|instance| {
-            if instance.create_time? < stale_deadline {
-                Some(
-                    client
-                        .delete()
-                        .set_project(project_id)
-                        .set_instance(instance.name)
-                        .send(),
-                )
-            } else {
-                None
+        .filter_map(|instance| async {
+            match instance {
+                Ok(instance) => {
+                    if instance.create_time? < stale_deadline {
+                        Some(
+                            client
+                                .delete()
+                                .set_project(project_id)
+                                .set_instance(instance.name)
+                                .send(),
+                        )
+                    } else {
+                        None
+                    }
+                }
+                Err(_) => None,
             }
         })
-        .collect::<Vec<_>>();
+        .collect::<Vec<_>>()
+        .await;
 
-    futures::future::join_all(pending_deletion)
+    futures::future::join_all(pending_deletion.into_iter())
         .await
         .into_iter()
         .for_each(|res| {

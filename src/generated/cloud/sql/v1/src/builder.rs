@@ -285,6 +285,30 @@ pub mod sql_backup_runs_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::BackupRunsListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::BackupRunsListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
@@ -1792,6 +1816,30 @@ pub mod sql_instances_service {
                 .list(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstancesListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::InstancesListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
@@ -3432,6 +3480,30 @@ pub mod sql_operations_service {
                 .list(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::OperationsListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::OperationsListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
