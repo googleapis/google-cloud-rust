@@ -520,7 +520,7 @@ mod test {
 
     #[tokio::test]
     async fn headers_success_with_quota_project() {
-        let token: Token = Token {
+        let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
             expires_at: None,
