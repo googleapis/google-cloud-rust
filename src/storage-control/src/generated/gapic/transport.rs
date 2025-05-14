@@ -30,7 +30,7 @@ mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.grpc_header_value()
         };
     }
 }
