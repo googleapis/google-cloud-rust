@@ -291,7 +291,7 @@ pub(crate) mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GCCL,
             };
-            ac.header_value()
+            ac.grpc_header_value()
         };
     }
 }
