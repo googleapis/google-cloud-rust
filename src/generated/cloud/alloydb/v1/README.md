@@ -13,7 +13,7 @@ commercial-grade applications. It offers full compatibility with standard
 PostgreSQL, and is more than 4x faster for transactional workloads and up
 to 100x faster for analytical queries than standard PostgreSQL in our
 performance tests. AlloyDB for PostgreSQL offers a 99.99 percent
-availability SLA inclusive of maintenance. AlloyDB is optimized
+availability SLA inclusive of maintenance. <br><br> AlloyDB is optimized
 for the most demanding use cases, allowing you to build new applications
 that require high transaction throughput, large database sizes, or
 multiple read resources; scale existing PostgreSQL workloads with no
@@ -23,10 +23,12 @@ application changes; and modernize legacy proprietary databases.
 
 The main types to work with this crate are the clients:
 
+- [AlloyDBCSQLAdmin]
 - [AlloyDBAdmin]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-alloydb-v1/latest/google-cloud-alloydb-v1)
 
+[AlloyDBCSQLAdmin]: https://docs.rs/google-cloud-alloydb-v1/latest/google_cloud_alloydb_v1/client/struct.AlloyDBCSQLAdmin.html
 [AlloyDBAdmin]: https://docs.rs/google-cloud-alloydb-v1/latest/google_cloud_alloydb_v1/client/struct.AlloyDBAdmin.html

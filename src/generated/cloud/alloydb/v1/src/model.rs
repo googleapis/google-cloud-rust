@@ -35,6 +35,184 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
+/// The source CloudSQL backup resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CloudSQLBackupRunSource {
+    /// The project ID of the source CloudSQL instance. This should be the same as
+    /// the AlloyDB cluster's project.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project: std::string::String,
+
+    /// Required. The CloudSQL instance ID.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub instance_id: std::string::String,
+
+    /// Required. The CloudSQL backup run ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub backup_run_id: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSQLBackupRunSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project][crate::model::CloudSQLBackupRunSource::project].
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [instance_id][crate::model::CloudSQLBackupRunSource::instance_id].
+    pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_id = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_run_id][crate::model::CloudSQLBackupRunSource::backup_run_id].
+    pub fn set_backup_run_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.backup_run_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSQLBackupRunSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.CloudSQLBackupRunSource"
+    }
+}
+
+/// Message for registering Restoring from CloudSQL resource.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RestoreFromCloudSQLRequest {
+    /// Required. The location of the new cluster. For the required format, see the
+    /// comment on Cluster.name field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. ID of the requesting object.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub cluster_id: std::string::String,
+
+    /// Required. The resource being created
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cluster: std::option::Option<crate::model::Cluster>,
+
+    /// The source CloudSQL resource to restore from.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source: std::option::Option<crate::model::restore_from_cloud_sql_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreFromCloudSQLRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::RestoreFromCloudSQLRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [cluster_id][crate::model::RestoreFromCloudSQLRequest::cluster_id].
+    pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cluster_id = v.into();
+        self
+    }
+
+    /// Sets the value of [cluster][crate::model::RestoreFromCloudSQLRequest::cluster].
+    pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cluster = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::RestoreFromCloudSQLRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    pub fn set_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::restore_from_cloud_sql_request::Source>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::RestoreFromCloudSQLRequest::source]
+    /// if it holds a `CloudsqlBackupRunSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloudsql_backup_run_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSQLBackupRunSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::restore_from_cloud_sql_request::Source::CloudsqlBackupRunSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::RestoreFromCloudSQLRequest::source]
+    /// to hold a `CloudsqlBackupRunSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_cloudsql_backup_run_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::restore_from_cloud_sql_request::Source::CloudsqlBackupRunSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreFromCloudSQLRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.RestoreFromCloudSQLRequest"
+    }
+}
+
+/// Defines additional types related to [RestoreFromCloudSQLRequest].
+pub mod restore_from_cloud_sql_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The source CloudSQL resource to restore from.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Cluster created from CloudSQL backup run.
+        CloudsqlBackupRunSource(std::boxed::Box<crate::model::CloudSQLBackupRunSource>),
+    }
+}
+
 /// SqlResult represents the result for the execution of a sql statement.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1047,8 +1225,7 @@ pub struct AutomatedBackupPolicy {
 
     /// Optional. The encryption config can be specified to encrypt the
     /// backups with a customer-managed encryption key (CMEK). When this field is
-    /// not specified, the backup will then use default encryption scheme to
-    /// protect the user data.
+    /// not specified, the backup will use the cluster's encryption config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub encryption_config: std::option::Option<crate::model::EncryptionConfig>,
 
@@ -1477,8 +1654,7 @@ pub struct ContinuousBackupConfig {
 
     /// The encryption config can be specified to encrypt the
     /// backups with a customer-managed encryption key (CMEK). When this field is
-    /// not specified, the backup will then use default encryption scheme to
-    /// protect the user data.
+    /// not specified, the backup will use the cluster's encryption config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub encryption_config: std::option::Option<crate::model::EncryptionConfig>,
 
@@ -2374,6 +2550,38 @@ impl Cluster {
             std::option::Option::Some(crate::model::cluster::Source::MigrationSource(v.into()));
         self
     }
+
+    /// The value of [source][crate::model::Cluster::source]
+    /// if it holds a `CloudsqlBackupRunSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloudsql_backup_run_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSQLBackupRunSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::cluster::Source::CloudsqlBackupRunSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::Cluster::source]
+    /// to hold a `CloudsqlBackupRunSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_cloudsql_backup_run_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::cluster::Source::CloudsqlBackupRunSource(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for Cluster {
@@ -2532,6 +2740,12 @@ pub mod cluster {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub psc_enabled: bool,
 
+        /// Output only. The project number that needs to be allowlisted on the
+        /// network attachment to enable outbound connectivity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub service_owned_project_number: i64,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2544,6 +2758,15 @@ pub mod cluster {
         /// Sets the value of [psc_enabled][crate::model::cluster::PscConfig::psc_enabled].
         pub fn set_psc_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.psc_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [service_owned_project_number][crate::model::cluster::PscConfig::service_owned_project_number].
+        pub fn set_service_owned_project_number<T: std::convert::Into<i64>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.service_owned_project_number = v.into();
             self
         }
     }
@@ -2961,6 +3184,8 @@ pub mod cluster {
         BackupSource(std::boxed::Box<crate::model::BackupSource>),
         /// Output only. Cluster created via DMS migration.
         MigrationSource(std::boxed::Box<crate::model::MigrationSource>),
+        /// Output only. Cluster created from CloudSQL snapshot.
+        CloudsqlBackupRunSource(std::boxed::Box<crate::model::CloudSQLBackupRunSource>),
     }
 }
 
@@ -3037,12 +3262,13 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gce_zone: std::string::String,
 
-    /// Database flags. Set at instance level.
-    ///
-    /// * They are copied from primary instance on read instance creation.
-    /// * Read instances can set new or override existing flags that are relevant
-    ///   for reads, e.g. for enabling columnar cache on a read instance. Flags
-    ///   set on read instance may or may not be present on primary.
+    /// Database flags. Set at the instance level.
+    /// They are copied from the primary instance on secondary instance creation.
+    /// Flags that have restrictions default to the value at primary
+    /// instance on read instances during creation. Read instances can set new
+    /// flags or override existing flags that are relevant for reads, for example,
+    /// for enabling columnar cache on a read instance. Flags set on read instance
+    /// might or might not be present on the primary instance.
     ///
     /// This is a list of "key": "value" pairs.
     /// "key": The name of the flag. These flags are passed at instance setup time,
@@ -3068,6 +3294,11 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub query_insights_config:
         std::option::Option<crate::model::instance::QueryInsightsInstanceConfig>,
+
+    /// Configuration for observability.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub observability_config:
+        std::option::Option<crate::model::instance::ObservabilityInstanceConfig>,
 
     /// Read pool instance configuration.
     /// This is required if the value of instanceType is READ_POOL.
@@ -3281,6 +3512,19 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [observability_config][crate::model::Instance::observability_config].
+    pub fn set_observability_config<
+        T: std::convert::Into<
+                std::option::Option<crate::model::instance::ObservabilityInstanceConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.observability_config = v.into();
+        self
+    }
+
     /// Sets the value of [read_pool_config][crate::model::Instance::read_pool_config].
     pub fn set_read_pool_config<
         T: std::convert::Into<std::option::Option<crate::model::instance::ReadPoolConfig>>,
@@ -3403,6 +3647,12 @@ pub mod instance {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu_count: i32,
 
+        /// Machine type of the VM instance. E.g. "n2-highmem-4",
+        /// "n2-highmem-8", "c4a-highmem-4-lssd".
+        /// cpu_count must match the number of vCPUs in the machine type.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub machine_type: std::string::String,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3417,6 +3667,15 @@ pub mod instance {
             self.cpu_count = v.into();
             self
         }
+
+        /// Sets the value of [machine_type][crate::model::instance::MachineConfig::machine_type].
+        pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.machine_type = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for MachineConfig {
@@ -3426,27 +3685,28 @@ pub mod instance {
     }
 
     /// Details of a single node in the instance.
-    /// Nodes in an AlloyDB instance are ephemereal, they can change during
+    /// Nodes in an AlloyDB instance are ephemeral, they can change during
     /// update, failover, autohealing and resize operations.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Node {
-        /// The Compute Engine zone of the VM e.g. "us-central1-b".
+        /// Output only. The Compute Engine zone of the VM e.g. "us-central1-b".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub zone_id: std::string::String,
 
-        /// The identifier of the VM e.g. "test-read-0601-407e52be-ms3l".
+        /// Output only. The identifier of the VM e.g.
+        /// "test-read-0601-407e52be-ms3l".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub id: std::string::String,
 
-        /// The private IP address of the VM e.g. "10.57.0.34".
+        /// Output only. The private IP address of the VM e.g. "10.57.0.34".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub ip: std::string::String,
 
-        /// Determined by state of the compute VM and postgres-service health.
-        /// Compute VM state can have values listed in
+        /// Output only. Determined by state of the compute VM and postgres-service
+        /// health. Compute VM state can have values listed in
         /// <https://cloud.google.com/compute/docs/instances/instance-life-cycle> and
         /// postgres-service health can have values: HEALTHY and UNHEALTHY.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3568,6 +3828,143 @@ pub mod instance {
         }
     }
 
+    /// Observability Instance specific configuration.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ObservabilityInstanceConfig {
+        /// Observability feature status for an instance.
+        /// This flag is turned "off" by default.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub enabled: std::option::Option<bool>,
+
+        /// Preserve comments in query string for an instance.
+        /// This flag is turned "off" by default.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub preserve_comments: std::option::Option<bool>,
+
+        /// Track wait events during query execution for an instance.
+        /// This flag is turned "on" by default but tracking is enabled only after
+        /// observability enabled flag is also turned on.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub track_wait_events: std::option::Option<bool>,
+
+        /// Output only. Track wait event types during query execution for an
+        /// instance. This flag is turned "on" by default but tracking is enabled
+        /// only after observability enabled flag is also turned on. This is
+        /// read-only flag and only modifiable by internal API.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub track_wait_event_types: std::option::Option<bool>,
+
+        /// Query string length. The default value is 10k.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub max_query_string_length: std::option::Option<i32>,
+
+        /// Record application tags for an instance.
+        /// This flag is turned "off" by default.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub record_application_tags: std::option::Option<bool>,
+
+        /// Number of query execution plans captured by Insights per minute
+        /// for all queries combined. The default value is 200.
+        /// Any integer between 0 to 200 is considered valid.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub query_plans_per_minute: std::option::Option<i32>,
+
+        /// Track actively running queries on the instance.
+        /// If not set, this flag is "off" by default.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub track_active_queries: std::option::Option<bool>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ObservabilityInstanceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::instance::ObservabilityInstanceConfig::enabled].
+        pub fn set_enabled<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [preserve_comments][crate::model::instance::ObservabilityInstanceConfig::preserve_comments].
+        pub fn set_preserve_comments<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.preserve_comments = v.into();
+            self
+        }
+
+        /// Sets the value of [track_wait_events][crate::model::instance::ObservabilityInstanceConfig::track_wait_events].
+        pub fn set_track_wait_events<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.track_wait_events = v.into();
+            self
+        }
+
+        /// Sets the value of [track_wait_event_types][crate::model::instance::ObservabilityInstanceConfig::track_wait_event_types].
+        pub fn set_track_wait_event_types<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.track_wait_event_types = v.into();
+            self
+        }
+
+        /// Sets the value of [max_query_string_length][crate::model::instance::ObservabilityInstanceConfig::max_query_string_length].
+        pub fn set_max_query_string_length<T: std::convert::Into<std::option::Option<i32>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.max_query_string_length = v.into();
+            self
+        }
+
+        /// Sets the value of [record_application_tags][crate::model::instance::ObservabilityInstanceConfig::record_application_tags].
+        pub fn set_record_application_tags<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.record_application_tags = v.into();
+            self
+        }
+
+        /// Sets the value of [query_plans_per_minute][crate::model::instance::ObservabilityInstanceConfig::query_plans_per_minute].
+        pub fn set_query_plans_per_minute<T: std::convert::Into<std::option::Option<i32>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.query_plans_per_minute = v.into();
+            self
+        }
+
+        /// Sets the value of [track_active_queries][crate::model::instance::ObservabilityInstanceConfig::track_active_queries].
+        pub fn set_track_active_queries<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.track_active_queries = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ObservabilityInstanceConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Instance.ObservabilityInstanceConfig"
+        }
+    }
+
     /// Configuration for a read pool instance.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3648,6 +4045,131 @@ pub mod instance {
         }
     }
 
+    /// Configuration for setting up a PSC interface to enable outbound
+    /// connectivity.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PscInterfaceConfig {
+        /// The network attachment resource created in the consumer network to which
+        /// the PSC interface will be linked. This is of the format:
+        /// "projects/${CONSUMER_PROJECT}/regions/${REGION}/networkAttachments/${NETWORK_ATTACHMENT_NAME}".
+        /// The network attachment must be in the same region as the instance.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub network_attachment_resource: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PscInterfaceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [network_attachment_resource][crate::model::instance::PscInterfaceConfig::network_attachment_resource].
+        pub fn set_network_attachment_resource<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.network_attachment_resource = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PscInterfaceConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Instance.PscInterfaceConfig"
+        }
+    }
+
+    /// Configuration for setting up PSC service automation. Consumer projects in
+    /// the configs will be allowlisted automatically for the instance.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PscAutoConnectionConfig {
+        /// The consumer project to which the PSC service automation endpoint will
+        /// be created.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_project: std::string::String,
+
+        /// The consumer network for the PSC service automation, example:
+        /// "projects/vpc-host-project/global/networks/default".
+        /// The consumer network might be hosted a different project than the
+        /// consumer project.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_network: std::string::String,
+
+        /// Output only. The IP address of the PSC service automation endpoint.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub ip_address: std::string::String,
+
+        /// Output only. The status of the PSC service automation connection.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub status: std::string::String,
+
+        /// Output only. The status of the service connection policy.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub consumer_network_status: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PscAutoConnectionConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [consumer_project][crate::model::instance::PscAutoConnectionConfig::consumer_project].
+        pub fn set_consumer_project<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_project = v.into();
+            self
+        }
+
+        /// Sets the value of [consumer_network][crate::model::instance::PscAutoConnectionConfig::consumer_network].
+        pub fn set_consumer_network<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_network = v.into();
+            self
+        }
+
+        /// Sets the value of [ip_address][crate::model::instance::PscAutoConnectionConfig::ip_address].
+        pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.ip_address = v.into();
+            self
+        }
+
+        /// Sets the value of [status][crate::model::instance::PscAutoConnectionConfig::status].
+        pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.status = v.into();
+            self
+        }
+
+        /// Sets the value of [consumer_network_status][crate::model::instance::PscAutoConnectionConfig::consumer_network_status].
+        pub fn set_consumer_network_status<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.consumer_network_status = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PscAutoConnectionConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Instance.PscAutoConnectionConfig"
+        }
+    }
+
     /// PscInstanceConfig contains PSC related configuration at an
     /// instance level.
     #[serde_with::serde_as]
@@ -3671,6 +4193,17 @@ pub mod instance {
         /// Name convention: \<uid\>.\<uid\>.\<region\>.alloydb-psc.goog
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub psc_dns_name: std::string::String,
+
+        /// Optional. Configurations for setting up PSC interfaces attached to the
+        /// instance which are used for outbound connectivity. Only primary instances
+        /// can have PSC interface attached. Currently we only support 0 or 1 PSC
+        /// interface.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub psc_interface_configs: std::vec::Vec<crate::model::instance::PscInterfaceConfig>,
+
+        /// Optional. Configurations for setting up PSC service automation.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub psc_auto_connections: std::vec::Vec<crate::model::instance::PscAutoConnectionConfig>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3707,6 +4240,28 @@ pub mod instance {
             v: T,
         ) -> Self {
             self.psc_dns_name = v.into();
+            self
+        }
+
+        /// Sets the value of [psc_interface_configs][crate::model::instance::PscInstanceConfig::psc_interface_configs].
+        pub fn set_psc_interface_configs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::instance::PscInterfaceConfig>,
+        {
+            use std::iter::Iterator;
+            self.psc_interface_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [psc_auto_connections][crate::model::instance::PscInstanceConfig::psc_auto_connections].
+        pub fn set_psc_auto_connections<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::instance::PscAutoConnectionConfig>,
+        {
+            use std::iter::Iterator;
+            self.psc_auto_connections = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5075,9 +5630,17 @@ pub struct SupportedDatabaseFlag {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requires_db_restart: bool,
 
+    /// The scope of the flag.
+    pub scope: crate::model::supported_database_flag::Scope,
+
     /// The restrictions on the flag value per type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub restrictions: std::option::Option<crate::model::supported_database_flag::Restrictions>,
+
+    /// The recommended value for the flag by type, if applicable.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub recommended_value:
+        std::option::Option<crate::model::supported_database_flag::RecommendedValue>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5131,6 +5694,15 @@ impl SupportedDatabaseFlag {
     /// Sets the value of [requires_db_restart][crate::model::SupportedDatabaseFlag::requires_db_restart].
     pub fn set_requires_db_restart<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requires_db_restart = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::SupportedDatabaseFlag::scope].
+    pub fn set_scope<T: std::convert::Into<crate::model::supported_database_flag::Scope>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scope = v.into();
         self
     }
 
@@ -5218,6 +5790,86 @@ impl SupportedDatabaseFlag {
     ) -> Self {
         self.restrictions = std::option::Option::Some(
             crate::model::supported_database_flag::Restrictions::IntegerRestrictions(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value].
+    ///
+    /// Note that all the setters affecting `recommended_value` are mutually
+    /// exclusive.
+    pub fn set_recommended_value<
+        T: std::convert::Into<
+                std::option::Option<crate::model::supported_database_flag::RecommendedValue>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.recommended_value = v.into();
+        self
+    }
+
+    /// The value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
+    /// if it holds a `RecommendedStringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn recommended_string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.recommended_value.as_ref().and_then(|v| match v {
+            crate::model::supported_database_flag::RecommendedValue::RecommendedStringValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
+    /// to hold a `RecommendedStringValue`.
+    ///
+    /// Note that all the setters affecting `recommended_value` are
+    /// mutually exclusive.
+    pub fn set_recommended_string_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.recommended_value = std::option::Option::Some(
+            crate::model::supported_database_flag::RecommendedValue::RecommendedStringValue(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
+    /// if it holds a `RecommendedIntegerValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn recommended_integer_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<wkt::Int64Value>> {
+        #[allow(unreachable_patterns)]
+        self.recommended_value.as_ref().and_then(|v| match v {
+            crate::model::supported_database_flag::RecommendedValue::RecommendedIntegerValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
+    /// to hold a `RecommendedIntegerValue`.
+    ///
+    /// Note that all the setters affecting `recommended_value` are
+    /// mutually exclusive.
+    pub fn set_recommended_integer_value<
+        T: std::convert::Into<std::boxed::Box<wkt::Int64Value>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.recommended_value = std::option::Option::Some(
+            crate::model::supported_database_flag::RecommendedValue::RecommendedIntegerValue(
+                v.into(),
+            ),
         );
         self
     }
@@ -5470,6 +6122,138 @@ pub mod supported_database_flag {
         }
     }
 
+    /// The scope of the flag.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
+        /// The scope of the flag is not specified. Default is DATABASE.
+        Unspecified,
+        /// The flag is a database flag.
+        Database,
+        /// The flag is a connection pool flag.
+        ConnectionPool,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scope::value] or
+        /// [Scope::name].
+        UnknownValue(scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Scope {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Database => std::option::Option::Some(1),
+                Self::ConnectionPool => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCOPE_UNSPECIFIED"),
+                Self::Database => std::option::Option::Some("DATABASE"),
+                Self::ConnectionPool => std::option::Option::Some("CONNECTION_POOL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Database,
+                2 => Self::ConnectionPool,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "DATABASE" => Self::Database,
+                "CONNECTION_POOL" => Self::ConnectionPool,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Database => serializer.serialize_i32(1),
+                Self::ConnectionPool => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
+                ".google.cloud.alloydb.v1.SupportedDatabaseFlag.Scope",
+            ))
+        }
+    }
+
     /// The restrictions on the flag value per type.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5483,6 +6267,21 @@ pub mod supported_database_flag {
         /// Restriction on INTEGER type value.
         IntegerRestrictions(
             std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
+        ),
+    }
+
+    /// The recommended value for the flag by type, if applicable.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum RecommendedValue {
+        /// The recommended value for a STRING flag.
+        RecommendedStringValue(std::string::String),
+        /// The recommended value for an INTEGER flag.
+        RecommendedIntegerValue(
+            #[serde_as(as = "std::boxed::Box<serde_with::DisplayFromStr>")]
+            std::boxed::Box<wkt::Int64Value>,
         ),
     }
 }
@@ -6234,6 +7033,1534 @@ impl UpdateClusterRequest {
 impl wkt::message::Message for UpdateClusterRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.alloydb.v1.UpdateClusterRequest"
+    }
+}
+
+/// Destination for Export. Export will be done to cloud storage.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GcsDestination {
+    /// Required. The path to the file in Google Cloud Storage where the export
+    /// will be stored. The URI is in the form `gs://bucketName/fileName`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GcsDestination {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri][crate::model::GcsDestination::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GcsDestination {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.GcsDestination"
+    }
+}
+
+/// Export cluster request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExportClusterRequest {
+    /// Required. The resource name of the cluster.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. Name of the database where the export command will be executed.
+    /// Note - Value provided should be the same as expected from
+    /// `SELECT current_database();` and NOT as a resource reference.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub database: std::string::String,
+
+    /// Oneof field to support other destinations in future.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub destination: std::option::Option<crate::model::export_cluster_request::Destination>,
+
+    /// Required field to specify export file type and options.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub export_options: std::option::Option<crate::model::export_cluster_request::ExportOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExportClusterRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [database][crate::model::ExportClusterRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::ExportClusterRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::export_cluster_request::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportClusterRequest::destination]
+    /// if it holds a `GcsDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_cluster_request::Destination::GcsDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportClusterRequest::destination]
+    /// to hold a `GcsDestination`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    pub fn set_gcs_destination<
+        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_cluster_request::Destination::GcsDestination(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options].
+    ///
+    /// Note that all the setters affecting `export_options` are mutually
+    /// exclusive.
+    pub fn set_export_options<
+        T: std::convert::Into<
+                std::option::Option<crate::model::export_cluster_request::ExportOptions>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.export_options = v.into();
+        self
+    }
+
+    /// The value of [export_options][crate::model::ExportClusterRequest::export_options]
+    /// if it holds a `CsvExportOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn csv_export_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>>
+    {
+        #[allow(unreachable_patterns)]
+        self.export_options.as_ref().and_then(|v| match v {
+            crate::model::export_cluster_request::ExportOptions::CsvExportOptions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options]
+    /// to hold a `CsvExportOptions`.
+    ///
+    /// Note that all the setters affecting `export_options` are
+    /// mutually exclusive.
+    pub fn set_csv_export_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.export_options = std::option::Option::Some(
+            crate::model::export_cluster_request::ExportOptions::CsvExportOptions(v.into()),
+        );
+        self
+    }
+
+    /// The value of [export_options][crate::model::ExportClusterRequest::export_options]
+    /// if it holds a `SqlExportOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_export_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>>
+    {
+        #[allow(unreachable_patterns)]
+        self.export_options.as_ref().and_then(|v| match v {
+            crate::model::export_cluster_request::ExportOptions::SqlExportOptions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options]
+    /// to hold a `SqlExportOptions`.
+    ///
+    /// Note that all the setters affecting `export_options` are
+    /// mutually exclusive.
+    pub fn set_sql_export_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.export_options = std::option::Option::Some(
+            crate::model::export_cluster_request::ExportOptions::SqlExportOptions(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportClusterRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.ExportClusterRequest"
+    }
+}
+
+/// Defines additional types related to [ExportClusterRequest].
+pub mod export_cluster_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Options for exporting data in CSV format.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CsvExportOptions {
+        /// Required. The SELECT query used to extract the data.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub select_query: std::string::String,
+
+        /// Optional. Specifies the character that separates columns within each row
+        /// (line) of the file. The default is comma. The value of this argument has
+        /// to be a character in Hex ASCII Code.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub field_delimiter: std::string::String,
+
+        /// Optional. Specifies the quoting character to be used when a data value is
+        /// quoted. The default is double-quote. The value of this argument has to be
+        /// a character in Hex ASCII Code.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub quote_character: std::string::String,
+
+        /// Optional. Specifies the character that should appear before a data
+        /// character that needs to be escaped. The default is the same as quote
+        /// character. The value of this argument has to be a character in Hex ASCII
+        /// Code.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub escape_character: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CsvExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [select_query][crate::model::export_cluster_request::CsvExportOptions::select_query].
+        pub fn set_select_query<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.select_query = v.into();
+            self
+        }
+
+        /// Sets the value of [field_delimiter][crate::model::export_cluster_request::CsvExportOptions::field_delimiter].
+        pub fn set_field_delimiter<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.field_delimiter = v.into();
+            self
+        }
+
+        /// Sets the value of [quote_character][crate::model::export_cluster_request::CsvExportOptions::quote_character].
+        pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.quote_character = v.into();
+            self
+        }
+
+        /// Sets the value of [escape_character][crate::model::export_cluster_request::CsvExportOptions::escape_character].
+        pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.escape_character = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CsvExportOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.ExportClusterRequest.CsvExportOptions"
+        }
+    }
+
+    /// Options for exporting data in SQL format.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SqlExportOptions {
+        /// Optional. Tables to export from.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub tables: std::vec::Vec<std::string::String>,
+
+        /// Optional. If true, only export the schema.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub schema_only: std::option::Option<bool>,
+
+        /// Optional. If true, output commands to DROP all the dumped database
+        /// objects prior to outputting the commands for creating them.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub clean_target_objects: std::option::Option<bool>,
+
+        /// Optional. If true, use DROP ... IF EXISTS commands to check for the
+        /// object's existence before dropping it in clean_target_objects mode.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub if_exist_target_objects: std::option::Option<bool>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SqlExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [tables][crate::model::export_cluster_request::SqlExportOptions::tables].
+        pub fn set_tables<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.tables = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [schema_only][crate::model::export_cluster_request::SqlExportOptions::schema_only].
+        pub fn set_schema_only<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.schema_only = v.into();
+            self
+        }
+
+        /// Sets the value of [clean_target_objects][crate::model::export_cluster_request::SqlExportOptions::clean_target_objects].
+        pub fn set_clean_target_objects<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.clean_target_objects = v.into();
+            self
+        }
+
+        /// Sets the value of [if_exist_target_objects][crate::model::export_cluster_request::SqlExportOptions::if_exist_target_objects].
+        pub fn set_if_exist_target_objects<T: std::convert::Into<std::option::Option<bool>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.if_exist_target_objects = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SqlExportOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.ExportClusterRequest.SqlExportOptions"
+        }
+    }
+
+    /// Oneof field to support other destinations in future.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// Required. Option to export data to cloud storage.
+        GcsDestination(std::boxed::Box<crate::model::GcsDestination>),
+    }
+
+    /// Required field to specify export file type and options.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum ExportOptions {
+        /// Options for exporting data in CSV format. Required field to be set for
+        /// CSV file type.
+        CsvExportOptions(std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>),
+        /// Options for exporting data in SQL format. Required field to be set for
+        /// SQL file type.
+        SqlExportOptions(std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>),
+    }
+}
+
+/// Response of export cluster rpc.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExportClusterResponse {
+    /// Oneof field to support other destinations in future.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub destination: std::option::Option<crate::model::export_cluster_response::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportClusterResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [destination][crate::model::ExportClusterResponse::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::export_cluster_response::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportClusterResponse::destination]
+    /// if it holds a `GcsDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_cluster_response::Destination::GcsDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportClusterResponse::destination]
+    /// to hold a `GcsDestination`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    pub fn set_gcs_destination<
+        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_cluster_response::Destination::GcsDestination(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportClusterResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.ExportClusterResponse"
+    }
+}
+
+/// Defines additional types related to [ExportClusterResponse].
+pub mod export_cluster_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Oneof field to support other destinations in future.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// Required. Option to export data to cloud storage.
+        GcsDestination(std::boxed::Box<crate::model::GcsDestination>),
+    }
+}
+
+/// Import cluster request.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ImportClusterRequest {
+    /// Required. The resource name of the cluster.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The path to the file in Google Cloud Storage where the source
+    /// file for import will be stored. The URI is in the form
+    /// `gs://bucketName/fileName`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub gcs_uri: std::string::String,
+
+    /// Optional. Name of the database to which the import will be done.
+    /// For import from SQL file, this is required only if the file does not
+    /// specify a database.
+    /// Note - Value provided should be the same as expected from `SELECT
+    /// current_database();` and NOT as a resource reference.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub database: std::string::String,
+
+    /// Optional. Database user to be used for importing the data.
+    /// Note - Value provided should be the same as expected from
+    /// `SELECT current_user;` and NOT as a resource reference.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub user: std::string::String,
+
+    /// oneof field to support various import formats like SQL and CSV.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub import_options: std::option::Option<crate::model::import_cluster_request::ImportOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ImportClusterRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [gcs_uri][crate::model::ImportClusterRequest::gcs_uri].
+    pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.gcs_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [database][crate::model::ImportClusterRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [user][crate::model::ImportClusterRequest::user].
+    pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user = v.into();
+        self
+    }
+
+    /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options].
+    ///
+    /// Note that all the setters affecting `import_options` are mutually
+    /// exclusive.
+    pub fn set_import_options<
+        T: std::convert::Into<
+                std::option::Option<crate::model::import_cluster_request::ImportOptions>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_options = v.into();
+        self
+    }
+
+    /// The value of [import_options][crate::model::ImportClusterRequest::import_options]
+    /// if it holds a `SqlImportOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sql_import_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>>
+    {
+        #[allow(unreachable_patterns)]
+        self.import_options.as_ref().and_then(|v| match v {
+            crate::model::import_cluster_request::ImportOptions::SqlImportOptions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options]
+    /// to hold a `SqlImportOptions`.
+    ///
+    /// Note that all the setters affecting `import_options` are
+    /// mutually exclusive.
+    pub fn set_sql_import_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_options = std::option::Option::Some(
+            crate::model::import_cluster_request::ImportOptions::SqlImportOptions(v.into()),
+        );
+        self
+    }
+
+    /// The value of [import_options][crate::model::ImportClusterRequest::import_options]
+    /// if it holds a `CsvImportOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn csv_import_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>>
+    {
+        #[allow(unreachable_patterns)]
+        self.import_options.as_ref().and_then(|v| match v {
+            crate::model::import_cluster_request::ImportOptions::CsvImportOptions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options]
+    /// to hold a `CsvImportOptions`.
+    ///
+    /// Note that all the setters affecting `import_options` are
+    /// mutually exclusive.
+    pub fn set_csv_import_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.import_options = std::option::Option::Some(
+            crate::model::import_cluster_request::ImportOptions::CsvImportOptions(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ImportClusterRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.ImportClusterRequest"
+    }
+}
+
+/// Defines additional types related to [ImportClusterRequest].
+pub mod import_cluster_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Options for importing data in SQL format.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SqlImportOptions {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SqlImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for SqlImportOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.ImportClusterRequest.SqlImportOptions"
+        }
+    }
+
+    /// Options for importing data in CSV format.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CsvImportOptions {
+        /// Required. The database table to import CSV file into.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub table: std::string::String,
+
+        /// Optional. The columns to which CSV data is imported. If not specified,
+        /// all columns of the database table are loaded with CSV data.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub columns: std::vec::Vec<std::string::String>,
+
+        /// Optional. Specifies the character that separates columns within each row
+        /// (line) of the file. The default is comma. The value of this argument has
+        /// to be a character in Hex ASCII Code.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub field_delimiter: std::string::String,
+
+        /// Optional. Specifies the quoting character to be used when a data value is
+        /// quoted. The default is double-quote. The value of this argument has to be
+        /// a character in Hex ASCII Code.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub quote_character: std::string::String,
+
+        /// Optional. Specifies the character that should appear before a data
+        /// character that needs to be escaped. The default is same as quote
+        /// character. The value of this argument has to be a character in Hex ASCII
+        /// Code.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub escape_character: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CsvImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [table][crate::model::import_cluster_request::CsvImportOptions::table].
+        pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.table = v.into();
+            self
+        }
+
+        /// Sets the value of [columns][crate::model::import_cluster_request::CsvImportOptions::columns].
+        pub fn set_columns<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.columns = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [field_delimiter][crate::model::import_cluster_request::CsvImportOptions::field_delimiter].
+        pub fn set_field_delimiter<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.field_delimiter = v.into();
+            self
+        }
+
+        /// Sets the value of [quote_character][crate::model::import_cluster_request::CsvImportOptions::quote_character].
+        pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.quote_character = v.into();
+            self
+        }
+
+        /// Sets the value of [escape_character][crate::model::import_cluster_request::CsvImportOptions::escape_character].
+        pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.escape_character = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CsvImportOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.ImportClusterRequest.CsvImportOptions"
+        }
+    }
+
+    /// oneof field to support various import formats like SQL and CSV.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum ImportOptions {
+        /// Options for importing data in SQL format.
+        SqlImportOptions(std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>),
+        /// Options for importing data in CSV format.
+        CsvImportOptions(std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>),
+    }
+}
+
+/// Response of import rpc.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ImportClusterResponse {
+    /// Required. Size of the object downloaded from Google Cloud Storage in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub bytes_downloaded: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportClusterResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bytes_downloaded][crate::model::ImportClusterResponse::bytes_downloaded].
+    pub fn set_bytes_downloaded<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.bytes_downloaded = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ImportClusterResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.ImportClusterResponse"
+    }
+}
+
+/// Upgrades a cluster.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpgradeClusterRequest {
+    /// Required. The resource name of the cluster.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The version the cluster is going to be upgraded to.
+    pub version: crate::model::DatabaseVersion,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server ignores the
+    /// request if it has already been completed. The server guarantees that for at
+    /// least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if the original operation with the same request ID
+    /// was received, and if so, ignores the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    /// Optional. If set, performs request validation, for example, permission
+    /// checks and any other type of validation, but does not actually execute the
+    /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub validate_only: bool,
+
+    /// Optional. The current etag of the Cluster.
+    /// If an etag is provided and does not match the current etag of the Cluster,
+    /// upgrade will be blocked and an ABORTED error will be returned.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpgradeClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::UpgradeClusterRequest::version].
+    pub fn set_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpgradeClusterRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpgradeClusterRequest::validate_only].
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::UpgradeClusterRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpgradeClusterRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterRequest"
+    }
+}
+
+/// UpgradeClusterResponse contains the response for upgrade cluster operation.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpgradeClusterResponse {
+    /// Status of upgrade operation.
+    pub status: crate::model::upgrade_cluster_response::Status,
+
+    /// A user friendly message summarising the upgrade operation details and the
+    /// next steps for the user if there is any.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub message: std::string::String,
+
+    /// Array of upgrade details for the current cluster and all the secondary
+    /// clusters associated with this cluster.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub cluster_upgrade_details:
+        std::vec::Vec<crate::model::upgrade_cluster_response::ClusterUpgradeDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpgradeClusterResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [status][crate::model::UpgradeClusterResponse::status].
+    pub fn set_status<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::UpgradeClusterResponse::message].
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+
+    /// Sets the value of [cluster_upgrade_details][crate::model::UpgradeClusterResponse::cluster_upgrade_details].
+    pub fn set_cluster_upgrade_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::upgrade_cluster_response::ClusterUpgradeDetails>,
+    {
+        use std::iter::Iterator;
+        self.cluster_upgrade_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for UpgradeClusterResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterResponse"
+    }
+}
+
+/// Defines additional types related to [UpgradeClusterResponse].
+pub mod upgrade_cluster_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Stage information for different stages in the upgrade process.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct StageInfo {
+        /// The stage.
+        pub stage: crate::model::upgrade_cluster_response::Stage,
+
+        /// Status of the stage.
+        pub status: crate::model::upgrade_cluster_response::Status,
+
+        /// logs_url is the URL for the logs associated with a stage if that stage
+        /// has logs. Right now, only three stages have logs: ALLOYDB_PRECHECK,
+        /// PG_UPGRADE_CHECK, PRIMARY_INSTANCE_UPGRADE.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub logs_url: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StageInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [stage][crate::model::upgrade_cluster_response::StageInfo::stage].
+        pub fn set_stage<T: std::convert::Into<crate::model::upgrade_cluster_response::Stage>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.stage = v.into();
+            self
+        }
+
+        /// Sets the value of [status][crate::model::upgrade_cluster_response::StageInfo::status].
+        pub fn set_status<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.status = v.into();
+            self
+        }
+
+        /// Sets the value of [logs_url][crate::model::upgrade_cluster_response::StageInfo::logs_url].
+        pub fn set_logs_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.logs_url = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for StageInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterResponse.StageInfo"
+        }
+    }
+
+    /// Details regarding the upgrade of instaces associated with a cluster.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct InstanceUpgradeDetails {
+        /// Normalized name of the instance.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub name: std::string::String,
+
+        /// Upgrade status of the instance.
+        pub upgrade_status: crate::model::upgrade_cluster_response::Status,
+
+        /// Instance type.
+        pub instance_type: crate::model::instance::InstanceType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InstanceUpgradeDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::upgrade_cluster_response::InstanceUpgradeDetails::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [upgrade_status][crate::model::upgrade_cluster_response::InstanceUpgradeDetails::upgrade_status].
+        pub fn set_upgrade_status<
+            T: std::convert::Into<crate::model::upgrade_cluster_response::Status>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.upgrade_status = v.into();
+            self
+        }
+
+        /// Sets the value of [instance_type][crate::model::upgrade_cluster_response::InstanceUpgradeDetails::instance_type].
+        pub fn set_instance_type<T: std::convert::Into<crate::model::instance::InstanceType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.instance_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for InstanceUpgradeDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterResponse.InstanceUpgradeDetails"
+        }
+    }
+
+    /// Upgrade details of a cluster. This cluster can be primary or secondary.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ClusterUpgradeDetails {
+        /// Normalized name of the cluster
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub name: std::string::String,
+
+        /// Upgrade status of the cluster.
+        pub upgrade_status: crate::model::upgrade_cluster_response::Status,
+
+        /// Cluster type which can either be primary or secondary.
+        pub cluster_type: crate::model::cluster::ClusterType,
+
+        /// Database version of the cluster after the upgrade operation. This will be
+        /// the target version if the upgrade was successful otherwise it remains the
+        /// same as that before the upgrade operation.
+        pub database_version: crate::model::DatabaseVersion,
+
+        /// Array containing stage info associated with this cluster.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub stage_info: std::vec::Vec<crate::model::upgrade_cluster_response::StageInfo>,
+
+        /// Upgrade details of the instances directly associated with this cluster.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub instance_upgrade_details:
+            std::vec::Vec<crate::model::upgrade_cluster_response::InstanceUpgradeDetails>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ClusterUpgradeDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [upgrade_status][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::upgrade_status].
+        pub fn set_upgrade_status<
+            T: std::convert::Into<crate::model::upgrade_cluster_response::Status>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.upgrade_status = v.into();
+            self
+        }
+
+        /// Sets the value of [cluster_type][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::cluster_type].
+        pub fn set_cluster_type<T: std::convert::Into<crate::model::cluster::ClusterType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cluster_type = v.into();
+            self
+        }
+
+        /// Sets the value of [database_version][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::database_version].
+        pub fn set_database_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.database_version = v.into();
+            self
+        }
+
+        /// Sets the value of [stage_info][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::stage_info].
+        pub fn set_stage_info<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::upgrade_cluster_response::StageInfo>,
+        {
+            use std::iter::Iterator;
+            self.stage_info = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [instance_upgrade_details][crate::model::upgrade_cluster_response::ClusterUpgradeDetails::instance_upgrade_details].
+        pub fn set_instance_upgrade_details<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::upgrade_cluster_response::InstanceUpgradeDetails>,
+        {
+            use std::iter::Iterator;
+            self.instance_upgrade_details = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ClusterUpgradeDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterResponse.ClusterUpgradeDetails"
+        }
+    }
+
+    /// Status of upgrade operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Unspecified status.
+        Unspecified,
+        /// Not started.
+        NotStarted,
+        /// In progress.
+        InProgress,
+        /// Operation succeeded.
+        Success,
+        /// Operation failed.
+        Failed,
+        /// Operation partially succeeded.
+        PartialSuccess,
+        /// Cancel is in progress.
+        CancelInProgress,
+        /// Cancellation complete.
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotStarted => std::option::Option::Some(4),
+                Self::InProgress => std::option::Option::Some(5),
+                Self::Success => std::option::Option::Some(1),
+                Self::Failed => std::option::Option::Some(2),
+                Self::PartialSuccess => std::option::Option::Some(3),
+                Self::CancelInProgress => std::option::Option::Some(6),
+                Self::Cancelled => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
+                Self::NotStarted => std::option::Option::Some("NOT_STARTED"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Success => std::option::Option::Some("SUCCESS"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::PartialSuccess => std::option::Option::Some("PARTIAL_SUCCESS"),
+                Self::CancelInProgress => std::option::Option::Some("CANCEL_IN_PROGRESS"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Success,
+                2 => Self::Failed,
+                3 => Self::PartialSuccess,
+                4 => Self::NotStarted,
+                5 => Self::InProgress,
+                6 => Self::CancelInProgress,
+                7 => Self::Cancelled,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATUS_UNSPECIFIED" => Self::Unspecified,
+                "NOT_STARTED" => Self::NotStarted,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCESS" => Self::Success,
+                "FAILED" => Self::Failed,
+                "PARTIAL_SUCCESS" => Self::PartialSuccess,
+                "CANCEL_IN_PROGRESS" => Self::CancelInProgress,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotStarted => serializer.serialize_i32(4),
+                Self::InProgress => serializer.serialize_i32(5),
+                Self::Success => serializer.serialize_i32(1),
+                Self::Failed => serializer.serialize_i32(2),
+                Self::PartialSuccess => serializer.serialize_i32(3),
+                Self::CancelInProgress => serializer.serialize_i32(6),
+                Self::Cancelled => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.alloydb.v1.UpgradeClusterResponse.Status",
+            ))
+        }
+    }
+
+    /// Stage in the upgrade.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Stage {
+        /// Unspecified stage.
+        Unspecified,
+        /// Pre-upgrade custom checks, not covered by pg_upgrade.
+        AlloydbPrecheck,
+        /// Pre-upgrade pg_upgrade checks.
+        PgUpgradeCheck,
+        /// Clone the original cluster.
+        PrepareForUpgrade,
+        /// Upgrade the primary instance(downtime).
+        PrimaryInstanceUpgrade,
+        /// This stage is read pool upgrade.
+        ReadPoolInstancesUpgrade,
+        /// Rollback in case of critical failures.
+        Rollback,
+        /// Cleanup.
+        Cleanup,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Stage::value] or
+        /// [Stage::name].
+        UnknownValue(stage::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod stage {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Stage {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AlloydbPrecheck => std::option::Option::Some(1),
+                Self::PgUpgradeCheck => std::option::Option::Some(2),
+                Self::PrepareForUpgrade => std::option::Option::Some(5),
+                Self::PrimaryInstanceUpgrade => std::option::Option::Some(3),
+                Self::ReadPoolInstancesUpgrade => std::option::Option::Some(4),
+                Self::Rollback => std::option::Option::Some(6),
+                Self::Cleanup => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STAGE_UNSPECIFIED"),
+                Self::AlloydbPrecheck => std::option::Option::Some("ALLOYDB_PRECHECK"),
+                Self::PgUpgradeCheck => std::option::Option::Some("PG_UPGRADE_CHECK"),
+                Self::PrepareForUpgrade => std::option::Option::Some("PREPARE_FOR_UPGRADE"),
+                Self::PrimaryInstanceUpgrade => {
+                    std::option::Option::Some("PRIMARY_INSTANCE_UPGRADE")
+                }
+                Self::ReadPoolInstancesUpgrade => {
+                    std::option::Option::Some("READ_POOL_INSTANCES_UPGRADE")
+                }
+                Self::Rollback => std::option::Option::Some("ROLLBACK"),
+                Self::Cleanup => std::option::Option::Some("CLEANUP"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Stage {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Stage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Stage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AlloydbPrecheck,
+                2 => Self::PgUpgradeCheck,
+                3 => Self::PrimaryInstanceUpgrade,
+                4 => Self::ReadPoolInstancesUpgrade,
+                5 => Self::PrepareForUpgrade,
+                6 => Self::Rollback,
+                7 => Self::Cleanup,
+                _ => Self::UnknownValue(stage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Stage {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STAGE_UNSPECIFIED" => Self::Unspecified,
+                "ALLOYDB_PRECHECK" => Self::AlloydbPrecheck,
+                "PG_UPGRADE_CHECK" => Self::PgUpgradeCheck,
+                "PREPARE_FOR_UPGRADE" => Self::PrepareForUpgrade,
+                "PRIMARY_INSTANCE_UPGRADE" => Self::PrimaryInstanceUpgrade,
+                "READ_POOL_INSTANCES_UPGRADE" => Self::ReadPoolInstancesUpgrade,
+                "ROLLBACK" => Self::Rollback,
+                "CLEANUP" => Self::Cleanup,
+                _ => Self::UnknownValue(stage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Stage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AlloydbPrecheck => serializer.serialize_i32(1),
+                Self::PgUpgradeCheck => serializer.serialize_i32(2),
+                Self::PrepareForUpgrade => serializer.serialize_i32(5),
+                Self::PrimaryInstanceUpgrade => serializer.serialize_i32(3),
+                Self::ReadPoolInstancesUpgrade => serializer.serialize_i32(4),
+                Self::Rollback => serializer.serialize_i32(6),
+                Self::Cleanup => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Stage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Stage>::new(
+                ".google.cloud.alloydb.v1.UpgradeClusterResponse.Stage",
+            ))
+        }
     }
 }
 
@@ -8926,6 +11253,10 @@ pub struct ListSupportedDatabaseFlagsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
+    /// Optional. The scope for which supported flags are requested. If not
+    /// specified, default is DATABASE.
+    pub scope: crate::model::supported_database_flag::Scope,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8950,6 +11281,15 @@ impl ListSupportedDatabaseFlagsRequest {
     /// Sets the value of [page_token][crate::model::ListSupportedDatabaseFlagsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::ListSupportedDatabaseFlagsRequest::scope].
+    pub fn set_scope<T: std::convert::Into<crate::model::supported_database_flag::Scope>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scope = v.into();
         self
     }
 }
@@ -9062,9 +11402,9 @@ pub struct GenerateClientCertificateRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub public_key: std::string::String,
 
-    /// Optional. An optional hint to the endpoint to generate a client
-    /// ceritificate that can be used by AlloyDB connectors to exchange additional
-    /// metadata with the server after TLS handshake.
+    /// Optional. An optional hint to the endpoint to generate a client certificate
+    /// that can be used by AlloyDB connectors to exchange additional metadata with
+    /// the server after TLS handshake.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_metadata_exchange: bool,
 
@@ -9248,10 +11588,12 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
@@ -9368,6 +11710,38 @@ impl OperationMetadata {
         );
         self
     }
+
+    /// The value of [request_specific][crate::model::OperationMetadata::request_specific]
+    /// if it holds a `UpgradeClusterStatus`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn upgrade_cluster_status(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeClusterStatus>> {
+        #[allow(unreachable_patterns)]
+        self.request_specific.as_ref().and_then(|v| match v {
+            crate::model::operation_metadata::RequestSpecific::UpgradeClusterStatus(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [request_specific][crate::model::OperationMetadata::request_specific]
+    /// to hold a `UpgradeClusterStatus`.
+    ///
+    /// Note that all the setters affecting `request_specific` are
+    /// mutually exclusive.
+    pub fn set_upgrade_cluster_status<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpgradeClusterStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.request_specific = std::option::Option::Some(
+            crate::model::operation_metadata::RequestSpecific::UpgradeClusterStatus(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for OperationMetadata {
@@ -9389,6 +11763,329 @@ pub mod operation_metadata {
     pub enum RequestSpecific {
         /// Output only. BatchCreateInstances related metadata.
         BatchCreateInstancesMetadata(std::boxed::Box<crate::model::BatchCreateInstancesMetadata>),
+        /// Output only. UpgradeClusterStatus related metadata.
+        UpgradeClusterStatus(std::boxed::Box<crate::model::UpgradeClusterStatus>),
+    }
+}
+
+/// Message for current status of the Major Version Upgrade operation.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpgradeClusterStatus {
+    /// Cluster Major Version Upgrade state.
+    pub state: crate::model::upgrade_cluster_response::Status,
+
+    /// Whether the operation is cancellable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub cancellable: bool,
+
+    /// Source database major version.
+    pub source_version: crate::model::DatabaseVersion,
+
+    /// Target database major version.
+    pub target_version: crate::model::DatabaseVersion,
+
+    /// Status of all upgrade stages.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub stages: std::vec::Vec<crate::model::upgrade_cluster_status::StageStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpgradeClusterStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::UpgradeClusterStatus::state].
+    pub fn set_state<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [cancellable][crate::model::UpgradeClusterStatus::cancellable].
+    pub fn set_cancellable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cancellable = v.into();
+        self
+    }
+
+    /// Sets the value of [source_version][crate::model::UpgradeClusterStatus::source_version].
+    pub fn set_source_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_version = v.into();
+        self
+    }
+
+    /// Sets the value of [target_version][crate::model::UpgradeClusterStatus::target_version].
+    pub fn set_target_version<T: std::convert::Into<crate::model::DatabaseVersion>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_version = v.into();
+        self
+    }
+
+    /// Sets the value of [stages][crate::model::UpgradeClusterStatus::stages].
+    pub fn set_stages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::upgrade_cluster_status::StageStatus>,
+    {
+        use std::iter::Iterator;
+        self.stages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for UpgradeClusterStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterStatus"
+    }
+}
+
+/// Defines additional types related to [UpgradeClusterStatus].
+pub mod upgrade_cluster_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Status of an upgrade stage.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct StageStatus {
+        /// Upgrade stage.
+        pub stage: crate::model::upgrade_cluster_response::Stage,
+
+        /// State of this stage.
+        pub state: crate::model::upgrade_cluster_response::Status,
+
+        /// Stage specific status information, if any.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub stage_specific_status: std::option::Option<
+            crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StageStatus {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [stage][crate::model::upgrade_cluster_status::StageStatus::stage].
+        pub fn set_stage<T: std::convert::Into<crate::model::upgrade_cluster_response::Stage>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.stage = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::upgrade_cluster_status::StageStatus::state].
+        pub fn set_state<T: std::convert::Into<crate::model::upgrade_cluster_response::Status>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [stage_specific_status][crate::model::upgrade_cluster_status::StageStatus::stage_specific_status].
+        ///
+        /// Note that all the setters affecting `stage_specific_status` are mutually
+        /// exclusive.
+        pub fn set_stage_specific_status<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.stage_specific_status = v.into();
+            self
+        }
+
+        /// The value of [stage_specific_status][crate::model::upgrade_cluster_status::StageStatus::stage_specific_status]
+        /// if it holds a `ReadPoolInstancesUpgrade`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn read_pool_instances_upgrade(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.stage_specific_status.as_ref().and_then(|v| match v {
+                crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus::ReadPoolInstancesUpgrade(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [stage_specific_status][crate::model::upgrade_cluster_status::StageStatus::stage_specific_status]
+        /// to hold a `ReadPoolInstancesUpgrade`.
+        ///
+        /// Note that all the setters affecting `stage_specific_status` are
+        /// mutually exclusive.
+        pub fn set_read_pool_instances_upgrade<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.stage_specific_status = std::option::Option::Some(
+                crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus::ReadPoolInstancesUpgrade(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for StageStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterStatus.StageStatus"
+        }
+    }
+
+    /// Defines additional types related to [StageStatus].
+    pub mod stage_status {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Stage specific status information, if any.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum StageSpecificStatus {
+            /// Read pool instances upgrade metadata.
+            ReadPoolInstancesUpgrade(
+                std::boxed::Box<
+                    crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus,
+                >,
+            ),
+        }
+    }
+
+    /// Read pool instances upgrade specific status.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ReadPoolInstancesUpgradeStageStatus {
+        /// Read pool instances upgrade statistics.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub upgrade_stats: std::option::Option<
+            crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ReadPoolInstancesUpgradeStageStatus {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [upgrade_stats][crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus::upgrade_stats].
+        pub fn set_upgrade_stats<T: std::convert::Into<std::option::Option<crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats>>>(mut self, v: T) -> Self{
+            self.upgrade_stats = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ReadPoolInstancesUpgradeStageStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterStatus.ReadPoolInstancesUpgradeStageStatus"
+        }
+    }
+
+    /// Defines additional types related to [ReadPoolInstancesUpgradeStageStatus].
+    pub mod read_pool_instances_upgrade_stage_status {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Upgrade stats for read pool instances.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Stats {
+            /// Number of read pool instances for which upgrade has not started.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub not_started: i32,
+
+            /// Number of read pool instances undergoing upgrade.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub ongoing: i32,
+
+            /// Number of read pool instances successfully upgraded.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub success: i32,
+
+            /// Number of read pool instances which failed to upgrade.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub failed: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Stats {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [not_started][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::not_started].
+            pub fn set_not_started<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.not_started = v.into();
+                self
+            }
+
+            /// Sets the value of [ongoing][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::ongoing].
+            pub fn set_ongoing<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.ongoing = v.into();
+                self
+            }
+
+            /// Sets the value of [success][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::success].
+            pub fn set_success<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.success = v.into();
+                self
+            }
+
+            /// Sets the value of [failed][crate::model::upgrade_cluster_status::read_pool_instances_upgrade_stage_status::Stats::failed].
+            pub fn set_failed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.failed = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Stats {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.alloydb.v1.UpgradeClusterStatus.ReadPoolInstancesUpgradeStageStatus.Stats"
+            }
+        }
     }
 }
 

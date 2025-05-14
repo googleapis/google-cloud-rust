@@ -42,7 +42,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct DataExchange {
     /// Output only. The resource name of the data exchange.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -95,7 +95,6 @@ pub struct DataExchange {
 
     /// Optional. By default, false.
     /// If true, the DataExchange has an email sharing mandate enabled.
-    /// Publishers can view the logged email of the subscriber.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub log_linked_dataset_query_user_email: std::option::Option<bool>,
 
@@ -679,7 +678,7 @@ impl wkt::message::Message for DestinationPubSubSubscription {
 #[non_exhaustive]
 pub struct Listing {
     /// Output only. The resource name of the listing.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123/listings/456`
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -750,10 +749,20 @@ pub struct Listing {
     /// Output only. Listing shared asset type.
     pub resource_type: crate::model::SharedResourceType,
 
+    /// Output only. Commercial info contains the information about the commercial
+    /// data products associated with the listing.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub commercial_info: std::option::Option<crate::model::listing::CommercialInfo>,
+
     /// Optional. By default, false.
     /// If true, the Listing has an email sharing mandate enabled.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub log_linked_dataset_query_user_email: std::option::Option<bool>,
+
+    /// Optional. If true, the listing is only available to get the resource
+    /// metadata. Listing is non subscribable.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub allow_only_metadata_sharing: std::option::Option<bool>,
 
     /// Listing source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -878,6 +887,17 @@ impl Listing {
         self
     }
 
+    /// Sets the value of [commercial_info][crate::model::Listing::commercial_info].
+    pub fn set_commercial_info<
+        T: std::convert::Into<std::option::Option<crate::model::listing::CommercialInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commercial_info = v.into();
+        self
+    }
+
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
     pub fn set_log_linked_dataset_query_user_email<
         T: std::convert::Into<std::option::Option<bool>>,
@@ -886,6 +906,15 @@ impl Listing {
         v: T,
     ) -> Self {
         self.log_linked_dataset_query_user_email = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
+    pub fn set_allow_only_metadata_sharing<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.allow_only_metadata_sharing = v.into();
         self
     }
 
@@ -1110,6 +1139,31 @@ pub mod listing {
                 );
                 self
             }
+
+            /// The value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource]
+            /// if it holds a `Routine`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn routine(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.resource.as_ref().and_then(|v| match v {
+                    crate::model::listing::big_query_dataset_source::selected_resource::Resource::Routine(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource]
+            /// to hold a `Routine`.
+            ///
+            /// Note that all the setters affecting `resource` are
+            /// mutually exclusive.
+            pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.resource = std::option::Option::Some(
+                    crate::model::listing::big_query_dataset_source::selected_resource::Resource::Routine(
+                        v.into()
+                    )
+                );
+                self
+            }
         }
 
         impl wkt::message::Message for SelectedResource {
@@ -1133,6 +1187,11 @@ pub mod listing {
                 /// `projects/{projectId}/datasets/{datasetId}/tables/{tableId}`
                 /// Example:"projects/test_project/datasets/test_dataset/tables/test_table"
                 Table(std::string::String),
+                /// Optional. Format:
+                /// For routine:
+                /// `projects/{projectId}/datasets/{datasetId}/routines/{routineId}`
+                /// Example:"projects/test_project/datasets/test_dataset/routines/test_routine"
+                Routine(std::string::String),
             }
         }
 
@@ -1310,6 +1369,246 @@ pub mod listing {
     impl wkt::message::Message for RestrictedExportConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Listing.RestrictedExportConfig"
+        }
+    }
+
+    /// Commercial info contains the information about the commercial data products
+    /// associated with the listing.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CommercialInfo {
+        /// Output only. Details of the Marketplace Data Product associated with the
+        /// Listing.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub cloud_marketplace:
+            std::option::Option<crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CommercialInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
+        pub fn set_cloud_marketplace<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_marketplace = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CommercialInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Listing.CommercialInfo"
+        }
+    }
+
+    /// Defines additional types related to [CommercialInfo].
+    pub mod commercial_info {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Specifies the details of the Marketplace Data Product associated with the
+        /// Listing.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct GoogleCloudMarketplaceInfo {
+
+            /// Output only. Resource name of the commercial service associated with
+            /// the Marketplace Data Product. e.g. example.com
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub service: std::option::Option<std::string::String>,
+
+            /// Output only. Commercial state of the Marketplace Data Product.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub commercial_state: std::option::Option<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GoogleCloudMarketplaceInfo {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
+            pub fn set_service<T: std::convert::Into<std::option::Option<std::string::String>>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.service = v.into();
+                self
+            }
+
+            /// Sets the value of [commercial_state][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::commercial_state].
+            pub fn set_commercial_state<T: std::convert::Into<std::option::Option<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>>>(mut self, v: T) -> Self{
+                self.commercial_state = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for GoogleCloudMarketplaceInfo {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Listing.CommercialInfo.GoogleCloudMarketplaceInfo"
+            }
+        }
+
+        /// Defines additional types related to [GoogleCloudMarketplaceInfo].
+        pub mod google_cloud_marketplace_info {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Indicates whether this commercial access is currently active.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum CommercialState {
+                /// Commercialization is incomplete and cannot be used.
+                Unspecified,
+                /// Commercialization has been initialized.
+                Onboarding,
+                /// Commercialization is complete and available for use.
+                Active,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [CommercialState::value] or
+                /// [CommercialState::name].
+                UnknownValue(commercial_state::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod commercial_state {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl CommercialState {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Onboarding => std::option::Option::Some(1),
+                        Self::Active => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("COMMERCIAL_STATE_UNSPECIFIED")
+                        }
+                        Self::Onboarding => std::option::Option::Some("ONBOARDING"),
+                        Self::Active => std::option::Option::Some("ACTIVE"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for CommercialState {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for CommercialState {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for CommercialState {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Onboarding,
+                        2 => Self::Active,
+                        _ => Self::UnknownValue(commercial_state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for CommercialState {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "COMMERCIAL_STATE_UNSPECIFIED" => Self::Unspecified,
+                        "ONBOARDING" => Self::Onboarding,
+                        "ACTIVE" => Self::Active,
+                        _ => Self::UnknownValue(commercial_state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for CommercialState {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Onboarding => serializer.serialize_i32(1),
+                        Self::Active => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for CommercialState {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<CommercialState>::new(
+                        ".google.cloud.bigquery.analyticshub.v1.Listing.CommercialInfo.GoogleCloudMarketplaceInfo.CommercialState"))
+                }
+            }
         }
     }
 
@@ -1702,7 +2001,7 @@ pub mod listing {
 #[non_exhaustive]
 pub struct Subscription {
     /// Output only. The resource name of the subscription.
-    /// e.g. `projects/myproject/locations/US/subscriptions/123`.
+    /// e.g. `projects/myproject/locations/us/subscriptions/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1726,7 +2025,7 @@ pub struct Subscription {
     pub state: crate::model::subscription::State,
 
     /// Output only. Map of listing resource names to associated linked resource,
-    /// e.g. projects/123/locations/US/dataExchanges/456/listings/789
+    /// e.g. projects/123/locations/us/dataExchanges/456/listings/789
     /// ->
     /// projects/123/datasets/my_dataset
     ///
@@ -1748,11 +2047,20 @@ pub struct Subscription {
     /// Output only. Listing shared asset type.
     pub resource_type: crate::model::SharedResourceType,
 
+    /// Output only. This is set if this is a commercial subscription i.e. if this
+    /// subscription was created from subscribing to a commercial listing.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub commercial_info: std::option::Option<crate::model::subscription::CommercialInfo>,
+
     /// Output only. By default, false.
     /// If true, the Subscriber agreed to the email sharing mandate
     /// that is enabled for DataExchange/Listing.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub log_linked_dataset_query_user_email: std::option::Option<bool>,
+
+    /// Optional. BigQuery destination dataset to create for the subscriber.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destination_dataset: std::option::Option<crate::model::DestinationDataset>,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub resource_name: std::option::Option<crate::model::subscription::ResourceName>,
@@ -1855,6 +2163,17 @@ impl Subscription {
         self
     }
 
+    /// Sets the value of [commercial_info][crate::model::Subscription::commercial_info].
+    pub fn set_commercial_info<
+        T: std::convert::Into<std::option::Option<crate::model::subscription::CommercialInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.commercial_info = v.into();
+        self
+    }
+
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
     pub fn set_log_linked_dataset_query_user_email<
         T: std::convert::Into<std::option::Option<bool>>,
@@ -1863,6 +2182,17 @@ impl Subscription {
         v: T,
     ) -> Self {
         self.log_linked_dataset_query_user_email = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_dataset][crate::model::Subscription::destination_dataset].
+    pub fn set_destination_dataset<
+        T: std::convert::Into<std::option::Option<crate::model::DestinationDataset>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination_dataset = v.into();
         self
     }
 
@@ -2065,6 +2395,88 @@ pub mod subscription {
         }
     }
 
+    /// Commercial info metadata for this subscription.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CommercialInfo {
+        /// Output only. This is set when the subscription is commercialised via
+        /// Cloud Marketplace.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub cloud_marketplace: std::option::Option<
+            crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CommercialInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
+        pub fn set_cloud_marketplace<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_marketplace = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CommercialInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Subscription.CommercialInfo"
+        }
+    }
+
+    /// Defines additional types related to [CommercialInfo].
+    pub mod commercial_info {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Cloud Marketplace commercial metadata for this subscription.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct GoogleCloudMarketplaceInfo {
+            /// Resource name of the Marketplace Order.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub order: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GoogleCloudMarketplaceInfo {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [order][crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo::order].
+            pub fn set_order<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.order = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for GoogleCloudMarketplaceInfo {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.bigquery.analyticshub.v1.Subscription.CommercialInfo.GoogleCloudMarketplaceInfo"
+            }
+        }
+    }
+
     /// State of the subscription.
     ///
     /// # Working with unknown values
@@ -2212,10 +2624,10 @@ pub mod subscription {
     #[non_exhaustive]
     pub enum ResourceName {
         /// Output only. Resource name of the source Listing.
-        /// e.g. projects/123/locations/US/dataExchanges/456/listings/789
+        /// e.g. projects/123/locations/us/dataExchanges/456/listings/789
         Listing(std::string::String),
         /// Output only. Resource name of the source Data Exchange.
-        /// e.g. projects/123/locations/US/dataExchanges/456
+        /// e.g. projects/123/locations/us/dataExchanges/456
         DataExchange(std::string::String),
     }
 }
@@ -2227,7 +2639,7 @@ pub mod subscription {
 #[non_exhaustive]
 pub struct ListDataExchangesRequest {
     /// Required. The parent resource path of the data exchanges.
-    /// e.g. `projects/myproject/locations/US`.
+    /// e.g. `projects/myproject/locations/us`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -2344,7 +2756,7 @@ impl gax::paginator::internal::PageableResponse for ListDataExchangesResponse {
 #[non_exhaustive]
 pub struct ListOrgDataExchangesRequest {
     /// Required. The organization resource path of the projects containing
-    /// DataExchanges. e.g. `organizations/myorg/locations/US`.
+    /// DataExchanges. e.g. `organizations/myorg/locations/us`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub organization: std::string::String,
 
@@ -2461,7 +2873,7 @@ impl gax::paginator::internal::PageableResponse for ListOrgDataExchangesResponse
 #[non_exhaustive]
 pub struct GetDataExchangeRequest {
     /// Required. The resource name of the data exchange.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -2494,12 +2906,12 @@ impl wkt::message::Message for GetDataExchangeRequest {
 #[non_exhaustive]
 pub struct CreateDataExchangeRequest {
     /// Required. The parent resource path of the data exchange.
-    /// e.g. `projects/myproject/locations/US`.
+    /// e.g. `projects/myproject/locations/us`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The ID of the data exchange.
-    /// Must contain only ASCII letters, numbers (0-9), underscores (_).
+    /// Must contain only Unicode letters, numbers (0-9), underscores (_).
     /// Max length: 100 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub data_exchange_id: std::string::String,
@@ -2609,7 +3021,7 @@ impl wkt::message::Message for UpdateDataExchangeRequest {
 #[non_exhaustive]
 pub struct DeleteDataExchangeRequest {
     /// Required. The full name of the data exchange resource that you want to
-    /// delete. For example, `projects/myproject/locations/US/dataExchanges/123`.
+    /// delete. For example, `projects/myproject/locations/us/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -2642,7 +3054,7 @@ impl wkt::message::Message for DeleteDataExchangeRequest {
 #[non_exhaustive]
 pub struct ListListingsRequest {
     /// Required. The parent resource path of the listing.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -2758,7 +3170,7 @@ impl gax::paginator::internal::PageableResponse for ListListingsResponse {
 #[non_exhaustive]
 pub struct GetListingRequest {
     /// Required. The resource name of the listing.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123/listings/456`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -2791,12 +3203,12 @@ impl wkt::message::Message for GetListingRequest {
 #[non_exhaustive]
 pub struct CreateListingRequest {
     /// Required. The parent resource path of the listing.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The ID of the listing to create.
-    /// Must contain only ASCII letters, numbers (0-9), underscores (_).
+    /// Must contain only Unicode letters, numbers (0-9), underscores (_).
     /// Max length: 100 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub listing_id: std::string::String,
@@ -2899,9 +3311,15 @@ impl wkt::message::Message for UpdateListingRequest {
 #[non_exhaustive]
 pub struct DeleteListingRequest {
     /// Required. Resource name of the listing to delete.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123/listings/456`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. If the listing is commercial then this field must be set to true,
+    /// otherwise a failure is thrown. This acts as a safety guard to avoid
+    /// deleting commercial listings accidentally.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub delete_commercial: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2915,6 +3333,12 @@ impl DeleteListingRequest {
     /// Sets the value of [name][crate::model::DeleteListingRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_commercial][crate::model::DeleteListingRequest::delete_commercial].
+    pub fn set_delete_commercial<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.delete_commercial = v.into();
         self
     }
 }
@@ -2932,7 +3356,7 @@ impl wkt::message::Message for DeleteListingRequest {
 #[non_exhaustive]
 pub struct SubscribeListingRequest {
     /// Required. Resource name of the listing that you want to subscribe to.
-    /// e.g. `projects/myproject/locations/US/dataExchanges/123/listings/456`.
+    /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3107,12 +3531,12 @@ impl wkt::message::Message for SubscribeListingResponse {
 #[non_exhaustive]
 pub struct SubscribeDataExchangeRequest {
     /// Required. Resource name of the Data Exchange.
-    /// e.g. `projects/publisherproject/locations/US/dataExchanges/123`
+    /// e.g. `projects/publisherproject/locations/us/dataExchanges/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Required. The parent resource path of the Subscription.
-    /// e.g. `projects/subscriberproject/locations/US`
+    /// e.g. `projects/subscriberproject/locations/us`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination: std::string::String,
 
@@ -3227,7 +3651,7 @@ impl wkt::message::Message for SubscribeDataExchangeResponse {
 #[non_exhaustive]
 pub struct RefreshSubscriptionRequest {
     /// Required. Resource name of the Subscription to refresh.
-    /// e.g. `projects/subscriberproject/locations/US/subscriptions/123`
+    /// e.g. `projects/subscriberproject/locations/us/subscriptions/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3297,7 +3721,7 @@ impl wkt::message::Message for RefreshSubscriptionResponse {
 #[non_exhaustive]
 pub struct GetSubscriptionRequest {
     /// Required. Resource name of the subscription.
-    /// e.g. projects/123/locations/US/subscriptions/456
+    /// e.g. projects/123/locations/us/subscriptions/456
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3330,15 +3754,15 @@ impl wkt::message::Message for GetSubscriptionRequest {
 #[non_exhaustive]
 pub struct ListSubscriptionsRequest {
     /// Required. The parent resource path of the subscription.
-    /// e.g. projects/myproject/locations/US
+    /// e.g. projects/myproject/locations/us
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// An expression for filtering the results of the request. Eligible
     /// fields for filtering are:
     ///
-    /// * `listing`
-    /// * `data_exchange`
+    /// + `listing`
+    /// + `data_exchange`
     ///
     /// Alternatively, a literal wrapped in double quotes may be provided.
     /// This will be checked for an exact match against both fields above.
@@ -3346,9 +3770,9 @@ pub struct ListSubscriptionsRequest {
     /// In all cases, the full Data Exchange or Listing resource name must
     /// be provided. Some example of using filters:
     ///
-    /// * data_exchange="projects/myproject/locations/us/dataExchanges/123"
-    /// * listing="projects/123/locations/us/dataExchanges/456/listings/789"
-    /// * "projects/myproject/locations/us/dataExchanges/123"
+    /// + data_exchange="projects/myproject/locations/us/dataExchanges/123"
+    /// + listing="projects/123/locations/us/dataExchanges/456/listings/789"
+    /// + "projects/myproject/locations/us/dataExchanges/123"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
 
@@ -3469,8 +3893,8 @@ impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
 pub struct ListSharedResourceSubscriptionsRequest {
     /// Required. Resource name of the requested target. This resource may be
     /// either a Listing or a DataExchange. e.g.
-    /// projects/123/locations/US/dataExchanges/456 OR e.g.
-    /// projects/123/locations/US/dataExchanges/456/listings/789
+    /// projects/123/locations/us/dataExchanges/456 OR e.g.
+    /// projects/123/locations/us/dataExchanges/456/listings/789
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub resource: std::string::String,
 
@@ -3595,9 +4019,15 @@ impl gax::paginator::internal::PageableResponse for ListSharedResourceSubscripti
 #[non_exhaustive]
 pub struct RevokeSubscriptionRequest {
     /// Required. Resource name of the subscription to revoke.
-    /// e.g. projects/123/locations/US/subscriptions/456
+    /// e.g. projects/123/locations/us/subscriptions/456
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. If the subscription is commercial then this field must be set to
+    /// true, otherwise a failure is thrown. This acts as a safety guard to avoid
+    /// revoking commercial subscriptions accidentally.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub revoke_commercial: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3611,6 +4041,12 @@ impl RevokeSubscriptionRequest {
     /// Sets the value of [name][crate::model::RevokeSubscriptionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [revoke_commercial][crate::model::RevokeSubscriptionRequest::revoke_commercial].
+    pub fn set_revoke_commercial<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.revoke_commercial = v.into();
         self
     }
 }
@@ -3651,7 +4087,7 @@ impl wkt::message::Message for RevokeSubscriptionResponse {
 #[non_exhaustive]
 pub struct DeleteSubscriptionRequest {
     /// Required. Resource name of the subscription to delete.
-    /// e.g. projects/123/locations/US/subscriptions/456
+    /// e.g. projects/123/locations/us/subscriptions/456
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 

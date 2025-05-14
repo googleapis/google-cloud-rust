@@ -199,8 +199,10 @@ impl AnalyticsHubService {
         super::builder::analytics_hub_service::SubscribeListing::new(self.inner.clone())
     }
 
-    /// Creates a Subscription to a Data Clean Room. This is a long-running
-    /// operation as it will create one or more linked datasets.
+    /// Creates a Subscription to a Data Clean Room. This is a
+    /// long-running operation as it will create one or more linked datasets.
+    /// Throws a Bad Request error if the Data Exchange does not contain any
+    /// listings.
     ///
     /// # Long running operations
     ///
