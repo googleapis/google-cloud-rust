@@ -13,13 +13,31 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::credentials::QUOTA_PROJECT_KEY;
+use crate::credentials::{CacheableResource, QUOTA_PROJECT_KEY};
 use crate::errors;
+use crate::token::Token;
 
 use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
 
 const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
+
+/// A utility function to create cachable headers.
+pub(crate) fn build_cacheable_headers(
+    cached_token: &CacheableResource<Token>,
+    quota_project_id: &Option<String>,
+) -> Result<CacheableResource<HeaderMap>> {
+    match cached_token {
+        CacheableResource::NotModified => Ok(CacheableResource::NotModified),
+        CacheableResource::New { entity_tag, data } => {
+            let headers = build_bearer_headers(data, quota_project_id)?;
+            Ok(CacheableResource::New {
+                entity_tag: entity_tag.clone(),
+                data: headers,
+            })
+        }
+    }
+}
 
 /// A utility function to create bearer headers.
 pub(crate) fn build_bearer_headers(
@@ -30,6 +48,22 @@ pub(crate) fn build_bearer_headers(
         HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)
     })
+}
+
+pub(crate) fn build_cacheable_api_key_headers(
+    cached_token: &CacheableResource<Token>,
+    quota_project_id: &Option<String>,
+) -> Result<CacheableResource<HeaderMap>> {
+    match cached_token {
+        CacheableResource::NotModified => Ok(CacheableResource::NotModified),
+        CacheableResource::New { entity_tag, data } => {
+            let headers = build_api_key_headers(data, quota_project_id)?;
+            Ok(CacheableResource::New {
+                entity_tag: entity_tag.clone(),
+                data: headers,
+            })
+        }
+    }
 }
 
 /// A utility function to create API key headers.

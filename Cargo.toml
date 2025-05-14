@@ -304,6 +304,7 @@ tonic              = { version = "0.13", default-features = false, features = ["
 tonic-build        = { version = "0.13", default-features = false }
 tracing            = { version = "0.1" }
 tracing-subscriber = { version = "0.3", default-features = false }
+etag               = { version = "4" }
 # Test packags
 anyhow        = "1"
 axum          = { version = "0.8" }

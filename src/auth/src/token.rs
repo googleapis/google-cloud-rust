@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use crate::credentials::CacheableResource;
 use http::Extensions;
 use std::collections::HashMap;
 use tokio::time::Instant;
@@ -71,7 +72,7 @@ pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
 
 #[async_trait::async_trait]
 pub(crate) trait CachedTokenProvider: std::fmt::Debug + Send + Sync {
-    async fn token(&self, extensions: Extensions) -> Result<Token>;
+    async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>>;
 }
 
 #[cfg(test)]

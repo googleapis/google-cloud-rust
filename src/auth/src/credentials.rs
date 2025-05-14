@@ -27,6 +27,15 @@ use std::sync::Arc;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
+#[derive(Clone, PartialEq, Debug, Default)]
+pub struct EntityTag(pub String);
+
+#[derive(Clone, PartialEq, Debug)]
+pub enum CacheableResource<T> {
+    NotModified,
+    New { entity_tag: EntityTag, data: T },
+}
+
 /// An implementation of [crate::credentials::CredentialsProvider].
 ///
 /// Represents a [Credentials] used to obtain the auth request headers.
@@ -84,7 +93,7 @@ where
 }
 
 impl Credentials {
-    pub async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+    pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         self.inner.headers(extensions).await
     }
 
@@ -142,7 +151,10 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// The underlying implementation refreshes the token as needed.
     // TODO(#2036): After the return type is updated to return a cacheable resource
     // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
-    fn headers(&self, extensions: Extensions) -> impl Future<Output = Result<HeaderMap>> + Send;
+    fn headers(
+        &self,
+        extensions: Extensions,
+    ) -> impl Future<Output = Result<CacheableResource<HeaderMap>>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
@@ -150,7 +162,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
 
 pub(crate) mod dynamic {
     use super::Result;
-    use super::{Extensions, HeaderMap};
+    use super::{CacheableResource, Extensions, HeaderMap};
 
     /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
@@ -164,7 +176,7 @@ pub(crate) mod dynamic {
         /// The underlying implementation refreshes the token as needed.
         // TODO(#2036): After the return type is updated to return cacheable resource
         // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
         async fn universe_domain(&self) -> Option<String> {
@@ -178,7 +190,7 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
             T::headers(self, extensions).await
         }
         async fn universe_domain(&self) -> Option<String> {
@@ -555,6 +567,8 @@ pub mod testing {
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
 
+    use super::{CacheableResource, EntityTag};
+
     /// A simple credentials implementation to use in tests where authentication does not matter.
     ///
     /// Always returns a "Bearer" token, with "test-only-token" as the value.
@@ -569,8 +583,11 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
-            Ok(HeaderMap::new())
+        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: HeaderMap::new(),
+            })
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -592,7 +609,7 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
+        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
@@ -616,20 +633,40 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> Option<String> {
-        headers
-            .get(AUTHORIZATION)
-            .and_then(|token_value| token_value.to_str().ok())
-            .and_then(|s| s.split_whitespace().nth(1))
-            .map(|s| s.to_string())
+    pub(crate) fn get_headers_from_cache(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Result<HeaderMap> {
+        match headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(CredentialsError::from_str(
+                false,
+                "Expecting headers to be present",
+            )),
+        }
     }
 
-    pub(crate) fn get_token_type_from_headers(headers: &HeaderMap) -> Option<String> {
-        headers
-            .get(AUTHORIZATION)
-            .and_then(|token_value| token_value.to_str().ok())
-            .and_then(|s| s.split_whitespace().next())
-            .map(|s| s.to_string())
+    pub(crate) fn get_token_from_headers(headers: CacheableResource<HeaderMap>) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .and_then(|s| s.split_whitespace().nth(1))
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
+    }
+
+    pub(crate) fn get_token_type_from_headers(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .and_then(|s| s.split_whitespace().nth(1))
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
     }
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
@@ -823,7 +860,7 @@ mod test {
             .unwrap();
 
         let headers = sac.headers(Extensions::new()).await?;
-        let token = get_token_from_headers(&headers).unwrap();
+        let token = get_token_from_headers(headers).unwrap();
         let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());

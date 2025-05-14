@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use auth::credentials::CacheableResource;
 use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
@@ -25,7 +26,7 @@ use gax::polling_error_policy::PollingErrorPolicy;
 use gax::response::{Parts, Response};
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
-use http::Extensions;
+use http::{Extensions, HeaderMap};
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
@@ -128,11 +129,17 @@ impl ReqwestClient {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => HeaderMap::new(),
+        };
+
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }

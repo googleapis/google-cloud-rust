@@ -58,9 +58,9 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
+use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
-use crate::headers_util::build_bearer_headers;
+use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -197,9 +197,9 @@ impl<T> CredentialsProvider for MDSCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
-        let token = self.token_provider.token(extensions).await?;
-        build_bearer_headers(&token, &self.quota_project_id)
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        let cached_token = self.token_provider.token(extensions).await?;
+        build_cacheable_headers(&cached_token, &self.quota_project_id)
     }
 
     async fn universe_domain(&self) -> Option<String> {
@@ -283,11 +283,13 @@ impl TokenProvider for MDSAccessTokenProvider {
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{get_token_from_headers, get_token_type_from_headers};
+    use crate::credentials::test::{
+        get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
+    };
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
-    use http::header::AUTHORIZATION;
+    use http::header::{self, AUTHORIZATION};
     use reqwest::StatusCode;
     use reqwest::header::HeaderMap;
     use scoped_env::ScopedEnv;
@@ -320,7 +322,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn headers_success() {
+    async fn headers_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -336,12 +338,12 @@ mod test {
             universe_domain: None,
             token_provider: TokenCache::new(mock),
         };
-        let headers = mdsc.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(mdsc.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
-
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
+        Ok(())
     }
 
     #[tokio::test]
@@ -435,7 +437,7 @@ mod test {
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
     }
@@ -471,7 +473,7 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers = mdsc.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(mdsc.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -483,6 +485,7 @@ mod test {
         assert!(token.is_sensitive());
         assert_eq!(quota_project, HeaderValue::from_static("test-project"));
         assert!(!quota_project.is_sensitive());
+
         Ok(())
     }
 
@@ -518,12 +521,12 @@ mod test {
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
 
@@ -651,11 +654,11 @@ mod test {
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers.clone()).unwrap(),
             "test-access-token"
         );
         assert_eq!(
-            get_token_type_from_headers(&headers).unwrap(),
+            get_token_type_from_headers(headers).unwrap(),
             "test-token-type"
         );
 

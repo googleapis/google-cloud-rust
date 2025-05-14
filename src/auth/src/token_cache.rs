@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::Result;
+use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
+use etag::EntityTag as EntityTagGenerator;
 use http::Extensions;
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
@@ -27,7 +29,7 @@ const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
-    rx_token: watch::Receiver<Option<Result<Token>>>,
+    rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
 }
 
 impl TokenCache {
@@ -35,7 +37,7 @@ impl TokenCache {
     where
         T: TokenProvider + Send + Sync + 'static,
     {
-        let (tx_token, rx_token) = watch::channel::<Option<Result<Token>>>(None);
+        let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         tokio::spawn(async move {
             refresh_task(inner, tx_token).await;
@@ -43,25 +45,21 @@ impl TokenCache {
 
         Self { rx_token }
     }
-}
 
-#[async_trait::async_trait]
-impl CachedTokenProvider for TokenCache {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
+    async fn get_latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
         let mut rx = self.rx_token.clone();
         let token_result = rx.borrow_and_update().clone();
-
         if let Some(token_result) = token_result {
             match token_result {
-                Ok(token) => match token.expires_at {
-                    None => return Ok(token),
+                Ok((token, tag)) => match token.expires_at {
+                    None => Ok((token, tag)),
                     Some(e) => {
                         if e < Instant::now() {
                             // Expired token, wait for refresh
-                            return wait_for_next_token(rx).await;
+                            wait_for_next_token(rx).await
                         } else {
                             // valid token
-                            return Ok(token);
+                            Ok((token, tag))
                         }
                     }
                 },
@@ -74,23 +72,46 @@ impl CachedTokenProvider for TokenCache {
     }
 }
 
+#[async_trait::async_trait]
+impl CachedTokenProvider for TokenCache {
+    async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>> {
+        let given_tag = extensions.get::<EntityTag>();
+
+        let (token, tag) = self.get_latest_token_and_entity_tag().await?;
+        if given_tag.is_some_and(|given_tag| tag.eq(given_tag)) {
+            return Ok(CacheableResource::NotModified);
+        } else {
+            return Ok(CacheableResource::New {
+                entity_tag: tag,
+                data: token,
+            });
+        }
+    }
+}
+
 async fn wait_for_next_token(
-    mut rx_token: watch::Receiver<Option<Result<Token>>>,
-) -> Result<Token> {
+    mut rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
+) -> Result<(Token, EntityTag)> {
     rx_token.changed().await.unwrap();
     let token_result = rx_token.borrow().clone();
 
     token_result.expect("There should always be a token or error in the channel after changed()")
 }
 
-async fn refresh_task<T>(token_provider: T, tx_token: watch::Sender<Option<Result<Token>>>)
-where
+async fn refresh_task<T>(
+    token_provider: T,
+    tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
+) where
     T: TokenProvider + Send + Sync + 'static,
 {
     loop {
         let token_result = token_provider.token().await;
+        let result = token_result.clone().map(|token| {
+            let entity_tag = EntityTag(EntityTagGenerator::strong(&token.token).to_string());
+            (token, entity_tag)
+        });
 
-        let _ = tx_token.send(Some(token_result.clone()));
+        let _ = tx_token.send(Some(result));
 
         match token_result {
             Ok(new_token) => {
@@ -132,14 +153,26 @@ mod test {
     use super::*;
     use crate::errors;
     use crate::token::test::MockTokenProvider;
+    use gax::error::CredentialsError;
     use std::ops::{Add, Sub};
     use std::sync::{Arc, Mutex};
     use tokio::time::{Duration, Instant};
 
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    fn get_cached_token(cache: CacheableResource<Token>) -> Result<Token> {
+        match cache {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(CredentialsError::from_str(
+                false,
+                "Expecting token to be present.",
+            )),
+        }
+    }
 
     #[tokio::test]
-    async fn initial_token_success() {
+    async fn initial_token_success() -> TestResult {
         let expected = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -154,13 +187,14 @@ mod test {
             .return_once(|| Ok(expected_clone));
 
         let cache = TokenCache::new(mock);
-        let actual = cache.token(Extensions::new()).await.unwrap();
+        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, expected);
 
         // Verify that we use the cached token instead of making a new request
         // to the mock token provider.
-        let actual = cache.token(Extensions::new()).await.unwrap();
+        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, expected);
+        Ok(())
     }
 
     #[tokio::test]
@@ -179,7 +213,7 @@ mod test {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn expired_token_success() {
+    async fn expired_token_success() -> TestResult {
         let now = Instant::now();
 
         let initial = Token {
@@ -209,7 +243,7 @@ mod test {
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
-        let actual = cache.token(Extensions::new()).await.unwrap();
+        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, initial);
 
         // wait long enough for the token to be expired
@@ -218,12 +252,13 @@ mod test {
         tokio::time::advance(sleep).await;
 
         // make sure this is the new token
-        let actual = cache.token(Extensions::new()).await.unwrap();
+        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, refresh);
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn expired_token_failure() {
+    async fn expired_token_failure() -> TestResult {
         let now = Instant::now();
 
         let initial = Token {
@@ -245,7 +280,7 @@ mod test {
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
-        let actual = cache.token(Extensions::new()).await.unwrap();
+        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, initial);
 
         // wait long enough for the token to be expired
@@ -254,10 +289,11 @@ mod test {
 
         // make sure we return the error, not the expired token
         assert!(cache.token(Extensions::new()).await.is_err());
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
-    async fn token_cache_multiple_requests_existing_valid_token() {
+    async fn token_cache_multiple_requests_existing_valid_token() -> TestResult {
         let now = Instant::now();
 
         let token = Token {
@@ -273,7 +309,7 @@ mod test {
 
         // fetch an initial token
         let cache = TokenCache::new(mock);
-        let actual = cache.token(Extensions::new()).await.unwrap();
+        let actual = get_cached_token(cache.token(Extensions::new()).await.unwrap())?;
         assert_eq!(actual, token);
 
         // Spawn N tasks, all asking for a token at once.
@@ -288,8 +324,9 @@ mod test {
         for task in tasks {
             let actual = task.await.unwrap();
             assert!(actual.is_ok(), "{}", actual.err().unwrap());
-            assert_eq!(actual.unwrap(), token);
+            assert_eq!(get_cached_token(actual.unwrap())?, token);
         }
+        Ok(())
     }
 
     #[tokio::test]
@@ -321,7 +358,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(token2_clone));
 
-        let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
+        let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         tokio::spawn(async move {
             refresh_task(mock, tx).await;
@@ -335,7 +372,7 @@ mod test {
         // Validate that the refresh loop tried getting new token almost immediately
         assert!(Instant::now() <= now + Duration::from_millis(500));
 
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2.clone());
     }
 
@@ -380,7 +417,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(token3_clone));
 
-        let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
+        let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
@@ -391,13 +428,13 @@ mod test {
         });
 
         rx.changed().await.unwrap();
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1.clone());
 
         // Validate that it is the same token before it is stale
         let sleep = Duration::from_secs(120);
         tokio::time::advance(sleep).await;
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1.clone());
 
         // time machine takes execution to 3 minutes before expiry
@@ -407,7 +444,7 @@ mod test {
 
         // validate that the token changed less than 4 mins before expiry
         assert!(Instant::now() < now + TOKEN_VALID_DURATION);
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2);
 
         // wait long enough for the token to be expired
@@ -416,7 +453,7 @@ mod test {
         tokio::time::advance(sleep).await;
 
         rx.changed().await.unwrap();
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token3);
     }
 
@@ -454,7 +491,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(token2_clone));
 
-        let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
+        let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
@@ -465,7 +502,7 @@ mod test {
         });
 
         rx.changed().await.unwrap();
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1);
 
         // time machine forwards time by 10 secs
@@ -475,7 +512,7 @@ mod test {
         // attempted to be refreshed within 10ish seconds
         assert!(Instant::now() < now + Duration::from_secs(11));
         rx.changed().await.unwrap();
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1);
 
         // time machine forwards time by 100 secs
@@ -486,7 +523,7 @@ mod test {
         // validate that the token was refreshed within 10ish seconds
         // before expiry
         assert!(Instant::now() < now + Duration::from_secs(111));
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2);
     }
 
@@ -519,7 +556,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(token2_clone));
 
-        let (tx, mut rx) = watch::channel::<Option<Result<Token>>>(None);
+        let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         // check that channel has None before refresh task starts
         let actual = rx.borrow().clone();
@@ -533,15 +570,15 @@ mod test {
 
         tokio::time::advance(NORMAL_REFRESH_SLACK).await;
 
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1);
 
         tokio::time::advance(NORMAL_REFRESH_SLACK).await;
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token1);
 
         tokio::time::advance(2 * NORMAL_REFRESH_SLACK).await;
-        let actual = rx.borrow().clone().unwrap().unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
         assert_eq!(actual, token2);
     }
 
@@ -579,7 +616,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
-    async fn no_initial_token_thundering_herd_success() {
+    async fn no_initial_token_thundering_herd_success() -> TestResult {
         let token = Token {
             token: "delayed-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -603,12 +640,13 @@ mod test {
         for task in tasks {
             let actual = task.await.unwrap();
             assert!(actual.is_ok(), "{}", actual.err().unwrap());
-            assert_eq!(actual.unwrap(), token);
+            assert_eq!(get_cached_token(actual.unwrap())?, token);
         }
 
         let calls = tp.calls();
         // Only one call to token provider should have been made
         assert_eq!(calls, 1);
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]

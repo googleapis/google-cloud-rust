@@ -75,9 +75,9 @@
 mod jws;
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{Credentials, Result};
+use crate::credentials::{CacheableResource, Credentials, Result};
 use crate::errors::{self, CredentialsError};
-use crate::headers_util::build_bearer_headers;
+use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -438,9 +438,9 @@ impl<T> CredentialsProvider for ServiceAccountCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_bearer_headers(&token, &self.quota_project_id)
+        build_cacheable_headers(&token, &self.quota_project_id)
     }
 }
 
@@ -448,7 +448,9 @@ where
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{PKCS8_PK, b64_decode_to_json, get_token_from_headers};
+    use crate::credentials::test::{
+        PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
+    };
     use crate::token::test::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -496,7 +498,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn headers_success_without_quota_project() {
+    async fn headers_success_without_quota_project() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -512,16 +514,17 @@ mod test {
             quota_project_id: None,
         };
 
-        let headers = sac.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
+        Ok(())
     }
 
     #[tokio::test]
-    async fn headers_success_with_quota_project() {
+    async fn headers_success_with_quota_project() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -539,7 +542,7 @@ mod test {
             quota_project_id: Some(quota_project.to_string()),
         };
 
-        let headers = sac.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -551,6 +554,7 @@ mod test {
             HeaderValue::from_static(quota_project)
         );
         assert!(!quota_project_header.is_sensitive());
+        Ok(())
     }
 
     #[tokio::test]
@@ -646,7 +650,7 @@ mod test {
         let headers = credentials.headers(Extensions::new()).await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let token = get_token_from_headers(&headers).unwrap();
+        let token = get_token_from_headers(headers).unwrap();
 
         let captures = re.captures(&token).unwrap();
 
@@ -660,7 +664,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = get_token_from_headers(&credentials.headers(Extensions::new()).await?).unwrap();
+        let token = get_token_from_headers(credentials.headers(Extensions::new()).await?).unwrap();
         let captures = re.captures(&token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
@@ -730,7 +734,7 @@ mod test {
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let token = get_token_from_headers(&headers).unwrap();
+        let token = get_token_from_headers(headers).unwrap();
         let captures = re.captures(&token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
@@ -782,7 +786,7 @@ mod test {
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let token = get_token_from_headers(&headers).unwrap();
+        let token = get_token_from_headers(headers).unwrap();
         let captures = re.captures(&token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,

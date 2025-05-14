@@ -13,9 +13,10 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{Credentials, Result};
-use crate::headers_util::build_api_key_headers;
-use crate::token::{Token, TokenProvider};
+use crate::credentials::{CacheableResource, Credentials, Result};
+use crate::headers_util::build_cacheable_api_key_headers;
+use crate::token::{CachedTokenProvider, Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use http::{Extensions, HeaderMap};
 use std::sync::Arc;
 
@@ -46,7 +47,7 @@ impl TokenProvider for ApiKeyTokenProvider {
 #[derive(Debug)]
 struct ApiKeyCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
     token_provider: T,
     quota_project_id: Option<String>,
@@ -123,7 +124,7 @@ impl Builder {
 
         Credentials {
             inner: Arc::new(ApiKeyCredentials {
-                token_provider: self.build_token_provider(),
+                token_provider: TokenCache::new(self.build_token_provider()),
                 quota_project_id,
             }),
         }
@@ -133,11 +134,11 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
-    T: TokenProvider,
+    T: CachedTokenProvider,
 {
-    async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
-        let token = self.token_provider.token().await?;
-        build_api_key_headers(&token, &self.quota_project_id)
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        let cached_token = self.token_provider.token(extensions).await?;
+        build_cacheable_api_key_headers(&cached_token, &self.quota_project_id)
     }
 }
 
@@ -145,10 +146,12 @@ where
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
+    use crate::credentials::test::get_headers_from_cache;
     use http::HeaderValue;
     use scoped_env::ScopedEnv;
 
     const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
     fn debug_token_provider() {
@@ -174,27 +177,28 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_api_key_credentials_basic() {
+    async fn create_api_key_credentials_basic() -> TestResult {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
         let creds = Builder::new("test-api-key").build();
-        let headers = creds.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(creds.headers(Extensions::new()).await.unwrap())?;
         let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(value, HeaderValue::from_static("test-api-key"));
         assert!(value.is_sensitive());
+        Ok(())
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_api_key_credentials_with_options() {
+    async fn create_api_key_credentials_with_options() -> TestResult {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
         let creds = Builder::new("test-api-key")
             .with_quota_project_id("qp-option")
             .build();
-        let headers = creds.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(creds.headers(Extensions::new()).await.unwrap())?;
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -203,17 +207,18 @@ mod test {
         assert!(api_key.is_sensitive());
         assert_eq!(quota_project, HeaderValue::from_static("qp-option"));
         assert!(!quota_project.is_sensitive());
+        Ok(())
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_api_key_credentials_with_env() {
+    async fn create_api_key_credentials_with_env() -> TestResult {
         let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
 
         let creds = Builder::new("test-api-key")
             .with_quota_project_id("qp-option")
             .build();
-        let headers = creds.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(creds.headers(Extensions::new()).await.unwrap())?;
         let api_key = headers.get(API_KEY_HEADER_KEY).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -222,5 +227,6 @@ mod test {
         assert!(api_key.is_sensitive());
         assert_eq!(quota_project, HeaderValue::from_static("qp-env"));
         assert!(!quota_project.is_sensitive());
+        Ok(())
     }
 }

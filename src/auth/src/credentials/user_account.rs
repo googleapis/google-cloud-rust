@@ -68,9 +68,9 @@
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{Credentials, Result};
+use crate::credentials::{CacheableResource, Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
-use crate::headers_util::build_bearer_headers;
+use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::CONTENT_TYPE;
@@ -312,9 +312,9 @@ impl<T> CredentialsProvider for UserCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_bearer_headers(&token, &self.quota_project_id)
+        build_cacheable_headers(&token, &self.quota_project_id)
     }
 }
 
@@ -361,7 +361,9 @@ struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::credentials::test::{get_token_from_headers, get_token_type_from_headers};
+    use crate::credentials::test::{
+        get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
+    };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::token::test::MockTokenProvider;
     use axum::extract::Json;
@@ -471,7 +473,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn headers_success() {
+    async fn headers_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -487,12 +489,13 @@ mod test {
             quota_project_id: None,
         };
 
-        let headers = uc.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(uc.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
 
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
+        Ok(())
     }
 
     #[tokio::test]
@@ -510,7 +513,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn headers_with_quota_project_success() {
+    async fn headers_with_quota_project_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -526,7 +529,7 @@ mod test {
             quota_project_id: Some("test-project".to_string()),
         };
 
-        let headers = uc.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(uc.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -538,6 +541,7 @@ mod test {
             HeaderValue::from_static("test-project")
         );
         assert!(!quota_project_header.is_sensitive());
+        Ok(())
     }
 
     #[test]
@@ -714,7 +718,7 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers = cred.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(cred.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project_header = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -761,10 +765,10 @@ mod test {
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
 
-        let token = get_token_from_headers(&cred.headers(Extensions::new()).await?);
+        let token = get_token_from_headers(cred.headers(Extensions::new()).await?);
         assert_eq!(token.unwrap(), "test-access-token");
 
-        let token = get_token_from_headers(&cred.headers(Extensions::new()).await?);
+        let token = get_token_from_headers(cred.headers(Extensions::new()).await?);
         assert_eq!(token.unwrap(), "test-access-token");
 
         // Test that the inner token provider was called only
@@ -798,11 +802,11 @@ mod test {
         let uc = Builder::new(authorized_user).build()?;
         let headers = uc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers.clone()).unwrap(),
             "test-access-token"
         );
         assert_eq!(
-            get_token_type_from_headers(&headers).unwrap(),
+            get_token_type_from_headers(headers).unwrap(),
             "test-token-type"
         );
 
@@ -835,11 +839,11 @@ mod test {
             .build()?;
         let headers = uc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers.clone()).unwrap(),
             "test-access-token"
         );
         assert_eq!(
-            get_token_type_from_headers(&headers).unwrap(),
+            get_token_type_from_headers(headers).unwrap(),
             "test-token-type"
         );
 
@@ -873,11 +877,11 @@ mod test {
             .build()?;
         let headers = uc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers.clone()).unwrap(),
             "test-access-token"
         );
         assert_eq!(
-            get_token_type_from_headers(&headers).unwrap(),
+            get_token_type_from_headers(headers).unwrap(),
             "test-token-type"
         );
 
