@@ -65,6 +65,28 @@ macro_rules! impl_visitor {
                 }
             }
 
+            // Floats and doubles in serde_json may be serialized as integers
+            // if they do not have a fractional part.
+            fn visit_i64<E>(self, value: i64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                // This is trivial for `f64`. For `f32`, casting f64 to f32 is guaranteed to produce the closest possible float value:
+                // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
+                Ok(value as $t)
+            }
+
+            // Floats and doubles in serde_json may be serialized as integers
+            // if they do not have a fractional part.
+            fn visit_u64<E>(self, value: u64) -> std::result::Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                // This is trivial for `f64`. For `f32`, casting f64 to f32 is guaranteed to produce the closest possible float value:
+                // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
+                Ok(value as $t)
+            }
+
             // Floats and doubles in serde_json are f64.
             fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
             where
@@ -128,12 +150,15 @@ pub use enums::*;
 #[cfg(test)]
 mod test {
     use super::*;
+    use serde_json::json;
     use serde_with::{DeserializeAs, SerializeAs};
     use test_case::test_case;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test_case(9876.5, 9876.5)]
     #[test_case(0.0, 0.0)]
+    #[test_case(1_f32, 1.0)]
+    #[test_case(-2_f32, -2.0)]
     #[test_case(f32::NAN, "NaN")]
     #[test_case(-f32::NAN, "NaN")]
     #[test_case(f32::INFINITY, "Infinity")]
@@ -149,6 +174,20 @@ mod test {
         assert_eq!(got, want);
         let rt = F32::deserialize_as(got)?;
         assert_float_eq(input, rt);
+        Ok(())
+    }
+
+    #[test_case(-1_i32, -1.0)]
+    #[test_case(-1_i64, -1.0)]
+    #[test_case(2_i32, 2.0)]
+    #[test_case(2_i64, 2.0)]
+    fn deserialize_int_f32<T>(input: T, want: f32) -> Result
+    where
+        T: serde::ser::Serialize,
+    {
+        let value = json!(input);
+        let got = F32::deserialize_as(value)?;
+        assert_float_eq(got, want);
         Ok(())
     }
 
@@ -169,6 +208,20 @@ mod test {
         assert_eq!(got, want);
         let rt = F64::deserialize_as(got)?;
         assert_double_eq(input, rt);
+        Ok(())
+    }
+
+    #[test_case(-1_i32, -1.0)]
+    #[test_case(-1_i64, -1.0)]
+    #[test_case(2_i32, 2.0)]
+    #[test_case(2_i64, 2.0)]
+    fn deserialize_int_f64<T>(input: T, want: f64) -> Result
+    where
+        T: serde::ser::Serialize,
+    {
+        let value = json!(input);
+        let got = F64::deserialize_as(value)?;
+        assert_double_eq(got, want);
         Ok(())
     }
 

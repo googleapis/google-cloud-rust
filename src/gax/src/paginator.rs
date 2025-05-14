@@ -141,20 +141,20 @@ mod sealed {
 /// For more information on the RPCs with paginated responses see [AIP-4233].
 ///
 /// [AIP-4233]: https://google.aip.dev/client-libraries/4233
-pub trait Paginator<T, E>: Send + sealed::Paginator
+pub trait Paginator<PageType, Error>: Send + sealed::Paginator
 where
-    T: internal::PageableResponse,
+    PageType: internal::PageableResponse,
 {
     /// Creates a new [ItemPaginator] from an existing [Paginator].
-    fn items(self) -> impl ItemPaginator<T, E>;
+    fn items(self) -> impl ItemPaginator<PageType, Error>;
 
     /// Returns the next mutation of the wrapped stream.
-    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>> + Send;
+    fn next(&mut self) -> impl Future<Output = Option<Result<PageType, Error>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the paginator to a [Stream].
-    fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin;
+    fn into_stream(self) -> impl futures::Stream<Item = Result<PageType, Error>> + Unpin;
 }
 
 #[pin_project]
@@ -263,17 +263,17 @@ impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
 /// For more information on the RPCs with paginated responses see [AIP-4233].
 ///
 /// [AIP-4233]: https://google.aip.dev/client-libraries/4233
-pub trait ItemPaginator<T, E>: Send + sealed::Paginator
+pub trait ItemPaginator<PageType, Error>: Send + sealed::Paginator
 where
-    T: internal::PageableResponse,
+    PageType: internal::PageableResponse,
 {
     /// Returns the next item from the stream of (paginated) responses.
-    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>> + Send;
+    fn next(&mut self) -> impl Future<Output = Option<Result<PageType::PageItem, Error>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the paginator to a [Stream].
-    fn into_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin;
+    fn into_stream(self) -> impl futures::Stream<Item = Result<PageType::PageItem, Error>> + Unpin;
 }
 
 #[pin_project]

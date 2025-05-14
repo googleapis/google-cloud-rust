@@ -30,7 +30,7 @@ mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.grpc_header_value()
         };
     }
 }
@@ -86,6 +86,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::Folder;
         self.inner
             .execute(
                 extensions,
@@ -96,12 +97,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::Folder,
-                    crate::model::Folder,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Folder>)
     }
 
     async fn delete_folder(
@@ -141,6 +137,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = ();
         self.inner
             .execute(
                 extensions,
@@ -151,7 +148,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(gaxi::grpc::to_gax_response::<(), ()>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
     async fn get_folder(
@@ -191,6 +188,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::Folder;
         self.inner
             .execute(
                 extensions,
@@ -201,12 +199,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::Folder,
-                    crate::model::Folder,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Folder>)
     }
 
     async fn list_folders(
@@ -238,6 +231,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::ListFoldersResponse;
         self.inner
             .execute(
                 extensions,
@@ -248,12 +242,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::ListFoldersResponse,
-                    crate::model::ListFoldersResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListFoldersResponse>)
     }
 
     async fn rename_folder(
@@ -293,6 +282,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -303,12 +293,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 
     async fn get_storage_layout(
@@ -348,6 +333,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::StorageLayout;
         self.inner
             .execute(
                 extensions,
@@ -358,12 +344,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::StorageLayout,
-                    crate::model::StorageLayout,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::StorageLayout>)
     }
 
     async fn create_managed_folder(
@@ -395,6 +376,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::ManagedFolder;
         self.inner
             .execute(
                 extensions,
@@ -405,12 +387,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::ManagedFolder,
-                    crate::model::ManagedFolder,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ManagedFolder>)
     }
 
     async fn delete_managed_folder(
@@ -450,6 +427,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = ();
         self.inner
             .execute(
                 extensions,
@@ -460,7 +438,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(gaxi::grpc::to_gax_response::<(), ()>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
     async fn get_managed_folder(
@@ -500,6 +478,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::ManagedFolder;
         self.inner
             .execute(
                 extensions,
@@ -510,12 +489,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::ManagedFolder,
-                    crate::model::ManagedFolder,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ManagedFolder>)
     }
 
     async fn list_managed_folders(
@@ -547,6 +521,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::ListManagedFoldersResponse;
         self.inner
             .execute(
                 extensions,
@@ -557,12 +532,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::ListManagedFoldersResponse,
-                    crate::model::ListManagedFoldersResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListManagedFoldersResponse>)
     }
 
     async fn create_anywhere_cache(
@@ -594,6 +564,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -604,12 +575,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 
     async fn update_anywhere_cache(
@@ -651,6 +617,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -661,12 +628,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 
     async fn disable_anywhere_cache(
@@ -706,6 +668,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
             .execute(
                 extensions,
@@ -716,12 +679,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::AnywhereCache,
-                    crate::model::AnywhereCache,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::AnywhereCache>)
     }
 
     async fn pause_anywhere_cache(
@@ -761,6 +719,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
             .execute(
                 extensions,
@@ -771,12 +730,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::AnywhereCache,
-                    crate::model::AnywhereCache,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::AnywhereCache>)
     }
 
     async fn resume_anywhere_cache(
@@ -816,6 +770,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
             .execute(
                 extensions,
@@ -826,12 +781,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::AnywhereCache,
-                    crate::model::AnywhereCache,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::AnywhereCache>)
     }
 
     async fn get_anywhere_cache(
@@ -871,6 +821,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::AnywhereCache;
         self.inner
             .execute(
                 extensions,
@@ -881,12 +832,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::AnywhereCache,
-                    crate::model::AnywhereCache,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::AnywhereCache>)
     }
 
     async fn list_anywhere_caches(
@@ -918,6 +864,7 @@ impl super::stub::StorageControl for StorageControl {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::control::v2::ListAnywhereCachesResponse;
         self.inner
             .execute(
                 extensions,
@@ -928,12 +875,7 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::control::v2::ListAnywhereCachesResponse,
-                    crate::model::ListAnywhereCachesResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListAnywhereCachesResponse>)
     }
 
     async fn get_operation(
@@ -958,6 +900,7 @@ impl super::stub::StorageControl for StorageControl {
             .into_iter()
             .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::longrunning::Operation;
         self.inner
             .execute(
                 extensions,
@@ -968,11 +911,6 @@ impl super::stub::StorageControl for StorageControl {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::longrunning::Operation,
-                    longrunning::model::Operation,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 }
