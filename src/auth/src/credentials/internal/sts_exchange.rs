@@ -35,28 +35,19 @@ pub struct STSHandler {
 }
 
 impl STSHandler {
-    pub fn new() -> Self {
-        let client = reqwest::Client::new();
-        Self { client }
-    }
-
-    /// performs the token exchange using a refresh token flow with
+    /// Performs the token exchange using a refresh token flow with
     /// the provided [RefreshAccessTokenRequest] information.
-    pub async fn refresh_access_token(
-        &self,
-        req: RefreshAccessTokenRequest,
-    ) -> Result<TokenResponse> {
-        let mut params: HashMap<&str, String> = HashMap::new();
+    pub async fn refresh_access_token(req: RefreshAccessTokenRequest) -> Result<TokenResponse> {
+        let mut params = HashMap::new();
         params.insert("grant_type", REFRESH_TOKEN_GRANT_TYPE.to_string());
         params.insert("refresh_token", req.refresh_token);
 
-        self.execute(req.url, req.authentication, req.headers, params)
-            .await
+        Self::execute(req.url, req.authentication, req.headers, params).await
     }
 
-    /// performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
-    pub async fn exchange_token(&self, req: ExchangeTokenRequest) -> Result<TokenResponse> {
-        let mut params: HashMap<&str, String> = HashMap::new();
+    /// Performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
+    pub async fn exchange_token(req: ExchangeTokenRequest) -> Result<TokenResponse> {
+        let mut params = HashMap::new();
 
         params.insert("grant_type", TOKEN_EXCHANGE_GRANT_TYPE.to_string());
         params.insert("requested_token_type", ACCESS_TOKEN_TYPE.to_string());
@@ -87,24 +78,23 @@ impl STSHandler {
             }
         }
 
-        self.execute(req.url, req.authentication, req.headers, params)
-            .await
+        Self::execute(req.url, req.authentication, req.headers, params).await
     }
 
-    /// execute http request and token exchange
-    pub async fn execute(
-        &self,
+    /// Execute http request and token exchange
+    pub(crate) async fn execute(
         url: String,
         client_auth: ClientAuthentication,
         headers: http::HeaderMap,
         params: HashMap<&str, String>,
     ) -> Result<TokenResponse> {
+        let client = reqwest::Client::new();
+
         let mut headers = headers.clone();
         let mut params = params.clone();
         client_auth.inject_auth(&mut headers, &mut params);
 
-        let res = self
-            .client
+        let res = client
             .post(url)
             .form(&params)
             .headers(headers)
@@ -170,10 +160,9 @@ impl Default for ClientAuthentication {
 }
 
 impl ClientAuthentication {
-    // Add authentication to a Secure Token Service exchange request.
-    // Modifies either the passed headers or form parameters
-    // depending on the desired authentication format.
-
+    /// Add authentication to a Secure Token Service exchange request.
+    /// Modifies either the passed headers or form parameters
+    /// depending on the desired authentication format.
     pub fn inject_auth(&self, headers: &mut http::HeaderMap, params: &mut HashMap<&str, String>) {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
@@ -188,7 +177,7 @@ impl ClientAuthentication {
                         headers.insert("Authorization", value);
                     }
                 }
-                _ => {
+                ClientAuthStyle::InParams => {
                     params.insert("client_id", client_id);
                     params.insert("client_secret", client_secret);
                 }
@@ -291,8 +280,7 @@ mod test {
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let handler = STSHandler::new();
-        let resp = handler.exchange_token(token_req).await?;
+        let resp = STSHandler::exchange_token(token_req).await?;
 
         assert_eq!(
             resp,
@@ -353,8 +341,7 @@ mod test {
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let handler = STSHandler::new();
-        let err = assert_err!(handler.exchange_token(token_req).await);
+        let err = assert_err!(STSHandler::exchange_token(token_req).await);
 
         let expected_err = crate::errors::CredentialsError::from_str(
             false,
@@ -409,8 +396,7 @@ mod test {
             headers,
             refresh_token: "an_example_refresh_token".to_string(),
         };
-        let handler = STSHandler::new();
-        let resp = handler.refresh_access_token(token_req).await?;
+        let resp = STSHandler::refresh_access_token(token_req).await?;
 
         assert_eq!(
             resp,

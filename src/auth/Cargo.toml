@@ -43,6 +43,7 @@ gax.workspace = true
 
 [dev-dependencies]
 axum.workspace        = true
+httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem"] }
@@ -56,4 +57,3 @@ url.workspace         = true
 mutants.workspace     = true
 # Blocked by https://github.com/RustCrypto/RSA/issues/466
 rand = "0.8"
-httptest          = "0.16.3"

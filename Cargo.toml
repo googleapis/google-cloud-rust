@@ -307,6 +307,7 @@ tracing-subscriber = { version = "0.3", default-features = false }
 # Test packags
 anyhow        = "1"
 axum          = { version = "0.8" }
+httptest      = { version = "0.16.3" }
 mockall       = { version = "0.13" }
 mutants       = { version = "0.0.3" }
 regex         = { version = "1", default-features = false }
