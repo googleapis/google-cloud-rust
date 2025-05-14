@@ -91,8 +91,7 @@ impl STSHandler {
         let client = reqwest::Client::new();
 
         let mut headers = headers.clone();
-        let mut params = params.clone();
-        client_auth.inject_auth(&mut headers, &mut params);
+        client_auth.inject_auth(&mut headers);
 
         let res = client
             .post(url)
@@ -131,56 +130,27 @@ pub struct TokenResponse {
     pub refresh_token: Option<String>,
 }
 
-/// Authentication style via headers or form params.
-/// See https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
-#[derive(Debug, Clone)]
-pub enum ClientAuthStyle {
-    InParams,
-    InHeader,
-}
-
 /// ClientAuthentication represents an OAuth client ID and secret and the
 /// mechanism for passing these credentials as stated
 /// in https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
-#[derive(Clone, Debug)]
+/// Only authentication via headers is currently supported.
+#[derive(Clone, Debug, Default)]
 pub struct ClientAuthentication {
-    pub auth_style: ClientAuthStyle,
     pub client_id: Option<String>,
     pub client_secret: Option<String>,
 }
 
-impl Default for ClientAuthentication {
-    fn default() -> Self {
-        Self {
-            auth_style: ClientAuthStyle::InParams,
-            client_id: None,
-            client_secret: None,
-        }
-    }
-}
-
 impl ClientAuthentication {
     /// Add authentication to a Secure Token Service exchange request.
-    /// Modifies either the passed headers or form parameters
-    /// depending on the desired authentication format.
-    pub fn inject_auth(&self, headers: &mut http::HeaderMap, params: &mut HashMap<&str, String>) {
+    pub fn inject_auth(&self, headers: &mut http::HeaderMap) {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
         {
-            match self.auth_style {
-                ClientAuthStyle::InHeader => {
-                    let plain_header = format!("{}:{}", client_id, client_secret);
-                    let encoded =
-                        base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(plain_header);
-                    let header = http::HeaderValue::from_str(format!("Basic {encoded}").as_str());
-                    if let Ok(value) = header {
-                        headers.insert("Authorization", value);
-                    }
-                }
-                ClientAuthStyle::InParams => {
-                    params.insert("client_id", client_id);
-                    params.insert("client_secret", client_secret);
-                }
+            let plain_header = format!("{}:{}", client_id, client_secret);
+            let encoded = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(plain_header);
+            let header = http::HeaderValue::from_str(format!("Basic {encoded}").as_str());
+            if let Ok(value) = header {
+                headers.insert("Authorization", value);
             }
         }
     }
@@ -221,7 +191,6 @@ mod test {
     #[tokio::test]
     async fn exchange_token() -> TestResult {
         let authentication = ClientAuthentication {
-            auth_style: ClientAuthStyle::InHeader,
             client_id: Some("client_id".to_string()),
             client_secret: Some("supersecret".to_string()),
         };
@@ -300,7 +269,6 @@ mod test {
     #[tokio::test]
     async fn exchange_token_err() -> TestResult {
         let authentication = ClientAuthentication {
-            auth_style: ClientAuthStyle::InHeader,
             client_id: None,
             client_secret: None,
         };
@@ -355,7 +323,6 @@ mod test {
     #[tokio::test]
     async fn refresh_access_token() -> TestResult {
         let authentication = ClientAuthentication {
-            auth_style: ClientAuthStyle::InParams,
             client_id: Some("client_id".to_string()),
             client_secret: Some("supersecret".to_string()),
         };
@@ -374,8 +341,10 @@ mod test {
                     "refresh_token",
                     "an_example_refresh_token"
                 )))),
-                request::body(url_decoded(contains(("client_id", "client_id")))),
-                request::body(url_decoded(contains(("client_secret", "supersecret")))),
+                request::headers(contains((
+                    "authorization",
+                    "Basic Y2xpZW50X2lkOnN1cGVyc2VjcmV0"
+                ))),
                 request::headers(contains((
                     "content-type",
                     "application/x-www-form-urlencoded"
