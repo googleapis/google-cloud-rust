@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod test {
-    use auth::credentials::{Credentials, CredentialsProvider};
+    use auth::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use auth::errors::CredentialsError;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
@@ -30,7 +30,7 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> AuthResult<HeaderMap>;
+            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -43,17 +43,21 @@ mod test {
         // 1. we can test that multiple headers are included in the request
         // 2. it gives us extra confidence that our interfaces are called
         let mut mock = MockCredentials::new();
+        let header = HeaderMap::from_iter([
+            (
+                HeaderName::from_static("auth-key-1"),
+                HeaderValue::from_static("auth-value-1"),
+            ),
+            (
+                HeaderName::from_static("auth-key-2"),
+                HeaderValue::from_static("auth-value-2"),
+            ),
+        ]);
         mock.expect_headers().return_once(|_extensions| {
-            Ok(HeaderMap::from_iter([
-                (
-                    HeaderName::from_static("auth-key-1"),
-                    HeaderValue::from_static("auth-value-1"),
-                ),
-                (
-                    HeaderName::from_static("auth-key-2"),
-                    HeaderValue::from_static("auth-value-2"),
-                ),
-            ]))
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: header,
+            })
         });
 
         let client = echo_server::builder(endpoint)

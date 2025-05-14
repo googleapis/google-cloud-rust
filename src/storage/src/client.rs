@@ -14,6 +14,7 @@
 
 pub use crate::Error;
 pub use crate::Result;
+use auth::credentials::CacheableResource;
 pub use control::model::Object;
 use http::Extensions;
 
@@ -149,11 +150,17 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => reqwest::header::HeaderMap::new(),
+        };
+
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
@@ -211,11 +218,16 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => reqwest::header::HeaderMap::new(),
+        };
+
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));

@@ -289,7 +289,7 @@ mod test {
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
-    use http::header::{self, AUTHORIZATION};
+    use http::header::AUTHORIZATION;
     use reqwest::StatusCode;
     use reqwest::header::HeaderMap;
     use scoped_env::ScopedEnv;
