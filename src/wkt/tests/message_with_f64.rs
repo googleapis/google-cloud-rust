@@ -57,6 +57,17 @@ mod test {
         Ok(())
     }
 
+    #[test_case(-1, -1.0)]
+    #[test_case(-2, -2.0)]
+    #[test_case(3, 3.0)]
+    #[test_case(4, 4.0)]
+    fn test_singular_as_int(input: i64, want: f64) -> Result {
+        let input = json!({"singular": input});
+        let got = serde_json::from_value::<MessageWithF64>(input)?;
+        assert_eq!(got.singular, want);
+        Ok(())
+    }
+
     #[test_case(9876.5, 9876.5)]
     #[test_case(f64::INFINITY, "Infinity")]
     #[test_case(f64::NEG_INFINITY, "-Infinity")]
