@@ -29,8 +29,7 @@ pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 /// An implementation of [crate::credentials::CredentialsProvider].
 ///
-/// Represents a [Credentials] used to obtain auth [Token][crate::token::Token]s
-/// and the corresponding request headers.
+/// Represents a [Credentials] used to obtain the auth request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that provide
 /// proof of identity", the archetype may be a username and password
@@ -85,10 +84,6 @@ where
 }
 
 impl Credentials {
-    pub async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
-        self.inner.token(extensions).await
-    }
-
     pub async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
         self.inner.headers(extensions).await
     }
@@ -98,8 +93,7 @@ impl Credentials {
     }
 }
 
-/// Represents a [Credentials] used to obtain auth
-/// [Token][crate::token::Token]s and the corresponding request headers.
+/// Represents a [Credentials] used to obtain auth request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that
 /// provide proof of identity", the archetype may be a username and password
@@ -139,17 +133,6 @@ impl Credentials {
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
 pub trait CredentialsProvider: std::fmt::Debug {
-    /// Asynchronously retrieves a token.
-    ///
-    /// Returns a [Token][crate::token::Token] for the current credentials.
-    /// The underlying implementation refreshes the token as needed.
-    // TODO(#2036): After the return type is updated to return a cacheable resource
-    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
-    fn token(
-        &self,
-        extensions: Extensions,
-    ) -> impl Future<Output = Result<crate::token::Token>> + Send;
-
     /// Asynchronously constructs the auth headers.
     ///
     /// Different auth tokens are sent via different headers. The
@@ -172,14 +155,6 @@ pub(crate) mod dynamic {
     /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
     pub trait CredentialsProvider: Send + Sync + std::fmt::Debug {
-        /// Asynchronously retrieves a token.
-        ///
-        /// Returns a [Token][crate::token::Token] for the current credentials.
-        /// The underlying implementation refreshes the token as needed.
-        // TODO(#2036): After the return type is updated to return cacheable resource
-        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token>;
-
         /// Asynchronously constructs the auth headers.
         ///
         /// Different auth tokens are sent via different headers. The
@@ -203,9 +178,6 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn token(&self, extensions: Extensions) -> Result<crate::token::Token> {
-            T::token(self, extensions).await
-        }
         async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
             T::headers(self, extensions).await
         }
@@ -246,7 +218,7 @@ enum CredentialsSource {
 ///   service account key file, or a JSON object describing your user
 ///   credentials.
 ///
-/// The access tokens returned by these credentials should be used in the
+/// The headers returned by these credentials should be used in the
 /// Authorization HTTP header.
 ///
 /// The Google Cloud client libraries for Rust will typically find and use these
@@ -258,22 +230,22 @@ enum CredentialsSource {
 ///
 /// Example usage:
 ///
-/// Fetching token using ADC
+/// Fetching headers using ADC
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
 /// # use http::Extensions;
 /// # tokio_test::block_on(async {
-/// let creds = Builder::default()
+/// let credentials = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token(Extensions::new()).await?;
-/// println!("Token: {}", token.token);
+/// let headers = credentials.headers(Extensions::new()).await?;
+/// println!("Headers: {headers:?}");
 /// # Ok::<(), CredentialsError>(())
 /// # });
 /// ```
 ///
-/// Fetching token using custom JSON
+/// Fetching headers using custom JSON
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
@@ -292,8 +264,8 @@ enum CredentialsSource {
 /// let creds = Builder::new(authorized_user)
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token(Extensions::new()).await?;
-/// println!("Token: {}", token.token);
+/// let headers = creds.headers(Extensions::new()).await?;
+/// println!("Headers: {headers:?}");
 /// # Ok::<(), CredentialsError>(())
 /// # });
 /// ```
@@ -580,7 +552,6 @@ pub mod testing {
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
-    use crate::token::Token;
     use http::{Extensions, HeaderMap};
     use std::sync::Arc;
 
@@ -598,15 +569,6 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn token(&self, _extensions: Extensions) -> Result<Token> {
-            Ok(Token {
-                token: "test-only-token".to_string(),
-                token_type: "Bearer".to_string(),
-                expires_at: None,
-                metadata: None,
-            })
-        }
-
         async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Ok(HeaderMap::new())
         }
@@ -618,7 +580,7 @@ pub mod testing {
 
     /// A simple credentials implementation to use in tests.
     ///
-    /// Always return an error in `token()` and `headers()`.
+    /// Always return an error in `headers()`.
     pub fn error_credentials(retryable: bool) -> Credentials {
         Credentials {
             inner: Arc::from(ErrorCredentials(retryable)),
@@ -630,10 +592,6 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn token(&self, _extensions: Extensions) -> Result<Token> {
-            Err(super::CredentialsError::from_str(self.0, "test-only"))
-        }
-
         async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
@@ -648,6 +606,7 @@ pub mod testing {
 mod test {
     use super::*;
     use base64::Engine;
+    use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
@@ -656,6 +615,22 @@ mod test {
     use test_case::test_case;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> Option<String> {
+        headers
+            .get(AUTHORIZATION)
+            .and_then(|token_value| token_value.to_str().ok())
+            .and_then(|s| s.split_whitespace().nth(1))
+            .map(|s| s.to_string())
+    }
+
+    pub(crate) fn get_token_type_from_headers(headers: &HeaderMap) -> Option<String> {
+        headers
+            .get(AUTHORIZATION)
+            .and_then(|token_value| token_value.to_str().ok())
+            .and_then(|s| s.split_whitespace().next())
+            .map(|s| s.to_string())
+    }
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
         let mut rng = rand::thread_rng();
@@ -803,7 +778,7 @@ mod test {
             credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
-        let err = credentials.token(Extensions::new()).await.err().unwrap();
+        let err = credentials.headers(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
         let err = credentials.headers(Extensions::new()).await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
@@ -847,8 +822,9 @@ mod test {
             .build()
             .unwrap();
 
-        let token = sac.token(Extensions::new()).await?;
-        let parts: Vec<_> = token.token.split('.').collect();
+        let headers = sac.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(&headers).unwrap();
+        let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
 

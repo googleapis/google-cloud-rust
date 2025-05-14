@@ -15,7 +15,7 @@
 use crate::Result;
 use http::Extensions;
 use std::collections::HashMap;
-use std::time::Instant;
+use tokio::time::Instant;
 
 /// Represents an auth token.
 #[derive(Clone, PartialEq)]

@@ -109,19 +109,21 @@ impl Builder {
         self
     }
 
+    fn build_token_provider(self) -> ApiKeyTokenProvider {
+        ApiKeyTokenProvider {
+            api_key: self.api_key,
+        }
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Credentials {
-        let token_provider = ApiKeyTokenProvider {
-            api_key: self.api_key,
-        };
-
         let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
             .ok()
-            .or(self.quota_project_id);
+            .or(self.quota_project_id.clone());
 
         Credentials {
             inner: Arc::new(ApiKeyCredentials {
-                token_provider,
+                token_provider: self.build_token_provider(),
                 quota_project_id,
             }),
         }
@@ -133,12 +135,8 @@ impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn token(&self, _extensions: Extensions) -> Result<Token> {
-        self.token_provider.token().await
-    }
-
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
-        let token = self.token(extensions).await?;
+    async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
+        let token = self.token_provider.token().await?;
         build_api_key_headers(&token, &self.quota_project_id)
     }
 }
@@ -154,11 +152,24 @@ mod test {
 
     #[test]
     fn debug_token_provider() {
-        let expected = ApiKeyTokenProvider {
-            api_key: "super-secret-api-key".to_string(),
-        };
+        let expected = Builder::new("test-api-key").build_token_provider();
+
         let fmt = format!("{expected:?}");
         assert!(!fmt.contains("super-secret-api-key"), "{fmt}");
+    }
+
+    #[tokio::test]
+    async fn api_key_credentials_token_provider() {
+        let tp = Builder::new("test-api-key").build_token_provider();
+        assert_eq!(
+            tp.token().await.unwrap(),
+            Token {
+                token: "test-api-key".to_string(),
+                token_type: String::new(),
+                expires_at: None,
+                metadata: None,
+            }
+        );
     }
 
     #[tokio::test]
@@ -167,16 +178,6 @@ mod test {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
         let creds = Builder::new("test-api-key").build();
-        let token = creds.token(Extensions::new()).await.unwrap();
-        assert_eq!(
-            token,
-            Token {
-                token: "test-api-key".to_string(),
-                token_type: String::new(),
-                expires_at: None,
-                metadata: None,
-            }
-        );
         let headers = creds.headers(Extensions::new()).await.unwrap();
         let value = headers.get(API_KEY_HEADER_KEY).unwrap();
 
