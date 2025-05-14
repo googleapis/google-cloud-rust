@@ -164,5 +164,5 @@ async fn wait_until_ready() -> Result<()> {
         tokio::time::sleep(Duration::from_millis(500)).await;
     }
 
-    return Err(Error::other("not ready"));
+    Err(Error::other("not ready"))
 }
