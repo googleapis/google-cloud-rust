@@ -96,16 +96,16 @@ use std::future::Future;
 /// The result of polling a Long-Running Operation (LRO).
 ///
 /// # Parameters
-/// * `R` - the response type. This is the type returned when the LRO completes
+/// * `ResponseType` - This is the type returned when the LRO completes
 ///   successfully.
-/// * `M` - the metadata type. While operations are in progress the LRO may
-///   return values of this type.
+/// * `MetadataType` - The LRO may return values of this type while the
+///   operation is in progress. This may include some measure of "progress".
 #[derive(Debug)]
-pub enum PollingResult<R, M> {
+pub enum PollingResult<ResponseType, MetadataType> {
     /// The operation is still in progress.
-    InProgress(Option<M>),
+    InProgress(Option<MetadataType>),
     /// The operation completed. This includes the result.
-    Completed(Result<R>),
+    Completed(Result<ResponseType>),
     /// An error trying to poll the LRO.
     ///
     /// Not all errors indicate that the operation failed. For example, this
@@ -133,21 +133,23 @@ mod sealed {
 /// Automatically polls long-running operations.
 ///
 /// # Parameters
-/// * `R` - the response type, that is, the type of response included when the
-///   long-running operation completes successfully.
-/// * `M` - the metadata type, that is, the type returned by the service when
-///   the long-running operation is still in progress.
-pub trait Poller<R, M>: Send + sealed::Poller {
+/// * `ResponseType` - This is the type returned when the LRO completes
+///   successfully.
+/// * `MetadataType` - The LRO may return values of this type while the
+///   operation is in progress. This may include some measure of "progress".
+pub trait Poller<ResponseType, MetadataType>: Send + sealed::Poller {
     /// Query the current status of the long-running operation.
-    fn poll(&mut self) -> impl Future<Output = Option<PollingResult<R, M>>> + Send;
+    fn poll(
+        &mut self,
+    ) -> impl Future<Output = Option<PollingResult<ResponseType, MetadataType>>> + Send;
 
     /// Poll the long-running operation until it completes.
-    fn until_done(self) -> impl Future<Output = Result<R>> + Send;
+    fn until_done(self) -> impl Future<Output = Result<ResponseType>> + Send;
 
     /// Convert a poller to a [Stream][futures::Stream].
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>;
 }
 
 mod details;
