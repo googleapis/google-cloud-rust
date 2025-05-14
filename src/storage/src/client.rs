@@ -298,8 +298,9 @@ pub(crate) mod info {
 
 mod v1 {
     #[serde_with::serde_as]
-    #[derive(Debug, Default, serde::Deserialize)]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq)]
     #[serde(default, rename_all = "camelCase")]
+    // See http://cloud/storage/docs/json_api/v1/objects#resource for API reference.
     pub struct Object {
         id: String,
         name: String,
@@ -312,6 +313,28 @@ mod v1 {
         storage_class: String,
         #[serde_as(as = "serde_with::DisplayFromStr")]
         size: u64,
+        component_count: i32,
+        kms_key_name: String,
+        etag: String,
+        restore_token: String,
+        content_encoding: String,
+        content_disposition: String,
+        content_language: String,
+        cache_control: String,
+        temporary_hold: bool,
+        event_based_hold: bool,
+        soft_delete_time: wkt::Timestamp,
+        hard_delete_time: wkt::Timestamp,
+        retention_expiration_time: wkt::Timestamp,
+        time_created: wkt::Timestamp,
+        time_finalized: wkt::Timestamp,
+        time_deleted: wkt::Timestamp,
+        time_storage_class_updated: wkt::Timestamp,
+        updated: wkt::Timestamp,
+        custom_time: wkt::Timestamp,
+        // The following are excluded from the protos, so we don't really need to parse them.
+        media_link: String,
+        self_link: String,
         // TODO(#2039) - add all the other fields.
     }
 
@@ -325,6 +348,106 @@ mod v1 {
                 .set_content_type(value.content_type)
                 .set_storage_class(value.storage_class)
                 .set_size(value.size as i64)
+                .set_kms_key(value.kms_key_name)
+                .set_etag(value.etag)
+                .set_restore_token(value.restore_token)
+                .set_content_encoding(value.content_encoding)
+                .set_content_disposition(value.content_disposition)
+                .set_content_language(value.content_language)
+                .set_cache_control(value.cache_control)
+                .set_temporary_hold(value.temporary_hold)
+                .set_event_based_hold(value.event_based_hold)
+                .set_component_count(value.component_count)
+                .set_soft_delete_time(value.soft_delete_time)
+                .set_hard_delete_time(value.hard_delete_time)
+                .set_retention_expire_time(value.retention_expiration_time)
+                .set_create_time(value.time_created)
+                .set_finalize_time(value.time_finalized)
+                .set_delete_time(value.time_deleted)
+                .set_update_storage_class_time(value.time_storage_class_updated)
+                .set_custom_time(value.custom_time)
+                .set_update_time(value.updated)
+        }
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn test_deserialize_object() {
+            let json = serde_json::json!({
+                // string fields:
+                "id": "obj1",
+                "name": "test-object.txt",
+                "bucket": "my-bucket",
+                "contentType": "text/plain",
+                "storageClass": "STANDARD",
+                // i64 and u64 fields:
+                "generation": "123",
+                "metageneration": "456",
+                "size": "789",
+                // boolean fields:
+                "temporaryHold": true,
+                // number fields:
+                "componentCount": 5,
+                // datetime fields:
+                "timeCreated": "2025-05-13T10:30:00Z",
+            });
+            let object: Object = serde_json::from_value(json)
+                .expect("json value in object test should be deserializable");
+
+            let want = Object {
+                // string fields:
+                id: "obj1".to_string(),
+                name: "test-object.txt".to_string(),
+                bucket: "my-bucket".to_string(),
+                content_type: "text/plain".to_string(),
+                storage_class: "STANDARD".to_string(),
+                // i64 and u64 fields:
+                generation: 123,
+                metageneration: 456,
+                size: 789,
+                // boolean fields:
+                temporary_hold: true,
+                // number fields:
+                component_count: 5,
+                // datetime fields:
+                time_created: wkt::Timestamp::clamp(1747132200, 0),
+                ..Default::default()
+            };
+
+            assert_eq!(object, want);
+        }
+
+        #[test]
+        fn test_convert_object_to_control_model() {
+            let object = Object {
+                // string fields:
+                id: "obj1".to_string(),
+                name: "test-object.txt".to_string(),
+                bucket: "my-bucket".to_string(),
+                content_type: "text/plain".to_string(),
+                storage_class: "STANDARD".to_string(),
+                // i64 and u64 fields:
+                generation: 123,
+                metageneration: 456,
+                size: 789,
+                // boolean fields:
+                temporary_hold: true,
+                // number fields:
+                component_count: 5,
+                // datetime fields:
+                time_created: wkt::Timestamp::clamp(1747132200, 0),
+                // unused in control::model
+                media_link: "my-media-link".to_string(),
+                ..Default::default()
+            };
+
+            let got = control::model::Object::from(object);
+
+            assert_eq!(got.generation, 123);
+            assert_eq!(got.bucket, "projects/_/buckets/my-bucket");
         }
     }
 }
