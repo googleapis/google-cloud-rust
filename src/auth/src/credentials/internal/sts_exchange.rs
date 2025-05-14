@@ -32,7 +32,7 @@ pub struct STSHandler {}
 
 impl STSHandler {
     /// Performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
-    pub async fn exchange_token(req: ExchangeTokenRequest) -> Result<TokenResponse> {
+    pub(crate) async fn exchange_token(req: ExchangeTokenRequest) -> Result<TokenResponse> {
         let mut params = HashMap::new();
 
         params.insert("grant_type", TOKEN_EXCHANGE_GRANT_TYPE.to_string());
@@ -68,7 +68,7 @@ impl STSHandler {
     }
 
     /// Execute http request and token exchange
-    pub(crate) async fn execute(
+    async fn execute(
         url: String,
         client_auth: ClientAuthentication,
         headers: http::HeaderMap,
@@ -77,7 +77,7 @@ impl STSHandler {
         let client = reqwest::Client::new();
 
         let mut headers = headers.clone();
-        client_auth.inject_auth(&mut headers);
+        client_auth.inject_auth(&mut headers)?;
 
         let res = client
             .post(url)
@@ -128,7 +128,7 @@ pub struct ClientAuthentication {
 
 impl ClientAuthentication {
     /// Add authentication to a Secure Token Service exchange request.
-    pub fn inject_auth(&self, headers: &mut http::HeaderMap) {
+    pub fn inject_auth(&self, headers: &mut http::HeaderMap) -> Result<()> {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
         {
@@ -138,7 +138,12 @@ impl ClientAuthentication {
             if let Ok(value) = header {
                 headers.insert("Authorization", value);
             }
+            return Ok(());
         }
+        return Err(crate::errors::CredentialsError::from_str(
+            false,
+            "missing client_id and client_secret",
+        ));
     }
 }
 
@@ -263,8 +268,8 @@ mod test {
     #[tokio::test]
     async fn exchange_token_err() -> TestResult {
         let authentication = ClientAuthentication {
-            client_id: None,
-            client_secret: None,
+            client_id: Some("client_id".to_string()),
+            client_secret: Some("supersecret".to_string()),
         };
         let response_body = json!({
             "error":"bad request",
@@ -289,6 +294,10 @@ mod test {
                     JWT_TOKEN_TYPE
                 )))),
                 request::headers(contains((
+                    "authorization",
+                    "Basic Y2xpZW50X2lkOnN1cGVyc2VjcmV0"
+                ))),
+                request::headers(contains((
                     "content-type",
                     "application/x-www-form-urlencoded"
                 ))),
@@ -312,6 +321,32 @@ mod test {
             false,
             "error exchanging token, failed with status 400 Bad Request",
         );
+        assert_eq!(err.to_string(), expected_err.to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn exchange_token_missing_auth_err() -> TestResult {
+        let authentication = ClientAuthentication {
+            client_id: None,
+            client_secret: None,
+        };
+
+        let url = "/not-reached".to_string();
+        let headers = http::HeaderMap::new();
+        let token_req = ExchangeTokenRequest {
+            url,
+            headers,
+            authentication,
+            subject_token: "an_example_token".to_string(),
+            subject_token_type: JWT_TOKEN_TYPE.to_string(),
+            ..ExchangeTokenRequest::default()
+        };
+        let err = assert_err!(STSHandler::exchange_token(token_req).await);
+
+        let expected_err =
+            crate::errors::CredentialsError::from_str(false, "missing client_id and client_secret");
         assert_eq!(err.to_string(), expected_err.to_string());
 
         Ok(())
