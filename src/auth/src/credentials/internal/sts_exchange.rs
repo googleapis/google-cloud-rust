@@ -171,6 +171,7 @@ pub struct RefreshAccessTokenRequest {
 mod test {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use serde_json::json;
     use tokio_test::assert_err;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -180,7 +181,14 @@ mod test {
             client_id: Some("client_id".to_string()),
             client_secret: Some("supersecret".to_string()),
         };
-        let response_body = r#"{"access_token":"an_example_token","issued_token_type":"urn:ietf:params:oauth:token-type:access_token","token_type":"Bearer","expires_in":3600,"scope":"https://www.googleapis.com/auth/cloud-platform"}"#;
+        let response_body = json!({
+            "access_token":"an_example_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+            "scope":"https://www.googleapis.com/auth/cloud-platform"
+        })
+        .to_string();
 
         let server = Server::run();
         server.expect(
@@ -258,7 +266,10 @@ mod test {
             client_id: None,
             client_secret: None,
         };
-        let response_body = r#"{"error":"bad request"}"#;
+        let response_body = json!({
+            "error":"bad request",
+        })
+        .to_string();
 
         let server = Server::run();
         server.expect(
