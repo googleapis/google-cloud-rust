@@ -413,8 +413,7 @@ mod v1 {
                 // number fields:
                 component_count: 5,
                 // datetime fields:
-                time_created: wkt::Timestamp::new(1747132200, 0)
-                    .expect("hardcoded timestamp value in object test should be in range"),
+                time_created: wkt::Timestamp::clamp(1747132200, 0),
                 ..Default::default()
             };
 
@@ -439,8 +438,7 @@ mod v1 {
                 // number fields:
                 component_count: 5,
                 // datetime fields:
-                time_created: wkt::Timestamp::new(1747132200, 0)
-                    .expect("hardcoded timestamp value in object test should be in range"),
+                time_created: wkt::Timestamp::clamp(1747132200, 0),
                 // unused in control::model
                 media_link: "my-media-link".to_string(),
                 ..Default::default()
