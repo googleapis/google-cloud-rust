@@ -60,4 +60,4 @@ tokio-test.workspace = true
 # Local dependencies
 auth.workspace = true
 gaxi.workspace = true
-lro            = { workspace = true, features = ["unstable-stream"] }
+lro            = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
