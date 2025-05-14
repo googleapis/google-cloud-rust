@@ -128,7 +128,7 @@ pub struct ClientAuthentication {
 
 impl ClientAuthentication {
     /// Add authentication to a Secure Token Service exchange request.
-    pub fn inject_auth(&self, headers: &mut http::HeaderMap) -> Result<()> {
+    fn inject_auth(&self, headers: &mut http::HeaderMap) -> Result<()> {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
         {
@@ -140,10 +140,10 @@ impl ClientAuthentication {
             }
             return Ok(());
         }
-        return Err(crate::errors::CredentialsError::from_str(
+        Err(crate::errors::CredentialsError::from_str(
             false,
-            "missing client_id and client_secret",
-        ));
+            "missing client_id and/or client_secret",
+        ))
     }
 }
 
@@ -345,8 +345,10 @@ mod test {
         };
         let err = assert_err!(STSHandler::exchange_token(token_req).await);
 
-        let expected_err =
-            crate::errors::CredentialsError::from_str(false, "missing client_id and client_secret");
+        let expected_err = crate::errors::CredentialsError::from_str(
+            false,
+            "missing client_id and/or client_secret",
+        );
         assert_eq!(err.to_string(), expected_err.to_string());
 
         Ok(())
