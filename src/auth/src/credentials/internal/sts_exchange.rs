@@ -21,8 +21,6 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Token Exchange grant type for a sts exchange.
 pub const TOKEN_EXCHANGE_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:token-exchange";
-/// Refresh Token Exchange grant type for a sts exchange.
-pub const REFRESH_TOKEN_GRANT_TYPE: &str = "refresh_token";
 /// TokenType for a sts exchange.
 pub const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT TokenType for a sts exchange.
@@ -30,21 +28,9 @@ pub const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
-pub struct STSHandler {
-    client: reqwest::Client,
-}
+pub struct STSHandler {}
 
 impl STSHandler {
-    /// Performs the token exchange using a refresh token flow with
-    /// the provided [RefreshAccessTokenRequest] information.
-    pub async fn refresh_access_token(req: RefreshAccessTokenRequest) -> Result<TokenResponse> {
-        let mut params = HashMap::new();
-        params.insert("grant_type", REFRESH_TOKEN_GRANT_TYPE.to_string());
-        params.insert("refresh_token", req.refresh_token);
-
-        Self::execute(req.url, req.authentication, req.headers, params).await
-    }
-
     /// Performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
     pub async fn exchange_token(req: ExchangeTokenRequest) -> Result<TokenResponse> {
         let mut params = HashMap::new();
@@ -316,68 +302,6 @@ mod test {
             "error exchanging token, failed with status 400 Bad Request",
         );
         assert_eq!(err.to_string(), expected_err.to_string());
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn refresh_access_token() -> TestResult {
-        let authentication = ClientAuthentication {
-            client_id: Some("client_id".to_string()),
-            client_secret: Some("supersecret".to_string()),
-        };
-
-        let response_body = r#"{"access_token":"an_example_token","issued_token_type":"urn:ietf:params:oauth:token-type:access_token","token_type":"Bearer","expires_in":3600,"scope":"https://www.googleapis.com/auth/cloud-platform"}"#;
-
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/refresh_token"),
-                request::body(url_decoded(contains((
-                    "grant_type",
-                    REFRESH_TOKEN_GRANT_TYPE
-                )))),
-                request::body(url_decoded(contains((
-                    "refresh_token",
-                    "an_example_refresh_token"
-                )))),
-                request::headers(contains((
-                    "authorization",
-                    "Basic Y2xpZW50X2lkOnN1cGVyc2VjcmV0"
-                ))),
-                request::headers(contains((
-                    "content-type",
-                    "application/x-www-form-urlencoded"
-                ))),
-            ])
-            .respond_with(status_code(200).body(response_body)),
-        );
-
-        let url = server.url("/refresh_token").to_string();
-        let mut headers = http::HeaderMap::new();
-        headers.insert(
-            http::header::CONTENT_TYPE,
-            http::HeaderValue::from_static("application/x-www-form-urlencoded"),
-        );
-        let token_req = RefreshAccessTokenRequest {
-            url,
-            authentication,
-            headers,
-            refresh_token: "an_example_refresh_token".to_string(),
-        };
-        let resp = STSHandler::refresh_access_token(token_req).await?;
-
-        assert_eq!(
-            resp,
-            TokenResponse {
-                access_token: "an_example_token".to_string(),
-                refresh_token: None,
-                issued_token_type: ACCESS_TOKEN_TYPE.to_string(),
-                token_type: "Bearer".to_string(),
-                expires_in: 3600,
-                scope: "https://www.googleapis.com/auth/cloud-platform".to_string(),
-            }
-        );
 
         Ok(())
     }
