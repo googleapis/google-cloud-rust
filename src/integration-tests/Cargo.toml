@@ -22,7 +22,7 @@ version           = "0.0.0"
 [features]
 log-integration-tests = ["dep:tracing-subscriber"]
 run-integration-tests = []
-run-showcase-tests = []
+run-showcase-tests    = []
 
 [dependencies]
 bytes.workspace       = true
