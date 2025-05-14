@@ -101,9 +101,7 @@ impl STSHandler {
     ) -> Result<TokenResponse> {
         let mut headers = headers.clone();
         let mut params = params.clone();
-        println!("[execute] url: {}", url);
         client_auth.inject_auth(&mut headers, &mut params);
-        println!("[execute] headers: {:?}", headers);
 
         let res = self
             .client
@@ -117,8 +115,6 @@ impl STSHandler {
             })?;
 
         let status = res.status();
-        println!("[execute] status: {:?}", status);
-        println!("[execute] response: {:?}", res);
         if !status.is_success() {
             return Err(CredentialsError::from_str(
                 false,
