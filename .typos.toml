@@ -66,6 +66,7 @@ authentiation = "authentiation"
 # src/generated/cloud/alloydb/v1, has some typos, they need to be fixed upstream.
 ephemereal   = "ephemereal"
 ceritificate = "ceritificate"
+instaces     = "instaces"
 # src/generated/cloud/config/v1 has a typo, it needs to be fixed upstream.
 identifiy = "identifiy"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
