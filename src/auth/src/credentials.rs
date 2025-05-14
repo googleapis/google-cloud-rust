@@ -27,10 +27,20 @@ use std::sync::Arc;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
+/// Represents an Entity Tag (ETag) for a cacheable resource.
+///
+/// An `EntityTag` is an opaque string token that can be used to determine if a
+/// cached resource has changed. The specific format of the ETag string is
+/// determined by its generator (e.g., a hash of the resource content).
+///
+/// # Security Note
+/// The `Debug` implementation for `EntityTag` censors the actual tag value
+/// to prevent accidental logging of potentially sensitive information.
 #[derive(Clone, PartialEq, Default)]
 pub struct EntityTag(pub(crate) String);
 
 impl EntityTag {
+    /// Creates a new `EntityTag` from a string value.
     pub fn new(value: String) -> Self {
         Self(value)
     }
@@ -44,6 +54,12 @@ impl std::fmt::Debug for EntityTag {
     }
 }
 
+/// Represents a resource that can be cached, along with its [EntityTag].
+///
+/// This enum is used to provide cacheable data to the clients.
+/// It allows a data provider to return either new data (with an [EntityTag]) or
+/// indicate that the client's cached version (identified by a previously provided [EntityTag])
+/// is still valid.
 #[derive(Clone, PartialEq, Debug)]
 pub enum CacheableResource<T> {
     NotModified,
@@ -162,9 +178,21 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// [Credentials] constructs the headers (and header values) that should be
     /// sent with a request.
     ///
-    /// The underlying implementation refreshes the token as needed.
-    // TODO(#2036): After the return type is updated to return a cacheable resource
-    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. For caching purposes, this can include
+    ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].    
+    ///   If a valid `EntityTag` is provided and the underlying authentication data
+    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///
+    /// # Returns
+    /// A `Future` that resolves to a `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
     fn headers(
         &self,
         extensions: Extensions,
@@ -187,9 +215,21 @@ pub(crate) mod dynamic {
         /// [Credentials] constructs the headers (and header values) that should be
         /// sent with a request.
         ///
-        /// The underlying implementation refreshes the token as needed.
-        // TODO(#2036): After the return type is updated to return cacheable resource
-        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
+        /// # Parameters
+        /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+        ///   context to the credential provider. For caching purposes, this can include
+        ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].    
+        ///   If a valid `EntityTag` is provided and the underlying authentication data
+        ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+        ///
+        /// # Returns
+        /// A `Future` that resolves to a `Result` containing:
+        /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+        ///   are available.
+        /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+        ///   the ETag provided via `extensions` was issued.
+        /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+        ///   generating the headers.
         async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
 
         /// Retrieves the universe domain associated with the credentials, if any.

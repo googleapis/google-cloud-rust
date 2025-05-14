@@ -222,7 +222,7 @@ mod test {
                 assert!(data.is_empty());
             }
             CacheableResource::NotModified => {
-                assert!(false, "Expecting a header to be present");
+                unreachable!("Expecting a header to be present");
             }
         };
         assert_eq!(creds.universe_domain().await, None);
@@ -278,7 +278,7 @@ mod test {
                 assert!(data.is_empty());
             }
             CacheableResource::NotModified => {
-                assert!(false, "Expecting a header to be present");
+                unreachable!("Expecting a header to be present");
             }
         };
         assert_eq!(creds.universe_domain().await.unwrap(), universe_domain);
@@ -296,7 +296,7 @@ mod test {
                 assert!(data.is_empty());
             }
             CacheableResource::NotModified => {
-                assert!(false, "Expecting a header to be present");
+                unreachable!("Expecting a header to be present");
             }
         };
         assert_eq!(creds.universe_domain().await, None);
