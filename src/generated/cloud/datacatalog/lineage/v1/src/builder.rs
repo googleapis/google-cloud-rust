@@ -73,6 +73,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ProcessOpenLineageRunEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -152,6 +153,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CreateProcess;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -229,6 +231,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::UpdateProcess;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -307,6 +310,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetProcess;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -367,8 +371,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListProcesses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -467,8 +472,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteProcess;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datacatalog_lineage_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -574,6 +580,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CreateRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -648,6 +655,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::UpdateRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -723,6 +731,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -783,8 +792,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListRuns;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -883,8 +893,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteRun;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datacatalog_lineage_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -990,6 +1001,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CreateLineageEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1070,6 +1082,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetLineageEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1130,8 +1143,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListLineageEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1233,6 +1247,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteLineageEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1302,8 +1317,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::SearchLinks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1440,8 +1456,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::BatchSearchLinkProcesses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1562,8 +1579,9 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1671,6 +1689,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1732,6 +1751,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1793,6 +1813,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

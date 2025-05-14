@@ -75,8 +75,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListDockerImages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -186,6 +187,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetDockerImage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -248,8 +250,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListMavenArtifacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -355,6 +358,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetMavenArtifact;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -420,8 +424,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListNpmPackages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -522,6 +527,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetNpmPackage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -584,8 +590,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListPythonPackages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -691,6 +698,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetPythonPackage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -756,8 +764,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ImportAptArtifacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -890,8 +899,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ImportYumArtifacts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1024,8 +1034,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListRepositories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1141,6 +1152,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetRepository;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1203,8 +1215,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::CreateRepository;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1326,6 +1339,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateRepository;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1401,8 +1415,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeleteRepository;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1507,8 +1522,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListPackages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1621,6 +1637,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetPackage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1683,8 +1700,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeletePackage;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1786,8 +1804,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1904,6 +1923,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1970,8 +1990,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeleteVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2077,8 +2098,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::BatchDeleteVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2201,6 +2223,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2275,8 +2298,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListFiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2389,6 +2413,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetFile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2451,8 +2476,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeleteFile;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2554,6 +2580,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateFile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2627,8 +2654,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2733,6 +2761,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2793,6 +2822,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::CreateTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2865,6 +2895,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2934,6 +2965,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeleteTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2994,6 +3026,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::CreateRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3068,8 +3101,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListRules;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3170,6 +3204,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3232,6 +3267,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3301,6 +3337,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeleteRule;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3363,6 +3400,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3445,6 +3483,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3516,6 +3555,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3594,6 +3634,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetProjectSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3659,6 +3700,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateProjectSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3734,6 +3776,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetVPCSCConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3796,6 +3839,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdateVPCSCConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3871,6 +3915,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::UpdatePackage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3943,8 +3988,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListAttachments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4051,6 +4097,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4113,8 +4160,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::CreateAttachment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4236,8 +4284,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::DeleteAttachment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_artifactregistry_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4342,8 +4391,9 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4451,6 +4501,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4511,6 +4562,7 @@ pub mod artifact_registry {
     /// # use google_cloud_artifactregistry_v1::builder;
     /// use builder::artifact_registry::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

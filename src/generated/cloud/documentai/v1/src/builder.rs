@@ -75,6 +75,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ProcessDocument;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -235,8 +236,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::BatchProcessDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -387,6 +389,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::FetchProcessorTypes;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -452,8 +455,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ListProcessorTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -559,6 +563,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::GetProcessorType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -624,8 +629,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ListProcessors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -726,6 +732,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::GetProcessor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -788,8 +795,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::TrainProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -979,6 +987,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::GetProcessorVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1044,8 +1053,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ListProcessorVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1151,8 +1161,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DeleteProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1258,8 +1269,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DeployProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1367,8 +1379,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::UndeployProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1478,6 +1491,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::CreateProcessor;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1551,8 +1565,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DeleteProcessor;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1655,8 +1670,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::EnableProcessor;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1759,8 +1775,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::DisableProcessor;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1868,8 +1885,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::SetDefaultProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1987,8 +2005,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ReviewDocument;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2144,8 +2163,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::EvaluateProcessorVersion;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_documentai_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2266,6 +2286,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::GetEvaluation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2328,8 +2349,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ListEvaluations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2430,8 +2452,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2539,6 +2562,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2599,8 +2623,9 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2710,6 +2735,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2773,6 +2799,7 @@ pub mod document_processor_service {
     /// # use google_cloud_documentai_v1::builder;
     /// use builder::document_processor_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

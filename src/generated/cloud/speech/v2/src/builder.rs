@@ -73,8 +73,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CreateRecognizer;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -198,8 +199,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::ListRecognizers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -304,6 +306,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::GetRecognizer;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -364,8 +367,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdateRecognizer;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -484,8 +488,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeleteRecognizer;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -604,8 +609,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UndeleteRecognizer;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -718,6 +724,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::Recognize;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -828,8 +835,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::BatchRecognize;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -981,6 +989,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::GetConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1041,6 +1050,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdateConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1113,8 +1123,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CreateCustomClass;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1240,8 +1251,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::ListCustomClasses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1349,6 +1361,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::GetCustomClass;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1409,8 +1422,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdateCustomClass;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1531,8 +1545,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeleteCustomClass;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1653,8 +1668,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UndeleteCustomClass;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1769,8 +1785,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CreatePhraseSet;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1891,8 +1908,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::ListPhraseSets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1997,6 +2015,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::GetPhraseSet;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2057,8 +2076,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdatePhraseSet;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2174,8 +2194,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeletePhraseSet;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2291,8 +2312,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UndeletePhraseSet;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_speech_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2405,8 +2427,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2512,6 +2535,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2570,8 +2594,9 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2679,6 +2704,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2740,6 +2766,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2801,6 +2828,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

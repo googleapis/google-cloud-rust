@@ -75,6 +75,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::CreateReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -155,8 +156,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::ListReservations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -260,6 +262,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::GetReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -322,6 +325,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::DeleteReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -387,6 +391,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -462,6 +467,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::FailoverReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -527,6 +533,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::CreateCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -617,8 +624,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::ListCapacityCommitments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -728,6 +736,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::GetCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -793,6 +802,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::DeleteCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -866,6 +876,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -945,6 +956,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::SplitCapacityCommitment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1018,6 +1030,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::MergeCapacityCommitments;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1094,6 +1107,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::CreateAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1174,8 +1188,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::ListAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1276,6 +1291,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::DeleteAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1341,8 +1357,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::SearchAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1452,8 +1469,9 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::SearchAllAssignments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1565,6 +1583,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::MoveAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1639,6 +1658,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateAssignment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1714,6 +1734,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::GetBiReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1779,6 +1800,7 @@ pub mod reservation_service {
     /// # use google_cloud_bigquery_reservation_v1::builder;
     /// use builder::reservation_service::UpdateBiReservation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

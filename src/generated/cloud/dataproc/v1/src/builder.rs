@@ -75,6 +75,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::CreateAutoscalingPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -153,6 +154,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::UpdateAutoscalingPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -223,6 +225,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::GetAutoscalingPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -288,8 +291,9 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::ListAutoscalingPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -399,6 +403,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::DeleteAutoscalingPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -466,6 +471,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -548,6 +554,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -619,6 +626,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -697,8 +705,9 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -808,6 +817,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -871,6 +881,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -934,6 +945,7 @@ pub mod autoscaling_policy_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::autoscaling_policy_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1052,8 +1064,9 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::CreateBatch;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1176,6 +1189,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::GetBatch;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1238,8 +1252,9 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::ListBatches;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1352,6 +1367,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::DeleteBatch;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1414,6 +1430,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1496,6 +1513,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1567,6 +1585,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1645,8 +1664,9 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1756,6 +1776,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1819,6 +1840,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1882,6 +1904,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2000,8 +2023,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2138,8 +2162,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2295,8 +2320,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::StopCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2427,8 +2453,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::StartCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2559,8 +2586,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2691,6 +2719,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2769,8 +2798,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::ListClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2885,8 +2915,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::DiagnoseCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3053,6 +3084,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3135,6 +3167,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3206,6 +3239,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3284,8 +3318,9 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3395,6 +3430,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3458,6 +3494,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3521,6 +3558,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3639,6 +3677,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::SubmitJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3723,8 +3762,9 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::SubmitJobAsOperation;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3843,6 +3883,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3921,8 +3962,9 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4052,6 +4094,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::UpdateJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4149,6 +4192,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::CancelJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4227,6 +4271,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::DeleteJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4305,6 +4350,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4387,6 +4433,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4458,6 +4505,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4536,8 +4584,9 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4647,6 +4696,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4710,6 +4760,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4773,6 +4824,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4891,8 +4943,9 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::CreateNodeGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5018,8 +5071,9 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::ResizeNodeGroup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5145,6 +5199,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::GetNodeGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5207,6 +5262,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5289,6 +5345,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5360,6 +5417,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5438,8 +5496,9 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5549,6 +5608,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5612,6 +5672,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5675,6 +5736,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5793,6 +5855,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::CreateSessionTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5869,6 +5932,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::UpdateSessionTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5937,6 +6001,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::GetSessionTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6002,8 +6067,9 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::ListSessionTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6115,6 +6181,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::DeleteSessionTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6180,6 +6247,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6262,6 +6330,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6333,6 +6402,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6411,8 +6481,9 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6522,6 +6593,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6585,6 +6657,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6648,6 +6721,7 @@ pub mod session_template_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_template_controller::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6766,8 +6840,9 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::CreateSession;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6895,6 +6970,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::GetSession;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6957,8 +7033,9 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::ListSessions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7065,8 +7142,9 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::TerminateSession;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7178,8 +7256,9 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::DeleteSession;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7288,6 +7367,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7370,6 +7450,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7441,6 +7522,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7519,8 +7601,9 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7630,6 +7713,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7693,6 +7777,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7756,6 +7841,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7874,6 +7960,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::CreateWorkflowTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7950,6 +8037,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::GetWorkflowTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8021,8 +8109,9 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::InstantiateWorkflowTemplate;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8152,8 +8241,9 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dataproc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8277,6 +8367,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::UpdateWorkflowTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8345,8 +8436,9 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::ListWorkflowTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8452,6 +8544,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::DeleteWorkflowTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8523,6 +8616,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8605,6 +8699,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8676,6 +8771,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8754,8 +8850,9 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8865,6 +8962,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8928,6 +9026,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8991,6 +9090,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

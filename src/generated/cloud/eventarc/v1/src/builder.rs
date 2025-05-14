@@ -73,6 +73,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -133,8 +134,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListTriggers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -245,8 +247,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateTrigger;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -369,8 +372,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateTrigger;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -490,8 +494,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteTrigger;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -607,6 +612,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetChannel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -667,8 +673,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListChannels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -773,8 +780,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -897,8 +905,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1012,8 +1021,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteChannel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1117,6 +1127,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetProvider;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1177,8 +1188,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListProviders;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1289,6 +1301,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetChannelConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1352,8 +1365,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListChannelConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1459,8 +1473,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateChannelConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1587,8 +1602,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteChannelConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1694,6 +1710,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetGoogleChannelConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1757,6 +1774,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateGoogleChannelConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1836,6 +1854,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetMessageBus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1896,8 +1915,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListMessageBuses;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2011,6 +2031,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListMessageBusEnrollments;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2088,8 +2109,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateMessageBus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2215,8 +2237,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateMessageBus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2341,8 +2364,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteMessageBus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2461,6 +2485,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetEnrollment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2521,8 +2546,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListEnrollments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2633,8 +2659,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateEnrollment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2760,8 +2787,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateEnrollment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2886,8 +2914,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteEnrollment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3006,6 +3035,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetPipeline;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3066,8 +3096,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListPipelines;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3178,8 +3209,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreatePipeline;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3302,8 +3334,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdatePipeline;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3425,8 +3458,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeletePipeline;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3542,6 +3576,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetGoogleApiSource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3605,8 +3640,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListGoogleApiSources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3722,8 +3758,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateGoogleApiSource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3854,8 +3891,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateGoogleApiSource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3985,8 +4023,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteGoogleApiSource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_eventarc_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4108,8 +4147,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4215,6 +4255,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4273,6 +4314,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4353,6 +4395,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4422,6 +4465,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4498,8 +4542,9 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4607,6 +4652,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4668,6 +4714,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4729,6 +4776,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

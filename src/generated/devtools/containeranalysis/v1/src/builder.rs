@@ -75,6 +75,7 @@ pub mod container_analysis {
     /// # use google_cloud_containeranalysis_v1::builder;
     /// use builder::container_analysis::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -157,6 +158,7 @@ pub mod container_analysis {
     /// # use google_cloud_containeranalysis_v1::builder;
     /// use builder::container_analysis::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -228,6 +230,7 @@ pub mod container_analysis {
     /// # use google_cloud_containeranalysis_v1::builder;
     /// use builder::container_analysis::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -306,6 +309,7 @@ pub mod container_analysis {
     /// # use google_cloud_containeranalysis_v1::builder;
     /// use builder::container_analysis::GetVulnerabilityOccurrencesSummary;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -379,6 +383,7 @@ pub mod container_analysis {
     /// # use google_cloud_containeranalysis_v1::builder;
     /// use builder::container_analysis::ExportSBOM;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

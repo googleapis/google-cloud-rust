@@ -75,8 +75,9 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::RestoreFromCloudSQL;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -225,8 +226,9 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -334,6 +336,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -394,8 +397,9 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -505,6 +509,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -568,6 +573,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -631,6 +637,7 @@ pub mod alloy_dbcsql_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_dbcsql_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -749,8 +756,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -863,6 +871,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -931,8 +940,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1063,8 +1073,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1194,8 +1205,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ExportCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1383,8 +1395,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ImportCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1555,8 +1568,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpgradeCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1685,8 +1699,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1812,8 +1827,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::PromoteCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1931,8 +1947,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::SwitchoverCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2047,8 +2064,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::RestoreCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2221,8 +2239,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateSecondaryCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2356,8 +2375,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2470,6 +2490,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2538,8 +2559,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2670,8 +2692,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateSecondaryInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2807,8 +2830,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::BatchCreateInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2931,8 +2955,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3062,8 +3087,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3183,8 +3209,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::FailoverInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3299,8 +3326,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::InjectFault;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3423,8 +3451,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::RestartInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3547,6 +3576,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ExecuteSql;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3655,8 +3685,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3769,6 +3800,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3831,8 +3863,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3963,8 +3996,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4094,8 +4128,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_alloydb_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4215,8 +4250,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListSupportedDatabaseFlags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4335,6 +4371,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GenerateClientCertificate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4429,6 +4466,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetConnectionInfo;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4500,8 +4538,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListUsers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4614,6 +4653,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4676,6 +4716,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CreateUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4766,6 +4807,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::UpdateUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4855,6 +4897,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteUser;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4929,8 +4972,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListDatabases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5037,8 +5081,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5146,6 +5191,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5206,8 +5252,9 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5317,6 +5364,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5380,6 +5428,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5443,6 +5492,7 @@ pub mod alloy_db_admin {
     /// # use google_cloud_alloydb_v1::builder;
     /// use builder::alloy_db_admin::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

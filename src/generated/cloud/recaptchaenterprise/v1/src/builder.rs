@@ -75,6 +75,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::CreateAssessment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -151,6 +152,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::AnnotateAssessment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -259,6 +261,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::CreateKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -329,8 +332,9 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::ListKeys;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -431,6 +435,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -498,6 +503,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::GetKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -560,6 +566,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::UpdateKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -631,6 +638,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::DeleteKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -693,6 +701,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::MigrateKey;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -761,6 +770,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::AddIpOverride;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -834,6 +844,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::RemoveIpOverride;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -910,8 +921,9 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::ListIpOverrides;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1012,6 +1024,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::GetMetrics;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1074,6 +1087,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::CreateFirewallPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1150,8 +1164,9 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::ListFirewallPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1257,6 +1272,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::GetFirewallPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1322,6 +1338,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1399,6 +1416,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1464,6 +1482,7 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1544,8 +1563,9 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1655,8 +1675,9 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1768,8 +1789,9 @@ pub mod recaptcha_enterprise_service {
     /// # use google_cloud_recaptchaenterprise_v1::builder;
     /// use builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;

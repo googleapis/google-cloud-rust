@@ -73,6 +73,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::LookupServiceProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -138,8 +139,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListServiceProjectAttachments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -259,8 +261,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateServiceProjectAttachment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -396,6 +399,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetServiceProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -461,8 +465,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteServiceProjectAttachment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -573,6 +578,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DetachServiceProjectAttachment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -638,8 +644,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListDiscoveredServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -757,6 +764,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetDiscoveredService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -820,6 +828,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::LookupDiscoveredService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -893,8 +902,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListServices;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1005,8 +1015,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateService;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1129,6 +1140,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetService;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1189,8 +1201,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::UpdateService;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1308,8 +1321,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteService;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1415,8 +1429,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListDiscoveredWorkloads;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1536,6 +1551,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetDiscoveredWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1599,6 +1615,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::LookupDiscoveredWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1672,8 +1689,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListWorkloads;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1784,8 +1802,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateWorkload;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1908,6 +1927,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1968,8 +1988,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::UpdateWorkload;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2087,8 +2108,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteWorkload;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2194,8 +2216,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListApplications;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2309,8 +2332,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateApplication;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2438,6 +2462,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetApplication;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2498,8 +2523,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::UpdateApplication;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2622,8 +2648,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteApplication;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apphub_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2732,8 +2759,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2839,6 +2867,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2897,6 +2926,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2977,6 +3007,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3046,6 +3077,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3122,8 +3154,9 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3231,6 +3264,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3292,6 +3326,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3353,6 +3388,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,6 +75,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::StartEnvironment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_shell_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -261,8 +263,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::AuthorizeEnvironment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_shell_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -389,8 +392,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::AddPublicKey;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_shell_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -497,8 +501,9 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::RemovePublicKey;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_shell_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -605,6 +610,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,8 +75,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::ListAppConnectors;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -192,6 +193,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::GetAppConnector;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -254,8 +256,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::CreateAppConnector;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -390,8 +393,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::UpdateAppConnector;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -523,8 +527,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::DeleteAppConnector;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -642,8 +647,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::ReportStatus;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_appconnectors_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -769,8 +775,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -878,6 +885,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -938,6 +946,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1020,6 +1029,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1091,6 +1101,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1169,8 +1180,9 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1280,6 +1292,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1343,6 +1356,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1406,6 +1420,7 @@ pub mod app_connectors_service {
     /// # use google_cloud_beyondcorp_appconnectors_v1::builder;
     /// use builder::app_connectors_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

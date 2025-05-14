@@ -75,8 +75,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::CreateConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -198,6 +199,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::GetConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -260,8 +262,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::ListConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -362,8 +365,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::UpdateConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -490,8 +494,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::DeleteConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -608,8 +613,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::CreateRepository;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -731,8 +737,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::BatchCreateRepositories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -855,6 +862,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::GetRepository;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -917,8 +925,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::ListRepositories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1028,8 +1037,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::DeleteRepository;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_build_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1146,6 +1156,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::FetchReadWriteToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1211,6 +1222,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::FetchReadToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1273,8 +1285,9 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::FetchLinkableRepositories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1384,6 +1397,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::FetchGitRefs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1455,6 +1469,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1537,6 +1552,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1608,6 +1624,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1686,6 +1703,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1749,6 +1767,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

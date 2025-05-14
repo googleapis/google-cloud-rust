@@ -75,6 +75,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::GetAuthorization;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -140,6 +141,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::CreateDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -224,6 +226,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::ReplaceDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -292,6 +295,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::GetDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -354,8 +358,9 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::ListDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -456,6 +461,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::DeleteDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -527,6 +533,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::InstallDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -592,6 +599,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::UninstallDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -657,6 +665,7 @@ pub mod g_suite_add_ons {
     /// # use google_cloud_gsuiteaddons_v1::builder;
     /// use builder::g_suite_add_ons::GetInstallStatus;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -73,8 +73,9 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::ListPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -173,6 +174,7 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::GetPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -233,8 +235,9 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::CreatePolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -351,8 +354,9 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::UpdatePolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -455,8 +459,9 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::DeletePolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_iam_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -562,6 +567,7 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -73,6 +73,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::GetAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -133,6 +134,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::SetAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -205,6 +207,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::DeleteAgent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -265,8 +268,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::SearchAgents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -365,8 +369,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::TrainAgent;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -466,8 +471,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::ExportAgent;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -571,8 +577,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::ImportAgent;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -704,8 +711,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::RestoreAgent;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -837,6 +845,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::GetValidationResult;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -906,8 +915,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1013,6 +1023,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1071,8 +1082,9 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1180,6 +1192,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1241,6 +1254,7 @@ pub mod agents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::agents::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1357,8 +1371,9 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::ListAnswerRecords;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1468,6 +1483,7 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::UpdateAnswerRecord;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1547,8 +1563,9 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1656,6 +1673,7 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1716,8 +1734,9 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1827,6 +1846,7 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1890,6 +1910,7 @@ pub mod answer_records {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::answer_records::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2006,8 +2027,9 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::ListContexts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2106,6 +2128,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::GetContext;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2166,6 +2189,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::CreateContext;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2237,6 +2261,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::UpdateContext;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2309,6 +2334,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::DeleteContext;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2369,6 +2395,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::DeleteAllContexts;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2432,8 +2459,9 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2539,6 +2567,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2597,8 +2626,9 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2706,6 +2736,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2767,6 +2798,7 @@ pub mod contexts {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::contexts::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2883,6 +2915,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::CreateConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2965,8 +2998,9 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::ListConversations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3076,6 +3110,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::GetConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3138,6 +3173,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::CompleteConversation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3203,6 +3239,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::IngestContextReferences;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3284,8 +3321,9 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::ListMessages;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3392,6 +3430,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::SuggestConversationSummary;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3482,6 +3521,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::GenerateStatelessSummary;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3583,6 +3623,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::GenerateStatelessSuggestion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3724,6 +3765,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::SearchKnowledge;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3860,6 +3902,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::GenerateSuggestions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3942,8 +3985,9 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4051,6 +4095,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4111,8 +4156,9 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4222,6 +4268,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4285,6 +4332,7 @@ pub mod conversations {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversations::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4403,8 +4451,9 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::CreateConversationDataset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4527,6 +4576,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::GetConversationDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4592,8 +4642,9 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::ListConversationDatasets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4703,8 +4754,9 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::DeleteConversationDataset;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4817,8 +4869,9 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::ImportConversationData;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4937,8 +4990,9 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5046,6 +5100,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5106,8 +5161,9 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5217,6 +5273,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5280,6 +5337,7 @@ pub mod conversation_datasets {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_datasets::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5398,8 +5456,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::CreateConversationModel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5520,6 +5579,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::GetConversationModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5585,8 +5645,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::ListConversationModels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5694,8 +5755,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::DeleteConversationModel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5807,8 +5869,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::DeployConversationModel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5920,8 +5983,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::UndeployConversationModel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6034,6 +6098,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::GetConversationModelEvaluation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6101,8 +6166,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::ListConversationModelEvaluations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6212,8 +6278,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::CreateConversationModelEvaluation;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -6336,8 +6403,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6445,6 +6513,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6505,8 +6574,9 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6616,6 +6686,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6679,6 +6750,7 @@ pub mod conversation_models {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_models::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6797,8 +6869,9 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::ListConversationProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6908,6 +6981,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::GetConversationProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6973,6 +7047,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::CreateConversationProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7053,6 +7128,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::UpdateConversationProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7136,6 +7212,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::DeleteConversationProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7203,8 +7280,9 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::SetSuggestionFeatureConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7342,8 +7420,9 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::ClearSuggestionFeatureConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7475,8 +7554,9 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7584,6 +7664,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7644,8 +7725,9 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7755,6 +7837,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7818,6 +7901,7 @@ pub mod conversation_profiles {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::conversation_profiles::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7936,8 +8020,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ListDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8044,6 +8129,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::GetDocument;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -8106,8 +8192,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::CreateDocument;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8221,8 +8308,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ImportDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8371,8 +8459,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::DeleteDocument;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8475,8 +8564,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::UpdateDocument;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8591,8 +8681,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ReloadDocument;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8729,8 +8820,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ExportDocument;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -8874,8 +8966,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -8983,6 +9076,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9043,8 +9137,9 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9154,6 +9249,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9217,6 +9313,7 @@ pub mod documents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::documents::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9335,6 +9432,7 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::GetEncryptionSpec;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9400,8 +9498,9 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::InitializeEncryptionSpec;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -9514,8 +9613,9 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9623,6 +9723,7 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9683,8 +9784,9 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -9794,6 +9896,7 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9857,6 +9960,7 @@ pub mod encryption_spec_service {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::encryption_spec_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -9975,8 +10079,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::ListEntityTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -10083,6 +10188,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::GetEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10151,6 +10257,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::CreateEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10233,6 +10340,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::UpdateEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10316,6 +10424,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::DeleteEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -10381,8 +10490,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchUpdateEntityTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -10542,8 +10652,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchDeleteEntityTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -10661,8 +10772,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchCreateEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -10786,8 +10898,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchUpdateEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -10920,8 +11033,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::BatchDeleteEntities;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -11045,8 +11159,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11154,6 +11269,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11214,8 +11330,9 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11325,6 +11442,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11388,6 +11506,7 @@ pub mod entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::entity_types::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11506,8 +11625,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::ListEnvironments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -11611,6 +11731,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::GetEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11673,6 +11794,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::CreateEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11757,6 +11879,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::UpdateEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11842,6 +11965,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::DeleteEnvironment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -11907,8 +12031,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::GetEnvironmentHistory;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12012,8 +12137,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12121,6 +12247,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12181,8 +12308,9 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12292,6 +12420,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12355,6 +12484,7 @@ pub mod environments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::environments::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12473,6 +12603,7 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::GetFulfillment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12535,6 +12666,7 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::UpdateFulfillment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12614,8 +12746,9 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12723,6 +12856,7 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12783,8 +12917,9 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -12894,6 +13029,7 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -12957,6 +13093,7 @@ pub mod fulfillments {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::fulfillments::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13075,6 +13212,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::CreateGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13154,6 +13292,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::GetGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13216,8 +13355,9 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::ListGenerators;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13318,6 +13458,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::DeleteGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13380,6 +13521,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::UpdateGenerator;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13454,8 +13596,9 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13563,6 +13706,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13623,8 +13767,9 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -13734,6 +13879,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13797,6 +13943,7 @@ pub mod generators {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::generators::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -13913,8 +14060,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::ListIntents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14025,6 +14173,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::GetIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14097,6 +14246,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::CreateIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14180,6 +14330,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::UpdateIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14264,6 +14415,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::DeleteIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14324,8 +14476,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::BatchUpdateIntents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14489,8 +14642,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::BatchDeleteIntents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_dialogflow_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -14606,8 +14760,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14713,6 +14868,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14771,8 +14927,9 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -14880,6 +15037,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -14941,6 +15099,7 @@ pub mod intents {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::intents::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15057,8 +15216,9 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::ListKnowledgeBases;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15170,6 +15330,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::GetKnowledgeBase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15235,6 +15396,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::CreateKnowledgeBase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15311,6 +15473,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::DeleteKnowledgeBase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15382,6 +15545,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::UpdateKnowledgeBase;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15459,8 +15623,9 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15568,6 +15733,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15628,8 +15794,9 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -15739,6 +15906,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15802,6 +15970,7 @@ pub mod knowledge_bases {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::knowledge_bases::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15920,6 +16089,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::CreateParticipant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -15996,6 +16166,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::GetParticipant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16058,8 +16229,9 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::ListParticipants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -16163,6 +16335,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::UpdateParticipant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16242,6 +16415,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::AnalyzeContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16416,6 +16590,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::SuggestArticles;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16501,6 +16676,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::SuggestFaqAnswers;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16589,6 +16765,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::SuggestSmartReplies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16675,6 +16852,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::SuggestKnowledgeAssist;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16758,8 +16936,9 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -16867,6 +17046,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -16927,8 +17107,9 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -17038,6 +17219,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17101,6 +17283,7 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::participants::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17217,6 +17400,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::sessions::DetectIntent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17323,8 +17507,9 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::sessions::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -17430,6 +17615,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::sessions::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17488,8 +17674,9 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::sessions::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -17597,6 +17784,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::sessions::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17658,6 +17846,7 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::sessions::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17774,8 +17963,9 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::ListSessionEntityTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -17883,6 +18073,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::GetSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -17948,6 +18139,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::CreateSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18028,6 +18220,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::UpdateSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18109,6 +18302,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::DeleteSessionEntityType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18176,8 +18370,9 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -18285,6 +18480,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18345,8 +18541,9 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -18456,6 +18653,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18519,6 +18717,7 @@ pub mod session_entity_types {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::session_entity_types::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18635,8 +18834,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::ListVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -18735,6 +18935,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::GetVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18795,6 +18996,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::CreateVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18866,6 +19068,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::UpdateVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -18940,6 +19143,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::DeleteVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -19000,8 +19204,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -19107,6 +19312,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -19165,8 +19371,9 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -19274,6 +19481,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -19335,6 +19543,7 @@ pub mod versions {
     /// # use google_cloud_dialogflow_v2::builder;
     /// use builder::versions::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

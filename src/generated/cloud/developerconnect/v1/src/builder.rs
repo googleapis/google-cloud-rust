@@ -75,8 +75,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::ListConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::GetConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::CreateConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_developerconnect_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -386,8 +389,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::UpdateConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_developerconnect_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -522,8 +526,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::DeleteConnection;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_developerconnect_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -646,8 +651,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::CreateGitRepositoryLink;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_developerconnect_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -788,8 +794,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::DeleteGitRepositoryLink;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_developerconnect_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -914,8 +921,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::ListGitRepositoryLinks;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1035,6 +1043,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::GetGitRepositoryLink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1100,6 +1109,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::FetchReadWriteToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1165,6 +1175,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::FetchReadToken;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1227,8 +1238,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::FetchLinkableGitRepositories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1338,6 +1350,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::FetchGitHubInstallations;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1405,6 +1418,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::FetchGitRefs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1490,8 +1504,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1599,6 +1614,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1659,8 +1675,9 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1770,6 +1787,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1833,6 +1851,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1896,6 +1915,7 @@ pub mod developer_connect {
     /// # use google_cloud_developerconnect_v1::builder;
     /// use builder::developer_connect::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

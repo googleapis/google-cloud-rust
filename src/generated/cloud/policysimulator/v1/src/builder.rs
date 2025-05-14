@@ -75,6 +75,7 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::GetReplay;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::CreateReplay;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_policysimulator_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -251,8 +253,9 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::ListReplayResults;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -356,8 +359,9 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -467,6 +471,7 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

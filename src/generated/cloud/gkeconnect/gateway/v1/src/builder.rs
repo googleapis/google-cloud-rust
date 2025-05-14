@@ -75,6 +75,7 @@ pub mod gateway_control {
     /// # use google_cloud_gkeconnect_gateway_v1::builder;
     /// use builder::gateway_control::GenerateCredentials;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

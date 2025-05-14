@@ -75,8 +75,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::ListAuthorizationPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -186,6 +187,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::GetAuthorizationPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CreateAuthorizationPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -381,8 +384,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::UpdateAuthorizationPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -504,8 +508,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteAuthorizationPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -612,8 +617,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::ListServerTlsPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -719,6 +725,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::GetServerTlsPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -784,8 +791,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CreateServerTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -912,8 +920,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::UpdateServerTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1033,8 +1042,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteServerTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1139,8 +1149,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::ListClientTlsPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1246,6 +1257,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::GetClientTlsPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1311,8 +1323,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CreateClientTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1439,8 +1452,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::UpdateClientTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1560,8 +1574,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteClientTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_networksecurity_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1666,8 +1681,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1775,6 +1791,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1835,6 +1852,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1917,6 +1935,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1988,6 +2007,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2066,8 +2086,9 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2177,6 +2198,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2240,6 +2262,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2303,6 +2326,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,8 +75,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::ListAvailableVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -188,8 +189,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -302,6 +304,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -364,8 +367,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datafusion_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -482,8 +486,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datafusion_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -585,8 +590,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datafusion_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -698,8 +704,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::RestartInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datafusion_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -799,8 +806,9 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -910,6 +918,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -973,6 +982,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1036,6 +1046,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

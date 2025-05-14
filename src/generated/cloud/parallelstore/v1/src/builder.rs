@@ -75,8 +75,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_parallelstore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -377,8 +380,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_parallelstore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -498,8 +502,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_parallelstore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -607,8 +612,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::ImportData;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_parallelstore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -777,8 +783,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::ExportData;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_parallelstore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -947,8 +954,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1056,6 +1064,7 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1116,8 +1125,9 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1227,6 +1237,7 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1290,6 +1301,7 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1353,6 +1365,7 @@ pub mod parallelstore {
     /// # use google_cloud_parallelstore_v1::builder;
     /// use builder::parallelstore::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

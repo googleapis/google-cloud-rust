@@ -75,6 +75,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::CreateScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -147,6 +148,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::DeleteScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -210,6 +212,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::GetScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -270,8 +273,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListScanConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -370,6 +374,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::UpdateScanConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -445,6 +450,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::StartScanRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -505,6 +511,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::GetScanRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -565,8 +572,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListScanRuns;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -665,6 +673,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::StopScanRun;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -725,8 +734,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListCrawledUrls;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -825,6 +835,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::GetFinding;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -885,8 +896,9 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListFindings;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -991,6 +1003,7 @@ pub mod web_security_scanner {
     /// # use google_cloud_websecurityscanner_v1::builder;
     /// use builder::web_security_scanner::ListFindingTypeStats;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

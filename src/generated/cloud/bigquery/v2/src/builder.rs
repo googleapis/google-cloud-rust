@@ -75,6 +75,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::GetDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -160,6 +161,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::InsertDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -239,6 +241,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::PatchDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -340,6 +343,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::UpdateDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -441,6 +445,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::DeleteDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -517,6 +522,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::ListDatasets;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -606,6 +612,7 @@ pub mod dataset_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::dataset_service::UndeleteDataset;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -740,6 +747,7 @@ pub mod model_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::model_service::GetModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -818,6 +826,7 @@ pub mod model_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::model_service::ListModels;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -903,6 +912,7 @@ pub mod model_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::model_service::PatchModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -992,6 +1002,7 @@ pub mod model_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::model_service::DeleteModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1125,6 +1136,7 @@ pub mod project_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::project_service::GetServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1245,6 +1257,7 @@ pub mod routine_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::routine_service::GetRoutine;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1323,6 +1336,7 @@ pub mod routine_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::routine_service::InsertRoutine;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1404,6 +1418,7 @@ pub mod routine_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::routine_service::UpdateRoutine;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1493,6 +1508,7 @@ pub mod routine_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::routine_service::DeleteRoutine;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1571,6 +1587,7 @@ pub mod routine_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::routine_service::ListRoutines;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1717,8 +1734,9 @@ pub mod row_access_policy_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::row_access_policy_service::ListRowAccessPolicies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1840,6 +1858,7 @@ pub mod row_access_policy_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::row_access_policy_service::GetRowAccessPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1929,6 +1948,7 @@ pub mod row_access_policy_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::row_access_policy_service::CreateRowAccessPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2023,6 +2043,7 @@ pub mod row_access_policy_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::row_access_policy_service::UpdateRowAccessPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2125,6 +2146,7 @@ pub mod row_access_policy_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::row_access_policy_service::DeleteRowAccessPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2220,6 +2242,7 @@ pub mod row_access_policy_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::row_access_policy_service::BatchDeleteRowAccessPolicies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2377,6 +2400,7 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::GetTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2470,6 +2494,7 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::InsertTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2551,6 +2576,7 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::PatchTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2649,6 +2675,7 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::UpdateTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2747,6 +2774,7 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::DeleteTable;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2825,6 +2853,7 @@ pub mod table_service {
     /// # use google_cloud_bigquery_v2::builder;
     /// use builder::table_service::ListTables;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

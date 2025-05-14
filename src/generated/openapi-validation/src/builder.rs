@@ -75,8 +75,9 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -259,8 +261,9 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::ListSecrets;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -373,6 +376,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::CreateSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -452,8 +456,9 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::ListSecretsByProjectAndLocation;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -579,6 +584,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::CreateSecretByProjectAndLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -671,6 +677,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::AddSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -761,6 +768,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -856,6 +864,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -926,6 +935,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::DeleteSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1002,6 +1012,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::UpdateSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1089,6 +1100,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1174,6 +1186,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1265,6 +1278,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1367,8 +1381,9 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::ListSecretVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1494,8 +1509,9 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1636,6 +1652,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1717,6 +1734,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1817,6 +1835,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::AccessSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1898,6 +1917,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1998,6 +2018,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::DisableSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2093,6 +2114,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2195,6 +2217,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::EnableSecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2290,6 +2313,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2392,6 +2416,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::DestroySecretVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2487,6 +2512,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2589,6 +2615,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2685,6 +2712,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2783,6 +2811,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2862,6 +2891,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2956,6 +2986,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3048,6 +3079,7 @@ pub mod secret_manager_service {
     /// # use secretmanager_openapi_v1::builder;
     /// use builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

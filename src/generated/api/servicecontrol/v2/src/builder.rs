@@ -75,6 +75,7 @@ pub mod service_controller {
     /// # use google_cloud_api_servicecontrol_v2::builder;
     /// use builder::service_controller::Check;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -169,6 +170,7 @@ pub mod service_controller {
     /// # use google_cloud_api_servicecontrol_v2::builder;
     /// use builder::service_controller::Report;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

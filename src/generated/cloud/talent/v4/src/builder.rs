@@ -75,6 +75,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::CreateCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -148,6 +149,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::GetCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -210,6 +212,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::UpdateCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -284,6 +287,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::DeleteCompany;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -346,8 +350,9 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::ListCompanies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -454,6 +459,7 @@ pub mod company_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::company_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -572,6 +578,7 @@ pub mod completion {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::completion::CompleteQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -685,6 +692,7 @@ pub mod completion {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::completion::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -803,6 +811,7 @@ pub mod event_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::event_service::CreateClientEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -879,6 +888,7 @@ pub mod event_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::event_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -997,6 +1007,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::CreateJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1067,8 +1078,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchCreateJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_talent_v4::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1184,6 +1196,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::GetJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1246,6 +1259,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::UpdateJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1317,8 +1331,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchUpdateJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_talent_v4::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1443,6 +1458,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::DeleteJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1505,8 +1521,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchDeleteJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_talent_v4::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1620,8 +1637,9 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::ListJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1736,6 +1754,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::SearchJobs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1925,6 +1944,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::SearchJobsForAlert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2114,6 +2134,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2232,6 +2253,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::CreateTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2305,6 +2327,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::GetTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2367,6 +2390,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::UpdateTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2441,6 +2465,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::DeleteTenant;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2503,8 +2528,9 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::ListTenants;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2605,6 +2631,7 @@ pub mod tenant_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::tenant_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

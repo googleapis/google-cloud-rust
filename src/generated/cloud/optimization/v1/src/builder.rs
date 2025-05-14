@@ -75,6 +75,7 @@ pub mod fleet_routing {
     /// # use google_cloud_optimization_v1::builder;
     /// use builder::fleet_routing::OptimizeTours;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -279,8 +280,9 @@ pub mod fleet_routing {
     /// # use google_cloud_optimization_v1::builder;
     /// use builder::fleet_routing::BatchOptimizeTours;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_optimization_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -399,6 +401,7 @@ pub mod fleet_routing {
     /// # use google_cloud_optimization_v1::builder;
     /// use builder::fleet_routing::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

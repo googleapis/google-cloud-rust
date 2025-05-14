@@ -75,8 +75,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -377,8 +380,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -496,8 +500,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -605,6 +610,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetCertificateAuthority;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -672,8 +678,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -798,8 +805,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListBackupCollections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -905,6 +913,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetBackupCollection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -970,8 +979,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1072,6 +1082,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1134,8 +1145,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1243,8 +1255,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ExportBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1368,8 +1381,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::BackupInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_memorystore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1484,8 +1498,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1593,6 +1608,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1653,8 +1669,9 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1764,6 +1781,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1827,6 +1845,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1890,6 +1909,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,8 +75,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::SearchCatalog;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -200,6 +201,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -282,6 +284,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -350,6 +353,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -427,6 +431,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteEntryGroup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -498,8 +503,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListEntryGroups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -600,6 +606,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -681,6 +688,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -755,6 +763,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -817,6 +826,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -879,6 +889,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::LookupEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -996,8 +1007,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1104,6 +1116,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ModifyEntryOverview;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1180,6 +1193,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ModifyEntryContacts;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1256,6 +1270,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1340,6 +1355,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1402,6 +1418,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1479,6 +1496,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteTagTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1552,6 +1570,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1638,6 +1657,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1725,6 +1745,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RenameTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1798,6 +1819,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RenameTagTemplateFieldEnumValue;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1876,6 +1898,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteTagTemplateField;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1949,6 +1972,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CreateTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2019,6 +2043,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UpdateTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2090,6 +2115,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2152,8 +2178,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2254,8 +2281,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ReconcileTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datacatalog_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2383,6 +2411,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::StarEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2445,6 +2474,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::UnstarEntry;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2507,6 +2537,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2589,6 +2620,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2660,6 +2692,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2738,8 +2771,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ImportEntries;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_datacatalog_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2873,6 +2907,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::SetConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2979,6 +3014,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RetrieveConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3041,6 +3077,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::RetrieveEffectiveConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3108,8 +3145,9 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3219,6 +3257,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3282,6 +3321,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3345,6 +3385,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3463,6 +3504,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::CreateTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3534,6 +3576,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::DeleteTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3596,6 +3639,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::UpdateTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3668,8 +3712,9 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::ListTaxonomies;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3776,6 +3821,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3838,6 +3884,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::CreatePolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3909,6 +3956,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::DeletePolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3971,6 +4019,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::UpdatePolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4043,8 +4092,9 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::ListPolicyTags;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4145,6 +4195,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetPolicyTag;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4207,6 +4258,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4278,6 +4330,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4360,6 +4413,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4438,8 +4492,9 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4549,6 +4604,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4612,6 +4668,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4675,6 +4732,7 @@ pub mod policy_tag_manager {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4793,6 +4851,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ReplaceTaxonomy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4868,6 +4927,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ImportTaxonomies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4975,6 +5035,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ExportTaxonomies;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5077,8 +5138,9 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5188,6 +5250,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5251,6 +5314,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5314,6 +5378,7 @@ pub mod policy_tag_manager_serialization {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::policy_tag_manager_serialization::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

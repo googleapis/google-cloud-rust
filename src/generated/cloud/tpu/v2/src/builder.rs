@@ -73,8 +73,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListNodes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -173,6 +174,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetNode;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -233,8 +235,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CreateNode;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -346,8 +349,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteNode;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -447,8 +451,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::StopNode;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -546,8 +551,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::StartNode;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -645,8 +651,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::UpdateNode;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -755,8 +762,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListQueuedResources;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -860,6 +868,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetQueuedResource;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -923,8 +932,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CreateQueuedResource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1051,8 +1061,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteQueuedResource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1167,8 +1178,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ResetQueuedResource;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_tpu_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1272,6 +1284,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GenerateServiceIdentity;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1337,8 +1350,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListAcceleratorTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1454,6 +1468,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetAcceleratorType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1517,8 +1532,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListRuntimeVersions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1634,6 +1650,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetRuntimeVersion;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1697,6 +1714,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetGuestAttributes;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1777,8 +1795,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1884,6 +1903,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1942,8 +1962,9 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2051,6 +2072,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2112,6 +2134,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2173,6 +2196,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

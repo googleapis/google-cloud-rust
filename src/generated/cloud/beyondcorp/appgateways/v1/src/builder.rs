@@ -75,8 +75,9 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::ListAppGateways;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::GetAppGateway;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::CreateAppGateway;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_appgateways_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -387,8 +390,9 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::DeleteAppGateway;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_beyondcorp_appgateways_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -506,8 +510,9 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -615,6 +620,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -675,6 +681,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -757,6 +764,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -828,6 +836,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -906,8 +915,9 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1017,6 +1027,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1080,6 +1091,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1143,6 +1155,7 @@ pub mod app_gateways_service {
     /// # use google_cloud_beyondcorp_appgateways_v1::builder;
     /// use builder::app_gateways_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

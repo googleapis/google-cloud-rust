@@ -75,8 +75,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListGateways;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetGateway;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateGateway;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -371,8 +374,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateGateway;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -484,8 +488,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteGateway;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -587,8 +592,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListApis;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -701,6 +707,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetApi;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -763,8 +770,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateApi;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -880,8 +888,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateApi;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -990,8 +999,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteApi;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1093,8 +1103,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListApiConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1207,6 +1218,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetApiConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1278,8 +1290,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CreateApiConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1398,8 +1411,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::UpdateApiConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1511,8 +1525,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteApiConfig;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_apigateway_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1614,8 +1629,9 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1725,6 +1741,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1788,6 +1805,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1851,6 +1869,7 @@ pub mod api_gateway_service {
     /// # use google_cloud_apigateway_v1::builder;
     /// use builder::api_gateway_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

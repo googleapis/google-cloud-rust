@@ -75,8 +75,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostures;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,8 +178,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostureRevisions;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -284,6 +286,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetPosture;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -352,8 +355,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::CreatePosture;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -472,8 +476,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::UpdatePosture;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -595,8 +600,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::DeletePosture;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -704,8 +710,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ExtractPosture;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -821,8 +828,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostureDeployments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -936,6 +944,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetPostureDeployment;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1001,8 +1010,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::CreatePostureDeployment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1131,8 +1141,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::UpdatePostureDeployment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1256,8 +1267,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::DeletePostureDeployment;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_securityposture_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1370,8 +1382,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListPostureTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1483,6 +1496,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetPostureTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1554,8 +1568,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1663,6 +1678,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1723,8 +1739,9 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1834,6 +1851,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1897,6 +1915,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1960,6 +1979,7 @@ pub mod security_posture {
     /// # use google_cloud_securityposture_v1::builder;
     /// use builder::security_posture::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

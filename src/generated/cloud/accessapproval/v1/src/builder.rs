@@ -75,8 +75,9 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::ListApprovalRequests;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -186,6 +187,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::GetApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -249,6 +251,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::ApproveApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -321,6 +324,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::DismissApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -384,6 +388,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::InvalidateApprovalRequest;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -449,6 +454,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::GetAccessApprovalSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -514,6 +520,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::UpdateAccessApprovalSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -591,6 +598,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::DeleteAccessApprovalSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -656,6 +664,7 @@ pub mod access_approval {
     /// # use google_cloud_accessapproval_v1::builder;
     /// use builder::access_approval::GetAccessApprovalServiceAccount;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

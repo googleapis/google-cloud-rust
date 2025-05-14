@@ -75,8 +75,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -377,8 +380,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -498,8 +502,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -607,8 +612,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::StartInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -708,8 +714,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::StopInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -809,8 +816,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::ResetInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -910,6 +918,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::CheckInstanceUpgradability;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -977,8 +986,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::UpgradeInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1078,8 +1088,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::RollbackInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1198,8 +1209,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::DiagnoseInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_notebooks_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1321,8 +1333,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1430,6 +1443,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1490,6 +1504,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::SetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1572,6 +1587,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::GetIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1643,6 +1659,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::TestIamPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1721,8 +1738,9 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1832,6 +1850,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1895,6 +1914,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1958,6 +1978,7 @@ pub mod notebook_service {
     /// # use google_cloud_notebooks_v2::builder;
     /// use builder::notebook_service::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

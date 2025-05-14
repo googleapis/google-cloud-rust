@@ -75,6 +75,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::GetWorkload;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,8 +138,9 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::ListWorkloads;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -251,6 +253,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::GetCustomer;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -313,8 +316,9 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::ListCustomers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -427,6 +431,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::GetEkmConnections;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -492,6 +497,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::GetPartnerPermissions;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -557,8 +563,9 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::ListAccessApprovalRequests;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -680,6 +687,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::GetPartner;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -742,6 +750,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::CreateCustomer;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -823,6 +832,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::UpdateCustomer;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -897,6 +907,7 @@ pub mod cloud_controls_partner_core {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_core::DeleteCustomer;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1014,8 +1025,9 @@ pub mod cloud_controls_partner_monitoring {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_monitoring::ListViolations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1137,6 +1149,7 @@ pub mod cloud_controls_partner_monitoring {
     /// # use google_cloud_cloudcontrolspartner_v1::builder;
     /// use builder::cloud_controls_partner_monitoring::GetViolation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

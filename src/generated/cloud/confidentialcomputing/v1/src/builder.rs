@@ -75,6 +75,7 @@ pub mod confidential_computing {
     /// # use google_cloud_confidentialcomputing_v1::builder;
     /// use builder::confidential_computing::CreateChallenge;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -148,6 +149,7 @@ pub mod confidential_computing {
     /// # use google_cloud_confidentialcomputing_v1::builder;
     /// use builder::confidential_computing::VerifyAttestation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -303,8 +305,9 @@ pub mod confidential_computing {
     /// # use google_cloud_confidentialcomputing_v1::builder;
     /// use builder::confidential_computing::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -412,6 +415,7 @@ pub mod confidential_computing {
     /// # use google_cloud_confidentialcomputing_v1::builder;
     /// use builder::confidential_computing::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

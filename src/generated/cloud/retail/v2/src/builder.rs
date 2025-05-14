@@ -75,8 +75,9 @@ pub mod analytics_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::analytics_service::ExportAnalyticsMetrics;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -199,8 +200,9 @@ pub mod analytics_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::analytics_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -310,6 +312,7 @@ pub mod analytics_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::analytics_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -428,8 +431,9 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::ListCatalogs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -530,6 +534,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::UpdateCatalog;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -604,6 +609,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::SetDefaultBranch;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -685,6 +691,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::GetDefaultBranch;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -748,6 +755,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::GetCompletionConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -813,6 +821,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::UpdateCompletionConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -892,6 +901,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::GetAttributesConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -957,6 +967,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::UpdateAttributesConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1036,6 +1047,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::AddCatalogAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1114,6 +1126,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::RemoveCatalogAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1187,6 +1200,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::ReplaceCatalogAttribute;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1276,8 +1290,9 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1387,6 +1402,7 @@ pub mod catalog_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::catalog_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1505,6 +1521,7 @@ pub mod completion_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::completion_service::CompleteQuery;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1622,8 +1639,9 @@ pub mod completion_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::completion_service::ImportCompletionData;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1748,8 +1766,9 @@ pub mod completion_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::completion_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1859,6 +1878,7 @@ pub mod completion_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::completion_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1977,6 +1997,7 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::CreateControl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2058,6 +2079,7 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::DeleteControl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2120,6 +2142,7 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::UpdateControl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2194,6 +2217,7 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::GetControl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2256,8 +2280,9 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::ListControls;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2364,8 +2389,9 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2475,6 +2501,7 @@ pub mod control_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::control_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2593,6 +2620,7 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2676,6 +2704,7 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::GetGenerativeQuestionsFeatureConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2743,6 +2772,7 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::ListGenerativeQuestionConfigs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2810,6 +2840,7 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::UpdateGenerativeQuestionConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2891,6 +2922,7 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2971,8 +3003,9 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3082,6 +3115,7 @@ pub mod generative_question_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::generative_question_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3200,8 +3234,9 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::CreateModel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3318,6 +3353,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::GetModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3380,6 +3416,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::PauseModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3442,6 +3479,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::ResumeModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3504,6 +3542,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::DeleteModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3566,8 +3605,9 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::ListModels;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3668,6 +3708,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::UpdateModel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3742,8 +3783,9 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::TuneModel;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -3846,8 +3888,9 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3957,6 +4000,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4075,6 +4119,7 @@ pub mod prediction_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::prediction_service::Predict;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4195,8 +4240,9 @@ pub mod prediction_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::prediction_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4306,6 +4352,7 @@ pub mod prediction_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::prediction_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4424,6 +4471,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::CreateProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4505,6 +4553,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::GetProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4567,8 +4616,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::ListProducts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4681,6 +4731,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::UpdateProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4761,6 +4812,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::DeleteProduct;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4823,8 +4875,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::PurgeProducts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -4941,8 +4994,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::ImportProducts;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5098,8 +5152,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::SetInventory;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5223,8 +5278,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::AddFulfillmentPlaces;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5365,8 +5421,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::RemoveFulfillmentPlaces;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5512,8 +5569,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::AddLocalInventories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5652,8 +5710,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::RemoveLocalInventories;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -5789,8 +5848,9 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -5900,6 +5960,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6018,8 +6079,9 @@ pub mod search_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::search_service::Search;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6328,8 +6390,9 @@ pub mod search_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::search_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6439,6 +6502,7 @@ pub mod search_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::search_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6557,6 +6621,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::CreateServingConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6641,6 +6706,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::DeleteServingConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6706,6 +6772,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::UpdateServingConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6783,6 +6850,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::GetServingConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -6848,8 +6916,9 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::ListServingConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -6955,6 +7024,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::AddControl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7025,6 +7095,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::RemoveControl;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7095,8 +7166,9 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7206,6 +7278,7 @@ pub mod serving_config_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::serving_config_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7324,6 +7397,7 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::WriteUserEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7403,6 +7477,7 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::CollectUserEvent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -7521,8 +7596,9 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::PurgeUserEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7639,8 +7715,9 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::ImportUserEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7768,8 +7845,9 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::RejoinUserEvents;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_retail_v2::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -7888,8 +7966,9 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -7999,6 +8078,7 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

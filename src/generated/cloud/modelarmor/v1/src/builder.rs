@@ -75,8 +75,9 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::ListTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::GetTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,6 +253,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::CreateTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -338,6 +341,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::UpdateTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -420,6 +424,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::DeleteTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -488,6 +493,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::GetFloorSetting;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -550,6 +556,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::UpdateFloorSetting;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -627,6 +634,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::SanitizeUserPrompt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -703,6 +711,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::SanitizeModelResponse;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -785,8 +794,9 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -894,6 +904,7 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::builder;
     /// use builder::model_armor::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

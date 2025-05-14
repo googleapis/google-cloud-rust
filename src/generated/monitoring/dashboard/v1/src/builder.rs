@@ -75,6 +75,7 @@ pub mod dashboards_service {
     /// # use google_cloud_monitoring_dashboard_v1::builder;
     /// use builder::dashboards_service::CreateDashboard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -154,8 +155,9 @@ pub mod dashboards_service {
     /// # use google_cloud_monitoring_dashboard_v1::builder;
     /// use builder::dashboards_service::ListDashboards;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -256,6 +258,7 @@ pub mod dashboards_service {
     /// # use google_cloud_monitoring_dashboard_v1::builder;
     /// use builder::dashboards_service::GetDashboard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -318,6 +321,7 @@ pub mod dashboards_service {
     /// # use google_cloud_monitoring_dashboard_v1::builder;
     /// use builder::dashboards_service::DeleteDashboard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -380,6 +384,7 @@ pub mod dashboards_service {
     /// # use google_cloud_monitoring_dashboard_v1::builder;
     /// use builder::dashboards_service::UpdateDashboard;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -73,8 +73,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::ListEndpoints;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -185,6 +186,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::GetEndpoint;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,8 +247,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::CreateEndpoint;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_ids_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -369,8 +372,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::DeleteEndpoint;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_ids_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -476,8 +480,9 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -585,6 +590,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -646,6 +652,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -707,6 +714,7 @@ pub mod ids {
     /// # use google_cloud_ids_v1::builder;
     /// use builder::ids::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

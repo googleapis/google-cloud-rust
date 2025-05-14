@@ -75,8 +75,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListInstances;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -189,6 +190,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetInstance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -251,8 +253,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -374,8 +377,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -488,8 +492,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::RestoreInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -625,8 +630,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::RevertInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -737,8 +743,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -847,8 +854,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListSnapshots;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -967,6 +975,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetSnapshot;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1029,8 +1038,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CreateSnapshot;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1152,8 +1162,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteSnapshot;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1256,8 +1267,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::UpdateSnapshot;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1374,8 +1386,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1488,6 +1501,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1550,8 +1564,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1673,8 +1688,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1777,8 +1793,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::UpdateBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1895,8 +1912,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::PromoteReplica;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_filestore_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -2005,8 +2023,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2114,6 +2133,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2174,8 +2194,9 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2285,6 +2306,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2348,6 +2370,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2411,6 +2434,7 @@ pub mod cloud_filestore_manager {
     /// # use google_cloud_filestore_v1::builder;
     /// use builder::cloud_filestore_manager::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

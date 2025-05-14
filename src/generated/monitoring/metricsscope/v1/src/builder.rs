@@ -75,6 +75,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::GetMetricsScope;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -137,6 +138,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -209,8 +211,9 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::CreateMonitoredProject;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_monitoring_metricsscope_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -329,8 +332,9 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::DeleteMonitoredProject;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_monitoring_metricsscope_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -435,6 +439,7 @@ pub mod metrics_scopes {
     /// # use google_cloud_monitoring_metricsscope_v1::builder;
     /// use builder::metrics_scopes::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

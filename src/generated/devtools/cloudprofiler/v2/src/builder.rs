@@ -75,6 +75,7 @@ pub mod profiler_service {
     /// # use google_cloud_profiler_v2::builder;
     /// use builder::profiler_service::CreateProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -155,6 +156,7 @@ pub mod profiler_service {
     /// # use google_cloud_profiler_v2::builder;
     /// use builder::profiler_service::CreateOfflineProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -227,6 +229,7 @@ pub mod profiler_service {
     /// # use google_cloud_profiler_v2::builder;
     /// use builder::profiler_service::UpdateProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -354,8 +357,9 @@ pub mod export_service {
     /// # use google_cloud_profiler_v2::builder;
     /// use builder::export_service::ListProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;

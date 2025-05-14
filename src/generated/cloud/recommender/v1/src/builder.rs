@@ -75,8 +75,9 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::ListInsights;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -183,6 +184,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetInsight;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -245,6 +247,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkInsightAccepted;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -330,8 +333,9 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::ListRecommendations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -443,6 +447,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetRecommendation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -508,6 +513,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationDismissed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -581,6 +587,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationClaimed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -668,6 +675,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationSucceeded;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -755,6 +763,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::MarkRecommendationFailed;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -842,6 +851,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetRecommenderConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -907,6 +917,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::UpdateRecommenderConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -994,6 +1005,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::GetInsightTypeConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1059,6 +1071,7 @@ pub mod recommender {
     /// # use google_cloud_recommender_v1::builder;
     /// use builder::recommender::UpdateInsightTypeConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

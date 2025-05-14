@@ -75,8 +75,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ListClusters;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -177,6 +178,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::GetCluster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -239,8 +241,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -357,8 +360,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -466,8 +470,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -589,6 +594,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::GetClusterCertificateAuthority;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -656,8 +662,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::RescheduleClusterMaintenance;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -781,8 +788,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ListBackupCollections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -888,6 +896,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::GetBackupCollection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -953,8 +962,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ListBackups;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1055,6 +1065,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::GetBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1117,8 +1128,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1226,8 +1238,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ExportBackup;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1348,8 +1361,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::BackupCluster;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use google_cloud_redis_cluster_v1::Poller;
+    ///
+    /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
     /// # gax::Result::<()>::Ok(()) });
     ///
@@ -1461,8 +1475,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ListLocations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1570,6 +1585,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::GetLocation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1630,8 +1646,9 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ListOperations;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1741,6 +1758,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::GetOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1804,6 +1822,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::DeleteOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1867,6 +1886,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::CancelOperation;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

@@ -75,6 +75,7 @@ pub mod iam_checker {
     /// # use google_cloud_policytroubleshooter_v1::builder;
     /// use builder::iam_checker::TroubleshootIamPolicy;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

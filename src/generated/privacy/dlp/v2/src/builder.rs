@@ -75,6 +75,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::InspectContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -165,6 +166,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::RedactImage;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -266,6 +268,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeidentifyContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -376,6 +379,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ReidentifyContent;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -488,6 +492,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListInfoTypes;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -566,6 +571,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateInspectTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -654,6 +660,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::UpdateInspectTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -737,6 +744,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetInspectTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -802,8 +810,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListInspectTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -921,6 +930,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteInspectTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -986,6 +996,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateDeidentifyTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1078,6 +1089,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::UpdateDeidentifyTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1165,6 +1177,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetDeidentifyTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1230,8 +1243,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListDeidentifyTemplates;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1353,6 +1367,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteDeidentifyTemplate;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1420,6 +1435,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateJobTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1508,6 +1524,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::UpdateJobTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1591,6 +1608,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::HybridInspectJobTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1667,6 +1685,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetJobTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1729,8 +1748,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListJobTriggers;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -1855,6 +1875,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteJobTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1920,6 +1941,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ActivateJobTrigger;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1985,6 +2007,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateDiscoveryConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2067,6 +2090,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::UpdateDiscoveryConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2152,6 +2176,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetDiscoveryConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2217,8 +2242,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListDiscoveryConfigs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2330,6 +2356,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteDiscoveryConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2395,6 +2422,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateDlpJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2511,8 +2539,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListDlpJobs;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2637,6 +2666,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetDlpJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2699,6 +2729,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteDlpJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2761,6 +2792,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CancelDlpJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2823,6 +2855,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateStoredInfoType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2911,6 +2944,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::UpdateStoredInfoType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2994,6 +3028,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetStoredInfoType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3059,8 +3094,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListStoredInfoTypes;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3178,6 +3214,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteStoredInfoType;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3243,8 +3280,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListProjectDataProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3366,8 +3404,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListTableDataProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3485,8 +3524,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListColumnDataProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3606,6 +3646,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetProjectDataProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3671,8 +3712,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListFileStoreDataProfiles;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -3794,6 +3836,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetFileStoreDataProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3861,6 +3904,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteFileStoreDataProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3928,6 +3972,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetTableDataProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3993,6 +4038,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetColumnDataProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4058,6 +4104,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteTableDataProfile;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4123,6 +4170,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::HybridInspectDlpJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4197,6 +4245,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::FinishDlpJob;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4259,6 +4308,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::CreateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4335,6 +4385,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::GetConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4397,8 +4448,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::ListConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4505,8 +4557,9 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::SearchConnections;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4616,6 +4669,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::DeleteConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4681,6 +4735,7 @@ pub mod dlp_service {
     /// # use google_cloud_privacy_dlp_v2::builder;
     /// use builder::dlp_service::UpdateConnection;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

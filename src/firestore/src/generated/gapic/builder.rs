@@ -75,6 +75,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::GetDocument;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -183,8 +184,9 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::ListDocuments;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -349,6 +351,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::UpdateDocument;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -441,6 +444,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::DeleteDocument;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -512,6 +516,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::BeginTransaction;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -586,6 +591,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::Commit;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -665,6 +671,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::Rollback;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -735,8 +742,9 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::PartitionQuery;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -897,6 +905,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::ListCollectionIds;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1001,6 +1010,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::BatchWrite;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1085,6 +1095,7 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder;
     /// use builder::firestore::CreateDocument;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });

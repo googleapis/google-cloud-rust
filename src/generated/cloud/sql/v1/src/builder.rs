@@ -75,6 +75,7 @@ pub mod sql_backup_runs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_backup_runs_service::Delete;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -150,6 +151,7 @@ pub mod sql_backup_runs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_backup_runs_service::Get;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -225,6 +227,7 @@ pub mod sql_backup_runs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_backup_runs_service::Insert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -303,8 +306,9 @@ pub mod sql_backup_runs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_backup_runs_service::List;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -467,6 +471,7 @@ pub mod sql_connect_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_connect_service::GetConnectSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -542,6 +547,7 @@ pub mod sql_connect_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_connect_service::GenerateEphemeralCert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -693,6 +699,7 @@ pub mod sql_databases_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_databases_service::Delete;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -768,6 +775,7 @@ pub mod sql_databases_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_databases_service::Get;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -840,6 +848,7 @@ pub mod sql_databases_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_databases_service::Insert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -918,6 +927,7 @@ pub mod sql_databases_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_databases_service::List;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -987,6 +997,7 @@ pub mod sql_databases_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_databases_service::Patch;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1071,6 +1082,7 @@ pub mod sql_databases_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_databases_service::Update;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1210,6 +1222,7 @@ pub mod sql_flags_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_flags_service::List;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1325,6 +1338,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::AddServerCa;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1394,6 +1408,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Clone;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1472,6 +1487,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Delete;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1541,6 +1557,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::DemoteMaster;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1621,6 +1638,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Demote;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1705,6 +1723,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Export;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1783,6 +1802,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Failover;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1861,6 +1881,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Reencrypt;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -1939,6 +1960,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Get;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2005,6 +2027,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Import;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2083,6 +2106,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Insert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2155,8 +2179,9 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::List;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -2264,6 +2289,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::ListServerCas;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2333,6 +2359,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Patch;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2411,6 +2438,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::PromoteReplica;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2486,6 +2514,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Switchover;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2561,6 +2590,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::ResetSslConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2630,6 +2660,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Restart;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2699,6 +2730,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::RestoreBackup;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2779,6 +2811,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::RotateServerCa;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2859,6 +2892,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::StartReplica;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2928,6 +2962,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::StopReplica;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -2997,6 +3032,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::TruncateLog;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3075,6 +3111,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::Update;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3153,6 +3190,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::CreateEphemeral;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3235,6 +3273,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3317,6 +3356,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::VerifyExternalSyncSettings;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3470,6 +3510,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::StartExternalSync;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3609,6 +3650,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::PerformDiskShrink;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3689,6 +3731,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::GetDiskShrinkConfig;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3760,6 +3803,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::ResetReplicaSize;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3829,6 +3873,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::GetLatestRecoveryTime;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3900,6 +3945,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::AcquireSsrsLease;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -3986,6 +4032,7 @@ pub mod sql_instances_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_instances_service::ReleaseSsrsLease;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4114,6 +4161,7 @@ pub mod sql_operations_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_operations_service::Get;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4183,8 +4231,9 @@ pub mod sql_operations_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_operations_service::List;
     /// # tokio_test::block_on(async {
-    /// let builder = prepare_request_builder();
     /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
     /// let mut items = builder.by_item();
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
@@ -4292,6 +4341,7 @@ pub mod sql_operations_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_operations_service::Cancel;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4416,6 +4466,7 @@ pub mod sql_ssl_certs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_ssl_certs_service::Delete;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4491,6 +4542,7 @@ pub mod sql_ssl_certs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_ssl_certs_service::Get;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4563,6 +4615,7 @@ pub mod sql_ssl_certs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_ssl_certs_service::Insert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4641,6 +4694,7 @@ pub mod sql_ssl_certs_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_ssl_certs_service::List;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4762,6 +4816,7 @@ pub mod sql_tiers_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_tiers_service::List;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4877,6 +4932,7 @@ pub mod sql_users_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_users_service::Delete;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -4955,6 +5011,7 @@ pub mod sql_users_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_users_service::Get;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5033,6 +5090,7 @@ pub mod sql_users_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_users_service::Insert;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5105,6 +5163,7 @@ pub mod sql_users_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_users_service::List;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
@@ -5171,6 +5230,7 @@ pub mod sql_users_service {
     /// # use google_cloud_sql_v1::builder;
     /// use builder::sql_users_service::Update;
     /// # tokio_test::block_on(async {
+    ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
     /// # gax::Result::<()>::Ok(()) });
