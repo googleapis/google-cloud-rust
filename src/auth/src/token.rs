@@ -20,7 +20,7 @@ use tokio::time::Instant;
 
 /// Represents an auth token.
 #[derive(Clone, PartialEq)]
-pub struct Token {
+pub(crate) struct Token {
     /// The actual token string.
     ///
     /// This is the value used in `Authorization:` header.
