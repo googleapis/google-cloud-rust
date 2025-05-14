@@ -264,6 +264,17 @@ impl Builder {
         self
     }
 
+    fn build_token_provider(self) -> Result<ServiceAccountTokenProvider> {
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
+                .map_err(errors::non_retryable)?;
+
+        Ok(ServiceAccountTokenProvider {
+            service_account_key,
+            access_specifier: self.access_specifier,
+        })
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -277,19 +288,10 @@ impl Builder {
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> Result<Credentials> {
-        let service_account_key =
-            serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
-                .map_err(errors::non_retryable)?;
-        let token_provider = ServiceAccountTokenProvider {
-            service_account_key,
-            access_specifier: self.access_specifier,
-        };
-        let token_provider = TokenCache::new(token_provider);
-
         Ok(Credentials {
             inner: Arc::new(ServiceAccountCredentials {
-                token_provider,
-                quota_project_id: self.quota_project_id,
+                quota_project_id: self.quota_project_id.clone(),
+                token_provider: TokenCache::new(self.build_token_provider()?),
             }),
         })
     }
@@ -602,13 +604,8 @@ mod test {
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
-        let tp = ServiceAccountTokenProvider {
-            service_account_key: serde_json::from_value::<ServiceAccountKey>(
-                service_account_key.clone(),
-            )
-            .unwrap(),
-            access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
-        };
+        let tp = Builder::new(service_account_key.clone()).build_token_provider()?;
+
         let token = tp.token().await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
@@ -649,7 +646,7 @@ mod test {
         let headers = credentials.headers(Extensions::new()).await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let token = get_token_from_headers(&headers);
+        let token = get_token_from_headers(&headers).unwrap();
 
         let captures = re.captures(&token).unwrap();
 
@@ -663,7 +660,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = get_token_from_headers(&credentials.headers(Extensions::new()).await?);
+        let token = get_token_from_headers(&credentials.headers(Extensions::new()).await?).unwrap();
         let captures = re.captures(&token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
@@ -701,11 +698,8 @@ mod test {
 
     #[test]
     fn signer_failure() -> TestResult {
-        let tp = ServiceAccountTokenProvider {
-            service_account_key:
-                serde_json::from_value::<ServiceAccountKey>(get_mock_service_key()).unwrap(),
-            access_specifier: AccessSpecifier::Scopes(vec![]),
-        };
+        let tp = Builder::new(get_mock_service_key()).build_token_provider()?;
+
         let signer = tp.signer(&tp.service_account_key.private_key);
         let expected_error_message = "missing PEM section in service account key";
         assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
@@ -736,7 +730,7 @@ mod test {
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let token = get_token_from_headers(&headers);
+        let token = get_token_from_headers(&headers).unwrap();
         let captures = re.captures(&token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
@@ -763,13 +757,10 @@ mod test {
         let now = Instant::now();
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
-        let token = ServiceAccountTokenProvider {
-            service_account_key: serde_json::from_value::<ServiceAccountKey>(service_account_key)
-                .unwrap(),
-            access_specifier: AccessSpecifier::Scopes(vec![]),
-        }
-        .token()
-        .await?;
+        let token = Builder::new(service_account_key)
+            .build_token_provider()?
+            .token()
+            .await?;
 
         let expected_expiry = now + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
 
@@ -791,7 +782,7 @@ mod test {
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let token = get_token_from_headers(&headers);
+        let token = get_token_from_headers(&headers).unwrap();
         let captures = re.captures(&token).ok_or_else(|| {
             format!(
                 r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,

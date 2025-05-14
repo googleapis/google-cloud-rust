@@ -762,10 +762,10 @@ mod test {
             .build()?;
 
         let token = get_token_from_headers(&cred.headers(Extensions::new()).await?);
-        assert_eq!(token, "test-access-token");
+        assert_eq!(token.unwrap(), "test-access-token");
 
         let token = get_token_from_headers(&cred.headers(Extensions::new()).await?);
-        assert_eq!(token, "test-access-token");
+        assert_eq!(token.unwrap(), "test-access-token");
 
         // Test that the inner token provider was called only
         // once even though token was called twice.
@@ -797,8 +797,14 @@ mod test {
 
         let uc = Builder::new(authorized_user).build()?;
         let headers = uc.headers(Extensions::new()).await?;
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
-        assert_eq!(get_token_type_from_headers(&headers), "test-token-type");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
+        assert_eq!(
+            get_token_type_from_headers(&headers).unwrap(),
+            "test-token-type"
+        );
 
         Ok(())
     }
@@ -828,8 +834,14 @@ mod test {
             .with_token_uri(endpoint)
             .build()?;
         let headers = uc.headers(Extensions::new()).await?;
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
-        assert_eq!(get_token_type_from_headers(&headers), "test-token-type");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
+        assert_eq!(
+            get_token_type_from_headers(&headers).unwrap(),
+            "test-token-type"
+        );
 
         Ok(())
     }
@@ -860,8 +872,14 @@ mod test {
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
         let headers = uc.headers(Extensions::new()).await?;
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
-        assert_eq!(get_token_type_from_headers(&headers), "test-token-type");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
+        assert_eq!(
+            get_token_type_from_headers(&headers).unwrap(),
+            "test-token-type"
+        );
 
         Ok(())
     }

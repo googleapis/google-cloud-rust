@@ -616,26 +616,20 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> String {
-        let token = headers.get(AUTHORIZATION).unwrap();
-        token
-            .to_str()
-            .unwrap()
-            .split_whitespace()
-            .nth(1)
-            .unwrap()
-            .to_string()
+    pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> Option<String> {
+        headers
+            .get(AUTHORIZATION)
+            .and_then(|token_value| token_value.to_str().ok())
+            .and_then(|s| s.split_whitespace().nth(1))
+            .map(|s| s.to_string())
     }
 
-    pub(crate) fn get_token_type_from_headers(headers: &HeaderMap) -> String {
-        let token = headers.get(AUTHORIZATION).unwrap();
-        token
-            .to_str()
-            .unwrap()
-            .split_whitespace()
-            .next()
-            .unwrap()
-            .to_string()
+    pub(crate) fn get_token_type_from_headers(headers: &HeaderMap) -> Option<String> {
+        headers
+            .get(AUTHORIZATION)
+            .and_then(|token_value| token_value.to_str().ok())
+            .and_then(|s| s.split_whitespace().next())
+            .map(|s| s.to_string())
     }
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
@@ -829,7 +823,7 @@ mod test {
             .unwrap();
 
         let headers = sac.headers(Extensions::new()).await?;
-        let token = get_token_from_headers(&headers);
+        let token = get_token_from_headers(&headers).unwrap();
         let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());

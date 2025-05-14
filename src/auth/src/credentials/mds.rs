@@ -168,23 +168,23 @@ impl Builder {
         self
     }
 
-    /// Returns a [Credentials] instance with the configured settings.
-    pub fn build(self) -> Result<Credentials> {
+    fn build_token_provider(self) -> MDSAccessTokenProvider {
         let endpoint = match std::env::var(GCE_METADATA_HOST_ENV_VAR) {
             Ok(endpoint) => format!("http://{}", endpoint),
             _ => self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string()),
         };
-
-        let token_provider = MDSAccessTokenProvider::builder()
+        MDSAccessTokenProvider::builder()
             .endpoint(endpoint)
             .maybe_scopes(self.scopes)
-            .build();
-        let cached_token_provider = TokenCache::new(token_provider);
+            .build()
+    }
 
+    /// Returns a [Credentials] instance with the configured settings.
+    pub fn build(self) -> Result<Credentials> {
         let mdsc = MDSCredentials {
-            quota_project_id: self.quota_project_id,
-            token_provider: cached_token_provider,
-            universe_domain: self.universe_domain,
+            quota_project_id: self.quota_project_id.clone(),
+            universe_domain: self.universe_domain.clone(),
+            token_provider: TokenCache::new(self.build_token_provider()),
         };
         Ok(Credentials {
             inner: Arc::new(mdsc),
@@ -434,7 +434,10 @@ mod test {
         let headers = mdsc.headers(Extensions::new()).await.unwrap();
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
     }
 
     #[tokio::test]
@@ -514,9 +517,15 @@ mod test {
             .with_endpoint(endpoint)
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
         let headers = mdsc.headers(Extensions::new()).await?;
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
 
         // validate that the inner token provider is called only once
         assert_eq!(*call_count.lock().unwrap(), 1);
@@ -550,12 +559,13 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let token = MDSAccessTokenProvider {
-            scopes: Some(scopes.clone()),
-            endpoint,
-        }
-        .token()
-        .await?;
+        let token = Builder::default()
+            .with_endpoint(endpoint)
+            .with_scopes(scopes)
+            .build_token_provider()
+            .token()
+            .await?;
+
         let now = tokio::time::Instant::now();
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -592,12 +602,11 @@ mod test {
         )]))
         .await;
         println!("endpoint = {endpoint}");
-        let token = MDSAccessTokenProvider {
-            scopes: None,
-            endpoint,
-        }
-        .token()
-        .await?;
+        let token = Builder::default()
+            .with_endpoint(endpoint)
+            .build_token_provider()
+            .token()
+            .await?;
 
         let now = Instant::now();
         assert_eq!(token.token, "test-access-token");
@@ -641,8 +650,14 @@ mod test {
             .with_scopes(scopes)
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
-        assert_eq!(get_token_from_headers(&headers), "test-access-token");
-        assert_eq!(get_token_type_from_headers(&headers), "test-token-type");
+        assert_eq!(
+            get_token_from_headers(&headers).unwrap(),
+            "test-access-token"
+        );
+        assert_eq!(
+            get_token_type_from_headers(&headers).unwrap(),
+            "test-token-type"
+        );
 
         Ok(())
     }

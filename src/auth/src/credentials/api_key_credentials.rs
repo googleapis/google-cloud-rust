@@ -109,19 +109,21 @@ impl Builder {
         self
     }
 
+    fn build_token_provider(self) -> ApiKeyTokenProvider {
+        ApiKeyTokenProvider {
+            api_key: self.api_key,
+        }
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Credentials {
-        let token_provider = ApiKeyTokenProvider {
-            api_key: self.api_key,
-        };
-
         let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
             .ok()
-            .or(self.quota_project_id);
+            .or(self.quota_project_id.clone());
 
         Credentials {
             inner: Arc::new(ApiKeyCredentials {
-                token_provider,
+                token_provider: self.build_token_provider(),
                 quota_project_id,
             }),
         }
@@ -150,18 +152,15 @@ mod test {
 
     #[test]
     fn debug_token_provider() {
-        let expected = ApiKeyTokenProvider {
-            api_key: "super-secret-api-key".to_string(),
-        };
+        let expected = Builder::new("test-api-key").build_token_provider();
+
         let fmt = format!("{expected:?}");
         assert!(!fmt.contains("super-secret-api-key"), "{fmt}");
     }
 
     #[tokio::test]
     async fn api_key_credentials_token_provider() {
-        let tp = ApiKeyTokenProvider {
-            api_key: "test-api-key".to_string(),
-        };
+        let tp = Builder::new("test-api-key").build_token_provider();
         assert_eq!(
             tp.token().await.unwrap(),
             Token {
