@@ -17,20 +17,15 @@ use base64::Engine;
 use serde::Deserialize;
 use std::collections::HashMap;
 
-#[allow(dead_code)]
 type Result<T> = std::result::Result<T, CredentialsError>;
 
 /// Token Exchange grant type for a sts exchange.
-#[allow(dead_code)]
 pub const TOKEN_EXCHANGE_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:token-exchange";
 /// Refresh Token Exchange grant type for a sts exchange.
-#[allow(dead_code)]
 pub const REFRESH_TOKEN_GRANT_TYPE: &str = "refresh_token";
 /// TokenType for a sts exchange.
-#[allow(dead_code)]
 pub const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT TokenType for a sts exchange.
-#[allow(dead_code)]
 pub const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
@@ -39,7 +34,6 @@ pub struct STSHandler {
     client: reqwest::Client,
 }
 
-#[allow(dead_code)]
 impl STSHandler {
     pub fn new() -> Self {
         let client = reqwest::Client::new();
@@ -154,7 +148,6 @@ pub struct TokenResponse {
 /// Authentication style via headers or form params.
 /// See https://datatracker.ietf.org/doc/html/rfc6749#section-2.3.1.
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub enum ClientAuthStyle {
     InParams,
     InHeader,
@@ -184,7 +177,7 @@ impl ClientAuthentication {
     // Add authentication to a Secure Token Service exchange request.
     // Modifies either the passed headers or form parameters
     // depending on the desired authentication format.
-    #[allow(dead_code)]
+
     pub fn inject_auth(&self, headers: &mut http::HeaderMap, params: &mut HashMap<&str, String>) {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
@@ -209,7 +202,6 @@ impl ClientAuthentication {
 }
 
 /// Information required to perform an oauth2 token exchange with the provided endpoint.
-#[allow(dead_code)]
 #[derive(Default)]
 pub struct ExchangeTokenRequest {
     pub url: String,
@@ -226,7 +218,6 @@ pub struct ExchangeTokenRequest {
 }
 
 /// Information required to perform the token exchange using a refresh token flow.
-#[allow(dead_code)]
 #[derive(Default)]
 pub struct RefreshAccessTokenRequest {
     pub url: String,
