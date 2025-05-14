@@ -84,6 +84,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = ();
         self.inner
             .execute(
                 extensions,
@@ -94,7 +95,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(gaxi::grpc::to_gax_response::<(), ()>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
     async fn get_bucket(
@@ -124,6 +125,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Bucket;
         self.inner
             .execute(
                 extensions,
@@ -134,12 +136,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Bucket,
-                    crate::model::Bucket,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Bucket>)
     }
 
     async fn create_bucket(
@@ -179,6 +176,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("project", v))])
         };
 
+        type TR = crate::google::storage::v2::Bucket;
         self.inner
             .execute(
                 extensions,
@@ -189,12 +187,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Bucket,
-                    crate::model::Bucket,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Bucket>)
     }
 
     async fn list_buckets(
@@ -224,6 +217,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("project", v))])
         };
 
+        type TR = crate::google::storage::v2::ListBucketsResponse;
         self.inner
             .execute(
                 extensions,
@@ -234,12 +228,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::ListBucketsResponse,
-                    crate::model::ListBucketsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListBucketsResponse>)
     }
 
     async fn lock_bucket_retention_policy(
@@ -271,6 +260,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Bucket;
         self.inner
             .execute(
                 extensions,
@@ -281,12 +271,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Bucket,
-                    crate::model::Bucket,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Bucket>)
     }
 
     async fn get_iam_policy(
@@ -316,19 +301,18 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::iam::v1::Policy;
         self.inner
-          .execute(
-              extensions,
-              path,
-              req.to_proto().map_err(Error::other)?,
-              options,
-              &info::X_GOOG_API_CLIENT_HEADER,
-              &x_goog_request_params,
-          )
-          .await
-          .map(gaxi::grpc::to_gax_response::<
-          crate::google::iam::v1::Policy,
-          iam_v1::model::Policy>)
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::Policy>)
     }
 
     async fn set_iam_policy(
@@ -358,19 +342,18 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::iam::v1::Policy;
         self.inner
-          .execute(
-              extensions,
-              path,
-              req.to_proto().map_err(Error::other)?,
-              options,
-              &info::X_GOOG_API_CLIENT_HEADER,
-              &x_goog_request_params,
-          )
-          .await
-          .map(gaxi::grpc::to_gax_response::<
-          crate::google::iam::v1::Policy,
-          iam_v1::model::Policy>)
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::Policy>)
     }
 
     async fn test_iam_permissions(
@@ -436,6 +419,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::iam::v1::TestIamPermissionsResponse;
         self.inner
             .execute(
                 extensions,
@@ -446,12 +430,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::iam::v1::TestIamPermissionsResponse,
-                    iam_v1::model::TestIamPermissionsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, iam_v1::model::TestIamPermissionsResponse>)
     }
 
     async fn update_bucket(
@@ -483,6 +462,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Bucket;
         self.inner
             .execute(
                 extensions,
@@ -493,12 +473,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Bucket,
-                    crate::model::Bucket,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Bucket>)
     }
 
     async fn compose_object(
@@ -530,6 +505,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Object;
         self.inner
             .execute(
                 extensions,
@@ -540,12 +516,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Object,
-                    crate::model::Object,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Object>)
     }
 
     async fn delete_object(
@@ -575,6 +546,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = ();
         self.inner
             .execute(
                 extensions,
@@ -585,7 +557,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(gaxi::grpc::to_gax_response::<(), ()>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
     async fn restore_object(
@@ -615,6 +587,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Object;
         self.inner
             .execute(
                 extensions,
@@ -625,12 +598,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Object,
-                    crate::model::Object,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Object>)
     }
 
     async fn get_object(
@@ -660,6 +628,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Object;
         self.inner
             .execute(
                 extensions,
@@ -670,12 +639,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Object,
-                    crate::model::Object,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Object>)
     }
 
     async fn update_object(
@@ -707,6 +671,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Object;
         self.inner
             .execute(
                 extensions,
@@ -717,12 +682,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Object,
-                    crate::model::Object,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Object>)
     }
 
     async fn list_objects(
@@ -752,6 +712,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::ListObjectsResponse;
         self.inner
             .execute(
                 extensions,
@@ -762,12 +723,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::ListObjectsResponse,
-                    crate::model::ListObjectsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListObjectsResponse>)
     }
 
     async fn rewrite_object(
@@ -806,6 +762,7 @@ impl super::stub::Storage for Storage {
             ])
         };
 
+        type TR = crate::google::storage::v2::RewriteResponse;
         self.inner
             .execute(
                 extensions,
@@ -816,12 +773,7 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::RewriteResponse,
-                    crate::model::RewriteResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::RewriteResponse>)
     }
 
     async fn move_object(
@@ -851,6 +803,7 @@ impl super::stub::Storage for Storage {
             .map(|v| ("bucket", v))])
         };
 
+        type TR = crate::google::storage::v2::Object;
         self.inner
             .execute(
                 extensions,
@@ -861,11 +814,6 @@ impl super::stub::Storage for Storage {
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::Object,
-                    crate::model::Object,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Object>)
     }
 }

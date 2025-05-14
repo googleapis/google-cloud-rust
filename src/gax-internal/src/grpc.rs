@@ -241,14 +241,13 @@ impl Client {
 
 /// Convert a `tonic::Response` wrapping a prost message into a
 /// `gax::response::Response` wrapping our equivalent message
-pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> gax::response::Response<G>
+pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> Result<gax::response::Response<G>>
 where
     T: crate::prost::FromProto<G>,
 {
     let (metadata, body, _extensions) = response.into_parts();
-    gax::response::Response::from_parts(
+    Ok(gax::response::Response::from_parts(
         gax::response::Parts::new().set_headers(metadata.into_headers()),
-        // TODO(#2037) - handle conversion from proto errors.
-        body.cnv().unwrap(),
-    )
+        body.cnv().map_err(Error::other)?,
+    ))
 }
