@@ -27,12 +27,20 @@ use std::sync::Arc;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-#[derive(Clone, PartialEq, Debug, Default)]
+#[derive(Clone, PartialEq, Default)]
 pub struct EntityTag(pub(crate) String);
 
 impl EntityTag {
     pub fn new(value: String) -> Self {
         Self(value)
+    }
+}
+
+impl std::fmt::Debug for EntityTag {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("EntityTag")
+            .field("tag", &"[censored]")
+            .finish()
     }
 }
 

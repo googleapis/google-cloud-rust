@@ -22,7 +22,7 @@ use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
 
 const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 
-/// A utility function to create cachable headers.
+/// A utility function to create cacheable headers.
 pub(crate) fn build_cacheable_headers(
     cached_token: &CacheableResource<Token>,
     quota_project_id: &Option<String>,
