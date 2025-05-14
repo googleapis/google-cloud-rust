@@ -28,7 +28,13 @@ pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 #[derive(Clone, PartialEq, Debug, Default)]
-pub struct EntityTag(pub String);
+pub struct EntityTag(pub(crate) String);
+
+impl EntityTag {
+    pub fn new(value: String) -> Self {
+        Self(value)
+    }
+}
 
 #[derive(Clone, PartialEq, Debug)]
 pub enum CacheableResource<T> {
@@ -663,7 +669,7 @@ mod test {
             CacheableResource::New { data, .. } => data
                 .get(AUTHORIZATION)
                 .and_then(|token_value| token_value.to_str().ok())
-                .and_then(|s| s.split_whitespace().nth(1))
+                .and_then(|s| s.split_whitespace().next())
                 .map(|s| s.to_string()),
             CacheableResource::NotModified => None,
         }

@@ -37,7 +37,8 @@ serde_json.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs"] }
-etag                  = {workspace = true}
+blake3.workspace      = true
+hex.workspace         = true
 bon.workspace         = true
 # Local dependencies
 gax.workspace = true
