@@ -300,7 +300,7 @@ mod v1 {
     #[serde_with::serde_as]
     #[derive(Debug, Default, serde::Deserialize, PartialEq)]
     #[serde(default, rename_all = "camelCase")]
-    // See http://cloud/storage/docs/json_api/v1/objects#resource for API reference.
+    // See http://cloud.google.com/storage/docs/json_api/v1/objects#resource for API reference.
     pub struct Object {
         id: String,
         name: String,
@@ -332,10 +332,74 @@ mod v1 {
         time_storage_class_updated: wkt::Timestamp,
         updated: wkt::Timestamp,
         custom_time: wkt::Timestamp,
+        acl: Vec<ObjectAccessControl>,
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
         self_link: String,
-        // TODO(#2039) - add all the other fields.
+        // TODO(#2039) - add all the other fields:
+        //     "md5Hash": string,
+        //     "crc32c": string,
+        //     "retention": {
+        //       "retainUntilTime": "datetime",
+        //       "mode": string
+        //     }
+        //     "metadata": {
+        //       (key): string
+        //     },
+        //     "owner": {
+        //       "entity": string,
+        //       "entityId": string
+        //     },
+        //     "customerEncryption": {
+        //       "encryptionAlgorithm": string,
+        //       "keySha256": string
+        //     }
+    }
+
+    #[serde_with::serde_as]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq)]
+    #[serde(default, rename_all = "camelCase")]
+    struct ObjectAccessControl {
+        id: String,
+        entity: String,
+        role: String,
+        email: String,
+        domain: String,
+        entity_id: String,
+        etag: String,
+        project_team: ProjectTeam,
+    }
+
+    #[serde_with::serde_as]
+    #[derive(Debug, Default, serde::Deserialize, PartialEq)]
+    #[serde(default, rename_all = "camelCase")]
+    struct ProjectTeam {
+        project_number: String,
+        team: String,
+    }
+
+    impl std::convert::From<ObjectAccessControl> for control::model::ObjectAccessControl {
+        fn from(value: ObjectAccessControl) -> Self {
+            Self::new()
+                .set_id(value.id)
+                .set_entity(value.entity)
+                .set_role(value.role)
+                .set_email(value.email)
+                .set_domain(value.domain)
+                .set_entity_id(value.entity_id)
+                .set_etag(value.etag)
+                .set_project_team(value.project_team)
+        }
+    }
+
+    impl std::convert::From<ProjectTeam> for Option<control::model::ProjectTeam> {
+        fn from(value: ProjectTeam) -> Self {
+            Some(
+                control::model::ProjectTeam::new()
+                    .set_project_number(value.project_number)
+                    .set_team(value.team),
+            )
+        }
     }
 
     impl std::convert::From<Object> for control::model::Object {
@@ -367,6 +431,7 @@ mod v1 {
                 .set_update_storage_class_time(value.time_storage_class_updated)
                 .set_custom_time(value.custom_time)
                 .set_update_time(value.updated)
+                .set_acl(value.acl)
         }
     }
 
@@ -393,6 +458,8 @@ mod v1 {
                 "componentCount": 5,
                 // datetime fields:
                 "timeCreated": "2025-05-13T10:30:00Z",
+                // list fields:
+                "acl": [{"id": "acl-id", "projectTeam": {"projectNumber": "123456", "team": "myteam"}}]
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -414,6 +481,14 @@ mod v1 {
                 component_count: 5,
                 // datetime fields:
                 time_created: wkt::Timestamp::clamp(1747132200, 0),
+                acl: vec![ObjectAccessControl {
+                    id: "acl-id".to_string(),
+                    project_team: ProjectTeam {
+                        project_number: "123456".to_string(),
+                        team: "myteam".to_string(),
+                    },
+                    ..Default::default()
+                }],
                 ..Default::default()
             };
 
@@ -439,6 +514,17 @@ mod v1 {
                 component_count: 5,
                 // datetime fields:
                 time_created: wkt::Timestamp::clamp(1747132200, 0),
+                // list fields:
+                acl: vec![
+                    ObjectAccessControl {
+                        id: "acl1".to_string(),
+                        ..Default::default()
+                    },
+                    ObjectAccessControl {
+                        id: "acl2".to_string(),
+                        ..Default::default()
+                    },
+                ],
                 // unused in control::model
                 media_link: "my-media-link".to_string(),
                 ..Default::default()
@@ -448,6 +534,7 @@ mod v1 {
 
             assert_eq!(got.generation, 123);
             assert_eq!(got.bucket, "projects/_/buckets/my-bucket");
+            assert_eq!(got.acl.len(), 2)
         }
     }
 }
