@@ -113,7 +113,7 @@ mod test {
     }
 
     fn expected_response() -> BatchRecognizeResponse {
-        BatchRecognizeResponse::new().maybe_total_billed_duration(expected_duration())
+        BatchRecognizeResponse::new().set_or_clear_total_billed_duration(expected_duration())
     }
 
     fn make_finished_operation(

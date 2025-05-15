@@ -269,7 +269,7 @@ pub mod {{Codec.ModuleName}} {
         {{#Deprecated}}
         #[deprecated]
         {{/Deprecated}}
-        pub fn maybe_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
         {
             self.0.request.{{Codec.FieldName}} = v.map(|x| x.into());
@@ -292,7 +292,7 @@ pub mod {{Codec.ModuleName}} {
         {{#Deprecated}}
         #[deprecated]
         {{/Deprecated}}
-        pub fn maybe_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
+        pub fn set_or_clear_{{Codec.SetterName}}<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
         {
             self.0.request.{{Codec.FieldName}} = v.map(|x| std::boxed::Box::new(x.into()));

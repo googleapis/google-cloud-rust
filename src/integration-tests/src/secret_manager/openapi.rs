@@ -318,7 +318,7 @@ async fn get_all_secret_version_names(
             .list_secret_versions()
             .set_project(project_id)
             .set_secret(secret_id)
-            .maybe_page_token(page_token)
+            .set_or_clear_page_token(page_token)
             .send()
             .await?;
         response

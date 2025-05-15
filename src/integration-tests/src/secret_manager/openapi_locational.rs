@@ -297,7 +297,7 @@ async fn get_all_secret_version_names(
             .set_project(project_id)
             .set_location(location_id)
             .set_secret(secret_id)
-            .maybe_page_token(page_token)
+            .set_or_clear_page_token(page_token)
             .send()
             .await?;
         response
@@ -325,7 +325,7 @@ async fn get_all_secret_names(
             .list_secrets_by_project_and_location()
             .set_project(project_id)
             .set_location(location_id)
-            .maybe_page_token(page_token)
+            .set_or_clear_page_token(page_token)
             .send()
             .await?;
         response
@@ -360,7 +360,7 @@ async fn cleanup_stale_secrets(
             .list_secrets_by_project_and_location()
             .set_project(project_id)
             .set_location(location_id)
-            .maybe_page_token(page_token.clone())
+            .set_or_clear_page_token(page_token.clone())
             .send()
             .await?;
         for secret in response.secrets {
