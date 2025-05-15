@@ -43,6 +43,7 @@ gax.workspace = true
 
 [dev-dependencies]
 axum.workspace        = true
+httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem"] }
