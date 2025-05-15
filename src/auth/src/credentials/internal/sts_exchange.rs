@@ -195,6 +195,9 @@ mod test {
         })
         .to_string();
 
+        let expected_basic_auth =
+            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode("client_id:supersecret");
+
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -222,7 +225,7 @@ mod test {
                 )))),
                 request::headers(contains((
                     "authorization",
-                    "Basic Y2xpZW50X2lkOnN1cGVyc2VjcmV0"
+                    format!("Basic {expected_basic_auth}")
                 ))),
                 request::headers(contains((
                     "content-type",
@@ -276,6 +279,9 @@ mod test {
         })
         .to_string();
 
+        let expected_basic_auth =
+            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode("client_id:supersecret");
+
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -295,7 +301,7 @@ mod test {
                 )))),
                 request::headers(contains((
                     "authorization",
-                    "Basic Y2xpZW50X2lkOnN1cGVyc2VjcmV0"
+                    format!("Basic {expected_basic_auth}")
                 ))),
                 request::headers(contains((
                     "content-type",
