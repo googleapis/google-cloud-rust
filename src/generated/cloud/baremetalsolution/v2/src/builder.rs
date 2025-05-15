@@ -247,7 +247,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -452,7 +452,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::ResetInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -557,7 +557,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::StartInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -662,7 +662,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::StopInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -767,7 +767,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::EnableInteractiveSerialConsole;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -879,7 +879,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::DisableInteractiveSerialConsole;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -991,7 +991,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::DetachLun;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1538,7 +1538,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::UpdateVolume;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1743,7 +1743,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::EvictVolume;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1847,7 +1847,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::ResizeVolume;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2193,7 +2193,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::UpdateNetwork;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2415,7 +2415,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::RestoreVolumeSnapshot;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2929,7 +2929,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::EvictLun;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3205,7 +3205,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::UpdateNfsShare;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3339,7 +3339,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::CreateNfsShare;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3534,7 +3534,7 @@ pub mod bare_metal_solution {
     /// # use google_cloud_baremetalsolution_v2::builder;
     /// use builder::bare_metal_solution::DeleteNfsShare;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_baremetalsolution_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

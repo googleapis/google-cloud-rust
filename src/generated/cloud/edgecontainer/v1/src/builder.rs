@@ -253,7 +253,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -391,7 +391,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -527,7 +527,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::UpgradeCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -652,7 +652,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1074,7 +1074,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CreateNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1212,7 +1212,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::UpdateNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1348,7 +1348,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1822,7 +1822,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::CreateVpnConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1966,7 +1966,7 @@ pub mod edge_container {
     /// # use google_cloud_edgecontainer_v1::builder;
     /// use builder::edge_container::DeleteVpnConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgecontainer_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

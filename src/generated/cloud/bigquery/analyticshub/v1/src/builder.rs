@@ -1153,7 +1153,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::SubscribeDataExchange;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1301,7 +1301,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::RefreshSubscription;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1774,7 +1774,7 @@ pub mod analytics_hub_service {
     /// # use google_cloud_bigquery_analyticshub_v1::builder;
     /// use builder::analytics_hub_service::DeleteSubscription;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_bigquery_analyticshub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

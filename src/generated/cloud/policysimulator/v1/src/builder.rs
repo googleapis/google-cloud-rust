@@ -138,7 +138,7 @@ pub mod simulator {
     /// # use google_cloud_policysimulator_v1::builder;
     /// use builder::simulator::CreateReplay;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_policysimulator_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

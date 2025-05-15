@@ -75,7 +75,7 @@ pub mod assured_workloads_service {
     /// # use google_cloud_assuredworkloads_v1::builder;
     /// use builder::assured_workloads_service::CreateWorkload;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_assuredworkloads_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

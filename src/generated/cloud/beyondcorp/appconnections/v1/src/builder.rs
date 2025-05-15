@@ -261,7 +261,7 @@ pub mod app_connections_service {
     /// # use google_cloud_beyondcorp_appconnections_v1::builder;
     /// use builder::app_connections_service::CreateAppConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnections_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -409,7 +409,7 @@ pub mod app_connections_service {
     /// # use google_cloud_beyondcorp_appconnections_v1::builder;
     /// use builder::app_connections_service::UpdateAppConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnections_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -571,7 +571,7 @@ pub mod app_connections_service {
     /// # use google_cloud_beyondcorp_appconnections_v1::builder;
     /// use builder::app_connections_service::DeleteAppConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_beyondcorp_appconnections_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

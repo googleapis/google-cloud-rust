@@ -279,7 +279,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::CreateManagementServer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -421,7 +421,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::DeleteManagementServer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -532,7 +532,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::CreateBackupVault;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -990,7 +990,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::UpdateBackupVault;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1149,7 +1149,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::DeleteBackupVault;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1464,7 +1464,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::UpdateDataSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1801,7 +1801,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::UpdateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1943,7 +1943,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2049,7 +2049,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::RestoreBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2216,7 +2216,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::CreateBackupPlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2529,7 +2529,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::DeleteBackupPlan;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2640,7 +2640,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::CreateBackupPlanAssociation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2969,7 +2969,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::DeleteBackupPlanAssociation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3082,7 +3082,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::TriggerBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3199,7 +3199,7 @@ pub mod backup_dr {
     /// # use google_cloud_backupdr_v1::builder;
     /// use builder::backup_dr::InitializeService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_backupdr_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

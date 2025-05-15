@@ -253,7 +253,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -391,7 +391,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -531,7 +531,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -709,7 +709,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::RescheduleMaintenance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1185,7 +1185,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1295,7 +1295,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::ExportBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1421,7 +1421,7 @@ pub mod memorystore {
     /// # use google_cloud_memorystore_v1::builder;
     /// use builder::memorystore::BackupInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_memorystore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

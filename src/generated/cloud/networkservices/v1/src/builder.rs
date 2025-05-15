@@ -265,7 +265,7 @@ pub mod dep_service {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::dep_service::CreateLbTrafficExtension;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -411,7 +411,7 @@ pub mod dep_service {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::dep_service::UpdateLbTrafficExtension;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -559,7 +559,7 @@ pub mod dep_service {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::dep_service::DeleteLbTrafficExtension;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -860,7 +860,7 @@ pub mod dep_service {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::dep_service::CreateLbRouteExtension;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1004,7 +1004,7 @@ pub mod dep_service {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::dep_service::UpdateLbRouteExtension;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1150,7 +1150,7 @@ pub mod dep_service {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::dep_service::DeleteLbRouteExtension;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2230,7 +2230,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateEndpointPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2368,7 +2368,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateEndpointPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2508,7 +2508,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteEndpointPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2781,7 +2781,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2913,7 +2913,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3047,7 +3047,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteGateway;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3317,7 +3317,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateGrpcRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3449,7 +3449,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateGrpcRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3583,7 +3583,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteGrpcRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3853,7 +3853,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateHttpRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3985,7 +3985,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateHttpRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4119,7 +4119,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteHttpRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4389,7 +4389,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateTcpRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4521,7 +4521,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateTcpRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4655,7 +4655,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteTcpRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4925,7 +4925,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateTlsRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5057,7 +5057,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateTlsRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5191,7 +5191,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteTlsRoute;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5469,7 +5469,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateServiceBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5607,7 +5607,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteServiceBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5880,7 +5880,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::CreateMesh;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6012,7 +6012,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::UpdateMesh;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6146,7 +6146,7 @@ pub mod network_services {
     /// # use google_cloud_networkservices_v1::builder;
     /// use builder::network_services::DeleteMesh;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkservices_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

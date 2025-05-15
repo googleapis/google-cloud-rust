@@ -449,7 +449,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::CreateEntitlement;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -592,7 +592,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::DeleteEntitlement;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -711,7 +711,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::UpdateEntitlement;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1383,7 +1383,7 @@ pub mod privileged_access_manager {
     /// # use google_cloud_privilegedaccessmanager_v1::builder;
     /// use builder::privileged_access_manager::RevokeGrant;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_privilegedaccessmanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -75,7 +75,7 @@ pub mod attached_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::attached_clusters::CreateAttachedCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -219,7 +219,7 @@ pub mod attached_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::attached_clusters::UpdateAttachedCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -369,7 +369,7 @@ pub mod attached_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::attached_clusters::ImportAttachedCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -699,7 +699,7 @@ pub mod attached_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::attached_clusters::DeleteAttachedCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1485,7 +1485,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::CreateAwsCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1626,7 +1626,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::UpdateAwsCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1939,7 +1939,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::DeleteAwsCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2264,7 +2264,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::CreateAwsNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2407,7 +2407,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::UpdateAwsNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2556,7 +2556,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::RollbackAwsNodePoolUpdate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2840,7 +2840,7 @@ pub mod aws_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::aws_clusters::DeleteAwsNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3528,7 +3528,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::CreateAzureClient;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3840,7 +3840,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::DeleteAzureClient;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3959,7 +3959,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::CreateAzureCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4102,7 +4102,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::UpdateAzureCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4420,7 +4420,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::DeleteAzureCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4747,7 +4747,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::CreateAzureNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4891,7 +4891,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::UpdateAzureNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5215,7 +5215,7 @@ pub mod azure_clusters {
     /// # use google_cloud_gkemulticloud_v1::builder;
     /// use builder::azure_clusters::DeleteAzureNodePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkemulticloud_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

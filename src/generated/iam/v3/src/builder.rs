@@ -75,7 +75,7 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::CreatePolicyBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -285,7 +285,7 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::UpdatePolicyBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -431,7 +431,7 @@ pub mod policy_bindings {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::policy_bindings::DeletePolicyBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -903,7 +903,7 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1123,7 +1123,7 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1274,7 +1274,7 @@ pub mod principal_access_boundary_policies {
     /// # use google_cloud_iam_v3::builder;
     /// use builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -75,7 +75,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::CreateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -376,7 +376,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::UpdateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -525,7 +525,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::DeleteConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -644,7 +644,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::CreateRepository;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -779,7 +779,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::BatchCreateRepositories;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1079,7 +1079,7 @@ pub mod repository_manager {
     /// # use google_cloud_build_v2::builder;
     /// use builder::repository_manager::DeleteRepository;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

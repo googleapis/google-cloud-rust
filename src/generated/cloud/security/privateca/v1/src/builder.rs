@@ -559,7 +559,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::ActivateCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -705,7 +705,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -851,7 +851,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DisableCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -973,7 +973,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::EnableCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1349,7 +1349,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UndeleteCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1465,7 +1465,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1599,7 +1599,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateAuthority;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1751,7 +1751,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCaPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1889,7 +1889,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCaPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2211,7 +2211,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCaPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2588,7 +2588,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateRevocationList;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2743,7 +2743,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::CreateCertificateTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2889,7 +2889,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::DeleteCertificateTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3194,7 +3194,7 @@ pub mod certificate_authority_service {
     /// # use google_cloud_security_privateca_v1::builder;
     /// use builder::certificate_authority_service::UpdateCertificateTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_security_privateca_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

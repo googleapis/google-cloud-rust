@@ -235,7 +235,7 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::CreatePolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -365,7 +365,7 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::UpdatePolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -481,7 +481,7 @@ pub mod policies {
     /// # use google_cloud_iam_v2::builder;
     /// use builder::policies::DeletePolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_iam_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

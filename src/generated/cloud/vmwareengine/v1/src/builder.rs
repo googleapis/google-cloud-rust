@@ -256,7 +256,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreatePrivateCloud;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -405,7 +405,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdatePrivateCloud;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -554,7 +554,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeletePrivateCloud;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -691,7 +691,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UndeletePrivateCloud;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -982,7 +982,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1126,7 +1126,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1276,7 +1276,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1852,7 +1852,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateExternalAddress;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1996,7 +1996,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateExternalAddress;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2146,7 +2146,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteExternalAddress;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2425,7 +2425,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateSubnet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2753,7 +2753,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateExternalAccessRule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2899,7 +2899,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateExternalAccessRule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3051,7 +3051,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteExternalAccessRule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3352,7 +3352,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateLoggingServer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3496,7 +3496,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateLoggingServer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3646,7 +3646,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteLoggingServer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4069,7 +4069,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::ResetNsxCredentials;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4182,7 +4182,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::ResetVcenterCredentials;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4369,7 +4369,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateDnsForwarding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4705,7 +4705,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateNetworkPeering;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4849,7 +4849,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteNetworkPeering;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4962,7 +4962,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateNetworkPeering;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5224,7 +5224,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateHcxActivationKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5728,7 +5728,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateNetworkPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5872,7 +5872,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateNetworkPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6022,7 +6022,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteNetworkPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6327,7 +6327,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateManagementDnsZoneBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6479,7 +6479,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateManagementDnsZoneBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6634,7 +6634,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteManagementDnsZoneBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6749,7 +6749,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::RepairManagementDnsZoneBinding;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6865,7 +6865,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreateVmwareEngineNetwork;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7011,7 +7011,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdateVmwareEngineNetwork;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7163,7 +7163,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeleteVmwareEngineNetwork;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7474,7 +7474,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::CreatePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7808,7 +7808,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::UpdatePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7960,7 +7960,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::DeletePrivateConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8189,7 +8189,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::GrantDnsBindPermission;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8391,7 +8391,7 @@ pub mod vmware_engine {
     /// # use google_cloud_vmwareengine_v1::builder;
     /// use builder::vmware_engine::RevokeDnsBindPermission;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vmwareengine_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

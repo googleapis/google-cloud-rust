@@ -778,7 +778,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateImportJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1106,7 +1106,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteImportJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1222,7 +1222,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateImportJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1366,7 +1366,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::ValidateImportJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1479,7 +1479,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::RunImportJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1775,7 +1775,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateImportDataFile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1919,7 +1919,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteImportDataFile;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2210,7 +2210,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2348,7 +2348,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2492,7 +2492,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2602,7 +2602,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::AddAssetsToGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2741,7 +2741,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::RemoveAssetsFromGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3236,7 +3236,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3374,7 +3374,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3518,7 +3518,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3808,7 +3808,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreatePreferenceSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3952,7 +3952,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdatePreferenceSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4102,7 +4102,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeletePreferenceSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4278,7 +4278,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::UpdateSettings;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4422,7 +4422,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateReportConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4746,7 +4746,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteReportConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4865,7 +4865,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::CreateReport;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5193,7 +5193,7 @@ pub mod migration_center {
     /// # use google_cloud_migrationcenter_v1::builder;
     /// use builder::migration_center::DeleteReport;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_migrationcenter_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

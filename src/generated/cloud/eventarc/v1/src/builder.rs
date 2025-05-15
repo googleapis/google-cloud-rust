@@ -247,7 +247,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateTrigger;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -383,7 +383,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateTrigger;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -523,7 +523,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteTrigger;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -809,7 +809,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -945,7 +945,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1079,7 +1079,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1531,7 +1531,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateChannelConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1669,7 +1669,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteChannelConnection;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2194,7 +2194,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateMessageBus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2333,7 +2333,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateMessageBus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2480,7 +2480,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteMessageBus;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2775,7 +2775,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateEnrollment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2914,7 +2914,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateEnrollment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3061,7 +3061,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteEnrollment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3356,7 +3356,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreatePipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3492,7 +3492,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdatePipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3636,7 +3636,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeletePipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3936,7 +3936,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::CreateGoogleApiSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4078,7 +4078,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::UpdateGoogleApiSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4228,7 +4228,7 @@ pub mod eventarc {
     /// # use google_cloud_eventarc_v1::builder;
     /// use builder::eventarc::DeleteGoogleApiSource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_eventarc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

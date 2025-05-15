@@ -253,7 +253,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -391,7 +391,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -682,7 +682,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::CreateRepository;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -817,7 +817,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::DeleteRepository;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1193,7 +1193,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::CreateBranchRule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1494,7 +1494,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::UpdateBranchRule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1641,7 +1641,7 @@ pub mod secure_source_manager {
     /// # use google_cloud_securesourcemanager_v1::builder;
     /// use builder::secure_source_manager::DeleteBranchRule;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securesourcemanager_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

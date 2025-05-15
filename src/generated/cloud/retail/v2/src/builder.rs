@@ -75,7 +75,7 @@ pub mod analytics_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::analytics_service::ExportAnalyticsMetrics;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1733,7 +1733,7 @@ pub mod completion_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::completion_service::ImportCompletionData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3411,7 +3411,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::CreateModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3991,7 +3991,7 @@ pub mod model_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::model_service::TuneModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5137,7 +5137,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::PurgeProducts;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5256,7 +5256,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::ImportProducts;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5443,7 +5443,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::SetInventory;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5604,7 +5604,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::AddFulfillmentPlaces;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5759,7 +5759,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::RemoveFulfillmentPlaces;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5916,7 +5916,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::AddLocalInventories;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6081,7 +6081,7 @@ pub mod product_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::product_service::RemoveLocalInventories;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8080,7 +8080,7 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::PurgeUserEvents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8199,7 +8199,7 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::ImportUserEvents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8347,7 +8347,7 @@ pub mod user_event_service {
     /// # use google_cloud_retail_v2::builder;
     /// use builder::user_event_service::RejoinUserEvents;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_retail_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -267,7 +267,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CreateOrchestrationCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_telcoautomation_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -413,7 +413,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DeleteOrchestrationCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_telcoautomation_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -706,7 +706,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::CreateEdgeSlm;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_telcoautomation_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -844,7 +844,7 @@ pub mod telco_automation {
     /// # use google_cloud_telcoautomation_v1::builder;
     /// use builder::telco_automation::DeleteEdgeSlm;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_telcoautomation_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

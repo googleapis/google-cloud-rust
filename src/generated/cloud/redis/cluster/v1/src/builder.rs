@@ -241,7 +241,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -382,7 +382,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -492,7 +492,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -695,7 +695,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::RescheduleClusterMaintenance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1170,7 +1170,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1280,7 +1280,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::ExportBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1403,7 +1403,7 @@ pub mod cloud_redis_cluster {
     /// # use google_cloud_redis_cluster_v1::builder;
     /// use builder::cloud_redis_cluster::BackupCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_redis_cluster_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -169,7 +169,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UploadConversation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -704,7 +704,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateAnalysis;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1066,7 +1066,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkAnalyzeConversations;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1212,7 +1212,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkDeleteConversations;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1342,7 +1342,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::IngestConversations;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1586,7 +1586,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ExportInsightsData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1752,7 +1752,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::CreateIssueModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2106,7 +2106,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeleteIssueModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2214,7 +2214,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::DeployIssueModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2324,7 +2324,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::UndeployIssueModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2434,7 +2434,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ExportIssueModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2575,7 +2575,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::ImportIssueModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4222,7 +4222,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::InitializeEncryptionSpec;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4757,7 +4757,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::QueryMetrics;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5937,7 +5937,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::TuneQaScorecardRevision;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -6947,7 +6947,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkUploadFeedbackLabels;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7096,7 +7096,7 @@ pub mod contact_center_insights {
     /// # use google_cloud_contactcenterinsights_v1::builder;
     /// use builder::contact_center_insights::BulkDownloadFeedbackLabels;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_contactcenterinsights_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

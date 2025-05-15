@@ -367,7 +367,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datafusion_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -495,7 +495,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datafusion_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -599,7 +599,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datafusion_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -733,7 +733,7 @@ pub mod data_fusion {
     /// # use google_cloud_datafusion_v1::builder;
     /// use builder::data_fusion::RestartInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datafusion_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -417,7 +417,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::CreateMembership;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkehub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -556,7 +556,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::CreateFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkehub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -684,7 +684,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::DeleteMembership;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkehub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -801,7 +801,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::DeleteFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkehub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -913,7 +913,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::UpdateMembership;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkehub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1066,7 +1066,7 @@ pub mod gke_hub {
     /// # use google_cloud_gkehub_v1::builder;
     /// use builder::gke_hub::UpdateFeature;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_gkehub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

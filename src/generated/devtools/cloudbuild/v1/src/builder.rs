@@ -75,7 +75,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CreateBuild;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -474,7 +474,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::RetryBuild;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -590,7 +590,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::ApproveBuild;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1187,7 +1187,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::RunBuildTrigger;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1421,7 +1421,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::CreateWorkerPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1628,7 +1628,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::DeleteWorkerPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1758,7 +1758,7 @@ pub mod cloud_build {
     /// # use google_cloud_build_v1::builder;
     /// use builder::cloud_build::UpdateWorkerPool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_build_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

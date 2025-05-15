@@ -247,7 +247,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_lustre_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -383,7 +383,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_lustre_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -521,7 +521,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::DeleteInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_lustre_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -629,7 +629,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ImportData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_lustre_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -794,7 +794,7 @@ pub mod lustre {
     /// # use google_cloud_lustre_v1::builder;
     /// use builder::lustre::ExportData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_lustre_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

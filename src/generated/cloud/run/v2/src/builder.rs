@@ -777,7 +777,7 @@ pub mod executions {
     /// # use google_cloud_run_v2::builder;
     /// use builder::executions::DeleteExecution;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -889,7 +889,7 @@ pub mod executions {
     /// # use google_cloud_run_v2::builder;
     /// use builder::executions::CancelExecution;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1376,7 +1376,7 @@ pub mod jobs {
     /// # use google_cloud_run_v2::builder;
     /// use builder::jobs::CreateJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1677,7 +1677,7 @@ pub mod jobs {
     /// # use google_cloud_run_v2::builder;
     /// use builder::jobs::UpdateJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1800,7 +1800,7 @@ pub mod jobs {
     /// # use google_cloud_run_v2::builder;
     /// use builder::jobs::DeleteJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1909,7 +1909,7 @@ pub mod jobs {
     /// # use google_cloud_run_v2::builder;
     /// use builder::jobs::RunJob;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2835,7 +2835,7 @@ pub mod revisions {
     /// # use google_cloud_run_v2::builder;
     /// use builder::revisions::DeleteRevision;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3322,7 +3322,7 @@ pub mod services {
     /// # use google_cloud_run_v2::builder;
     /// use builder::services::CreateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3623,7 +3623,7 @@ pub mod services {
     /// # use google_cloud_run_v2::builder;
     /// use builder::services::UpdateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3764,7 +3764,7 @@ pub mod services {
     /// # use google_cloud_run_v2::builder;
     /// use builder::services::DeleteService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_run_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

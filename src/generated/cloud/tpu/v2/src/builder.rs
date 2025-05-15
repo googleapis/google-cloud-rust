@@ -235,7 +235,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CreateNode;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -363,7 +363,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteNode;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -465,7 +465,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::StopNode;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -565,7 +565,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::StartNode;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -665,7 +665,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::UpdateNode;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -971,7 +971,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::CreateQueuedResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1111,7 +1111,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::DeleteQueuedResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1228,7 +1228,7 @@ pub mod tpu {
     /// # use google_cloud_tpu_v2::builder;
     /// use builder::tpu::ResetQueuedResource;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_tpu_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -671,7 +671,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::BatchTranslateText;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -868,7 +868,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::BatchTranslateDocument;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1086,7 +1086,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::CreateGlossary;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1213,7 +1213,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::UpdateGlossary;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1522,7 +1522,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::DeleteGlossary;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2035,7 +2035,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::CreateDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2327,7 +2327,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::DeleteDataset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3364,7 +3364,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::ImportData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3490,7 +3490,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::ExportData;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3725,7 +3725,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::CreateModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4021,7 +4021,7 @@ pub mod translation_service {
     /// # use google_cloud_translation_v3::builder;
     /// use builder::translation_service::DeleteModel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_translation_v3::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

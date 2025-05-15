@@ -261,7 +261,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::CreateConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -399,7 +399,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::UpdateConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -543,7 +543,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::RerunConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -651,7 +651,7 @@ pub mod reachability_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::reachability_service::DeleteConnectivityTest;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1739,7 +1739,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1879,7 +1879,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2025,7 +2025,7 @@ pub mod vpc_flow_logs_service {
     /// # use google_cloud_networkmanagement_v1::builder;
     /// use builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networkmanagement_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

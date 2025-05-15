@@ -253,7 +253,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CreateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -391,7 +391,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::UpdateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -535,7 +535,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::DeleteService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -831,7 +831,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CreateMetadataImport;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -975,7 +975,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::UpdateMetadataImport;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1125,7 +1125,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::ExportMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1272,7 +1272,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::RestoreService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1575,7 +1575,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::CreateBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1713,7 +1713,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::DeleteBackup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1823,7 +1823,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::QueryMetadata;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1936,7 +1936,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::MoveTableToDatabase;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2068,7 +2068,7 @@ pub mod dataproc_metastore {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore::AlterMetadataResourceLocation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3167,7 +3167,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::CreateFederation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3308,7 +3308,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::UpdateFederation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3455,7 +3455,7 @@ pub mod dataproc_metastore_federation {
     /// # use google_cloud_metastore_v1::builder;
     /// use builder::dataproc_metastore_federation::DeleteFederation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_metastore_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

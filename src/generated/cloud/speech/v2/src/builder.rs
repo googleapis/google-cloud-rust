@@ -73,7 +73,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CreateRecognizer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -378,7 +378,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdateRecognizer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -519,7 +519,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeleteRecognizer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -640,7 +640,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UndeleteRecognizer;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -884,7 +884,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::BatchRecognize;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1220,7 +1220,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CreateCustomClass;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1530,7 +1530,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdateCustomClass;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1673,7 +1673,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeleteCustomClass;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1796,7 +1796,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UndeleteCustomClass;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1913,7 +1913,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::CreatePhraseSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2215,7 +2215,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UpdatePhraseSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2353,7 +2353,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::DeletePhraseSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2471,7 +2471,7 @@ pub mod speech {
     /// # use google_cloud_speech_v2::builder;
     /// use builder::speech::UndeletePhraseSet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_speech_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

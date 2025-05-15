@@ -261,7 +261,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateDeliveryPipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -411,7 +411,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::UpdateDeliveryPipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -573,7 +573,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::DeleteDeliveryPipeline;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1014,7 +1014,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateTarget;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1158,7 +1158,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::UpdateTarget;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1314,7 +1314,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::DeleteTarget;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1628,7 +1628,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateCustomTargetType;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1778,7 +1778,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::UpdateCustomTargetType;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1940,7 +1940,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::DeleteCustomTargetType;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2249,7 +2249,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateRelease;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2467,7 +2467,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateDeployPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2616,7 +2616,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::UpdateDeployPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2777,7 +2777,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::DeleteDeployPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3507,7 +3507,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateRollout;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4163,7 +4163,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::CreateAutomation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4310,7 +4310,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::UpdateAutomation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -4469,7 +4469,7 @@ pub mod cloud_deploy {
     /// # use google_cloud_deploy_v1::builder;
     /// use builder::cloud_deploy::DeleteAutomation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_deploy_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

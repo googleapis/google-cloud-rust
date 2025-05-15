@@ -557,7 +557,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateNetwork;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -695,7 +695,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteNetwork;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -983,7 +983,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateSubnet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1121,7 +1121,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::UpdateSubnet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1265,7 +1265,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteSubnet;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1814,7 +1814,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateInterconnectAttachment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1963,7 +1963,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteInterconnectAttachment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2319,7 +2319,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::CreateRouter;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2457,7 +2457,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::UpdateRouter;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2601,7 +2601,7 @@ pub mod edge_network {
     /// # use google_cloud_edgenetwork_v1::builder;
     /// use builder::edge_network::DeleteRouter;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_edgenetwork_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

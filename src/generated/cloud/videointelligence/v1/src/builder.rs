@@ -75,7 +75,7 @@ pub mod video_intelligence_service {
     /// # use google_cloud_videointelligence_v1::builder;
     /// use builder::video_intelligence_service::AnnotateVideo;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_videointelligence_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

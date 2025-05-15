@@ -2491,7 +2491,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ReconcileTags;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datacatalog_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3010,7 +3010,7 @@ pub mod data_catalog {
     /// # use google_cloud_datacatalog_v1::builder;
     /// use builder::data_catalog::ImportEntries;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datacatalog_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

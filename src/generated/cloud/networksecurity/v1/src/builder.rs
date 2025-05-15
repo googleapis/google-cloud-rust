@@ -253,7 +253,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CreateAuthorizationPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -393,7 +393,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::UpdateAuthorizationPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -535,7 +535,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteAuthorizationPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -818,7 +818,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CreateServerTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -956,7 +956,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::UpdateServerTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1096,7 +1096,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteServerTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1377,7 +1377,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::CreateClientTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1515,7 +1515,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::UpdateClientTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1655,7 +1655,7 @@ pub mod network_security {
     /// # use google_cloud_networksecurity_v1::builder;
     /// use builder::network_security::DeleteClientTlsPolicy;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_networksecurity_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

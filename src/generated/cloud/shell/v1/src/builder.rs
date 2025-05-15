@@ -138,7 +138,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::StartEnvironment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_shell_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -263,7 +263,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::AuthorizeEnvironment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_shell_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -401,7 +401,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::AddPublicKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_shell_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -510,7 +510,7 @@ pub mod cloud_shell_service {
     /// # use google_cloud_shell_v1::builder;
     /// use builder::cloud_shell_service::RemovePublicKey;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_shell_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

@@ -517,7 +517,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteProcess;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datacatalog_lineage_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -975,7 +975,7 @@ pub mod lineage {
     /// # use google_cloud_datacatalog_lineage_v1::builder;
     /// use builder::lineage::DeleteRun;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_datacatalog_lineage_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

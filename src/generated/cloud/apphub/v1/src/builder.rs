@@ -261,7 +261,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateServiceProjectAttachment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -477,7 +477,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteServiceProjectAttachment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1027,7 +1027,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1224,7 +1224,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::UpdateService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1366,7 +1366,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteService;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1847,7 +1847,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateWorkload;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2044,7 +2044,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::UpdateWorkload;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2186,7 +2186,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteWorkload;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2410,7 +2410,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::CreateApplication;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2612,7 +2612,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::UpdateApplication;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2759,7 +2759,7 @@ pub mod app_hub {
     /// # use google_cloud_apphub_v1::builder;
     /// use builder::app_hub::DeleteApplication;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_apphub_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

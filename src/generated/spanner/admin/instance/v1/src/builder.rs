@@ -249,7 +249,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstanceConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -393,7 +393,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstanceConfig;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1078,7 +1078,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1213,7 +1213,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1746,7 +1746,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::CreateInstancePartition;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1962,7 +1962,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::UpdateInstancePartition;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2249,7 +2249,7 @@ pub mod instance_admin {
     /// # use google_cloud_spanner_admin_instance_v1::builder;
     /// use builder::instance_admin::MoveInstance;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_spanner_admin_instance_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

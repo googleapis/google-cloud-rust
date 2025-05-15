@@ -75,7 +75,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::CreateEnvironment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -363,7 +363,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::UpdateEnvironment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -504,7 +504,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DeleteEnvironment;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -981,7 +981,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::CheckUpgrade;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1928,7 +1928,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::SaveSnapshot;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2037,7 +2037,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::LoadSnapshot;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2170,7 +2170,7 @@ pub mod environments {
     /// # use google_cloud_orchestration_airflow_service_v1::builder;
     /// use builder::environments::DatabaseFailover;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_orchestration_airflow_service_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

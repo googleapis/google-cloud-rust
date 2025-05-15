@@ -156,7 +156,7 @@ pub mod security_center {
     /// # use google_cloud_securitycenter_v2::builder;
     /// use builder::security_center::BulkMuteFindings;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_securitycenter_v2::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

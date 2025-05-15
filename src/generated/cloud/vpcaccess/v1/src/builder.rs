@@ -75,7 +75,7 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::CreateConnector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vpcaccess_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -373,7 +373,7 @@ pub mod vpc_access_service {
     /// # use google_cloud_vpcaccess_v1::builder;
     /// use builder::vpc_access_service::DeleteConnector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_vpcaccess_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

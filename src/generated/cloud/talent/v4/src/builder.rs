@@ -1134,7 +1134,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchCreateJobs;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_talent_v4::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1410,7 +1410,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchUpdateJobs;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_talent_v4::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1609,7 +1609,7 @@ pub mod job_service {
     /// # use google_cloud_talent_v4::builder;
     /// use builder::job_service::BatchDeleteJobs;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_talent_v4::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

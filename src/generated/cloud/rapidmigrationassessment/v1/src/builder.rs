@@ -75,7 +75,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::CreateCollector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -213,7 +213,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::CreateAnnotation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -587,7 +587,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::UpdateCollector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -731,7 +731,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::DeleteCollector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -839,7 +839,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::ResumeCollector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -947,7 +947,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::RegisterCollector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1058,7 +1058,7 @@ pub mod rapid_migration_assessment {
     /// # use google_cloud_rapidmigrationassessment_v1::builder;
     /// use builder::rapid_migration_assessment::PauseCollector;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_rapidmigrationassessment_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

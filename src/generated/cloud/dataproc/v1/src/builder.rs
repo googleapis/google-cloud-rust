@@ -1115,7 +1115,7 @@ pub mod batch_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::batch_controller::CreateBatch;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2114,7 +2114,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::CreateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2264,7 +2264,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::UpdateCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2456,7 +2456,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::StopCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2589,7 +2589,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::StartCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2722,7 +2722,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::DeleteCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3051,7 +3051,7 @@ pub mod cluster_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::cluster_controller::DiagnoseCluster;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -3950,7 +3950,7 @@ pub mod job_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::job_controller::SubmitJobAsOperation;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5199,7 +5199,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::CreateNodeGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -5338,7 +5338,7 @@ pub mod node_group_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::node_group_controller::ResizeNodeGroup;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7199,7 +7199,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::CreateSession;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7512,7 +7512,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::TerminateSession;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -7626,7 +7626,7 @@ pub mod session_controller {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::session_controller::DeleteSession;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8519,7 +8519,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::InstantiateWorkflowTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -8651,7 +8651,7 @@ pub mod workflow_template_service {
     /// # use google_cloud_dataproc_v1::builder;
     /// use builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_dataproc_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;

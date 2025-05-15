@@ -75,7 +75,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -391,7 +391,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -507,7 +507,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::UpdateChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -647,7 +647,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::StartChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -758,7 +758,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::StopChannel;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -869,7 +869,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateInput;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1185,7 +1185,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteInput;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1295,7 +1295,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::UpdateInput;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -1959,7 +1959,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateClip;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2097,7 +2097,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteClip;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2207,7 +2207,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::CreateAsset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2345,7 +2345,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::DeleteAsset;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
@@ -2696,7 +2696,7 @@ pub mod livestream_service {
     /// # use google_cloud_video_livestream_v1::builder;
     /// use builder::livestream_service::UpdatePool;
     /// # tokio_test::block_on(async {
-    /// use google_cloud_video_livestream_v1::Poller;
+    /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
