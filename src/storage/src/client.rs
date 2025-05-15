@@ -568,7 +568,6 @@ mod v1 {
             // unused in control::model
             media_link: "my-media-link".to_string(),
             self_link: "my-self-link".to_string(),
-           
         }; "all fields set")]
         // Tests for acl values.
         #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]
@@ -590,16 +589,29 @@ mod v1 {
             assert_eq!(got.content_encoding, object.content_encoding);
             assert_eq!(got.content_disposition, object.content_disposition);
             assert_eq!(got.cache_control, object.cache_control);
-            got.acl.iter().zip(object.acl).for_each(|a| assert_eq_object_access_control(a.0, &a.1));
+            got.acl
+                .iter()
+                .zip(object.acl)
+                .for_each(|a| assert_eq_object_access_control(a.0, &a.1));
             assert_eq!(got.content_language, object.content_language);
             assert_eq!(got.delete_time, object.time_deleted);
-            assert_eq!(got.finalize_time.expect("finalize time is set"), object.time_finalized);
+            assert_eq!(
+                got.finalize_time.expect("finalize time is set"),
+                object.time_finalized
+            );
             assert_eq!(got.content_type, object.content_type);
-            assert_eq!(got.create_time.expect("create time is set"), object.time_created);
+            assert_eq!(
+                got.create_time.expect("create time is set"),
+                object.time_created
+            );
             assert_eq!(got.component_count, object.component_count);
             assert_eq!(got.update_time.expect("update time is set"), object.updated);
             assert_eq!(got.kms_key, object.kms_key_name);
-            assert_eq!(got.update_storage_class_time.expect("update storage class time is set"), object.time_storage_class_updated);
+            assert_eq!(
+                got.update_storage_class_time
+                    .expect("update storage class time is set"),
+                object.time_storage_class_updated
+            );
             assert_eq!(got.temporary_hold, object.temporary_hold);
             assert_eq!(got.retention_expire_time, object.retention_expiration_time);
             assert_eq!(got.event_based_hold, object.event_based_hold);
@@ -612,46 +624,47 @@ mod v1 {
             // TODO(#2039): assert_eq!(got.customer_encryption, object.customer_encryption);
         }
 
-        fn object_acl_with_all_fields() -> ObjectAccessControl{
-            ObjectAccessControl{
-                id:"acl1".to_string(), 
+        fn object_acl_with_all_fields() -> ObjectAccessControl {
+            ObjectAccessControl {
+                id: "acl1".to_string(),
                 entity: "entity1".to_string(),
-                role:  "role1".to_string(),
-                email: "email1".to_string(), 
-                domain: "domain1".to_string(), 
+                role: "role1".to_string(),
+                email: "email1".to_string(),
+                domain: "domain1".to_string(),
                 entity_id: "entity1".to_string(),
                 etag: "etag1".to_string(),
-                project_team: Some(ProjectTeam{
+                project_team: Some(ProjectTeam {
                     project_number: "123456".to_string(),
                     team: "team1".to_string(),
                 }),
             }
-        } 
+        }
 
-        fn object_acl_with_some_fields() -> ObjectAccessControl{
-                ObjectAccessControl {
-                id:"acl1".to_string(), 
+        fn object_acl_with_some_fields() -> ObjectAccessControl {
+            ObjectAccessControl {
+                id: "acl1".to_string(),
                 entity: "entity1".to_string(),
-                role:  "role1".to_string(),
-                project_team: Some(ProjectTeam{
+                role: "role1".to_string(),
+                project_team: Some(ProjectTeam {
                     project_number: "123456".to_string(),
                     ..Default::default()
                 }),
                 ..Default::default()
             }
         }
-        
+
         #[test_case(ObjectAccessControl::default(); "default fields")]
         #[test_case(object_acl_with_all_fields(); "all fields have values")]
         #[test_case(object_acl_with_some_fields(); "some fields have values" )]
-        fn test_object_access_control(
-            from: ObjectAccessControl
-        ) {
+        fn test_object_access_control(from: ObjectAccessControl) {
             let got = control::model::ObjectAccessControl::from(from.clone());
             assert_eq_object_access_control(&got, &from);
         }
 
-        fn assert_eq_object_access_control(got: &control::model::ObjectAccessControl, from: &ObjectAccessControl) {
+        fn assert_eq_object_access_control(
+            got: &control::model::ObjectAccessControl,
+            from: &ObjectAccessControl,
+        ) {
             assert_eq!(got.id, from.id);
             assert_eq!(got.entity, from.entity);
             assert_eq!(got.role, from.role);
