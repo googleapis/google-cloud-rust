@@ -53,7 +53,7 @@ pub struct Duration {
 }
 
 /// Represent failures in converting or creating [Duration] instances.
-#[derive(thiserror::Error, Debug, PartialEq)]
+#[derive(thiserror::Error, Debug)]
 pub enum DurationError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
@@ -384,7 +384,7 @@ mod test {
     #[test_case(0, -1_000_000_000 ; "too many negative nanoseconds")]
     fn out_of_range(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert_eq!(d, Err(Error::OutOfRange()));
+        assert!(matches!(d, Err(Error::OutOfRange())), "{d:?}");
         Ok(())
     }
 
@@ -392,7 +392,7 @@ mod test {
     #[test_case(-1 , 1 ; "mismatched sign case 2")]
     fn mismatched_sign(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert_eq!(d, Err(Error::MismatchedSigns()));
+        assert!(matches!(d, Err(Error::MismatchedSigns())), "{d:?}");
         Ok(())
     }
 
@@ -480,7 +480,7 @@ mod test {
     #[test_case(time::Duration::new(-10_001 * SECONDS_IN_YEAR, 0) ; "below the range")]
     fn from_time_out_of_range(value: time::Duration) {
         let got = Duration::try_from(value);
-        assert_eq!(got, Err(DurationError::OutOfRange()));
+        assert!(matches!(got, Err(DurationError::OutOfRange())), "{got:?}");
     }
 
     #[test_case(Duration::default(), time::Duration::default() ; "default")]
@@ -577,6 +577,6 @@ mod test {
     #[test_case(chrono::Duration::new(-10_001 * SECONDS_IN_YEAR, 0).unwrap() ; "below the range")]
     fn from_chrono_time_out_of_range(value: chrono::Duration) {
         let got = Duration::try_from(value);
-        assert_eq!(got, Err(DurationError::OutOfRange()));
+        assert!(matches!(got, Err(DurationError::OutOfRange())), "{got:?}");
     }
 }

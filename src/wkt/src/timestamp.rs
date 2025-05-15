@@ -58,7 +58,7 @@ pub struct Timestamp {
 }
 
 /// Represent failures in converting or creating [Timestamp] instances.
-#[derive(thiserror::Error, Debug, PartialEq)]
+#[derive(thiserror::Error, Debug)]
 pub enum TimestampError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
@@ -339,7 +339,7 @@ mod test {
     #[test_case(0, 1_000_000_000; "nanos above range")]
     fn new_out_of_range(seconds: i64, nanos: i32) -> Result {
         let t = Timestamp::new(seconds, nanos);
-        assert_eq!(t, Err(Error::OutOfRange()));
+        assert!(matches!(t, Err(Error::OutOfRange())), "{t:?}");
         Ok(())
     }
 

@@ -19,7 +19,7 @@ use std::collections::BTreeMap;
 
 type BoxError = Box<dyn std::error::Error + Send + Sync>;
 
-#[derive(Debug, thiserror::Error)]
+#[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]

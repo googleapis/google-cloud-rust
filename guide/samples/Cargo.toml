@@ -38,7 +38,7 @@ google-cloud-speech-v2 = { version = "0.3", path = "../../src/generated/cloud/sp
 google-cloud-language-v2 = { version = "0.3", path = "../../src/generated/cloud/language/v2" }
 # ANCHOR_END: language
 google-cloud-rpc = { version = "0.3", path = "../../src/generated/rpc/types" }
-google-cloud-wkt = { version = "0.4", path = "../../src/wkt" }
+google-cloud-wkt = { version = "0.5", path = "../../src/wkt" }
 
 # ANCHOR: serde_json
 [dependencies.serde_json]
