@@ -786,25 +786,6 @@ pub mod workstation_config {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [config][crate::model::workstation_config::Host::config]
-        /// to hold a `GceInstance`.
-        ///
-        /// Note that all the setters affecting `config` are
-        /// mutually exclusive.
-        pub fn set_gce_instance<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.config = std::option::Option::Some(
-                crate::model::workstation_config::host::Config::GceInstance(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for Host {
@@ -1226,20 +1207,6 @@ pub mod workstation_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [directory_type][crate::model::workstation_config::PersistentDirectory::directory_type]
-        /// to hold a `GcePd`.
-        ///
-        /// Note that all the setters affecting `directory_type` are
-        /// mutually exclusive.
-        pub fn set_gce_pd<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>>>(mut self, v: T) -> Self{
-            self.directory_type = std::option::Option::Some(
-                crate::model::workstation_config::persistent_directory::DirectoryType::GcePd(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -3614,21 +3581,6 @@ impl GenerateAccessTokenRequest {
         })
     }
 
-    /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
-    /// to hold a `ExpireTime`.
-    ///
-    /// Note that all the setters affecting `expiration` are
-    /// mutually exclusive.
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expiration = std::option::Option::Some(
-            crate::model::generate_access_token_request::Expiration::ExpireTime(v.into()),
-        );
-        self
-    }
-
     /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
@@ -3640,18 +3592,6 @@ impl GenerateAccessTokenRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
-    /// to hold a `Ttl`.
-    ///
-    /// Note that all the setters affecting `expiration` are
-    /// mutually exclusive.
-    pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.expiration = std::option::Option::Some(
-            crate::model::generate_access_token_request::Expiration::Ttl(v.into()),
-        );
-        self
     }
 }
 

@@ -1998,29 +1998,6 @@ pub mod echo {
             self.0.request.response = v.into();
             self
         }
-
-        /// Sets the value of [response][crate::model::EchoRequest::response]
-        /// to hold a `Content`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_content(v);
-            self
-        }
-
-        /// Sets the value of [response][crate::model::EchoRequest::response]
-        /// to hold a `Error`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_error(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -2530,32 +2507,6 @@ pub mod echo {
             self
         }
 
-        /// Sets the value of [end][crate::model::WaitRequest::end]
-        /// to hold a `EndTime`.
-        ///
-        /// Note that all the setters affecting `end` are
-        /// mutually exclusive.
-        pub fn set_end_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_end_time(v);
-            self
-        }
-
-        /// Sets the value of [end][crate::model::WaitRequest::end]
-        /// to hold a `Ttl`.
-        ///
-        /// Note that all the setters affecting `end` are
-        /// mutually exclusive.
-        pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_ttl(v);
-            self
-        }
-
         /// Sets the value of [response][crate::model::WaitRequest::response].
         ///
         /// Note that all the setters affecting `response` are
@@ -2565,32 +2516,6 @@ pub mod echo {
             v: T,
         ) -> Self {
             self.0.request.response = v.into();
-            self
-        }
-
-        /// Sets the value of [response][crate::model::WaitRequest::response]
-        /// to hold a `Error`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_error(v);
-            self
-        }
-
-        /// Sets the value of [response][crate::model::WaitRequest::response]
-        /// to hold a `Success`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::WaitResponse>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_success(v);
             self
         }
     }
@@ -2664,32 +2589,6 @@ pub mod echo {
             v: T,
         ) -> Self {
             self.0.request.response = v.into();
-            self
-        }
-
-        /// Sets the value of [response][crate::model::BlockRequest::response]
-        /// to hold a `Error`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_error(v);
-            self
-        }
-
-        /// Sets the value of [response][crate::model::BlockRequest::response]
-        /// to hold a `Success`.
-        ///
-        /// Note that all the setters affecting `response` are
-        /// mutually exclusive.
-        pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::BlockResponse>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_success(v);
             self
         }
     }

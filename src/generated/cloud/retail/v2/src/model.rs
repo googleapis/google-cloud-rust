@@ -2952,21 +2952,6 @@ impl Rule {
         })
     }
 
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `BoostAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_boost_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::BoostAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::BoostAction(v.into()));
-        self
-    }
-
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `RedirectAction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2978,22 +2963,6 @@ impl Rule {
             crate::model::rule::Action::RedirectAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `RedirectAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_redirect_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::RedirectAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::RedirectAction(v.into()));
-        self
     }
 
     /// The value of [action][crate::model::Rule::action]
@@ -3009,22 +2978,6 @@ impl Rule {
         })
     }
 
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `OnewaySynonymsAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_oneway_synonyms_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::OnewaySynonymsAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::OnewaySynonymsAction(v.into()));
-        self
-    }
-
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `DoNotAssociateAction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3036,22 +2989,6 @@ impl Rule {
             crate::model::rule::Action::DoNotAssociateAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `DoNotAssociateAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_do_not_associate_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::DoNotAssociateAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::DoNotAssociateAction(v.into()));
-        self
     }
 
     /// The value of [action][crate::model::Rule::action]
@@ -3067,22 +3004,6 @@ impl Rule {
         })
     }
 
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `ReplacementAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_replacement_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::ReplacementAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::ReplacementAction(v.into()));
-        self
-    }
-
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `IgnoreAction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3094,21 +3015,6 @@ impl Rule {
             crate::model::rule::Action::IgnoreAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `IgnoreAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_ignore_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::IgnoreAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::IgnoreAction(v.into()));
-        self
     }
 
     /// The value of [action][crate::model::Rule::action]
@@ -3124,21 +3030,6 @@ impl Rule {
         })
     }
 
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `FilterAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_filter_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::FilterAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::FilterAction(v.into()));
-        self
-    }
-
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `TwowaySynonymsAction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3150,22 +3041,6 @@ impl Rule {
             crate::model::rule::Action::TwowaySynonymsAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `TwowaySynonymsAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_twoway_synonyms_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::TwowaySynonymsAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::TwowaySynonymsAction(v.into()));
-        self
     }
 
     /// The value of [action][crate::model::Rule::action]
@@ -3181,22 +3056,6 @@ impl Rule {
         })
     }
 
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `ForceReturnFacetAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_force_return_facet_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::ForceReturnFacetAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::ForceReturnFacetAction(v.into()));
-        self
-    }
-
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `RemoveFacetAction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3210,22 +3069,6 @@ impl Rule {
         })
     }
 
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `RemoveFacetAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_remove_facet_action<
-        T: std::convert::Into<std::boxed::Box<crate::model::rule::RemoveFacetAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action =
-            std::option::Option::Some(crate::model::rule::Action::RemoveFacetAction(v.into()));
-        self
-    }
-
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `PinAction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3237,19 +3080,6 @@ impl Rule {
             crate::model::rule::Action::PinAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action][crate::model::Rule::action]
-    /// to hold a `PinAction`.
-    ///
-    /// Note that all the setters affecting `action` are
-    /// mutually exclusive.
-    pub fn set_pin_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::PinAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.action = std::option::Option::Some(crate::model::rule::Action::PinAction(v.into()));
-        self
     }
 }
 
@@ -4548,16 +4378,6 @@ impl Interval {
         })
     }
 
-    /// Sets the value of [min][crate::model::Interval::min]
-    /// to hold a `Minimum`.
-    ///
-    /// Note that all the setters affecting `min` are
-    /// mutually exclusive.
-    pub fn set_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.min = std::option::Option::Some(crate::model::interval::Min::Minimum(v.into()));
-        self
-    }
-
     /// The value of [min][crate::model::Interval::min]
     /// if it holds a `ExclusiveMinimum`, `None` if the field is not set or
     /// holds a different branch.
@@ -4567,17 +4387,6 @@ impl Interval {
             crate::model::interval::Min::ExclusiveMinimum(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [min][crate::model::Interval::min]
-    /// to hold a `ExclusiveMinimum`.
-    ///
-    /// Note that all the setters affecting `min` are
-    /// mutually exclusive.
-    pub fn set_exclusive_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.min =
-            std::option::Option::Some(crate::model::interval::Min::ExclusiveMinimum(v.into()));
-        self
     }
 
     /// Sets the value of [max][crate::model::Interval::max].
@@ -4603,16 +4412,6 @@ impl Interval {
         })
     }
 
-    /// Sets the value of [max][crate::model::Interval::max]
-    /// to hold a `Maximum`.
-    ///
-    /// Note that all the setters affecting `max` are
-    /// mutually exclusive.
-    pub fn set_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.max = std::option::Option::Some(crate::model::interval::Max::Maximum(v.into()));
-        self
-    }
-
     /// The value of [max][crate::model::Interval::max]
     /// if it holds a `ExclusiveMaximum`, `None` if the field is not set or
     /// holds a different branch.
@@ -4622,17 +4421,6 @@ impl Interval {
             crate::model::interval::Max::ExclusiveMaximum(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [max][crate::model::Interval::max]
-    /// to hold a `ExclusiveMaximum`.
-    ///
-    /// Note that all the setters affecting `max` are
-    /// mutually exclusive.
-    pub fn set_exclusive_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.max =
-            std::option::Option::Some(crate::model::interval::Max::ExclusiveMaximum(v.into()));
-        self
     }
 }
 
@@ -5965,19 +5753,6 @@ impl Control {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [control][crate::model::Control::control]
-    /// to hold a `Rule`.
-    ///
-    /// Note that all the setters affecting `control` are
-    /// mutually exclusive.
-    pub fn set_rule<T: std::convert::Into<std::boxed::Box<crate::model::Rule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.control = std::option::Option::Some(crate::model::control::Control::Rule(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Control {
@@ -6372,23 +6147,6 @@ impl OutputConfig {
         })
     }
 
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::output_config::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
-        );
-        self
-    }
-
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
@@ -6403,23 +6161,6 @@ impl OutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `BigqueryDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_bigquery_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::output_config::BigQueryDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::BigqueryDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -6590,18 +6331,6 @@ impl ExportErrorsConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ExportErrorsConfig::destination]
-    /// to hold a `GcsPrefix`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_errors_config::Destination::GcsPrefix(v.into()),
-        );
-        self
     }
 }
 
@@ -7628,21 +7357,6 @@ impl BigQuerySource {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [partition][crate::model::BigQuerySource::partition]
-    /// to hold a `PartitionDate`.
-    ///
-    /// Note that all the setters affecting `partition` are
-    /// mutually exclusive.
-    pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.partition = std::option::Option::Some(
-            crate::model::big_query_source::Partition::PartitionDate(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BigQuerySource {
@@ -7790,18 +7504,6 @@ impl ImportErrorsConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ImportErrorsConfig::destination]
-    /// to hold a `GcsPrefix`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::import_errors_config::Destination::GcsPrefix(v.into()),
-        );
-        self
     }
 }
 
@@ -8292,23 +7994,6 @@ impl ProductInputConfig {
         })
     }
 
-    /// Sets the value of [source][crate::model::ProductInputConfig::source]
-    /// to hold a `ProductInlineSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_product_inline_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductInlineSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::product_input_config::Source::ProductInlineSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::ProductInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -8320,21 +8005,6 @@ impl ProductInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ProductInputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::product_input_config::Source::GcsSource(v.into()),
-        );
-        self
     }
 
     /// The value of [source][crate::model::ProductInputConfig::source]
@@ -8350,23 +8020,6 @@ impl ProductInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ProductInputConfig::source]
-    /// to hold a `BigQuerySource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_big_query_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::product_input_config::Source::BigQuerySource(v.into()),
-        );
-        self
     }
 }
 
@@ -8444,23 +8097,6 @@ impl UserEventInputConfig {
         })
     }
 
-    /// Sets the value of [source][crate::model::UserEventInputConfig::source]
-    /// to hold a `UserEventInlineSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_user_event_inline_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserEventInlineSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::user_event_input_config::Source::UserEventInlineSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::UserEventInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -8472,21 +8108,6 @@ impl UserEventInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::UserEventInputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::user_event_input_config::Source::GcsSource(v.into()),
-        );
-        self
     }
 
     /// The value of [source][crate::model::UserEventInputConfig::source]
@@ -8502,23 +8123,6 @@ impl UserEventInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::UserEventInputConfig::source]
-    /// to hold a `BigQuerySource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_big_query_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::user_event_input_config::Source::BigQuerySource(v.into()),
-        );
-        self
     }
 }
 
@@ -8604,23 +8208,6 @@ impl CompletionDataInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::CompletionDataInputConfig::source]
-    /// to hold a `BigQuerySource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_big_query_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::completion_data_input_config::Source::BigQuerySource(v.into()),
-        );
-        self
     }
 }
 
@@ -9406,27 +8993,6 @@ pub mod model {
                 crate::model::model::model_features_config::TypeDedicatedConfig::FrequentlyBoughtTogetherConfig(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [type_dedicated_config][crate::model::model::ModelFeaturesConfig::type_dedicated_config]
-        /// to hold a `FrequentlyBoughtTogetherConfig`.
-        ///
-        /// Note that all the setters affecting `type_dedicated_config` are
-        /// mutually exclusive.
-        pub fn set_frequently_bought_together_config<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.type_dedicated_config = std::option::Option::Some(
-                crate::model::model::model_features_config::TypeDedicatedConfig::FrequentlyBoughtTogetherConfig(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -11904,20 +11470,6 @@ impl Product {
         })
     }
 
-    /// Sets the value of [expiration][crate::model::Product::expiration]
-    /// to hold a `ExpireTime`.
-    ///
-    /// Note that all the setters affecting `expiration` are
-    /// mutually exclusive.
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::product::Expiration::ExpireTime(v.into()));
-        self
-    }
-
     /// The value of [expiration][crate::model::Product::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
@@ -11927,17 +11479,6 @@ impl Product {
             crate::model::product::Expiration::Ttl(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [expiration][crate::model::Product::expiration]
-    /// to hold a `Ttl`.
-    ///
-    /// Note that all the setters affecting `expiration` are
-    /// mutually exclusive.
-    pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::product::Expiration::Ttl(v.into()));
-        self
     }
 }
 
@@ -14340,23 +13881,6 @@ impl Tile {
         })
     }
 
-    /// Sets the value of [product_attribute][crate::model::Tile::product_attribute]
-    /// to hold a `ProductAttributeValue`.
-    ///
-    /// Note that all the setters affecting `product_attribute` are
-    /// mutually exclusive.
-    pub fn set_product_attribute_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product_attribute = std::option::Option::Some(
-            crate::model::tile::ProductAttribute::ProductAttributeValue(v.into()),
-        );
-        self
-    }
-
     /// The value of [product_attribute][crate::model::Tile::product_attribute]
     /// if it holds a `ProductAttributeInterval`, `None` if the field is not set or
     /// holds a different branch.
@@ -14370,23 +13894,6 @@ impl Tile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [product_attribute][crate::model::Tile::product_attribute]
-    /// to hold a `ProductAttributeInterval`.
-    ///
-    /// Note that all the setters affecting `product_attribute` are
-    /// mutually exclusive.
-    pub fn set_product_attribute_interval<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeInterval>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.product_attribute = std::option::Option::Some(
-            crate::model::tile::ProductAttribute::ProductAttributeInterval(v.into()),
-        );
-        self
     }
 }
 
@@ -16478,23 +15985,6 @@ pub mod search_request {
                 })
             }
 
-            /// Sets the value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::r#type]
-            /// to hold a `TextAnswer`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_text_answer<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::search_request::conversational_search_spec::user_answer::Type::TextAnswer(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::r#type]
             /// if it holds a `SelectedAnswer`, `None` if the field is not set or
             /// holds a different branch.
@@ -16504,20 +15994,6 @@ pub mod search_request {
                     crate::model::search_request::conversational_search_spec::user_answer::Type::SelectedAnswer(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::r#type]
-            /// to hold a `SelectedAnswer`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_selected_answer<T: std::convert::Into<std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>>(mut self, v: T) -> Self{
-                self.r#type = std::option::Option::Some(
-                    crate::model::search_request::conversational_search_spec::user_answer::Type::SelectedAnswer(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -17476,18 +16952,6 @@ pub mod search_response {
                 })
             }
 
-            /// Sets the value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
-            /// to hold a `Value`.
-            ///
-            /// Note that all the setters affecting `facet_value` are
-            /// mutually exclusive.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.facet_value = std::option::Option::Some(
-                    crate::model::search_response::facet::facet_value::FacetValue::Value(v.into()),
-                );
-                self
-            }
-
             /// The value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
             /// if it holds a `Interval`, `None` if the field is not set or
             /// holds a different branch.
@@ -17501,23 +16965,6 @@ pub mod search_response {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
-            /// to hold a `Interval`.
-            ///
-            /// Note that all the setters affecting `facet_value` are
-            /// mutually exclusive.
-            pub fn set_interval<T: std::convert::Into<std::boxed::Box<crate::model::Interval>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.facet_value = std::option::Option::Some(
-                    crate::model::search_response::facet::facet_value::FacetValue::Interval(
-                        v.into(),
-                    ),
-                );
-                self
             }
         }
 
@@ -17914,23 +17361,6 @@ impl ExperimentInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [experiment_metadata][crate::model::ExperimentInfo::experiment_metadata]
-    /// to hold a `ServingConfigExperiment`.
-    ///
-    /// Note that all the setters affecting `experiment_metadata` are
-    /// mutually exclusive.
-    pub fn set_serving_config_experiment<
-        T: std::convert::Into<std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.experiment_metadata = std::option::Option::Some(
-            crate::model::experiment_info::ExperimentMetadata::ServingConfigExperiment(v.into()),
-        );
-        self
     }
 }
 
@@ -19926,18 +19356,6 @@ impl CollectUserEventRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [conversion_rule][crate::model::CollectUserEventRequest::conversion_rule]
-    /// to hold a `PrebuiltRule`.
-    ///
-    /// Note that all the setters affecting `conversion_rule` are
-    /// mutually exclusive.
-    pub fn set_prebuilt_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.conversion_rule = std::option::Option::Some(
-            crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(v.into()),
-        );
-        self
     }
 }
 

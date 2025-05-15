@@ -146,22 +146,6 @@ impl Policy {
         })
     }
 
-    /// Sets the value of [policy_type][crate::model::Policy::policy_type]
-    /// to hold a `ListPolicy`.
-    ///
-    /// Note that all the setters affecting `policy_type` are
-    /// mutually exclusive.
-    pub fn set_list_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy::ListPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_type =
-            std::option::Option::Some(crate::model::policy::PolicyType::ListPolicy(v.into()));
-        self
-    }
-
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `BooleanPolicy`, `None` if the field is not set or
     /// holds a different branch.
@@ -175,22 +159,6 @@ impl Policy {
         })
     }
 
-    /// Sets the value of [policy_type][crate::model::Policy::policy_type]
-    /// to hold a `BooleanPolicy`.
-    ///
-    /// Note that all the setters affecting `policy_type` are
-    /// mutually exclusive.
-    pub fn set_boolean_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy::BooleanPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_type =
-            std::option::Option::Some(crate::model::policy::PolicyType::BooleanPolicy(v.into()));
-        self
-    }
-
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `RestoreDefault`, `None` if the field is not set or
     /// holds a different branch.
@@ -202,22 +170,6 @@ impl Policy {
             crate::model::policy::PolicyType::RestoreDefault(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [policy_type][crate::model::Policy::policy_type]
-    /// to hold a `RestoreDefault`.
-    ///
-    /// Note that all the setters affecting `policy_type` are
-    /// mutually exclusive.
-    pub fn set_restore_default<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy::RestoreDefault>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_type =
-            std::option::Option::Some(crate::model::policy::PolicyType::RestoreDefault(v.into()));
-        self
     }
 }
 

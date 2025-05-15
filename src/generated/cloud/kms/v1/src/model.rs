@@ -2263,21 +2263,6 @@ impl CryptoKey {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [rotation_schedule][crate::model::CryptoKey::rotation_schedule]
-    /// to hold a `RotationPeriod`.
-    ///
-    /// Note that all the setters affecting `rotation_schedule` are
-    /// mutually exclusive.
-    pub fn set_rotation_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rotation_schedule = std::option::Option::Some(
-            crate::model::crypto_key::RotationSchedule::RotationPeriod(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for CryptoKey {
@@ -6584,20 +6569,6 @@ impl ImportCryptoKeyVersionRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material]
-    /// to hold a `RsaAesWrappedKey`.
-    ///
-    /// Note that all the setters affecting `wrapped_key_material` are
-    /// mutually exclusive.
-    pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.wrapped_key_material = std::option::Option::Some(
-            crate::model::import_crypto_key_version_request::WrappedKeyMaterial::RsaAesWrappedKey(
-                v.into(),
-            ),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ImportCryptoKeyVersionRequest {
@@ -9514,16 +9485,6 @@ impl Digest {
         })
     }
 
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha256`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
-        self
-    }
-
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha384`, `None` if the field is not set or
     /// holds a different branch.
@@ -9535,16 +9496,6 @@ impl Digest {
         })
     }
 
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha384`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
-        self
-    }
-
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha512`, `None` if the field is not set or
     /// holds a different branch.
@@ -9554,16 +9505,6 @@ impl Digest {
             crate::model::digest::Digest::Sha512(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [digest][crate::model::Digest::digest]
-    /// to hold a `Sha512`.
-    ///
-    /// Note that all the setters affecting `digest` are
-    /// mutually exclusive.
-    pub fn set_sha512<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha512(v.into()));
-        self
     }
 }
 

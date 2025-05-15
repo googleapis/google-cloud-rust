@@ -2391,20 +2391,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Instance`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_instance<T: std::convert::Into<std::boxed::Box<crate::model::InstanceInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::Instance(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Firewall`, `None` if the field is not set or
     /// holds a different branch.
@@ -2414,20 +2400,6 @@ impl Step {
             crate::model::step::StepInfo::Firewall(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Firewall`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_firewall<T: std::convert::Into<std::boxed::Box<crate::model::FirewallInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::Firewall(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2441,19 +2413,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Route`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_route<T: std::convert::Into<std::boxed::Box<crate::model::RouteInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Route(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Endpoint`, `None` if the field is not set or
     /// holds a different branch.
@@ -2463,20 +2422,6 @@ impl Step {
             crate::model::step::StepInfo::Endpoint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Endpoint`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::EndpointInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::Endpoint(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2492,22 +2437,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `GoogleService`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_google_service<
-        T: std::convert::Into<std::boxed::Box<crate::model::GoogleServiceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::GoogleService(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ForwardingRule`, `None` if the field is not set or
     /// holds a different branch.
@@ -2519,22 +2448,6 @@ impl Step {
             crate::model::step::StepInfo::ForwardingRule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `ForwardingRule`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_forwarding_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::ForwardingRuleInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::ForwardingRule(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2550,20 +2463,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `VpnGateway`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_vpn_gateway<T: std::convert::Into<std::boxed::Box<crate::model::VpnGatewayInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::VpnGateway(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpnTunnel`, `None` if the field is not set or
     /// holds a different branch.
@@ -2573,20 +2472,6 @@ impl Step {
             crate::model::step::StepInfo::VpnTunnel(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `VpnTunnel`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_vpn_tunnel<T: std::convert::Into<std::boxed::Box<crate::model::VpnTunnelInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::VpnTunnel(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2600,22 +2485,6 @@ impl Step {
             crate::model::step::StepInfo::VpcConnector(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `VpcConnector`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_vpc_connector<
-        T: std::convert::Into<std::boxed::Box<crate::model::VpcConnectorInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::VpcConnector(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2633,23 +2502,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `DirectVpcEgressConnection`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_direct_vpc_egress_connection<
-        T: std::convert::Into<std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(
-            crate::model::step::StepInfo::DirectVpcEgressConnection(v.into()),
-        );
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ServerlessExternalConnection`, `None` if the field is not set or
     /// holds a different branch.
@@ -2665,23 +2517,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `ServerlessExternalConnection`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_serverless_external_connection<
-        T: std::convert::Into<std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(
-            crate::model::step::StepInfo::ServerlessExternalConnection(v.into()),
-        );
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Deliver`, `None` if the field is not set or
     /// holds a different branch.
@@ -2691,19 +2526,6 @@ impl Step {
             crate::model::step::StepInfo::Deliver(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Deliver`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_deliver<T: std::convert::Into<std::boxed::Box<crate::model::DeliverInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Deliver(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2717,19 +2539,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Forward`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_forward<T: std::convert::Into<std::boxed::Box<crate::model::ForwardInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Forward(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Abort`, `None` if the field is not set or
     /// holds a different branch.
@@ -2741,19 +2550,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Abort`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_abort<T: std::convert::Into<std::boxed::Box<crate::model::AbortInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Abort(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Drop`, `None` if the field is not set or
     /// holds a different branch.
@@ -2763,19 +2559,6 @@ impl Step {
             crate::model::step::StepInfo::Drop(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Drop`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_drop<T: std::convert::Into<std::boxed::Box<crate::model::DropInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Drop(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2792,23 +2575,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `LoadBalancer`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    #[deprecated]
-    pub fn set_load_balancer<
-        T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::LoadBalancer(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Network`, `None` if the field is not set or
     /// holds a different branch.
@@ -2820,19 +2586,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Network`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_network<T: std::convert::Into<std::boxed::Box<crate::model::NetworkInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Network(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `GkeMaster`, `None` if the field is not set or
     /// holds a different branch.
@@ -2842,20 +2595,6 @@ impl Step {
             crate::model::step::StepInfo::GkeMaster(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `GkeMaster`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_gke_master<T: std::convert::Into<std::boxed::Box<crate::model::GKEMasterInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::GkeMaster(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2871,22 +2610,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `CloudSqlInstance`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_cloud_sql_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLInstanceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::CloudSqlInstance(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `RedisInstance`, `None` if the field is not set or
     /// holds a different branch.
@@ -2898,22 +2621,6 @@ impl Step {
             crate::model::step::StepInfo::RedisInstance(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `RedisInstance`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_redis_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::RedisInstanceInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::RedisInstance(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2929,22 +2636,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `RedisCluster`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_redis_cluster<
-        T: std::convert::Into<std::boxed::Box<crate::model::RedisClusterInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::RedisCluster(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudFunction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2956,22 +2647,6 @@ impl Step {
             crate::model::step::StepInfo::CloudFunction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `CloudFunction`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_cloud_function<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudFunctionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::CloudFunction(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -2987,22 +2662,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `AppEngineVersion`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_app_engine_version<
-        T: std::convert::Into<std::boxed::Box<crate::model::AppEngineVersionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::AppEngineVersion(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudRunRevision`, `None` if the field is not set or
     /// holds a different branch.
@@ -3016,22 +2675,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `CloudRunRevision`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_cloud_run_revision<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudRunRevisionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::CloudRunRevision(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Nat`, `None` if the field is not set or
     /// holds a different branch.
@@ -3041,19 +2684,6 @@ impl Step {
             crate::model::step::StepInfo::Nat(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `Nat`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_nat<T: std::convert::Into<std::boxed::Box<crate::model::NatInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::Nat(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -3067,22 +2697,6 @@ impl Step {
             crate::model::step::StepInfo::ProxyConnection(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `ProxyConnection`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_proxy_connection<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProxyConnectionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::ProxyConnection(v.into()));
-        self
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
@@ -3100,23 +2714,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `LoadBalancerBackendInfo`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_load_balancer_backend_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerBackendInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(
-            crate::model::step::StepInfo::LoadBalancerBackendInfo(v.into()),
-        );
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `StorageBucket`, `None` if the field is not set or
     /// holds a different branch.
@@ -3130,22 +2727,6 @@ impl Step {
         })
     }
 
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `StorageBucket`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_storage_bucket<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageBucketInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::StorageBucket(v.into()));
-        self
-    }
-
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ServerlessNeg`, `None` if the field is not set or
     /// holds a different branch.
@@ -3157,22 +2738,6 @@ impl Step {
             crate::model::step::StepInfo::ServerlessNeg(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `ServerlessNeg`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    pub fn set_serverless_neg<
-        T: std::convert::Into<std::boxed::Box<crate::model::ServerlessNegInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info =
-            std::option::Option::Some(crate::model::step::StepInfo::ServerlessNeg(v.into()));
-        self
     }
 }
 
@@ -10924,21 +10489,6 @@ impl VpcFlowLogsConfig {
         })
     }
 
-    /// Sets the value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
-    /// to hold a `InterconnectAttachment`.
-    ///
-    /// Note that all the setters affecting `target_resource` are
-    /// mutually exclusive.
-    pub fn set_interconnect_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_resource = std::option::Option::Some(
-            crate::model::vpc_flow_logs_config::TargetResource::InterconnectAttachment(v.into()),
-        );
-        self
-    }
-
     /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
     /// if it holds a `VpnTunnel`, `None` if the field is not set or
     /// holds a different branch.
@@ -10950,18 +10500,6 @@ impl VpcFlowLogsConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
-    /// to hold a `VpnTunnel`.
-    ///
-    /// Note that all the setters affecting `target_resource` are
-    /// mutually exclusive.
-    pub fn set_vpn_tunnel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target_resource = std::option::Option::Some(
-            crate::model::vpc_flow_logs_config::TargetResource::VpnTunnel(v.into()),
-        );
-        self
     }
 }
 

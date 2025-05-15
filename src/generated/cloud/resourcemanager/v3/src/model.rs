@@ -1137,21 +1137,6 @@ impl Organization {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [owner][crate::model::Organization::owner]
-    /// to hold a `DirectoryCustomerId`.
-    ///
-    /// Note that all the setters affecting `owner` are
-    /// mutually exclusive.
-    pub fn set_directory_customer_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.owner = std::option::Option::Some(
-            crate::model::organization::Owner::DirectoryCustomerId(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for Organization {

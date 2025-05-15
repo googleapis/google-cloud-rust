@@ -859,21 +859,6 @@ pub mod artifact_registry {
             self.0.request.source = v.into();
             self
         }
-
-        /// Sets the value of [source][crate::model::ImportAptArtifactsRequest::source]
-        /// to hold a `GcsSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_gcs_source(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -991,21 +976,6 @@ pub mod artifact_registry {
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
-            self
-        }
-
-        /// Sets the value of [source][crate::model::ImportYumArtifactsRequest::source]
-        /// to hold a `GcsSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }

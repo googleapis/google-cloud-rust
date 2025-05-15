@@ -667,19 +667,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [source][crate::model::Job::source]
-    /// to hold a `BucketList`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_bucket_list<T: std::convert::Into<std::boxed::Box<crate::model::BucketList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(crate::model::job::Source::BucketList(v.into()));
-        self
-    }
-
     /// Sets the value of [transformation][crate::model::Job::transformation].
     ///
     /// Note that all the setters affecting `transformation` are mutually
@@ -707,22 +694,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [transformation][crate::model::Job::transformation]
-    /// to hold a `PutObjectHold`.
-    ///
-    /// Note that all the setters affecting `transformation` are
-    /// mutually exclusive.
-    pub fn set_put_object_hold<
-        T: std::convert::Into<std::boxed::Box<crate::model::PutObjectHold>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transformation =
-            std::option::Option::Some(crate::model::job::Transformation::PutObjectHold(v.into()));
-        self
-    }
-
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `DeleteObject`, `None` if the field is not set or
     /// holds a different branch.
@@ -736,20 +707,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [transformation][crate::model::Job::transformation]
-    /// to hold a `DeleteObject`.
-    ///
-    /// Note that all the setters affecting `transformation` are
-    /// mutually exclusive.
-    pub fn set_delete_object<T: std::convert::Into<std::boxed::Box<crate::model::DeleteObject>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transformation =
-            std::option::Option::Some(crate::model::job::Transformation::DeleteObject(v.into()));
-        self
-    }
-
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `PutMetadata`, `None` if the field is not set or
     /// holds a different branch.
@@ -759,20 +716,6 @@ impl Job {
             crate::model::job::Transformation::PutMetadata(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [transformation][crate::model::Job::transformation]
-    /// to hold a `PutMetadata`.
-    ///
-    /// Note that all the setters affecting `transformation` are
-    /// mutually exclusive.
-    pub fn set_put_metadata<T: std::convert::Into<std::boxed::Box<crate::model::PutMetadata>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transformation =
-            std::option::Option::Some(crate::model::job::Transformation::PutMetadata(v.into()));
-        self
     }
 
     /// The value of [transformation][crate::model::Job::transformation]
@@ -786,22 +729,6 @@ impl Job {
             crate::model::job::Transformation::RewriteObject(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [transformation][crate::model::Job::transformation]
-    /// to hold a `RewriteObject`.
-    ///
-    /// Note that all the setters affecting `transformation` are
-    /// mutually exclusive.
-    pub fn set_rewrite_object<
-        T: std::convert::Into<std::boxed::Box<crate::model::RewriteObject>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transformation =
-            std::option::Option::Some(crate::model::job::Transformation::RewriteObject(v.into()));
-        self
     }
 }
 
@@ -1097,21 +1024,6 @@ pub mod bucket_list {
             })
         }
 
-        /// Sets the value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
-        /// to hold a `PrefixList`.
-        ///
-        /// Note that all the setters affecting `object_configuration` are
-        /// mutually exclusive.
-        pub fn set_prefix_list<T: std::convert::Into<std::boxed::Box<crate::model::PrefixList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.object_configuration = std::option::Option::Some(
-                crate::model::bucket_list::bucket::ObjectConfiguration::PrefixList(v.into()),
-            );
-            self
-        }
-
         /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
         /// if it holds a `Manifest`, `None` if the field is not set or
         /// holds a different branch.
@@ -1123,21 +1035,6 @@ pub mod bucket_list {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
-        /// to hold a `Manifest`.
-        ///
-        /// Note that all the setters affecting `object_configuration` are
-        /// mutually exclusive.
-        pub fn set_manifest<T: std::convert::Into<std::boxed::Box<crate::model::Manifest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.object_configuration = std::option::Option::Some(
-                crate::model::bucket_list::bucket::ObjectConfiguration::Manifest(v.into()),
-            );
-            self
         }
     }
 

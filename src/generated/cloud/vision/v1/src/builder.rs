@@ -2217,31 +2217,6 @@ pub mod product_search {
             self.0.request.target = v.into();
             self
         }
-
-        /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
-        /// to hold a `ProductSetPurgeConfig`.
-        ///
-        /// Note that all the setters affecting `target` are
-        /// mutually exclusive.
-        pub fn set_product_set_purge_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::ProductSetPurgeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_product_set_purge_config(v);
-            self
-        }
-
-        /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
-        /// to hold a `DeleteOrphanProducts`.
-        ///
-        /// Note that all the setters affecting `target` are
-        /// mutually exclusive.
-        pub fn set_delete_orphan_products<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_delete_orphan_products(v);
-            self
-        }
     }
 
     #[doc(hidden)]

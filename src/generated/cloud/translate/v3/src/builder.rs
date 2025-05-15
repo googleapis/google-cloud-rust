@@ -371,16 +371,6 @@ pub mod translation_service {
             self.0.request.source = v.into();
             self
         }
-
-        /// Sets the value of [source][crate::model::DetectLanguageRequest::source]
-        /// to hold a `Content`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_content(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -2920,36 +2910,6 @@ pub mod translation_service {
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
-            self
-        }
-
-        /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
-        /// to hold a `FileInputSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_file_input_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_file_input_source(v);
-            self
-        }
-
-        /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
-        /// to hold a `GcsInputSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_gcs_input_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_gcs_input_source(v);
             self
         }
     }

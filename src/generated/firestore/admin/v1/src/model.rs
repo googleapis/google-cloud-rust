@@ -790,23 +790,6 @@ pub mod database {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [source][crate::model::database::SourceInfo::source]
-        /// to hold a `Backup`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_backup<
-            T: std::convert::Into<std::boxed::Box<crate::model::database::source_info::BackupSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::database::source_info::Source::Backup(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for SourceInfo {
@@ -924,29 +907,6 @@ pub mod database {
             })
         }
 
-        /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
-        /// to hold a `GoogleDefaultEncryption`.
-        ///
-        /// Note that all the setters affecting `encryption_type` are
-        /// mutually exclusive.
-        pub fn set_google_default_encryption<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::database::encryption_config::GoogleDefaultEncryptionOptions,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.encryption_type = std::option::Option::Some(
-                crate::model::database::encryption_config::EncryptionType::GoogleDefaultEncryption(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `UseSourceEncryption`, `None` if the field is not set or
         /// holds a different branch.
@@ -964,29 +924,6 @@ pub mod database {
             })
         }
 
-        /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
-        /// to hold a `UseSourceEncryption`.
-        ///
-        /// Note that all the setters affecting `encryption_type` are
-        /// mutually exclusive.
-        pub fn set_use_source_encryption<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::database::encryption_config::SourceEncryptionOptions,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.encryption_type = std::option::Option::Some(
-                crate::model::database::encryption_config::EncryptionType::UseSourceEncryption(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `CustomerManagedEncryption`, `None` if the field is not set or
         /// holds a different branch.
@@ -1002,29 +939,6 @@ pub mod database {
                 crate::model::database::encryption_config::EncryptionType::CustomerManagedEncryption(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
-        /// to hold a `CustomerManagedEncryption`.
-        ///
-        /// Note that all the setters affecting `encryption_type` are
-        /// mutually exclusive.
-        pub fn set_customer_managed_encryption<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::database::encryption_config::CustomerManagedEncryptionOptions,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.encryption_type = std::option::Option::Some(
-                crate::model::database::encryption_config::EncryptionType::CustomerManagedEncryption(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -4617,21 +4531,6 @@ pub mod index {
             })
         }
 
-        /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
-        /// to hold a `Order`.
-        ///
-        /// Note that all the setters affecting `value_mode` are
-        /// mutually exclusive.
-        pub fn set_order<T: std::convert::Into<crate::model::index::index_field::Order>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value_mode = std::option::Option::Some(
-                crate::model::index::index_field::ValueMode::Order(v.into()),
-            );
-            self
-        }
-
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `ArrayConfig`, `None` if the field is not set or
         /// holds a different branch.
@@ -4645,23 +4544,6 @@ pub mod index {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
-        /// to hold a `ArrayConfig`.
-        ///
-        /// Note that all the setters affecting `value_mode` are
-        /// mutually exclusive.
-        pub fn set_array_config<
-            T: std::convert::Into<crate::model::index::index_field::ArrayConfig>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value_mode = std::option::Option::Some(
-                crate::model::index::index_field::ValueMode::ArrayConfig(v.into()),
-            );
-            self
         }
 
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
@@ -4678,23 +4560,6 @@ pub mod index {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
-        /// to hold a `VectorConfig`.
-        ///
-        /// Note that all the setters affecting `value_mode` are
-        /// mutually exclusive.
-        pub fn set_vector_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::index::index_field::VectorConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value_mode = std::option::Option::Some(
-                crate::model::index::index_field::ValueMode::VectorConfig(v.into()),
-            );
-            self
         }
     }
 
@@ -4772,25 +4637,6 @@ pub mod index {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [r#type][crate::model::index::index_field::VectorConfig::r#type]
-            /// to hold a `Flat`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_flat<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::index::index_field::vector_config::Type::Flat(v.into()),
-                );
-                self
             }
         }
 
@@ -7086,23 +6932,6 @@ impl BackupSchedule {
         })
     }
 
-    /// Sets the value of [recurrence][crate::model::BackupSchedule::recurrence]
-    /// to hold a `DailyRecurrence`.
-    ///
-    /// Note that all the setters affecting `recurrence` are
-    /// mutually exclusive.
-    pub fn set_daily_recurrence<
-        T: std::convert::Into<std::boxed::Box<crate::model::DailyRecurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recurrence = std::option::Option::Some(
-            crate::model::backup_schedule::Recurrence::DailyRecurrence(v.into()),
-        );
-        self
-    }
-
     /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
     /// if it holds a `WeeklyRecurrence`, `None` if the field is not set or
     /// holds a different branch.
@@ -7116,23 +6945,6 @@ impl BackupSchedule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [recurrence][crate::model::BackupSchedule::recurrence]
-    /// to hold a `WeeklyRecurrence`.
-    ///
-    /// Note that all the setters affecting `recurrence` are
-    /// mutually exclusive.
-    pub fn set_weekly_recurrence<
-        T: std::convert::Into<std::boxed::Box<crate::model::WeeklyRecurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recurrence = std::option::Option::Some(
-            crate::model::backup_schedule::Recurrence::WeeklyRecurrence(v.into()),
-        );
-        self
     }
 }
 
@@ -7327,23 +7139,6 @@ impl UserCreds {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [user_creds_identity][crate::model::UserCreds::user_creds_identity]
-    /// to hold a `ResourceIdentity`.
-    ///
-    /// Note that all the setters affecting `user_creds_identity` are
-    /// mutually exclusive.
-    pub fn set_resource_identity<
-        T: std::convert::Into<std::boxed::Box<crate::model::user_creds::ResourceIdentity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_creds_identity = std::option::Option::Some(
-            crate::model::user_creds::UserCredsIdentity::ResourceIdentity(v.into()),
-        );
-        self
     }
 }
 

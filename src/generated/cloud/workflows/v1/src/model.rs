@@ -370,17 +370,6 @@ impl Workflow {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source_code][crate::model::Workflow::source_code]
-    /// to hold a `SourceContents`.
-    ///
-    /// Note that all the setters affecting `source_code` are
-    /// mutually exclusive.
-    pub fn set_source_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_code =
-            std::option::Option::Some(crate::model::workflow::SourceCode::SourceContents(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Workflow {

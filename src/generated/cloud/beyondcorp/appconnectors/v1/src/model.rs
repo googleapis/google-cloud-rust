@@ -162,25 +162,6 @@ impl NotificationConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [config][crate::model::NotificationConfig::config]
-    /// to hold a `PubsubNotification`.
-    ///
-    /// Note that all the setters affecting `config` are
-    /// mutually exclusive.
-    pub fn set_pubsub_notification<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::notification_config::CloudPubSubNotificationConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = std::option::Option::Some(
-            crate::model::notification_config::Config::PubsubNotification(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for NotificationConfig {
@@ -1008,25 +989,6 @@ pub mod app_connector {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [r#type][crate::model::app_connector::PrincipalInfo::r#type]
-        /// to hold a `ServiceAccount`.
-        ///
-        /// Note that all the setters affecting `r#type` are
-        /// mutually exclusive.
-        pub fn set_service_account<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::app_connector::principal_info::ServiceAccount>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.r#type = std::option::Option::Some(
-                crate::model::app_connector::principal_info::Type::ServiceAccount(v.into()),
-            );
-            self
         }
     }
 

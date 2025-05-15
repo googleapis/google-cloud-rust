@@ -387,21 +387,6 @@ impl SignatureInfo {
         })
     }
 
-    /// Sets the value of [verification_info][crate::model::SignatureInfo::verification_info]
-    /// to hold a `GooglePublicKeyPem`.
-    ///
-    /// Note that all the setters affecting `verification_info` are
-    /// mutually exclusive.
-    pub fn set_google_public_key_pem<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.verification_info = std::option::Option::Some(
-            crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(v.into()),
-        );
-        self
-    }
-
     /// The value of [verification_info][crate::model::SignatureInfo::verification_info]
     /// if it holds a `CustomerKmsKeyVersion`, `None` if the field is not set or
     /// holds a different branch.
@@ -413,21 +398,6 @@ impl SignatureInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [verification_info][crate::model::SignatureInfo::verification_info]
-    /// to hold a `CustomerKmsKeyVersion`.
-    ///
-    /// Note that all the setters affecting `verification_info` are
-    /// mutually exclusive.
-    pub fn set_customer_kms_key_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.verification_info = std::option::Option::Some(
-            crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v.into()),
-        );
-        self
     }
 }
 
@@ -769,20 +739,6 @@ impl ApprovalRequest {
         })
     }
 
-    /// Sets the value of [decision][crate::model::ApprovalRequest::decision]
-    /// to hold a `Approve`.
-    ///
-    /// Note that all the setters affecting `decision` are
-    /// mutually exclusive.
-    pub fn set_approve<T: std::convert::Into<std::boxed::Box<crate::model::ApproveDecision>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decision =
-            std::option::Option::Some(crate::model::approval_request::Decision::Approve(v.into()));
-        self
-    }
-
     /// The value of [decision][crate::model::ApprovalRequest::decision]
     /// if it holds a `Dismiss`, `None` if the field is not set or
     /// holds a different branch.
@@ -792,20 +748,6 @@ impl ApprovalRequest {
             crate::model::approval_request::Decision::Dismiss(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [decision][crate::model::ApprovalRequest::decision]
-    /// to hold a `Dismiss`.
-    ///
-    /// Note that all the setters affecting `decision` are
-    /// mutually exclusive.
-    pub fn set_dismiss<T: std::convert::Into<std::boxed::Box<crate::model::DismissDecision>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decision =
-            std::option::Option::Some(crate::model::approval_request::Decision::Dismiss(v.into()));
-        self
     }
 }
 

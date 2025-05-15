@@ -1184,23 +1184,6 @@ pub mod compensation_info {
             })
         }
 
-        /// Sets the value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
-        /// to hold a `Amount`.
-        ///
-        /// Note that all the setters affecting `compensation_amount` are
-        /// mutually exclusive.
-        pub fn set_amount<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.compensation_amount = std::option::Option::Some(
-                crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
         /// if it holds a `Range`, `None` if the field is not set or
         /// holds a different branch.
@@ -1215,25 +1198,6 @@ pub mod compensation_info {
                 ) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
-        /// to hold a `Range`.
-        ///
-        /// Note that all the setters affecting `compensation_amount` are
-        /// mutually exclusive.
-        pub fn set_range<
-            T: std::convert::Into<std::boxed::Box<crate::model::compensation_info::CompensationRange>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.compensation_amount = std::option::Option::Some(
-                crate::model::compensation_info::compensation_entry::CompensationAmount::Range(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -3237,20 +3201,6 @@ impl ClientEvent {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [event][crate::model::ClientEvent::event]
-    /// to hold a `JobEvent`.
-    ///
-    /// Note that all the setters affecting `event` are
-    /// mutually exclusive.
-    pub fn set_job_event<T: std::convert::Into<std::boxed::Box<crate::model::JobEvent>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event =
-            std::option::Option::Some(crate::model::client_event::Event::JobEvent(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for ClientEvent {
@@ -4711,21 +4661,6 @@ impl CommuteFilter {
         })
     }
 
-    /// Sets the value of [traffic_option][crate::model::CommuteFilter::traffic_option]
-    /// to hold a `RoadTraffic`.
-    ///
-    /// Note that all the setters affecting `traffic_option` are
-    /// mutually exclusive.
-    pub fn set_road_traffic<T: std::convert::Into<crate::model::commute_filter::RoadTraffic>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.traffic_option = std::option::Option::Some(
-            crate::model::commute_filter::TrafficOption::RoadTraffic(v.into()),
-        );
-        self
-    }
-
     /// The value of [traffic_option][crate::model::CommuteFilter::traffic_option]
     /// if it holds a `DepartureTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -4737,21 +4672,6 @@ impl CommuteFilter {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [traffic_option][crate::model::CommuteFilter::traffic_option]
-    /// to hold a `DepartureTime`.
-    ///
-    /// Note that all the setters affecting `traffic_option` are
-    /// mutually exclusive.
-    pub fn set_departure_time<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.traffic_option = std::option::Option::Some(
-            crate::model::commute_filter::TrafficOption::DepartureTime(v.into()),
-        );
-        self
     }
 }
 

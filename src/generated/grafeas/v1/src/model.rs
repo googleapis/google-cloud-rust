@@ -996,23 +996,6 @@ impl ComplianceNote {
         })
     }
 
-    /// Sets the value of [compliance_type][crate::model::ComplianceNote::compliance_type]
-    /// to hold a `CisBenchmark`.
-    ///
-    /// Note that all the setters affecting `compliance_type` are
-    /// mutually exclusive.
-    pub fn set_cis_benchmark<
-        T: std::convert::Into<std::boxed::Box<crate::model::compliance_note::CisBenchmark>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.compliance_type = std::option::Option::Some(
-            crate::model::compliance_note::ComplianceType::CisBenchmark(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [potential_impact][crate::model::ComplianceNote::potential_impact].
     ///
     /// Note that all the setters affecting `potential_impact` are mutually
@@ -1038,18 +1021,6 @@ impl ComplianceNote {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [potential_impact][crate::model::ComplianceNote::potential_impact]
-    /// to hold a `Impact`.
-    ///
-    /// Note that all the setters affecting `potential_impact` are
-    /// mutually exclusive.
-    pub fn set_impact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.potential_impact = std::option::Option::Some(
-            crate::model::compliance_note::PotentialImpact::Impact(v.into()),
-        );
-        self
     }
 }
 
@@ -4710,21 +4681,6 @@ impl DSSEAttestationOccurrence {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [decoded_payload][crate::model::DSSEAttestationOccurrence::decoded_payload]
-    /// to hold a `Statement`.
-    ///
-    /// Note that all the setters affecting `decoded_payload` are
-    /// mutually exclusive.
-    pub fn set_statement<T: std::convert::Into<std::boxed::Box<crate::model::InTotoStatement>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decoded_payload = std::option::Option::Some(
-            crate::model::dsse_attestation_occurrence::DecodedPayload::Statement(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for DSSEAttestationOccurrence {
@@ -4888,22 +4844,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Vulnerability`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_vulnerability<
-        T: std::convert::Into<std::boxed::Box<crate::model::VulnerabilityOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Vulnerability(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Build`, `None` if the field is not set or
     /// holds a different branch.
@@ -4915,20 +4855,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Build`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_build<T: std::convert::Into<std::boxed::Box<crate::model::BuildOccurrence>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Build(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Image`, `None` if the field is not set or
     /// holds a different branch.
@@ -4938,20 +4864,6 @@ impl Occurrence {
             crate::model::occurrence::Details::Image(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Image`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_image<T: std::convert::Into<std::boxed::Box<crate::model::ImageOccurrence>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Image(v.into()));
-        self
     }
 
     /// The value of [details][crate::model::Occurrence::details]
@@ -4967,20 +4879,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Package`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_package<T: std::convert::Into<std::boxed::Box<crate::model::PackageOccurrence>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Package(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Deployment`, `None` if the field is not set or
     /// holds a different branch.
@@ -4992,22 +4890,6 @@ impl Occurrence {
             crate::model::occurrence::Details::Deployment(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Deployment`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_deployment<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeploymentOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Deployment(v.into()));
-        self
     }
 
     /// The value of [details][crate::model::Occurrence::details]
@@ -5023,22 +4905,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Discovery`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_discovery<
-        T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Discovery(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Attestation`, `None` if the field is not set or
     /// holds a different branch.
@@ -5050,22 +4916,6 @@ impl Occurrence {
             crate::model::occurrence::Details::Attestation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Attestation`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_attestation<
-        T: std::convert::Into<std::boxed::Box<crate::model::AttestationOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Attestation(v.into()));
-        self
     }
 
     /// The value of [details][crate::model::Occurrence::details]
@@ -5081,20 +4931,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Upgrade`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_upgrade<T: std::convert::Into<std::boxed::Box<crate::model::UpgradeOccurrence>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Upgrade(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Compliance`, `None` if the field is not set or
     /// holds a different branch.
@@ -5106,22 +4942,6 @@ impl Occurrence {
             crate::model::occurrence::Details::Compliance(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Compliance`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_compliance<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComplianceOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Compliance(v.into()));
-        self
     }
 
     /// The value of [details][crate::model::Occurrence::details]
@@ -5137,22 +4957,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `DsseAttestation`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_dsse_attestation<
-        T: std::convert::Into<std::boxed::Box<crate::model::DSSEAttestationOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::DsseAttestation(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `SbomReference`, `None` if the field is not set or
     /// holds a different branch.
@@ -5166,22 +4970,6 @@ impl Occurrence {
         })
     }
 
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `SbomReference`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_sbom_reference<
-        T: std::convert::Into<std::boxed::Box<crate::model::SBOMReferenceOccurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::SbomReference(v.into()));
-        self
-    }
-
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Secret`, `None` if the field is not set or
     /// holds a different branch.
@@ -5191,20 +4979,6 @@ impl Occurrence {
             crate::model::occurrence::Details::Secret(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [details][crate::model::Occurrence::details]
-    /// to hold a `Secret`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretOccurrence>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details =
-            std::option::Option::Some(crate::model::occurrence::Details::Secret(v.into()));
-        self
     }
 }
 
@@ -5416,21 +5190,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Vulnerability`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_vulnerability<
-        T: std::convert::Into<std::boxed::Box<crate::model::VulnerabilityNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Vulnerability(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Build`, `None` if the field is not set or
     /// holds a different branch.
@@ -5440,19 +5199,6 @@ impl Note {
             crate::model::note::Type::Build(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Build`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_build<T: std::convert::Into<std::boxed::Box<crate::model::BuildNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Build(v.into()));
-        self
     }
 
     /// The value of [r#type][crate::model::Note::r#type]
@@ -5466,19 +5212,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Image`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_image<T: std::convert::Into<std::boxed::Box<crate::model::ImageNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Image(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Package`, `None` if the field is not set or
     /// holds a different branch.
@@ -5488,19 +5221,6 @@ impl Note {
             crate::model::note::Type::Package(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Package`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_package<T: std::convert::Into<std::boxed::Box<crate::model::PackageNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Package(v.into()));
-        self
     }
 
     /// The value of [r#type][crate::model::Note::r#type]
@@ -5516,19 +5236,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Deployment`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_deployment<T: std::convert::Into<std::boxed::Box<crate::model::DeploymentNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Deployment(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Discovery`, `None` if the field is not set or
     /// holds a different branch.
@@ -5538,19 +5245,6 @@ impl Note {
             crate::model::note::Type::Discovery(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Discovery`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_discovery<T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Discovery(v.into()));
-        self
     }
 
     /// The value of [r#type][crate::model::Note::r#type]
@@ -5566,21 +5260,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Attestation`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_attestation<
-        T: std::convert::Into<std::boxed::Box<crate::model::AttestationNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Attestation(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Upgrade`, `None` if the field is not set or
     /// holds a different branch.
@@ -5590,19 +5269,6 @@ impl Note {
             crate::model::note::Type::Upgrade(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Upgrade`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_upgrade<T: std::convert::Into<std::boxed::Box<crate::model::UpgradeNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Upgrade(v.into()));
-        self
     }
 
     /// The value of [r#type][crate::model::Note::r#type]
@@ -5618,19 +5284,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Compliance`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_compliance<T: std::convert::Into<std::boxed::Box<crate::model::ComplianceNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Compliance(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `DsseAttestation`, `None` if the field is not set or
     /// holds a different branch.
@@ -5642,22 +5295,6 @@ impl Note {
             crate::model::note::Type::DsseAttestation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `DsseAttestation`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_dsse_attestation<
-        T: std::convert::Into<std::boxed::Box<crate::model::DSSEAttestationNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::note::Type::DsseAttestation(v.into()));
-        self
     }
 
     /// The value of [r#type][crate::model::Note::r#type]
@@ -5673,22 +5310,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `VulnerabilityAssessment`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_vulnerability_assessment<
-        T: std::convert::Into<std::boxed::Box<crate::model::VulnerabilityAssessmentNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::note::Type::VulnerabilityAssessment(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `SbomReference`, `None` if the field is not set or
     /// holds a different branch.
@@ -5702,21 +5323,6 @@ impl Note {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `SbomReference`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_sbom_reference<
-        T: std::convert::Into<std::boxed::Box<crate::model::SBOMReferenceNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::SbomReference(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Secret`, `None` if the field is not set or
     /// holds a different branch.
@@ -5726,19 +5332,6 @@ impl Note {
             crate::model::note::Type::Secret(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Note::r#type]
-    /// to hold a `Secret`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretNote>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::note::Type::Secret(v.into()));
-        self
     }
 }
 
@@ -7404,23 +6997,6 @@ impl InTotoStatement {
         })
     }
 
-    /// Sets the value of [predicate][crate::model::InTotoStatement::predicate]
-    /// to hold a `Provenance`.
-    ///
-    /// Note that all the setters affecting `predicate` are
-    /// mutually exclusive.
-    pub fn set_provenance<
-        T: std::convert::Into<std::boxed::Box<crate::model::InTotoProvenance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.predicate = std::option::Option::Some(
-            crate::model::in_toto_statement::Predicate::Provenance(v.into()),
-        );
-        self
-    }
-
     /// The value of [predicate][crate::model::InTotoStatement::predicate]
     /// if it holds a `SlsaProvenance`, `None` if the field is not set or
     /// holds a different branch.
@@ -7436,23 +7012,6 @@ impl InTotoStatement {
         })
     }
 
-    /// Sets the value of [predicate][crate::model::InTotoStatement::predicate]
-    /// to hold a `SlsaProvenance`.
-    ///
-    /// Note that all the setters affecting `predicate` are
-    /// mutually exclusive.
-    pub fn set_slsa_provenance<
-        T: std::convert::Into<std::boxed::Box<crate::model::SlsaProvenance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.predicate = std::option::Option::Some(
-            crate::model::in_toto_statement::Predicate::SlsaProvenance(v.into()),
-        );
-        self
-    }
-
     /// The value of [predicate][crate::model::InTotoStatement::predicate]
     /// if it holds a `SlsaProvenanceZeroTwo`, `None` if the field is not set or
     /// holds a different branch.
@@ -7466,23 +7025,6 @@ impl InTotoStatement {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [predicate][crate::model::InTotoStatement::predicate]
-    /// to hold a `SlsaProvenanceZeroTwo`.
-    ///
-    /// Note that all the setters affecting `predicate` are
-    /// mutually exclusive.
-    pub fn set_slsa_provenance_zero_two<
-        T: std::convert::Into<std::boxed::Box<crate::model::SlsaProvenanceZeroTwo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.predicate = std::option::Option::Some(
-            crate::model::in_toto_statement::Predicate::SlsaProvenanceZeroTwo(v.into()),
-        );
-        self
     }
 }
 
@@ -9284,22 +8826,6 @@ impl SourceContext {
         })
     }
 
-    /// Sets the value of [context][crate::model::SourceContext::context]
-    /// to hold a `CloudRepo`.
-    ///
-    /// Note that all the setters affecting `context` are
-    /// mutually exclusive.
-    pub fn set_cloud_repo<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudRepoSourceContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.context =
-            std::option::Option::Some(crate::model::source_context::Context::CloudRepo(v.into()));
-        self
-    }
-
     /// The value of [context][crate::model::SourceContext::context]
     /// if it holds a `Gerrit`, `None` if the field is not set or
     /// holds a different branch.
@@ -9313,20 +8839,6 @@ impl SourceContext {
         })
     }
 
-    /// Sets the value of [context][crate::model::SourceContext::context]
-    /// to hold a `Gerrit`.
-    ///
-    /// Note that all the setters affecting `context` are
-    /// mutually exclusive.
-    pub fn set_gerrit<T: std::convert::Into<std::boxed::Box<crate::model::GerritSourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.context =
-            std::option::Option::Some(crate::model::source_context::Context::Gerrit(v.into()));
-        self
-    }
-
     /// The value of [context][crate::model::SourceContext::context]
     /// if it holds a `Git`, `None` if the field is not set or
     /// holds a different branch.
@@ -9336,20 +8848,6 @@ impl SourceContext {
             crate::model::source_context::Context::Git(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [context][crate::model::SourceContext::context]
-    /// to hold a `Git`.
-    ///
-    /// Note that all the setters affecting `context` are
-    /// mutually exclusive.
-    pub fn set_git<T: std::convert::Into<std::boxed::Box<crate::model::GitSourceContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.context =
-            std::option::Option::Some(crate::model::source_context::Context::Git(v.into()));
-        self
     }
 }
 
@@ -9630,18 +9128,6 @@ impl CloudRepoSourceContext {
         })
     }
 
-    /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision]
-    /// to hold a `RevisionId`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision = std::option::Option::Some(
-            crate::model::cloud_repo_source_context::Revision::RevisionId(v.into()),
-        );
-        self
-    }
-
     /// The value of [revision][crate::model::CloudRepoSourceContext::revision]
     /// if it holds a `AliasContext`, `None` if the field is not set or
     /// holds a different branch.
@@ -9655,21 +9141,6 @@ impl CloudRepoSourceContext {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision]
-    /// to hold a `AliasContext`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_alias_context<T: std::convert::Into<std::boxed::Box<crate::model::AliasContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.revision = std::option::Option::Some(
-            crate::model::cloud_repo_source_context::Revision::AliasContext(v.into()),
-        );
-        self
     }
 }
 
@@ -9767,18 +9238,6 @@ impl GerritSourceContext {
         })
     }
 
-    /// Sets the value of [revision][crate::model::GerritSourceContext::revision]
-    /// to hold a `RevisionId`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision = std::option::Option::Some(
-            crate::model::gerrit_source_context::Revision::RevisionId(v.into()),
-        );
-        self
-    }
-
     /// The value of [revision][crate::model::GerritSourceContext::revision]
     /// if it holds a `AliasContext`, `None` if the field is not set or
     /// holds a different branch.
@@ -9792,21 +9251,6 @@ impl GerritSourceContext {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [revision][crate::model::GerritSourceContext::revision]
-    /// to hold a `AliasContext`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_alias_context<T: std::convert::Into<std::boxed::Box<crate::model::AliasContext>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.revision = std::option::Option::Some(
-            crate::model::gerrit_source_context::Revision::AliasContext(v.into()),
-        );
-        self
     }
 }
 
@@ -9923,21 +9367,6 @@ impl RepoId {
         })
     }
 
-    /// Sets the value of [id][crate::model::RepoId::id]
-    /// to hold a `ProjectRepoId`.
-    ///
-    /// Note that all the setters affecting `id` are
-    /// mutually exclusive.
-    pub fn set_project_repo_id<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProjectRepoId>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.id = std::option::Option::Some(crate::model::repo_id::Id::ProjectRepoId(v.into()));
-        self
-    }
-
     /// The value of [id][crate::model::RepoId::id]
     /// if it holds a `Uid`, `None` if the field is not set or
     /// holds a different branch.
@@ -9947,16 +9376,6 @@ impl RepoId {
             crate::model::repo_id::Id::Uid(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [id][crate::model::RepoId::id]
-    /// to hold a `Uid`.
-    ///
-    /// Note that all the setters affecting `id` are
-    /// mutually exclusive.
-    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id = std::option::Option::Some(crate::model::repo_id::Id::Uid(v.into()));
-        self
     }
 }
 
@@ -10413,21 +9832,6 @@ impl SecretLocation {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [location][crate::model::SecretLocation::location]
-    /// to hold a `FileLocation`.
-    ///
-    /// Note that all the setters affecting `location` are
-    /// mutually exclusive.
-    pub fn set_file_location<T: std::convert::Into<std::boxed::Box<crate::model::FileLocation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.location = std::option::Option::Some(
-            crate::model::secret_location::Location::FileLocation(v.into()),
-        );
-        self
     }
 }
 
@@ -12216,20 +11620,6 @@ pub mod vulnerability_assessment_note {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [identifier][crate::model::vulnerability_assessment_note::Product::identifier]
-        /// to hold a `GenericUri`.
-        ///
-        /// Note that all the setters affecting `identifier` are
-        /// mutually exclusive.
-        pub fn set_generic_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.identifier = std::option::Option::Some(
-                crate::model::vulnerability_assessment_note::product::Identifier::GenericUri(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 

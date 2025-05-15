@@ -497,18 +497,6 @@ impl FileShareConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::FileShareConfig::source]
-    /// to hold a `SourceBackup`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::file_share_config::Source::SourceBackup(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for FileShareConfig {
@@ -1897,23 +1885,6 @@ pub mod instance {
             })
         }
 
-        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
-        /// to hold a `IopsPerTb`.
-        ///
-        /// Note that all the setters affecting `mode` are
-        /// mutually exclusive.
-        pub fn set_iops_per_tb<
-            T: std::convert::Into<std::boxed::Box<crate::model::instance::IOPSPerTB>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.mode = std::option::Option::Some(
-                crate::model::instance::performance_config::Mode::IopsPerTb(v.into()),
-            );
-            self
-        }
-
         /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
         /// if it holds a `FixedIops`, `None` if the field is not set or
         /// holds a different branch.
@@ -1927,23 +1898,6 @@ pub mod instance {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
-        /// to hold a `FixedIops`.
-        ///
-        /// Note that all the setters affecting `mode` are
-        /// mutually exclusive.
-        pub fn set_fixed_iops<
-            T: std::convert::Into<std::boxed::Box<crate::model::instance::FixedIOPS>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.mode = std::option::Option::Some(
-                crate::model::instance::performance_config::Mode::FixedIops(v.into()),
-            );
-            self
         }
     }
 
@@ -2923,18 +2877,6 @@ impl RestoreInstanceRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::RestoreInstanceRequest::source]
-    /// to hold a `SourceBackup`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_instance_request::Source::SourceBackup(v.into()),
-        );
-        self
     }
 }
 

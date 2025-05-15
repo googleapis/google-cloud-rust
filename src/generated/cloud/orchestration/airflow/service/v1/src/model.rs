@@ -3888,23 +3888,6 @@ impl IPAllocationPolicy {
         })
     }
 
-    /// Sets the value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
-    /// to hold a `ClusterSecondaryRangeName`.
-    ///
-    /// Note that all the setters affecting `cluster_ip_allocation` are
-    /// mutually exclusive.
-    pub fn set_cluster_secondary_range_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster_ip_allocation = std::option::Option::Some(
-            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
     /// if it holds a `ClusterIpv4CidrBlock`, `None` if the field is not set or
     /// holds a different branch.
@@ -3916,21 +3899,6 @@ impl IPAllocationPolicy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
-    /// to hold a `ClusterIpv4CidrBlock`.
-    ///
-    /// Note that all the setters affecting `cluster_ip_allocation` are
-    /// mutually exclusive.
-    pub fn set_cluster_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster_ip_allocation = std::option::Option::Some(
-            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation].
@@ -3960,23 +3928,6 @@ impl IPAllocationPolicy {
         })
     }
 
-    /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
-    /// to hold a `ServicesSecondaryRangeName`.
-    ///
-    /// Note that all the setters affecting `services_ip_allocation` are
-    /// mutually exclusive.
-    pub fn set_services_secondary_range_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.services_ip_allocation = std::option::Option::Some(
-            crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesSecondaryRangeName(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
     /// if it holds a `ServicesIpv4CidrBlock`, `None` if the field is not set or
     /// holds a different branch.
@@ -3988,23 +3939,6 @@ impl IPAllocationPolicy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
-    /// to hold a `ServicesIpv4CidrBlock`.
-    ///
-    /// Note that all the setters affecting `services_ip_allocation` are
-    /// mutually exclusive.
-    pub fn set_services_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.services_ip_allocation = std::option::Option::Some(
-            crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 

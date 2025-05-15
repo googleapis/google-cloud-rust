@@ -408,21 +408,6 @@ pub mod policy_binding {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [target][crate::model::policy_binding::Target::target]
-        /// to hold a `PrincipalSet`.
-        ///
-        /// Note that all the setters affecting `target` are
-        /// mutually exclusive.
-        pub fn set_principal_set<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.target = std::option::Option::Some(
-                crate::model::policy_binding::target::Target::PrincipalSet(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for Target {

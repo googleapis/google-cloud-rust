@@ -826,22 +826,6 @@ impl DnsSettings {
         })
     }
 
-    /// Sets the value of [dns_provider][crate::model::DnsSettings::dns_provider]
-    /// to hold a `CustomDns`.
-    ///
-    /// Note that all the setters affecting `dns_provider` are
-    /// mutually exclusive.
-    pub fn set_custom_dns<
-        T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::CustomDns>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_provider =
-            std::option::Option::Some(crate::model::dns_settings::DnsProvider::CustomDns(v.into()));
-        self
-    }
-
     /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
     /// if it holds a `GoogleDomainsDns`, `None` if the field is not set or
     /// holds a different branch.
@@ -855,23 +839,6 @@ impl DnsSettings {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dns_provider][crate::model::DnsSettings::dns_provider]
-    /// to hold a `GoogleDomainsDns`.
-    ///
-    /// Note that all the setters affecting `dns_provider` are
-    /// mutually exclusive.
-    pub fn set_google_domains_dns<
-        T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_provider = std::option::Option::Some(
-            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(v.into()),
-        );
-        self
     }
 }
 

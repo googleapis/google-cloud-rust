@@ -194,21 +194,6 @@ pub mod alloy_dbcsql_admin {
             self.0.request.source = v.into();
             self
         }
-
-        /// Sets the value of [source][crate::model::RestoreFromCloudSQLRequest::source]
-        /// to hold a `CloudsqlBackupRunSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_cloudsql_backup_run_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_cloudsql_backup_run_source(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -1305,21 +1290,6 @@ pub mod alloy_db_admin {
             self
         }
 
-        /// Sets the value of [destination][crate::model::ExportClusterRequest::destination]
-        /// to hold a `GcsDestination`.
-        ///
-        /// Note that all the setters affecting `destination` are
-        /// mutually exclusive.
-        pub fn set_gcs_destination<
-            T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_gcs_destination(v);
-            self
-        }
-
         /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options].
         ///
         /// Note that all the setters affecting `export_options` are
@@ -1331,40 +1301,6 @@ pub mod alloy_db_admin {
             v: T,
         ) -> Self {
             self.0.request.export_options = v.into();
-            self
-        }
-
-        /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options]
-        /// to hold a `CsvExportOptions`.
-        ///
-        /// Note that all the setters affecting `export_options` are
-        /// mutually exclusive.
-        pub fn set_csv_export_options<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_csv_export_options(v);
-            self
-        }
-
-        /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options]
-        /// to hold a `SqlExportOptions`.
-        ///
-        /// Note that all the setters affecting `export_options` are
-        /// mutually exclusive.
-        pub fn set_sql_export_options<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_sql_export_options(v);
             self
         }
     }
@@ -1503,40 +1439,6 @@ pub mod alloy_db_admin {
             v: T,
         ) -> Self {
             self.0.request.import_options = v.into();
-            self
-        }
-
-        /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options]
-        /// to hold a `SqlImportOptions`.
-        ///
-        /// Note that all the setters affecting `import_options` are
-        /// mutually exclusive.
-        pub fn set_sql_import_options<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_sql_import_options(v);
-            self
-        }
-
-        /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options]
-        /// to hold a `CsvImportOptions`.
-        ///
-        /// Note that all the setters affecting `import_options` are
-        /// mutually exclusive.
-        pub fn set_csv_import_options<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_csv_import_options(v);
             self
         }
     }
@@ -2173,36 +2075,6 @@ pub mod alloy_db_admin {
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
-            self
-        }
-
-        /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
-        /// to hold a `BackupSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_backup_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_backup_source(v);
-            self
-        }
-
-        /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
-        /// to hold a `ContinuousBackupSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_continuous_backup_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::ContinuousBackupSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_continuous_backup_source(v);
             self
         }
     }
@@ -3627,16 +3499,6 @@ pub mod alloy_db_admin {
             v: T,
         ) -> Self {
             self.0.request.user_credential = v.into();
-            self
-        }
-
-        /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential]
-        /// to hold a `Password`.
-        ///
-        /// Note that all the setters affecting `user_credential` are
-        /// mutually exclusive.
-        pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_password(v);
             self
         }
     }

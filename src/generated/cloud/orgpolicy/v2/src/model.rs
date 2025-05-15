@@ -186,23 +186,6 @@ impl Constraint {
         })
     }
 
-    /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type]
-    /// to hold a `ListConstraint`.
-    ///
-    /// Note that all the setters affecting `constraint_type` are
-    /// mutually exclusive.
-    pub fn set_list_constraint<
-        T: std::convert::Into<std::boxed::Box<crate::model::constraint::ListConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.constraint_type = std::option::Option::Some(
-            crate::model::constraint::ConstraintType::ListConstraint(v.into()),
-        );
-        self
-    }
-
     /// The value of [constraint_type][crate::model::Constraint::constraint_type]
     /// if it holds a `BooleanConstraint`, `None` if the field is not set or
     /// holds a different branch.
@@ -216,23 +199,6 @@ impl Constraint {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type]
-    /// to hold a `BooleanConstraint`.
-    ///
-    /// Note that all the setters affecting `constraint_type` are
-    /// mutually exclusive.
-    pub fn set_boolean_constraint<
-        T: std::convert::Into<std::boxed::Box<crate::model::constraint::BooleanConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.constraint_type = std::option::Option::Some(
-            crate::model::constraint::ConstraintType::BooleanConstraint(v.into()),
-        );
-        self
     }
 }
 
@@ -2000,25 +1966,6 @@ pub mod policy_spec {
             })
         }
 
-        /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// to hold a `Values`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_values<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::Values(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `AllowAll`, `None` if the field is not set or
         /// holds a different branch.
@@ -2030,18 +1977,6 @@ pub mod policy_spec {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// to hold a `AllowAll`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::AllowAll(v.into()),
-            );
-            self
         }
 
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
@@ -2057,18 +1992,6 @@ pub mod policy_spec {
             })
         }
 
-        /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// to hold a `DenyAll`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::DenyAll(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `Enforce`, `None` if the field is not set or
         /// holds a different branch.
@@ -2080,18 +2003,6 @@ pub mod policy_spec {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind]
-        /// to hold a `Enforce`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::policy_spec::policy_rule::Kind::Enforce(v.into()),
-            );
-            self
         }
     }
 

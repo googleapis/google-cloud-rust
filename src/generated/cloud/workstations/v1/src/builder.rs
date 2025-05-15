@@ -2289,32 +2289,6 @@ pub mod workstations {
             self.0.request.expiration = v.into();
             self
         }
-
-        /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
-        /// to hold a `ExpireTime`.
-        ///
-        /// Note that all the setters affecting `expiration` are
-        /// mutually exclusive.
-        pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_expire_time(v);
-            self
-        }
-
-        /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
-        /// to hold a `Ttl`.
-        ///
-        /// Note that all the setters affecting `expiration` are
-        /// mutually exclusive.
-        pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_ttl(v);
-            self
-        }
     }
 
     #[doc(hidden)]

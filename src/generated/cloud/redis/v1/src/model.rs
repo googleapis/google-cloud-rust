@@ -2811,20 +2811,6 @@ impl InputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::InputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::input_config::Source::GcsSource(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for InputConfig {
@@ -2979,23 +2965,6 @@ impl OutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 

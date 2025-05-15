@@ -440,23 +440,6 @@ pub mod authorization_policy {
                         _ => std::option::Option::None,
                     })
                 }
-
-                /// Sets the value of [r#type][crate::model::authorization_policy::rule::destination::HttpHeaderMatch::r#type]
-                /// to hold a `RegexMatch`.
-                ///
-                /// Note that all the setters affecting `r#type` are
-                /// mutually exclusive.
-                pub fn set_regex_match<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.r#type = std::option::Option::Some(
-                        crate::model::authorization_policy::rule::destination::http_header_match::Type::RegexMatch(
-                            v.into()
-                        )
-                    );
-                    self
-                }
             }
 
             impl wkt::message::Message for HttpHeaderMatch {
@@ -2032,20 +2015,6 @@ impl ValidationCA {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::ValidationCA::r#type]
-    /// to hold a `GrpcEndpoint`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::validation_ca::Type::GrpcEndpoint(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::ValidationCA::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
@@ -2059,23 +2028,6 @@ impl ValidationCA {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::ValidationCA::r#type]
-    /// to hold a `CertificateProviderInstance`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_certificate_provider_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CertificateProviderInstance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::validation_ca::Type::CertificateProviderInstance(v.into()),
-        );
-        self
     }
 }
 
@@ -2193,21 +2145,6 @@ impl CertificateProvider {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::CertificateProvider::r#type]
-    /// to hold a `GrpcEndpoint`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_grpc_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::GrpcEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::certificate_provider::Type::GrpcEndpoint(v.into()),
-        );
-        self
-    }
-
     /// The value of [r#type][crate::model::CertificateProvider::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
@@ -2221,23 +2158,6 @@ impl CertificateProvider {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::CertificateProvider::r#type]
-    /// to hold a `CertificateProviderInstance`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_certificate_provider_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CertificateProviderInstance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::certificate_provider::Type::CertificateProviderInstance(v.into()),
-        );
-        self
     }
 }
 

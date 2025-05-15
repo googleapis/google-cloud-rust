@@ -168,23 +168,6 @@ impl AutoscalingPolicy {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [algorithm][crate::model::AutoscalingPolicy::algorithm]
-    /// to hold a `BasicAlgorithm`.
-    ///
-    /// Note that all the setters affecting `algorithm` are
-    /// mutually exclusive.
-    pub fn set_basic_algorithm<
-        T: std::convert::Into<std::boxed::Box<crate::model::BasicAutoscalingAlgorithm>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.algorithm = std::option::Option::Some(
-            crate::model::autoscaling_policy::Algorithm::BasicAlgorithm(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for AutoscalingPolicy {
@@ -269,23 +252,6 @@ impl BasicAutoscalingAlgorithm {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [config][crate::model::BasicAutoscalingAlgorithm::config]
-    /// to hold a `YarnConfig`.
-    ///
-    /// Note that all the setters affecting `config` are
-    /// mutually exclusive.
-    pub fn set_yarn_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::BasicYarnAutoscalingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = std::option::Option::Some(
-            crate::model::basic_autoscaling_algorithm::Config::YarnConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -1342,20 +1308,6 @@ impl Batch {
         })
     }
 
-    /// Sets the value of [batch_config][crate::model::Batch::batch_config]
-    /// to hold a `PysparkBatch`.
-    ///
-    /// Note that all the setters affecting `batch_config` are
-    /// mutually exclusive.
-    pub fn set_pyspark_batch<T: std::convert::Into<std::boxed::Box<crate::model::PySparkBatch>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::PysparkBatch(v.into()));
-        self
-    }
-
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkBatch`, `None` if the field is not set or
     /// holds a different branch.
@@ -1365,20 +1317,6 @@ impl Batch {
             crate::model::batch::BatchConfig::SparkBatch(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [batch_config][crate::model::Batch::batch_config]
-    /// to hold a `SparkBatch`.
-    ///
-    /// Note that all the setters affecting `batch_config` are
-    /// mutually exclusive.
-    pub fn set_spark_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkBatch>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::SparkBatch(v.into()));
-        self
     }
 
     /// The value of [batch_config][crate::model::Batch::batch_config]
@@ -1394,20 +1332,6 @@ impl Batch {
         })
     }
 
-    /// Sets the value of [batch_config][crate::model::Batch::batch_config]
-    /// to hold a `SparkRBatch`.
-    ///
-    /// Note that all the setters affecting `batch_config` are
-    /// mutually exclusive.
-    pub fn set_spark_r_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkRBatch>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::SparkRBatch(v.into()));
-        self
-    }
-
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkSqlBatch`, `None` if the field is not set or
     /// holds a different branch.
@@ -1419,22 +1343,6 @@ impl Batch {
             crate::model::batch::BatchConfig::SparkSqlBatch(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [batch_config][crate::model::Batch::batch_config]
-    /// to hold a `SparkSqlBatch`.
-    ///
-    /// Note that all the setters affecting `batch_config` are
-    /// mutually exclusive.
-    pub fn set_spark_sql_batch<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlBatch>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::SparkSqlBatch(v.into()));
-        self
     }
 }
 
@@ -1922,20 +1830,6 @@ impl SparkBatch {
         })
     }
 
-    /// Sets the value of [driver][crate::model::SparkBatch::driver]
-    /// to hold a `MainJarFileUri`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_batch::Driver::MainJarFileUri(v.into()));
-        self
-    }
-
     /// The value of [driver][crate::model::SparkBatch::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
@@ -1945,17 +1839,6 @@ impl SparkBatch {
             crate::model::spark_batch::Driver::MainClass(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [driver][crate::model::SparkBatch::driver]
-    /// to hold a `MainClass`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_batch::Driver::MainClass(v.into()));
-        self
     }
 }
 
@@ -2682,25 +2565,6 @@ impl VirtualClusterConfig {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [infrastructure_config][crate::model::VirtualClusterConfig::infrastructure_config]
-    /// to hold a `KubernetesClusterConfig`.
-    ///
-    /// Note that all the setters affecting `infrastructure_config` are
-    /// mutually exclusive.
-    pub fn set_kubernetes_cluster_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::KubernetesClusterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.infrastructure_config = std::option::Option::Some(
-            crate::model::virtual_cluster_config::InfrastructureConfig::KubernetesClusterConfig(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -5738,21 +5602,6 @@ impl LifecycleConfig {
         })
     }
 
-    /// Sets the value of [ttl][crate::model::LifecycleConfig::ttl]
-    /// to hold a `AutoDeleteTime`.
-    ///
-    /// Note that all the setters affecting `ttl` are
-    /// mutually exclusive.
-    pub fn set_auto_delete_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = std::option::Option::Some(crate::model::lifecycle_config::Ttl::AutoDeleteTime(
-            v.into(),
-        ));
-        self
-    }
-
     /// The value of [ttl][crate::model::LifecycleConfig::ttl]
     /// if it holds a `AutoDeleteTtl`, `None` if the field is not set or
     /// holds a different branch.
@@ -5762,20 +5611,6 @@ impl LifecycleConfig {
             crate::model::lifecycle_config::Ttl::AutoDeleteTtl(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [ttl][crate::model::LifecycleConfig::ttl]
-    /// to hold a `AutoDeleteTtl`.
-    ///
-    /// Note that all the setters affecting `ttl` are
-    /// mutually exclusive.
-    pub fn set_auto_delete_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl =
-            std::option::Option::Some(crate::model::lifecycle_config::Ttl::AutoDeleteTtl(v.into()));
-        self
     }
 }
 
@@ -7820,20 +7655,6 @@ impl HadoopJob {
         })
     }
 
-    /// Sets the value of [driver][crate::model::HadoopJob::driver]
-    /// to hold a `MainJarFileUri`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::hadoop_job::Driver::MainJarFileUri(v.into()));
-        self
-    }
-
     /// The value of [driver][crate::model::HadoopJob::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
@@ -7843,17 +7664,6 @@ impl HadoopJob {
             crate::model::hadoop_job::Driver::MainClass(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [driver][crate::model::HadoopJob::driver]
-    /// to hold a `MainClass`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::hadoop_job::Driver::MainClass(v.into()));
-        self
     }
 }
 
@@ -8042,20 +7852,6 @@ impl SparkJob {
         })
     }
 
-    /// Sets the value of [driver][crate::model::SparkJob::driver]
-    /// to hold a `MainJarFileUri`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_job::Driver::MainJarFileUri(v.into()));
-        self
-    }
-
     /// The value of [driver][crate::model::SparkJob::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
@@ -8065,17 +7861,6 @@ impl SparkJob {
             crate::model::spark_job::Driver::MainClass(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [driver][crate::model::SparkJob::driver]
-    /// to hold a `MainClass`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_job::Driver::MainClass(v.into()));
-        self
     }
 }
 
@@ -8431,17 +8216,6 @@ impl HiveJob {
         })
     }
 
-    /// Sets the value of [queries][crate::model::HiveJob::queries]
-    /// to hold a `QueryFileUri`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::hive_job::Queries::QueryFileUri(v.into()));
-        self
-    }
-
     /// The value of [queries][crate::model::HiveJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
@@ -8451,20 +8225,6 @@ impl HiveJob {
             crate::model::hive_job::Queries::QueryList(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [queries][crate::model::HiveJob::queries]
-    /// to hold a `QueryList`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::hive_job::Queries::QueryList(v.into()));
-        self
     }
 }
 
@@ -8604,17 +8364,6 @@ impl SparkSqlJob {
         })
     }
 
-    /// Sets the value of [queries][crate::model::SparkSqlJob::queries]
-    /// to hold a `QueryFileUri`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::spark_sql_job::Queries::QueryFileUri(v.into()));
-        self
-    }
-
     /// The value of [queries][crate::model::SparkSqlJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
@@ -8624,20 +8373,6 @@ impl SparkSqlJob {
             crate::model::spark_sql_job::Queries::QueryList(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [queries][crate::model::SparkSqlJob::queries]
-    /// to hold a `QueryList`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::spark_sql_job::Queries::QueryList(v.into()));
-        self
     }
 }
 
@@ -8791,17 +8526,6 @@ impl PigJob {
         })
     }
 
-    /// Sets the value of [queries][crate::model::PigJob::queries]
-    /// to hold a `QueryFileUri`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::pig_job::Queries::QueryFileUri(v.into()));
-        self
-    }
-
     /// The value of [queries][crate::model::PigJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
@@ -8811,20 +8535,6 @@ impl PigJob {
             crate::model::pig_job::Queries::QueryList(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [queries][crate::model::PigJob::queries]
-    /// to hold a `QueryList`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::pig_job::Queries::QueryList(v.into()));
-        self
     }
 }
 
@@ -9092,17 +8802,6 @@ impl PrestoJob {
         })
     }
 
-    /// Sets the value of [queries][crate::model::PrestoJob::queries]
-    /// to hold a `QueryFileUri`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::presto_job::Queries::QueryFileUri(v.into()));
-        self
-    }
-
     /// The value of [queries][crate::model::PrestoJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
@@ -9112,20 +8811,6 @@ impl PrestoJob {
             crate::model::presto_job::Queries::QueryList(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [queries][crate::model::PrestoJob::queries]
-    /// to hold a `QueryList`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::presto_job::Queries::QueryList(v.into()));
-        self
     }
 }
 
@@ -9274,17 +8959,6 @@ impl TrinoJob {
         })
     }
 
-    /// Sets the value of [queries][crate::model::TrinoJob::queries]
-    /// to hold a `QueryFileUri`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::trino_job::Queries::QueryFileUri(v.into()));
-        self
-    }
-
     /// The value of [queries][crate::model::TrinoJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
@@ -9294,20 +8968,6 @@ impl TrinoJob {
             crate::model::trino_job::Queries::QueryList(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [queries][crate::model::TrinoJob::queries]
-    /// to hold a `QueryList`.
-    ///
-    /// Note that all the setters affecting `queries` are
-    /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::trino_job::Queries::QueryList(v.into()));
-        self
     }
 }
 
@@ -9466,20 +9126,6 @@ impl FlinkJob {
         })
     }
 
-    /// Sets the value of [driver][crate::model::FlinkJob::driver]
-    /// to hold a `MainJarFileUri`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::flink_job::Driver::MainJarFileUri(v.into()));
-        self
-    }
-
     /// The value of [driver][crate::model::FlinkJob::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
@@ -9489,17 +9135,6 @@ impl FlinkJob {
             crate::model::flink_job::Driver::MainClass(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [driver][crate::model::FlinkJob::driver]
-    /// to hold a `MainClass`.
-    ///
-    /// Note that all the setters affecting `driver` are
-    /// mutually exclusive.
-    pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::flink_job::Driver::MainClass(v.into()));
-        self
     }
 }
 
@@ -10538,19 +10173,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `HadoopJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_hadoop_job<T: std::convert::Into<std::boxed::Box<crate::model::HadoopJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::HadoopJob(v.into()));
-        self
-    }
-
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `SparkJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10560,19 +10182,6 @@ impl Job {
             crate::model::job::TypeJob::SparkJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `SparkJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_spark_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::SparkJob(v.into()));
-        self
     }
 
     /// The value of [type_job][crate::model::Job::type_job]
@@ -10586,19 +10195,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `PysparkJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_pyspark_job<T: std::convert::Into<std::boxed::Box<crate::model::PySparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::PysparkJob(v.into()));
-        self
-    }
-
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `HiveJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10608,19 +10204,6 @@ impl Job {
             crate::model::job::TypeJob::HiveJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `HiveJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_hive_job<T: std::convert::Into<std::boxed::Box<crate::model::HiveJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::HiveJob(v.into()));
-        self
     }
 
     /// The value of [type_job][crate::model::Job::type_job]
@@ -10634,19 +10217,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `PigJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_pig_job<T: std::convert::Into<std::boxed::Box<crate::model::PigJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::PigJob(v.into()));
-        self
-    }
-
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `SparkRJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10656,19 +10226,6 @@ impl Job {
             crate::model::job::TypeJob::SparkRJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `SparkRJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_spark_r_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkRJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::SparkRJob(v.into()));
-        self
     }
 
     /// The value of [type_job][crate::model::Job::type_job]
@@ -10684,20 +10241,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `SparkSqlJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_spark_sql_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job =
-            std::option::Option::Some(crate::model::job::TypeJob::SparkSqlJob(v.into()));
-        self
-    }
-
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `PrestoJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10707,19 +10250,6 @@ impl Job {
             crate::model::job::TypeJob::PrestoJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `PrestoJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_presto_job<T: std::convert::Into<std::boxed::Box<crate::model::PrestoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::PrestoJob(v.into()));
-        self
     }
 
     /// The value of [type_job][crate::model::Job::type_job]
@@ -10733,19 +10263,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `TrinoJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_trino_job<T: std::convert::Into<std::boxed::Box<crate::model::TrinoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::TrinoJob(v.into()));
-        self
-    }
-
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `FlinkJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10755,19 +10272,6 @@ impl Job {
             crate::model::job::TypeJob::FlinkJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_job][crate::model::Job::type_job]
-    /// to hold a `FlinkJob`.
-    ///
-    /// Note that all the setters affecting `type_job` are
-    /// mutually exclusive.
-    pub fn set_flink_job<T: std::convert::Into<std::boxed::Box<crate::model::FlinkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::FlinkJob(v.into()));
-        self
     }
 }
 
@@ -13453,23 +12957,6 @@ impl SessionTemplate {
         })
     }
 
-    /// Sets the value of [session_config][crate::model::SessionTemplate::session_config]
-    /// to hold a `JupyterSession`.
-    ///
-    /// Note that all the setters affecting `session_config` are
-    /// mutually exclusive.
-    pub fn set_jupyter_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::JupyterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.session_config = std::option::Option::Some(
-            crate::model::session_template::SessionConfig::JupyterSession(v.into()),
-        );
-        self
-    }
-
     /// The value of [session_config][crate::model::SessionTemplate::session_config]
     /// if it holds a `SparkConnectSession`, `None` if the field is not set or
     /// holds a different branch.
@@ -13483,23 +12970,6 @@ impl SessionTemplate {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [session_config][crate::model::SessionTemplate::session_config]
-    /// to hold a `SparkConnectSession`.
-    ///
-    /// Note that all the setters affecting `session_config` are
-    /// mutually exclusive.
-    pub fn set_spark_connect_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkConnectConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.session_config = std::option::Option::Some(
-            crate::model::session_template::SessionConfig::SparkConnectSession(v.into()),
-        );
-        self
     }
 }
 
@@ -14121,23 +13591,6 @@ impl Session {
         })
     }
 
-    /// Sets the value of [session_config][crate::model::Session::session_config]
-    /// to hold a `JupyterSession`.
-    ///
-    /// Note that all the setters affecting `session_config` are
-    /// mutually exclusive.
-    pub fn set_jupyter_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::JupyterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.session_config = std::option::Option::Some(
-            crate::model::session::SessionConfig::JupyterSession(v.into()),
-        );
-        self
-    }
-
     /// The value of [session_config][crate::model::Session::session_config]
     /// if it holds a `SparkConnectSession`, `None` if the field is not set or
     /// holds a different branch.
@@ -14151,23 +13604,6 @@ impl Session {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [session_config][crate::model::Session::session_config]
-    /// to hold a `SparkConnectSession`.
-    ///
-    /// Note that all the setters affecting `session_config` are
-    /// mutually exclusive.
-    pub fn set_spark_connect_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkConnectConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.session_config = std::option::Option::Some(
-            crate::model::session::SessionConfig::SparkConnectSession(v.into()),
-        );
-        self
     }
 }
 
@@ -14929,18 +14365,6 @@ impl ExecutionConfig {
         })
     }
 
-    /// Sets the value of [network][crate::model::ExecutionConfig::network]
-    /// to hold a `NetworkUri`.
-    ///
-    /// Note that all the setters affecting `network` are
-    /// mutually exclusive.
-    pub fn set_network_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network = std::option::Option::Some(
-            crate::model::execution_config::Network::NetworkUri(v.into()),
-        );
-        self
-    }
-
     /// The value of [network][crate::model::ExecutionConfig::network]
     /// if it holds a `SubnetworkUri`, `None` if the field is not set or
     /// holds a different branch.
@@ -14952,18 +14376,6 @@ impl ExecutionConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [network][crate::model::ExecutionConfig::network]
-    /// to hold a `SubnetworkUri`.
-    ///
-    /// Note that all the setters affecting `network` are
-    /// mutually exclusive.
-    pub fn set_subnetwork_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.network = std::option::Option::Some(
-            crate::model::execution_config::Network::SubnetworkUri(v.into()),
-        );
-        self
     }
 }
 
@@ -15511,23 +14923,6 @@ impl KubernetesClusterConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [config][crate::model::KubernetesClusterConfig::config]
-    /// to hold a `GkeClusterConfig`.
-    ///
-    /// Note that all the setters affecting `config` are
-    /// mutually exclusive.
-    pub fn set_gke_cluster_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GkeClusterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = std::option::Option::Some(
-            crate::model::kubernetes_cluster_config::Config::GkeClusterConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -16953,23 +16348,6 @@ impl WorkflowTemplatePlacement {
         })
     }
 
-    /// Sets the value of [placement][crate::model::WorkflowTemplatePlacement::placement]
-    /// to hold a `ManagedCluster`.
-    ///
-    /// Note that all the setters affecting `placement` are
-    /// mutually exclusive.
-    pub fn set_managed_cluster<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManagedCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.placement = std::option::Option::Some(
-            crate::model::workflow_template_placement::Placement::ManagedCluster(v.into()),
-        );
-        self
-    }
-
     /// The value of [placement][crate::model::WorkflowTemplatePlacement::placement]
     /// if it holds a `ClusterSelector`, `None` if the field is not set or
     /// holds a different branch.
@@ -16983,23 +16361,6 @@ impl WorkflowTemplatePlacement {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [placement][crate::model::WorkflowTemplatePlacement::placement]
-    /// to hold a `ClusterSelector`.
-    ///
-    /// Note that all the setters affecting `placement` are
-    /// mutually exclusive.
-    pub fn set_cluster_selector<
-        T: std::convert::Into<std::boxed::Box<crate::model::ClusterSelector>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.placement = std::option::Option::Some(
-            crate::model::workflow_template_placement::Placement::ClusterSelector(v.into()),
-        );
-        self
     }
 }
 
@@ -17281,20 +16642,6 @@ impl OrderedJob {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `HadoopJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_hadoop_job<T: std::convert::Into<std::boxed::Box<crate::model::HadoopJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::HadoopJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `SparkJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -17304,20 +16651,6 @@ impl OrderedJob {
             crate::model::ordered_job::JobType::SparkJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `SparkJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_spark_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::SparkJob(v.into()));
-        self
     }
 
     /// The value of [job_type][crate::model::OrderedJob::job_type]
@@ -17331,20 +16664,6 @@ impl OrderedJob {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `PysparkJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_pyspark_job<T: std::convert::Into<std::boxed::Box<crate::model::PySparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::PysparkJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `HiveJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -17354,20 +16673,6 @@ impl OrderedJob {
             crate::model::ordered_job::JobType::HiveJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `HiveJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_hive_job<T: std::convert::Into<std::boxed::Box<crate::model::HiveJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::HiveJob(v.into()));
-        self
     }
 
     /// The value of [job_type][crate::model::OrderedJob::job_type]
@@ -17381,20 +16686,6 @@ impl OrderedJob {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `PigJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_pig_job<T: std::convert::Into<std::boxed::Box<crate::model::PigJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::PigJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `SparkRJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -17404,20 +16695,6 @@ impl OrderedJob {
             crate::model::ordered_job::JobType::SparkRJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `SparkRJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_spark_r_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkRJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::SparkRJob(v.into()));
-        self
     }
 
     /// The value of [job_type][crate::model::OrderedJob::job_type]
@@ -17433,20 +16710,6 @@ impl OrderedJob {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `SparkSqlJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_spark_sql_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::SparkSqlJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `PrestoJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -17456,20 +16719,6 @@ impl OrderedJob {
             crate::model::ordered_job::JobType::PrestoJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `PrestoJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_presto_job<T: std::convert::Into<std::boxed::Box<crate::model::PrestoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::PrestoJob(v.into()));
-        self
     }
 
     /// The value of [job_type][crate::model::OrderedJob::job_type]
@@ -17483,20 +16732,6 @@ impl OrderedJob {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `TrinoJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_trino_job<T: std::convert::Into<std::boxed::Box<crate::model::TrinoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::TrinoJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `FlinkJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -17506,20 +16741,6 @@ impl OrderedJob {
             crate::model::ordered_job::JobType::FlinkJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::OrderedJob::job_type]
-    /// to hold a `FlinkJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_flink_job<T: std::convert::Into<std::boxed::Box<crate::model::FlinkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::FlinkJob(v.into()));
-        self
     }
 }
 
@@ -17743,21 +16964,6 @@ impl ParameterValidation {
         })
     }
 
-    /// Sets the value of [validation_type][crate::model::ParameterValidation::validation_type]
-    /// to hold a `Regex`.
-    ///
-    /// Note that all the setters affecting `validation_type` are
-    /// mutually exclusive.
-    pub fn set_regex<T: std::convert::Into<std::boxed::Box<crate::model::RegexValidation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.validation_type = std::option::Option::Some(
-            crate::model::parameter_validation::ValidationType::Regex(v.into()),
-        );
-        self
-    }
-
     /// The value of [validation_type][crate::model::ParameterValidation::validation_type]
     /// if it holds a `Values`, `None` if the field is not set or
     /// holds a different branch.
@@ -17769,21 +16975,6 @@ impl ParameterValidation {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [validation_type][crate::model::ParameterValidation::validation_type]
-    /// to hold a `Values`.
-    ///
-    /// Note that all the setters affecting `validation_type` are
-    /// mutually exclusive.
-    pub fn set_values<T: std::convert::Into<std::boxed::Box<crate::model::ValueValidation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.validation_type = std::option::Option::Some(
-            crate::model::parameter_validation::ValidationType::Values(v.into()),
-        );
-        self
     }
 }
 

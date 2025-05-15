@@ -241,16 +241,6 @@ impl JwtLocation {
         })
     }
 
-    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
-    /// to hold a `Header`.
-    ///
-    /// Note that all the setters affecting `r#in` are
-    /// mutually exclusive.
-    pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Header(v.into()));
-        self
-    }
-
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Query`, `None` if the field is not set or
     /// holds a different branch.
@@ -262,16 +252,6 @@ impl JwtLocation {
         })
     }
 
-    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
-    /// to hold a `Query`.
-    ///
-    /// Note that all the setters affecting `r#in` are
-    /// mutually exclusive.
-    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Query(v.into()));
-        self
-    }
-
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Cookie`, `None` if the field is not set or
     /// holds a different branch.
@@ -281,16 +261,6 @@ impl JwtLocation {
             crate::model::jwt_location::In::Cookie(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#in][crate::model::JwtLocation::r#in]
-    /// to hold a `Cookie`.
-    ///
-    /// Note that all the setters affecting `r#in` are
-    /// mutually exclusive.
-    pub fn set_cookie<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Cookie(v.into()));
-        self
     }
 }
 
@@ -848,18 +818,6 @@ impl BackendRule {
         })
     }
 
-    /// Sets the value of [authentication][crate::model::BackendRule::authentication]
-    /// to hold a `JwtAudience`.
-    ///
-    /// Note that all the setters affecting `authentication` are
-    /// mutually exclusive.
-    pub fn set_jwt_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication = std::option::Option::Some(
-            crate::model::backend_rule::Authentication::JwtAudience(v.into()),
-        );
-        self
-    }
-
     /// The value of [authentication][crate::model::BackendRule::authentication]
     /// if it holds a `DisableAuth`, `None` if the field is not set or
     /// holds a different branch.
@@ -871,18 +829,6 @@ impl BackendRule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication][crate::model::BackendRule::authentication]
-    /// to hold a `DisableAuth`.
-    ///
-    /// Note that all the setters affecting `authentication` are
-    /// mutually exclusive.
-    pub fn set_disable_auth<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.authentication = std::option::Option::Some(
-            crate::model::backend_rule::Authentication::DisableAuth(v.into()),
-        );
-        self
     }
 }
 
@@ -3357,23 +3303,6 @@ pub mod distribution {
             })
         }
 
-        /// Sets the value of [options][crate::model::distribution::BucketOptions::options]
-        /// to hold a `LinearBuckets`.
-        ///
-        /// Note that all the setters affecting `options` are
-        /// mutually exclusive.
-        pub fn set_linear_buckets<
-            T: std::convert::Into<std::boxed::Box<crate::model::distribution::bucket_options::Linear>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.options = std::option::Option::Some(
-                crate::model::distribution::bucket_options::Options::LinearBuckets(v.into()),
-            );
-            self
-        }
-
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
         /// holds a different branch.
@@ -3391,25 +3320,6 @@ pub mod distribution {
             })
         }
 
-        /// Sets the value of [options][crate::model::distribution::BucketOptions::options]
-        /// to hold a `ExponentialBuckets`.
-        ///
-        /// Note that all the setters affecting `options` are
-        /// mutually exclusive.
-        pub fn set_exponential_buckets<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.options = std::option::Option::Some(
-                crate::model::distribution::bucket_options::Options::ExponentialBuckets(v.into()),
-            );
-            self
-        }
-
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
         /// holds a different branch.
@@ -3425,25 +3335,6 @@ pub mod distribution {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [options][crate::model::distribution::BucketOptions::options]
-        /// to hold a `ExplicitBuckets`.
-        ///
-        /// Note that all the setters affecting `options` are
-        /// mutually exclusive.
-        pub fn set_explicit_buckets<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.options = std::option::Option::Some(
-                crate::model::distribution::bucket_options::Options::ExplicitBuckets(v.into()),
-            );
-            self
         }
     }
 
@@ -4814,16 +4705,6 @@ impl HttpRule {
         })
     }
 
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Get`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_get<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Get(v.into()));
-        self
-    }
-
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Put`, `None` if the field is not set or
     /// holds a different branch.
@@ -4833,16 +4714,6 @@ impl HttpRule {
             crate::model::http_rule::Pattern::Put(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Put`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_put<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Put(v.into()));
-        self
     }
 
     /// The value of [pattern][crate::model::HttpRule::pattern]
@@ -4856,16 +4727,6 @@ impl HttpRule {
         })
     }
 
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Post`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_post<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Post(v.into()));
-        self
-    }
-
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Delete`, `None` if the field is not set or
     /// holds a different branch.
@@ -4875,17 +4736,6 @@ impl HttpRule {
             crate::model::http_rule::Pattern::Delete(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Delete`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_delete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern =
-            std::option::Option::Some(crate::model::http_rule::Pattern::Delete(v.into()));
-        self
     }
 
     /// The value of [pattern][crate::model::HttpRule::pattern]
@@ -4899,16 +4749,6 @@ impl HttpRule {
         })
     }
 
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Patch`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_patch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Patch(v.into()));
-        self
-    }
-
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Custom`, `None` if the field is not set or
     /// holds a different branch.
@@ -4918,20 +4758,6 @@ impl HttpRule {
             crate::model::http_rule::Pattern::Custom(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [pattern][crate::model::HttpRule::pattern]
-    /// to hold a `Custom`.
-    ///
-    /// Note that all the setters affecting `pattern` are
-    /// mutually exclusive.
-    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomHttpPattern>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pattern =
-            std::option::Option::Some(crate::model::http_rule::Pattern::Custom(v.into()));
-        self
     }
 }
 

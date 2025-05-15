@@ -603,16 +603,6 @@ impl VmImage {
         })
     }
 
-    /// Sets the value of [image][crate::model::VmImage::image]
-    /// to hold a `Name`.
-    ///
-    /// Note that all the setters affecting `image` are
-    /// mutually exclusive.
-    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(crate::model::vm_image::Image::Name(v.into()));
-        self
-    }
-
     /// The value of [image][crate::model::VmImage::image]
     /// if it holds a `Family`, `None` if the field is not set or
     /// holds a different branch.
@@ -622,16 +612,6 @@ impl VmImage {
             crate::model::vm_image::Image::Family(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [image][crate::model::VmImage::image]
-    /// to hold a `Family`.
-    ///
-    /// Note that all the setters affecting `image` are
-    /// mutually exclusive.
-    pub fn set_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.image = std::option::Option::Some(crate::model::vm_image::Image::Family(v.into()));
-        self
     }
 }
 
@@ -1473,19 +1453,6 @@ impl GceSetup {
         })
     }
 
-    /// Sets the value of [image][crate::model::GceSetup::image]
-    /// to hold a `VmImage`.
-    ///
-    /// Note that all the setters affecting `image` are
-    /// mutually exclusive.
-    pub fn set_vm_image<T: std::convert::Into<std::boxed::Box<crate::model::VmImage>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image = std::option::Option::Some(crate::model::gce_setup::Image::VmImage(v.into()));
-        self
-    }
-
     /// The value of [image][crate::model::GceSetup::image]
     /// if it holds a `ContainerImage`, `None` if the field is not set or
     /// holds a different branch.
@@ -1497,22 +1464,6 @@ impl GceSetup {
             crate::model::gce_setup::Image::ContainerImage(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [image][crate::model::GceSetup::image]
-    /// to hold a `ContainerImage`.
-    ///
-    /// Note that all the setters affecting `image` are
-    /// mutually exclusive.
-    pub fn set_container_image<
-        T: std::convert::Into<std::boxed::Box<crate::model::ContainerImage>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.image =
-            std::option::Option::Some(crate::model::gce_setup::Image::ContainerImage(v.into()));
-        self
     }
 }
 
@@ -2158,20 +2109,6 @@ impl Instance {
             crate::model::instance::Infrastructure::GceSetup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [infrastructure][crate::model::Instance::infrastructure]
-    /// to hold a `GceSetup`.
-    ///
-    /// Note that all the setters affecting `infrastructure` are
-    /// mutually exclusive.
-    pub fn set_gce_setup<T: std::convert::Into<std::boxed::Box<crate::model::GceSetup>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.infrastructure =
-            std::option::Option::Some(crate::model::instance::Infrastructure::GceSetup(v.into()));
-        self
     }
 }
 

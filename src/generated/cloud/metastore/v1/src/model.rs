@@ -346,23 +346,6 @@ impl Service {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [metastore_config][crate::model::Service::metastore_config]
-    /// to hold a `HiveMetastoreConfig`.
-    ///
-    /// Note that all the setters affecting `metastore_config` are
-    /// mutually exclusive.
-    pub fn set_hive_metastore_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::HiveMetastoreConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metastore_config = std::option::Option::Some(
-            crate::model::service::MetastoreConfig::HiveMetastoreConfig(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for Service {
@@ -1359,16 +1342,6 @@ impl Secret {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [value][crate::model::Secret::value]
-    /// to hold a `CloudSecret`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_cloud_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(crate::model::secret::Value::CloudSecret(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Secret {
@@ -1619,18 +1592,6 @@ pub mod network_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [vpc_resource][crate::model::network_config::Consumer::vpc_resource]
-        /// to hold a `Subnetwork`.
-        ///
-        /// Note that all the setters affecting `vpc_resource` are
-        /// mutually exclusive.
-        pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.vpc_resource = std::option::Option::Some(
-                crate::model::network_config::consumer::VpcResource::Subnetwork(v.into()),
-            );
-            self
         }
     }
 
@@ -2005,23 +1966,6 @@ impl MetadataImport {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [metadata][crate::model::MetadataImport::metadata]
-    /// to hold a `DatabaseDump`.
-    ///
-    /// Note that all the setters affecting `metadata` are
-    /// mutually exclusive.
-    pub fn set_database_dump<
-        T: std::convert::Into<std::boxed::Box<crate::model::metadata_import::DatabaseDump>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = std::option::Option::Some(
-            crate::model::metadata_import::Metadata::DatabaseDump(v.into()),
-        );
-        self
     }
 }
 
@@ -2500,21 +2444,6 @@ impl MetadataExport {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::MetadataExport::destination]
-    /// to hold a `DestinationGcsUri`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_gcs_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::metadata_export::Destination::DestinationGcsUri(v.into()),
-        );
-        self
     }
 }
 
@@ -3383,21 +3312,6 @@ impl ScalingConfig {
         })
     }
 
-    /// Sets the value of [scaling_model][crate::model::ScalingConfig::scaling_model]
-    /// to hold a `InstanceSize`.
-    ///
-    /// Note that all the setters affecting `scaling_model` are
-    /// mutually exclusive.
-    pub fn set_instance_size<T: std::convert::Into<crate::model::scaling_config::InstanceSize>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scaling_model = std::option::Option::Some(
-            crate::model::scaling_config::ScalingModel::InstanceSize(v.into()),
-        );
-        self
-    }
-
     /// The value of [scaling_model][crate::model::ScalingConfig::scaling_model]
     /// if it holds a `ScalingFactor`, `None` if the field is not set or
     /// holds a different branch.
@@ -3409,18 +3323,6 @@ impl ScalingConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [scaling_model][crate::model::ScalingConfig::scaling_model]
-    /// to hold a `ScalingFactor`.
-    ///
-    /// Note that all the setters affecting `scaling_model` are
-    /// mutually exclusive.
-    pub fn set_scaling_factor<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.scaling_model = std::option::Option::Some(
-            crate::model::scaling_config::ScalingModel::ScalingFactor(v.into()),
-        );
-        self
     }
 }
 
@@ -4878,21 +4780,6 @@ impl ExportMetadataRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ExportMetadataRequest::destination]
-    /// to hold a `DestinationGcsFolder`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_gcs_folder<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_metadata_request::Destination::DestinationGcsFolder(v.into()),
-        );
-        self
     }
 }
 

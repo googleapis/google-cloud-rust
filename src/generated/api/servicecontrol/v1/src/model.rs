@@ -568,23 +568,6 @@ impl Distribution {
         })
     }
 
-    /// Sets the value of [bucket_option][crate::model::Distribution::bucket_option]
-    /// to hold a `LinearBuckets`.
-    ///
-    /// Note that all the setters affecting `bucket_option` are
-    /// mutually exclusive.
-    pub fn set_linear_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::distribution::LinearBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bucket_option = std::option::Option::Some(
-            crate::model::distribution::BucketOption::LinearBuckets(v.into()),
-        );
-        self
-    }
-
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
     /// holds a different branch.
@@ -600,23 +583,6 @@ impl Distribution {
         })
     }
 
-    /// Sets the value of [bucket_option][crate::model::Distribution::bucket_option]
-    /// to hold a `ExponentialBuckets`.
-    ///
-    /// Note that all the setters affecting `bucket_option` are
-    /// mutually exclusive.
-    pub fn set_exponential_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExponentialBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bucket_option = std::option::Option::Some(
-            crate::model::distribution::BucketOption::ExponentialBuckets(v.into()),
-        );
-        self
-    }
-
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
     /// holds a different branch.
@@ -630,23 +596,6 @@ impl Distribution {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [bucket_option][crate::model::Distribution::bucket_option]
-    /// to hold a `ExplicitBuckets`.
-    ///
-    /// Note that all the setters affecting `bucket_option` are
-    /// mutually exclusive.
-    pub fn set_explicit_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExplicitBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bucket_option = std::option::Option::Some(
-            crate::model::distribution::BucketOption::ExplicitBuckets(v.into()),
-        );
-        self
     }
 }
 
@@ -1243,20 +1192,6 @@ impl LogEntry {
         })
     }
 
-    /// Sets the value of [payload][crate::model::LogEntry::payload]
-    /// to hold a `ProtoPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::ProtoPayload(v.into()));
-        self
-    }
-
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `TextPayload`, `None` if the field is not set or
     /// holds a different branch.
@@ -1268,17 +1203,6 @@ impl LogEntry {
         })
     }
 
-    /// Sets the value of [payload][crate::model::LogEntry::payload]
-    /// to hold a `TextPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
-        self
-    }
-
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `StructPayload`, `None` if the field is not set or
     /// holds a different branch.
@@ -1288,20 +1212,6 @@ impl LogEntry {
             crate::model::log_entry::Payload::StructPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [payload][crate::model::LogEntry::payload]
-    /// to hold a `StructPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_struct_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::StructPayload(v.into()));
-        self
     }
 }
 
@@ -1564,17 +1474,6 @@ impl MetricValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::MetricValue::value]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::BoolValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
@@ -1584,17 +1483,6 @@ impl MetricValue {
             crate::model::metric_value::Value::Int64Value(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::MetricValue::value]
-    /// to hold a `Int64Value`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::Int64Value(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::MetricValue::value]
@@ -1608,17 +1496,6 @@ impl MetricValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::MetricValue::value]
-    /// to hold a `DoubleValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::DoubleValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1628,17 +1505,6 @@ impl MetricValue {
             crate::model::metric_value::Value::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::MetricValue::value]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::metric_value::Value::StringValue(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::MetricValue::value]
@@ -1652,23 +1518,6 @@ impl MetricValue {
             crate::model::metric_value::Value::DistributionValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::MetricValue::value]
-    /// to hold a `DistributionValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_distribution_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::Distribution>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::metric_value::Value::DistributionValue(v.into()),
-        );
-        self
     }
 }
 

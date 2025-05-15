@@ -151,23 +151,6 @@ impl SubmitBuildRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::SubmitBuildRequest::source]
-    /// to hold a `StorageSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_storage_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::submit_build_request::Source::StorageSource(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type].
     ///
     /// Note that all the setters affecting `build_type` are mutually
@@ -198,23 +181,6 @@ impl SubmitBuildRequest {
         })
     }
 
-    /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type]
-    /// to hold a `BuildpackBuild`.
-    ///
-    /// Note that all the setters affecting `build_type` are
-    /// mutually exclusive.
-    pub fn set_buildpack_build<
-        T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.build_type = std::option::Option::Some(
-            crate::model::submit_build_request::BuildType::BuildpackBuild(v.into()),
-        );
-        self
-    }
-
     /// The value of [build_type][crate::model::SubmitBuildRequest::build_type]
     /// if it holds a `DockerBuild`, `None` if the field is not set or
     /// holds a different branch.
@@ -229,23 +195,6 @@ impl SubmitBuildRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type]
-    /// to hold a `DockerBuild`.
-    ///
-    /// Note that all the setters affecting `build_type` are
-    /// mutually exclusive.
-    pub fn set_docker_build<
-        T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::DockerBuild>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.build_type = std::option::Option::Some(
-            crate::model::submit_build_request::BuildType::DockerBuild(v.into()),
-        );
-        self
     }
 }
 
@@ -653,20 +602,6 @@ impl Condition {
         })
     }
 
-    /// Sets the value of [reasons][crate::model::Condition::reasons]
-    /// to hold a `Reason`.
-    ///
-    /// Note that all the setters affecting `reasons` are
-    /// mutually exclusive.
-    pub fn set_reason<T: std::convert::Into<crate::model::condition::CommonReason>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reasons =
-            std::option::Option::Some(crate::model::condition::Reasons::Reason(v.into()));
-        self
-    }
-
     /// The value of [reasons][crate::model::Condition::reasons]
     /// if it holds a `RevisionReason`, `None` if the field is not set or
     /// holds a different branch.
@@ -676,20 +611,6 @@ impl Condition {
             crate::model::condition::Reasons::RevisionReason(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [reasons][crate::model::Condition::reasons]
-    /// to hold a `RevisionReason`.
-    ///
-    /// Note that all the setters affecting `reasons` are
-    /// mutually exclusive.
-    pub fn set_revision_reason<T: std::convert::Into<crate::model::condition::RevisionReason>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reasons =
-            std::option::Option::Some(crate::model::condition::Reasons::RevisionReason(v.into()));
-        self
     }
 
     /// The value of [reasons][crate::model::Condition::reasons]
@@ -703,20 +624,6 @@ impl Condition {
             crate::model::condition::Reasons::ExecutionReason(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [reasons][crate::model::Condition::reasons]
-    /// to hold a `ExecutionReason`.
-    ///
-    /// Note that all the setters affecting `reasons` are
-    /// mutually exclusive.
-    pub fn set_execution_reason<T: std::convert::Into<crate::model::condition::ExecutionReason>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reasons =
-            std::option::Option::Some(crate::model::condition::Reasons::ExecutionReason(v.into()));
-        self
     }
 }
 
@@ -3370,21 +3277,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [create_execution][crate::model::Job::create_execution]
-    /// to hold a `StartExecutionToken`.
-    ///
-    /// Note that all the setters affecting `create_execution` are
-    /// mutually exclusive.
-    pub fn set_start_execution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_execution = std::option::Option::Some(
-            crate::model::job::CreateExecution::StartExecutionToken(v.into()),
-        );
-        self
-    }
-
     /// The value of [create_execution][crate::model::Job::create_execution]
     /// if it holds a `RunExecutionToken`, `None` if the field is not set or
     /// holds a different branch.
@@ -3396,21 +3288,6 @@ impl Job {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [create_execution][crate::model::Job::create_execution]
-    /// to hold a `RunExecutionToken`.
-    ///
-    /// Note that all the setters affecting `create_execution` are
-    /// mutually exclusive.
-    pub fn set_run_execution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_execution = std::option::Option::Some(
-            crate::model::job::CreateExecution::RunExecutionToken(v.into()),
-        );
-        self
     }
 }
 
@@ -4027,16 +3904,6 @@ impl EnvVar {
         })
     }
 
-    /// Sets the value of [values][crate::model::EnvVar::values]
-    /// to hold a `Value`.
-    ///
-    /// Note that all the setters affecting `values` are
-    /// mutually exclusive.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.values = std::option::Option::Some(crate::model::env_var::Values::Value(v.into()));
-        self
-    }
-
     /// The value of [values][crate::model::EnvVar::values]
     /// if it holds a `ValueSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -4048,20 +3915,6 @@ impl EnvVar {
             crate::model::env_var::Values::ValueSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [values][crate::model::EnvVar::values]
-    /// to hold a `ValueSource`.
-    ///
-    /// Note that all the setters affecting `values` are
-    /// mutually exclusive.
-    pub fn set_value_source<T: std::convert::Into<std::boxed::Box<crate::model::EnvVarSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.values =
-            std::option::Option::Some(crate::model::env_var::Values::ValueSource(v.into()));
-        self
     }
 }
 
@@ -4319,20 +4172,6 @@ impl Volume {
         })
     }
 
-    /// Sets the value of [volume_type][crate::model::Volume::volume_type]
-    /// to hold a `Secret`.
-    ///
-    /// Note that all the setters affecting `volume_type` are
-    /// mutually exclusive.
-    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretVolumeSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::Secret(v.into()));
-        self
-    }
-
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `CloudSqlInstance`, `None` if the field is not set or
     /// holds a different branch.
@@ -4344,22 +4183,6 @@ impl Volume {
             crate::model::volume::VolumeType::CloudSqlInstance(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [volume_type][crate::model::Volume::volume_type]
-    /// to hold a `CloudSqlInstance`.
-    ///
-    /// Note that all the setters affecting `volume_type` are
-    /// mutually exclusive.
-    pub fn set_cloud_sql_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::CloudSqlInstance(v.into()));
-        self
     }
 
     /// The value of [volume_type][crate::model::Volume::volume_type]
@@ -4375,22 +4198,6 @@ impl Volume {
         })
     }
 
-    /// Sets the value of [volume_type][crate::model::Volume::volume_type]
-    /// to hold a `EmptyDir`.
-    ///
-    /// Note that all the setters affecting `volume_type` are
-    /// mutually exclusive.
-    pub fn set_empty_dir<
-        T: std::convert::Into<std::boxed::Box<crate::model::EmptyDirVolumeSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::EmptyDir(v.into()));
-        self
-    }
-
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `Nfs`, `None` if the field is not set or
     /// holds a different branch.
@@ -4402,20 +4209,6 @@ impl Volume {
         })
     }
 
-    /// Sets the value of [volume_type][crate::model::Volume::volume_type]
-    /// to hold a `Nfs`.
-    ///
-    /// Note that all the setters affecting `volume_type` are
-    /// mutually exclusive.
-    pub fn set_nfs<T: std::convert::Into<std::boxed::Box<crate::model::NFSVolumeSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::Nfs(v.into()));
-        self
-    }
-
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `Gcs`, `None` if the field is not set or
     /// holds a different branch.
@@ -4425,20 +4218,6 @@ impl Volume {
             crate::model::volume::VolumeType::Gcs(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [volume_type][crate::model::Volume::volume_type]
-    /// to hold a `Gcs`.
-    ///
-    /// Note that all the setters affecting `volume_type` are
-    /// mutually exclusive.
-    pub fn set_gcs<T: std::convert::Into<std::boxed::Box<crate::model::GCSVolumeSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::Gcs(v.into()));
-        self
     }
 }
 
@@ -5058,20 +4837,6 @@ impl Probe {
         })
     }
 
-    /// Sets the value of [probe_type][crate::model::Probe::probe_type]
-    /// to hold a `HttpGet`.
-    ///
-    /// Note that all the setters affecting `probe_type` are
-    /// mutually exclusive.
-    pub fn set_http_get<T: std::convert::Into<std::boxed::Box<crate::model::HTTPGetAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.probe_type =
-            std::option::Option::Some(crate::model::probe::ProbeType::HttpGet(v.into()));
-        self
-    }
-
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `TcpSocket`, `None` if the field is not set or
     /// holds a different branch.
@@ -5085,20 +4850,6 @@ impl Probe {
         })
     }
 
-    /// Sets the value of [probe_type][crate::model::Probe::probe_type]
-    /// to hold a `TcpSocket`.
-    ///
-    /// Note that all the setters affecting `probe_type` are
-    /// mutually exclusive.
-    pub fn set_tcp_socket<T: std::convert::Into<std::boxed::Box<crate::model::TCPSocketAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.probe_type =
-            std::option::Option::Some(crate::model::probe::ProbeType::TcpSocket(v.into()));
-        self
-    }
-
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `Grpc`, `None` if the field is not set or
     /// holds a different branch.
@@ -5108,19 +4859,6 @@ impl Probe {
             crate::model::probe::ProbeType::Grpc(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [probe_type][crate::model::Probe::probe_type]
-    /// to hold a `Grpc`.
-    ///
-    /// Note that all the setters affecting `probe_type` are
-    /// mutually exclusive.
-    pub fn set_grpc<T: std::convert::Into<std::boxed::Box<crate::model::GRPCAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.probe_type = std::option::Option::Some(crate::model::probe::ProbeType::Grpc(v.into()));
-        self
     }
 }
 
@@ -8122,17 +7860,6 @@ impl TaskTemplate {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [retries][crate::model::TaskTemplate::retries]
-    /// to hold a `MaxRetries`.
-    ///
-    /// Note that all the setters affecting `retries` are
-    /// mutually exclusive.
-    pub fn set_max_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.retries =
-            std::option::Option::Some(crate::model::task_template::Retries::MaxRetries(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for TaskTemplate {
@@ -8631,18 +8358,6 @@ impl BinaryAuthorization {
         })
     }
 
-    /// Sets the value of [binauthz_method][crate::model::BinaryAuthorization::binauthz_method]
-    /// to hold a `UseDefault`.
-    ///
-    /// Note that all the setters affecting `binauthz_method` are
-    /// mutually exclusive.
-    pub fn set_use_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.binauthz_method = std::option::Option::Some(
-            crate::model::binary_authorization::BinauthzMethod::UseDefault(v.into()),
-        );
-        self
-    }
-
     /// The value of [binauthz_method][crate::model::BinaryAuthorization::binauthz_method]
     /// if it holds a `Policy`, `None` if the field is not set or
     /// holds a different branch.
@@ -8654,18 +8369,6 @@ impl BinaryAuthorization {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [binauthz_method][crate::model::BinaryAuthorization::binauthz_method]
-    /// to hold a `Policy`.
-    ///
-    /// Note that all the setters affecting `binauthz_method` are
-    /// mutually exclusive.
-    pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.binauthz_method = std::option::Option::Some(
-            crate::model::binary_authorization::BinauthzMethod::Policy(v.into()),
-        );
-        self
     }
 }
 

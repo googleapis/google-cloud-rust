@@ -95,21 +95,6 @@ impl ElementaryStream {
         })
     }
 
-    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// to hold a `VideoStream`.
-    ///
-    /// Note that all the setters affecting `elementary_stream` are
-    /// mutually exclusive.
-    pub fn set_video_stream<T: std::convert::Into<std::boxed::Box<crate::model::VideoStream>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::VideoStream(v.into()),
-        );
-        self
-    }
-
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `AudioStream`, `None` if the field is not set or
     /// holds a different branch.
@@ -123,21 +108,6 @@ impl ElementaryStream {
         })
     }
 
-    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// to hold a `AudioStream`.
-    ///
-    /// Note that all the setters affecting `elementary_stream` are
-    /// mutually exclusive.
-    pub fn set_audio_stream<T: std::convert::Into<std::boxed::Box<crate::model::AudioStream>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::AudioStream(v.into()),
-        );
-        self
-    }
-
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `TextStream`, `None` if the field is not set or
     /// holds a different branch.
@@ -149,21 +119,6 @@ impl ElementaryStream {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// to hold a `TextStream`.
-    ///
-    /// Note that all the setters affecting `elementary_stream` are
-    /// mutually exclusive.
-    pub fn set_text_stream<T: std::convert::Into<std::boxed::Box<crate::model::TextStream>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::TextStream(v.into()),
-        );
-        self
     }
 }
 
@@ -974,22 +929,6 @@ impl VideoStream {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
-    /// to hold a `H264`.
-    ///
-    /// Note that all the setters affecting `codec_settings` are
-    /// mutually exclusive.
-    pub fn set_h264<
-        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264CodecSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.codec_settings =
-            std::option::Option::Some(crate::model::video_stream::CodecSettings::H264(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for VideoStream {
@@ -1242,18 +1181,6 @@ pub mod video_stream {
             })
         }
 
-        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
-        }
-
         /// The value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -1265,21 +1192,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
-        /// to hold a `GopDuration`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(v.into()),
-            );
-            self
         }
     }
 
@@ -1690,21 +1602,6 @@ impl TimecodeConfig {
         })
     }
 
-    /// Sets the value of [time_offset][crate::model::TimecodeConfig::time_offset]
-    /// to hold a `UtcOffset`.
-    ///
-    /// Note that all the setters affecting `time_offset` are
-    /// mutually exclusive.
-    pub fn set_utc_offset<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_offset = std::option::Option::Some(
-            crate::model::timecode_config::TimeOffset::UtcOffset(v.into()),
-        );
-        self
-    }
-
     /// The value of [time_offset][crate::model::TimecodeConfig::time_offset]
     /// if it holds a `TimeZone`, `None` if the field is not set or
     /// holds a different branch.
@@ -1714,21 +1611,6 @@ impl TimecodeConfig {
             crate::model::timecode_config::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [time_offset][crate::model::TimecodeConfig::time_offset]
-    /// to hold a `TimeZone`.
-    ///
-    /// Note that all the setters affecting `time_offset` are
-    /// mutually exclusive.
-    pub fn set_time_zone<T: std::convert::Into<std::boxed::Box<gtype::model::TimeZone>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_offset = std::option::Option::Some(
-            crate::model::timecode_config::TimeOffset::TimeZone(v.into()),
-        );
-        self
     }
 }
 
@@ -4055,21 +3937,6 @@ impl Event {
         })
     }
 
-    /// Sets the value of [task][crate::model::Event::task]
-    /// to hold a `InputSwitch`.
-    ///
-    /// Note that all the setters affecting `task` are
-    /// mutually exclusive.
-    pub fn set_input_switch<
-        T: std::convert::Into<std::boxed::Box<crate::model::event::InputSwitchTask>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task = std::option::Option::Some(crate::model::event::Task::InputSwitch(v.into()));
-        self
-    }
-
     /// The value of [task][crate::model::Event::task]
     /// if it holds a `AdBreak`, `None` if the field is not set or
     /// holds a different branch.
@@ -4081,21 +3948,6 @@ impl Event {
             crate::model::event::Task::AdBreak(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [task][crate::model::Event::task]
-    /// to hold a `AdBreak`.
-    ///
-    /// Note that all the setters affecting `task` are
-    /// mutually exclusive.
-    pub fn set_ad_break<
-        T: std::convert::Into<std::boxed::Box<crate::model::event::AdBreakTask>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task = std::option::Option::Some(crate::model::event::Task::AdBreak(v.into()));
-        self
     }
 
     /// The value of [task][crate::model::Event::task]
@@ -4111,21 +3963,6 @@ impl Event {
         })
     }
 
-    /// Sets the value of [task][crate::model::Event::task]
-    /// to hold a `ReturnToProgram`.
-    ///
-    /// Note that all the setters affecting `task` are
-    /// mutually exclusive.
-    pub fn set_return_to_program<
-        T: std::convert::Into<std::boxed::Box<crate::model::event::ReturnToProgramTask>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task = std::option::Option::Some(crate::model::event::Task::ReturnToProgram(v.into()));
-        self
-    }
-
     /// The value of [task][crate::model::Event::task]
     /// if it holds a `Slate`, `None` if the field is not set or
     /// holds a different branch.
@@ -4135,19 +3972,6 @@ impl Event {
             crate::model::event::Task::Slate(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [task][crate::model::Event::task]
-    /// to hold a `Slate`.
-    ///
-    /// Note that all the setters affecting `task` are
-    /// mutually exclusive.
-    pub fn set_slate<T: std::convert::Into<std::boxed::Box<crate::model::event::SlateTask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task = std::option::Option::Some(crate::model::event::Task::Slate(v.into()));
-        self
     }
 
     /// The value of [task][crate::model::Event::task]
@@ -4161,19 +3985,6 @@ impl Event {
         })
     }
 
-    /// Sets the value of [task][crate::model::Event::task]
-    /// to hold a `Mute`.
-    ///
-    /// Note that all the setters affecting `task` are
-    /// mutually exclusive.
-    pub fn set_mute<T: std::convert::Into<std::boxed::Box<crate::model::event::MuteTask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task = std::option::Option::Some(crate::model::event::Task::Mute(v.into()));
-        self
-    }
-
     /// The value of [task][crate::model::Event::task]
     /// if it holds a `Unmute`, `None` if the field is not set or
     /// holds a different branch.
@@ -4183,19 +3994,6 @@ impl Event {
             crate::model::event::Task::Unmute(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [task][crate::model::Event::task]
-    /// to hold a `Unmute`.
-    ///
-    /// Note that all the setters affecting `task` are
-    /// mutually exclusive.
-    pub fn set_unmute<T: std::convert::Into<std::boxed::Box<crate::model::event::UnmuteTask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task = std::option::Option::Some(crate::model::event::Task::Unmute(v.into()));
-        self
     }
 }
 
@@ -4857,22 +4655,6 @@ pub mod clip {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [kind][crate::model::clip::Slice::kind]
-        /// to hold a `TimeSlice`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_time_slice<
-            T: std::convert::Into<std::boxed::Box<crate::model::clip::TimeSlice>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind =
-                std::option::Option::Some(crate::model::clip::slice::Kind::TimeSlice(v.into()));
-            self
-        }
     }
 
     impl wkt::message::Message for Slice {
@@ -5244,19 +5026,6 @@ impl Asset {
         })
     }
 
-    /// Sets the value of [resource][crate::model::Asset::resource]
-    /// to hold a `Video`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_video<T: std::convert::Into<std::boxed::Box<crate::model::asset::VideoAsset>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(crate::model::asset::Resource::Video(v.into()));
-        self
-    }
-
     /// The value of [resource][crate::model::Asset::resource]
     /// if it holds a `Image`, `None` if the field is not set or
     /// holds a different branch.
@@ -5266,19 +5035,6 @@ impl Asset {
             crate::model::asset::Resource::Image(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource][crate::model::Asset::resource]
-    /// to hold a `Image`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_image<T: std::convert::Into<std::boxed::Box<crate::model::asset::ImageAsset>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(crate::model::asset::Resource::Image(v.into()));
-        self
     }
 }
 
@@ -5599,23 +5355,6 @@ impl Encryption {
         })
     }
 
-    /// Sets the value of [secret_source][crate::model::Encryption::secret_source]
-    /// to hold a `SecretManagerKeySource`.
-    ///
-    /// Note that all the setters affecting `secret_source` are
-    /// mutually exclusive.
-    pub fn set_secret_manager_key_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secret_source = std::option::Option::Some(
-            crate::model::encryption::SecretSource::SecretManagerKeySource(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode].
     ///
     /// Note that all the setters affecting `encryption_mode` are mutually
@@ -5643,22 +5382,6 @@ impl Encryption {
         })
     }
 
-    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// to hold a `Aes128`.
-    ///
-    /// Note that all the setters affecting `encryption_mode` are
-    /// mutually exclusive.
-    pub fn set_aes128<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::Aes128Encryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_mode =
-            std::option::Option::Some(crate::model::encryption::EncryptionMode::Aes128(v.into()));
-        self
-    }
-
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `SampleAes`, `None` if the field is not set or
     /// holds a different branch.
@@ -5672,23 +5395,6 @@ impl Encryption {
         })
     }
 
-    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// to hold a `SampleAes`.
-    ///
-    /// Note that all the setters affecting `encryption_mode` are
-    /// mutually exclusive.
-    pub fn set_sample_aes<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SampleAesEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_mode = std::option::Option::Some(
-            crate::model::encryption::EncryptionMode::SampleAes(v.into()),
-        );
-        self
-    }
-
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `MpegCenc`, `None` if the field is not set or
     /// holds a different branch.
@@ -5700,22 +5406,6 @@ impl Encryption {
             crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// to hold a `MpegCenc`.
-    ///
-    /// Note that all the setters affecting `encryption_mode` are
-    /// mutually exclusive.
-    pub fn set_mpeg_cenc<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::MpegCommonEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_mode =
-            std::option::Option::Some(crate::model::encryption::EncryptionMode::MpegCenc(v.into()));
-        self
     }
 }
 

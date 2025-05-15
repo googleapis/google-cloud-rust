@@ -2465,36 +2465,6 @@ pub mod dlp_service {
             self.0.request.job = v.into();
             self
         }
-
-        /// Sets the value of [job][crate::model::CreateDlpJobRequest::job]
-        /// to hold a `InspectJob`.
-        ///
-        /// Note that all the setters affecting `job` are
-        /// mutually exclusive.
-        pub fn set_inspect_job<
-            T: std::convert::Into<std::boxed::Box<crate::model::InspectJobConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_inspect_job(v);
-            self
-        }
-
-        /// Sets the value of [job][crate::model::CreateDlpJobRequest::job]
-        /// to hold a `RiskJob`.
-        ///
-        /// Note that all the setters affecting `job` are
-        /// mutually exclusive.
-        pub fn set_risk_job<
-            T: std::convert::Into<std::boxed::Box<crate::model::RiskAnalysisJobConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_risk_job(v);
-            self
-        }
     }
 
     #[doc(hidden)]

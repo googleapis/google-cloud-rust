@@ -750,23 +750,6 @@ impl Restrictions {
         })
     }
 
-    /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// to hold a `BrowserKeyRestrictions`.
-    ///
-    /// Note that all the setters affecting `client_restrictions` are
-    /// mutually exclusive.
-    pub fn set_browser_key_restrictions<
-        T: std::convert::Into<std::boxed::Box<crate::model::BrowserKeyRestrictions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::BrowserKeyRestrictions(v.into()),
-        );
-        self
-    }
-
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `ServerKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
@@ -780,23 +763,6 @@ impl Restrictions {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// to hold a `ServerKeyRestrictions`.
-    ///
-    /// Note that all the setters affecting `client_restrictions` are
-    /// mutually exclusive.
-    pub fn set_server_key_restrictions<
-        T: std::convert::Into<std::boxed::Box<crate::model::ServerKeyRestrictions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::ServerKeyRestrictions(v.into()),
-        );
-        self
     }
 
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
@@ -814,23 +780,6 @@ impl Restrictions {
         })
     }
 
-    /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// to hold a `AndroidKeyRestrictions`.
-    ///
-    /// Note that all the setters affecting `client_restrictions` are
-    /// mutually exclusive.
-    pub fn set_android_key_restrictions<
-        T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeyRestrictions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::AndroidKeyRestrictions(v.into()),
-        );
-        self
-    }
-
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `IosKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
@@ -844,23 +793,6 @@ impl Restrictions {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions]
-    /// to hold a `IosKeyRestrictions`.
-    ///
-    /// Note that all the setters affecting `client_restrictions` are
-    /// mutually exclusive.
-    pub fn set_ios_key_restrictions<
-        T: std::convert::Into<std::boxed::Box<crate::model::IosKeyRestrictions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_restrictions = std::option::Option::Some(
-            crate::model::restrictions::ClientRestrictions::IosKeyRestrictions(v.into()),
-        );
-        self
     }
 }
 

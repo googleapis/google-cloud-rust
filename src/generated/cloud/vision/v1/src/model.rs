@@ -5666,23 +5666,6 @@ impl ImportProductSetsInputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::ImportProductSetsInputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ImportProductSetsGcsSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_product_sets_input_config::Source::GcsSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ImportProductSetsInputConfig {
@@ -6149,23 +6132,6 @@ impl PurgeProductsRequest {
         })
     }
 
-    /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
-    /// to hold a `ProductSetPurgeConfig`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_product_set_purge_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::ProductSetPurgeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::purge_products_request::Target::ProductSetPurgeConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [target][crate::model::PurgeProductsRequest::target]
     /// if it holds a `DeleteOrphanProducts`, `None` if the field is not set or
     /// holds a different branch.
@@ -6177,18 +6143,6 @@ impl PurgeProductsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target][crate::model::PurgeProductsRequest::target]
-    /// to hold a `DeleteOrphanProducts`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_delete_orphan_products<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::purge_products_request::Target::DeleteOrphanProducts(v.into()),
-        );
-        self
     }
 }
 

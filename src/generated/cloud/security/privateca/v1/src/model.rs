@@ -498,23 +498,6 @@ pub mod certificate_authority {
             })
         }
 
-        /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
-        /// to hold a `CloudKmsKeyVersion`.
-        ///
-        /// Note that all the setters affecting `key_version` are
-        /// mutually exclusive.
-        pub fn set_cloud_kms_key_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.key_version = std::option::Option::Some(
-                crate::model::certificate_authority::key_version_spec::KeyVersion::CloudKmsKeyVersion(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
         /// if it holds a `Algorithm`, `None` if the field is not set or
         /// holds a different branch.
@@ -528,25 +511,6 @@ pub mod certificate_authority {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
-        /// to hold a `Algorithm`.
-        ///
-        /// Note that all the setters affecting `key_version` are
-        /// mutually exclusive.
-        pub fn set_algorithm<
-            T: std::convert::Into<crate::model::certificate_authority::SignHashAlgorithm>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.key_version = std::option::Option::Some(
-                crate::model::certificate_authority::key_version_spec::KeyVersion::Algorithm(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -1716,29 +1680,6 @@ pub mod ca_pool {
                 })
             }
 
-            /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
-            /// to hold a `Rsa`.
-            ///
-            /// Note that all the setters affecting `key_type` are
-            /// mutually exclusive.
-            pub fn set_rsa<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.key_type = std::option::Option::Some(
-                    crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::Rsa(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
             /// if it holds a `EllipticCurve`, `None` if the field is not set or
             /// holds a different branch.
@@ -1754,29 +1695,6 @@ pub mod ca_pool {
                     crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::EllipticCurve(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
-            /// to hold a `EllipticCurve`.
-            ///
-            /// Note that all the setters affecting `key_type` are
-            /// mutually exclusive.
-            pub fn set_elliptic_curve<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.key_type = std::option::Option::Some(
-                    crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType::EllipticCurve(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -2900,18 +2818,6 @@ impl Certificate {
         })
     }
 
-    /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config]
-    /// to hold a `PemCsr`.
-    ///
-    /// Note that all the setters affecting `certificate_config` are
-    /// mutually exclusive.
-    pub fn set_pem_csr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.certificate_config = std::option::Option::Some(
-            crate::model::certificate::CertificateConfig::PemCsr(v.into()),
-        );
-        self
-    }
-
     /// The value of [certificate_config][crate::model::Certificate::certificate_config]
     /// if it holds a `Config`, `None` if the field is not set or
     /// holds a different branch.
@@ -2921,21 +2827,6 @@ impl Certificate {
             crate::model::certificate::CertificateConfig::Config(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config]
-    /// to hold a `Config`.
-    ///
-    /// Note that all the setters affecting `certificate_config` are
-    /// mutually exclusive.
-    pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::CertificateConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.certificate_config = std::option::Option::Some(
-            crate::model::certificate::CertificateConfig::Config(v.into()),
-        );
-        self
     }
 }
 
@@ -3653,21 +3544,6 @@ impl SubordinateConfig {
         })
     }
 
-    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
-    /// to hold a `CertificateAuthority`.
-    ///
-    /// Note that all the setters affecting `subordinate_config` are
-    /// mutually exclusive.
-    pub fn set_certificate_authority<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subordinate_config = std::option::Option::Some(
-            crate::model::subordinate_config::SubordinateConfig::CertificateAuthority(v.into()),
-        );
-        self
-    }
-
     /// The value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
     /// if it holds a `PemIssuerChain`, `None` if the field is not set or
     /// holds a different branch.
@@ -3683,25 +3559,6 @@ impl SubordinateConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
-    /// to hold a `PemIssuerChain`.
-    ///
-    /// Note that all the setters affecting `subordinate_config` are
-    /// mutually exclusive.
-    pub fn set_pem_issuer_chain<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::subordinate_config::SubordinateConfigChain>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subordinate_config = std::option::Option::Some(
-            crate::model::subordinate_config::SubordinateConfig::PemIssuerChain(v.into()),
-        );
-        self
     }
 }
 

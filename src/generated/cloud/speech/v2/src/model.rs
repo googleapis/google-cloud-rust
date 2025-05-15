@@ -246,23 +246,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `BatchRecognizeRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_batch_recognize_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::BatchRecognizeRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreateRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -276,23 +259,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `CreateRecognizerRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_create_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::CreateRecognizerRequest(v.into()),
-        );
-        self
     }
 
     /// The value of [request][crate::model::OperationMetadata::request]
@@ -310,23 +276,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UpdateRecognizerRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_update_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdateRecognizerRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeleteRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -340,23 +289,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `DeleteRecognizerRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_delete_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeleteRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::DeleteRecognizerRequest(v.into()),
-        );
-        self
     }
 
     /// The value of [request][crate::model::OperationMetadata::request]
@@ -374,23 +306,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UndeleteRecognizerRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_undelete_recognizer_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UndeleteRecognizerRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UndeleteRecognizerRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreateCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -404,23 +319,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `CreateCustomClassRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_create_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::CreateCustomClassRequest(v.into()),
-        );
-        self
     }
 
     /// The value of [request][crate::model::OperationMetadata::request]
@@ -438,23 +336,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UpdateCustomClassRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_update_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdateCustomClassRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeleteCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -468,23 +349,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `DeleteCustomClassRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_delete_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeleteCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::DeleteCustomClassRequest(v.into()),
-        );
-        self
     }
 
     /// The value of [request][crate::model::OperationMetadata::request]
@@ -502,23 +366,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UndeleteCustomClassRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_undelete_custom_class_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UndeleteCustomClassRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UndeleteCustomClassRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreatePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -532,23 +379,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `CreatePhraseSetRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_create_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreatePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::CreatePhraseSetRequest(v.into()),
-        );
-        self
     }
 
     /// The value of [request][crate::model::OperationMetadata::request]
@@ -566,23 +396,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UpdatePhraseSetRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_update_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdatePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdatePhraseSetRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeletePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -596,23 +409,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `DeletePhraseSetRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_delete_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeletePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::DeletePhraseSetRequest(v.into()),
-        );
-        self
     }
 
     /// The value of [request][crate::model::OperationMetadata::request]
@@ -630,23 +426,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UndeletePhraseSetRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_undelete_phrase_set_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UndeletePhraseSetRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UndeletePhraseSetRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateConfigRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -661,24 +440,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::OperationMetadata::request]
-    /// to hold a `UpdateConfigRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    #[deprecated]
-    pub fn set_update_config_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateConfigRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::operation_metadata::Request::UpdateConfigRequest(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [metadata][crate::model::OperationMetadata::metadata].
@@ -708,23 +469,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [metadata][crate::model::OperationMetadata::metadata]
-    /// to hold a `BatchRecognizeMetadata`.
-    ///
-    /// Note that all the setters affecting `metadata` are
-    /// mutually exclusive.
-    pub fn set_batch_recognize_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::BatchRecognizeMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metadata = std::option::Option::Some(
-            crate::model::operation_metadata::Metadata::BatchRecognizeMetadata(v.into()),
-        );
-        self
     }
 }
 
@@ -2475,18 +2219,6 @@ pub mod speech_adaptation {
             })
         }
 
-        /// Sets the value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value]
-        /// to hold a `PhraseSet`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_phrase_set<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(v.into()),
-            );
-            self
-        }
-
         /// The value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value]
         /// if it holds a `InlinePhraseSet`, `None` if the field is not set or
         /// holds a different branch.
@@ -2500,25 +2232,6 @@ pub mod speech_adaptation {
                 ) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value]
-        /// to hold a `InlinePhraseSet`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_inline_phrase_set<
-            T: std::convert::Into<std::boxed::Box<crate::model::PhraseSet>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::speech_adaptation::adaptation_phrase_set::Value::InlinePhraseSet(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -2704,23 +2417,6 @@ impl RecognitionConfig {
         })
     }
 
-    /// Sets the value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
-    /// to hold a `AutoDecodingConfig`.
-    ///
-    /// Note that all the setters affecting `decoding_config` are
-    /// mutually exclusive.
-    pub fn set_auto_decoding_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::AutoDetectDecodingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decoding_config = std::option::Option::Some(
-            crate::model::recognition_config::DecodingConfig::AutoDecodingConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
     /// if it holds a `ExplicitDecodingConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -2734,23 +2430,6 @@ impl RecognitionConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
-    /// to hold a `ExplicitDecodingConfig`.
-    ///
-    /// Note that all the setters affecting `decoding_config` are
-    /// mutually exclusive.
-    pub fn set_explicit_decoding_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExplicitDecodingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.decoding_config = std::option::Option::Some(
-            crate::model::recognition_config::DecodingConfig::ExplicitDecodingConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -2897,18 +2576,6 @@ impl RecognizeRequest {
         })
     }
 
-    /// Sets the value of [audio_source][crate::model::RecognizeRequest::audio_source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `audio_source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.audio_source = std::option::Option::Some(
-            crate::model::recognize_request::AudioSource::Content(v.into()),
-        );
-        self
-    }
-
     /// The value of [audio_source][crate::model::RecognizeRequest::audio_source]
     /// if it holds a `Uri`, `None` if the field is not set or
     /// holds a different branch.
@@ -2918,17 +2585,6 @@ impl RecognizeRequest {
             crate::model::recognize_request::AudioSource::Uri(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [audio_source][crate::model::RecognizeRequest::audio_source]
-    /// to hold a `Uri`.
-    ///
-    /// Note that all the setters affecting `audio_source` are
-    /// mutually exclusive.
-    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.audio_source =
-            std::option::Option::Some(crate::model::recognize_request::AudioSource::Uri(v.into()));
-        self
     }
 }
 
@@ -3634,23 +3290,6 @@ impl StreamingRecognizeRequest {
         })
     }
 
-    /// Sets the value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
-    /// to hold a `StreamingConfig`.
-    ///
-    /// Note that all the setters affecting `streaming_request` are
-    /// mutually exclusive.
-    pub fn set_streaming_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_recognize_request::StreamingRequest::StreamingConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
     /// if it holds a `Audio`, `None` if the field is not set or
     /// holds a different branch.
@@ -3662,18 +3301,6 @@ impl StreamingRecognizeRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
-    /// to hold a `Audio`.
-    ///
-    /// Note that all the setters affecting `streaming_request` are
-    /// mutually exclusive.
-    pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_recognize_request::StreamingRequest::Audio(v.into()),
-        );
-        self
     }
 }
 
@@ -4229,23 +3856,6 @@ impl RecognitionOutputConfig {
         })
     }
 
-    /// Sets the value of [output][crate::model::RecognitionOutputConfig::output]
-    /// to hold a `GcsOutputConfig`.
-    ///
-    /// Note that all the setters affecting `output` are
-    /// mutually exclusive.
-    pub fn set_gcs_output_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output = std::option::Option::Some(
-            crate::model::recognition_output_config::Output::GcsOutputConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [output][crate::model::RecognitionOutputConfig::output]
     /// if it holds a `InlineResponseConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -4259,23 +3869,6 @@ impl RecognitionOutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [output][crate::model::RecognitionOutputConfig::output]
-    /// to hold a `InlineResponseConfig`.
-    ///
-    /// Note that all the setters affecting `output` are
-    /// mutually exclusive.
-    pub fn set_inline_response_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::InlineOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output = std::option::Option::Some(
-            crate::model::recognition_output_config::Output::InlineResponseConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -4638,23 +4231,6 @@ impl BatchRecognizeFileResult {
         })
     }
 
-    /// Sets the value of [result][crate::model::BatchRecognizeFileResult::result]
-    /// to hold a `CloudStorageResult`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_cloud_storage_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::batch_recognize_file_result::Result::CloudStorageResult(v.into()),
-        );
-        self
-    }
-
     /// The value of [result][crate::model::BatchRecognizeFileResult::result]
     /// if it holds a `InlineResult`, `None` if the field is not set or
     /// holds a different branch.
@@ -4668,21 +4244,6 @@ impl BatchRecognizeFileResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::BatchRecognizeFileResult::result]
-    /// to hold a `InlineResult`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_inline_result<T: std::convert::Into<std::boxed::Box<crate::model::InlineResult>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::batch_recognize_file_result::Result::InlineResult(v.into()),
-        );
-        self
     }
 }
 
@@ -4920,18 +4481,6 @@ impl BatchRecognizeFileMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [audio_source][crate::model::BatchRecognizeFileMetadata::audio_source]
-    /// to hold a `Uri`.
-    ///
-    /// Note that all the setters affecting `audio_source` are
-    /// mutually exclusive.
-    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.audio_source = std::option::Option::Some(
-            crate::model::batch_recognize_file_metadata::AudioSource::Uri(v.into()),
-        );
-        self
     }
 }
 

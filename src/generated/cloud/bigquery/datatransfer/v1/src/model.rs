@@ -2307,25 +2307,6 @@ impl StartManualTransferRunsRequest {
         })
     }
 
-    /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time]
-    /// to hold a `RequestedTimeRange`.
-    ///
-    /// Note that all the setters affecting `time` are
-    /// mutually exclusive.
-    pub fn set_requested_time_range<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time = std::option::Option::Some(
-            crate::model::start_manual_transfer_runs_request::Time::RequestedTimeRange(v.into()),
-        );
-        self
-    }
-
     /// The value of [time][crate::model::StartManualTransferRunsRequest::time]
     /// if it holds a `RequestedRunTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -2337,21 +2318,6 @@ impl StartManualTransferRunsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time]
-    /// to hold a `RequestedRunTime`.
-    ///
-    /// Note that all the setters affecting `time` are
-    /// mutually exclusive.
-    pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time = std::option::Option::Some(
-            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v.into()),
-        );
-        self
     }
 }
 
@@ -2732,23 +2698,6 @@ impl ScheduleOptionsV2 {
         })
     }
 
-    /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule]
-    /// to hold a `TimeBasedSchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_time_based_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimeBasedSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::schedule_options_v_2::Schedule::TimeBasedSchedule(v.into()),
-        );
-        self
-    }
-
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `ManualSchedule`, `None` if the field is not set or
     /// holds a different branch.
@@ -2764,23 +2713,6 @@ impl ScheduleOptionsV2 {
         })
     }
 
-    /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule]
-    /// to hold a `ManualSchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_manual_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManualSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::schedule_options_v_2::Schedule::ManualSchedule(v.into()),
-        );
-        self
-    }
-
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `EventDrivenSchedule`, `None` if the field is not set or
     /// holds a different branch.
@@ -2794,23 +2726,6 @@ impl ScheduleOptionsV2 {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule]
-    /// to hold a `EventDrivenSchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_event_driven_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::EventDrivenSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(v.into()),
-        );
-        self
     }
 }
 
@@ -3336,21 +3251,6 @@ impl TransferConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [destination][crate::model::TransferConfig::destination]
-    /// to hold a `DestinationDatasetId`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::transfer_config::Destination::DestinationDatasetId(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for TransferConfig {
@@ -3643,21 +3543,6 @@ impl TransferRun {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::TransferRun::destination]
-    /// to hold a `DestinationDatasetId`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::transfer_run::Destination::DestinationDatasetId(v.into()),
-        );
-        self
     }
 }
 

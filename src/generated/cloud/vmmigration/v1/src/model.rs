@@ -394,23 +394,6 @@ impl CycleStep {
         })
     }
 
-    /// Sets the value of [step][crate::model::CycleStep::step]
-    /// to hold a `InitializingReplication`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_initializing_replication<
-        T: std::convert::Into<std::boxed::Box<crate::model::InitializingReplicationStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step = std::option::Option::Some(
-            crate::model::cycle_step::Step::InitializingReplication(v.into()),
-        );
-        self
-    }
-
     /// The value of [step][crate::model::CycleStep::step]
     /// if it holds a `Replicating`, `None` if the field is not set or
     /// holds a different branch.
@@ -424,22 +407,6 @@ impl CycleStep {
         })
     }
 
-    /// Sets the value of [step][crate::model::CycleStep::step]
-    /// to hold a `Replicating`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_replicating<
-        T: std::convert::Into<std::boxed::Box<crate::model::ReplicatingStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step =
-            std::option::Option::Some(crate::model::cycle_step::Step::Replicating(v.into()));
-        self
-    }
-
     /// The value of [step][crate::model::CycleStep::step]
     /// if it holds a `PostProcessing`, `None` if the field is not set or
     /// holds a different branch.
@@ -451,22 +418,6 @@ impl CycleStep {
             crate::model::cycle_step::Step::PostProcessing(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step][crate::model::CycleStep::step]
-    /// to hold a `PostProcessing`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_post_processing<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostProcessingStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step =
-            std::option::Option::Some(crate::model::cycle_step::Step::PostProcessing(v.into()));
-        self
     }
 }
 
@@ -926,23 +877,6 @@ impl MigratingVm {
         })
     }
 
-    /// Sets the value of [target_vm_defaults][crate::model::MigratingVm::target_vm_defaults]
-    /// to hold a `ComputeEngineTargetDefaults`.
-    ///
-    /// Note that all the setters affecting `target_vm_defaults` are
-    /// mutually exclusive.
-    pub fn set_compute_engine_target_defaults<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineTargetDefaults>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_vm_defaults = std::option::Option::Some(
-            crate::model::migrating_vm::TargetVmDefaults::ComputeEngineTargetDefaults(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [source_vm_details][crate::model::MigratingVm::source_vm_details].
     ///
     /// Note that all the setters affecting `source_vm_details` are mutually
@@ -970,23 +904,6 @@ impl MigratingVm {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_vm_details][crate::model::MigratingVm::source_vm_details]
-    /// to hold a `AwsSourceVmDetails`.
-    ///
-    /// Note that all the setters affecting `source_vm_details` are
-    /// mutually exclusive.
-    pub fn set_aws_source_vm_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsSourceVmDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_vm_details = std::option::Option::Some(
-            crate::model::migrating_vm::SourceVmDetails::AwsSourceVmDetails(v.into()),
-        );
-        self
     }
 }
 
@@ -1373,23 +1290,6 @@ impl CloneJob {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [target_vm_details][crate::model::CloneJob::target_vm_details]
-    /// to hold a `ComputeEngineTargetDetails`.
-    ///
-    /// Note that all the setters affecting `target_vm_details` are
-    /// mutually exclusive.
-    pub fn set_compute_engine_target_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineTargetDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_vm_details = std::option::Option::Some(
-            crate::model::clone_job::TargetVmDetails::ComputeEngineTargetDetails(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for CloneJob {
@@ -1651,19 +1551,6 @@ impl CloneStep {
         })
     }
 
-    /// Sets the value of [step][crate::model::CloneStep::step]
-    /// to hold a `AdaptingOs`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_adapting_os<T: std::convert::Into<std::boxed::Box<crate::model::AdaptingOSStep>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step = std::option::Option::Some(crate::model::clone_step::Step::AdaptingOs(v.into()));
-        self
-    }
-
     /// The value of [step][crate::model::CloneStep::step]
     /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
     /// holds a different branch.
@@ -1675,22 +1562,6 @@ impl CloneStep {
             crate::model::clone_step::Step::PreparingVmDisks(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step][crate::model::CloneStep::step]
-    /// to hold a `PreparingVmDisks`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_preparing_vm_disks<
-        T: std::convert::Into<std::boxed::Box<crate::model::PreparingVMDisksStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step =
-            std::option::Option::Some(crate::model::clone_step::Step::PreparingVmDisks(v.into()));
-        self
     }
 
     /// The value of [step][crate::model::CloneStep::step]
@@ -1706,23 +1577,6 @@ impl CloneStep {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step][crate::model::CloneStep::step]
-    /// to hold a `InstantiatingMigratedVm`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_instantiating_migrated_vm<
-        T: std::convert::Into<std::boxed::Box<crate::model::InstantiatingMigratedVMStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step = std::option::Option::Some(
-            crate::model::clone_step::Step::InstantiatingMigratedVm(v.into()),
-        );
-        self
     }
 }
 
@@ -1977,23 +1831,6 @@ impl CutoverJob {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_vm_details][crate::model::CutoverJob::target_vm_details]
-    /// to hold a `ComputeEngineTargetDetails`.
-    ///
-    /// Note that all the setters affecting `target_vm_details` are
-    /// mutually exclusive.
-    pub fn set_compute_engine_target_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineTargetDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_vm_details = std::option::Option::Some(
-            crate::model::cutover_job::TargetVmDetails::ComputeEngineTargetDetails(v.into()),
-        );
-        self
     }
 }
 
@@ -2260,23 +2097,6 @@ impl CutoverStep {
         })
     }
 
-    /// Sets the value of [step][crate::model::CutoverStep::step]
-    /// to hold a `PreviousReplicationCycle`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_previous_replication_cycle<
-        T: std::convert::Into<std::boxed::Box<crate::model::ReplicationCycle>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step = std::option::Option::Some(
-            crate::model::cutover_step::Step::PreviousReplicationCycle(v.into()),
-        );
-        self
-    }
-
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `ShuttingDownSourceVm`, `None` if the field is not set or
     /// holds a different branch.
@@ -2292,23 +2112,6 @@ impl CutoverStep {
         })
     }
 
-    /// Sets the value of [step][crate::model::CutoverStep::step]
-    /// to hold a `ShuttingDownSourceVm`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_shutting_down_source_vm<
-        T: std::convert::Into<std::boxed::Box<crate::model::ShuttingDownSourceVMStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step = std::option::Option::Some(
-            crate::model::cutover_step::Step::ShuttingDownSourceVm(v.into()),
-        );
-        self
-    }
-
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `FinalSync`, `None` if the field is not set or
     /// holds a different branch.
@@ -2320,22 +2123,6 @@ impl CutoverStep {
             crate::model::cutover_step::Step::FinalSync(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step][crate::model::CutoverStep::step]
-    /// to hold a `FinalSync`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_final_sync<
-        T: std::convert::Into<std::boxed::Box<crate::model::ReplicationCycle>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step =
-            std::option::Option::Some(crate::model::cutover_step::Step::FinalSync(v.into()));
-        self
     }
 
     /// The value of [step][crate::model::CutoverStep::step]
@@ -2351,22 +2138,6 @@ impl CutoverStep {
         })
     }
 
-    /// Sets the value of [step][crate::model::CutoverStep::step]
-    /// to hold a `PreparingVmDisks`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_preparing_vm_disks<
-        T: std::convert::Into<std::boxed::Box<crate::model::PreparingVMDisksStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step =
-            std::option::Option::Some(crate::model::cutover_step::Step::PreparingVmDisks(v.into()));
-        self
-    }
-
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
     /// holds a different branch.
@@ -2380,23 +2151,6 @@ impl CutoverStep {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step][crate::model::CutoverStep::step]
-    /// to hold a `InstantiatingMigratedVm`.
-    ///
-    /// Note that all the setters affecting `step` are
-    /// mutually exclusive.
-    pub fn set_instantiating_migrated_vm<
-        T: std::convert::Into<std::boxed::Box<crate::model::InstantiatingMigratedVMStep>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step = std::option::Option::Some(
-            crate::model::cutover_step::Step::InstantiatingMigratedVm(v.into()),
-        );
-        self
     }
 }
 
@@ -2878,20 +2632,6 @@ impl Source {
         })
     }
 
-    /// Sets the value of [source_details][crate::model::Source::source_details]
-    /// to hold a `Vmware`.
-    ///
-    /// Note that all the setters affecting `source_details` are
-    /// mutually exclusive.
-    pub fn set_vmware<T: std::convert::Into<std::boxed::Box<crate::model::VmwareSourceDetails>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_details =
-            std::option::Option::Some(crate::model::source::SourceDetails::Vmware(v.into()));
-        self
-    }
-
     /// The value of [source_details][crate::model::Source::source_details]
     /// if it holds a `Aws`, `None` if the field is not set or
     /// holds a different branch.
@@ -2901,20 +2641,6 @@ impl Source {
             crate::model::source::SourceDetails::Aws(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_details][crate::model::Source::source_details]
-    /// to hold a `Aws`.
-    ///
-    /// Note that all the setters affecting `source_details` are
-    /// mutually exclusive.
-    pub fn set_aws<T: std::convert::Into<std::boxed::Box<crate::model::AwsSourceDetails>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_details =
-            std::option::Option::Some(crate::model::source::SourceDetails::Aws(v.into()));
-        self
     }
 }
 
@@ -3151,23 +2877,6 @@ impl AwsSourceDetails {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [credentials_type][crate::model::AwsSourceDetails::credentials_type]
-    /// to hold a `AccessKeyCreds`.
-    ///
-    /// Note that all the setters affecting `credentials_type` are
-    /// mutually exclusive.
-    pub fn set_access_key_creds<
-        T: std::convert::Into<std::boxed::Box<crate::model::aws_source_details::AccessKeyCredentials>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.credentials_type = std::option::Option::Some(
-            crate::model::aws_source_details::CredentialsType::AccessKeyCreds(v.into()),
-        );
-        self
     }
 }
 
@@ -5979,23 +5688,6 @@ impl FetchInventoryResponse {
         })
     }
 
-    /// Sets the value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
-    /// to hold a `VmwareVms`.
-    ///
-    /// Note that all the setters affecting `source_vms` are
-    /// mutually exclusive.
-    pub fn set_vmware_vms<
-        T: std::convert::Into<std::boxed::Box<crate::model::VmwareVmsDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_vms = std::option::Option::Some(
-            crate::model::fetch_inventory_response::SourceVms::VmwareVms(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
     /// if it holds a `AwsVms`, `None` if the field is not set or
     /// holds a different branch.
@@ -6007,21 +5699,6 @@ impl FetchInventoryResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
-    /// to hold a `AwsVms`.
-    ///
-    /// Note that all the setters affecting `source_vms` are
-    /// mutually exclusive.
-    pub fn set_aws_vms<T: std::convert::Into<std::boxed::Box<crate::model::AwsVmsDetails>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_vms = std::option::Option::Some(
-            crate::model::fetch_inventory_response::SourceVms::AwsVms(v.into()),
-        );
-        self
     }
 }
 
@@ -6554,23 +6231,6 @@ impl VmUtilizationInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [vm_details][crate::model::VmUtilizationInfo::vm_details]
-    /// to hold a `VmwareVmDetails`.
-    ///
-    /// Note that all the setters affecting `vm_details` are
-    /// mutually exclusive.
-    pub fn set_vmware_vm_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::VmwareVmDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vm_details = std::option::Option::Some(
-            crate::model::vm_utilization_info::VmDetails::VmwareVmDetails(v.into()),
-        );
-        self
     }
 }
 

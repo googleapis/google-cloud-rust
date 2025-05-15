@@ -1898,25 +1898,6 @@ impl MigrationProgressEvent {
         })
     }
 
-    /// Sets the value of [step_details][crate::model::MigrationProgressEvent::step_details]
-    /// to hold a `PrepareStepDetails`.
-    ///
-    /// Note that all the setters affecting `step_details` are
-    /// mutually exclusive.
-    pub fn set_prepare_step_details<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::migration_progress_event::PrepareStepDetails>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_details = std::option::Option::Some(
-            crate::model::migration_progress_event::StepDetails::PrepareStepDetails(v.into()),
-        );
-        self
-    }
-
     /// The value of [step_details][crate::model::MigrationProgressEvent::step_details]
     /// if it holds a `RedirectWritesStepDetails`, `None` if the field is not set or
     /// holds a different branch.
@@ -1932,27 +1913,6 @@ impl MigrationProgressEvent {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [step_details][crate::model::MigrationProgressEvent::step_details]
-    /// to hold a `RedirectWritesStepDetails`.
-    ///
-    /// Note that all the setters affecting `step_details` are
-    /// mutually exclusive.
-    pub fn set_redirect_writes_step_details<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_details = std::option::Option::Some(
-            crate::model::migration_progress_event::StepDetails::RedirectWritesStepDetails(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 

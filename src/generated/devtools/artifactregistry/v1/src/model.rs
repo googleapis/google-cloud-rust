@@ -365,23 +365,6 @@ impl ImportAptArtifactsRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::ImportAptArtifactsRequest::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_apt_artifacts_request::Source::GcsSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ImportAptArtifactsRequest {
@@ -467,23 +450,6 @@ impl ImportAptArtifactsErrorInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ImportAptArtifactsErrorInfo::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_apt_artifacts_error_info::Source::GcsSource(v.into()),
-        );
-        self
     }
 }
 
@@ -3625,23 +3591,6 @@ impl CleanupPolicy {
         })
     }
 
-    /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type]
-    /// to hold a `Condition`.
-    ///
-    /// Note that all the setters affecting `condition_type` are
-    /// mutually exclusive.
-    pub fn set_condition<
-        T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyCondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition_type = std::option::Option::Some(
-            crate::model::cleanup_policy::ConditionType::Condition(v.into()),
-        );
-        self
-    }
-
     /// The value of [condition_type][crate::model::CleanupPolicy::condition_type]
     /// if it holds a `MostRecentVersions`, `None` if the field is not set or
     /// holds a different branch.
@@ -3655,23 +3604,6 @@ impl CleanupPolicy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type]
-    /// to hold a `MostRecentVersions`.
-    ///
-    /// Note that all the setters affecting `condition_type` are
-    /// mutually exclusive.
-    pub fn set_most_recent_versions<
-        T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition_type = std::option::Option::Some(
-            crate::model::cleanup_policy::ConditionType::MostRecentVersions(v.into()),
-        );
-        self
     }
 }
 
@@ -3960,25 +3892,6 @@ impl RemoteRepositoryConfig {
         })
     }
 
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `DockerRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_docker_repository<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::remote_repository_config::DockerRepository>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::DockerRepository(v.into()),
-        );
-        self
-    }
-
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `MavenRepository`, `None` if the field is not set or
     /// holds a different branch.
@@ -3996,25 +3909,6 @@ impl RemoteRepositoryConfig {
         })
     }
 
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `MavenRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_maven_repository<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::MavenRepository(v.into()),
-        );
-        self
-    }
-
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `NpmRepository`, `None` if the field is not set or
     /// holds a different branch.
@@ -4029,23 +3923,6 @@ impl RemoteRepositoryConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `NpmRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_npm_repository<
-        T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::NpmRepository(v.into()),
-        );
-        self
     }
 
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -4065,25 +3942,6 @@ impl RemoteRepositoryConfig {
         })
     }
 
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `PythonRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_python_repository<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::PythonRepository(v.into()),
-        );
-        self
-    }
-
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `AptRepository`, `None` if the field is not set or
     /// holds a different branch.
@@ -4098,23 +3956,6 @@ impl RemoteRepositoryConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `AptRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_apt_repository<
-        T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::AptRepository>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::AptRepository(v.into()),
-        );
-        self
     }
 
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
@@ -4133,23 +3974,6 @@ impl RemoteRepositoryConfig {
         })
     }
 
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `YumRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_yum_repository<
-        T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::YumRepository>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::YumRepository(v.into()),
-        );
-        self
-    }
-
     /// The value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
     /// if it holds a `CommonRepository`, `None` if the field is not set or
     /// holds a different branch.
@@ -4165,25 +3989,6 @@ impl RemoteRepositoryConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source]
-    /// to hold a `CommonRepository`.
-    ///
-    /// Note that all the setters affecting `remote_source` are
-    /// mutually exclusive.
-    pub fn set_common_repository<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_source = std::option::Option::Some(
-            crate::model::remote_repository_config::RemoteSource::CommonRepository(v.into()),
-        );
-        self
     }
 }
 
@@ -4245,20 +4050,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [credentials][crate::model::remote_repository_config::UpstreamCredentials::credentials]
-        /// to hold a `UsernamePasswordCredentials`.
-        ///
-        /// Note that all the setters affecting `credentials` are
-        /// mutually exclusive.
-        pub fn set_username_password_credentials<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials>>>(mut self, v: T) -> Self{
-            self.credentials = std::option::Option::Some(
-                crate::model::remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -4387,27 +4178,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
-        /// to hold a `PublicRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_public_repository<
-            T: std::convert::Into<
-                    crate::model::remote_repository_config::docker_repository::PublicRepository,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::docker_repository::Upstream::PublicRepository(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
@@ -4423,29 +4193,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream]
-        /// to hold a `CustomRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_custom_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::docker_repository::CustomRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::docker_repository::Upstream::CustomRepository(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -4694,27 +4441,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
-        /// to hold a `PublicRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_public_repository<
-            T: std::convert::Into<
-                    crate::model::remote_repository_config::maven_repository::PublicRepository,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::maven_repository::Upstream::PublicRepository(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
@@ -4730,29 +4456,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream]
-        /// to hold a `CustomRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_custom_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::maven_repository::CustomRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::maven_repository::Upstream::CustomRepository(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -5001,27 +4704,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
-        /// to hold a `PublicRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_public_repository<
-            T: std::convert::Into<
-                    crate::model::remote_repository_config::npm_repository::PublicRepository,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::npm_repository::Upstream::PublicRepository(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
@@ -5037,29 +4719,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream]
-        /// to hold a `CustomRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_custom_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::npm_repository::CustomRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::npm_repository::Upstream::CustomRepository(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -5308,27 +4967,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
-        /// to hold a `PublicRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_public_repository<
-            T: std::convert::Into<
-                    crate::model::remote_repository_config::python_repository::PublicRepository,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::python_repository::Upstream::PublicRepository(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
@@ -5344,29 +4982,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream]
-        /// to hold a `CustomRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_custom_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::python_repository::CustomRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::python_repository::Upstream::CustomRepository(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -5616,29 +5231,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
-        /// to hold a `PublicRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_public_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::apt_repository::PublicRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::apt_repository::Upstream::PublicRepository(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
@@ -5654,29 +5246,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream]
-        /// to hold a `CustomRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_custom_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::apt_repository::CustomRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::apt_repository::Upstream::CustomRepository(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -5996,29 +5565,6 @@ pub mod remote_repository_config {
             })
         }
 
-        /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
-        /// to hold a `PublicRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_public_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::yum_repository::PublicRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::yum_repository::Upstream::PublicRepository(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
         /// if it holds a `CustomRepository`, `None` if the field is not set or
         /// holds a different branch.
@@ -6034,29 +5580,6 @@ pub mod remote_repository_config {
                 crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream]
-        /// to hold a `CustomRepository`.
-        ///
-        /// Note that all the setters affecting `upstream` are
-        /// mutually exclusive.
-        pub fn set_custom_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::remote_repository_config::yum_repository::CustomRepository,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.upstream = std::option::Option::Some(
-                crate::model::remote_repository_config::yum_repository::Upstream::CustomRepository(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -6659,23 +6182,6 @@ impl Repository {
         })
     }
 
-    /// Sets the value of [format_config][crate::model::Repository::format_config]
-    /// to hold a `MavenConfig`.
-    ///
-    /// Note that all the setters affecting `format_config` are
-    /// mutually exclusive.
-    pub fn set_maven_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::repository::MavenRepositoryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.format_config = std::option::Option::Some(
-            crate::model::repository::FormatConfig::MavenConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [format_config][crate::model::Repository::format_config]
     /// if it holds a `DockerConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -6688,23 +6194,6 @@ impl Repository {
             crate::model::repository::FormatConfig::DockerConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [format_config][crate::model::Repository::format_config]
-    /// to hold a `DockerConfig`.
-    ///
-    /// Note that all the setters affecting `format_config` are
-    /// mutually exclusive.
-    pub fn set_docker_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.format_config = std::option::Option::Some(
-            crate::model::repository::FormatConfig::DockerConfig(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [mode_config][crate::model::Repository::mode_config].
@@ -6736,23 +6225,6 @@ impl Repository {
         })
     }
 
-    /// Sets the value of [mode_config][crate::model::Repository::mode_config]
-    /// to hold a `VirtualRepositoryConfig`.
-    ///
-    /// Note that all the setters affecting `mode_config` are
-    /// mutually exclusive.
-    pub fn set_virtual_repository_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::VirtualRepositoryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode_config = std::option::Option::Some(
-            crate::model::repository::ModeConfig::VirtualRepositoryConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [mode_config][crate::model::Repository::mode_config]
     /// if it holds a `RemoteRepositoryConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -6766,23 +6238,6 @@ impl Repository {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [mode_config][crate::model::Repository::mode_config]
-    /// to hold a `RemoteRepositoryConfig`.
-    ///
-    /// Note that all the setters affecting `mode_config` are
-    /// mutually exclusive.
-    pub fn set_remote_repository_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::RemoteRepositoryConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode_config = std::option::Option::Some(
-            crate::model::repository::ModeConfig::RemoteRepositoryConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -10527,23 +9982,6 @@ impl ImportYumArtifactsRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::ImportYumArtifactsRequest::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_yum_artifacts_request::Source::GcsSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ImportYumArtifactsRequest {
@@ -10629,23 +10067,6 @@ impl ImportYumArtifactsErrorInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ImportYumArtifactsErrorInfo::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_yum_artifacts_error_info::Source::GcsSource(v.into()),
-        );
-        self
     }
 }
 

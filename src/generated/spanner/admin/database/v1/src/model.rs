@@ -2141,21 +2141,6 @@ impl BackupScheduleSpec {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [schedule_spec][crate::model::BackupScheduleSpec::schedule_spec]
-    /// to hold a `CronSpec`.
-    ///
-    /// Note that all the setters affecting `schedule_spec` are
-    /// mutually exclusive.
-    pub fn set_cron_spec<T: std::convert::Into<std::boxed::Box<crate::model::CrontabSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule_spec = std::option::Option::Some(
-            crate::model::backup_schedule_spec::ScheduleSpec::CronSpec(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BackupScheduleSpec {
@@ -2314,23 +2299,6 @@ impl BackupSchedule {
         })
     }
 
-    /// Sets the value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
-    /// to hold a `FullBackupSpec`.
-    ///
-    /// Note that all the setters affecting `backup_type_spec` are
-    /// mutually exclusive.
-    pub fn set_full_backup_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::FullBackupSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_type_spec = std::option::Option::Some(
-            crate::model::backup_schedule::BackupTypeSpec::FullBackupSpec(v.into()),
-        );
-        self
-    }
-
     /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
     /// if it holds a `IncrementalBackupSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2344,23 +2312,6 @@ impl BackupSchedule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
-    /// to hold a `IncrementalBackupSpec`.
-    ///
-    /// Note that all the setters affecting `backup_type_spec` are
-    /// mutually exclusive.
-    pub fn set_incremental_backup_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::IncrementalBackupSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_type_spec = std::option::Option::Some(
-            crate::model::backup_schedule::BackupTypeSpec::IncrementalBackupSpec(v.into()),
-        );
-        self
     }
 }
 
@@ -3180,20 +3131,6 @@ impl RestoreInfo {
             crate::model::restore_info::SourceInfo::BackupInfo(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_info][crate::model::RestoreInfo::source_info]
-    /// to hold a `BackupInfo`.
-    ///
-    /// Note that all the setters affecting `source_info` are
-    /// mutually exclusive.
-    pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_info =
-            std::option::Option::Some(crate::model::restore_info::SourceInfo::BackupInfo(v.into()));
-        self
     }
 }
 
@@ -4770,18 +4707,6 @@ impl RestoreDatabaseRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::RestoreDatabaseRequest::source]
-    /// to hold a `Backup`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_database_request::Source::Backup(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for RestoreDatabaseRequest {
@@ -5193,21 +5118,6 @@ impl RestoreDatabaseMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_info][crate::model::RestoreDatabaseMetadata::source_info]
-    /// to hold a `BackupInfo`.
-    ///
-    /// Note that all the setters affecting `source_info` are
-    /// mutually exclusive.
-    pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_info = std::option::Option::Some(
-            crate::model::restore_database_metadata::SourceInfo::BackupInfo(v.into()),
-        );
-        self
     }
 }
 

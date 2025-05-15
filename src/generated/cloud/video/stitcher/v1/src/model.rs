@@ -387,22 +387,6 @@ impl CdnKey {
         })
     }
 
-    /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// to hold a `GoogleCdnKey`.
-    ///
-    /// Note that all the setters affecting `cdn_key_config` are
-    /// mutually exclusive.
-    pub fn set_google_cdn_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::GoogleCdnKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdn_key_config =
-            std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::GoogleCdnKey(v.into()));
-        self
-    }
-
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -416,22 +400,6 @@ impl CdnKey {
         })
     }
 
-    /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// to hold a `AkamaiCdnKey`.
-    ///
-    /// Note that all the setters affecting `cdn_key_config` are
-    /// mutually exclusive.
-    pub fn set_akamai_cdn_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::AkamaiCdnKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdn_key_config =
-            std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v.into()));
-        self
-    }
-
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `MediaCdnKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -443,20 +411,6 @@ impl CdnKey {
             crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
-    /// to hold a `MediaCdnKey`.
-    ///
-    /// Note that all the setters affecting `cdn_key_config` are
-    /// mutually exclusive.
-    pub fn set_media_cdn_key<T: std::convert::Into<std::boxed::Box<crate::model::MediaCdnKey>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdn_key_config =
-            std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v.into()));
-        self
     }
 }
 
@@ -1010,23 +964,6 @@ impl Companion {
         })
     }
 
-    /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
-    /// to hold a `IframeAdResource`.
-    ///
-    /// Note that all the setters affecting `ad_resource` are
-    /// mutually exclusive.
-    pub fn set_iframe_ad_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::IframeAdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ad_resource = std::option::Option::Some(
-            crate::model::companion::AdResource::IframeAdResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `StaticAdResource`, `None` if the field is not set or
     /// holds a different branch.
@@ -1042,23 +979,6 @@ impl Companion {
         })
     }
 
-    /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
-    /// to hold a `StaticAdResource`.
-    ///
-    /// Note that all the setters affecting `ad_resource` are
-    /// mutually exclusive.
-    pub fn set_static_ad_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticAdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ad_resource = std::option::Option::Some(
-            crate::model::companion::AdResource::StaticAdResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `HtmlAdResource`, `None` if the field is not set or
     /// holds a different branch.
@@ -1070,23 +990,6 @@ impl Companion {
             crate::model::companion::AdResource::HtmlAdResource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [ad_resource][crate::model::Companion::ad_resource]
-    /// to hold a `HtmlAdResource`.
-    ///
-    /// Note that all the setters affecting `ad_resource` are
-    /// mutually exclusive.
-    pub fn set_html_ad_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::HtmlAdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ad_resource = std::option::Option::Some(
-            crate::model::companion::AdResource::HtmlAdResource(v.into()),
-        );
-        self
     }
 }
 

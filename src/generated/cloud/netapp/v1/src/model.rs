@@ -9834,18 +9834,6 @@ impl RestoreParameters {
         })
     }
 
-    /// Sets the value of [source][crate::model::RestoreParameters::source]
-    /// to hold a `SourceSnapshot`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_parameters::Source::SourceSnapshot(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::RestoreParameters::source]
     /// if it holds a `SourceBackup`, `None` if the field is not set or
     /// holds a different branch.
@@ -9857,18 +9845,6 @@ impl RestoreParameters {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::RestoreParameters::source]
-    /// to hold a `SourceBackup`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_parameters::Source::SourceBackup(v.into()),
-        );
-        self
     }
 }
 

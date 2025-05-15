@@ -449,20 +449,6 @@ impl DateTime {
         })
     }
 
-    /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
-    /// to hold a `UtcOffset`.
-    ///
-    /// Note that all the setters affecting `time_offset` are
-    /// mutually exclusive.
-    pub fn set_utc_offset<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_offset =
-            std::option::Option::Some(crate::model::date_time::TimeOffset::UtcOffset(v.into()));
-        self
-    }
-
     /// The value of [time_offset][crate::model::DateTime::time_offset]
     /// if it holds a `TimeZone`, `None` if the field is not set or
     /// holds a different branch.
@@ -472,20 +458,6 @@ impl DateTime {
             crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
-    /// to hold a `TimeZone`.
-    ///
-    /// Note that all the setters affecting `time_offset` are
-    /// mutually exclusive.
-    pub fn set_time_zone<T: std::convert::Into<std::boxed::Box<crate::model::TimeZone>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time_offset =
-            std::option::Option::Some(crate::model::date_time::TimeOffset::TimeZone(v.into()));
-        self
     }
 }
 
@@ -1115,17 +1087,6 @@ impl PhoneNumber {
         })
     }
 
-    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
-    /// to hold a `E164Number`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::PhoneNumber::kind]
     /// if it holds a `ShortCode`, `None` if the field is not set or
     /// holds a different branch.
@@ -1137,22 +1098,6 @@ impl PhoneNumber {
             crate::model::phone_number::Kind::ShortCode(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
-    /// to hold a `ShortCode`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_short_code<
-        T: std::convert::Into<std::boxed::Box<crate::model::phone_number::ShortCode>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::phone_number::Kind::ShortCode(v.into()));
-        self
     }
 }
 

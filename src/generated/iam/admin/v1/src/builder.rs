@@ -2377,19 +2377,6 @@ pub mod iam {
             self.0.request.lint_object = v.into();
             self
         }
-
-        /// Sets the value of [lint_object][crate::model::LintPolicyRequest::lint_object]
-        /// to hold a `Condition`.
-        ///
-        /// Note that all the setters affecting `lint_object` are
-        /// mutually exclusive.
-        pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_condition(v);
-            self
-        }
     }
 
     #[doc(hidden)]

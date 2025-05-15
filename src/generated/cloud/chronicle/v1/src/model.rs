@@ -816,18 +816,6 @@ impl DataAccessLabel {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [definition][crate::model::DataAccessLabel::definition]
-    /// to hold a `UdmQuery`.
-    ///
-    /// Note that all the setters affecting `definition` are
-    /// mutually exclusive.
-    pub fn set_udm_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.definition = std::option::Option::Some(
-            crate::model::data_access_label::Definition::UdmQuery(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for DataAccessLabel {
@@ -1072,21 +1060,6 @@ impl DataAccessLabelReference {
         })
     }
 
-    /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
-    /// to hold a `DataAccessLabel`.
-    ///
-    /// Note that all the setters affecting `label` are
-    /// mutually exclusive.
-    pub fn set_data_access_label<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::DataAccessLabel(v.into()),
-        );
-        self
-    }
-
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `LogType`, `None` if the field is not set or
     /// holds a different branch.
@@ -1098,18 +1071,6 @@ impl DataAccessLabelReference {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
-    /// to hold a `LogType`.
-    ///
-    /// Note that all the setters affecting `label` are
-    /// mutually exclusive.
-    pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::LogType(v.into()),
-        );
-        self
     }
 
     /// The value of [label][crate::model::DataAccessLabelReference::label]
@@ -1125,18 +1086,6 @@ impl DataAccessLabelReference {
         })
     }
 
-    /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
-    /// to hold a `AssetNamespace`.
-    ///
-    /// Note that all the setters affecting `label` are
-    /// mutually exclusive.
-    pub fn set_asset_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::AssetNamespace(v.into()),
-        );
-        self
-    }
-
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `IngestionLabel`, `None` if the field is not set or
     /// holds a different branch.
@@ -1150,23 +1099,6 @@ impl DataAccessLabelReference {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [label][crate::model::DataAccessLabelReference::label]
-    /// to hold a `IngestionLabel`.
-    ///
-    /// Note that all the setters affecting `label` are
-    /// mutually exclusive.
-    pub fn set_ingestion_label<
-        T: std::convert::Into<std::boxed::Box<crate::model::IngestionLabel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.label = std::option::Option::Some(
-            crate::model::data_access_label_reference::Label::IngestionLabel(v.into()),
-        );
-        self
     }
 }
 
@@ -1450,25 +1382,6 @@ pub mod watchlist {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [mechanism][crate::model::watchlist::EntityPopulationMechanism::mechanism]
-        /// to hold a `Manual`.
-        ///
-        /// Note that all the setters affecting `mechanism` are
-        /// mutually exclusive.
-        pub fn set_manual<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.mechanism = std::option::Option::Some(
-                crate::model::watchlist::entity_population_mechanism::Mechanism::Manual(v.into()),
-            );
-            self
         }
     }
 

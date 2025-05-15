@@ -433,22 +433,6 @@ impl UrlMap {
         })
     }
 
-    /// Sets the value of [handler_type][crate::model::UrlMap::handler_type]
-    /// to hold a `StaticFiles`.
-    ///
-    /// Note that all the setters affecting `handler_type` are
-    /// mutually exclusive.
-    pub fn set_static_files<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticFilesHandler>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.handler_type =
-            std::option::Option::Some(crate::model::url_map::HandlerType::StaticFiles(v.into()));
-        self
-    }
-
     /// The value of [handler_type][crate::model::UrlMap::handler_type]
     /// if it holds a `Script`, `None` if the field is not set or
     /// holds a different branch.
@@ -458,20 +442,6 @@ impl UrlMap {
             crate::model::url_map::HandlerType::Script(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [handler_type][crate::model::UrlMap::handler_type]
-    /// to hold a `Script`.
-    ///
-    /// Note that all the setters affecting `handler_type` are
-    /// mutually exclusive.
-    pub fn set_script<T: std::convert::Into<std::boxed::Box<crate::model::ScriptHandler>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.handler_type =
-            std::option::Option::Some(crate::model::url_map::HandlerType::Script(v.into()));
-        self
     }
 
     /// The value of [handler_type][crate::model::UrlMap::handler_type]
@@ -485,22 +455,6 @@ impl UrlMap {
             crate::model::url_map::HandlerType::ApiEndpoint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [handler_type][crate::model::UrlMap::handler_type]
-    /// to hold a `ApiEndpoint`.
-    ///
-    /// Note that all the setters affecting `handler_type` are
-    /// mutually exclusive.
-    pub fn set_api_endpoint<
-        T: std::convert::Into<std::boxed::Box<crate::model::ApiEndpointHandler>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.handler_type =
-            std::option::Option::Some(crate::model::url_map::HandlerType::ApiEndpoint(v.into()));
-        self
     }
 }
 
@@ -4051,22 +4005,6 @@ impl AuditData {
         })
     }
 
-    /// Sets the value of [method][crate::model::AuditData::method]
-    /// to hold a `UpdateService`.
-    ///
-    /// Note that all the setters affecting `method` are
-    /// mutually exclusive.
-    pub fn set_update_service<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateServiceMethod>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method =
-            std::option::Option::Some(crate::model::audit_data::Method::UpdateService(v.into()));
-        self
-    }
-
     /// The value of [method][crate::model::AuditData::method]
     /// if it holds a `CreateVersion`, `None` if the field is not set or
     /// holds a different branch.
@@ -4078,22 +4016,6 @@ impl AuditData {
             crate::model::audit_data::Method::CreateVersion(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [method][crate::model::AuditData::method]
-    /// to hold a `CreateVersion`.
-    ///
-    /// Note that all the setters affecting `method` are
-    /// mutually exclusive.
-    pub fn set_create_version<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateVersionMethod>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method =
-            std::option::Option::Some(crate::model::audit_data::Method::CreateVersion(v.into()));
-        self
     }
 }
 
@@ -6458,23 +6380,6 @@ impl OperationMetadataV1 {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [method_metadata][crate::model::OperationMetadataV1::method_metadata]
-    /// to hold a `CreateVersionMetadata`.
-    ///
-    /// Note that all the setters affecting `method_metadata` are
-    /// mutually exclusive.
-    pub fn set_create_version_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateVersionMetadataV1>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method_metadata = std::option::Option::Some(
-            crate::model::operation_metadata_v_1::MethodMetadata::CreateVersionMetadata(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for OperationMetadataV1 {
@@ -7448,22 +7353,6 @@ impl Version {
         })
     }
 
-    /// Sets the value of [scaling][crate::model::Version::scaling]
-    /// to hold a `AutomaticScaling`.
-    ///
-    /// Note that all the setters affecting `scaling` are
-    /// mutually exclusive.
-    pub fn set_automatic_scaling<
-        T: std::convert::Into<std::boxed::Box<crate::model::AutomaticScaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scaling =
-            std::option::Option::Some(crate::model::version::Scaling::AutomaticScaling(v.into()));
-        self
-    }
-
     /// The value of [scaling][crate::model::Version::scaling]
     /// if it holds a `BasicScaling`, `None` if the field is not set or
     /// holds a different branch.
@@ -7477,20 +7366,6 @@ impl Version {
         })
     }
 
-    /// Sets the value of [scaling][crate::model::Version::scaling]
-    /// to hold a `BasicScaling`.
-    ///
-    /// Note that all the setters affecting `scaling` are
-    /// mutually exclusive.
-    pub fn set_basic_scaling<T: std::convert::Into<std::boxed::Box<crate::model::BasicScaling>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scaling =
-            std::option::Option::Some(crate::model::version::Scaling::BasicScaling(v.into()));
-        self
-    }
-
     /// The value of [scaling][crate::model::Version::scaling]
     /// if it holds a `ManualScaling`, `None` if the field is not set or
     /// holds a different branch.
@@ -7502,22 +7377,6 @@ impl Version {
             crate::model::version::Scaling::ManualScaling(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [scaling][crate::model::Version::scaling]
-    /// to hold a `ManualScaling`.
-    ///
-    /// Note that all the setters affecting `scaling` are
-    /// mutually exclusive.
-    pub fn set_manual_scaling<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManualScaling>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scaling =
-            std::option::Option::Some(crate::model::version::Scaling::ManualScaling(v.into()));
-        self
     }
 }
 
@@ -8829,17 +8688,6 @@ impl Entrypoint {
             crate::model::entrypoint::Command::Shell(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [command][crate::model::Entrypoint::command]
-    /// to hold a `Shell`.
-    ///
-    /// Note that all the setters affecting `command` are
-    /// mutually exclusive.
-    pub fn set_shell<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.command =
-            std::option::Option::Some(crate::model::entrypoint::Command::Shell(v.into()));
-        self
     }
 }
 

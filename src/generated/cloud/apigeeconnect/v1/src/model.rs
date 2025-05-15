@@ -382,19 +382,6 @@ impl Payload {
         })
     }
 
-    /// Sets the value of [kind][crate::model::Payload::kind]
-    /// to hold a `HttpRequest`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::payload::Kind::HttpRequest(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::Payload::kind]
     /// if it holds a `StreamInfo`, `None` if the field is not set or
     /// holds a different branch.
@@ -406,19 +393,6 @@ impl Payload {
         })
     }
 
-    /// Sets the value of [kind][crate::model::Payload::kind]
-    /// to hold a `StreamInfo`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_stream_info<T: std::convert::Into<std::boxed::Box<crate::model::StreamInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::payload::Kind::StreamInfo(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::Payload::kind]
     /// if it holds a `Action`, `None` if the field is not set or
     /// holds a different branch.
@@ -428,16 +402,6 @@ impl Payload {
             crate::model::payload::Kind::Action(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::Payload::kind]
-    /// to hold a `Action`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_action<T: std::convert::Into<crate::model::Action>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::payload::Kind::Action(v.into()));
-        self
     }
 }
 

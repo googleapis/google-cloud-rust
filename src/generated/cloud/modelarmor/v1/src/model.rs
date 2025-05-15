@@ -1423,23 +1423,6 @@ impl SdpFilterSettings {
         })
     }
 
-    /// Sets the value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
-    /// to hold a `BasicConfig`.
-    ///
-    /// Note that all the setters affecting `sdp_configuration` are
-    /// mutually exclusive.
-    pub fn set_basic_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::SdpBasicConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sdp_configuration = std::option::Option::Some(
-            crate::model::sdp_filter_settings::SdpConfiguration::BasicConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
     /// if it holds a `AdvancedConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -1453,23 +1436,6 @@ impl SdpFilterSettings {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
-    /// to hold a `AdvancedConfig`.
-    ///
-    /// Note that all the setters affecting `sdp_configuration` are
-    /// mutually exclusive.
-    pub fn set_advanced_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::SdpAdvancedConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sdp_configuration = std::option::Option::Some(
-            crate::model::sdp_filter_settings::SdpConfiguration::AdvancedConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -2137,23 +2103,6 @@ impl FilterResult {
         })
     }
 
-    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `RaiFilterResult`.
-    ///
-    /// Note that all the setters affecting `filter_result` are
-    /// mutually exclusive.
-    pub fn set_rai_filter_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::RaiFilterResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::RaiFilterResult(v.into()),
-        );
-        self
-    }
-
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `SdpFilterResult`, `None` if the field is not set or
     /// holds a different branch.
@@ -2167,23 +2116,6 @@ impl FilterResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `SdpFilterResult`.
-    ///
-    /// Note that all the setters affecting `filter_result` are
-    /// mutually exclusive.
-    pub fn set_sdp_filter_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::SdpFilterResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::SdpFilterResult(v.into()),
-        );
-        self
     }
 
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
@@ -2201,23 +2133,6 @@ impl FilterResult {
         })
     }
 
-    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `PiAndJailbreakFilterResult`.
-    ///
-    /// Note that all the setters affecting `filter_result` are
-    /// mutually exclusive.
-    pub fn set_pi_and_jailbreak_filter_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::PiAndJailbreakFilterResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::PiAndJailbreakFilterResult(v.into()),
-        );
-        self
-    }
-
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `MaliciousUriFilterResult`, `None` if the field is not set or
     /// holds a different branch.
@@ -2231,23 +2146,6 @@ impl FilterResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `MaliciousUriFilterResult`.
-    ///
-    /// Note that all the setters affecting `filter_result` are
-    /// mutually exclusive.
-    pub fn set_malicious_uri_filter_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::MaliciousUriFilterResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::MaliciousUriFilterResult(v.into()),
-        );
-        self
     }
 
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
@@ -2265,23 +2163,6 @@ impl FilterResult {
         })
     }
 
-    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `CsamFilterFilterResult`.
-    ///
-    /// Note that all the setters affecting `filter_result` are
-    /// mutually exclusive.
-    pub fn set_csam_filter_filter_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::CsamFilterResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v.into()),
-        );
-        self
-    }
-
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `VirusScanFilterResult`, `None` if the field is not set or
     /// holds a different branch.
@@ -2295,23 +2176,6 @@ impl FilterResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `VirusScanFilterResult`.
-    ///
-    /// Note that all the setters affecting `filter_result` are
-    /// mutually exclusive.
-    pub fn set_virus_scan_filter_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::VirusScanFilterResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::VirusScanFilterResult(v.into()),
-        );
-        self
     }
 }
 
@@ -2550,23 +2414,6 @@ impl SdpFilterResult {
         })
     }
 
-    /// Sets the value of [result][crate::model::SdpFilterResult::result]
-    /// to hold a `InspectResult`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_inspect_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::SdpInspectResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::sdp_filter_result::Result::InspectResult(v.into()),
-        );
-        self
-    }
-
     /// The value of [result][crate::model::SdpFilterResult::result]
     /// if it holds a `DeidentifyResult`, `None` if the field is not set or
     /// holds a different branch.
@@ -2580,23 +2427,6 @@ impl SdpFilterResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::SdpFilterResult::result]
-    /// to hold a `DeidentifyResult`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_deidentify_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::SdpDeidentifyResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::sdp_filter_result::Result::DeidentifyResult(v.into()),
-        );
-        self
     }
 }
 
@@ -2765,17 +2595,6 @@ impl DataItem {
         })
     }
 
-    /// Sets the value of [data_item][crate::model::DataItem::data_item]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `data_item` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.data_item =
-            std::option::Option::Some(crate::model::data_item::DataItem::Text(v.into()));
-        self
-    }
-
     /// The value of [data_item][crate::model::DataItem::data_item]
     /// if it holds a `ByteItem`, `None` if the field is not set or
     /// holds a different branch.
@@ -2785,20 +2604,6 @@ impl DataItem {
             crate::model::data_item::DataItem::ByteItem(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_item][crate::model::DataItem::data_item]
-    /// to hold a `ByteItem`.
-    ///
-    /// Note that all the setters affecting `data_item` are
-    /// mutually exclusive.
-    pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteDataItem>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_item =
-            std::option::Option::Some(crate::model::data_item::DataItem::ByteItem(v.into()));
-        self
     }
 }
 

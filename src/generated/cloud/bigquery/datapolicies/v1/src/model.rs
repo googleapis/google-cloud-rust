@@ -466,18 +466,6 @@ impl DataPolicy {
         })
     }
 
-    /// Sets the value of [matching_label][crate::model::DataPolicy::matching_label]
-    /// to hold a `PolicyTag`.
-    ///
-    /// Note that all the setters affecting `matching_label` are
-    /// mutually exclusive.
-    pub fn set_policy_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.matching_label = std::option::Option::Some(
-            crate::model::data_policy::MatchingLabel::PolicyTag(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [policy][crate::model::DataPolicy::policy].
     ///
     /// Note that all the setters affecting `policy` are mutually
@@ -503,23 +491,6 @@ impl DataPolicy {
             crate::model::data_policy::Policy::DataMaskingPolicy(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [policy][crate::model::DataPolicy::policy]
-    /// to hold a `DataMaskingPolicy`.
-    ///
-    /// Note that all the setters affecting `policy` are
-    /// mutually exclusive.
-    pub fn set_data_masking_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::DataMaskingPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = std::option::Option::Some(
-            crate::model::data_policy::Policy::DataMaskingPolicy(v.into()),
-        );
-        self
     }
 }
 
@@ -742,23 +713,6 @@ impl DataMaskingPolicy {
         })
     }
 
-    /// Sets the value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
-    /// to hold a `PredefinedExpression`.
-    ///
-    /// Note that all the setters affecting `masking_expression` are
-    /// mutually exclusive.
-    pub fn set_predefined_expression<
-        T: std::convert::Into<crate::model::data_masking_policy::PredefinedExpression>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.masking_expression = std::option::Option::Some(
-            crate::model::data_masking_policy::MaskingExpression::PredefinedExpression(v.into()),
-        );
-        self
-    }
-
     /// The value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
     /// if it holds a `Routine`, `None` if the field is not set or
     /// holds a different branch.
@@ -770,18 +724,6 @@ impl DataMaskingPolicy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
-    /// to hold a `Routine`.
-    ///
-    /// Note that all the setters affecting `masking_expression` are
-    /// mutually exclusive.
-    pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.masking_expression = std::option::Option::Some(
-            crate::model::data_masking_policy::MaskingExpression::Routine(v.into()),
-        );
-        self
     }
 }
 

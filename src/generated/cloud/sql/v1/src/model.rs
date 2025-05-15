@@ -3367,25 +3367,6 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config]
-    /// to hold a `MysqlSyncConfig`.
-    ///
-    /// Note that all the setters affecting `sync_config` are
-    /// mutually exclusive.
-    pub fn set_mysql_sync_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sync_config = std::option::Option::Some(
-            crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig::MysqlSyncConfig(
-                v.into()
-            )
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for SqlInstancesVerifyExternalSyncSettingsRequest {
@@ -3803,25 +3784,6 @@ impl SqlInstancesStartExternalSyncRequest {
             crate::model::sql_instances_start_external_sync_request::SyncConfig::MysqlSyncConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config]
-    /// to hold a `MysqlSyncConfig`.
-    ///
-    /// Note that all the setters affecting `sync_config` are
-    /// mutually exclusive.
-    pub fn set_mysql_sync_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sync_config = std::option::Option::Some(
-            crate::model::sql_instances_start_external_sync_request::SyncConfig::MysqlSyncConfig(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -9233,23 +9195,6 @@ impl Database {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [database_details][crate::model::Database::database_details]
-    /// to hold a `SqlserverDatabaseDetails`.
-    ///
-    /// Note that all the setters affecting `database_details` are
-    /// mutually exclusive.
-    pub fn set_sqlserver_database_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerDatabaseDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.database_details = std::option::Option::Some(
-            crate::model::database::DatabaseDetails::SqlserverDatabaseDetails(v.into()),
-        );
-        self
     }
 }
 
@@ -15590,23 +15535,6 @@ impl User {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [user_details][crate::model::User::user_details]
-    /// to hold a `SqlserverUserDetails`.
-    ///
-    /// Note that all the setters affecting `user_details` are
-    /// mutually exclusive.
-    pub fn set_sqlserver_user_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerUserDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_details = std::option::Option::Some(
-            crate::model::user::UserDetails::SqlserverUserDetails(v.into()),
-        );
-        self
     }
 }
 

@@ -1035,18 +1035,6 @@ impl EndpointVerificationInfo {
         })
     }
 
-    /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
-    /// to hold a `EmailAddress`.
-    ///
-    /// Note that all the setters affecting `endpoint` are
-    /// mutually exclusive.
-    pub fn set_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.endpoint = std::option::Option::Some(
-            crate::model::endpoint_verification_info::Endpoint::EmailAddress(v.into()),
-        );
-        self
-    }
-
     /// The value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
     /// if it holds a `PhoneNumber`, `None` if the field is not set or
     /// holds a different branch.
@@ -1058,18 +1046,6 @@ impl EndpointVerificationInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
-    /// to hold a `PhoneNumber`.
-    ///
-    /// Note that all the setters affecting `endpoint` are
-    /// mutually exclusive.
-    pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.endpoint = std::option::Option::Some(
-            crate::model::endpoint_verification_info::Endpoint::PhoneNumber(v.into()),
-        );
-        self
     }
 }
 
@@ -2678,16 +2654,6 @@ impl UserId {
         })
     }
 
-    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
-    /// to hold a `Email`.
-    ///
-    /// Note that all the setters affecting `id_oneof` are
-    /// mutually exclusive.
-    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof = std::option::Option::Some(crate::model::user_id::IdOneof::Email(v.into()));
-        self
-    }
-
     /// The value of [id_oneof][crate::model::UserId::id_oneof]
     /// if it holds a `PhoneNumber`, `None` if the field is not set or
     /// holds a different branch.
@@ -2699,17 +2665,6 @@ impl UserId {
         })
     }
 
-    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
-    /// to hold a `PhoneNumber`.
-    ///
-    /// Note that all the setters affecting `id_oneof` are
-    /// mutually exclusive.
-    pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof =
-            std::option::Option::Some(crate::model::user_id::IdOneof::PhoneNumber(v.into()));
-        self
-    }
-
     /// The value of [id_oneof][crate::model::UserId::id_oneof]
     /// if it holds a `Username`, `None` if the field is not set or
     /// holds a different branch.
@@ -2719,17 +2674,6 @@ impl UserId {
             crate::model::user_id::IdOneof::Username(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof]
-    /// to hold a `Username`.
-    ///
-    /// Note that all the setters affecting `id_oneof` are
-    /// mutually exclusive.
-    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.id_oneof =
-            std::option::Option::Some(crate::model::user_id::IdOneof::Username(v.into()));
-        self
     }
 }
 
@@ -5343,22 +5287,6 @@ impl Key {
         })
     }
 
-    /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
-    /// to hold a `WebSettings`.
-    ///
-    /// Note that all the setters affecting `platform_settings` are
-    /// mutually exclusive.
-    pub fn set_web_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::WebKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_settings =
-            std::option::Option::Some(crate::model::key::PlatformSettings::WebSettings(v.into()));
-        self
-    }
-
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `AndroidSettings`, `None` if the field is not set or
     /// holds a different branch.
@@ -5370,23 +5298,6 @@ impl Key {
             crate::model::key::PlatformSettings::AndroidSettings(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
-    /// to hold a `AndroidSettings`.
-    ///
-    /// Note that all the setters affecting `platform_settings` are
-    /// mutually exclusive.
-    pub fn set_android_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::AndroidKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_settings = std::option::Option::Some(
-            crate::model::key::PlatformSettings::AndroidSettings(v.into()),
-        );
-        self
     }
 
     /// The value of [platform_settings][crate::model::Key::platform_settings]
@@ -5402,22 +5313,6 @@ impl Key {
         })
     }
 
-    /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
-    /// to hold a `IosSettings`.
-    ///
-    /// Note that all the setters affecting `platform_settings` are
-    /// mutually exclusive.
-    pub fn set_ios_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::IOSKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_settings =
-            std::option::Option::Some(crate::model::key::PlatformSettings::IosSettings(v.into()));
-        self
-    }
-
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `ExpressSettings`, `None` if the field is not set or
     /// holds a different branch.
@@ -5429,23 +5324,6 @@ impl Key {
             crate::model::key::PlatformSettings::ExpressSettings(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [platform_settings][crate::model::Key::platform_settings]
-    /// to hold a `ExpressSettings`.
-    ///
-    /// Note that all the setters affecting `platform_settings` are
-    /// mutually exclusive.
-    pub fn set_express_settings<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExpressKeySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_settings = std::option::Option::Some(
-            crate::model::key::PlatformSettings::ExpressSettings(v.into()),
-        );
-        self
     }
 }
 
@@ -6527,23 +6405,6 @@ impl FirewallAction {
         })
     }
 
-    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// to hold a `Allow`.
-    ///
-    /// Note that all the setters affecting `firewall_action_oneof` are
-    /// mutually exclusive.
-    pub fn set_allow<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::AllowAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Allow(v.into()),
-        );
-        self
-    }
-
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Block`, `None` if the field is not set or
     /// holds a different branch.
@@ -6557,23 +6418,6 @@ impl FirewallAction {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// to hold a `Block`.
-    ///
-    /// Note that all the setters affecting `firewall_action_oneof` are
-    /// mutually exclusive.
-    pub fn set_block<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::BlockAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Block(v.into()),
-        );
-        self
     }
 
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
@@ -6593,25 +6437,6 @@ impl FirewallAction {
         })
     }
 
-    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// to hold a `IncludeRecaptchaScript`.
-    ///
-    /// Note that all the setters affecting `firewall_action_oneof` are
-    /// mutually exclusive.
-    pub fn set_include_recaptcha_script<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::IncludeRecaptchaScript(v.into()),
-        );
-        self
-    }
-
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Redirect`, `None` if the field is not set or
     /// holds a different branch.
@@ -6625,23 +6450,6 @@ impl FirewallAction {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// to hold a `Redirect`.
-    ///
-    /// Note that all the setters affecting `firewall_action_oneof` are
-    /// mutually exclusive.
-    pub fn set_redirect<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::RedirectAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Redirect(v.into()),
-        );
-        self
     }
 
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
@@ -6660,23 +6468,6 @@ impl FirewallAction {
         })
     }
 
-    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// to hold a `Substitute`.
-    ///
-    /// Note that all the setters affecting `firewall_action_oneof` are
-    /// mutually exclusive.
-    pub fn set_substitute<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SubstituteAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::Substitute(v.into()),
-        );
-        self
-    }
-
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `SetHeader`, `None` if the field is not set or
     /// holds a different branch.
@@ -6690,23 +6481,6 @@ impl FirewallAction {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
-    /// to hold a `SetHeader`.
-    ///
-    /// Note that all the setters affecting `firewall_action_oneof` are
-    /// mutually exclusive.
-    pub fn set_set_header<
-        T: std::convert::Into<std::boxed::Box<crate::model::firewall_action::SetHeaderAction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.firewall_action_oneof = std::option::Option::Some(
-            crate::model::firewall_action::FirewallActionOneof::SetHeader(v.into()),
-        );
-        self
     }
 }
 

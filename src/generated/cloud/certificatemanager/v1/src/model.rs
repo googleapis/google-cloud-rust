@@ -508,20 +508,6 @@ pub mod certificate_issuance_config {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [kind][crate::model::certificate_issuance_config::CertificateAuthorityConfig::kind]
-        /// to hold a `CertificateAuthorityServiceConfig`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_certificate_authority_service_config<T: std::convert::Into<std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>>(mut self, v: T) -> Self{
-            self.kind = std::option::Option::Some(
-                crate::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(
-                    v.into()
-                )
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for CertificateAuthorityConfig {
@@ -2314,22 +2300,6 @@ impl Certificate {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::Certificate::r#type]
-    /// to hold a `SelfManaged`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_self_managed<
-        T: std::convert::Into<std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::certificate::Type::SelfManaged(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::Certificate::r#type]
     /// if it holds a `Managed`, `None` if the field is not set or
     /// holds a different branch.
@@ -2341,21 +2311,6 @@ impl Certificate {
             crate::model::certificate::Type::Managed(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Certificate::r#type]
-    /// to hold a `Managed`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_managed<
-        T: std::convert::Into<std::boxed::Box<crate::model::certificate::ManagedCertificate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::certificate::Type::Managed(v.into()));
-        self
     }
 }
 
@@ -3585,21 +3540,6 @@ pub mod certificate_map {
             })
         }
 
-        /// Sets the value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
-        /// to hold a `TargetHttpsProxy`.
-        ///
-        /// Note that all the setters affecting `target_proxy` are
-        /// mutually exclusive.
-        pub fn set_target_https_proxy<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.target_proxy = std::option::Option::Some(
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(v.into()),
-            );
-            self
-        }
-
         /// The value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
         /// if it holds a `TargetSslProxy`, `None` if the field is not set or
         /// holds a different branch.
@@ -3611,21 +3551,6 @@ pub mod certificate_map {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
-        /// to hold a `TargetSslProxy`.
-        ///
-        /// Note that all the setters affecting `target_proxy` are
-        /// mutually exclusive.
-        pub fn set_target_ssl_proxy<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.target_proxy = std::option::Option::Some(
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v.into()),
-            );
-            self
         }
     }
 
@@ -3841,18 +3766,6 @@ impl CertificateMapEntry {
         })
     }
 
-    /// Sets the value of [r#match][crate::model::CertificateMapEntry::r#match]
-    /// to hold a `Hostname`.
-    ///
-    /// Note that all the setters affecting `r#match` are
-    /// mutually exclusive.
-    pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#match = std::option::Option::Some(
-            crate::model::certificate_map_entry::Match::Hostname(v.into()),
-        );
-        self
-    }
-
     /// The value of [r#match][crate::model::CertificateMapEntry::r#match]
     /// if it holds a `Matcher`, `None` if the field is not set or
     /// holds a different branch.
@@ -3862,21 +3775,6 @@ impl CertificateMapEntry {
             crate::model::certificate_map_entry::Match::Matcher(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#match][crate::model::CertificateMapEntry::r#match]
-    /// to hold a `Matcher`.
-    ///
-    /// Note that all the setters affecting `r#match` are
-    /// mutually exclusive.
-    pub fn set_matcher<T: std::convert::Into<crate::model::certificate_map_entry::Matcher>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#match = std::option::Option::Some(
-            crate::model::certificate_map_entry::Match::Matcher(v.into()),
-        );
-        self
     }
 }
 
@@ -4873,21 +4771,6 @@ pub mod trust_config {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [kind][crate::model::trust_config::TrustAnchor::kind]
-        /// to hold a `PemCertificate`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::trust_config::trust_anchor::Kind::PemCertificate(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for TrustAnchor {
@@ -4958,21 +4841,6 @@ pub mod trust_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::trust_config::IntermediateCA::kind]
-        /// to hold a `PemCertificate`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::trust_config::intermediate_ca::Kind::PemCertificate(v.into()),
-            );
-            self
         }
     }
 

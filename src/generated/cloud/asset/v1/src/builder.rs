@@ -1452,29 +1452,6 @@ pub mod asset_service {
             self
         }
 
-        /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
-        /// to hold a `Statement`.
-        ///
-        /// Note that all the setters affecting `query` are
-        /// mutually exclusive.
-        pub fn set_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_statement(v);
-            self
-        }
-
-        /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
-        /// to hold a `JobReference`.
-        ///
-        /// Note that all the setters affecting `query` are
-        /// mutually exclusive.
-        pub fn set_job_reference<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_job_reference(v);
-            self
-        }
-
         /// Sets the value of [time][crate::model::QueryAssetsRequest::time].
         ///
         /// Note that all the setters affecting `time` are
@@ -1484,34 +1461,6 @@ pub mod asset_service {
             v: T,
         ) -> Self {
             self.0.request.time = v.into();
-            self
-        }
-
-        /// Sets the value of [time][crate::model::QueryAssetsRequest::time]
-        /// to hold a `ReadTimeWindow`.
-        ///
-        /// Note that all the setters affecting `time` are
-        /// mutually exclusive.
-        pub fn set_read_time_window<
-            T: std::convert::Into<std::boxed::Box<crate::model::TimeWindow>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_read_time_window(v);
-            self
-        }
-
-        /// Sets the value of [time][crate::model::QueryAssetsRequest::time]
-        /// to hold a `ReadTime`.
-        ///
-        /// Note that all the setters affecting `time` are
-        /// mutually exclusive.
-        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_read_time(v);
             self
         }
     }

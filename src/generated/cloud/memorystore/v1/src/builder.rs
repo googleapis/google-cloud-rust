@@ -1342,16 +1342,6 @@ pub mod memorystore {
             self.0.request.destination = v.into();
             self
         }
-
-        /// Sets the value of [destination][crate::model::ExportBackupRequest::destination]
-        /// to hold a `GcsBucket`.
-        ///
-        /// Note that all the setters affecting `destination` are
-        /// mutually exclusive.
-        pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_gcs_bucket(v);
-            self
-        }
     }
 
     #[doc(hidden)]

@@ -1207,18 +1207,6 @@ pub mod threat_info {
             })
         }
 
-        /// Sets the value of [value][crate::model::threat_info::Confidence::value]
-        /// to hold a `Score`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::threat_info::confidence::Value::Score(v.into()),
-            );
-            self
-        }
-
         /// The value of [value][crate::model::threat_info::Confidence::value]
         /// if it holds a `Level`, `None` if the field is not set or
         /// holds a different branch.
@@ -1232,23 +1220,6 @@ pub mod threat_info {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::threat_info::Confidence::value]
-        /// to hold a `Level`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_level<
-            T: std::convert::Into<crate::model::threat_info::confidence::ConfidenceLevel>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::threat_info::confidence::Value::Level(v.into()),
-            );
-            self
         }
     }
 

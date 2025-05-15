@@ -465,17 +465,6 @@ impl Backup {
         })
     }
 
-    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
-    /// to hold a `AllNamespaces`.
-    ///
-    /// Note that all the setters affecting `backup_scope` are
-    /// mutually exclusive.
-    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.backup_scope =
-            std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
-        self
-    }
-
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -491,23 +480,6 @@ impl Backup {
         })
     }
 
-    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
-    /// to hold a `SelectedNamespaces`.
-    ///
-    /// Note that all the setters affecting `backup_scope` are
-    /// mutually exclusive.
-    pub fn set_selected_namespaces<
-        T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_scope = std::option::Option::Some(
-            crate::model::backup::BackupScope::SelectedNamespaces(v.into()),
-        );
-        self
-    }
-
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedApplications`, `None` if the field is not set or
     /// holds a different branch.
@@ -521,23 +493,6 @@ impl Backup {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope]
-    /// to hold a `SelectedApplications`.
-    ///
-    /// Note that all the setters affecting `backup_scope` are
-    /// mutually exclusive.
-    pub fn set_selected_applications<
-        T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_scope = std::option::Option::Some(
-            crate::model::backup::BackupScope::SelectedApplications(v.into()),
-        );
-        self
     }
 }
 
@@ -649,18 +604,6 @@ pub mod backup {
             })
         }
 
-        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
-        /// to hold a `GkeVersion`.
-        ///
-        /// Note that all the setters affecting `platform_version` are
-        /// mutually exclusive.
-        pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.platform_version = std::option::Option::Some(
-                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
-            );
-            self
-        }
-
         /// The value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
         /// if it holds a `AnthosVersion`, `None` if the field is not set or
         /// holds a different branch.
@@ -672,21 +615,6 @@ pub mod backup {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
-        /// to hold a `AnthosVersion`.
-        ///
-        /// Note that all the setters affecting `platform_version` are
-        /// mutually exclusive.
-        pub fn set_anthos_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.platform_version = std::option::Option::Some(
-                crate::model::backup::cluster_metadata::PlatformVersion::AnthosVersion(v.into()),
-            );
-            self
         }
     }
 
@@ -1618,18 +1546,6 @@ pub mod backup_plan {
             })
         }
 
-        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// to hold a `AllNamespaces`.
-        ///
-        /// Note that all the setters affecting `backup_scope` are
-        /// mutually exclusive.
-        pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
-            );
-            self
-        }
-
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
         /// holds a different branch.
@@ -1645,23 +1561,6 @@ pub mod backup_plan {
             })
         }
 
-        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// to hold a `SelectedNamespaces`.
-        ///
-        /// Note that all the setters affecting `backup_scope` are
-        /// mutually exclusive.
-        pub fn set_selected_namespaces<
-            T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(v.into()),
-            );
-            self
-        }
-
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedApplications`, `None` if the field is not set or
         /// holds a different branch.
@@ -1675,25 +1574,6 @@ pub mod backup_plan {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
-        /// to hold a `SelectedApplications`.
-        ///
-        /// Note that all the setters affecting `backup_scope` are
-        /// mutually exclusive.
-        pub fn set_selected_applications<
-            T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -2034,23 +1914,6 @@ impl ExclusionWindow {
         })
     }
 
-    /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// to hold a `SingleOccurrenceDate`.
-    ///
-    /// Note that all the setters affecting `recurrence` are
-    /// mutually exclusive.
-    pub fn set_single_occurrence_date<
-        T: std::convert::Into<std::boxed::Box<gtype::model::Date>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recurrence = std::option::Option::Some(
-            crate::model::exclusion_window::Recurrence::SingleOccurrenceDate(v.into()),
-        );
-        self
-    }
-
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// if it holds a `Daily`, `None` if the field is not set or
     /// holds a different branch.
@@ -2060,17 +1923,6 @@ impl ExclusionWindow {
             crate::model::exclusion_window::Recurrence::Daily(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// to hold a `Daily`.
-    ///
-    /// Note that all the setters affecting `recurrence` are
-    /// mutually exclusive.
-    pub fn set_daily<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.recurrence =
-            std::option::Option::Some(crate::model::exclusion_window::Recurrence::Daily(v.into()));
-        self
     }
 
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
@@ -2086,23 +1938,6 @@ impl ExclusionWindow {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence]
-    /// to hold a `DaysOfWeek`.
-    ///
-    /// Note that all the setters affecting `recurrence` are
-    /// mutually exclusive.
-    pub fn set_days_of_week<
-        T: std::convert::Into<std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recurrence = std::option::Option::Some(
-            crate::model::exclusion_window::Recurrence::DaysOfWeek(v.into()),
-        );
-        self
     }
 }
 
@@ -6864,18 +6699,6 @@ impl RestoreConfig {
             })
     }
 
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `AllNamespaces`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
-        );
-        self
-    }
-
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -6889,25 +6712,6 @@ impl RestoreConfig {
         })
     }
 
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `SelectedNamespaces`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_selected_namespaces<
-        T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::SelectedNamespaces(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedApplications`, `None` if the field is not set or
     /// holds a different branch.
@@ -6919,25 +6723,6 @@ impl RestoreConfig {
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `SelectedApplications`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_selected_applications<
-        T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(
-                v.into(),
-            ),
-        );
-        self
     }
 
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -6955,18 +6740,6 @@ impl RestoreConfig {
             })
     }
 
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `NoNamespaces`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_no_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v.into()),
-        );
-        self
-    }
-
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
@@ -6978,25 +6751,6 @@ impl RestoreConfig {
             crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
-    /// to hold a `ExcludedNamespaces`.
-    ///
-    /// Note that all the setters affecting `namespaced_resource_restore_scope` are
-    /// mutually exclusive.
-    pub fn set_excluded_namespaces<
-        T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -7745,25 +7499,6 @@ pub mod restore_config {
                 crate::model::restore_config::volume_data_restore_policy_binding::Scope::VolumeType(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [scope][crate::model::restore_config::VolumeDataRestorePolicyBinding::scope]
-        /// to hold a `VolumeType`.
-        ///
-        /// Note that all the setters affecting `scope` are
-        /// mutually exclusive.
-        pub fn set_volume_type<
-            T: std::convert::Into<crate::model::volume_type_enum::VolumeType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.scope = std::option::Option::Some(
-                crate::model::restore_config::volume_data_restore_policy_binding::Scope::VolumeType(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -8570,23 +8305,6 @@ impl VolumeDataRestorePolicyOverride {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [scope][crate::model::VolumeDataRestorePolicyOverride::scope]
-    /// to hold a `SelectedPvcs`.
-    ///
-    /// Note that all the setters affecting `scope` are
-    /// mutually exclusive.
-    pub fn set_selected_pvcs<
-        T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scope = std::option::Option::Some(
-            crate::model::volume_data_restore_policy_override::Scope::SelectedPvcs(v.into()),
-        );
-        self
     }
 }
 

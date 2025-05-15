@@ -172,23 +172,6 @@ impl RestoreFromCloudSQLRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::RestoreFromCloudSQLRequest::source]
-    /// to hold a `CloudsqlBackupRunSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_cloudsql_backup_run_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_from_cloud_sql_request::Source::CloudsqlBackupRunSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for RestoreFromCloudSQLRequest {
@@ -1345,23 +1328,6 @@ impl AutomatedBackupPolicy {
         })
     }
 
-    /// Sets the value of [schedule][crate::model::AutomatedBackupPolicy::schedule]
-    /// to hold a `WeeklySchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_weekly_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::automated_backup_policy::WeeklySchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::automated_backup_policy::Schedule::WeeklySchedule(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention].
     ///
     /// Note that all the setters affecting `retention` are mutually
@@ -1393,25 +1359,6 @@ impl AutomatedBackupPolicy {
         })
     }
 
-    /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention]
-    /// to hold a `TimeBasedRetention`.
-    ///
-    /// Note that all the setters affecting `retention` are
-    /// mutually exclusive.
-    pub fn set_time_based_retention<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::automated_backup_policy::TimeBasedRetention>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retention = std::option::Option::Some(
-            crate::model::automated_backup_policy::Retention::TimeBasedRetention(v.into()),
-        );
-        self
-    }
-
     /// The value of [retention][crate::model::AutomatedBackupPolicy::retention]
     /// if it holds a `QuantityBasedRetention`, `None` if the field is not set or
     /// holds a different branch.
@@ -1427,25 +1374,6 @@ impl AutomatedBackupPolicy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention]
-    /// to hold a `QuantityBasedRetention`.
-    ///
-    /// Note that all the setters affecting `retention` are
-    /// mutually exclusive.
-    pub fn set_quantity_based_retention<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.retention = std::option::Option::Some(
-            crate::model::automated_backup_policy::Retention::QuantityBasedRetention(v.into()),
-        );
-        self
     }
 }
 
@@ -2508,20 +2436,6 @@ impl Cluster {
         })
     }
 
-    /// Sets the value of [source][crate::model::Cluster::source]
-    /// to hold a `BackupSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::cluster::Source::BackupSource(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Cluster::source]
     /// if it holds a `MigrationSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -2533,22 +2447,6 @@ impl Cluster {
             crate::model::cluster::Source::MigrationSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Cluster::source]
-    /// to hold a `MigrationSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_migration_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::MigrationSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::cluster::Source::MigrationSource(v.into()));
-        self
     }
 
     /// The value of [source][crate::model::Cluster::source]
@@ -2564,23 +2462,6 @@ impl Cluster {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Cluster::source]
-    /// to hold a `CloudsqlBackupRunSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_cloudsql_backup_run_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLBackupRunSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::cluster::Source::CloudsqlBackupRunSource(v.into()),
-        );
-        self
     }
 }
 
@@ -5739,25 +5620,6 @@ impl SupportedDatabaseFlag {
         })
     }
 
-    /// Sets the value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
-    /// to hold a `StringRestrictions`.
-    ///
-    /// Note that all the setters affecting `restrictions` are
-    /// mutually exclusive.
-    pub fn set_string_restrictions<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::supported_database_flag::StringRestrictions>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restrictions = std::option::Option::Some(
-            crate::model::supported_database_flag::Restrictions::StringRestrictions(v.into()),
-        );
-        self
-    }
-
     /// The value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
     /// if it holds a `IntegerRestrictions`, `None` if the field is not set or
     /// holds a different branch.
@@ -5773,25 +5635,6 @@ impl SupportedDatabaseFlag {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
-    /// to hold a `IntegerRestrictions`.
-    ///
-    /// Note that all the setters affecting `restrictions` are
-    /// mutually exclusive.
-    pub fn set_integer_restrictions<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.restrictions = std::option::Option::Some(
-            crate::model::supported_database_flag::Restrictions::IntegerRestrictions(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value].
@@ -5823,23 +5666,6 @@ impl SupportedDatabaseFlag {
         })
     }
 
-    /// Sets the value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
-    /// to hold a `RecommendedStringValue`.
-    ///
-    /// Note that all the setters affecting `recommended_value` are
-    /// mutually exclusive.
-    pub fn set_recommended_string_value<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recommended_value = std::option::Option::Some(
-            crate::model::supported_database_flag::RecommendedValue::RecommendedStringValue(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
     /// if it holds a `RecommendedIntegerValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -5853,25 +5679,6 @@ impl SupportedDatabaseFlag {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [recommended_value][crate::model::SupportedDatabaseFlag::recommended_value]
-    /// to hold a `RecommendedIntegerValue`.
-    ///
-    /// Note that all the setters affecting `recommended_value` are
-    /// mutually exclusive.
-    pub fn set_recommended_integer_value<
-        T: std::convert::Into<std::boxed::Box<wkt::Int64Value>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recommended_value = std::option::Option::Some(
-            crate::model::supported_database_flag::RecommendedValue::RecommendedIntegerValue(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -7143,23 +6950,6 @@ impl ExportClusterRequest {
         })
     }
 
-    /// Sets the value of [destination][crate::model::ExportClusterRequest::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_cluster_request::Destination::GcsDestination(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options].
     ///
     /// Note that all the setters affecting `export_options` are mutually
@@ -7192,23 +6982,6 @@ impl ExportClusterRequest {
         })
     }
 
-    /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options]
-    /// to hold a `CsvExportOptions`.
-    ///
-    /// Note that all the setters affecting `export_options` are
-    /// mutually exclusive.
-    pub fn set_csv_export_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::CsvExportOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.export_options = std::option::Option::Some(
-            crate::model::export_cluster_request::ExportOptions::CsvExportOptions(v.into()),
-        );
-        self
-    }
-
     /// The value of [export_options][crate::model::ExportClusterRequest::export_options]
     /// if it holds a `SqlExportOptions`, `None` if the field is not set or
     /// holds a different branch.
@@ -7223,23 +6996,6 @@ impl ExportClusterRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [export_options][crate::model::ExportClusterRequest::export_options]
-    /// to hold a `SqlExportOptions`.
-    ///
-    /// Note that all the setters affecting `export_options` are
-    /// mutually exclusive.
-    pub fn set_sql_export_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::export_cluster_request::SqlExportOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.export_options = std::option::Option::Some(
-            crate::model::export_cluster_request::ExportOptions::SqlExportOptions(v.into()),
-        );
-        self
     }
 }
 
@@ -7485,23 +7241,6 @@ impl ExportClusterResponse {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [destination][crate::model::ExportClusterResponse::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_cluster_response::Destination::GcsDestination(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ExportClusterResponse {
@@ -7625,23 +7364,6 @@ impl ImportClusterRequest {
         })
     }
 
-    /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options]
-    /// to hold a `SqlImportOptions`.
-    ///
-    /// Note that all the setters affecting `import_options` are
-    /// mutually exclusive.
-    pub fn set_sql_import_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::SqlImportOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_options = std::option::Option::Some(
-            crate::model::import_cluster_request::ImportOptions::SqlImportOptions(v.into()),
-        );
-        self
-    }
-
     /// The value of [import_options][crate::model::ImportClusterRequest::import_options]
     /// if it holds a `CsvImportOptions`, `None` if the field is not set or
     /// holds a different branch.
@@ -7656,23 +7378,6 @@ impl ImportClusterRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [import_options][crate::model::ImportClusterRequest::import_options]
-    /// to hold a `CsvImportOptions`.
-    ///
-    /// Note that all the setters affecting `import_options` are
-    /// mutually exclusive.
-    pub fn set_csv_import_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::import_cluster_request::CsvImportOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_options = std::option::Option::Some(
-            crate::model::import_cluster_request::ImportOptions::CsvImportOptions(v.into()),
-        );
-        self
     }
 }
 
@@ -8917,21 +8622,6 @@ impl RestoreClusterRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
-    /// to hold a `BackupSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_backup_source<T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_cluster_request::Source::BackupSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::RestoreClusterRequest::source]
     /// if it holds a `ContinuousBackupSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -8945,23 +8635,6 @@ impl RestoreClusterRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
-    /// to hold a `ContinuousBackupSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_continuous_backup_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::ContinuousBackupSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::restore_cluster_request::Source::ContinuousBackupSource(v.into()),
-        );
-        self
     }
 }
 
@@ -10468,18 +10141,6 @@ impl ExecuteSqlRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential]
-    /// to hold a `Password`.
-    ///
-    /// Note that all the setters affecting `user_credential` are
-    /// mutually exclusive.
-    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.user_credential = std::option::Option::Some(
-            crate::model::execute_sql_request::UserCredential::Password(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ExecuteSqlRequest {
@@ -11692,25 +11353,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [request_specific][crate::model::OperationMetadata::request_specific]
-    /// to hold a `BatchCreateInstancesMetadata`.
-    ///
-    /// Note that all the setters affecting `request_specific` are
-    /// mutually exclusive.
-    pub fn set_batch_create_instances_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::BatchCreateInstancesMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request_specific = std::option::Option::Some(
-            crate::model::operation_metadata::RequestSpecific::BatchCreateInstancesMetadata(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [request_specific][crate::model::OperationMetadata::request_specific]
     /// if it holds a `UpgradeClusterStatus`, `None` if the field is not set or
     /// holds a different branch.
@@ -11724,23 +11366,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request_specific][crate::model::OperationMetadata::request_specific]
-    /// to hold a `UpgradeClusterStatus`.
-    ///
-    /// Note that all the setters affecting `request_specific` are
-    /// mutually exclusive.
-    pub fn set_upgrade_cluster_status<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpgradeClusterStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request_specific = std::option::Option::Some(
-            crate::model::operation_metadata::RequestSpecific::UpgradeClusterStatus(v.into()),
-        );
-        self
     }
 }
 
@@ -11934,29 +11559,6 @@ pub mod upgrade_cluster_status {
                 crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus::ReadPoolInstancesUpgrade(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [stage_specific_status][crate::model::upgrade_cluster_status::StageStatus::stage_specific_status]
-        /// to hold a `ReadPoolInstancesUpgrade`.
-        ///
-        /// Note that all the setters affecting `stage_specific_status` are
-        /// mutually exclusive.
-        pub fn set_read_pool_instances_upgrade<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::upgrade_cluster_status::ReadPoolInstancesUpgradeStageStatus,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.stage_specific_status = std::option::Option::Some(
-                crate::model::upgrade_cluster_status::stage_status::StageSpecificStatus::ReadPoolInstancesUpgrade(
-                    v.into()
-                )
-            );
-            self
         }
     }
 

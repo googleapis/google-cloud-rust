@@ -208,25 +208,6 @@ pub mod client_connector_service {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [ingress_config][crate::model::client_connector_service::Ingress::ingress_config]
-        /// to hold a `Config`.
-        ///
-        /// Note that all the setters affecting `ingress_config` are
-        /// mutually exclusive.
-        pub fn set_config<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ingress_config = std::option::Option::Some(
-                crate::model::client_connector_service::ingress::IngressConfig::Config(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for Ingress {
@@ -548,27 +529,6 @@ pub mod client_connector_service {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [destination_type][crate::model::client_connector_service::Egress::destination_type]
-        /// to hold a `PeeredVpc`.
-        ///
-        /// Note that all the setters affecting `destination_type` are
-        /// mutually exclusive.
-        pub fn set_peered_vpc<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.destination_type = std::option::Option::Some(
-                crate::model::client_connector_service::egress::DestinationType::PeeredVpc(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 

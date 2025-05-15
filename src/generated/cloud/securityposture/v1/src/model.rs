@@ -101,21 +101,6 @@ impl PolicyRule {
         })
     }
 
-    /// Sets the value of [kind][crate::model::PolicyRule::kind]
-    /// to hold a `Values`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy_rule::StringValues>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::Values(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::PolicyRule::kind]
     /// if it holds a `AllowAll`, `None` if the field is not set or
     /// holds a different branch.
@@ -125,16 +110,6 @@ impl PolicyRule {
             crate::model::policy_rule::Kind::AllowAll(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::PolicyRule::kind]
-    /// to hold a `AllowAll`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::AllowAll(v.into()));
-        self
     }
 
     /// The value of [kind][crate::model::PolicyRule::kind]
@@ -148,16 +123,6 @@ impl PolicyRule {
         })
     }
 
-    /// Sets the value of [kind][crate::model::PolicyRule::kind]
-    /// to hold a `DenyAll`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::DenyAll(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::PolicyRule::kind]
     /// if it holds a `Enforce`, `None` if the field is not set or
     /// holds a different branch.
@@ -167,16 +132,6 @@ impl PolicyRule {
             crate::model::policy_rule::Kind::Enforce(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::PolicyRule::kind]
-    /// to hold a `Enforce`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::Enforce(v.into()));
-        self
     }
 }
 
@@ -1446,23 +1401,6 @@ impl Constraint {
         })
     }
 
-    /// Sets the value of [implementation][crate::model::Constraint::implementation]
-    /// to hold a `SecurityHealthAnalyticsModule`.
-    ///
-    /// Note that all the setters affecting `implementation` are
-    /// mutually exclusive.
-    pub fn set_security_health_analytics_module<
-        T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsModule(v.into()),
-        );
-        self
-    }
-
     /// The value of [implementation][crate::model::Constraint::implementation]
     /// if it holds a `SecurityHealthAnalyticsCustomModule`, `None` if the field is not set or
     /// holds a different branch.
@@ -1477,23 +1415,6 @@ impl Constraint {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [implementation][crate::model::Constraint::implementation]
-    /// to hold a `SecurityHealthAnalyticsCustomModule`.
-    ///
-    /// Note that all the setters affecting `implementation` are
-    /// mutually exclusive.
-    pub fn set_security_health_analytics_custom_module<
-        T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::SecurityHealthAnalyticsCustomModule(v.into()),
-        );
-        self
     }
 
     /// The value of [implementation][crate::model::Constraint::implementation]
@@ -1511,23 +1432,6 @@ impl Constraint {
         })
     }
 
-    /// Sets the value of [implementation][crate::model::Constraint::implementation]
-    /// to hold a `OrgPolicyConstraint`.
-    ///
-    /// Note that all the setters affecting `implementation` are
-    /// mutually exclusive.
-    pub fn set_org_policy_constraint<
-        T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::OrgPolicyConstraint(v.into()),
-        );
-        self
-    }
-
     /// The value of [implementation][crate::model::Constraint::implementation]
     /// if it holds a `OrgPolicyConstraintCustom`, `None` if the field is not set or
     /// holds a different branch.
@@ -1541,23 +1445,6 @@ impl Constraint {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [implementation][crate::model::Constraint::implementation]
-    /// to hold a `OrgPolicyConstraintCustom`.
-    ///
-    /// Note that all the setters affecting `implementation` are
-    /// mutually exclusive.
-    pub fn set_org_policy_constraint_custom<
-        T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraintCustom>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.implementation = std::option::Option::Some(
-            crate::model::constraint::Implementation::OrgPolicyConstraintCustom(v.into()),
-        );
-        self
     }
 }
 

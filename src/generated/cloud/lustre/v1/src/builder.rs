@@ -704,19 +704,6 @@ pub mod lustre {
             self
         }
 
-        /// Sets the value of [source][crate::model::ImportDataRequest::source]
-        /// to hold a `GcsPath`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_gcs_path(v);
-            self
-        }
-
         /// Sets the value of [destination][crate::model::ImportDataRequest::destination].
         ///
         /// Note that all the setters affecting `destination` are
@@ -726,19 +713,6 @@ pub mod lustre {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
-            self
-        }
-
-        /// Sets the value of [destination][crate::model::ImportDataRequest::destination]
-        /// to hold a `LustrePath`.
-        ///
-        /// Note that all the setters affecting `destination` are
-        /// mutually exclusive.
-        pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_lustre_path(v);
             self
         }
     }
@@ -868,19 +842,6 @@ pub mod lustre {
             self
         }
 
-        /// Sets the value of [source][crate::model::ExportDataRequest::source]
-        /// to hold a `LustrePath`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_lustre_path(v);
-            self
-        }
-
         /// Sets the value of [destination][crate::model::ExportDataRequest::destination].
         ///
         /// Note that all the setters affecting `destination` are
@@ -890,19 +851,6 @@ pub mod lustre {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
-            self
-        }
-
-        /// Sets the value of [destination][crate::model::ExportDataRequest::destination]
-        /// to hold a `GcsPath`.
-        ///
-        /// Note that all the setters affecting `destination` are
-        /// mutually exclusive.
-        pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_gcs_path(v);
             self
         }
     }

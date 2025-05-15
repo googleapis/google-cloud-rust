@@ -765,17 +765,6 @@ impl RepoSource {
         })
     }
 
-    /// Sets the value of [revision][crate::model::RepoSource::revision]
-    /// to hold a `BranchName`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_branch_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision =
-            std::option::Option::Some(crate::model::repo_source::Revision::BranchName(v.into()));
-        self
-    }
-
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `TagName`, `None` if the field is not set or
     /// holds a different branch.
@@ -787,17 +776,6 @@ impl RepoSource {
         })
     }
 
-    /// Sets the value of [revision][crate::model::RepoSource::revision]
-    /// to hold a `TagName`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_tag_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision =
-            std::option::Option::Some(crate::model::repo_source::Revision::TagName(v.into()));
-        self
-    }
-
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `CommitSha`, `None` if the field is not set or
     /// holds a different branch.
@@ -807,17 +785,6 @@ impl RepoSource {
             crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [revision][crate::model::RepoSource::revision]
-    /// to hold a `CommitSha`.
-    ///
-    /// Note that all the setters affecting `revision` are
-    /// mutually exclusive.
-    pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision =
-            std::option::Option::Some(crate::model::repo_source::Revision::CommitSha(v.into()));
-        self
     }
 }
 
@@ -899,22 +866,6 @@ impl Source {
         })
     }
 
-    /// Sets the value of [source][crate::model::Source::source]
-    /// to hold a `StorageSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_storage_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::source::Source::StorageSource(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `RepoSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -926,19 +877,6 @@ impl Source {
         })
     }
 
-    /// Sets the value of [source][crate::model::Source::source]
-    /// to hold a `RepoSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_repo_source<T: std::convert::Into<std::boxed::Box<crate::model::RepoSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(crate::model::source::Source::RepoSource(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `GitUri`, `None` if the field is not set or
     /// holds a different branch.
@@ -948,16 +886,6 @@ impl Source {
             crate::model::source::Source::GitUri(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Source::source]
-    /// to hold a `GitUri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_git_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::source::Source::GitUri(v.into()));
-        self
     }
 }
 
@@ -1269,23 +1197,6 @@ impl BuildConfig {
         })
     }
 
-    /// Sets the value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
-    /// to hold a `AutomaticUpdatePolicy`.
-    ///
-    /// Note that all the setters affecting `runtime_update_policy` are
-    /// mutually exclusive.
-    pub fn set_automatic_update_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::AutomaticUpdatePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.runtime_update_policy = std::option::Option::Some(
-            crate::model::build_config::RuntimeUpdatePolicy::AutomaticUpdatePolicy(v.into()),
-        );
-        self
-    }
-
     /// The value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
     /// if it holds a `OnDeployUpdatePolicy`, `None` if the field is not set or
     /// holds a different branch.
@@ -1299,23 +1210,6 @@ impl BuildConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
-    /// to hold a `OnDeployUpdatePolicy`.
-    ///
-    /// Note that all the setters affecting `runtime_update_policy` are
-    /// mutually exclusive.
-    pub fn set_on_deploy_update_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::OnDeployUpdatePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.runtime_update_policy = std::option::Option::Some(
-            crate::model::build_config::RuntimeUpdatePolicy::OnDeployUpdatePolicy(v.into()),
-        );
-        self
     }
 }
 

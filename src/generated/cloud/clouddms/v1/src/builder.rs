@@ -1358,36 +1358,6 @@ pub mod data_migration_service {
             self.0.request.vm_config = v.into();
             self
         }
-
-        /// Sets the value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
-        /// to hold a `VmCreationConfig`.
-        ///
-        /// Note that all the setters affecting `vm_config` are
-        /// mutually exclusive.
-        pub fn set_vm_creation_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::VmCreationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_vm_creation_config(v);
-            self
-        }
-
-        /// Sets the value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
-        /// to hold a `VmSelectionConfig`.
-        ///
-        /// Note that all the setters affecting `vm_config` are
-        /// mutually exclusive.
-        pub fn set_vm_selection_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::VmSelectionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_vm_selection_config(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -3544,32 +3514,6 @@ pub mod data_migration_service {
             self.0.request.seed_from = v.into();
             self
         }
-
-        /// Sets the value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
-        /// to hold a `SourceConnectionProfile`.
-        ///
-        /// Note that all the setters affecting `seed_from` are
-        /// mutually exclusive.
-        pub fn set_source_connection_profile<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_source_connection_profile(v);
-            self
-        }
-
-        /// Sets the value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
-        /// to hold a `DestinationConnectionProfile`.
-        ///
-        /// Note that all the setters affecting `seed_from` are
-        /// mutually exclusive.
-        pub fn set_destination_connection_profile<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_destination_connection_profile(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -4197,19 +4141,6 @@ pub mod data_migration_service {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
-            self
-        }
-
-        /// Sets the value of [destination][crate::model::ApplyConversionWorkspaceRequest::destination]
-        /// to hold a `ConnectionProfile`.
-        ///
-        /// Note that all the setters affecting `destination` are
-        /// mutually exclusive.
-        pub fn set_connection_profile<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_connection_profile(v);
             self
         }
     }

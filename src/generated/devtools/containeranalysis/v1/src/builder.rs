@@ -437,23 +437,6 @@ pub mod container_analysis {
             self.0.request.target = v.into();
             self
         }
-
-        /// Sets the value of [target][crate::model::ExportSBOMRequest::target]
-        /// to hold a `CloudStorageLocation`.
-        ///
-        /// Note that all the setters affecting `target` are
-        /// mutually exclusive.
-        pub fn set_cloud_storage_location<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_cloud_storage_location(v);
-            self
-        }
     }
 
     #[doc(hidden)]

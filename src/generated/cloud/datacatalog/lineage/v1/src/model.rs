@@ -2032,21 +2032,6 @@ impl SearchLinksRequest {
         })
     }
 
-    /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
-    /// to hold a `Source`.
-    ///
-    /// Note that all the setters affecting `criteria` are
-    /// mutually exclusive.
-    pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.criteria = std::option::Option::Some(
-            crate::model::search_links_request::Criteria::Source(v.into()),
-        );
-        self
-    }
-
     /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
     /// if it holds a `Target`, `None` if the field is not set or
     /// holds a different branch.
@@ -2056,21 +2041,6 @@ impl SearchLinksRequest {
             crate::model::search_links_request::Criteria::Target(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
-    /// to hold a `Target`.
-    ///
-    /// Note that all the setters affecting `criteria` are
-    /// mutually exclusive.
-    pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.criteria = std::option::Option::Some(
-            crate::model::search_links_request::Criteria::Target(v.into()),
-        );
-        self
     }
 }
 

@@ -1016,23 +1016,6 @@ impl OutputConfig {
         })
     }
 
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
-        );
-        self
-    }
-
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
@@ -1046,23 +1029,6 @@ impl OutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `BigqueryDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_bigquery_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::BigqueryDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -1135,20 +1101,6 @@ impl OutputResult {
             crate::model::output_result::Result::GcsResult(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::OutputResult::result]
-    /// to hold a `GcsResult`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_gcs_result<T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputResult>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::output_result::Result::GcsResult(v.into()));
-        self
     }
 }
 
@@ -1256,17 +1208,6 @@ impl GcsDestination {
         })
     }
 
-    /// Sets the value of [object_uri][crate::model::GcsDestination::object_uri]
-    /// to hold a `Uri`.
-    ///
-    /// Note that all the setters affecting `object_uri` are
-    /// mutually exclusive.
-    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.object_uri =
-            std::option::Option::Some(crate::model::gcs_destination::ObjectUri::Uri(v.into()));
-        self
-    }
-
     /// The value of [object_uri][crate::model::GcsDestination::object_uri]
     /// if it holds a `UriPrefix`, `None` if the field is not set or
     /// holds a different branch.
@@ -1276,18 +1217,6 @@ impl GcsDestination {
             crate::model::gcs_destination::ObjectUri::UriPrefix(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [object_uri][crate::model::GcsDestination::object_uri]
-    /// to hold a `UriPrefix`.
-    ///
-    /// Note that all the setters affecting `object_uri` are
-    /// mutually exclusive.
-    pub fn set_uri_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.object_uri = std::option::Option::Some(
-            crate::model::gcs_destination::ObjectUri::UriPrefix(v.into()),
-        );
-        self
     }
 }
 
@@ -1724,23 +1653,6 @@ impl FeedOutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::FeedOutputConfig::destination]
-    /// to hold a `PubsubDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_pubsub_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::PubsubDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::feed_output_config::Destination::PubsubDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -2991,23 +2903,6 @@ pub mod iam_policy_analysis_query {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [time_context][crate::model::iam_policy_analysis_query::ConditionContext::time_context]
-        /// to hold a `AccessTime`.
-        ///
-        /// Note that all the setters affecting `time_context` are
-        /// mutually exclusive.
-        pub fn set_access_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time_context = std::option::Option::Some(
-                crate::model::iam_policy_analysis_query::condition_context::TimeContext::AccessTime(
-                    v.into(),
-                ),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for ConditionContext {
@@ -3350,25 +3245,6 @@ impl IamPolicyAnalysisOutputConfig {
         })
     }
 
-    /// Sets the value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::iam_policy_analysis_output_config::GcsDestination>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::iam_policy_analysis_output_config::Destination::GcsDestination(v.into()),
-        );
-        self
-    }
-
     /// The value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
@@ -3384,29 +3260,6 @@ impl IamPolicyAnalysisOutputConfig {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::IamPolicyAnalysisOutputConfig::destination]
-    /// to hold a `BigqueryDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_bigquery_destination<
-        T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::iam_policy_analysis_output_config::BigQueryDestination,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::iam_policy_analysis_output_config::Destination::BigqueryDestination(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -3999,25 +3852,6 @@ pub mod saved_query {
                 ) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [query_content][crate::model::saved_query::QueryContent::query_content]
-        /// to hold a `IamPolicyAnalysisQuery`.
-        ///
-        /// Note that all the setters affecting `query_content` are
-        /// mutually exclusive.
-        pub fn set_iam_policy_analysis_query<
-            T: std::convert::Into<std::boxed::Box<crate::model::IamPolicyAnalysisQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.query_content = std::option::Option::Some(
-                crate::model::saved_query::query_content::QueryContent::IamPolicyAnalysisQuery(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -4686,22 +4520,6 @@ impl MoveAnalysis {
         })
     }
 
-    /// Sets the value of [result][crate::model::MoveAnalysis::result]
-    /// to hold a `Analysis`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_analysis<
-        T: std::convert::Into<std::boxed::Box<crate::model::MoveAnalysisResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::move_analysis::Result::Analysis(v.into()));
-        self
-    }
-
     /// The value of [result][crate::model::MoveAnalysis::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
@@ -4711,20 +4529,6 @@ impl MoveAnalysis {
             crate::model::move_analysis::Result::Error(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::MoveAnalysis::result]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::move_analysis::Result::Error(v.into()));
-        self
     }
 }
 
@@ -5097,18 +4901,6 @@ impl QueryAssetsRequest {
         })
     }
 
-    /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
-    /// to hold a `Statement`.
-    ///
-    /// Note that all the setters affecting `query` are
-    /// mutually exclusive.
-    pub fn set_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query = std::option::Option::Some(
-            crate::model::query_assets_request::Query::Statement(v.into()),
-        );
-        self
-    }
-
     /// The value of [query][crate::model::QueryAssetsRequest::query]
     /// if it holds a `JobReference`, `None` if the field is not set or
     /// holds a different branch.
@@ -5120,18 +4912,6 @@ impl QueryAssetsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [query][crate::model::QueryAssetsRequest::query]
-    /// to hold a `JobReference`.
-    ///
-    /// Note that all the setters affecting `query` are
-    /// mutually exclusive.
-    pub fn set_job_reference<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.query = std::option::Option::Some(
-            crate::model::query_assets_request::Query::JobReference(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [time][crate::model::QueryAssetsRequest::time].
@@ -5163,23 +4943,6 @@ impl QueryAssetsRequest {
         })
     }
 
-    /// Sets the value of [time][crate::model::QueryAssetsRequest::time]
-    /// to hold a `ReadTimeWindow`.
-    ///
-    /// Note that all the setters affecting `time` are
-    /// mutually exclusive.
-    pub fn set_read_time_window<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimeWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time = std::option::Option::Some(
-            crate::model::query_assets_request::Time::ReadTimeWindow(v.into()),
-        );
-        self
-    }
-
     /// The value of [time][crate::model::QueryAssetsRequest::time]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -5189,20 +4952,6 @@ impl QueryAssetsRequest {
             crate::model::query_assets_request::Time::ReadTime(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [time][crate::model::QueryAssetsRequest::time]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `time` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.time =
-            std::option::Option::Some(crate::model::query_assets_request::Time::ReadTime(v.into()));
-        self
     }
 }
 
@@ -5323,21 +5072,6 @@ impl QueryAssetsResponse {
         })
     }
 
-    /// Sets the value of [response][crate::model::QueryAssetsResponse::response]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response = std::option::Option::Some(
-            crate::model::query_assets_response::Response::Error(v.into()),
-        );
-        self
-    }
-
     /// The value of [response][crate::model::QueryAssetsResponse::response]
     /// if it holds a `QueryResult`, `None` if the field is not set or
     /// holds a different branch.
@@ -5349,21 +5083,6 @@ impl QueryAssetsResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response][crate::model::QueryAssetsResponse::response]
-    /// to hold a `QueryResult`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_query_result<T: std::convert::Into<std::boxed::Box<crate::model::QueryResult>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response = std::option::Option::Some(
-            crate::model::query_assets_response::Response::QueryResult(v.into()),
-        );
-        self
     }
 
     /// The value of [response][crate::model::QueryAssetsResponse::response]
@@ -5379,23 +5098,6 @@ impl QueryAssetsResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response][crate::model::QueryAssetsResponse::response]
-    /// to hold a `OutputConfig`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_output_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::QueryAssetsOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response = std::option::Option::Some(
-            crate::model::query_assets_response::Response::OutputConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -6100,25 +5802,6 @@ pub mod analyzer_org_policy {
             })
         }
 
-        /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// to hold a `Values`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_values<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::analyzer_org_policy::rule::StringValues>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::analyzer_org_policy::rule::Kind::Values(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
         /// if it holds a `AllowAll`, `None` if the field is not set or
         /// holds a different branch.
@@ -6130,18 +5813,6 @@ pub mod analyzer_org_policy {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// to hold a `AllowAll`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::analyzer_org_policy::rule::Kind::AllowAll(v.into()),
-            );
-            self
         }
 
         /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
@@ -6157,18 +5828,6 @@ pub mod analyzer_org_policy {
             })
         }
 
-        /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// to hold a `DenyAll`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::analyzer_org_policy::rule::Kind::DenyAll(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::analyzer_org_policy::Rule::kind]
         /// if it holds a `Enforce`, `None` if the field is not set or
         /// holds a different branch.
@@ -6180,18 +5839,6 @@ pub mod analyzer_org_policy {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::analyzer_org_policy::Rule::kind]
-        /// to hold a `Enforce`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::analyzer_org_policy::rule::Kind::Enforce(v.into()),
-            );
-            self
         }
     }
 
@@ -6332,27 +5979,6 @@ impl AnalyzerOrgPolicyConstraint {
         })
     }
 
-    /// Sets the value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
-    /// to hold a `GoogleDefinedConstraint`.
-    ///
-    /// Note that all the setters affecting `constraint_definition` are
-    /// mutually exclusive.
-    pub fn set_google_defined_constraint<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::analyzer_org_policy_constraint::Constraint>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.constraint_definition = std::option::Option::Some(
-            crate::model::analyzer_org_policy_constraint::ConstraintDefinition::GoogleDefinedConstraint(
-                v.into()
-            )
-        );
-        self
-    }
-
     /// The value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
     /// if it holds a `CustomConstraint`, `None` if the field is not set or
     /// holds a different branch.
@@ -6366,27 +5992,6 @@ impl AnalyzerOrgPolicyConstraint {
             crate::model::analyzer_org_policy_constraint::ConstraintDefinition::CustomConstraint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [constraint_definition][crate::model::AnalyzerOrgPolicyConstraint::constraint_definition]
-    /// to hold a `CustomConstraint`.
-    ///
-    /// Note that all the setters affecting `constraint_definition` are
-    /// mutually exclusive.
-    pub fn set_custom_constraint<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::analyzer_org_policy_constraint::CustomConstraint>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.constraint_definition = std::option::Option::Some(
-            crate::model::analyzer_org_policy_constraint::ConstraintDefinition::CustomConstraint(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -6514,29 +6119,6 @@ pub mod analyzer_org_policy_constraint {
             })
         }
 
-        /// Sets the value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
-        /// to hold a `ListConstraint`.
-        ///
-        /// Note that all the setters affecting `constraint_type` are
-        /// mutually exclusive.
-        pub fn set_list_constraint<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::analyzer_org_policy_constraint::constraint::ListConstraint,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.constraint_type = std::option::Option::Some(
-                crate::model::analyzer_org_policy_constraint::constraint::ConstraintType::ListConstraint(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
         /// if it holds a `BooleanConstraint`, `None` if the field is not set or
         /// holds a different branch.
@@ -6552,29 +6134,6 @@ pub mod analyzer_org_policy_constraint {
                 crate::model::analyzer_org_policy_constraint::constraint::ConstraintType::BooleanConstraint(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [constraint_type][crate::model::analyzer_org_policy_constraint::Constraint::constraint_type]
-        /// to hold a `BooleanConstraint`.
-        ///
-        /// Note that all the setters affecting `constraint_type` are
-        /// mutually exclusive.
-        pub fn set_boolean_constraint<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::analyzer_org_policy_constraint::constraint::BooleanConstraint,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.constraint_type = std::option::Option::Some(
-                crate::model::analyzer_org_policy_constraint::constraint::ConstraintType::BooleanConstraint(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -8467,29 +8026,6 @@ pub mod analyze_org_policy_governed_assets_response {
             })
         }
 
-        /// Sets the value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
-        /// to hold a `GovernedResource`.
-        ///
-        /// Note that all the setters affecting `governed_asset` are
-        /// mutually exclusive.
-        pub fn set_governed_resource<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::analyze_org_policy_governed_assets_response::GovernedResource,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.governed_asset = std::option::Option::Some(
-                crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedResource(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
         /// if it holds a `GovernedIamPolicy`, `None` if the field is not set or
         /// holds a different branch.
@@ -8505,20 +8041,6 @@ pub mod analyze_org_policy_governed_assets_response {
                 crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedIamPolicy(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [governed_asset][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::governed_asset]
-        /// to hold a `GovernedIamPolicy`.
-        ///
-        /// Note that all the setters affecting `governed_asset` are
-        /// mutually exclusive.
-        pub fn set_governed_iam_policy<T: std::convert::Into<std::boxed::Box<crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy>>>(mut self, v: T) -> Self{
-            self.governed_asset = std::option::Option::Some(
-                crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedIamPolicy(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -8896,23 +8418,6 @@ impl AssetEnrichment {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [enrichment_data][crate::model::AssetEnrichment::enrichment_data]
-    /// to hold a `ResourceOwners`.
-    ///
-    /// Note that all the setters affecting `enrichment_data` are
-    /// mutually exclusive.
-    pub fn set_resource_owners<
-        T: std::convert::Into<std::boxed::Box<crate::model::ResourceOwners>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enrichment_data = std::option::Option::Some(
-            crate::model::asset_enrichment::EnrichmentData::ResourceOwners(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for AssetEnrichment {
@@ -9166,23 +8671,6 @@ impl Asset {
         })
     }
 
-    /// Sets the value of [access_context_policy][crate::model::Asset::access_context_policy]
-    /// to hold a `AccessPolicy`.
-    ///
-    /// Note that all the setters affecting `access_context_policy` are
-    /// mutually exclusive.
-    pub fn set_access_policy<
-        T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::AccessPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_context_policy = std::option::Option::Some(
-            crate::model::asset::AccessContextPolicy::AccessPolicy(v.into()),
-        );
-        self
-    }
-
     /// The value of [access_context_policy][crate::model::Asset::access_context_policy]
     /// if it holds a `AccessLevel`, `None` if the field is not set or
     /// holds a different branch.
@@ -9196,23 +8684,6 @@ impl Asset {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [access_context_policy][crate::model::Asset::access_context_policy]
-    /// to hold a `AccessLevel`.
-    ///
-    /// Note that all the setters affecting `access_context_policy` are
-    /// mutually exclusive.
-    pub fn set_access_level<
-        T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_context_policy = std::option::Option::Some(
-            crate::model::asset::AccessContextPolicy::AccessLevel(v.into()),
-        );
-        self
     }
 
     /// The value of [access_context_policy][crate::model::Asset::access_context_policy]
@@ -9229,23 +8700,6 @@ impl Asset {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [access_context_policy][crate::model::Asset::access_context_policy]
-    /// to hold a `ServicePerimeter`.
-    ///
-    /// Note that all the setters affecting `access_context_policy` are
-    /// mutually exclusive.
-    pub fn set_service_perimeter<
-        T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_context_policy = std::option::Option::Some(
-            crate::model::asset::AccessContextPolicy::ServicePerimeter(v.into()),
-        );
-        self
     }
 }
 
@@ -11382,18 +10836,6 @@ pub mod iam_policy_analysis_result {
             })
         }
 
-        /// Sets the value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
-        /// to hold a `Role`.
-        ///
-        /// Note that all the setters affecting `oneof_access` are
-        /// mutually exclusive.
-        pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.oneof_access = std::option::Option::Some(
-                crate::model::iam_policy_analysis_result::access::OneofAccess::Role(v.into()),
-            );
-            self
-        }
-
         /// The value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
@@ -11405,18 +10847,6 @@ pub mod iam_policy_analysis_result {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [oneof_access][crate::model::iam_policy_analysis_result::Access::oneof_access]
-        /// to hold a `Permission`.
-        ///
-        /// Note that all the setters affecting `oneof_access` are
-        /// mutually exclusive.
-        pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.oneof_access = std::option::Option::Some(
-                crate::model::iam_policy_analysis_result::access::OneofAccess::Permission(v.into()),
-            );
-            self
         }
     }
 

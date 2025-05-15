@@ -365,16 +365,6 @@ impl Document {
         })
     }
 
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `Uri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::document::Source::Uri(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
@@ -384,16 +374,6 @@ impl Document {
             crate::model::document::Source::Content(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
-        self
     }
 }
 
@@ -3103,23 +3083,6 @@ pub mod document {
                 })
             }
 
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `MoneyValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_money_value<T: std::convert::Into<std::boxed::Box<gtype::model::Money>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::MoneyValue(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `DateValue`, `None` if the field is not set or
             /// holds a different branch.
@@ -3129,23 +3092,6 @@ pub mod document {
                     crate::model::document::entity::normalized_value::StructuredValue::DateValue(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `DateValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::DateValue(
-                        v.into(),
-                    ),
-                );
-                self
             }
 
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
@@ -3161,25 +3107,6 @@ pub mod document {
                 })
             }
 
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `DatetimeValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_datetime_value<
-                T: std::convert::Into<std::boxed::Box<gtype::model::DateTime>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::DatetimeValue(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `AddressValue`, `None` if the field is not set or
             /// holds a different branch.
@@ -3193,25 +3120,6 @@ pub mod document {
                 })
             }
 
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `AddressValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_address_value<
-                T: std::convert::Into<std::boxed::Box<gtype::model::PostalAddress>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::AddressValue(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `BooleanValue`, `None` if the field is not set or
             /// holds a different branch.
@@ -3221,20 +3129,6 @@ pub mod document {
                     crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `BooleanValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(
-                        v.into(),
-                    ),
-                );
-                self
             }
 
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
@@ -3248,20 +3142,6 @@ pub mod document {
                 })
             }
 
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `IntegerValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_integer_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::IntegerValue(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `FloatValue`, `None` if the field is not set or
             /// holds a different branch.
@@ -3271,20 +3151,6 @@ pub mod document {
                     crate::model::document::entity::normalized_value::StructuredValue::FloatValue(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
-            /// to hold a `FloatValue`.
-            ///
-            /// Note that all the setters affecting `structured_value` are
-            /// mutually exclusive.
-            pub fn set_float_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-                self.structured_value = std::option::Option::Some(
-                    crate::model::document::entity::normalized_value::StructuredValue::FloatValue(
-                        v.into(),
-                    ),
-                );
-                self
             }
         }
 
@@ -4301,18 +4167,6 @@ pub mod document {
             })
         }
 
-        /// Sets the value of [source][crate::model::document::Revision::source]
-        /// to hold a `Agent`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::document::revision::Source::Agent(v.into()),
-            );
-            self
-        }
-
         /// The value of [source][crate::model::document::Revision::source]
         /// if it holds a `Processor`, `None` if the field is not set or
         /// holds a different branch.
@@ -4324,18 +4178,6 @@ pub mod document {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [source][crate::model::document::Revision::source]
-        /// to hold a `Processor`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_processor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::document::revision::Source::Processor(v.into()),
-            );
-            self
         }
     }
 
@@ -4624,20 +4466,6 @@ pub mod document {
                 })
             }
 
-            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
-            /// to hold a `TextBlock`.
-            ///
-            /// Note that all the setters affecting `block` are
-            /// mutually exclusive.
-            pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self{
-                self.block = std::option::Option::Some(
-                    crate::model::document::document_layout::document_layout_block::Block::TextBlock(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `TableBlock`, `None` if the field is not set or
             /// holds a different branch.
@@ -4647,20 +4475,6 @@ pub mod document {
                     crate::model::document::document_layout::document_layout_block::Block::TableBlock(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
-            /// to hold a `TableBlock`.
-            ///
-            /// Note that all the setters affecting `block` are
-            /// mutually exclusive.
-            pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self{
-                self.block = std::option::Option::Some(
-                    crate::model::document::document_layout::document_layout_block::Block::TableBlock(
-                        v.into()
-                    )
-                );
-                self
             }
 
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
@@ -4678,20 +4492,6 @@ pub mod document {
                     crate::model::document::document_layout::document_layout_block::Block::ListBlock(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
-            /// to hold a `ListBlock`.
-            ///
-            /// Note that all the setters affecting `block` are
-            /// mutually exclusive.
-            pub fn set_list_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>>>(mut self, v: T) -> Self{
-                self.block = std::option::Option::Some(
-                    crate::model::document::document_layout::document_layout_block::Block::ListBlock(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -5652,21 +5452,6 @@ impl BatchDocumentsInputConfig {
         })
     }
 
-    /// Sets the value of [source][crate::model::BatchDocumentsInputConfig::source]
-    /// to hold a `GcsPrefix`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_prefix<T: std::convert::Into<std::boxed::Box<crate::model::GcsPrefix>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::batch_documents_input_config::Source::GcsPrefix(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::BatchDocumentsInputConfig::source]
     /// if it holds a `GcsDocuments`, `None` if the field is not set or
     /// holds a different branch.
@@ -5680,21 +5465,6 @@ impl BatchDocumentsInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::BatchDocumentsInputConfig::source]
-    /// to hold a `GcsDocuments`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_documents<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocuments>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::batch_documents_input_config::Source::GcsDocuments(v.into()),
-        );
-        self
     }
 }
 
@@ -5771,23 +5541,6 @@ impl DocumentOutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::DocumentOutputConfig::destination]
-    /// to hold a `GcsOutputConfig`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_output_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::document_output_config::Destination::GcsOutputConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -6279,23 +6032,6 @@ impl ProcessOptions {
         })
     }
 
-    /// Sets the value of [page_range][crate::model::ProcessOptions::page_range]
-    /// to hold a `IndividualPageSelector`.
-    ///
-    /// Note that all the setters affecting `page_range` are
-    /// mutually exclusive.
-    pub fn set_individual_page_selector<
-        T: std::convert::Into<std::boxed::Box<crate::model::process_options::IndividualPageSelector>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.page_range = std::option::Option::Some(
-            crate::model::process_options::PageRange::IndividualPageSelector(v.into()),
-        );
-        self
-    }
-
     /// The value of [page_range][crate::model::ProcessOptions::page_range]
     /// if it holds a `FromStart`, `None` if the field is not set or
     /// holds a different branch.
@@ -6307,18 +6043,6 @@ impl ProcessOptions {
         })
     }
 
-    /// Sets the value of [page_range][crate::model::ProcessOptions::page_range]
-    /// to hold a `FromStart`.
-    ///
-    /// Note that all the setters affecting `page_range` are
-    /// mutually exclusive.
-    pub fn set_from_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.page_range = std::option::Option::Some(
-            crate::model::process_options::PageRange::FromStart(v.into()),
-        );
-        self
-    }
-
     /// The value of [page_range][crate::model::ProcessOptions::page_range]
     /// if it holds a `FromEnd`, `None` if the field is not set or
     /// holds a different branch.
@@ -6328,17 +6052,6 @@ impl ProcessOptions {
             crate::model::process_options::PageRange::FromEnd(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [page_range][crate::model::ProcessOptions::page_range]
-    /// to hold a `FromEnd`.
-    ///
-    /// Note that all the setters affecting `page_range` are
-    /// mutually exclusive.
-    pub fn set_from_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.page_range =
-            std::option::Option::Some(crate::model::process_options::PageRange::FromEnd(v.into()));
-        self
     }
 }
 
@@ -6680,21 +6393,6 @@ impl ProcessRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::ProcessRequest::source]
-    /// to hold a `InlineDocument`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::process_request::Source::InlineDocument(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::ProcessRequest::source]
     /// if it holds a `RawDocument`, `None` if the field is not set or
     /// holds a different branch.
@@ -6706,20 +6404,6 @@ impl ProcessRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::ProcessRequest::source]
-    /// to hold a `RawDocument`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_raw_document<T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::process_request::Source::RawDocument(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::ProcessRequest::source]
     /// if it holds a `GcsDocument`, `None` if the field is not set or
     /// holds a different branch.
@@ -6729,20 +6413,6 @@ impl ProcessRequest {
             crate::model::process_request::Source::GcsDocument(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ProcessRequest::source]
-    /// to hold a `GcsDocument`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_document<T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::process_request::Source::GcsDocument(v.into()));
-        self
     }
 }
 
@@ -8984,29 +8654,6 @@ impl TrainProcessorVersionRequest {
         })
     }
 
-    /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
-    /// to hold a `CustomDocumentExtractionOptions`.
-    ///
-    /// Note that all the setters affecting `processor_flags` are
-    /// mutually exclusive.
-    pub fn set_custom_document_extraction_options<
-        T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::train_processor_version_request::CustomDocumentExtractionOptions,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.processor_flags = std::option::Option::Some(
-            crate::model::train_processor_version_request::ProcessorFlags::CustomDocumentExtractionOptions(
-                v.into()
-            )
-        );
-        self
-    }
-
     /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
     /// if it holds a `FoundationModelTuningOptions`, `None` if the field is not set or
     /// holds a different branch.
@@ -9022,29 +8669,6 @@ impl TrainProcessorVersionRequest {
             crate::model::train_processor_version_request::ProcessorFlags::FoundationModelTuningOptions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
-    /// to hold a `FoundationModelTuningOptions`.
-    ///
-    /// Note that all the setters affecting `processor_flags` are
-    /// mutually exclusive.
-    pub fn set_foundation_model_tuning_options<
-        T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::train_processor_version_request::FoundationModelTuningOptions,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.processor_flags = std::option::Option::Some(
-            crate::model::train_processor_version_request::ProcessorFlags::FoundationModelTuningOptions(
-                v.into()
-            )
-        );
-        self
     }
 }
 
@@ -9649,21 +9273,6 @@ impl ReviewDocumentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ReviewDocumentRequest::source]
-    /// to hold a `InlineDocument`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_inline_document<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::review_document_request::Source::InlineDocument(v.into()),
-        );
-        self
     }
 }
 
@@ -10559,25 +10168,6 @@ pub mod document_schema {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value_source][crate::model::document_schema::EntityType::value_source]
-        /// to hold a `EnumValues`.
-        ///
-        /// Note that all the setters affecting `value_source` are
-        /// mutually exclusive.
-        pub fn set_enum_values<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value_source = std::option::Option::Some(
-                crate::model::document_schema::entity_type::ValueSource::EnumValues(v.into()),
-            );
-            self
         }
     }
 
@@ -12354,20 +11944,6 @@ pub mod processor_version {
             })
         }
 
-        /// Sets the value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
-        /// to hold a `FoundationGenAiModelInfo`.
-        ///
-        /// Note that all the setters affecting `model_info` are
-        /// mutually exclusive.
-        pub fn set_foundation_gen_ai_model_info<T: std::convert::Into<std::boxed::Box<crate::model::processor_version::gen_ai_model_info::FoundationGenAiModelInfo>>>(mut self, v: T) -> Self{
-            self.model_info = std::option::Option::Some(
-                crate::model::processor_version::gen_ai_model_info::ModelInfo::FoundationGenAiModelInfo(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
         /// if it holds a `CustomGenAiModelInfo`, `None` if the field is not set or
         /// holds a different branch.
@@ -12383,29 +11959,6 @@ pub mod processor_version {
                 crate::model::processor_version::gen_ai_model_info::ModelInfo::CustomGenAiModelInfo(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
-        /// to hold a `CustomGenAiModelInfo`.
-        ///
-        /// Note that all the setters affecting `model_info` are
-        /// mutually exclusive.
-        pub fn set_custom_gen_ai_model_info<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::processor_version::gen_ai_model_info::CustomGenAiModelInfo,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.model_info = std::option::Option::Some(
-                crate::model::processor_version::gen_ai_model_info::ModelInfo::CustomGenAiModelInfo(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 

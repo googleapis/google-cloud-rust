@@ -102,22 +102,6 @@ impl AuthConfig {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
-    /// to hold a `UserPassword`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_user_password<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::UserPassword>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::auth_config::Type::UserPassword(v.into()));
-        self
-    }
-
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `Oauth2JwtBearer`, `None` if the field is not set or
     /// holds a different branch.
@@ -129,22 +113,6 @@ impl AuthConfig {
             crate::model::auth_config::Type::Oauth2JwtBearer(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
-    /// to hold a `Oauth2JwtBearer`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_oauth2_jwt_bearer<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::auth_config::Type::Oauth2JwtBearer(v.into()));
-        self
     }
 
     /// The value of [r#type][crate::model::AuthConfig::r#type]
@@ -163,23 +131,6 @@ impl AuthConfig {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
-    /// to hold a `Oauth2ClientCredentials`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_oauth2_client_credentials<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::auth_config::Type::Oauth2ClientCredentials(v.into()),
-        );
-        self
-    }
-
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `SshPublicKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -191,22 +142,6 @@ impl AuthConfig {
             crate::model::auth_config::Type::SshPublicKey(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::AuthConfig::r#type]
-    /// to hold a `SshPublicKey`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_ssh_public_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::auth_config::SshPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::auth_config::Type::SshPublicKey(v.into()));
-        self
     }
 }
 
@@ -1281,17 +1216,6 @@ impl ConfigVariable {
         })
     }
 
-    /// Sets the value of [value][crate::model::ConfigVariable::value]
-    /// to hold a `IntValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::IntValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::ConfigVariable::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1301,17 +1225,6 @@ impl ConfigVariable {
             crate::model::config_variable::Value::BoolValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::ConfigVariable::value]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::BoolValue(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::ConfigVariable::value]
@@ -1325,17 +1238,6 @@ impl ConfigVariable {
         })
     }
 
-    /// Sets the value of [value][crate::model::ConfigVariable::value]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::StringValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::ConfigVariable::value]
     /// if it holds a `SecretValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1345,20 +1247,6 @@ impl ConfigVariable {
             crate::model::config_variable::Value::SecretValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::ConfigVariable::value]
-    /// to hold a `SecretValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_secret_value<T: std::convert::Into<std::boxed::Box<crate::model::Secret>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::config_variable::Value::SecretValue(v.into()));
-        self
     }
 }
 
@@ -4585,18 +4473,6 @@ impl EgressControlConfig {
         })
     }
 
-    /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
-    /// to hold a `Backends`.
-    ///
-    /// Note that all the setters affecting `oneof_backends` are
-    /// mutually exclusive.
-    pub fn set_backends<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.oneof_backends = std::option::Option::Some(
-            crate::model::egress_control_config::OneofBackends::Backends(v.into()),
-        );
-        self
-    }
-
     /// The value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
     /// if it holds a `ExtractionRules`, `None` if the field is not set or
     /// holds a different branch.
@@ -4610,23 +4486,6 @@ impl EgressControlConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
-    /// to hold a `ExtractionRules`.
-    ///
-    /// Note that all the setters affecting `oneof_backends` are
-    /// mutually exclusive.
-    pub fn set_extraction_rules<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExtractionRules>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oneof_backends = std::option::Option::Some(
-            crate::model::egress_control_config::OneofBackends::ExtractionRules(v.into()),
-        );
-        self
     }
 }
 
@@ -5021,21 +4880,6 @@ impl Destination {
         })
     }
 
-    /// Sets the value of [destination][crate::model::Destination::destination]
-    /// to hold a `ServiceAttachment`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::destination::Destination::ServiceAttachment(v.into()),
-        );
-        self
-    }
-
     /// The value of [destination][crate::model::Destination::destination]
     /// if it holds a `Host`, `None` if the field is not set or
     /// holds a different branch.
@@ -5045,17 +4889,6 @@ impl Destination {
             crate::model::destination::Destination::Host(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::Destination::destination]
-    /// to hold a `Host`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination =
-            std::option::Option::Some(crate::model::destination::Destination::Host(v.into()));
-        self
     }
 }
 

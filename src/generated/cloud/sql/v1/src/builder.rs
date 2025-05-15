@@ -3439,21 +3439,6 @@ pub mod sql_instances_service {
             self.0.request.sync_config = v.into();
             self
         }
-
-        /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config]
-        /// to hold a `MysqlSyncConfig`.
-        ///
-        /// Note that all the setters affecting `sync_config` are
-        /// mutually exclusive.
-        pub fn set_mysql_sync_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_mysql_sync_config(v);
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -3576,21 +3561,6 @@ pub mod sql_instances_service {
             v: T,
         ) -> Self {
             self.0.request.sync_config = v.into();
-            self
-        }
-
-        /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config]
-        /// to hold a `MysqlSyncConfig`.
-        ///
-        /// Note that all the setters affecting `sync_config` are
-        /// mutually exclusive.
-        pub fn set_mysql_sync_config<
-            T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_mysql_sync_config(v);
             self
         }
     }

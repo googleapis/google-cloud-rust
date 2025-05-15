@@ -2937,21 +2937,6 @@ impl ObjectTrackingAnnotation {
         })
     }
 
-    /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
-    /// to hold a `Segment`.
-    ///
-    /// Note that all the setters affecting `track_info` are
-    /// mutually exclusive.
-    pub fn set_segment<T: std::convert::Into<std::boxed::Box<crate::model::VideoSegment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.track_info = std::option::Option::Some(
-            crate::model::object_tracking_annotation::TrackInfo::Segment(v.into()),
-        );
-        self
-    }
-
     /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
     /// if it holds a `TrackId`, `None` if the field is not set or
     /// holds a different branch.
@@ -2963,18 +2948,6 @@ impl ObjectTrackingAnnotation {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
-    /// to hold a `TrackId`.
-    ///
-    /// Note that all the setters affecting `track_info` are
-    /// mutually exclusive.
-    pub fn set_track_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.track_info = std::option::Option::Some(
-            crate::model::object_tracking_annotation::TrackInfo::TrackId(v.into()),
-        );
-        self
     }
 }
 

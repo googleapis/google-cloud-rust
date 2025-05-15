@@ -792,26 +792,6 @@ pub mod speech {
             self.0.request.audio_source = v.into();
             self
         }
-
-        /// Sets the value of [audio_source][crate::model::RecognizeRequest::audio_source]
-        /// to hold a `Content`.
-        ///
-        /// Note that all the setters affecting `audio_source` are
-        /// mutually exclusive.
-        pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_content(v);
-            self
-        }
-
-        /// Sets the value of [audio_source][crate::model::RecognizeRequest::audio_source]
-        /// to hold a `Uri`.
-        ///
-        /// Note that all the setters affecting `audio_source` are
-        /// mutually exclusive.
-        pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request = self.0.request.set_uri(v);
-            self
-        }
     }
 
     #[doc(hidden)]

@@ -278,17 +278,6 @@ impl Precondition {
         })
     }
 
-    /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
-    /// to hold a `Exists`.
-    ///
-    /// Note that all the setters affecting `condition_type` are
-    /// mutually exclusive.
-    pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.condition_type =
-            std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
-        self
-    }
-
     /// The value of [condition_type][crate::model::Precondition::condition_type]
     /// if it holds a `UpdateTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -300,21 +289,6 @@ impl Precondition {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [condition_type][crate::model::Precondition::condition_type]
-    /// to hold a `UpdateTime`.
-    ///
-    /// Note that all the setters affecting `condition_type` are
-    /// mutually exclusive.
-    pub fn set_update_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.condition_type = std::option::Option::Some(
-            crate::model::precondition::ConditionType::UpdateTime(v.into()),
-        );
-        self
     }
 }
 
@@ -403,22 +377,6 @@ impl TransactionOptions {
         })
     }
 
-    /// Sets the value of [mode][crate::model::TransactionOptions::mode]
-    /// to hold a `ReadOnly`.
-    ///
-    /// Note that all the setters affecting `mode` are
-    /// mutually exclusive.
-    pub fn set_read_only<
-        T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadOnly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::transaction_options::Mode::ReadOnly(v.into()));
-        self
-    }
-
     /// The value of [mode][crate::model::TransactionOptions::mode]
     /// if it holds a `ReadWrite`, `None` if the field is not set or
     /// holds a different branch.
@@ -430,22 +388,6 @@ impl TransactionOptions {
             crate::model::transaction_options::Mode::ReadWrite(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [mode][crate::model::TransactionOptions::mode]
-    /// to hold a `ReadWrite`.
-    ///
-    /// Note that all the setters affecting `mode` are
-    /// mutually exclusive.
-    pub fn set_read_write<
-        T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadWrite>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::transaction_options::Mode::ReadWrite(v.into()));
-        self
     }
 }
 
@@ -549,23 +491,6 @@ pub mod transaction_options {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [consistency_selector][crate::model::transaction_options::ReadOnly::consistency_selector]
-        /// to hold a `ReadTime`.
-        ///
-        /// Note that all the setters affecting `consistency_selector` are
-        /// mutually exclusive.
-        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.consistency_selector = std::option::Option::Some(
-                crate::model::transaction_options::read_only::ConsistencySelector::ReadTime(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -787,17 +712,6 @@ impl Value {
         })
     }
 
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `NullValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::NullValue(v.into()));
-        self
-    }
-
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `BooleanValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -807,17 +721,6 @@ impl Value {
             crate::model::value::ValueType::BooleanValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `BooleanValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::BooleanValue(v.into()));
-        self
     }
 
     /// The value of [value_type][crate::model::Value::value_type]
@@ -831,17 +734,6 @@ impl Value {
         })
     }
 
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `IntegerValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_integer_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::IntegerValue(v.into()));
-        self
-    }
-
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -851,17 +743,6 @@ impl Value {
             crate::model::value::ValueType::DoubleValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `DoubleValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::DoubleValue(v.into()));
-        self
     }
 
     /// The value of [value_type][crate::model::Value::value_type]
@@ -875,20 +756,6 @@ impl Value {
         })
     }
 
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `TimestampValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::TimestampValue(v.into()));
-        self
-    }
-
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -898,17 +765,6 @@ impl Value {
             crate::model::value::ValueType::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::StringValue(v.into()));
-        self
     }
 
     /// The value of [value_type][crate::model::Value::value_type]
@@ -922,17 +778,6 @@ impl Value {
         })
     }
 
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `BytesValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::BytesValue(v.into()));
-        self
-    }
-
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `ReferenceValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -942,17 +787,6 @@ impl Value {
             crate::model::value::ValueType::ReferenceValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `ReferenceValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_reference_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::ReferenceValue(v.into()));
-        self
     }
 
     /// The value of [value_type][crate::model::Value::value_type]
@@ -966,20 +800,6 @@ impl Value {
         })
     }
 
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `GeoPointValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::GeoPointValue(v.into()));
-        self
-    }
-
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `ArrayValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -991,20 +811,6 @@ impl Value {
         })
     }
 
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `ArrayValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_array_value<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::ArrayValue(v.into()));
-        self
-    }
-
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `MapValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1014,20 +820,6 @@ impl Value {
             crate::model::value::ValueType::MapValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value_type][crate::model::Value::value_type]
-    /// to hold a `MapValue`.
-    ///
-    /// Note that all the setters affecting `value_type` are
-    /// mutually exclusive.
-    pub fn set_map_value<T: std::convert::Into<std::boxed::Box<crate::model::MapValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value_type =
-            std::option::Option::Some(crate::model::value::ValueType::MapValue(v.into()));
-        self
     }
 }
 
@@ -1302,18 +1094,6 @@ impl GetDocumentRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -1325,21 +1105,6 @@ impl GetDocumentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::get_document_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -1550,18 +1315,6 @@ impl ListDocumentsRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -1573,21 +1326,6 @@ impl ListDocumentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::list_documents_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -2028,18 +1766,6 @@ impl BatchGetDocumentsRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2055,25 +1781,6 @@ impl BatchGetDocumentsRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// to hold a `NewTransaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_new_transaction<
-        T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::NewTransaction(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -2085,21 +1792,6 @@ impl BatchGetDocumentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -2236,21 +1928,6 @@ impl BatchGetDocumentsResponse {
         })
     }
 
-    /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result]
-    /// to hold a `Found`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_found<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::batch_get_documents_response::Result::Found(v.into()),
-        );
-        self
-    }
-
     /// The value of [result][crate::model::BatchGetDocumentsResponse::result]
     /// if it holds a `Missing`, `None` if the field is not set or
     /// holds a different branch.
@@ -2262,18 +1939,6 @@ impl BatchGetDocumentsResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result]
-    /// to hold a `Missing`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_missing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::batch_get_documents_response::Result::Missing(v.into()),
-        );
-        self
     }
 }
 
@@ -2654,23 +2319,6 @@ impl RunQueryRequest {
         })
     }
 
-    /// Sets the value of [query_type][crate::model::RunQueryRequest::query_type]
-    /// to hold a `StructuredQuery`.
-    ///
-    /// Note that all the setters affecting `query_type` are
-    /// mutually exclusive.
-    pub fn set_structured_query<
-        T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.query_type = std::option::Option::Some(
-            crate::model::run_query_request::QueryType::StructuredQuery(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector].
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
@@ -2700,18 +2348,6 @@ impl RunQueryRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -2727,23 +2363,6 @@ impl RunQueryRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// to hold a `NewTransaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_new_transaction<
-        T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::NewTransaction(v.into()),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -2755,21 +2374,6 @@ impl RunQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -2977,18 +2581,6 @@ impl RunQueryResponse {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [continuation_selector][crate::model::RunQueryResponse::continuation_selector]
-    /// to hold a `Done`.
-    ///
-    /// Note that all the setters affecting `continuation_selector` are
-    /// mutually exclusive.
-    pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.continuation_selector = std::option::Option::Some(
-            crate::model::run_query_response::ContinuationSelector::Done(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for RunQueryResponse {
@@ -3110,25 +2702,6 @@ impl RunAggregationQueryRequest {
         })
     }
 
-    /// Sets the value of [query_type][crate::model::RunAggregationQueryRequest::query_type]
-    /// to hold a `StructuredAggregationQuery`.
-    ///
-    /// Note that all the setters affecting `query_type` are
-    /// mutually exclusive.
-    pub fn set_structured_aggregation_query<
-        T: std::convert::Into<std::boxed::Box<crate::model::StructuredAggregationQuery>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.query_type = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::QueryType::StructuredAggregationQuery(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector].
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
@@ -3160,18 +2733,6 @@ impl RunAggregationQueryRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// to hold a `Transaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
@@ -3187,25 +2748,6 @@ impl RunAggregationQueryRequest {
         })
     }
 
-    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// to hold a `NewTransaction`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_new_transaction<
-        T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::NewTransaction(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -3217,21 +2759,6 @@ impl RunAggregationQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -3527,23 +3054,6 @@ impl PartitionQueryRequest {
         })
     }
 
-    /// Sets the value of [query_type][crate::model::PartitionQueryRequest::query_type]
-    /// to hold a `StructuredQuery`.
-    ///
-    /// Note that all the setters affecting `query_type` are
-    /// mutually exclusive.
-    pub fn set_structured_query<
-        T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.query_type = std::option::Option::Some(
-            crate::model::partition_query_request::QueryType::StructuredQuery(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [consistency_selector][crate::model::PartitionQueryRequest::consistency_selector].
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
@@ -3571,21 +3081,6 @@ impl PartitionQueryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::PartitionQueryRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::partition_query_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -3998,21 +3493,6 @@ impl ListenRequest {
         })
     }
 
-    /// Sets the value of [target_change][crate::model::ListenRequest::target_change]
-    /// to hold a `AddTarget`.
-    ///
-    /// Note that all the setters affecting `target_change` are
-    /// mutually exclusive.
-    pub fn set_add_target<T: std::convert::Into<std::boxed::Box<crate::model::Target>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_change = std::option::Option::Some(
-            crate::model::listen_request::TargetChange::AddTarget(v.into()),
-        );
-        self
-    }
-
     /// The value of [target_change][crate::model::ListenRequest::target_change]
     /// if it holds a `RemoveTarget`, `None` if the field is not set or
     /// holds a different branch.
@@ -4024,18 +3504,6 @@ impl ListenRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_change][crate::model::ListenRequest::target_change]
-    /// to hold a `RemoveTarget`.
-    ///
-    /// Note that all the setters affecting `target_change` are
-    /// mutually exclusive.
-    pub fn set_remove_target<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.target_change = std::option::Option::Some(
-            crate::model::listen_request::TargetChange::RemoveTarget(v.into()),
-        );
-        self
     }
 }
 
@@ -4124,21 +3592,6 @@ impl ListenResponse {
         })
     }
 
-    /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
-    /// to hold a `TargetChange`.
-    ///
-    /// Note that all the setters affecting `response_type` are
-    /// mutually exclusive.
-    pub fn set_target_change<T: std::convert::Into<std::boxed::Box<crate::model::TargetChange>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::TargetChange(v.into()),
-        );
-        self
-    }
-
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `DocumentChange`, `None` if the field is not set or
     /// holds a different branch.
@@ -4152,23 +3605,6 @@ impl ListenResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
-    /// to hold a `DocumentChange`.
-    ///
-    /// Note that all the setters affecting `response_type` are
-    /// mutually exclusive.
-    pub fn set_document_change<
-        T: std::convert::Into<std::boxed::Box<crate::model::DocumentChange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::DocumentChange(v.into()),
-        );
-        self
     }
 
     /// The value of [response_type][crate::model::ListenResponse::response_type]
@@ -4186,23 +3622,6 @@ impl ListenResponse {
         })
     }
 
-    /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
-    /// to hold a `DocumentDelete`.
-    ///
-    /// Note that all the setters affecting `response_type` are
-    /// mutually exclusive.
-    pub fn set_document_delete<
-        T: std::convert::Into<std::boxed::Box<crate::model::DocumentDelete>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::DocumentDelete(v.into()),
-        );
-        self
-    }
-
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `DocumentRemove`, `None` if the field is not set or
     /// holds a different branch.
@@ -4218,23 +3637,6 @@ impl ListenResponse {
         })
     }
 
-    /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
-    /// to hold a `DocumentRemove`.
-    ///
-    /// Note that all the setters affecting `response_type` are
-    /// mutually exclusive.
-    pub fn set_document_remove<
-        T: std::convert::Into<std::boxed::Box<crate::model::DocumentRemove>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::DocumentRemove(v.into()),
-        );
-        self
-    }
-
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `Filter`, `None` if the field is not set or
     /// holds a different branch.
@@ -4244,21 +3646,6 @@ impl ListenResponse {
             crate::model::listen_response::ResponseType::Filter(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response_type][crate::model::ListenResponse::response_type]
-    /// to hold a `Filter`.
-    ///
-    /// Note that all the setters affecting `response_type` are
-    /// mutually exclusive.
-    pub fn set_filter<T: std::convert::Into<std::boxed::Box<crate::model::ExistenceFilter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::Filter(v.into()),
-        );
-        self
     }
 }
 
@@ -4444,20 +3831,6 @@ impl Target {
         })
     }
 
-    /// Sets the value of [target_type][crate::model::Target::target_type]
-    /// to hold a `Query`.
-    ///
-    /// Note that all the setters affecting `target_type` are
-    /// mutually exclusive.
-    pub fn set_query<T: std::convert::Into<std::boxed::Box<crate::model::target::QueryTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_type =
-            std::option::Option::Some(crate::model::target::TargetType::Query(v.into()));
-        self
-    }
-
     /// The value of [target_type][crate::model::Target::target_type]
     /// if it holds a `Documents`, `None` if the field is not set or
     /// holds a different branch.
@@ -4469,22 +3842,6 @@ impl Target {
             crate::model::target::TargetType::Documents(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_type][crate::model::Target::target_type]
-    /// to hold a `Documents`.
-    ///
-    /// Note that all the setters affecting `target_type` are
-    /// mutually exclusive.
-    pub fn set_documents<
-        T: std::convert::Into<std::boxed::Box<crate::model::target::DocumentsTarget>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_type =
-            std::option::Option::Some(crate::model::target::TargetType::Documents(v.into()));
-        self
     }
 
     /// Sets the value of [resume_type][crate::model::Target::resume_type].
@@ -4512,17 +3869,6 @@ impl Target {
         })
     }
 
-    /// Sets the value of [resume_type][crate::model::Target::resume_type]
-    /// to hold a `ResumeToken`.
-    ///
-    /// Note that all the setters affecting `resume_type` are
-    /// mutually exclusive.
-    pub fn set_resume_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.resume_type =
-            std::option::Option::Some(crate::model::target::ResumeType::ResumeToken(v.into()));
-        self
-    }
-
     /// The value of [resume_type][crate::model::Target::resume_type]
     /// if it holds a `ReadTime`, `None` if the field is not set or
     /// holds a different branch.
@@ -4532,20 +3878,6 @@ impl Target {
             crate::model::target::ResumeType::ReadTime(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resume_type][crate::model::Target::resume_type]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `resume_type` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resume_type =
-            std::option::Option::Some(crate::model::target::ResumeType::ReadTime(v.into()));
-        self
     }
 }
 
@@ -4661,23 +3993,6 @@ pub mod target {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [query_type][crate::model::target::QueryTarget::query_type]
-        /// to hold a `StructuredQuery`.
-        ///
-        /// Note that all the setters affecting `query_type` are
-        /// mutually exclusive.
-        pub fn set_structured_query<
-            T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.query_type = std::option::Option::Some(
-                crate::model::target::query_target::QueryType::StructuredQuery(v.into()),
-            );
-            self
         }
     }
 
@@ -5130,21 +4445,6 @@ impl ListCollectionIdsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [consistency_selector][crate::model::ListCollectionIdsRequest::consistency_selector]
-    /// to hold a `ReadTime`.
-    ///
-    /// Note that all the setters affecting `consistency_selector` are
-    /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consistency_selector = std::option::Option::Some(
-            crate::model::list_collection_ids_request::ConsistencySelector::ReadTime(v.into()),
-        );
-        self
     }
 }
 
@@ -5707,23 +5007,6 @@ pub mod structured_query {
             })
         }
 
-        /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// to hold a `CompositeFilter`.
-        ///
-        /// Note that all the setters affecting `filter_type` are
-        /// mutually exclusive.
-        pub fn set_composite_filter<
-            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::CompositeFilter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.filter_type = std::option::Option::Some(
-                crate::model::structured_query::filter::FilterType::CompositeFilter(v.into()),
-            );
-            self
-        }
-
         /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// if it holds a `FieldFilter`, `None` if the field is not set or
         /// holds a different branch.
@@ -5740,23 +5023,6 @@ pub mod structured_query {
             })
         }
 
-        /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// to hold a `FieldFilter`.
-        ///
-        /// Note that all the setters affecting `filter_type` are
-        /// mutually exclusive.
-        pub fn set_field_filter<
-            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldFilter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.filter_type = std::option::Option::Some(
-                crate::model::structured_query::filter::FilterType::FieldFilter(v.into()),
-            );
-            self
-        }
-
         /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// if it holds a `UnaryFilter`, `None` if the field is not set or
         /// holds a different branch.
@@ -5771,23 +5037,6 @@ pub mod structured_query {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type]
-        /// to hold a `UnaryFilter`.
-        ///
-        /// Note that all the setters affecting `filter_type` are
-        /// mutually exclusive.
-        pub fn set_unary_filter<
-            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::UnaryFilter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.filter_type = std::option::Option::Some(
-                crate::model::structured_query::filter::FilterType::UnaryFilter(v.into()),
-            );
-            self
         }
     }
 
@@ -6407,23 +5656,6 @@ pub mod structured_query {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [operand_type][crate::model::structured_query::UnaryFilter::operand_type]
-        /// to hold a `Field`.
-        ///
-        /// Note that all the setters affecting `operand_type` are
-        /// mutually exclusive.
-        pub fn set_field<
-            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldReference>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.operand_type = std::option::Option::Some(
-                crate::model::structured_query::unary_filter::OperandType::Field(v.into()),
-            );
-            self
         }
     }
 
@@ -7237,23 +6469,6 @@ impl StructuredAggregationQuery {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [query_type][crate::model::StructuredAggregationQuery::query_type]
-    /// to hold a `StructuredQuery`.
-    ///
-    /// Note that all the setters affecting `query_type` are
-    /// mutually exclusive.
-    pub fn set_structured_query<
-        T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.query_type = std::option::Option::Some(
-            crate::model::structured_aggregation_query::QueryType::StructuredQuery(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for StructuredAggregationQuery {
@@ -7368,25 +6583,6 @@ pub mod structured_aggregation_query {
             })
         }
 
-        /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// to hold a `Count`.
-        ///
-        /// Note that all the setters affecting `operator` are
-        /// mutually exclusive.
-        pub fn set_count<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.operator = std::option::Option::Some(
-                crate::model::structured_aggregation_query::aggregation::Operator::Count(v.into()),
-            );
-            self
-        }
-
         /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// if it holds a `Sum`, `None` if the field is not set or
         /// holds a different branch.
@@ -7404,25 +6600,6 @@ pub mod structured_aggregation_query {
             })
         }
 
-        /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// to hold a `Sum`.
-        ///
-        /// Note that all the setters affecting `operator` are
-        /// mutually exclusive.
-        pub fn set_sum<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.operator = std::option::Option::Some(
-                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v.into()),
-            );
-            self
-        }
-
         /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// if it holds a `Avg`, `None` if the field is not set or
         /// holds a different branch.
@@ -7438,25 +6615,6 @@ pub mod structured_aggregation_query {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
-        /// to hold a `Avg`.
-        ///
-        /// Note that all the setters affecting `operator` are
-        /// mutually exclusive.
-        pub fn set_avg<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.operator = std::option::Option::Some(
-                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v.into()),
-            );
-            self
         }
     }
 
@@ -8070,20 +7228,6 @@ impl Write {
         })
     }
 
-    /// Sets the value of [operation][crate::model::Write::operation]
-    /// to hold a `Update`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_update<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation =
-            std::option::Option::Some(crate::model::write::Operation::Update(v.into()));
-        self
-    }
-
     /// The value of [operation][crate::model::Write::operation]
     /// if it holds a `Delete`, `None` if the field is not set or
     /// holds a different branch.
@@ -8093,17 +7237,6 @@ impl Write {
             crate::model::write::Operation::Delete(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [operation][crate::model::Write::operation]
-    /// to hold a `Delete`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_delete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.operation =
-            std::option::Option::Some(crate::model::write::Operation::Delete(v.into()));
-        self
     }
 
     /// The value of [operation][crate::model::Write::operation]
@@ -8117,22 +7250,6 @@ impl Write {
             crate::model::write::Operation::Transform(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [operation][crate::model::Write::operation]
-    /// to hold a `Transform`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_transform<
-        T: std::convert::Into<std::boxed::Box<crate::model::DocumentTransform>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation =
-            std::option::Option::Some(crate::model::write::Operation::Transform(v.into()));
-        self
     }
 }
 
@@ -8302,25 +7419,6 @@ pub mod document_transform {
             })
         }
 
-        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// to hold a `SetToServerValue`.
-        ///
-        /// Note that all the setters affecting `transform_type` are
-        /// mutually exclusive.
-        pub fn set_set_to_server_value<
-            T: std::convert::Into<crate::model::document_transform::field_transform::ServerValue>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::SetToServerValue(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// if it holds a `Increment`, `None` if the field is not set or
         /// holds a different branch.
@@ -8332,23 +7430,6 @@ pub mod document_transform {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// to hold a `Increment`.
-        ///
-        /// Note that all the setters affecting `transform_type` are
-        /// mutually exclusive.
-        pub fn set_increment<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::Increment(
-                    v.into(),
-                ),
-            );
-            self
         }
 
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
@@ -8364,21 +7445,6 @@ pub mod document_transform {
             })
         }
 
-        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// to hold a `Maximum`.
-        ///
-        /// Note that all the setters affecting `transform_type` are
-        /// mutually exclusive.
-        pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::Maximum(v.into()),
-            );
-            self
-        }
-
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// if it holds a `Minimum`, `None` if the field is not set or
         /// holds a different branch.
@@ -8390,21 +7456,6 @@ pub mod document_transform {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// to hold a `Minimum`.
-        ///
-        /// Note that all the setters affecting `transform_type` are
-        /// mutually exclusive.
-        pub fn set_minimum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::Minimum(v.into()),
-            );
-            self
         }
 
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
@@ -8420,25 +7471,6 @@ pub mod document_transform {
             })
         }
 
-        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// to hold a `AppendMissingElements`.
-        ///
-        /// Note that all the setters affecting `transform_type` are
-        /// mutually exclusive.
-        pub fn set_append_missing_elements<
-            T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::AppendMissingElements(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// if it holds a `RemoveAllFromArray`, `None` if the field is not set or
         /// holds a different branch.
@@ -8450,25 +7482,6 @@ pub mod document_transform {
                 crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
-        /// to hold a `RemoveAllFromArray`.
-        ///
-        /// Note that all the setters affecting `transform_type` are
-        /// mutually exclusive.
-        pub fn set_remove_all_from_array<
-            T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(
-                    v.into()
-                )
-            );
-            self
         }
     }
 

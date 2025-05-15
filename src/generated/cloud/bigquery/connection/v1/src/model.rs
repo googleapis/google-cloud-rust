@@ -451,22 +451,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `CloudSql`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_cloud_sql<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties =
-            std::option::Option::Some(crate::model::connection::Properties::CloudSql(v.into()));
-        self
-    }
-
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `Aws`, `None` if the field is not set or
     /// holds a different branch.
@@ -478,20 +462,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `Aws`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_aws<T: std::convert::Into<std::boxed::Box<crate::model::AwsProperties>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties =
-            std::option::Option::Some(crate::model::connection::Properties::Aws(v.into()));
-        self
-    }
-
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `Azure`, `None` if the field is not set or
     /// holds a different branch.
@@ -501,20 +471,6 @@ impl Connection {
             crate::model::connection::Properties::Azure(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `Azure`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_azure<T: std::convert::Into<std::boxed::Box<crate::model::AzureProperties>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties =
-            std::option::Option::Some(crate::model::connection::Properties::Azure(v.into()));
-        self
     }
 
     /// The value of [properties][crate::model::Connection::properties]
@@ -530,22 +486,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `CloudSpanner`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_cloud_spanner<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSpannerProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties =
-            std::option::Option::Some(crate::model::connection::Properties::CloudSpanner(v.into()));
-        self
-    }
-
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `CloudResource`, `None` if the field is not set or
     /// holds a different branch.
@@ -559,23 +499,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `CloudResource`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_cloud_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudResourceProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = std::option::Option::Some(
-            crate::model::connection::Properties::CloudResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `Spark`, `None` if the field is not set or
     /// holds a different branch.
@@ -585,20 +508,6 @@ impl Connection {
             crate::model::connection::Properties::Spark(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `Spark`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_spark<T: std::convert::Into<std::boxed::Box<crate::model::SparkProperties>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties =
-            std::option::Option::Some(crate::model::connection::Properties::Spark(v.into()));
-        self
     }
 
     /// The value of [properties][crate::model::Connection::properties]
@@ -614,23 +523,6 @@ impl Connection {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [properties][crate::model::Connection::properties]
-    /// to hold a `SalesforceDataCloud`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_salesforce_data_cloud<
-        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceDataCloudProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = std::option::Option::Some(
-            crate::model::connection::Properties::SalesforceDataCloud(v.into()),
-        );
-        self
     }
 }
 
@@ -1093,24 +985,6 @@ impl AwsProperties {
         })
     }
 
-    /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]
-    /// to hold a `CrossAccountRole`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    #[deprecated]
-    pub fn set_cross_account_role<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsCrossAccountRole>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::aws_properties::AuthenticationMethod::CrossAccountRole(v.into()),
-        );
-        self
-    }
-
     /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
     /// if it holds a `AccessRole`, `None` if the field is not set or
     /// holds a different branch.
@@ -1124,21 +998,6 @@ impl AwsProperties {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method]
-    /// to hold a `AccessRole`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_access_role<T: std::convert::Into<std::boxed::Box<crate::model::AwsAccessRole>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::aws_properties::AuthenticationMethod::AccessRole(v.into()),
-        );
-        self
     }
 }
 

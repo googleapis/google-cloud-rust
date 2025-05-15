@@ -180,29 +180,6 @@ pub mod check_onboarding_status_response {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [finding_type][crate::model::check_onboarding_status_response::Finding::finding_type]
-        /// to hold a `IamAccessDenied`.
-        ///
-        /// Note that all the setters affecting `finding_type` are
-        /// mutually exclusive.
-        pub fn set_iam_access_denied<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::check_onboarding_status_response::finding::IAMAccessDenied,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.finding_type = std::option::Option::Some(
-                crate::model::check_onboarding_status_response::finding::FindingType::IamAccessDenied(
-                    v.into()
-                )
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for Finding {
@@ -516,29 +493,6 @@ pub mod entitlement {
             })
         }
 
-        /// Sets the value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
-        /// to hold a `NotMandatory`.
-        ///
-        /// Note that all the setters affecting `justification_type` are
-        /// mutually exclusive.
-        pub fn set_not_mandatory<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::entitlement::requester_justification_config::NotMandatory,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.justification_type = std::option::Option::Some(
-                crate::model::entitlement::requester_justification_config::JustificationType::NotMandatory(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
         /// if it holds a `Unstructured`, `None` if the field is not set or
         /// holds a different branch.
@@ -554,29 +508,6 @@ pub mod entitlement {
                 crate::model::entitlement::requester_justification_config::JustificationType::Unstructured(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
-        /// to hold a `Unstructured`.
-        ///
-        /// Note that all the setters affecting `justification_type` are
-        /// mutually exclusive.
-        pub fn set_unstructured<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::entitlement::requester_justification_config::Unstructured,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.justification_type = std::option::Option::Some(
-                crate::model::entitlement::requester_justification_config::JustificationType::Unstructured(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -955,23 +886,6 @@ impl ApprovalWorkflow {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [approval_workflow][crate::model::ApprovalWorkflow::approval_workflow]
-    /// to hold a `ManualApprovals`.
-    ///
-    /// Note that all the setters affecting `approval_workflow` are
-    /// mutually exclusive.
-    pub fn set_manual_approvals<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManualApprovals>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.approval_workflow = std::option::Option::Some(
-            crate::model::approval_workflow::ApprovalWorkflow::ManualApprovals(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ApprovalWorkflow {
@@ -1176,23 +1090,6 @@ impl PrivilegedAccess {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [access_type][crate::model::PrivilegedAccess::access_type]
-    /// to hold a `GcpIamAccess`.
-    ///
-    /// Note that all the setters affecting `access_type` are
-    /// mutually exclusive.
-    pub fn set_gcp_iam_access<
-        T: std::convert::Into<std::boxed::Box<crate::model::privileged_access::GcpIamAccess>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_type = std::option::Option::Some(
-            crate::model::privileged_access::AccessType::GcpIamAccess(v.into()),
-        );
-        self
     }
 }
 
@@ -2318,25 +2215,6 @@ pub mod grant {
                 })
             }
 
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Requested`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_requested<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::grant::timeline::event::Requested>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Requested(v.into()),
-                );
-                self
-            }
-
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Approved`, `None` if the field is not set or
             /// holds a different branch.
@@ -2351,23 +2229,6 @@ pub mod grant {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Approved`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_approved<
-                T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Approved>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Approved(v.into()),
-                );
-                self
             }
 
             /// The value of [event][crate::model::grant::timeline::Event::event]
@@ -2386,23 +2247,6 @@ pub mod grant {
                 })
             }
 
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Denied`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_denied<
-                T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Denied>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Denied(v.into()),
-                );
-                self
-            }
-
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Revoked`, `None` if the field is not set or
             /// holds a different branch.
@@ -2417,23 +2261,6 @@ pub mod grant {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Revoked`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_revoked<
-                T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Revoked>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Revoked(v.into()),
-                );
-                self
             }
 
             /// The value of [event][crate::model::grant::timeline::Event::event]
@@ -2453,25 +2280,6 @@ pub mod grant {
                 })
             }
 
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Scheduled`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_scheduled<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Scheduled(v.into()),
-                );
-                self
-            }
-
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Activated`, `None` if the field is not set or
             /// holds a different branch.
@@ -2487,25 +2295,6 @@ pub mod grant {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Activated`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_activated<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::grant::timeline::event::Activated>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Activated(v.into()),
-                );
-                self
             }
 
             /// The value of [event][crate::model::grant::timeline::Event::event]
@@ -2525,25 +2314,6 @@ pub mod grant {
                 })
             }
 
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `ActivationFailed`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_activation_failed<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::ActivationFailed(v.into()),
-                );
-                self
-            }
-
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Expired`, `None` if the field is not set or
             /// holds a different branch.
@@ -2558,23 +2328,6 @@ pub mod grant {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Expired`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_expired<
-                T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Expired>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Expired(v.into()),
-                );
-                self
             }
 
             /// The value of [event][crate::model::grant::timeline::Event::event]
@@ -2593,23 +2346,6 @@ pub mod grant {
                 })
             }
 
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `Ended`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_ended<
-                T: std::convert::Into<std::boxed::Box<crate::model::grant::timeline::event::Ended>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::Ended(v.into()),
-                );
-                self
-            }
-
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `ExternallyModified`, `None` if the field is not set or
             /// holds a different branch.
@@ -2625,25 +2361,6 @@ pub mod grant {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [event][crate::model::grant::timeline::Event::event]
-            /// to hold a `ExternallyModified`.
-            ///
-            /// Note that all the setters affecting `event` are
-            /// mutually exclusive.
-            pub fn set_externally_modified<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.event = std::option::Option::Some(
-                    crate::model::grant::timeline::event::Event::ExternallyModified(v.into()),
-                );
-                self
             }
         }
 
@@ -3331,21 +3048,6 @@ impl Justification {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [justification][crate::model::Justification::justification]
-    /// to hold a `UnstructuredJustification`.
-    ///
-    /// Note that all the setters affecting `justification` are
-    /// mutually exclusive.
-    pub fn set_unstructured_justification<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.justification = std::option::Option::Some(
-            crate::model::justification::Justification::UnstructuredJustification(v.into()),
-        );
-        self
     }
 }
 

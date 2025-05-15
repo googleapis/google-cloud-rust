@@ -1317,23 +1317,6 @@ impl ObjectMetadataReportOptions {
         })
     }
 
-    /// Sets the value of [filter][crate::model::ObjectMetadataReportOptions::filter]
-    /// to hold a `StorageFilters`.
-    ///
-    /// Note that all the setters affecting `filter` are
-    /// mutually exclusive.
-    pub fn set_storage_filters<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageFilters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter = std::option::Option::Some(
-            crate::model::object_metadata_report_options::Filter::StorageFilters(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [destination_options][crate::model::ObjectMetadataReportOptions::destination_options].
     ///
     /// Note that all the setters affecting `destination_options` are mutually
@@ -1363,25 +1346,6 @@ impl ObjectMetadataReportOptions {
             crate::model::object_metadata_report_options::DestinationOptions::StorageDestinationOptions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination_options][crate::model::ObjectMetadataReportOptions::destination_options]
-    /// to hold a `StorageDestinationOptions`.
-    ///
-    /// Note that all the setters affecting `destination_options` are
-    /// mutually exclusive.
-    pub fn set_storage_destination_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageDestinationOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination_options = std::option::Option::Some(
-            crate::model::object_metadata_report_options::DestinationOptions::StorageDestinationOptions(
-                v.into()
-            )
-        );
-        self
     }
 }
 
@@ -1551,21 +1515,6 @@ impl ReportConfig {
         })
     }
 
-    /// Sets the value of [report_format][crate::model::ReportConfig::report_format]
-    /// to hold a `CsvOptions`.
-    ///
-    /// Note that all the setters affecting `report_format` are
-    /// mutually exclusive.
-    pub fn set_csv_options<T: std::convert::Into<std::boxed::Box<crate::model::CSVOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.report_format = std::option::Option::Some(
-            crate::model::report_config::ReportFormat::CsvOptions(v.into()),
-        );
-        self
-    }
-
     /// The value of [report_format][crate::model::ReportConfig::report_format]
     /// if it holds a `ParquetOptions`, `None` if the field is not set or
     /// holds a different branch.
@@ -1579,23 +1528,6 @@ impl ReportConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [report_format][crate::model::ReportConfig::report_format]
-    /// to hold a `ParquetOptions`.
-    ///
-    /// Note that all the setters affecting `report_format` are
-    /// mutually exclusive.
-    pub fn set_parquet_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::ParquetOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.report_format = std::option::Option::Some(
-            crate::model::report_config::ReportFormat::ParquetOptions(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [report_kind][crate::model::ReportConfig::report_kind].
@@ -1625,23 +1557,6 @@ impl ReportConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [report_kind][crate::model::ReportConfig::report_kind]
-    /// to hold a `ObjectMetadataReportOptions`.
-    ///
-    /// Note that all the setters affecting `report_kind` are
-    /// mutually exclusive.
-    pub fn set_object_metadata_report_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::ObjectMetadataReportOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.report_kind = std::option::Option::Some(
-            crate::model::report_config::ReportKind::ObjectMetadataReportOptions(v.into()),
-        );
-        self
     }
 }
 

@@ -398,23 +398,6 @@ impl BillingInfo {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [current_billing_info][crate::model::BillingInfo::current_billing_info]
-    /// to hold a `UserCountBilling`.
-    ///
-    /// Note that all the setters affecting `current_billing_info` are
-    /// mutually exclusive.
-    pub fn set_user_count_billing<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserCountBillingInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.current_billing_info = std::option::Option::Some(
-            crate::model::billing_info::CurrentBillingInfo::UserCountBilling(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BillingInfo {
@@ -1789,25 +1772,6 @@ impl QueryConfigurationLicenseUsageResponse {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [details][crate::model::QueryConfigurationLicenseUsageResponse::details]
-    /// to hold a `UserCountUsage`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_user_count_usage<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserCountUsage>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = std::option::Option::Some(
-            crate::model::query_configuration_license_usage_response::Details::UserCountUsage(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 

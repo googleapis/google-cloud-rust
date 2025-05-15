@@ -5488,23 +5488,6 @@ impl ProvisioningQuota {
         })
     }
 
-    /// Sets the value of [quota][crate::model::ProvisioningQuota::quota]
-    /// to hold a `InstanceQuota`.
-    ///
-    /// Note that all the setters affecting `quota` are
-    /// mutually exclusive.
-    pub fn set_instance_quota<
-        T: std::convert::Into<std::boxed::Box<crate::model::InstanceQuota>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.quota = std::option::Option::Some(
-            crate::model::provisioning_quota::Quota::InstanceQuota(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [availability][crate::model::ProvisioningQuota::availability].
     ///
     /// Note that all the setters affecting `availability` are mutually
@@ -5532,18 +5515,6 @@ impl ProvisioningQuota {
         })
     }
 
-    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
-    /// to hold a `ServerCount`.
-    ///
-    /// Note that all the setters affecting `availability` are
-    /// mutually exclusive.
-    pub fn set_server_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::ServerCount(v.into()),
-        );
-        self
-    }
-
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `NetworkBandwidth`, `None` if the field is not set or
     /// holds a different branch.
@@ -5557,18 +5528,6 @@ impl ProvisioningQuota {
         })
     }
 
-    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
-    /// to hold a `NetworkBandwidth`.
-    ///
-    /// Note that all the setters affecting `availability` are
-    /// mutually exclusive.
-    pub fn set_network_bandwidth<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::NetworkBandwidth(v.into()),
-        );
-        self
-    }
-
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `StorageGib`, `None` if the field is not set or
     /// holds a different branch.
@@ -5580,18 +5539,6 @@ impl ProvisioningQuota {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability]
-    /// to hold a `StorageGib`.
-    ///
-    /// Note that all the setters affecting `availability` are
-    /// mutually exclusive.
-    pub fn set_storage_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.availability = std::option::Option::Some(
-            crate::model::provisioning_quota::Availability::StorageGib(v.into()),
-        );
-        self
     }
 }
 
@@ -6596,18 +6543,6 @@ pub mod volume_config {
             })
         }
 
-        /// Sets the value of [client][crate::model::volume_config::NfsExport::client]
-        /// to hold a `MachineId`.
-        ///
-        /// Note that all the setters affecting `client` are
-        /// mutually exclusive.
-        pub fn set_machine_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.client = std::option::Option::Some(
-                crate::model::volume_config::nfs_export::Client::MachineId(v.into()),
-            );
-            self
-        }
-
         /// The value of [client][crate::model::volume_config::NfsExport::client]
         /// if it holds a `Cidr`, `None` if the field is not set or
         /// holds a different branch.
@@ -6619,18 +6554,6 @@ pub mod volume_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [client][crate::model::volume_config::NfsExport::client]
-        /// to hold a `Cidr`.
-        ///
-        /// Note that all the setters affecting `client` are
-        /// mutually exclusive.
-        pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.client = std::option::Option::Some(
-                crate::model::volume_config::nfs_export::Client::Cidr(v.into()),
-            );
-            self
         }
     }
 

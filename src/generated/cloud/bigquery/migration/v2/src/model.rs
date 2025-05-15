@@ -502,23 +502,6 @@ impl MigrationTask {
         })
     }
 
-    /// Sets the value of [task_details][crate::model::MigrationTask::task_details]
-    /// to hold a `TranslationConfigDetails`.
-    ///
-    /// Note that all the setters affecting `task_details` are
-    /// mutually exclusive.
-    pub fn set_translation_config_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::TranslationConfigDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task_details = std::option::Option::Some(
-            crate::model::migration_task::TaskDetails::TranslationConfigDetails(v.into()),
-        );
-        self
-    }
-
     /// The value of [task_details][crate::model::MigrationTask::task_details]
     /// if it holds a `TranslationDetails`, `None` if the field is not set or
     /// holds a different branch.
@@ -532,23 +515,6 @@ impl MigrationTask {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [task_details][crate::model::MigrationTask::task_details]
-    /// to hold a `TranslationDetails`.
-    ///
-    /// Note that all the setters affecting `task_details` are
-    /// mutually exclusive.
-    pub fn set_translation_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::TranslationDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.task_details = std::option::Option::Some(
-            crate::model::migration_task::TaskDetails::TranslationDetails(v.into()),
-        );
-        self
     }
 }
 
@@ -1112,23 +1078,6 @@ impl MigrationTaskResult {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [details][crate::model::MigrationTaskResult::details]
-    /// to hold a `TranslationTaskResult`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_translation_task_result<
-        T: std::convert::Into<std::boxed::Box<crate::model::TranslationTaskResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = std::option::Option::Some(
-            crate::model::migration_task_result::Details::TranslationTaskResult(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for MigrationTaskResult {
@@ -1599,17 +1548,6 @@ impl TypedValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
@@ -1619,17 +1557,6 @@ impl TypedValue {
             crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `Int64Value`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::Int64Value(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::TypedValue::value]
@@ -1643,17 +1570,6 @@ impl TypedValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `DoubleValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::DoubleValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1663,17 +1579,6 @@ impl TypedValue {
             crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::TypedValue::value]
@@ -1687,23 +1592,6 @@ impl TypedValue {
             crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `DistributionValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_distribution_value<
-        T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::DistributionValue(v.into()),
-        );
-        self
     }
 }
 
@@ -2351,18 +2239,6 @@ impl TranslationConfigDetails {
         })
     }
 
-    /// Sets the value of [source_location][crate::model::TranslationConfigDetails::source_location]
-    /// to hold a `GcsSourcePath`.
-    ///
-    /// Note that all the setters affecting `source_location` are
-    /// mutually exclusive.
-    pub fn set_gcs_source_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source_location = std::option::Option::Some(
-            crate::model::translation_config_details::SourceLocation::GcsSourcePath(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [target_location][crate::model::TranslationConfigDetails::target_location].
     ///
     /// Note that all the setters affecting `target_location` are mutually
@@ -2390,18 +2266,6 @@ impl TranslationConfigDetails {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_location][crate::model::TranslationConfigDetails::target_location]
-    /// to hold a `GcsTargetPath`.
-    ///
-    /// Note that all the setters affecting `target_location` are
-    /// mutually exclusive.
-    pub fn set_gcs_target_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target_location = std::option::Option::Some(
-            crate::model::translation_config_details::TargetLocation::GcsTargetPath(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [output_name_mapping][crate::model::TranslationConfigDetails::output_name_mapping].
@@ -2433,23 +2297,6 @@ impl TranslationConfigDetails {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [output_name_mapping][crate::model::TranslationConfigDetails::output_name_mapping]
-    /// to hold a `NameMappingList`.
-    ///
-    /// Note that all the setters affecting `output_name_mapping` are
-    /// mutually exclusive.
-    pub fn set_name_mapping_list<
-        T: std::convert::Into<std::boxed::Box<crate::model::ObjectNameMappingList>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_name_mapping = std::option::Option::Some(
-            crate::model::translation_config_details::OutputNameMapping::NameMappingList(v.into()),
-        );
-        self
     }
 }
 
@@ -2542,23 +2389,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `BigqueryDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_bigquery_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::BigqueryDialect(v.into()),
-        );
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `HiveqlDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2570,22 +2400,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::HiveqlDialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `HiveqlDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_hiveql_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::HiveQLDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value =
-            std::option::Option::Some(crate::model::dialect::DialectValue::HiveqlDialect(v.into()));
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2601,23 +2415,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `RedshiftDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_redshift_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::RedshiftDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::RedshiftDialect(v.into()),
-        );
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `TeradataDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2629,23 +2426,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::TeradataDialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `TeradataDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_teradata_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::TeradataDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::TeradataDialect(v.into()),
-        );
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2661,22 +2441,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `OracleDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_oracle_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::OracleDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value =
-            std::option::Option::Some(crate::model::dialect::DialectValue::OracleDialect(v.into()));
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `SparksqlDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2688,23 +2452,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::SparksqlDialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `SparksqlDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_sparksql_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkSQLDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::SparksqlDialect(v.into()),
-        );
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2722,23 +2469,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `SnowflakeDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_snowflake_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::SnowflakeDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::SnowflakeDialect(v.into()),
-        );
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `NetezzaDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2750,23 +2480,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::NetezzaDialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `NetezzaDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_netezza_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::NetezzaDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::NetezzaDialect(v.into()),
-        );
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2784,23 +2497,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `AzureSynapseDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_azure_synapse_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::AzureSynapseDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::AzureSynapseDialect(v.into()),
-        );
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `VerticaDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2812,23 +2508,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::VerticaDialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `VerticaDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_vertica_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::VerticaDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::VerticaDialect(v.into()),
-        );
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2846,23 +2525,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `SqlServerDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_sql_server_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::SQLServerDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::SqlServerDialect(v.into()),
-        );
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `PostgresqlDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2878,23 +2540,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `PostgresqlDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_postgresql_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::PostgresqlDialect(v.into()),
-        );
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `PrestoDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2906,22 +2551,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::PrestoDialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `PrestoDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_presto_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::PrestoDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value =
-            std::option::Option::Some(crate::model::dialect::DialectValue::PrestoDialect(v.into()));
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2937,20 +2566,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `MysqlDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_mysql_dialect<T: std::convert::Into<std::boxed::Box<crate::model::MySQLDialect>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value =
-            std::option::Option::Some(crate::model::dialect::DialectValue::MysqlDialect(v.into()));
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `Db2Dialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -2960,20 +2575,6 @@ impl Dialect {
             crate::model::dialect::DialectValue::Db2Dialect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `Db2Dialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_db2_dialect<T: std::convert::Into<std::boxed::Box<crate::model::DB2Dialect>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value =
-            std::option::Option::Some(crate::model::dialect::DialectValue::Db2Dialect(v.into()));
-        self
     }
 
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
@@ -2989,22 +2590,6 @@ impl Dialect {
         })
     }
 
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `SqliteDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_sqlite_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::SQLiteDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value =
-            std::option::Option::Some(crate::model::dialect::DialectValue::SqliteDialect(v.into()));
-        self
-    }
-
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `GreenplumDialect`, `None` if the field is not set or
     /// holds a different branch.
@@ -3018,23 +2603,6 @@ impl Dialect {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value]
-    /// to hold a `GreenplumDialect`.
-    ///
-    /// Note that all the setters affecting `dialect_value` are
-    /// mutually exclusive.
-    pub fn set_greenplum_dialect<
-        T: std::convert::Into<std::boxed::Box<crate::model::GreenplumDialect>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dialect_value = std::option::Option::Some(
-            crate::model::dialect::DialectValue::GreenplumDialect(v.into()),
-        );
-        self
     }
 }
 
@@ -4293,17 +3861,6 @@ impl SourceSpec {
         })
     }
 
-    /// Sets the value of [source][crate::model::SourceSpec::source]
-    /// to hold a `BaseUri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_base_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::source_spec::Source::BaseUri(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::SourceSpec::source]
     /// if it holds a `Literal`, `None` if the field is not set or
     /// holds a different branch.
@@ -4313,20 +3870,6 @@ impl SourceSpec {
             crate::model::source_spec::Source::Literal(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::SourceSpec::source]
-    /// to hold a `Literal`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_literal<T: std::convert::Into<std::boxed::Box<crate::model::Literal>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::source_spec::Source::Literal(v.into()));
-        self
     }
 }
 
@@ -4442,17 +3985,6 @@ impl Literal {
         })
     }
 
-    /// Sets the value of [literal_data][crate::model::Literal::literal_data]
-    /// to hold a `LiteralString`.
-    ///
-    /// Note that all the setters affecting `literal_data` are
-    /// mutually exclusive.
-    pub fn set_literal_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.literal_data =
-            std::option::Option::Some(crate::model::literal::LiteralData::LiteralString(v.into()));
-        self
-    }
-
     /// The value of [literal_data][crate::model::Literal::literal_data]
     /// if it holds a `LiteralBytes`, `None` if the field is not set or
     /// holds a different branch.
@@ -4462,17 +3994,6 @@ impl Literal {
             crate::model::literal::LiteralData::LiteralBytes(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [literal_data][crate::model::Literal::literal_data]
-    /// to hold a `LiteralBytes`.
-    ///
-    /// Note that all the setters affecting `literal_data` are
-    /// mutually exclusive.
-    pub fn set_literal_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.literal_data =
-            std::option::Option::Some(crate::model::literal::LiteralData::LiteralBytes(v.into()));
-        self
     }
 }
 

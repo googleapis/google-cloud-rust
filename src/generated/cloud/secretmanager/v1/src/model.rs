@@ -317,20 +317,6 @@ impl Secret {
         })
     }
 
-    /// Sets the value of [expiration][crate::model::Secret::expiration]
-    /// to hold a `ExpireTime`.
-    ///
-    /// Note that all the setters affecting `expiration` are
-    /// mutually exclusive.
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::secret::Expiration::ExpireTime(v.into()));
-        self
-    }
-
     /// The value of [expiration][crate::model::Secret::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
@@ -340,17 +326,6 @@ impl Secret {
             crate::model::secret::Expiration::Ttl(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [expiration][crate::model::Secret::expiration]
-    /// to hold a `Ttl`.
-    ///
-    /// Note that all the setters affecting `expiration` are
-    /// mutually exclusive.
-    pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.expiration =
-            std::option::Option::Some(crate::model::secret::Expiration::Ttl(v.into()));
-        self
     }
 }
 
@@ -794,22 +769,6 @@ impl Replication {
         })
     }
 
-    /// Sets the value of [replication][crate::model::Replication::replication]
-    /// to hold a `Automatic`.
-    ///
-    /// Note that all the setters affecting `replication` are
-    /// mutually exclusive.
-    pub fn set_automatic<
-        T: std::convert::Into<std::boxed::Box<crate::model::replication::Automatic>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replication =
-            std::option::Option::Some(crate::model::replication::Replication::Automatic(v.into()));
-        self
-    }
-
     /// The value of [replication][crate::model::Replication::replication]
     /// if it holds a `UserManaged`, `None` if the field is not set or
     /// holds a different branch.
@@ -821,23 +780,6 @@ impl Replication {
             crate::model::replication::Replication::UserManaged(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [replication][crate::model::Replication::replication]
-    /// to hold a `UserManaged`.
-    ///
-    /// Note that all the setters affecting `replication` are
-    /// mutually exclusive.
-    pub fn set_user_managed<
-        T: std::convert::Into<std::boxed::Box<crate::model::replication::UserManaged>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replication = std::option::Option::Some(
-            crate::model::replication::Replication::UserManaged(v.into()),
-        );
-        self
     }
 }
 
@@ -1151,23 +1093,6 @@ impl ReplicationStatus {
         })
     }
 
-    /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status]
-    /// to hold a `Automatic`.
-    ///
-    /// Note that all the setters affecting `replication_status` are
-    /// mutually exclusive.
-    pub fn set_automatic<
-        T: std::convert::Into<std::boxed::Box<crate::model::replication_status::AutomaticStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replication_status = std::option::Option::Some(
-            crate::model::replication_status::ReplicationStatus::Automatic(v.into()),
-        );
-        self
-    }
-
     /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
     /// if it holds a `UserManaged`, `None` if the field is not set or
     /// holds a different branch.
@@ -1182,23 +1107,6 @@ impl ReplicationStatus {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status]
-    /// to hold a `UserManaged`.
-    ///
-    /// Note that all the setters affecting `replication_status` are
-    /// mutually exclusive.
-    pub fn set_user_managed<
-        T: std::convert::Into<std::boxed::Box<crate::model::replication_status::UserManagedStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replication_status = std::option::Option::Some(
-            crate::model::replication_status::ReplicationStatus::UserManaged(v.into()),
-        );
-        self
     }
 }
 

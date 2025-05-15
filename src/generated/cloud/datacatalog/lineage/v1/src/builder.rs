@@ -1398,32 +1398,6 @@ pub mod lineage {
             self.0.request.criteria = v.into();
             self
         }
-
-        /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
-        /// to hold a `Source`.
-        ///
-        /// Note that all the setters affecting `criteria` are
-        /// mutually exclusive.
-        pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_source(v);
-            self
-        }
-
-        /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria]
-        /// to hold a `Target`.
-        ///
-        /// Note that all the setters affecting `criteria` are
-        /// mutually exclusive.
-        pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_target(v);
-            self
-        }
     }
 
     #[doc(hidden)]

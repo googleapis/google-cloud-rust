@@ -161,21 +161,6 @@ pub mod builds {
             self
         }
 
-        /// Sets the value of [source][crate::model::SubmitBuildRequest::source]
-        /// to hold a `StorageSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_storage_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_storage_source(v);
-            self
-        }
-
         /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type].
         ///
         /// Note that all the setters affecting `build_type` are
@@ -185,38 +170,6 @@ pub mod builds {
             v: T,
         ) -> Self {
             self.0.request.build_type = v.into();
-            self
-        }
-
-        /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type]
-        /// to hold a `BuildpackBuild`.
-        ///
-        /// Note that all the setters affecting `build_type` are
-        /// mutually exclusive.
-        pub fn set_buildpack_build<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_buildpack_build(v);
-            self
-        }
-
-        /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type]
-        /// to hold a `DockerBuild`.
-        ///
-        /// Note that all the setters affecting `build_type` are
-        /// mutually exclusive.
-        pub fn set_docker_build<
-            T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::DockerBuild>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_docker_build(v);
             self
         }
     }

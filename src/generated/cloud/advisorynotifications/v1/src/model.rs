@@ -376,19 +376,6 @@ impl Attachment {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [data][crate::model::Attachment::data]
-    /// to hold a `Csv`.
-    ///
-    /// Note that all the setters affecting `data` are
-    /// mutually exclusive.
-    pub fn set_csv<T: std::convert::Into<std::boxed::Box<crate::model::Csv>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data = std::option::Option::Some(crate::model::attachment::Data::Csv(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Attachment {

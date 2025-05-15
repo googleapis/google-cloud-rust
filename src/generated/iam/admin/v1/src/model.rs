@@ -3301,21 +3301,6 @@ impl LintPolicyRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [lint_object][crate::model::LintPolicyRequest::lint_object]
-    /// to hold a `Condition`.
-    ///
-    /// Note that all the setters affecting `lint_object` are
-    /// mutually exclusive.
-    pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.lint_object = std::option::Option::Some(
-            crate::model::lint_policy_request::LintObject::Condition(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for LintPolicyRequest {

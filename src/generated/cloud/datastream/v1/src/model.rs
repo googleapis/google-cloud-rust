@@ -104,23 +104,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
-    /// to hold a `ConnectionProfile`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_connection_profile<
-        T: std::convert::Into<std::boxed::Box<crate::model::ConnectionProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Target::ConnectionProfile(v.into()),
-        );
-        self
-    }
-
     /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
     /// if it holds a `ConnectionProfileName`, `None` if the field is not set or
     /// holds a different branch.
@@ -132,23 +115,6 @@ impl DiscoverConnectionProfileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
-    /// to hold a `ConnectionProfileName`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_connection_profile_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Target::ConnectionProfileName(
-                v.into(),
-            ),
-        );
-        self
     }
 
     /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy].
@@ -180,18 +146,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
-    /// to hold a `FullHierarchy`.
-    ///
-    /// Note that all the setters affecting `hierarchy` are
-    /// mutually exclusive.
-    pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.hierarchy = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v.into()),
-        );
-        self
-    }
-
     /// The value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
     /// if it holds a `HierarchyDepth`, `None` if the field is not set or
     /// holds a different branch.
@@ -203,18 +157,6 @@ impl DiscoverConnectionProfileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
-    /// to hold a `HierarchyDepth`.
-    ///
-    /// Note that all the setters affecting `hierarchy` are
-    /// mutually exclusive.
-    pub fn set_hierarchy_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.hierarchy = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object].
@@ -246,21 +188,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// to hold a `OracleRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::OracleRdbms(v.into()),
-        );
-        self
-    }
-
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `MysqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
@@ -272,21 +199,6 @@ impl DiscoverConnectionProfileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// to hold a `MysqlRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v.into()),
-        );
-        self
     }
 
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
@@ -304,25 +216,6 @@ impl DiscoverConnectionProfileRequest {
         })
     }
 
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// to hold a `PostgresqlRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_postgresql_rdbms<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::PostgresqlRdbms(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
     /// holds a different branch.
@@ -336,23 +229,6 @@ impl DiscoverConnectionProfileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
-    /// to hold a `SqlServerRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_sql_server_rdbms<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_request::DataObject::SqlServerRdbms(v.into()),
-        );
-        self
     }
 }
 
@@ -458,21 +334,6 @@ impl DiscoverConnectionProfileResponse {
         })
     }
 
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// to hold a `OracleRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_oracle_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::OracleRdbms(v.into()),
-        );
-        self
-    }
-
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `MysqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
@@ -484,21 +345,6 @@ impl DiscoverConnectionProfileResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// to hold a `MysqlRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v.into()),
-        );
-        self
     }
 
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
@@ -516,25 +362,6 @@ impl DiscoverConnectionProfileResponse {
         })
     }
 
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// to hold a `PostgresqlRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_postgresql_rdbms<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::PostgresqlRdbms(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
     /// holds a different branch.
@@ -548,25 +375,6 @@ impl DiscoverConnectionProfileResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
-    /// to hold a `SqlServerRdbms`.
-    ///
-    /// Note that all the setters affecting `data_object` are
-    /// mutually exclusive.
-    pub fn set_sql_server_rdbms<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_object = std::option::Option::Some(
-            crate::model::discover_connection_profile_response::DataObject::SqlServerRdbms(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -3357,23 +3165,6 @@ impl SalesforceProfile {
         })
     }
 
-    /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
-    /// to hold a `UserCredentials`.
-    ///
-    /// Note that all the setters affecting `credentials` are
-    /// mutually exclusive.
-    pub fn set_user_credentials<
-        T: std::convert::Into<std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.credentials = std::option::Option::Some(
-            crate::model::salesforce_profile::Credentials::UserCredentials(v.into()),
-        );
-        self
-    }
-
     /// The value of [credentials][crate::model::SalesforceProfile::credentials]
     /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
     /// holds a different branch.
@@ -3389,25 +3180,6 @@ impl SalesforceProfile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials]
-    /// to hold a `Oauth2ClientCredentials`.
-    ///
-    /// Note that all the setters affecting `credentials` are
-    /// mutually exclusive.
-    pub fn set_oauth2_client_credentials<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.credentials = std::option::Option::Some(
-            crate::model::salesforce_profile::Credentials::Oauth2ClientCredentials(v.into()),
-        );
-        self
     }
 }
 
@@ -3757,18 +3529,6 @@ impl ForwardSshTunnelConnectivity {
         })
     }
 
-    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
-    /// to hold a `Password`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v.into()),
-        );
-        self
-    }
-
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `PrivateKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -3780,20 +3540,6 @@ impl ForwardSshTunnelConnectivity {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
-    /// to hold a `PrivateKey`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -4510,25 +4256,6 @@ impl PostgresqlSslConfig {
         })
     }
 
-    /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
-    /// to hold a `ServerVerification`.
-    ///
-    /// Note that all the setters affecting `encryption_setting` are
-    /// mutually exclusive.
-    pub fn set_server_verification<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_setting = std::option::Option::Some(
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerVerification(v.into()),
-        );
-        self
-    }
-
     /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
     /// holds a different branch.
@@ -4544,27 +4271,6 @@ impl PostgresqlSslConfig {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
-    /// to hold a `ServerAndClientVerification`.
-    ///
-    /// Note that all the setters affecting `encryption_setting` are
-    /// mutually exclusive.
-    pub fn set_server_and_client_verification<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_setting = std::option::Option::Some(
-            crate::model::postgresql_ssl_config::EncryptionSetting::ServerAndClientVerification(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -4849,23 +4555,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `OracleProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_oracle_profile<
-        T: std::convert::Into<std::boxed::Box<crate::model::OracleProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::OracleProfile(v.into()),
-        );
-        self
-    }
-
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `GcsProfile`, `None` if the field is not set or
     /// holds a different branch.
@@ -4877,21 +4566,6 @@ impl ConnectionProfile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `GcsProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_gcs_profile<T: std::convert::Into<std::boxed::Box<crate::model::GcsProfile>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::GcsProfile(v.into()),
-        );
-        self
     }
 
     /// The value of [profile][crate::model::ConnectionProfile::profile]
@@ -4909,21 +4583,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `MysqlProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_mysql_profile<T: std::convert::Into<std::boxed::Box<crate::model::MysqlProfile>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::MysqlProfile(v.into()),
-        );
-        self
-    }
-
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `BigqueryProfile`, `None` if the field is not set or
     /// holds a different branch.
@@ -4937,23 +4596,6 @@ impl ConnectionProfile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `BigqueryProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_bigquery_profile<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::BigqueryProfile(v.into()),
-        );
-        self
     }
 
     /// The value of [profile][crate::model::ConnectionProfile::profile]
@@ -4971,23 +4613,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `PostgresqlProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_postgresql_profile<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::PostgresqlProfile(v.into()),
-        );
-        self
-    }
-
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `SqlServerProfile`, `None` if the field is not set or
     /// holds a different branch.
@@ -5003,23 +4628,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `SqlServerProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_sql_server_profile<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::SqlServerProfile(v.into()),
-        );
-        self
-    }
-
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `SalesforceProfile`, `None` if the field is not set or
     /// holds a different branch.
@@ -5033,23 +4641,6 @@ impl ConnectionProfile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [profile][crate::model::ConnectionProfile::profile]
-    /// to hold a `SalesforceProfile`.
-    ///
-    /// Note that all the setters affecting `profile` are
-    /// mutually exclusive.
-    pub fn set_salesforce_profile<
-        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceProfile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.profile = std::option::Option::Some(
-            crate::model::connection_profile::Profile::SalesforceProfile(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity].
@@ -5081,23 +4672,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// to hold a `StaticServiceIpConnectivity`.
-    ///
-    /// Note that all the setters affecting `connectivity` are
-    /// mutually exclusive.
-    pub fn set_static_service_ip_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticServiceIpConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connectivity = std::option::Option::Some(
-            crate::model::connection_profile::Connectivity::StaticServiceIpConnectivity(v.into()),
-        );
-        self
-    }
-
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
@@ -5113,23 +4687,6 @@ impl ConnectionProfile {
         })
     }
 
-    /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// to hold a `ForwardSshConnectivity`.
-    ///
-    /// Note that all the setters affecting `connectivity` are
-    /// mutually exclusive.
-    pub fn set_forward_ssh_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connectivity = std::option::Option::Some(
-            crate::model::connection_profile::Connectivity::ForwardSshConnectivity(v.into()),
-        );
-        self
-    }
-
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
     /// holds a different branch.
@@ -5143,23 +4700,6 @@ impl ConnectionProfile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity]
-    /// to hold a `PrivateConnectivity`.
-    ///
-    /// Note that all the setters affecting `connectivity` are
-    /// mutually exclusive.
-    pub fn set_private_connectivity<
-        T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectivity>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connectivity = std::option::Option::Some(
-            crate::model::connection_profile::Connectivity::PrivateConnectivity(v.into()),
-        );
-        self
     }
 }
 
@@ -5564,23 +5104,6 @@ impl OracleSourceConfig {
         })
     }
 
-    /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
-    /// to hold a `DropLargeObjects`.
-    ///
-    /// Note that all the setters affecting `large_objects_handling` are
-    /// mutually exclusive.
-    pub fn set_drop_large_objects<
-        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.large_objects_handling = std::option::Option::Some(
-            crate::model::oracle_source_config::LargeObjectsHandling::DropLargeObjects(v.into()),
-        );
-        self
-    }
-
     /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
     /// holds a different branch.
@@ -5595,23 +5118,6 @@ impl OracleSourceConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
-    /// to hold a `StreamLargeObjects`.
-    ///
-    /// Note that all the setters affecting `large_objects_handling` are
-    /// mutually exclusive.
-    pub fn set_stream_large_objects<
-        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.large_objects_handling = std::option::Option::Some(
-            crate::model::oracle_source_config::LargeObjectsHandling::StreamLargeObjects(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method].
@@ -5643,23 +5149,6 @@ impl OracleSourceConfig {
         })
     }
 
-    /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
-    /// to hold a `LogMiner`.
-    ///
-    /// Note that all the setters affecting `cdc_method` are
-    /// mutually exclusive.
-    pub fn set_log_miner<
-        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::LogMiner>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdc_method = std::option::Option::Some(
-            crate::model::oracle_source_config::CdcMethod::LogMiner(v.into()),
-        );
-        self
-    }
-
     /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// if it holds a `BinaryLogParser`, `None` if the field is not set or
     /// holds a different branch.
@@ -5674,23 +5163,6 @@ impl OracleSourceConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
-    /// to hold a `BinaryLogParser`.
-    ///
-    /// Note that all the setters affecting `cdc_method` are
-    /// mutually exclusive.
-    pub fn set_binary_log_parser<
-        T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdc_method = std::option::Option::Some(
-            crate::model::oracle_source_config::CdcMethod::BinaryLogParser(v.into()),
-        );
-        self
     }
 }
 
@@ -5827,20 +5299,6 @@ pub mod oracle_source_config {
             })
         }
 
-        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
-        /// to hold a `OracleAsmLogFileAccess`.
-        ///
-        /// Note that all the setters affecting `log_file_access` are
-        /// mutually exclusive.
-        pub fn set_oracle_asm_log_file_access<T: std::convert::Into<std::boxed::Box<crate::model::oracle_source_config::binary_log_parser::OracleAsmLogFileAccess>>>(mut self, v: T) -> Self{
-            self.log_file_access = std::option::Option::Some(
-                crate::model::oracle_source_config::binary_log_parser::LogFileAccess::OracleAsmLogFileAccess(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `LogFileDirectories`, `None` if the field is not set or
         /// holds a different branch.
@@ -5856,29 +5314,6 @@ pub mod oracle_source_config {
                 crate::model::oracle_source_config::binary_log_parser::LogFileAccess::LogFileDirectories(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
-        /// to hold a `LogFileDirectories`.
-        ///
-        /// Note that all the setters affecting `log_file_access` are
-        /// mutually exclusive.
-        pub fn set_log_file_directories<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::oracle_source_config::binary_log_parser::LogFileDirectories,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.log_file_access = std::option::Option::Some(
-                crate::model::oracle_source_config::binary_log_parser::LogFileAccess::LogFileDirectories(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -6666,23 +6101,6 @@ impl SqlServerSourceConfig {
         })
     }
 
-    /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
-    /// to hold a `TransactionLogs`.
-    ///
-    /// Note that all the setters affecting `cdc_method` are
-    /// mutually exclusive.
-    pub fn set_transaction_logs<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerTransactionLogs>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdc_method = std::option::Option::Some(
-            crate::model::sql_server_source_config::CdcMethod::TransactionLogs(v.into()),
-        );
-        self
-    }
-
     /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// if it holds a `ChangeTables`, `None` if the field is not set or
     /// holds a different branch.
@@ -6696,23 +6114,6 @@ impl SqlServerSourceConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
-    /// to hold a `ChangeTables`.
-    ///
-    /// Note that all the setters affecting `cdc_method` are
-    /// mutually exclusive.
-    pub fn set_change_tables<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerChangeTables>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdc_method = std::option::Option::Some(
-            crate::model::sql_server_source_config::CdcMethod::ChangeTables(v.into()),
-        );
-        self
     }
 }
 
@@ -7132,23 +6533,6 @@ impl MysqlSourceConfig {
         })
     }
 
-    /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
-    /// to hold a `BinaryLogPosition`.
-    ///
-    /// Note that all the setters affecting `cdc_method` are
-    /// mutually exclusive.
-    pub fn set_binary_log_position<
-        T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdc_method = std::option::Option::Some(
-            crate::model::mysql_source_config::CdcMethod::BinaryLogPosition(v.into()),
-        );
-        self
-    }
-
     /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// if it holds a `Gtid`, `None` if the field is not set or
     /// holds a different branch.
@@ -7160,22 +6544,6 @@ impl MysqlSourceConfig {
             crate::model::mysql_source_config::CdcMethod::Gtid(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
-    /// to hold a `Gtid`.
-    ///
-    /// Note that all the setters affecting `cdc_method` are
-    /// mutually exclusive.
-    pub fn set_gtid<
-        T: std::convert::Into<std::boxed::Box<crate::model::mysql_source_config::Gtid>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdc_method =
-            std::option::Option::Some(crate::model::mysql_source_config::CdcMethod::Gtid(v.into()));
-        self
     }
 }
 
@@ -7515,23 +6883,6 @@ impl SourceConfig {
         })
     }
 
-    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// to hold a `OracleSourceConfig`.
-    ///
-    /// Note that all the setters affecting `source_stream_config` are
-    /// mutually exclusive.
-    pub fn set_oracle_source_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::OracleSourceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::OracleSourceConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -7545,23 +6896,6 @@ impl SourceConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// to hold a `MysqlSourceConfig`.
-    ///
-    /// Note that all the setters affecting `source_stream_config` are
-    /// mutually exclusive.
-    pub fn set_mysql_source_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::MysqlSourceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::MysqlSourceConfig(v.into()),
-        );
-        self
     }
 
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
@@ -7579,23 +6913,6 @@ impl SourceConfig {
         })
     }
 
-    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// to hold a `PostgresqlSourceConfig`.
-    ///
-    /// Note that all the setters affecting `source_stream_config` are
-    /// mutually exclusive.
-    pub fn set_postgresql_source_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlSourceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::PostgresqlSourceConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -7611,23 +6928,6 @@ impl SourceConfig {
         })
     }
 
-    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// to hold a `SqlServerSourceConfig`.
-    ///
-    /// Note that all the setters affecting `source_stream_config` are
-    /// mutually exclusive.
-    pub fn set_sql_server_source_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerSourceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::SqlServerSourceConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -7641,23 +6941,6 @@ impl SourceConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
-    /// to hold a `SalesforceSourceConfig`.
-    ///
-    /// Note that all the setters affecting `source_stream_config` are
-    /// mutually exclusive.
-    pub fn set_salesforce_source_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::SalesforceSourceConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_stream_config = std::option::Option::Some(
-            crate::model::source_config::SourceStreamConfig::SalesforceSourceConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -8116,23 +7399,6 @@ impl GcsDestinationConfig {
         })
     }
 
-    /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format]
-    /// to hold a `AvroFileFormat`.
-    ///
-    /// Note that all the setters affecting `file_format` are
-    /// mutually exclusive.
-    pub fn set_avro_file_format<
-        T: std::convert::Into<std::boxed::Box<crate::model::AvroFileFormat>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.file_format = std::option::Option::Some(
-            crate::model::gcs_destination_config::FileFormat::AvroFileFormat(v.into()),
-        );
-        self
-    }
-
     /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// if it holds a `JsonFileFormat`, `None` if the field is not set or
     /// holds a different branch.
@@ -8146,23 +7412,6 @@ impl GcsDestinationConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format]
-    /// to hold a `JsonFileFormat`.
-    ///
-    /// Note that all the setters affecting `file_format` are
-    /// mutually exclusive.
-    pub fn set_json_file_format<
-        T: std::convert::Into<std::boxed::Box<crate::model::JsonFileFormat>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.file_format = std::option::Option::Some(
-            crate::model::gcs_destination_config::FileFormat::JsonFileFormat(v.into()),
-        );
-        self
     }
 }
 
@@ -8279,27 +7528,6 @@ impl BigQueryDestinationConfig {
         })
     }
 
-    /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
-    /// to hold a `SingleTargetDataset`.
-    ///
-    /// Note that all the setters affecting `dataset_config` are
-    /// mutually exclusive.
-    pub fn set_single_target_dataset<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dataset_config = std::option::Option::Some(
-            crate::model::big_query_destination_config::DatasetConfig::SingleTargetDataset(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
     /// holds a different branch.
@@ -8315,29 +7543,6 @@ impl BigQueryDestinationConfig {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
-    /// to hold a `SourceHierarchyDatasets`.
-    ///
-    /// Note that all the setters affecting `dataset_config` are
-    /// mutually exclusive.
-    pub fn set_source_hierarchy_datasets<
-        T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::big_query_destination_config::SourceHierarchyDatasets,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dataset_config = std::option::Option::Some(
-            crate::model::big_query_destination_config::DatasetConfig::SourceHierarchyDatasets(
-                v.into(),
-            ),
-        );
-        self
     }
 
     /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode].
@@ -8372,23 +7577,6 @@ impl BigQueryDestinationConfig {
         })
     }
 
-    /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
-    /// to hold a `Merge`.
-    ///
-    /// Note that all the setters affecting `write_mode` are
-    /// mutually exclusive.
-    pub fn set_merge<
-        T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::Merge>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.write_mode = std::option::Option::Some(
-            crate::model::big_query_destination_config::WriteMode::Merge(v.into()),
-        );
-        self
-    }
-
     /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// if it holds a `AppendOnly`, `None` if the field is not set or
     /// holds a different branch.
@@ -8403,23 +7591,6 @@ impl BigQueryDestinationConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
-    /// to hold a `AppendOnly`.
-    ///
-    /// Note that all the setters affecting `write_mode` are
-    /// mutually exclusive.
-    pub fn set_append_only<
-        T: std::convert::Into<std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.write_mode = std::option::Option::Some(
-            crate::model::big_query_destination_config::WriteMode::AppendOnly(v.into()),
-        );
-        self
     }
 }
 
@@ -9069,25 +8240,6 @@ impl DestinationConfig {
             })
     }
 
-    /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
-    /// to hold a `GcsDestinationConfig`.
-    ///
-    /// Note that all the setters affecting `destination_stream_config` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestinationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination_stream_config = std::option::Option::Some(
-            crate::model::destination_config::DestinationStreamConfig::GcsDestinationConfig(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -9099,25 +8251,6 @@ impl DestinationConfig {
             crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
-    /// to hold a `BigqueryDestinationConfig`.
-    ///
-    /// Note that all the setters affecting `destination_stream_config` are
-    /// mutually exclusive.
-    pub fn set_bigquery_destination_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestinationConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination_stream_config = std::option::Option::Some(
-            crate::model::destination_config::DestinationStreamConfig::BigqueryDestinationConfig(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -9365,23 +8498,6 @@ impl Stream {
         })
     }
 
-    /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy]
-    /// to hold a `BackfillAll`.
-    ///
-    /// Note that all the setters affecting `backfill_strategy` are
-    /// mutually exclusive.
-    pub fn set_backfill_all<
-        T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillAllStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backfill_strategy = std::option::Option::Some(
-            crate::model::stream::BackfillStrategy::BackfillAll(v.into()),
-        );
-        self
-    }
-
     /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// if it holds a `BackfillNone`, `None` if the field is not set or
     /// holds a different branch.
@@ -9393,23 +8509,6 @@ impl Stream {
             crate::model::stream::BackfillStrategy::BackfillNone(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy]
-    /// to hold a `BackfillNone`.
-    ///
-    /// Note that all the setters affecting `backfill_strategy` are
-    /// mutually exclusive.
-    pub fn set_backfill_none<
-        T: std::convert::Into<std::boxed::Box<crate::model::stream::BackfillNoneStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backfill_strategy = std::option::Option::Some(
-            crate::model::stream::BackfillStrategy::BackfillNone(v.into()),
-        );
-        self
     }
 }
 
@@ -9476,25 +8575,6 @@ pub mod stream {
             })
         }
 
-        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// to hold a `OracleExcludedObjects`.
-        ///
-        /// Note that all the setters affecting `excluded_objects` are
-        /// mutually exclusive.
-        pub fn set_oracle_excluded_objects<
-            T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.excluded_objects = std::option::Option::Some(
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::OracleExcludedObjects(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
@@ -9506,25 +8586,6 @@ pub mod stream {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// to hold a `MysqlExcludedObjects`.
-        ///
-        /// Note that all the setters affecting `excluded_objects` are
-        /// mutually exclusive.
-        pub fn set_mysql_excluded_objects<
-            T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.excluded_objects = std::option::Option::Some(
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::MysqlExcludedObjects(
-                    v.into(),
-                ),
-            );
-            self
         }
 
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
@@ -9540,25 +8601,6 @@ pub mod stream {
             })
         }
 
-        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// to hold a `PostgresqlExcludedObjects`.
-        ///
-        /// Note that all the setters affecting `excluded_objects` are
-        /// mutually exclusive.
-        pub fn set_postgresql_excluded_objects<
-            T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.excluded_objects = std::option::Option::Some(
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::PostgresqlExcludedObjects(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
@@ -9572,25 +8614,6 @@ pub mod stream {
             })
         }
 
-        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// to hold a `SqlServerExcludedObjects`.
-        ///
-        /// Note that all the setters affecting `excluded_objects` are
-        /// mutually exclusive.
-        pub fn set_sql_server_excluded_objects<
-            T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.excluded_objects = std::option::Option::Some(
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::SqlServerExcludedObjects(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
@@ -9602,25 +8625,6 @@ pub mod stream {
                 crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
-        /// to hold a `SalesforceExcludedObjects`.
-        ///
-        /// Note that all the setters affecting `excluded_objects` are
-        /// mutually exclusive.
-        pub fn set_salesforce_excluded_objects<
-            T: std::convert::Into<std::boxed::Box<crate::model::SalesforceOrg>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.excluded_objects = std::option::Option::Some(
-                crate::model::stream::backfill_all_strategy::ExcludedObjects::SalesforceExcludedObjects(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -10034,25 +9038,6 @@ impl SourceObjectIdentifier {
         })
     }
 
-    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// to hold a `OracleIdentifier`.
-    ///
-    /// Note that all the setters affecting `source_identifier` are
-    /// mutually exclusive.
-    pub fn set_oracle_identifier<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::OracleIdentifier(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
     /// holds a different branch.
@@ -10068,25 +9053,6 @@ impl SourceObjectIdentifier {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// to hold a `MysqlIdentifier`.
-    ///
-    /// Note that all the setters affecting `source_identifier` are
-    /// mutually exclusive.
-    pub fn set_mysql_identifier<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::MysqlIdentifier(v.into()),
-        );
-        self
     }
 
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
@@ -10106,27 +9072,6 @@ impl SourceObjectIdentifier {
         })
     }
 
-    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// to hold a `PostgresqlIdentifier`.
-    ///
-    /// Note that all the setters affecting `source_identifier` are
-    /// mutually exclusive.
-    pub fn set_postgresql_identifier<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::PostgresqlIdentifier(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
     /// holds a different branch.
@@ -10144,25 +9089,6 @@ impl SourceObjectIdentifier {
         })
     }
 
-    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// to hold a `SqlServerIdentifier`.
-    ///
-    /// Note that all the setters affecting `source_identifier` are
-    /// mutually exclusive.
-    pub fn set_sql_server_identifier<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::SqlServerIdentifier(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
     /// holds a different branch.
@@ -10178,27 +9104,6 @@ impl SourceObjectIdentifier {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
-    /// to hold a `SalesforceIdentifier`.
-    ///
-    /// Note that all the setters affecting `source_identifier` are
-    /// mutually exclusive.
-    pub fn set_salesforce_identifier<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_identifier = std::option::Option::Some(
-            crate::model::source_object_identifier::SourceIdentifier::SalesforceIdentifier(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -11438,23 +10343,6 @@ impl CdcStrategy {
         })
     }
 
-    /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
-    /// to hold a `MostRecentStartPosition`.
-    ///
-    /// Note that all the setters affecting `start_position` are
-    /// mutually exclusive.
-    pub fn set_most_recent_start_position<
-        T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_position = std::option::Option::Some(
-            crate::model::cdc_strategy::StartPosition::MostRecentStartPosition(v.into()),
-        );
-        self
-    }
-
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
     /// holds a different branch.
@@ -11471,23 +10359,6 @@ impl CdcStrategy {
         })
     }
 
-    /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
-    /// to hold a `NextAvailableStartPosition`.
-    ///
-    /// Note that all the setters affecting `start_position` are
-    /// mutually exclusive.
-    pub fn set_next_available_start_position<
-        T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_position = std::option::Option::Some(
-            crate::model::cdc_strategy::StartPosition::NextAvailableStartPosition(v.into()),
-        );
-        self
-    }
-
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
     /// holds a different branch.
@@ -11502,23 +10373,6 @@ impl CdcStrategy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [start_position][crate::model::CdcStrategy::start_position]
-    /// to hold a `SpecificStartPosition`.
-    ///
-    /// Note that all the setters affecting `start_position` are
-    /// mutually exclusive.
-    pub fn set_specific_start_position<
-        T: std::convert::Into<std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_position = std::option::Option::Some(
-            crate::model::cdc_strategy::StartPosition::SpecificStartPosition(v.into()),
-        );
-        self
     }
 }
 
@@ -11631,25 +10485,6 @@ pub mod cdc_strategy {
             })
         }
 
-        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// to hold a `MysqlLogPosition`.
-        ///
-        /// Note that all the setters affecting `position` are
-        /// mutually exclusive.
-        pub fn set_mysql_log_position<
-            T: std::convert::Into<std::boxed::Box<crate::model::MysqlLogPosition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.position = std::option::Option::Some(
-                crate::model::cdc_strategy::specific_start_position::Position::MysqlLogPosition(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `OracleScnPosition`, `None` if the field is not set or
         /// holds a different branch.
@@ -11661,25 +10496,6 @@ pub mod cdc_strategy {
                 crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// to hold a `OracleScnPosition`.
-        ///
-        /// Note that all the setters affecting `position` are
-        /// mutually exclusive.
-        pub fn set_oracle_scn_position<
-            T: std::convert::Into<std::boxed::Box<crate::model::OracleScnPosition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.position = std::option::Option::Some(
-                crate::model::cdc_strategy::specific_start_position::Position::OracleScnPosition(
-                    v.into(),
-                ),
-            );
-            self
         }
 
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
@@ -11695,25 +10511,6 @@ pub mod cdc_strategy {
             })
         }
 
-        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// to hold a `SqlServerLsnPosition`.
-        ///
-        /// Note that all the setters affecting `position` are
-        /// mutually exclusive.
-        pub fn set_sql_server_lsn_position<
-            T: std::convert::Into<std::boxed::Box<crate::model::SqlServerLsnPosition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.position = std::option::Option::Some(
-                crate::model::cdc_strategy::specific_start_position::Position::SqlServerLsnPosition(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
         /// holds a different branch.
@@ -11725,25 +10522,6 @@ pub mod cdc_strategy {
                 crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
-        /// to hold a `MysqlGtidPosition`.
-        ///
-        /// Note that all the setters affecting `position` are
-        /// mutually exclusive.
-        pub fn set_mysql_gtid_position<
-            T: std::convert::Into<std::boxed::Box<crate::model::MysqlGtidPosition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.position = std::option::Option::Some(
-                crate::model::cdc_strategy::specific_start_position::Position::MysqlGtidPosition(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 

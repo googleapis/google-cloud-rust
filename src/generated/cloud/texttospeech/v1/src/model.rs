@@ -733,17 +733,6 @@ impl SynthesisInput {
         })
     }
 
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
-        self
-    }
-
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Markup`, `None` if the field is not set or
     /// holds a different branch.
@@ -755,17 +744,6 @@ impl SynthesisInput {
         })
     }
 
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Markup`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Markup(v.into()));
-        self
-    }
-
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Ssml`, `None` if the field is not set or
     /// holds a different branch.
@@ -775,17 +753,6 @@ impl SynthesisInput {
             crate::model::synthesis_input::InputSource::Ssml(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Ssml`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
-        self
     }
 
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
@@ -801,23 +768,6 @@ impl SynthesisInput {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `MultiSpeakerMarkup`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_multi_speaker_markup<
-        T: std::convert::Into<std::boxed::Box<crate::model::MultiSpeakerMarkup>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_source = std::option::Option::Some(
-            crate::model::synthesis_input::InputSource::MultiSpeakerMarkup(v.into()),
-        );
-        self
     }
 }
 
@@ -1519,18 +1469,6 @@ impl StreamingSynthesisInput {
         })
     }
 
-    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source = std::option::Option::Some(
-            crate::model::streaming_synthesis_input::InputSource::Text(v.into()),
-        );
-        self
-    }
-
     /// The value of [input_source][crate::model::StreamingSynthesisInput::input_source]
     /// if it holds a `Markup`, `None` if the field is not set or
     /// holds a different branch.
@@ -1542,18 +1480,6 @@ impl StreamingSynthesisInput {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source]
-    /// to hold a `Markup`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source = std::option::Option::Some(
-            crate::model::streaming_synthesis_input::InputSource::Markup(v.into()),
-        );
-        self
     }
 }
 
@@ -1639,23 +1565,6 @@ impl StreamingSynthesizeRequest {
         })
     }
 
-    /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
-    /// to hold a `StreamingConfig`.
-    ///
-    /// Note that all the setters affecting `streaming_request` are
-    /// mutually exclusive.
-    pub fn set_streaming_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesizeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// if it holds a `Input`, `None` if the field is not set or
     /// holds a different branch.
@@ -1669,23 +1578,6 @@ impl StreamingSynthesizeRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
-    /// to hold a `Input`.
-    ///
-    /// Note that all the setters affecting `streaming_request` are
-    /// mutually exclusive.
-    pub fn set_input<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingSynthesisInput>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_request = std::option::Option::Some(
-            crate::model::streaming_synthesize_request::StreamingRequest::Input(v.into()),
-        );
-        self
     }
 }
 

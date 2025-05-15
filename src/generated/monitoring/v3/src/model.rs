@@ -564,25 +564,6 @@ pub mod alert_policy {
             })
         }
 
-        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
-        /// to hold a `ConditionThreshold`.
-        ///
-        /// Note that all the setters affecting `condition` are
-        /// mutually exclusive.
-        pub fn set_condition_threshold<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionThreshold(v.into()),
-            );
-            self
-        }
-
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionAbsent`, `None` if the field is not set or
         /// holds a different branch.
@@ -600,25 +581,6 @@ pub mod alert_policy {
             })
         }
 
-        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
-        /// to hold a `ConditionAbsent`.
-        ///
-        /// Note that all the setters affecting `condition` are
-        /// mutually exclusive.
-        pub fn set_condition_absent<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionAbsent(v.into()),
-            );
-            self
-        }
-
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionMatchedLog`, `None` if the field is not set or
         /// holds a different branch.
@@ -633,23 +595,6 @@ pub mod alert_policy {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
-        /// to hold a `ConditionMatchedLog`.
-        ///
-        /// Note that all the setters affecting `condition` are
-        /// mutually exclusive.
-        pub fn set_condition_matched_log<
-            T: std::convert::Into<std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionMatchedLog(v.into()),
-            );
-            self
         }
 
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
@@ -669,29 +614,6 @@ pub mod alert_policy {
             })
         }
 
-        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
-        /// to hold a `ConditionMonitoringQueryLanguage`.
-        ///
-        /// Note that all the setters affecting `condition` are
-        /// mutually exclusive.
-        pub fn set_condition_monitoring_query_language<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::alert_policy::condition::MonitoringQueryLanguageCondition,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionMonitoringQueryLanguage(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionPrometheusQueryLanguage`, `None` if the field is not set or
         /// holds a different branch.
@@ -709,29 +631,6 @@ pub mod alert_policy {
             })
         }
 
-        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
-        /// to hold a `ConditionPrometheusQueryLanguage`.
-        ///
-        /// Note that all the setters affecting `condition` are
-        /// mutually exclusive.
-        pub fn set_condition_prometheus_query_language<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::alert_policy::condition::PrometheusQueryLanguageCondition,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionPrometheusQueryLanguage(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionSql`, `None` if the field is not set or
         /// holds a different branch.
@@ -747,25 +646,6 @@ pub mod alert_policy {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition]
-        /// to hold a `ConditionSql`.
-        ///
-        /// Note that all the setters affecting `condition` are
-        /// mutually exclusive.
-        pub fn set_condition_sql<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.condition = std::option::Option::Some(
-                crate::model::alert_policy::condition::Condition::ConditionSql(v.into()),
-            );
-            self
         }
     }
 
@@ -829,18 +709,6 @@ pub mod alert_policy {
                 })
             }
 
-            /// Sets the value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
-            /// to hold a `Count`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::alert_policy::condition::trigger::Type::Count(v.into()),
-                );
-                self
-            }
-
             /// The value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
             /// if it holds a `Percent`, `None` if the field is not set or
             /// holds a different branch.
@@ -852,18 +720,6 @@ pub mod alert_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
-            /// to hold a `Percent`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_percent<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::alert_policy::condition::trigger::Type::Percent(v.into()),
-                );
-                self
             }
         }
 
@@ -1710,29 +1566,6 @@ pub mod alert_policy {
                 })
             }
 
-            /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
-            /// to hold a `Minutes`.
-            ///
-            /// Note that all the setters affecting `schedule` are
-            /// mutually exclusive.
-            pub fn set_minutes<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::alert_policy::condition::sql_condition::Minutes,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.schedule = std::option::Option::Some(
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Minutes(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Hourly`, `None` if the field is not set or
             /// holds a different branch.
@@ -1750,29 +1583,6 @@ pub mod alert_policy {
                 })
             }
 
-            /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
-            /// to hold a `Hourly`.
-            ///
-            /// Note that all the setters affecting `schedule` are
-            /// mutually exclusive.
-            pub fn set_hourly<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::alert_policy::condition::sql_condition::Hourly,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.schedule = std::option::Option::Some(
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Hourly(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Daily`, `None` if the field is not set or
             /// holds a different branch.
@@ -1788,27 +1598,6 @@ pub mod alert_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
-            /// to hold a `Daily`.
-            ///
-            /// Note that all the setters affecting `schedule` are
-            /// mutually exclusive.
-            pub fn set_daily<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::alert_policy::condition::sql_condition::Daily,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.schedule = std::option::Option::Some(
-                    crate::model::alert_policy::condition::sql_condition::Schedule::Daily(v.into()),
-                );
-                self
             }
 
             /// Sets the value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate].
@@ -1846,29 +1635,6 @@ pub mod alert_policy {
                 })
             }
 
-            /// Sets the value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
-            /// to hold a `RowCountTest`.
-            ///
-            /// Note that all the setters affecting `evaluate` are
-            /// mutually exclusive.
-            pub fn set_row_count_test<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::alert_policy::condition::sql_condition::RowCountTest,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.evaluate = std::option::Option::Some(
-                    crate::model::alert_policy::condition::sql_condition::Evaluate::RowCountTest(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
             /// if it holds a `BooleanTest`, `None` if the field is not set or
             /// holds a different branch.
@@ -1884,29 +1650,6 @@ pub mod alert_policy {
                     ) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
-            /// to hold a `BooleanTest`.
-            ///
-            /// Note that all the setters affecting `evaluate` are
-            /// mutually exclusive.
-            pub fn set_boolean_test<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::alert_policy::condition::sql_condition::BooleanTest,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.evaluate = std::option::Option::Some(
-                    crate::model::alert_policy::condition::sql_condition::Evaluate::BooleanTest(
-                        v.into(),
-                    ),
-                );
-                self
             }
         }
 
@@ -3419,17 +3162,6 @@ impl TypedValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
@@ -3439,17 +3171,6 @@ impl TypedValue {
             crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `Int64Value`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::Int64Value(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::TypedValue::value]
@@ -3463,17 +3184,6 @@ impl TypedValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `DoubleValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::DoubleValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -3483,17 +3193,6 @@ impl TypedValue {
             crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::TypedValue::value]
@@ -3507,23 +3206,6 @@ impl TypedValue {
             crate::model::typed_value::Value::DistributionValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::TypedValue::value]
-    /// to hold a `DistributionValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_distribution_value<
-        T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::typed_value::Value::DistributionValue(v.into()),
-        );
-        self
     }
 }
 
@@ -4667,21 +4349,6 @@ impl ListGroupsRequest {
         })
     }
 
-    /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
-    /// to hold a `ChildrenOfGroup`.
-    ///
-    /// Note that all the setters affecting `filter` are
-    /// mutually exclusive.
-    pub fn set_children_of_group<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter = std::option::Option::Some(
-            crate::model::list_groups_request::Filter::ChildrenOfGroup(v.into()),
-        );
-        self
-    }
-
     /// The value of [filter][crate::model::ListGroupsRequest::filter]
     /// if it holds a `AncestorsOfGroup`, `None` if the field is not set or
     /// holds a different branch.
@@ -4695,21 +4362,6 @@ impl ListGroupsRequest {
         })
     }
 
-    /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
-    /// to hold a `AncestorsOfGroup`.
-    ///
-    /// Note that all the setters affecting `filter` are
-    /// mutually exclusive.
-    pub fn set_ancestors_of_group<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter = std::option::Option::Some(
-            crate::model::list_groups_request::Filter::AncestorsOfGroup(v.into()),
-        );
-        self
-    }
-
     /// The value of [filter][crate::model::ListGroupsRequest::filter]
     /// if it holds a `DescendantsOfGroup`, `None` if the field is not set or
     /// holds a different branch.
@@ -4721,21 +4373,6 @@ impl ListGroupsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
-    /// to hold a `DescendantsOfGroup`.
-    ///
-    /// Note that all the setters affecting `filter` are
-    /// mutually exclusive.
-    pub fn set_descendants_of_group<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.filter = std::option::Option::Some(
-            crate::model::list_groups_request::Filter::DescendantsOfGroup(v.into()),
-        );
-        self
     }
 }
 
@@ -5718,17 +5355,6 @@ impl LabelValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::LabelValue::value]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::label_value::Value::BoolValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::LabelValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
@@ -5740,17 +5366,6 @@ impl LabelValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::LabelValue::value]
-    /// to hold a `Int64Value`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::label_value::Value::Int64Value(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::LabelValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -5760,17 +5375,6 @@ impl LabelValue {
             crate::model::label_value::Value::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::LabelValue::value]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::label_value::Value::StringValue(v.into()));
-        self
     }
 }
 
@@ -8709,20 +8313,6 @@ impl Service {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `Custom`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::service::Custom>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::Custom(v.into()));
-        self
-    }
-
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `AppEngine`, `None` if the field is not set or
     /// holds a different branch.
@@ -8734,22 +8324,6 @@ impl Service {
             crate::model::service::Identifier::AppEngine(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `AppEngine`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_app_engine<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::AppEngine>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::AppEngine(v.into()));
-        self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
@@ -8765,22 +8339,6 @@ impl Service {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `CloudEndpoints`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_cloud_endpoints<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::CloudEndpoints>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::CloudEndpoints(v.into()));
-        self
-    }
-
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `ClusterIstio`, `None` if the field is not set or
     /// holds a different branch.
@@ -8794,22 +8352,6 @@ impl Service {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `ClusterIstio`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_cluster_istio<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::ClusterIstio>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::ClusterIstio(v.into()));
-        self
-    }
-
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `MeshIstio`, `None` if the field is not set or
     /// holds a different branch.
@@ -8821,22 +8363,6 @@ impl Service {
             crate::model::service::Identifier::MeshIstio(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `MeshIstio`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_mesh_istio<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::MeshIstio>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::MeshIstio(v.into()));
-        self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
@@ -8854,23 +8380,6 @@ impl Service {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `IstioCanonicalService`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_istio_canonical_service<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::IstioCanonicalService>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::service::Identifier::IstioCanonicalService(v.into()),
-        );
-        self
-    }
-
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `CloudRun`, `None` if the field is not set or
     /// holds a different branch.
@@ -8882,22 +8391,6 @@ impl Service {
             crate::model::service::Identifier::CloudRun(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `CloudRun`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_cloud_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::CloudRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::CloudRun(v.into()));
-        self
     }
 
     /// The value of [identifier][crate::model::Service::identifier]
@@ -8913,22 +8406,6 @@ impl Service {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `GkeNamespace`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_gke_namespace<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::GkeNamespace>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::GkeNamespace(v.into()));
-        self
-    }
-
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeWorkload`, `None` if the field is not set or
     /// holds a different branch.
@@ -8942,22 +8419,6 @@ impl Service {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `GkeWorkload`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_gke_workload<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::GkeWorkload>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::GkeWorkload(v.into()));
-        self
-    }
-
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeService`, `None` if the field is not set or
     /// holds a different branch.
@@ -8969,22 +8430,6 @@ impl Service {
             crate::model::service::Identifier::GkeService(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [identifier][crate::model::Service::identifier]
-    /// to hold a `GkeService`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_gke_service<
-        T: std::convert::Into<std::boxed::Box<crate::model::service::GkeService>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier =
-            std::option::Option::Some(crate::model::service::Identifier::GkeService(v.into()));
-        self
     }
 }
 
@@ -9857,21 +9302,6 @@ impl ServiceLevelObjective {
         })
     }
 
-    /// Sets the value of [period][crate::model::ServiceLevelObjective::period]
-    /// to hold a `RollingPeriod`.
-    ///
-    /// Note that all the setters affecting `period` are
-    /// mutually exclusive.
-    pub fn set_rolling_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.period = std::option::Option::Some(
-            crate::model::service_level_objective::Period::RollingPeriod(v.into()),
-        );
-        self
-    }
-
     /// The value of [period][crate::model::ServiceLevelObjective::period]
     /// if it holds a `CalendarPeriod`, `None` if the field is not set or
     /// holds a different branch.
@@ -9883,21 +9313,6 @@ impl ServiceLevelObjective {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [period][crate::model::ServiceLevelObjective::period]
-    /// to hold a `CalendarPeriod`.
-    ///
-    /// Note that all the setters affecting `period` are
-    /// mutually exclusive.
-    pub fn set_calendar_period<T: std::convert::Into<gtype::model::CalendarPeriod>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.period = std::option::Option::Some(
-            crate::model::service_level_objective::Period::CalendarPeriod(v.into()),
-        );
-        self
     }
 }
 
@@ -10127,21 +9542,6 @@ impl ServiceLevelIndicator {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::r#type]
-    /// to hold a `BasicSli`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_basic_sli<T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::service_level_indicator::Type::BasicSli(v.into()),
-        );
-        self
-    }
-
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `RequestBased`, `None` if the field is not set or
     /// holds a different branch.
@@ -10157,23 +9557,6 @@ impl ServiceLevelIndicator {
         })
     }
 
-    /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::r#type]
-    /// to hold a `RequestBased`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_request_based<
-        T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::service_level_indicator::Type::RequestBased(v.into()),
-        );
-        self
-    }
-
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `WindowsBased`, `None` if the field is not set or
     /// holds a different branch.
@@ -10187,23 +9570,6 @@ impl ServiceLevelIndicator {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::r#type]
-    /// to hold a `WindowsBased`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_windows_based<
-        T: std::convert::Into<std::boxed::Box<crate::model::WindowsBasedSli>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(
-            crate::model::service_level_indicator::Type::WindowsBased(v.into()),
-        );
-        self
     }
 }
 
@@ -10343,22 +9709,6 @@ impl BasicSli {
         })
     }
 
-    /// Sets the value of [sli_criteria][crate::model::BasicSli::sli_criteria]
-    /// to hold a `Availability`.
-    ///
-    /// Note that all the setters affecting `sli_criteria` are
-    /// mutually exclusive.
-    pub fn set_availability<
-        T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sli_criteria =
-            std::option::Option::Some(crate::model::basic_sli::SliCriteria::Availability(v.into()));
-        self
-    }
-
     /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
     /// if it holds a `Latency`, `None` if the field is not set or
     /// holds a different branch.
@@ -10370,22 +9720,6 @@ impl BasicSli {
             crate::model::basic_sli::SliCriteria::Latency(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [sli_criteria][crate::model::BasicSli::sli_criteria]
-    /// to hold a `Latency`.
-    ///
-    /// Note that all the setters affecting `sli_criteria` are
-    /// mutually exclusive.
-    pub fn set_latency<
-        T: std::convert::Into<std::boxed::Box<crate::model::basic_sli::LatencyCriteria>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sli_criteria =
-            std::option::Option::Some(crate::model::basic_sli::SliCriteria::Latency(v.into()));
-        self
     }
 }
 
@@ -10566,23 +9900,6 @@ impl RequestBasedSli {
         })
     }
 
-    /// Sets the value of [method][crate::model::RequestBasedSli::method]
-    /// to hold a `GoodTotalRatio`.
-    ///
-    /// Note that all the setters affecting `method` are
-    /// mutually exclusive.
-    pub fn set_good_total_ratio<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesRatio>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method = std::option::Option::Some(
-            crate::model::request_based_sli::Method::GoodTotalRatio(v.into()),
-        );
-        self
-    }
-
     /// The value of [method][crate::model::RequestBasedSli::method]
     /// if it holds a `DistributionCut`, `None` if the field is not set or
     /// holds a different branch.
@@ -10596,23 +9913,6 @@ impl RequestBasedSli {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [method][crate::model::RequestBasedSli::method]
-    /// to hold a `DistributionCut`.
-    ///
-    /// Note that all the setters affecting `method` are
-    /// mutually exclusive.
-    pub fn set_distribution_cut<
-        T: std::convert::Into<std::boxed::Box<crate::model::DistributionCut>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method = std::option::Option::Some(
-            crate::model::request_based_sli::Method::DistributionCut(v.into()),
-        );
-        self
     }
 }
 
@@ -10837,21 +10137,6 @@ impl WindowsBasedSli {
         })
     }
 
-    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// to hold a `GoodBadMetricFilter`.
-    ///
-    /// Note that all the setters affecting `window_criterion` are
-    /// mutually exclusive.
-    pub fn set_good_bad_metric_filter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v.into()),
-        );
-        self
-    }
-
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `GoodTotalRatioThreshold`, `None` if the field is not set or
     /// holds a different branch.
@@ -10866,23 +10151,6 @@ impl WindowsBasedSli {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// to hold a `GoodTotalRatioThreshold`.
-    ///
-    /// Note that all the setters affecting `window_criterion` are
-    /// mutually exclusive.
-    pub fn set_good_total_ratio_threshold<
-        T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::GoodTotalRatioThreshold(v.into()),
-        );
-        self
     }
 
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
@@ -10900,23 +10168,6 @@ impl WindowsBasedSli {
         })
     }
 
-    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// to hold a `MetricMeanInRange`.
-    ///
-    /// Note that all the setters affecting `window_criterion` are
-    /// mutually exclusive.
-    pub fn set_metric_mean_in_range<
-        T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::MetricMeanInRange(v.into()),
-        );
-        self
-    }
-
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `MetricSumInRange`, `None` if the field is not set or
     /// holds a different branch.
@@ -10930,23 +10181,6 @@ impl WindowsBasedSli {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
-    /// to hold a `MetricSumInRange`.
-    ///
-    /// Note that all the setters affecting `window_criterion` are
-    /// mutually exclusive.
-    pub fn set_metric_sum_in_range<
-        T: std::convert::Into<std::boxed::Box<crate::model::windows_based_sli::MetricRange>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.window_criterion = std::option::Option::Some(
-            crate::model::windows_based_sli::WindowCriterion::MetricSumInRange(v.into()),
-        );
-        self
     }
 }
 
@@ -11027,23 +10261,6 @@ pub mod windows_based_sli {
             })
         }
 
-        /// Sets the value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
-        /// to hold a `Performance`.
-        ///
-        /// Note that all the setters affecting `r#type` are
-        /// mutually exclusive.
-        pub fn set_performance<
-            T: std::convert::Into<std::boxed::Box<crate::model::RequestBasedSli>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.r#type = std::option::Option::Some(
-                crate::model::windows_based_sli::performance_threshold::Type::Performance(v.into()),
-            );
-            self
-        }
-
         /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
         /// if it holds a `BasicSliPerformance`, `None` if the field is not set or
         /// holds a different branch.
@@ -11055,25 +10272,6 @@ pub mod windows_based_sli {
                 crate::model::windows_based_sli::performance_threshold::Type::BasicSliPerformance(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
-        /// to hold a `BasicSliPerformance`.
-        ///
-        /// Note that all the setters affecting `r#type` are
-        /// mutually exclusive.
-        pub fn set_basic_sli_performance<
-            T: std::convert::Into<std::boxed::Box<crate::model::BasicSli>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.r#type = std::option::Option::Some(
-                crate::model::windows_based_sli::performance_threshold::Type::BasicSliPerformance(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -12699,25 +11897,6 @@ impl SyntheticMonitorTarget {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [target][crate::model::SyntheticMonitorTarget::target]
-    /// to hold a `CloudFunctionV2`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_cloud_function_v2<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::synthetic_monitor_target::Target::CloudFunctionV2(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for SyntheticMonitorTarget {
@@ -13023,23 +12202,6 @@ impl UptimeCheckConfig {
         })
     }
 
-    /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource]
-    /// to hold a `MonitoredResource`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_monitored_resource<
-        T: std::convert::Into<std::boxed::Box<api::model::MonitoredResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(
-            crate::model::uptime_check_config::Resource::MonitoredResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `ResourceGroup`, `None` if the field is not set or
     /// holds a different branch.
@@ -13056,23 +12218,6 @@ impl UptimeCheckConfig {
         })
     }
 
-    /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource]
-    /// to hold a `ResourceGroup`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_resource_group<
-        T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(
-            crate::model::uptime_check_config::Resource::ResourceGroup(v.into()),
-        );
-        self
-    }
-
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `SyntheticMonitor`, `None` if the field is not set or
     /// holds a different branch.
@@ -13086,23 +12231,6 @@ impl UptimeCheckConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource]
-    /// to hold a `SyntheticMonitor`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_synthetic_monitor<
-        T: std::convert::Into<std::boxed::Box<crate::model::SyntheticMonitorTarget>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(
-            crate::model::uptime_check_config::Resource::SyntheticMonitor(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type].
@@ -13136,23 +12264,6 @@ impl UptimeCheckConfig {
         })
     }
 
-    /// Sets the value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
-    /// to hold a `HttpCheck`.
-    ///
-    /// Note that all the setters affecting `check_request_type` are
-    /// mutually exclusive.
-    pub fn set_http_check<
-        T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::HttpCheck>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.check_request_type = std::option::Option::Some(
-            crate::model::uptime_check_config::CheckRequestType::HttpCheck(v.into()),
-        );
-        self
-    }
-
     /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
     /// if it holds a `TcpCheck`, `None` if the field is not set or
     /// holds a different branch.
@@ -13166,23 +12277,6 @@ impl UptimeCheckConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
-    /// to hold a `TcpCheck`.
-    ///
-    /// Note that all the setters affecting `check_request_type` are
-    /// mutually exclusive.
-    pub fn set_tcp_check<
-        T: std::convert::Into<std::boxed::Box<crate::model::uptime_check_config::TcpCheck>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.check_request_type = std::option::Option::Some(
-            crate::model::uptime_check_config::CheckRequestType::TcpCheck(v.into()),
-        );
-        self
     }
 }
 
@@ -13552,29 +12646,6 @@ pub mod uptime_check_config {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [auth_method][crate::model::uptime_check_config::HttpCheck::auth_method]
-        /// to hold a `ServiceAgentAuthentication`.
-        ///
-        /// Note that all the setters affecting `auth_method` are
-        /// mutually exclusive.
-        pub fn set_service_agent_authentication<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::uptime_check_config::http_check::ServiceAgentAuthentication,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.auth_method = std::option::Option::Some(
-                crate::model::uptime_check_config::http_check::AuthMethod::ServiceAgentAuthentication(
-                    v.into()
-                )
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for HttpCheck {
@@ -13682,20 +12753,6 @@ pub mod uptime_check_config {
                 })
             }
 
-            /// Sets the value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
-            /// to hold a `StatusValue`.
-            ///
-            /// Note that all the setters affecting `status_code` are
-            /// mutually exclusive.
-            pub fn set_status_value<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.status_code = std::option::Option::Some(
-                    crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusValue(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
             /// if it holds a `StatusClass`, `None` if the field is not set or
             /// holds a different branch.
@@ -13709,20 +12766,6 @@ pub mod uptime_check_config {
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusClass(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
-            /// to hold a `StatusClass`.
-            ///
-            /// Note that all the setters affecting `status_code` are
-            /// mutually exclusive.
-            pub fn set_status_class<T: std::convert::Into<crate::model::uptime_check_config::http_check::response_status_code::StatusClass>>(mut self, v: T) -> Self{
-                self.status_code = std::option::Option::Some(
-                    crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusClass(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -14512,29 +13555,6 @@ pub mod uptime_check_config {
                 crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo::JsonPathMatcher(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [additional_matcher_info][crate::model::uptime_check_config::ContentMatcher::additional_matcher_info]
-        /// to hold a `JsonPathMatcher`.
-        ///
-        /// Note that all the setters affecting `additional_matcher_info` are
-        /// mutually exclusive.
-        pub fn set_json_path_matcher<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::uptime_check_config::content_matcher::JsonPathMatcher,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.additional_matcher_info = std::option::Option::Some(
-                crate::model::uptime_check_config::content_matcher::AdditionalMatcherInfo::JsonPathMatcher(
-                    v.into()
-                )
-            );
-            self
         }
     }
 

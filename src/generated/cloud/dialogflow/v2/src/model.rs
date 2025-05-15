@@ -1025,18 +1025,6 @@ impl ExportAgentResponse {
         })
     }
 
-    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent]
-    /// to hold a `AgentUri`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::export_agent_response::Agent::AgentUri(v.into()),
-        );
-        self
-    }
-
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -1048,18 +1036,6 @@ impl ExportAgentResponse {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent]
-    /// to hold a `AgentContent`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::export_agent_response::Agent::AgentContent(v.into()),
-        );
-        self
     }
 }
 
@@ -1146,18 +1122,6 @@ impl ImportAgentRequest {
         })
     }
 
-    /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
-    /// to hold a `AgentUri`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::import_agent_request::Agent::AgentUri(v.into()),
-        );
-        self
-    }
-
     /// The value of [agent][crate::model::ImportAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -1169,18 +1133,6 @@ impl ImportAgentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
-    /// to hold a `AgentContent`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::import_agent_request::Agent::AgentContent(v.into()),
-        );
-        self
     }
 }
 
@@ -1273,18 +1225,6 @@ impl RestoreAgentRequest {
         })
     }
 
-    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
-    /// to hold a `AgentUri`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::restore_agent_request::Agent::AgentUri(v.into()),
-        );
-        self
-    }
-
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -1296,18 +1236,6 @@ impl RestoreAgentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
-    /// to hold a `AgentContent`.
-    ///
-    /// Note that all the setters affecting `agent` are
-    /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.agent = std::option::Option::Some(
-            crate::model::restore_agent_request::Agent::AgentContent(v.into()),
-        );
-        self
     }
 }
 
@@ -1500,23 +1428,6 @@ impl AnswerRecord {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [record][crate::model::AnswerRecord::record]
-    /// to hold a `AgentAssistantRecord`.
-    ///
-    /// Note that all the setters affecting `record` are
-    /// mutually exclusive.
-    pub fn set_agent_assistant_record<
-        T: std::convert::Into<std::boxed::Box<crate::model::AgentAssistantRecord>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.record = std::option::Option::Some(
-            crate::model::answer_record::Record::AgentAssistantRecord(v.into()),
-        );
-        self
     }
 }
 
@@ -1869,23 +1780,6 @@ impl AnswerFeedback {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [detail_feedback][crate::model::AnswerFeedback::detail_feedback]
-    /// to hold a `AgentAssistantDetailFeedback`.
-    ///
-    /// Note that all the setters affecting `detail_feedback` are
-    /// mutually exclusive.
-    pub fn set_agent_assistant_detail_feedback<
-        T: std::convert::Into<std::boxed::Box<crate::model::AgentAssistantFeedback>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.detail_feedback = std::option::Option::Some(
-            crate::model::answer_feedback::DetailFeedback::AgentAssistantDetailFeedback(v.into()),
-        );
-        self
     }
 }
 
@@ -2845,23 +2739,6 @@ impl AgentAssistantRecord {
         })
     }
 
-    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
-    /// to hold a `ArticleSuggestionAnswer`.
-    ///
-    /// Note that all the setters affecting `answer` are
-    /// mutually exclusive.
-    pub fn set_article_suggestion_answer<
-        T: std::convert::Into<std::boxed::Box<crate::model::ArticleAnswer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.answer = std::option::Option::Some(
-            crate::model::agent_assistant_record::Answer::ArticleSuggestionAnswer(v.into()),
-        );
-        self
-    }
-
     /// The value of [answer][crate::model::AgentAssistantRecord::answer]
     /// if it holds a `FaqAnswer`, `None` if the field is not set or
     /// holds a different branch.
@@ -2873,21 +2750,6 @@ impl AgentAssistantRecord {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
-    /// to hold a `FaqAnswer`.
-    ///
-    /// Note that all the setters affecting `answer` are
-    /// mutually exclusive.
-    pub fn set_faq_answer<T: std::convert::Into<std::boxed::Box<crate::model::FaqAnswer>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.answer = std::option::Option::Some(
-            crate::model::agent_assistant_record::Answer::FaqAnswer(v.into()),
-        );
-        self
     }
 
     /// The value of [answer][crate::model::AgentAssistantRecord::answer]
@@ -2903,23 +2765,6 @@ impl AgentAssistantRecord {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer]
-    /// to hold a `DialogflowAssistAnswer`.
-    ///
-    /// Note that all the setters affecting `answer` are
-    /// mutually exclusive.
-    pub fn set_dialogflow_assist_answer<
-        T: std::convert::Into<std::boxed::Box<crate::model::DialogflowAssistAnswer>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.answer = std::option::Option::Some(
-            crate::model::agent_assistant_record::Answer::DialogflowAssistAnswer(v.into()),
-        );
-        self
     }
 }
 
@@ -6462,23 +6307,6 @@ impl GenerateStatelessSuggestionRequest {
         })
     }
 
-    /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
-    /// to hold a `Generator`.
-    ///
-    /// Note that all the setters affecting `generator_resource` are
-    /// mutually exclusive.
-    pub fn set_generator<T: std::convert::Into<std::boxed::Box<crate::model::Generator>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.generator_resource = std::option::Option::Some(
-            crate::model::generate_stateless_suggestion_request::GeneratorResource::Generator(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
     /// if it holds a `GeneratorName`, `None` if the field is not set or
     /// holds a different branch.
@@ -6488,20 +6316,6 @@ impl GenerateStatelessSuggestionRequest {
             crate::model::generate_stateless_suggestion_request::GeneratorResource::GeneratorName(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
-    /// to hold a `GeneratorName`.
-    ///
-    /// Note that all the setters affecting `generator_resource` are
-    /// mutually exclusive.
-    pub fn set_generator_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.generator_resource = std::option::Option::Some(
-            crate::model::generate_stateless_suggestion_request::GeneratorResource::GeneratorName(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -8143,20 +7957,6 @@ impl InputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::InputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSources>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::input_config::Source::GcsSource(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for InputConfig {
@@ -8891,23 +8691,6 @@ impl ConversationEvent {
         })
     }
 
-    /// Sets the value of [payload][crate::model::ConversationEvent::payload]
-    /// to hold a `NewMessagePayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_new_message_payload<
-        T: std::convert::Into<std::boxed::Box<crate::model::Message>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = std::option::Option::Some(
-            crate::model::conversation_event::Payload::NewMessagePayload(v.into()),
-        );
-        self
-    }
-
     /// The value of [payload][crate::model::ConversationEvent::payload]
     /// if it holds a `NewRecognitionResultPayload`, `None` if the field is not set or
     /// holds a different branch.
@@ -8921,23 +8704,6 @@ impl ConversationEvent {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [payload][crate::model::ConversationEvent::payload]
-    /// to hold a `NewRecognitionResultPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_new_recognition_result_payload<
-        T: std::convert::Into<std::boxed::Box<crate::model::StreamingRecognitionResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload = std::option::Option::Some(
-            crate::model::conversation_event::Payload::NewRecognitionResultPayload(v.into()),
-        );
-        self
     }
 }
 
@@ -9300,25 +9066,6 @@ impl ConversationModel {
         })
     }
 
-    /// Sets the value of [model_metadata][crate::model::ConversationModel::model_metadata]
-    /// to hold a `ArticleSuggestionModelMetadata`.
-    ///
-    /// Note that all the setters affecting `model_metadata` are
-    /// mutually exclusive.
-    pub fn set_article_suggestion_model_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::ArticleSuggestionModelMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.model_metadata = std::option::Option::Some(
-            crate::model::conversation_model::ModelMetadata::ArticleSuggestionModelMetadata(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [model_metadata][crate::model::ConversationModel::model_metadata]
     /// if it holds a `SmartReplyModelMetadata`, `None` if the field is not set or
     /// holds a different branch.
@@ -9332,23 +9079,6 @@ impl ConversationModel {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [model_metadata][crate::model::ConversationModel::model_metadata]
-    /// to hold a `SmartReplyModelMetadata`.
-    ///
-    /// Note that all the setters affecting `model_metadata` are
-    /// mutually exclusive.
-    pub fn set_smart_reply_model_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::SmartReplyModelMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.model_metadata = std::option::Option::Some(
-            crate::model::conversation_model::ModelMetadata::SmartReplyModelMetadata(v.into()),
-        );
-        self
     }
 }
 
@@ -9816,23 +9546,6 @@ impl ConversationModelEvaluation {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [metrics][crate::model::ConversationModelEvaluation::metrics]
-    /// to hold a `SmartReplyMetrics`.
-    ///
-    /// Note that all the setters affecting `metrics` are
-    /// mutually exclusive.
-    pub fn set_smart_reply_metrics<
-        T: std::convert::Into<std::boxed::Box<crate::model::SmartReplyMetrics>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metrics = std::option::Option::Some(
-            crate::model::conversation_model_evaluation::Metrics::SmartReplyMetrics(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ConversationModelEvaluation {
@@ -9924,23 +9637,6 @@ impl EvaluationConfig {
         })
     }
 
-    /// Sets the value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
-    /// to hold a `SmartReplyConfig`.
-    ///
-    /// Note that all the setters affecting `model_specific_config` are
-    /// mutually exclusive.
-    pub fn set_smart_reply_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::evaluation_config::SmartReplyConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.model_specific_config = std::option::Option::Some(
-            crate::model::evaluation_config::ModelSpecificConfig::SmartReplyConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
     /// if it holds a `SmartComposeConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -9955,23 +9651,6 @@ impl EvaluationConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
-    /// to hold a `SmartComposeConfig`.
-    ///
-    /// Note that all the setters affecting `model_specific_config` are
-    /// mutually exclusive.
-    pub fn set_smart_compose_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::evaluation_config::SmartComposeConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.model_specific_config = std::option::Option::Some(
-            crate::model::evaluation_config::ModelSpecificConfig::SmartComposeConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -12683,20 +12362,6 @@ pub mod human_agent_assistant_config {
             })
         }
 
-        /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
-        /// to hold a `KnowledgeBaseQuerySource`.
-        ///
-        /// Note that all the setters affecting `query_source` are
-        /// mutually exclusive.
-        pub fn set_knowledge_base_query_source<T: std::convert::Into<std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::KnowledgeBaseQuerySource>>>(mut self, v: T) -> Self{
-            self.query_source = std::option::Option::Some(
-                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::KnowledgeBaseQuerySource(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// if it holds a `DocumentQuerySource`, `None` if the field is not set or
         /// holds a different branch.
@@ -12708,20 +12373,6 @@ pub mod human_agent_assistant_config {
             })
         }
 
-        /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
-        /// to hold a `DocumentQuerySource`.
-        ///
-        /// Note that all the setters affecting `query_source` are
-        /// mutually exclusive.
-        pub fn set_document_query_source<T: std::convert::Into<std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource>>>(mut self, v: T) -> Self{
-            self.query_source = std::option::Option::Some(
-                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DocumentQuerySource(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// if it holds a `DialogflowQuerySource`, `None` if the field is not set or
         /// holds a different branch.
@@ -12731,20 +12382,6 @@ pub mod human_agent_assistant_config {
                 crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DialogflowQuerySource(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
-        /// to hold a `DialogflowQuerySource`.
-        ///
-        /// Note that all the setters affecting `query_source` are
-        /// mutually exclusive.
-        pub fn set_dialogflow_query_source<T: std::convert::Into<std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource>>>(mut self, v: T) -> Self{
-            self.query_source = std::option::Option::Some(
-                crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DialogflowQuerySource(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -13458,25 +13095,6 @@ impl HumanAgentHandoffConfig {
         })
     }
 
-    /// Sets the value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
-    /// to hold a `LivePersonConfig`.
-    ///
-    /// Note that all the setters affecting `agent_service` are
-    /// mutually exclusive.
-    pub fn set_live_person_config<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::human_agent_handoff_config::LivePersonConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.agent_service = std::option::Option::Some(
-            crate::model::human_agent_handoff_config::AgentService::LivePersonConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
     /// if it holds a `SalesforceLiveAgentConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -13492,29 +13110,6 @@ impl HumanAgentHandoffConfig {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
-    /// to hold a `SalesforceLiveAgentConfig`.
-    ///
-    /// Note that all the setters affecting `agent_service` are
-    /// mutually exclusive.
-    pub fn set_salesforce_live_agent_config<
-        T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::human_agent_handoff_config::SalesforceLiveAgentConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.agent_service = std::option::Option::Some(
-            crate::model::human_agent_handoff_config::AgentService::SalesforceLiveAgentConfig(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -14575,17 +14170,6 @@ impl Document {
         })
     }
 
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `ContentUri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::document::Source::ContentUri(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `RawContent`, `None` if the field is not set or
     /// holds a different branch.
@@ -14595,17 +14179,6 @@ impl Document {
             crate::model::document::Source::RawContent(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `RawContent`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_raw_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::document::Source::RawContent(v.into()));
-        self
     }
 }
 
@@ -15334,21 +14907,6 @@ impl ImportDocumentsRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSources>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_documents_request::Source::GcsSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ImportDocumentsRequest {
@@ -15670,18 +15228,6 @@ impl ReloadDocumentRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::ReloadDocumentRequest::source]
-    /// to hold a `ContentUri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::reload_document_request::Source::ContentUri(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ReloadDocumentRequest {
@@ -15800,23 +15346,6 @@ impl ExportDocumentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ExportDocumentRequest::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_document_request::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -15948,25 +15477,6 @@ impl KnowledgeOperationMetadata {
             crate::model::knowledge_operation_metadata::OperationMetadata::ExportOperationMetadata(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [operation_metadata][crate::model::KnowledgeOperationMetadata::operation_metadata]
-    /// to hold a `ExportOperationMetadata`.
-    ///
-    /// Note that all the setters affecting `operation_metadata` are
-    /// mutually exclusive.
-    pub fn set_export_operation_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExportOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation_metadata = std::option::Option::Some(
-            crate::model::knowledge_operation_metadata::OperationMetadata::ExportOperationMetadata(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -17212,23 +16722,6 @@ impl BatchUpdateEntityTypesRequest {
         })
     }
 
-    /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
-    /// to hold a `EntityTypeBatchUri`.
-    ///
-    /// Note that all the setters affecting `entity_type_batch` are
-    /// mutually exclusive.
-    pub fn set_entity_type_batch_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_type_batch = std::option::Option::Some(
-            crate::model::batch_update_entity_types_request::EntityTypeBatch::EntityTypeBatchUri(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
     /// if it holds a `EntityTypeBatchInline`, `None` if the field is not set or
     /// holds a different branch.
@@ -17240,25 +16733,6 @@ impl BatchUpdateEntityTypesRequest {
             crate::model::batch_update_entity_types_request::EntityTypeBatch::EntityTypeBatchInline(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
-    /// to hold a `EntityTypeBatchInline`.
-    ///
-    /// Note that all the setters affecting `entity_type_batch` are
-    /// mutually exclusive.
-    pub fn set_entity_type_batch_inline<
-        T: std::convert::Into<std::boxed::Box<crate::model::EntityTypeBatch>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_type_batch = std::option::Option::Some(
-            crate::model::batch_update_entity_types_request::EntityTypeBatch::EntityTypeBatchInline(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -18663,23 +18137,6 @@ impl Fulfillment {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [fulfillment][crate::model::Fulfillment::fulfillment]
-    /// to hold a `GenericWebService`.
-    ///
-    /// Note that all the setters affecting `fulfillment` are
-    /// mutually exclusive.
-    pub fn set_generic_web_service<
-        T: std::convert::Into<std::boxed::Box<crate::model::fulfillment::GenericWebService>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.fulfillment = std::option::Option::Some(
-            crate::model::fulfillment::Fulfillment::GenericWebService(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for Fulfillment {
@@ -19813,23 +19270,6 @@ impl FewShotExample {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [instruction_list][crate::model::FewShotExample::instruction_list]
-    /// to hold a `SummarizationSectionList`.
-    ///
-    /// Note that all the setters affecting `instruction_list` are
-    /// mutually exclusive.
-    pub fn set_summarization_section_list<
-        T: std::convert::Into<std::boxed::Box<crate::model::SummarizationSectionList>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.instruction_list = std::option::Option::Some(
-            crate::model::few_shot_example::InstructionList::SummarizationSectionList(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for FewShotExample {
@@ -20434,22 +19874,6 @@ impl Generator {
         })
     }
 
-    /// Sets the value of [context][crate::model::Generator::context]
-    /// to hold a `FreeFormContext`.
-    ///
-    /// Note that all the setters affecting `context` are
-    /// mutually exclusive.
-    pub fn set_free_form_context<
-        T: std::convert::Into<std::boxed::Box<crate::model::FreeFormContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.context =
-            std::option::Option::Some(crate::model::generator::Context::FreeFormContext(v.into()));
-        self
-    }
-
     /// The value of [context][crate::model::Generator::context]
     /// if it holds a `SummarizationContext`, `None` if the field is not set or
     /// holds a different branch.
@@ -20463,23 +19887,6 @@ impl Generator {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [context][crate::model::Generator::context]
-    /// to hold a `SummarizationContext`.
-    ///
-    /// Note that all the setters affecting `context` are
-    /// mutually exclusive.
-    pub fn set_summarization_context<
-        T: std::convert::Into<std::boxed::Box<crate::model::SummarizationContext>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.context = std::option::Option::Some(
-            crate::model::generator::Context::SummarizationContext(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [foundation_model][crate::model::Generator::foundation_model].
@@ -20507,18 +19914,6 @@ impl Generator {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [foundation_model][crate::model::Generator::foundation_model]
-    /// to hold a `PublishedModel`.
-    ///
-    /// Note that all the setters affecting `foundation_model` are
-    /// mutually exclusive.
-    pub fn set_published_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.foundation_model = std::option::Option::Some(
-            crate::model::generator::FoundationModel::PublishedModel(v.into()),
-        );
-        self
     }
 }
 
@@ -20728,23 +20123,6 @@ impl GeneratorSuggestion {
         })
     }
 
-    /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
-    /// to hold a `FreeFormSuggestion`.
-    ///
-    /// Note that all the setters affecting `suggestion` are
-    /// mutually exclusive.
-    pub fn set_free_form_suggestion<
-        T: std::convert::Into<std::boxed::Box<crate::model::FreeFormSuggestion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion = std::option::Option::Some(
-            crate::model::generator_suggestion::Suggestion::FreeFormSuggestion(v.into()),
-        );
-        self
-    }
-
     /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
     /// if it holds a `SummarySuggestion`, `None` if the field is not set or
     /// holds a different branch.
@@ -20758,23 +20136,6 @@ impl GeneratorSuggestion {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
-    /// to hold a `SummarySuggestion`.
-    ///
-    /// Note that all the setters affecting `suggestion` are
-    /// mutually exclusive.
-    pub fn set_summary_suggestion<
-        T: std::convert::Into<std::boxed::Box<crate::model::SummarySuggestion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion = std::option::Option::Some(
-            crate::model::generator_suggestion::Suggestion::SummarySuggestion(v.into()),
-        );
-        self
     }
 }
 
@@ -21706,22 +21067,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `Text`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_text<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::Text>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message =
-                std::option::Option::Some(crate::model::intent::message::Message::Text(v.into()));
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Image`, `None` if the field is not set or
         /// holds a different branch.
@@ -21733,22 +21078,6 @@ pub mod intent {
                 crate::model::intent::message::Message::Image(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `Image`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_image<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::Image>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message =
-                std::option::Option::Some(crate::model::intent::message::Message::Image(v.into()));
-            self
         }
 
         /// The value of [message][crate::model::intent::Message::message]
@@ -21767,23 +21096,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `QuickReplies`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_quick_replies<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::QuickReplies>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::QuickReplies(v.into()),
-            );
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Card`, `None` if the field is not set or
         /// holds a different branch.
@@ -21797,22 +21109,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `Card`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_card<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::Card>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message =
-                std::option::Option::Some(crate::model::intent::message::Message::Card(v.into()));
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Payload`, `None` if the field is not set or
         /// holds a different branch.
@@ -21822,21 +21118,6 @@ pub mod intent {
                 crate::model::intent::message::Message::Payload(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `Payload`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::Payload(v.into()),
-            );
-            self
         }
 
         /// The value of [message][crate::model::intent::Message::message]
@@ -21855,23 +21136,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `SimpleResponses`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_simple_responses<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::SimpleResponses>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::SimpleResponses(v.into()),
-            );
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `BasicCard`, `None` if the field is not set or
         /// holds a different branch.
@@ -21886,23 +21150,6 @@ pub mod intent {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `BasicCard`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_basic_card<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::BasicCard>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::BasicCard(v.into()),
-            );
-            self
         }
 
         /// The value of [message][crate::model::intent::Message::message]
@@ -21921,23 +21168,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `Suggestions`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_suggestions<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::Suggestions>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::Suggestions(v.into()),
-            );
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `LinkOutSuggestion`, `None` if the field is not set or
         /// holds a different branch.
@@ -21952,23 +21182,6 @@ pub mod intent {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `LinkOutSuggestion`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_link_out_suggestion<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::LinkOutSuggestion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::LinkOutSuggestion(v.into()),
-            );
-            self
         }
 
         /// The value of [message][crate::model::intent::Message::message]
@@ -21987,23 +21200,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `ListSelect`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_list_select<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::ListSelect>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::ListSelect(v.into()),
-            );
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `CarouselSelect`, `None` if the field is not set or
         /// holds a different branch.
@@ -22018,23 +21214,6 @@ pub mod intent {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `CarouselSelect`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_carousel_select<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::CarouselSelect>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::CarouselSelect(v.into()),
-            );
-            self
         }
 
         /// The value of [message][crate::model::intent::Message::message]
@@ -22053,23 +21232,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `BrowseCarouselCard`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_browse_carousel_card<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::BrowseCarouselCard>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::BrowseCarouselCard(v.into()),
-            );
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `TableCard`, `None` if the field is not set or
         /// holds a different branch.
@@ -22086,23 +21248,6 @@ pub mod intent {
             })
         }
 
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `TableCard`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_table_card<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::TableCard>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::TableCard(v.into()),
-            );
-            self
-        }
-
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `MediaContent`, `None` if the field is not set or
         /// holds a different branch.
@@ -22117,23 +21262,6 @@ pub mod intent {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [message][crate::model::intent::Message::message]
-        /// to hold a `MediaContent`.
-        ///
-        /// Note that all the setters affecting `message` are
-        /// mutually exclusive.
-        pub fn set_media_content<
-            T: std::convert::Into<std::boxed::Box<crate::model::intent::message::MediaContent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.message = std::option::Option::Some(
-                crate::model::intent::message::Message::MediaContent(v.into()),
-            );
-            self
         }
     }
 
@@ -23282,25 +22410,6 @@ pub mod intent {
                     })
                 }
 
-                /// Sets the value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
-                /// to hold a `LargeImage`.
-                ///
-                /// Note that all the setters affecting `image` are
-                /// mutually exclusive.
-                pub fn set_large_image<
-                    T: std::convert::Into<std::boxed::Box<crate::model::intent::message::Image>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.image = std::option::Option::Some(
-                        crate::model::intent::message::media_content::response_media_object::Image::LargeImage(
-                            v.into()
-                        )
-                    );
-                    self
-                }
-
                 /// The value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
                 /// if it holds a `Icon`, `None` if the field is not set or
                 /// holds a different branch.
@@ -23313,25 +22422,6 @@ pub mod intent {
                         crate::model::intent::message::media_content::response_media_object::Image::Icon(v) => std::option::Option::Some(v),
                         _ => std::option::Option::None,
                     })
-                }
-
-                /// Sets the value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
-                /// to hold a `Icon`.
-                ///
-                /// Note that all the setters affecting `image` are
-                /// mutually exclusive.
-                pub fn set_icon<
-                    T: std::convert::Into<std::boxed::Box<crate::model::intent::message::Image>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.image = std::option::Option::Some(
-                        crate::model::intent::message::media_content::response_media_object::Image::Icon(
-                            v.into()
-                        )
-                    );
-                    self
                 }
             }
 
@@ -25313,21 +24403,6 @@ impl BatchUpdateIntentsRequest {
         })
     }
 
-    /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
-    /// to hold a `IntentBatchUri`.
-    ///
-    /// Note that all the setters affecting `intent_batch` are
-    /// mutually exclusive.
-    pub fn set_intent_batch_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.intent_batch = std::option::Option::Some(
-            crate::model::batch_update_intents_request::IntentBatch::IntentBatchUri(v.into()),
-        );
-        self
-    }
-
     /// The value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
     /// if it holds a `IntentBatchInline`, `None` if the field is not set or
     /// holds a different branch.
@@ -25341,23 +24416,6 @@ impl BatchUpdateIntentsRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
-    /// to hold a `IntentBatchInline`.
-    ///
-    /// Note that all the setters affecting `intent_batch` are
-    /// mutually exclusive.
-    pub fn set_intent_batch_inline<
-        T: std::convert::Into<std::boxed::Box<crate::model::IntentBatch>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.intent_batch = std::option::Option::Some(
-            crate::model::batch_update_intents_request::IntentBatch::IntentBatchInline(v.into()),
-        );
-        self
     }
 }
 
@@ -26770,21 +25828,6 @@ impl AnalyzeContentRequest {
         })
     }
 
-    /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
-    /// to hold a `TextInput`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_text_input<T: std::convert::Into<std::boxed::Box<crate::model::TextInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::analyze_content_request::Input::TextInput(v.into()),
-        );
-        self
-    }
-
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `AudioInput`, `None` if the field is not set or
     /// holds a different branch.
@@ -26796,21 +25839,6 @@ impl AnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
-    /// to hold a `AudioInput`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_audio_input<T: std::convert::Into<std::boxed::Box<crate::model::AudioInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::analyze_content_request::Input::AudioInput(v.into()),
-        );
-        self
     }
 
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
@@ -26826,21 +25854,6 @@ impl AnalyzeContentRequest {
         })
     }
 
-    /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
-    /// to hold a `EventInput`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_event_input<T: std::convert::Into<std::boxed::Box<crate::model::EventInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::analyze_content_request::Input::EventInput(v.into()),
-        );
-        self
-    }
-
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `SuggestionInput`, `None` if the field is not set or
     /// holds a different branch.
@@ -26854,23 +25867,6 @@ impl AnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
-    /// to hold a `SuggestionInput`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_suggestion_input<
-        T: std::convert::Into<std::boxed::Box<crate::model::SuggestionInput>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::analyze_content_request::Input::SuggestionInput(v.into()),
-        );
-        self
     }
 }
 
@@ -27340,23 +26336,6 @@ impl StreamingAnalyzeContentRequest {
         })
     }
 
-    /// Sets the value of [config][crate::model::StreamingAnalyzeContentRequest::config]
-    /// to hold a `AudioConfig`.
-    ///
-    /// Note that all the setters affecting `config` are
-    /// mutually exclusive.
-    pub fn set_audio_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::InputAudioConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Config::AudioConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [config][crate::model::StreamingAnalyzeContentRequest::config]
     /// if it holds a `TextConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -27370,23 +26349,6 @@ impl StreamingAnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [config][crate::model::StreamingAnalyzeContentRequest::config]
-    /// to hold a `TextConfig`.
-    ///
-    /// Note that all the setters affecting `config` are
-    /// mutually exclusive.
-    pub fn set_text_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::InputTextConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.config = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Config::TextConfig(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input].
@@ -27418,18 +26380,6 @@ impl StreamingAnalyzeContentRequest {
         })
     }
 
-    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
-    /// to hold a `InputAudio`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Input::InputAudio(v.into()),
-        );
-        self
-    }
-
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
     /// if it holds a `InputText`, `None` if the field is not set or
     /// holds a different branch.
@@ -27441,18 +26391,6 @@ impl StreamingAnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
-    /// to hold a `InputText`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_input_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Input::InputText(v.into()),
-        );
-        self
     }
 
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
@@ -27468,23 +26406,6 @@ impl StreamingAnalyzeContentRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input]
-    /// to hold a `InputDtmf`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_input_dtmf<
-        T: std::convert::Into<std::boxed::Box<crate::model::TelephonyDtmfEvents>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(
-            crate::model::streaming_analyze_content_request::Input::InputDtmf(v.into()),
-        );
-        self
     }
 }
 
@@ -28975,17 +27896,6 @@ impl IntentSuggestion {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [intent][crate::model::IntentSuggestion::intent]
-    /// to hold a `IntentV2`.
-    ///
-    /// Note that all the setters affecting `intent` are
-    /// mutually exclusive.
-    pub fn set_intent_v2<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.intent =
-            std::option::Option::Some(crate::model::intent_suggestion::Intent::IntentV2(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for IntentSuggestion {
@@ -29072,21 +27982,6 @@ impl DialogflowAssistAnswer {
         })
     }
 
-    /// Sets the value of [result][crate::model::DialogflowAssistAnswer::result]
-    /// to hold a `QueryResult`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_query_result<T: std::convert::Into<std::boxed::Box<crate::model::QueryResult>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::dialogflow_assist_answer::Result::QueryResult(v.into()),
-        );
-        self
-    }
-
     /// The value of [result][crate::model::DialogflowAssistAnswer::result]
     /// if it holds a `IntentSuggestion`, `None` if the field is not set or
     /// holds a different branch.
@@ -29100,23 +27995,6 @@ impl DialogflowAssistAnswer {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::DialogflowAssistAnswer::result]
-    /// to hold a `IntentSuggestion`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_intent_suggestion<
-        T: std::convert::Into<std::boxed::Box<crate::model::IntentSuggestion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::dialogflow_assist_answer::Result::IntentSuggestion(v.into()),
-        );
-        self
     }
 }
 
@@ -29202,21 +28080,6 @@ impl SuggestionResult {
         })
     }
 
-    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `suggestion_response` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion_response = std::option::Option::Some(
-            crate::model::suggestion_result::SuggestionResponse::Error(v.into()),
-        );
-        self
-    }
-
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `SuggestArticlesResponse`, `None` if the field is not set or
     /// holds a different branch.
@@ -29230,23 +28093,6 @@ impl SuggestionResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// to hold a `SuggestArticlesResponse`.
-    ///
-    /// Note that all the setters affecting `suggestion_response` are
-    /// mutually exclusive.
-    pub fn set_suggest_articles_response<
-        T: std::convert::Into<std::boxed::Box<crate::model::SuggestArticlesResponse>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion_response = std::option::Option::Some(
-            crate::model::suggestion_result::SuggestionResponse::SuggestArticlesResponse(v.into()),
-        );
-        self
     }
 
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
@@ -29264,25 +28110,6 @@ impl SuggestionResult {
         })
     }
 
-    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// to hold a `SuggestKnowledgeAssistResponse`.
-    ///
-    /// Note that all the setters affecting `suggestion_response` are
-    /// mutually exclusive.
-    pub fn set_suggest_knowledge_assist_response<
-        T: std::convert::Into<std::boxed::Box<crate::model::SuggestKnowledgeAssistResponse>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion_response = std::option::Option::Some(
-            crate::model::suggestion_result::SuggestionResponse::SuggestKnowledgeAssistResponse(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `SuggestFaqAnswersResponse`, `None` if the field is not set or
     /// holds a different branch.
@@ -29296,25 +28123,6 @@ impl SuggestionResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// to hold a `SuggestFaqAnswersResponse`.
-    ///
-    /// Note that all the setters affecting `suggestion_response` are
-    /// mutually exclusive.
-    pub fn set_suggest_faq_answers_response<
-        T: std::convert::Into<std::boxed::Box<crate::model::SuggestFaqAnswersResponse>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion_response = std::option::Option::Some(
-            crate::model::suggestion_result::SuggestionResponse::SuggestFaqAnswersResponse(
-                v.into(),
-            ),
-        );
-        self
     }
 
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
@@ -29332,25 +28140,6 @@ impl SuggestionResult {
         })
     }
 
-    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// to hold a `SuggestSmartRepliesResponse`.
-    ///
-    /// Note that all the setters affecting `suggestion_response` are
-    /// mutually exclusive.
-    pub fn set_suggest_smart_replies_response<
-        T: std::convert::Into<std::boxed::Box<crate::model::SuggestSmartRepliesResponse>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion_response = std::option::Option::Some(
-            crate::model::suggestion_result::SuggestionResponse::SuggestSmartRepliesResponse(
-                v.into(),
-            ),
-        );
-        self
-    }
-
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `GenerateSuggestionsResponse`, `None` if the field is not set or
     /// holds a different branch.
@@ -29364,25 +28153,6 @@ impl SuggestionResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
-    /// to hold a `GenerateSuggestionsResponse`.
-    ///
-    /// Note that all the setters affecting `suggestion_response` are
-    /// mutually exclusive.
-    pub fn set_generate_suggestions_response<
-        T: std::convert::Into<std::boxed::Box<crate::model::GenerateSuggestionsResponse>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.suggestion_response = std::option::Option::Some(
-            crate::model::suggestion_result::SuggestionResponse::GenerateSuggestionsResponse(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -29987,29 +28757,6 @@ pub mod knowledge_assist_answer {
             })
         }
 
-        /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
-        /// to hold a `FaqSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_faq_source<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::knowledge_assist_answer::knowledge_answer::FaqSource,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::knowledge_assist_answer::knowledge_answer::Source::FaqSource(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
         /// if it holds a `GenerativeSource`, `None` if the field is not set or
         /// holds a different branch.
@@ -30025,29 +28772,6 @@ pub mod knowledge_assist_answer {
                 crate::model::knowledge_assist_answer::knowledge_answer::Source::GenerativeSource(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
-        /// to hold a `GenerativeSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_generative_source<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::knowledge_assist_answer::knowledge_answer::Source::GenerativeSource(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -30689,22 +29413,6 @@ impl QueryInput {
         })
     }
 
-    /// Sets the value of [input][crate::model::QueryInput::input]
-    /// to hold a `AudioConfig`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_audio_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::InputAudioConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input =
-            std::option::Option::Some(crate::model::query_input::Input::AudioConfig(v.into()));
-        self
-    }
-
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
@@ -30716,19 +29424,6 @@ impl QueryInput {
         })
     }
 
-    /// Sets the value of [input][crate::model::QueryInput::input]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::TextInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(crate::model::query_input::Input::Text(v.into()));
-        self
-    }
-
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Event`, `None` if the field is not set or
     /// holds a different branch.
@@ -30738,19 +29433,6 @@ impl QueryInput {
             crate::model::query_input::Input::Event(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input][crate::model::QueryInput::input]
-    /// to hold a `Event`.
-    ///
-    /// Note that all the setters affecting `input` are
-    /// mutually exclusive.
-    pub fn set_event<T: std::convert::Into<std::boxed::Box<crate::model::EventInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = std::option::Option::Some(crate::model::query_input::Input::Event(v.into()));
-        self
     }
 }
 

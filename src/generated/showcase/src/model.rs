@@ -1087,17 +1087,6 @@ impl EchoRequest {
         })
     }
 
-    /// Sets the value of [response][crate::model::EchoRequest::response]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::echo_request::Response::Content(v.into()));
-        self
-    }
-
     /// The value of [response][crate::model::EchoRequest::response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
@@ -1107,20 +1096,6 @@ impl EchoRequest {
             crate::model::echo_request::Response::Error(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response][crate::model::EchoRequest::response]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::echo_request::Response::Error(v.into()));
-        self
     }
 }
 
@@ -1908,19 +1883,6 @@ impl WaitRequest {
         })
     }
 
-    /// Sets the value of [end][crate::model::WaitRequest::end]
-    /// to hold a `EndTime`.
-    ///
-    /// Note that all the setters affecting `end` are
-    /// mutually exclusive.
-    pub fn set_end_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.end = std::option::Option::Some(crate::model::wait_request::End::EndTime(v.into()));
-        self
-    }
-
     /// The value of [end][crate::model::WaitRequest::end]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
@@ -1930,16 +1892,6 @@ impl WaitRequest {
             crate::model::wait_request::End::Ttl(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [end][crate::model::WaitRequest::end]
-    /// to hold a `Ttl`.
-    ///
-    /// Note that all the setters affecting `end` are
-    /// mutually exclusive.
-    pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.end = std::option::Option::Some(crate::model::wait_request::End::Ttl(v.into()));
-        self
     }
 
     /// Sets the value of [response][crate::model::WaitRequest::response].
@@ -1967,20 +1919,6 @@ impl WaitRequest {
         })
     }
 
-    /// Sets the value of [response][crate::model::WaitRequest::response]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::wait_request::Response::Error(v.into()));
-        self
-    }
-
     /// The value of [response][crate::model::WaitRequest::response]
     /// if it holds a `Success`, `None` if the field is not set or
     /// holds a different branch.
@@ -1990,20 +1928,6 @@ impl WaitRequest {
             crate::model::wait_request::Response::Success(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response][crate::model::WaitRequest::response]
-    /// to hold a `Success`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::WaitResponse>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::wait_request::Response::Success(v.into()));
-        self
     }
 }
 
@@ -2165,20 +2089,6 @@ impl BlockRequest {
         })
     }
 
-    /// Sets the value of [response][crate::model::BlockRequest::response]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::block_request::Response::Error(v.into()));
-        self
-    }
-
     /// The value of [response][crate::model::BlockRequest::response]
     /// if it holds a `Success`, `None` if the field is not set or
     /// holds a different branch.
@@ -2188,20 +2098,6 @@ impl BlockRequest {
             crate::model::block_request::Response::Success(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [response][crate::model::BlockRequest::response]
-    /// to hold a `Success`.
-    ///
-    /// Note that all the setters affecting `response` are
-    /// mutually exclusive.
-    pub fn set_success<T: std::convert::Into<std::boxed::Box<crate::model::BlockResponse>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.response =
-            std::option::Option::Some(crate::model::block_request::Response::Success(v.into()));
-        self
     }
 }
 
@@ -3094,16 +2990,6 @@ impl Blurb {
         })
     }
 
-    /// Sets the value of [content][crate::model::Blurb::content]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `content` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.content = std::option::Option::Some(crate::model::blurb::Content::Text(v.into()));
-        self
-    }
-
     /// The value of [content][crate::model::Blurb::content]
     /// if it holds a `Image`, `None` if the field is not set or
     /// holds a different branch.
@@ -3113,16 +2999,6 @@ impl Blurb {
             crate::model::blurb::Content::Image(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [content][crate::model::Blurb::content]
-    /// to hold a `Image`.
-    ///
-    /// Note that all the setters affecting `content` are
-    /// mutually exclusive.
-    pub fn set_image<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.content = std::option::Option::Some(crate::model::blurb::Content::Image(v.into()));
-        self
     }
 
     /// Sets the value of [legacy_id][crate::model::Blurb::legacy_id].
@@ -3150,17 +3026,6 @@ impl Blurb {
         })
     }
 
-    /// Sets the value of [legacy_id][crate::model::Blurb::legacy_id]
-    /// to hold a `LegacyRoomId`.
-    ///
-    /// Note that all the setters affecting `legacy_id` are
-    /// mutually exclusive.
-    pub fn set_legacy_room_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.legacy_id =
-            std::option::Option::Some(crate::model::blurb::LegacyId::LegacyRoomId(v.into()));
-        self
-    }
-
     /// The value of [legacy_id][crate::model::Blurb::legacy_id]
     /// if it holds a `LegacyUserId`, `None` if the field is not set or
     /// holds a different branch.
@@ -3170,17 +3035,6 @@ impl Blurb {
             crate::model::blurb::LegacyId::LegacyUserId(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [legacy_id][crate::model::Blurb::legacy_id]
-    /// to hold a `LegacyUserId`.
-    ///
-    /// Note that all the setters affecting `legacy_id` are
-    /// mutually exclusive.
-    pub fn set_legacy_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.legacy_id =
-            std::option::Option::Some(crate::model::blurb::LegacyId::LegacyUserId(v.into()));
-        self
     }
 }
 
@@ -3989,22 +3843,6 @@ impl ConnectRequest {
         })
     }
 
-    /// Sets the value of [request][crate::model::ConnectRequest::request]
-    /// to hold a `Config`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::connect_request::ConnectConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request =
-            std::option::Option::Some(crate::model::connect_request::Request::Config(v.into()));
-        self
-    }
-
     /// The value of [request][crate::model::ConnectRequest::request]
     /// if it holds a `Blurb`, `None` if the field is not set or
     /// holds a different branch.
@@ -4014,20 +3852,6 @@ impl ConnectRequest {
             crate::model::connect_request::Request::Blurb(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::ConnectRequest::request]
-    /// to hold a `Blurb`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_blurb<T: std::convert::Into<std::boxed::Box<crate::model::Blurb>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request =
-            std::option::Option::Some(crate::model::connect_request::Request::Blurb(v.into()));
-        self
     }
 }
 

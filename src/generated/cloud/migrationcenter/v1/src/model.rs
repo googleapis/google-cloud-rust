@@ -209,22 +209,6 @@ impl Asset {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [asset_details][crate::model::Asset::asset_details]
-    /// to hold a `MachineDetails`.
-    ///
-    /// Note that all the setters affecting `asset_details` are
-    /// mutually exclusive.
-    pub fn set_machine_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::MachineDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.asset_details =
-            std::option::Option::Some(crate::model::asset::AssetDetails::MachineDetails(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Asset {
@@ -487,22 +471,6 @@ impl ImportJob {
         })
     }
 
-    /// Sets the value of [report][crate::model::ImportJob::report]
-    /// to hold a `ValidationReport`.
-    ///
-    /// Note that all the setters affecting `report` are
-    /// mutually exclusive.
-    pub fn set_validation_report<
-        T: std::convert::Into<std::boxed::Box<crate::model::ValidationReport>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.report =
-            std::option::Option::Some(crate::model::import_job::Report::ValidationReport(v.into()));
-        self
-    }
-
     /// The value of [report][crate::model::ImportJob::report]
     /// if it holds a `ExecutionReport`, `None` if the field is not set or
     /// holds a different branch.
@@ -514,22 +482,6 @@ impl ImportJob {
             crate::model::import_job::Report::ExecutionReport(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [report][crate::model::ImportJob::report]
-    /// to hold a `ExecutionReport`.
-    ///
-    /// Note that all the setters affecting `report` are
-    /// mutually exclusive.
-    pub fn set_execution_report<
-        T: std::convert::Into<std::boxed::Box<crate::model::ExecutionReport>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.report =
-            std::option::Option::Some(crate::model::import_job::Report::ExecutionReport(v.into()));
-        self
     }
 }
 
@@ -828,23 +780,6 @@ impl ImportDataFile {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [file_info][crate::model::ImportDataFile::file_info]
-    /// to hold a `UploadFileInfo`.
-    ///
-    /// Note that all the setters affecting `file_info` are
-    /// mutually exclusive.
-    pub fn set_upload_file_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::UploadFileInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.file_info = std::option::Option::Some(
-            crate::model::import_data_file::FileInfo::UploadFileInfo(v.into()),
-        );
-        self
     }
 }
 
@@ -6184,23 +6119,6 @@ impl AssetFrame {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [frame_data][crate::model::AssetFrame::frame_data]
-    /// to hold a `MachineDetails`.
-    ///
-    /// Note that all the setters affecting `frame_data` are
-    /// mutually exclusive.
-    pub fn set_machine_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::MachineDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.frame_data = std::option::Option::Some(
-            crate::model::asset_frame::FrameData::MachineDetails(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for AssetFrame {
@@ -7667,20 +7585,6 @@ impl DiskEntry {
             crate::model::disk_entry::PlatformSpecific::Vmware(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [platform_specific][crate::model::DiskEntry::platform_specific]
-    /// to hold a `Vmware`.
-    ///
-    /// Note that all the setters affecting `platform_specific` are
-    /// mutually exclusive.
-    pub fn set_vmware<T: std::convert::Into<std::boxed::Box<crate::model::VmwareDiskConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.platform_specific =
-            std::option::Option::Some(crate::model::disk_entry::PlatformSpecific::Vmware(v.into()));
-        self
     }
 }
 
@@ -10427,23 +10331,6 @@ impl PlatformDetails {
         })
     }
 
-    /// Sets the value of [vendor_details][crate::model::PlatformDetails::vendor_details]
-    /// to hold a `VmwareDetails`.
-    ///
-    /// Note that all the setters affecting `vendor_details` are
-    /// mutually exclusive.
-    pub fn set_vmware_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::VmwarePlatformDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vendor_details = std::option::Option::Some(
-            crate::model::platform_details::VendorDetails::VmwareDetails(v.into()),
-        );
-        self
-    }
-
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `AwsEc2Details`, `None` if the field is not set or
     /// holds a different branch.
@@ -10457,23 +10344,6 @@ impl PlatformDetails {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [vendor_details][crate::model::PlatformDetails::vendor_details]
-    /// to hold a `AwsEc2Details`.
-    ///
-    /// Note that all the setters affecting `vendor_details` are
-    /// mutually exclusive.
-    pub fn set_aws_ec2_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsEc2PlatformDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vendor_details = std::option::Option::Some(
-            crate::model::platform_details::VendorDetails::AwsEc2Details(v.into()),
-        );
-        self
     }
 
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
@@ -10491,23 +10361,6 @@ impl PlatformDetails {
         })
     }
 
-    /// Sets the value of [vendor_details][crate::model::PlatformDetails::vendor_details]
-    /// to hold a `AzureVmDetails`.
-    ///
-    /// Note that all the setters affecting `vendor_details` are
-    /// mutually exclusive.
-    pub fn set_azure_vm_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::AzureVmPlatformDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vendor_details = std::option::Option::Some(
-            crate::model::platform_details::VendorDetails::AzureVmDetails(v.into()),
-        );
-        self
-    }
-
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `GenericDetails`, `None` if the field is not set or
     /// holds a different branch.
@@ -10523,23 +10376,6 @@ impl PlatformDetails {
         })
     }
 
-    /// Sets the value of [vendor_details][crate::model::PlatformDetails::vendor_details]
-    /// to hold a `GenericDetails`.
-    ///
-    /// Note that all the setters affecting `vendor_details` are
-    /// mutually exclusive.
-    pub fn set_generic_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::GenericPlatformDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vendor_details = std::option::Option::Some(
-            crate::model::platform_details::VendorDetails::GenericDetails(v.into()),
-        );
-        self
-    }
-
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `PhysicalDetails`, `None` if the field is not set or
     /// holds a different branch.
@@ -10553,23 +10389,6 @@ impl PlatformDetails {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [vendor_details][crate::model::PlatformDetails::vendor_details]
-    /// to hold a `PhysicalDetails`.
-    ///
-    /// Note that all the setters affecting `vendor_details` are
-    /// mutually exclusive.
-    pub fn set_physical_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::PhysicalPlatformDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vendor_details = std::option::Option::Some(
-            crate::model::platform_details::VendorDetails::PhysicalDetails(v.into()),
-        );
-        self
     }
 }
 
@@ -11579,22 +11398,6 @@ impl Insight {
         })
     }
 
-    /// Sets the value of [insight][crate::model::Insight::insight]
-    /// to hold a `MigrationInsight`.
-    ///
-    /// Note that all the setters affecting `insight` are
-    /// mutually exclusive.
-    pub fn set_migration_insight<
-        T: std::convert::Into<std::boxed::Box<crate::model::MigrationInsight>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.insight =
-            std::option::Option::Some(crate::model::insight::Insight::MigrationInsight(v.into()));
-        self
-    }
-
     /// The value of [insight][crate::model::Insight::insight]
     /// if it holds a `GenericInsight`, `None` if the field is not set or
     /// holds a different branch.
@@ -11606,22 +11409,6 @@ impl Insight {
             crate::model::insight::Insight::GenericInsight(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [insight][crate::model::Insight::insight]
-    /// to hold a `GenericInsight`.
-    ///
-    /// Note that all the setters affecting `insight` are
-    /// mutually exclusive.
-    pub fn set_generic_insight<
-        T: std::convert::Into<std::boxed::Box<crate::model::GenericInsight>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.insight =
-            std::option::Option::Some(crate::model::insight::Insight::GenericInsight(v.into()));
-        self
     }
 }
 
@@ -11771,23 +11558,6 @@ impl MigrationInsight {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [migration_target][crate::model::MigrationInsight::migration_target]
-    /// to hold a `ComputeEngineTarget`.
-    ///
-    /// Note that all the setters affecting `migration_target` are
-    /// mutually exclusive.
-    pub fn set_compute_engine_target<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeEngineMigrationTarget>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.migration_target = std::option::Option::Some(
-            crate::model::migration_insight::MigrationTarget::ComputeEngineTarget(v.into()),
-        );
-        self
     }
 }
 
@@ -12217,21 +11987,6 @@ impl Aggregation {
         })
     }
 
-    /// Sets the value of [aggregation_function][crate::model::Aggregation::aggregation_function]
-    /// to hold a `Count`.
-    ///
-    /// Note that all the setters affecting `aggregation_function` are
-    /// mutually exclusive.
-    pub fn set_count<T: std::convert::Into<std::boxed::Box<crate::model::aggregation::Count>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregation_function = std::option::Option::Some(
-            crate::model::aggregation::AggregationFunction::Count(v.into()),
-        );
-        self
-    }
-
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
     /// if it holds a `Sum`, `None` if the field is not set or
     /// holds a different branch.
@@ -12241,21 +11996,6 @@ impl Aggregation {
             crate::model::aggregation::AggregationFunction::Sum(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [aggregation_function][crate::model::Aggregation::aggregation_function]
-    /// to hold a `Sum`.
-    ///
-    /// Note that all the setters affecting `aggregation_function` are
-    /// mutually exclusive.
-    pub fn set_sum<T: std::convert::Into<std::boxed::Box<crate::model::aggregation::Sum>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregation_function = std::option::Option::Some(
-            crate::model::aggregation::AggregationFunction::Sum(v.into()),
-        );
-        self
     }
 
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
@@ -12273,23 +12013,6 @@ impl Aggregation {
         })
     }
 
-    /// Sets the value of [aggregation_function][crate::model::Aggregation::aggregation_function]
-    /// to hold a `Histogram`.
-    ///
-    /// Note that all the setters affecting `aggregation_function` are
-    /// mutually exclusive.
-    pub fn set_histogram<
-        T: std::convert::Into<std::boxed::Box<crate::model::aggregation::Histogram>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregation_function = std::option::Option::Some(
-            crate::model::aggregation::AggregationFunction::Histogram(v.into()),
-        );
-        self
-    }
-
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
     /// if it holds a `Frequency`, `None` if the field is not set or
     /// holds a different branch.
@@ -12303,23 +12026,6 @@ impl Aggregation {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [aggregation_function][crate::model::Aggregation::aggregation_function]
-    /// to hold a `Frequency`.
-    ///
-    /// Note that all the setters affecting `aggregation_function` are
-    /// mutually exclusive.
-    pub fn set_frequency<
-        T: std::convert::Into<std::boxed::Box<crate::model::aggregation::Frequency>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aggregation_function = std::option::Option::Some(
-            crate::model::aggregation::AggregationFunction::Frequency(v.into()),
-        );
-        self
     }
 }
 
@@ -12516,22 +12222,6 @@ impl AggregationResult {
         })
     }
 
-    /// Sets the value of [result][crate::model::AggregationResult::result]
-    /// to hold a `Count`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_count<
-        T: std::convert::Into<std::boxed::Box<crate::model::aggregation_result::Count>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::aggregation_result::Result::Count(v.into()));
-        self
-    }
-
     /// The value of [result][crate::model::AggregationResult::result]
     /// if it holds a `Sum`, `None` if the field is not set or
     /// holds a different branch.
@@ -12543,22 +12233,6 @@ impl AggregationResult {
             crate::model::aggregation_result::Result::Sum(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::AggregationResult::result]
-    /// to hold a `Sum`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_sum<
-        T: std::convert::Into<std::boxed::Box<crate::model::aggregation_result::Sum>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::aggregation_result::Result::Sum(v.into()));
-        self
     }
 
     /// The value of [result][crate::model::AggregationResult::result]
@@ -12574,23 +12248,6 @@ impl AggregationResult {
         })
     }
 
-    /// Sets the value of [result][crate::model::AggregationResult::result]
-    /// to hold a `Histogram`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_histogram<
-        T: std::convert::Into<std::boxed::Box<crate::model::aggregation_result::Histogram>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::aggregation_result::Result::Histogram(v.into()),
-        );
-        self
-    }
-
     /// The value of [result][crate::model::AggregationResult::result]
     /// if it holds a `Frequency`, `None` if the field is not set or
     /// holds a different branch.
@@ -12602,23 +12259,6 @@ impl AggregationResult {
             crate::model::aggregation_result::Result::Frequency(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::AggregationResult::result]
-    /// to hold a `Frequency`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_frequency<
-        T: std::convert::Into<std::boxed::Box<crate::model::aggregation_result::Frequency>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(
-            crate::model::aggregation_result::Result::Frequency(v.into()),
-        );
-        self
     }
 }
 

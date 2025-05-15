@@ -298,21 +298,6 @@ impl VerifyAttestationRequest {
         })
     }
 
-    /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
-    /// to hold a `TdCcel`.
-    ///
-    /// Note that all the setters affecting `tee_attestation` are
-    /// mutually exclusive.
-    pub fn set_td_ccel<T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tee_attestation = std::option::Option::Some(
-            crate::model::verify_attestation_request::TeeAttestation::TdCcel(v.into()),
-        );
-        self
-    }
-
     /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
     /// if it holds a `SevSnpAttestation`, `None` if the field is not set or
     /// holds a different branch.
@@ -326,23 +311,6 @@ impl VerifyAttestationRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
-    /// to hold a `SevSnpAttestation`.
-    ///
-    /// Note that all the setters affecting `tee_attestation` are
-    /// mutually exclusive.
-    pub fn set_sev_snp_attestation<
-        T: std::convert::Into<std::boxed::Box<crate::model::SevSnpAttestation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tee_attestation = std::option::Option::Some(
-            crate::model::verify_attestation_request::TeeAttestation::SevSnpAttestation(v.into()),
-        );
-        self
     }
 }
 
@@ -666,23 +634,6 @@ impl TokenOptions {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [token_type_options][crate::model::TokenOptions::token_type_options]
-    /// to hold a `AwsPrincipalTagsOptions`.
-    ///
-    /// Note that all the setters affecting `token_type_options` are
-    /// mutually exclusive.
-    pub fn set_aws_principal_tags_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.token_type_options = std::option::Option::Some(
-            crate::model::token_options::TokenTypeOptions::AwsPrincipalTagsOptions(v.into()),
-        );
-        self
     }
 }
 

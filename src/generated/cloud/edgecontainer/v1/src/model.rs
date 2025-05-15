@@ -450,23 +450,6 @@ pub mod cluster {
             })
         }
 
-        /// Sets the value of [config][crate::model::cluster::ControlPlane::config]
-        /// to hold a `Remote`.
-        ///
-        /// Note that all the setters affecting `config` are
-        /// mutually exclusive.
-        pub fn set_remote<
-            T: std::convert::Into<std::boxed::Box<crate::model::cluster::control_plane::Remote>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.config = std::option::Option::Some(
-                crate::model::cluster::control_plane::Config::Remote(v.into()),
-            );
-            self
-        }
-
         /// The value of [config][crate::model::cluster::ControlPlane::config]
         /// if it holds a `Local`, `None` if the field is not set or
         /// holds a different branch.
@@ -481,23 +464,6 @@ pub mod cluster {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [config][crate::model::cluster::ControlPlane::config]
-        /// to hold a `Local`.
-        ///
-        /// Note that all the setters affecting `config` are
-        /// mutually exclusive.
-        pub fn set_local<
-            T: std::convert::Into<std::boxed::Box<crate::model::cluster::control_plane::Local>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.config = std::option::Option::Some(
-                crate::model::cluster::control_plane::Config::Local(v.into()),
-            );
-            self
         }
     }
 

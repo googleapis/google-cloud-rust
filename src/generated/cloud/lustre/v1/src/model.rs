@@ -952,20 +952,6 @@ impl ImportDataRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::ImportDataRequest::source]
-    /// to hold a `GcsPath`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::import_data_request::Source::GcsPath(v.into()));
-        self
-    }
-
     /// Sets the value of [destination][crate::model::ImportDataRequest::destination].
     ///
     /// Note that all the setters affecting `destination` are mutually
@@ -991,21 +977,6 @@ impl ImportDataRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ImportDataRequest::destination]
-    /// to hold a `LustrePath`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::import_data_request::Destination::LustrePath(v.into()),
-        );
-        self
     }
 }
 
@@ -1123,21 +1094,6 @@ impl ExportDataRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::ExportDataRequest::source]
-    /// to hold a `LustrePath`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::export_data_request::Source::LustrePath(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [destination][crate::model::ExportDataRequest::destination].
     ///
     /// Note that all the setters affecting `destination` are mutually
@@ -1163,21 +1119,6 @@ impl ExportDataRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ExportDataRequest::destination]
-    /// to hold a `GcsPath`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_data_request::Destination::GcsPath(v.into()),
-        );
-        self
     }
 }
 
@@ -1874,23 +1815,6 @@ impl TransferOperationMetadata {
         })
     }
 
-    /// Sets the value of [source][crate::model::TransferOperationMetadata::source]
-    /// to hold a `SourceLustrePath`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_lustre_path<
-        T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Source::SourceLustrePath(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::TransferOperationMetadata::source]
     /// if it holds a `SourceGcsPath`, `None` if the field is not set or
     /// holds a different branch.
@@ -1902,21 +1826,6 @@ impl TransferOperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::TransferOperationMetadata::source]
-    /// to hold a `SourceGcsPath`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_source_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Source::SourceGcsPath(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination].
@@ -1950,23 +1859,6 @@ impl TransferOperationMetadata {
         })
     }
 
-    /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination]
-    /// to hold a `DestinationGcsPath`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_gcs_path<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Destination::DestinationGcsPath(v.into()),
-        );
-        self
-    }
-
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationLustrePath`, `None` if the field is not set or
     /// holds a different branch.
@@ -1980,23 +1872,6 @@ impl TransferOperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination]
-    /// to hold a `DestinationLustrePath`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_lustre_path<
-        T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(v.into()),
-        );
-        self
     }
 }
 

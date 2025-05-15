@@ -191,17 +191,6 @@ impl Channel {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [transport][crate::model::Channel::transport]
-    /// to hold a `PubsubTopic`.
-    ///
-    /// Note that all the setters affecting `transport` are
-    /// mutually exclusive.
-    pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.transport =
-            std::option::Option::Some(crate::model::channel::Transport::PubsubTopic(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Channel {
@@ -4884,25 +4873,6 @@ pub mod pipeline {
             })
         }
 
-        /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// to hold a `Protobuf`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_protobuf<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::pipeline::message_payload_format::Kind::Protobuf(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Avro`, `None` if the field is not set or
         /// holds a different branch.
@@ -4920,25 +4890,6 @@ pub mod pipeline {
             })
         }
 
-        /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// to hold a `Avro`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_avro<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::pipeline::message_payload_format::Kind::Avro(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Json`, `None` if the field is not set or
         /// holds a different branch.
@@ -4954,25 +4905,6 @@ pub mod pipeline {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
-        /// to hold a `Json`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_json<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::pipeline::message_payload_format::Kind::Json(v.into()),
-            );
-            self
         }
     }
 
@@ -5210,23 +5142,6 @@ pub mod pipeline {
             })
         }
 
-        /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// to hold a `HttpEndpoint`.
-        ///
-        /// Note that all the setters affecting `destination_descriptor` are
-        /// mutually exclusive.
-        pub fn set_http_endpoint<
-            T: std::convert::Into<std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::HttpEndpoint(v.into()),
-            );
-            self
-        }
-
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `Workflow`, `None` if the field is not set or
         /// holds a different branch.
@@ -5238,18 +5153,6 @@ pub mod pipeline {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// to hold a `Workflow`.
-        ///
-        /// Note that all the setters affecting `destination_descriptor` are
-        /// mutually exclusive.
-        pub fn set_workflow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v.into()),
-            );
-            self
         }
 
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
@@ -5265,18 +5168,6 @@ pub mod pipeline {
             })
         }
 
-        /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// to hold a `MessageBus`.
-        ///
-        /// Note that all the setters affecting `destination_descriptor` are
-        /// mutually exclusive.
-        pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v.into()),
-            );
-            self
-        }
-
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `Topic`, `None` if the field is not set or
         /// holds a different branch.
@@ -5288,18 +5179,6 @@ pub mod pipeline {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
-        /// to hold a `Topic`.
-        ///
-        /// Note that all the setters affecting `destination_descriptor` are
-        /// mutually exclusive.
-        pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::Topic(v.into()),
-            );
-            self
         }
     }
 
@@ -5616,29 +5495,6 @@ pub mod pipeline {
                 })
             }
 
-            /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
-            /// to hold a `GoogleOidc`.
-            ///
-            /// Note that all the setters affecting `authentication_method_descriptor` are
-            /// mutually exclusive.
-            pub fn set_google_oidc<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::pipeline::destination::authentication_config::OidcToken,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.authentication_method_descriptor = std::option::Option::Some(
-                    crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::GoogleOidc(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// if it holds a `OauthToken`, `None` if the field is not set or
             /// holds a different branch.
@@ -5654,29 +5510,6 @@ pub mod pipeline {
                     crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
-            /// to hold a `OauthToken`.
-            ///
-            /// Note that all the setters affecting `authentication_method_descriptor` are
-            /// mutually exclusive.
-            pub fn set_oauth_token<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::pipeline::destination::authentication_config::OAuthToken,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.authentication_method_descriptor = std::option::Option::Some(
-                    crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -5917,23 +5750,6 @@ pub mod pipeline {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [mediation_descriptor][crate::model::pipeline::Mediation::mediation_descriptor]
-        /// to hold a `Transformation`.
-        ///
-        /// Note that all the setters affecting `mediation_descriptor` are
-        /// mutually exclusive.
-        pub fn set_transformation<
-            T: std::convert::Into<std::boxed::Box<crate::model::pipeline::mediation::Transformation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.mediation_descriptor = std::option::Option::Some(
-                crate::model::pipeline::mediation::MediationDescriptor::Transformation(v.into()),
-            );
-            self
         }
     }
 
@@ -6523,20 +6339,6 @@ impl Destination {
         })
     }
 
-    /// Sets the value of [descriptor][crate::model::Destination::descriptor]
-    /// to hold a `CloudRun`.
-    ///
-    /// Note that all the setters affecting `descriptor` are
-    /// mutually exclusive.
-    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRun>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.descriptor =
-            std::option::Option::Some(crate::model::destination::Descriptor::CloudRun(v.into()));
-        self
-    }
-
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `CloudFunction`, `None` if the field is not set or
     /// holds a different branch.
@@ -6546,18 +6348,6 @@ impl Destination {
             crate::model::destination::Descriptor::CloudFunction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [descriptor][crate::model::Destination::descriptor]
-    /// to hold a `CloudFunction`.
-    ///
-    /// Note that all the setters affecting `descriptor` are
-    /// mutually exclusive.
-    pub fn set_cloud_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.descriptor = std::option::Option::Some(
-            crate::model::destination::Descriptor::CloudFunction(v.into()),
-        );
-        self
     }
 
     /// The value of [descriptor][crate::model::Destination::descriptor]
@@ -6571,20 +6361,6 @@ impl Destination {
         })
     }
 
-    /// Sets the value of [descriptor][crate::model::Destination::descriptor]
-    /// to hold a `Gke`.
-    ///
-    /// Note that all the setters affecting `descriptor` are
-    /// mutually exclusive.
-    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::Gke>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.descriptor =
-            std::option::Option::Some(crate::model::destination::Descriptor::Gke(v.into()));
-        self
-    }
-
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `Workflow`, `None` if the field is not set or
     /// holds a different branch.
@@ -6594,17 +6370,6 @@ impl Destination {
             crate::model::destination::Descriptor::Workflow(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [descriptor][crate::model::Destination::descriptor]
-    /// to hold a `Workflow`.
-    ///
-    /// Note that all the setters affecting `descriptor` are
-    /// mutually exclusive.
-    pub fn set_workflow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.descriptor =
-            std::option::Option::Some(crate::model::destination::Descriptor::Workflow(v.into()));
-        self
     }
 
     /// The value of [descriptor][crate::model::Destination::descriptor]
@@ -6618,21 +6383,6 @@ impl Destination {
             crate::model::destination::Descriptor::HttpEndpoint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [descriptor][crate::model::Destination::descriptor]
-    /// to hold a `HttpEndpoint`.
-    ///
-    /// Note that all the setters affecting `descriptor` are
-    /// mutually exclusive.
-    pub fn set_http_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::HttpEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.descriptor = std::option::Option::Some(
-            crate::model::destination::Descriptor::HttpEndpoint(v.into()),
-        );
-        self
     }
 }
 
@@ -6718,20 +6468,6 @@ impl Transport {
             crate::model::transport::Intermediary::Pubsub(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [intermediary][crate::model::Transport::intermediary]
-    /// to hold a `Pubsub`.
-    ///
-    /// Note that all the setters affecting `intermediary` are
-    /// mutually exclusive.
-    pub fn set_pubsub<T: std::convert::Into<std::boxed::Box<crate::model::Pubsub>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.intermediary =
-            std::option::Option::Some(crate::model::transport::Intermediary::Pubsub(v.into()));
-        self
     }
 }
 

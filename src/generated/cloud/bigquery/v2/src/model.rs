@@ -4861,18 +4861,6 @@ impl RemoteModelInfo {
         })
     }
 
-    /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service]
-    /// to hold a `Endpoint`.
-    ///
-    /// Note that all the setters affecting `remote_service` are
-    /// mutually exclusive.
-    pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.remote_service = std::option::Option::Some(
-            crate::model::remote_model_info::RemoteService::Endpoint(v.into()),
-        );
-        self
-    }
-
     /// The value of [remote_service][crate::model::RemoteModelInfo::remote_service]
     /// if it holds a `RemoteServiceType`, `None` if the field is not set or
     /// holds a different branch.
@@ -4886,23 +4874,6 @@ impl RemoteModelInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service]
-    /// to hold a `RemoteServiceType`.
-    ///
-    /// Note that all the setters affecting `remote_service` are
-    /// mutually exclusive.
-    pub fn set_remote_service_type<
-        T: std::convert::Into<crate::model::remote_model_info::RemoteServiceType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.remote_service = std::option::Option::Some(
-            crate::model::remote_model_info::RemoteService::RemoteServiceType(v.into()),
-        );
-        self
     }
 }
 
@@ -7488,25 +7459,6 @@ pub mod model {
                     })
                 }
 
-                /// Sets the value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
-                /// to hold a `NumericalValue`.
-                ///
-                /// Note that all the setters affecting `value` are
-                /// mutually exclusive.
-                pub fn set_numerical_value<
-                    T: std::convert::Into<std::boxed::Box<wkt::DoubleValue>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.value = std::option::Option::Some(
-                        crate::model::model::clustering_metrics::cluster::feature_value::Value::NumericalValue(
-                            v.into()
-                        )
-                    );
-                    self
-                }
-
                 /// The value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
                 /// if it holds a `CategoricalValue`, `None` if the field is not set or
                 /// holds a different branch.
@@ -7516,20 +7468,6 @@ pub mod model {
                         crate::model::model::clustering_metrics::cluster::feature_value::Value::CategoricalValue(v) => std::option::Option::Some(v),
                         _ => std::option::Option::None,
                     })
-                }
-
-                /// Sets the value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
-                /// to hold a `CategoricalValue`.
-                ///
-                /// Note that all the setters affecting `value` are
-                /// mutually exclusive.
-                pub fn set_categorical_value<T: std::convert::Into<std::boxed::Box<crate::model::model::clustering_metrics::cluster::feature_value::CategoricalValue>>>(mut self, v: T) -> Self{
-                    self.value = std::option::Option::Some(
-                        crate::model::model::clustering_metrics::cluster::feature_value::Value::CategoricalValue(
-                            v.into()
-                        )
-                    );
-                    self
                 }
             }
 
@@ -8057,23 +7995,6 @@ pub mod model {
             })
         }
 
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `RegressionMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_regression_metrics<
-            T: std::convert::Into<std::boxed::Box<crate::model::model::RegressionMetrics>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::RegressionMetrics(v.into()),
-            );
-            self
-        }
-
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `BinaryClassificationMetrics`, `None` if the field is not set or
         /// holds a different branch.
@@ -8088,25 +8009,6 @@ pub mod model {
                 ) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `BinaryClassificationMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_binary_classification_metrics<
-            T: std::convert::Into<std::boxed::Box<crate::model::model::BinaryClassificationMetrics>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::BinaryClassificationMetrics(
-                    v.into(),
-                ),
-            );
-            self
         }
 
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
@@ -8124,27 +8026,6 @@ pub mod model {
             })
         }
 
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `MultiClassClassificationMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_multi_class_classification_metrics<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::MultiClassClassificationMetrics>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::MultiClassClassificationMetrics(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `ClusteringMetrics`, `None` if the field is not set or
         /// holds a different branch.
@@ -8160,23 +8041,6 @@ pub mod model {
             })
         }
 
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `ClusteringMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_clustering_metrics<
-            T: std::convert::Into<std::boxed::Box<crate::model::model::ClusteringMetrics>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::ClusteringMetrics(v.into()),
-            );
-            self
-        }
-
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `RankingMetrics`, `None` if the field is not set or
         /// holds a different branch.
@@ -8190,23 +8054,6 @@ pub mod model {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `RankingMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_ranking_metrics<
-            T: std::convert::Into<std::boxed::Box<crate::model::model::RankingMetrics>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::RankingMetrics(v.into()),
-            );
-            self
         }
 
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
@@ -8225,23 +8072,6 @@ pub mod model {
             })
         }
 
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `ArimaForecastingMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_arima_forecasting_metrics<
-            T: std::convert::Into<std::boxed::Box<crate::model::model::ArimaForecastingMetrics>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::ArimaForecastingMetrics(v.into()),
-            );
-            self
-        }
-
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `DimensionalityReductionMetrics`, `None` if the field is not set or
         /// holds a different branch.
@@ -8255,27 +8085,6 @@ pub mod model {
                 crate::model::model::evaluation_metrics::Metrics::DimensionalityReductionMetrics(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics]
-        /// to hold a `DimensionalityReductionMetrics`.
-        ///
-        /// Note that all the setters affecting `metrics` are
-        /// mutually exclusive.
-        pub fn set_dimensionality_reduction_metrics<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::DimensionalityReductionMetrics>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = std::option::Option::Some(
-                crate::model::model::evaluation_metrics::Metrics::DimensionalityReductionMetrics(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -11331,25 +11140,6 @@ pub mod model {
             })
         }
 
-        /// Sets the value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
-        /// to hold a `Range`.
-        ///
-        /// Note that all the setters affecting `search_space` are
-        /// mutually exclusive.
-        pub fn set_range<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleRange>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.search_space = std::option::Option::Some(
-                crate::model::model::double_hparam_search_space::SearchSpace::Range(v.into()),
-            );
-            self
-        }
-
         /// The value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
         /// if it holds a `Candidates`, `None` if the field is not set or
         /// holds a different branch.
@@ -11365,27 +11155,6 @@ pub mod model {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
-        /// to hold a `Candidates`.
-        ///
-        /// Note that all the setters affecting `search_space` are
-        /// mutually exclusive.
-        pub fn set_candidates<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::model::double_hparam_search_space::DoubleCandidates,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.search_space = std::option::Option::Some(
-                crate::model::model::double_hparam_search_space::SearchSpace::Candidates(v.into()),
-            );
-            self
         }
     }
 
@@ -11556,25 +11325,6 @@ pub mod model {
             })
         }
 
-        /// Sets the value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
-        /// to hold a `Range`.
-        ///
-        /// Note that all the setters affecting `search_space` are
-        /// mutually exclusive.
-        pub fn set_range<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::int_hparam_search_space::IntRange>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.search_space = std::option::Option::Some(
-                crate::model::model::int_hparam_search_space::SearchSpace::Range(v.into()),
-            );
-            self
-        }
-
         /// The value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
         /// if it holds a `Candidates`, `None` if the field is not set or
         /// holds a different branch.
@@ -11590,25 +11340,6 @@ pub mod model {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
-        /// to hold a `Candidates`.
-        ///
-        /// Note that all the setters affecting `search_space` are
-        /// mutually exclusive.
-        pub fn set_candidates<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::model::int_hparam_search_space::IntCandidates>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.search_space = std::option::Option::Some(
-                crate::model::model::int_hparam_search_space::SearchSpace::Candidates(v.into()),
-            );
-            self
         }
     }
 
@@ -15505,23 +15236,6 @@ impl PrivacyPolicy {
         })
     }
 
-    /// Sets the value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
-    /// to hold a `AggregationThresholdPolicy`.
-    ///
-    /// Note that all the setters affecting `privacy_policy` are
-    /// mutually exclusive.
-    pub fn set_aggregation_threshold_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::AggregationThresholdPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.privacy_policy = std::option::Option::Some(
-            crate::model::privacy_policy::PrivacyPolicy::AggregationThresholdPolicy(v.into()),
-        );
-        self
-    }
-
     /// The value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
     /// if it holds a `DifferentialPrivacyPolicy`, `None` if the field is not set or
     /// holds a different branch.
@@ -15535,23 +15249,6 @@ impl PrivacyPolicy {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
-    /// to hold a `DifferentialPrivacyPolicy`.
-    ///
-    /// Note that all the setters affecting `privacy_policy` are
-    /// mutually exclusive.
-    pub fn set_differential_privacy_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::DifferentialPrivacyPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.privacy_policy = std::option::Option::Some(
-            crate::model::privacy_policy::PrivacyPolicy::DifferentialPrivacyPolicy(v.into()),
-        );
-        self
     }
 }
 
@@ -19221,23 +18918,6 @@ impl StandardSqlDataType {
         })
     }
 
-    /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type]
-    /// to hold a `ArrayElementType`.
-    ///
-    /// Note that all the setters affecting `sub_type` are
-    /// mutually exclusive.
-    pub fn set_array_element_type<
-        T: std::convert::Into<std::boxed::Box<crate::model::StandardSqlDataType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sub_type = std::option::Option::Some(
-            crate::model::standard_sql_data_type::SubType::ArrayElementType(v.into()),
-        );
-        self
-    }
-
     /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// if it holds a `StructType`, `None` if the field is not set or
     /// holds a different branch.
@@ -19253,23 +18933,6 @@ impl StandardSqlDataType {
         })
     }
 
-    /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type]
-    /// to hold a `StructType`.
-    ///
-    /// Note that all the setters affecting `sub_type` are
-    /// mutually exclusive.
-    pub fn set_struct_type<
-        T: std::convert::Into<std::boxed::Box<crate::model::StandardSqlStructType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sub_type = std::option::Option::Some(
-            crate::model::standard_sql_data_type::SubType::StructType(v.into()),
-        );
-        self
-    }
-
     /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// if it holds a `RangeElementType`, `None` if the field is not set or
     /// holds a different branch.
@@ -19283,23 +18946,6 @@ impl StandardSqlDataType {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type]
-    /// to hold a `RangeElementType`.
-    ///
-    /// Note that all the setters affecting `sub_type` are
-    /// mutually exclusive.
-    pub fn set_range_element_type<
-        T: std::convert::Into<std::boxed::Box<crate::model::StandardSqlDataType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.sub_type = std::option::Option::Some(
-            crate::model::standard_sql_data_type::SubType::RangeElementType(v.into()),
-        );
-        self
     }
 }
 

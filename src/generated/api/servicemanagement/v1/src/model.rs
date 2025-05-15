@@ -1014,23 +1014,6 @@ impl Rollout {
         })
     }
 
-    /// Sets the value of [strategy][crate::model::Rollout::strategy]
-    /// to hold a `TrafficPercentStrategy`.
-    ///
-    /// Note that all the setters affecting `strategy` are
-    /// mutually exclusive.
-    pub fn set_traffic_percent_strategy<
-        T: std::convert::Into<std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.strategy = std::option::Option::Some(
-            crate::model::rollout::Strategy::TrafficPercentStrategy(v.into()),
-        );
-        self
-    }
-
     /// The value of [strategy][crate::model::Rollout::strategy]
     /// if it holds a `DeleteServiceStrategy`, `None` if the field is not set or
     /// holds a different branch.
@@ -1044,23 +1027,6 @@ impl Rollout {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [strategy][crate::model::Rollout::strategy]
-    /// to hold a `DeleteServiceStrategy`.
-    ///
-    /// Note that all the setters affecting `strategy` are
-    /// mutually exclusive.
-    pub fn set_delete_service_strategy<
-        T: std::convert::Into<std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.strategy = std::option::Option::Some(
-            crate::model::rollout::Strategy::DeleteServiceStrategy(v.into()),
-        );
-        self
     }
 }
 

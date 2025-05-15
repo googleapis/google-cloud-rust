@@ -89,20 +89,6 @@ impl InputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::InputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::input_config::Source::GcsSource(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for InputConfig {
@@ -188,23 +174,6 @@ impl OutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -5384,20 +5353,6 @@ impl Waypoint {
         })
     }
 
-    /// Sets the value of [location_type][crate::model::Waypoint::location_type]
-    /// to hold a `Location`.
-    ///
-    /// Note that all the setters affecting `location_type` are
-    /// mutually exclusive.
-    pub fn set_location<T: std::convert::Into<std::boxed::Box<crate::model::Location>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.location_type =
-            std::option::Option::Some(crate::model::waypoint::LocationType::Location(v.into()));
-        self
-    }
-
     /// The value of [location_type][crate::model::Waypoint::location_type]
     /// if it holds a `PlaceId`, `None` if the field is not set or
     /// holds a different branch.
@@ -5407,17 +5362,6 @@ impl Waypoint {
             crate::model::waypoint::LocationType::PlaceId(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [location_type][crate::model::Waypoint::location_type]
-    /// to hold a `PlaceId`.
-    ///
-    /// Note that all the setters affecting `location_type` are
-    /// mutually exclusive.
-    pub fn set_place_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.location_type =
-            std::option::Option::Some(crate::model::waypoint::LocationType::PlaceId(v.into()));
-        self
     }
 }
 
@@ -8346,20 +8290,6 @@ pub mod optimize_tours_validation_error {
             })
         }
 
-        /// Sets the value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
-        /// to hold a `Index`.
-        ///
-        /// Note that all the setters affecting `index_or_key` are
-        /// mutually exclusive.
-        pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.index_or_key = std::option::Option::Some(
-                crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Index(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
         /// if it holds a `Key`, `None` if the field is not set or
         /// holds a different branch.
@@ -8371,20 +8301,6 @@ pub mod optimize_tours_validation_error {
                 ) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
-        /// to hold a `Key`.
-        ///
-        /// Note that all the setters affecting `index_or_key` are
-        /// mutually exclusive.
-        pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.index_or_key = std::option::Option::Some(
-                crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Key(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 

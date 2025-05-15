@@ -684,23 +684,6 @@ impl CommonFeatureSpec {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [feature_spec][crate::model::CommonFeatureSpec::feature_spec]
-    /// to hold a `Multiclusteringress`.
-    ///
-    /// Note that all the setters affecting `feature_spec` are
-    /// mutually exclusive.
-    pub fn set_multiclusteringress<
-        T: std::convert::Into<std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.feature_spec = std::option::Option::Some(
-            crate::model::common_feature_spec::FeatureSpec::Multiclusteringress(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for CommonFeatureSpec {
@@ -807,23 +790,6 @@ impl MembershipFeatureSpec {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [feature_spec][crate::model::MembershipFeatureSpec::feature_spec]
-    /// to hold a `Configmanagement`.
-    ///
-    /// Note that all the setters affecting `feature_spec` are
-    /// mutually exclusive.
-    pub fn set_configmanagement<
-        T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.feature_spec = std::option::Option::Some(
-            crate::model::membership_feature_spec::FeatureSpec::Configmanagement(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for MembershipFeatureSpec {
@@ -909,23 +875,6 @@ impl MembershipFeatureState {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [feature_state][crate::model::MembershipFeatureState::feature_state]
-    /// to hold a `Configmanagement`.
-    ///
-    /// Note that all the setters affecting `feature_state` are
-    /// mutually exclusive.
-    pub fn set_configmanagement<
-        T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.feature_state = std::option::Option::Some(
-            crate::model::membership_feature_state::FeatureState::Configmanagement(v.into()),
-        );
-        self
     }
 }
 
@@ -1169,21 +1118,6 @@ impl Membership {
             crate::model::membership::Type::Endpoint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [r#type][crate::model::Membership::r#type]
-    /// to hold a `Endpoint`.
-    ///
-    /// Note that all the setters affecting `r#type` are
-    /// mutually exclusive.
-    pub fn set_endpoint<
-        T: std::convert::Into<std::boxed::Box<crate::model::MembershipEndpoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::membership::Type::Endpoint(v.into()));
-        self
     }
 }
 

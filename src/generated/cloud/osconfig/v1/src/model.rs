@@ -355,23 +355,6 @@ pub mod inventory {
             })
         }
 
-        /// Sets the value of [details][crate::model::inventory::Item::details]
-        /// to hold a `InstalledPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_installed_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::SoftwarePackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::item::Details::InstalledPackage(v.into()),
-            );
-            self
-        }
-
         /// The value of [details][crate::model::inventory::Item::details]
         /// if it holds a `AvailablePackage`, `None` if the field is not set or
         /// holds a different branch.
@@ -386,23 +369,6 @@ pub mod inventory {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [details][crate::model::inventory::Item::details]
-        /// to hold a `AvailablePackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_available_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::SoftwarePackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::item::Details::AvailablePackage(v.into()),
-            );
-            self
         }
     }
 
@@ -745,23 +711,6 @@ pub mod inventory {
             })
         }
 
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `YumPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_yum_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::YumPackage(v.into()),
-            );
-            self
-        }
-
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `AptPackage`, `None` if the field is not set or
         /// holds a different branch.
@@ -776,23 +725,6 @@ pub mod inventory {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `AptPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_apt_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::AptPackage(v.into()),
-            );
-            self
         }
 
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -811,23 +743,6 @@ pub mod inventory {
             })
         }
 
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `ZypperPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_zypper_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::ZypperPackage(v.into()),
-            );
-            self
-        }
-
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `GoogetPackage`, `None` if the field is not set or
         /// holds a different branch.
@@ -842,23 +757,6 @@ pub mod inventory {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `GoogetPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_googet_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::GoogetPackage(v.into()),
-            );
-            self
         }
 
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -876,23 +774,6 @@ pub mod inventory {
             })
         }
 
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `ZypperPatch`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_zypper_patch<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::ZypperPatch>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::ZypperPatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `WuaPackage`, `None` if the field is not set or
         /// holds a different branch.
@@ -907,23 +788,6 @@ pub mod inventory {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `WuaPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_wua_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::WindowsUpdatePackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::WuaPackage(v.into()),
-            );
-            self
         }
 
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
@@ -943,25 +807,6 @@ pub mod inventory {
             })
         }
 
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `QfePackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_qfe_package<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::QfePackage(v.into()),
-            );
-            self
-        }
-
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `CosPackage`, `None` if the field is not set or
         /// holds a different branch.
@@ -978,23 +823,6 @@ pub mod inventory {
             })
         }
 
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `CosPackage`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_cos_package<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::CosPackage(v.into()),
-            );
-            self
-        }
-
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `WindowsApplication`, `None` if the field is not set or
         /// holds a different branch.
@@ -1009,23 +837,6 @@ pub mod inventory {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details]
-        /// to hold a `WindowsApplication`.
-        ///
-        /// Note that all the setters affecting `details` are
-        /// mutually exclusive.
-        pub fn set_windows_application<
-            T: std::convert::Into<std::boxed::Box<crate::model::inventory::WindowsApplication>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.details = std::option::Option::Some(
-                crate::model::inventory::software_package::Details::WindowsApplication(v.into()),
-            );
-            self
         }
     }
 
@@ -1959,23 +1770,6 @@ pub mod os_policy {
             })
         }
 
-        /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// to hold a `Pkg`.
-        ///
-        /// Note that all the setters affecting `resource_type` are
-        /// mutually exclusive.
-        pub fn set_pkg<
-            T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::PackageResource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.resource_type = std::option::Option::Some(
-                crate::model::os_policy::resource::ResourceType::Pkg(v.into()),
-            );
-            self
-        }
-
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// if it holds a `Repository`, `None` if the field is not set or
         /// holds a different branch.
@@ -1991,25 +1785,6 @@ pub mod os_policy {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// to hold a `Repository`.
-        ///
-        /// Note that all the setters affecting `resource_type` are
-        /// mutually exclusive.
-        pub fn set_repository<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.resource_type = std::option::Option::Some(
-                crate::model::os_policy::resource::ResourceType::Repository(v.into()),
-            );
-            self
         }
 
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
@@ -2028,23 +1803,6 @@ pub mod os_policy {
             })
         }
 
-        /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// to hold a `Exec`.
-        ///
-        /// Note that all the setters affecting `resource_type` are
-        /// mutually exclusive.
-        pub fn set_exec<
-            T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::ExecResource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.resource_type = std::option::Option::Some(
-                crate::model::os_policy::resource::ResourceType::Exec(v.into()),
-            );
-            self
-        }
-
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// if it holds a `File`, `None` if the field is not set or
         /// holds a different branch.
@@ -2059,23 +1817,6 @@ pub mod os_policy {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type]
-        /// to hold a `File`.
-        ///
-        /// Note that all the setters affecting `resource_type` are
-        /// mutually exclusive.
-        pub fn set_file<
-            T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::FileResource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.resource_type = std::option::Option::Some(
-                crate::model::os_policy::resource::ResourceType::File(v.into()),
-            );
-            self
         }
     }
 
@@ -2156,25 +1897,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [r#type][crate::model::os_policy::resource::File::r#type]
-            /// to hold a `Remote`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_remote<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::os_policy::resource::file::Remote>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::os_policy::resource::file::Type::Remote(v.into()),
-                );
-                self
-            }
-
             /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// if it holds a `Gcs`, `None` if the field is not set or
             /// holds a different branch.
@@ -2191,23 +1913,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [r#type][crate::model::os_policy::resource::File::r#type]
-            /// to hold a `Gcs`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_gcs<
-                T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::file::Gcs>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::os_policy::resource::file::Type::Gcs(v.into()),
-                );
-                self
-            }
-
             /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// if it holds a `LocalPath`, `None` if the field is not set or
             /// holds a different branch.
@@ -2219,21 +1924,6 @@ pub mod os_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [r#type][crate::model::os_policy::resource::File::r#type]
-            /// to hold a `LocalPath`.
-            ///
-            /// Note that all the setters affecting `r#type` are
-            /// mutually exclusive.
-            pub fn set_local_path<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.r#type = std::option::Option::Some(
-                    crate::model::os_policy::resource::file::Type::LocalPath(v.into()),
-                );
-                self
             }
         }
 
@@ -2440,27 +2130,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Apt`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_apt<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Apt>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Apt(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Deb`, `None` if the field is not set or
             /// holds a different branch.
@@ -2476,27 +2145,6 @@ pub mod os_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Deb`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_deb<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Deb(
-                        v.into(),
-                    ),
-                );
-                self
             }
 
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
@@ -2516,27 +2164,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Yum`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_yum<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Yum(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Zypper`, `None` if the field is not set or
             /// holds a different branch.
@@ -2552,29 +2179,6 @@ pub mod os_policy {
                     ) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Zypper`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_zypper<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::os_policy::resource::package_resource::Zypper,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Zypper(
-                        v.into(),
-                    ),
-                );
-                self
             }
 
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
@@ -2594,27 +2198,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Rpm`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_rpm<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Rpm(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Googet`, `None` if the field is not set or
             /// holds a different branch.
@@ -2632,29 +2215,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Googet`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_googet<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::os_policy::resource::package_resource::GooGet,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Googet(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Msi`, `None` if the field is not set or
             /// holds a different branch.
@@ -2670,27 +2230,6 @@ pub mod os_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
-            /// to hold a `Msi`.
-            ///
-            /// Note that all the setters affecting `system_package` are
-            /// mutually exclusive.
-            pub fn set_msi<
-                T: std::convert::Into<
-                        std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.system_package = std::option::Option::Some(
-                    crate::model::os_policy::resource::package_resource::SystemPackage::Msi(
-                        v.into(),
-                    ),
-                );
-                self
             }
         }
 
@@ -3241,29 +2780,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// to hold a `Apt`.
-            ///
-            /// Note that all the setters affecting `repository` are
-            /// mutually exclusive.
-            pub fn set_apt<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::os_policy::resource::repository_resource::AptRepository,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.repository = std::option::Option::Some(
-                    crate::model::os_policy::resource::repository_resource::Repository::Apt(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// if it holds a `Yum`, `None` if the field is not set or
             /// holds a different branch.
@@ -3281,29 +2797,6 @@ pub mod os_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// to hold a `Yum`.
-            ///
-            /// Note that all the setters affecting `repository` are
-            /// mutually exclusive.
-            pub fn set_yum<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::os_policy::resource::repository_resource::YumRepository,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.repository = std::option::Option::Some(
-                    crate::model::os_policy::resource::repository_resource::Repository::Yum(
-                        v.into(),
-                    ),
-                );
-                self
             }
 
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
@@ -3325,20 +2818,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// to hold a `Zypper`.
-            ///
-            /// Note that all the setters affecting `repository` are
-            /// mutually exclusive.
-            pub fn set_zypper<T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::repository_resource::ZypperRepository>>>(mut self, v: T) -> Self{
-                self.repository = std::option::Option::Some(
-                    crate::model::os_policy::resource::repository_resource::Repository::Zypper(
-                        v.into(),
-                    ),
-                );
-                self
-            }
-
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// if it holds a `Goo`, `None` if the field is not set or
             /// holds a different branch.
@@ -3356,29 +2835,6 @@ pub mod os_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
-            /// to hold a `Goo`.
-            ///
-            /// Note that all the setters affecting `repository` are
-            /// mutually exclusive.
-            pub fn set_goo<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::os_policy::resource::repository_resource::GooRepository,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.repository = std::option::Option::Some(
-                    crate::model::os_policy::resource::repository_resource::Repository::Goo(
-                        v.into(),
-                    ),
-                );
-                self
             }
         }
 
@@ -4056,25 +3512,6 @@ pub mod os_policy {
                     })
                 }
 
-                /// Sets the value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
-                /// to hold a `File`.
-                ///
-                /// Note that all the setters affecting `source` are
-                /// mutually exclusive.
-                pub fn set_file<
-                    T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::File>>,
-                >(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.source = std::option::Option::Some(
-                        crate::model::os_policy::resource::exec_resource::exec::Source::File(
-                            v.into(),
-                        ),
-                    );
-                    self
-                }
-
                 /// The value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
                 /// if it holds a `Script`, `None` if the field is not set or
                 /// holds a different branch.
@@ -4086,23 +3523,6 @@ pub mod os_policy {
                         ) => std::option::Option::Some(v),
                         _ => std::option::Option::None,
                     })
-                }
-
-                /// Sets the value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
-                /// to hold a `Script`.
-                ///
-                /// Note that all the setters affecting `source` are
-                /// mutually exclusive.
-                pub fn set_script<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.source = std::option::Option::Some(
-                        crate::model::os_policy::resource::exec_resource::exec::Source::Script(
-                            v.into(),
-                        ),
-                    );
-                    self
                 }
             }
 
@@ -4383,23 +3803,6 @@ pub mod os_policy {
                 })
             }
 
-            /// Sets the value of [source][crate::model::os_policy::resource::FileResource::source]
-            /// to hold a `File`.
-            ///
-            /// Note that all the setters affecting `source` are
-            /// mutually exclusive.
-            pub fn set_file<
-                T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::File>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.source = std::option::Option::Some(
-                    crate::model::os_policy::resource::file_resource::Source::File(v.into()),
-                );
-                self
-            }
-
             /// The value of [source][crate::model::os_policy::resource::FileResource::source]
             /// if it holds a `Content`, `None` if the field is not set or
             /// holds a different branch.
@@ -4411,18 +3814,6 @@ pub mod os_policy {
                     }
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [source][crate::model::os_policy::resource::FileResource::source]
-            /// to hold a `Content`.
-            ///
-            /// Note that all the setters affecting `source` are
-            /// mutually exclusive.
-            pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.source = std::option::Option::Some(
-                    crate::model::os_policy::resource::file_resource::Source::Content(v.into()),
-                );
-                self
             }
         }
 
@@ -5320,20 +4711,6 @@ pub mod os_policy_assignment_report {
                     crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output::ExecResourceOutput(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [output][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::output]
-            /// to hold a `ExecResourceOutput`.
-            ///
-            /// Note that all the setters affecting `output` are
-            /// mutually exclusive.
-            pub fn set_exec_resource_output<T: std::convert::Into<std::boxed::Box<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput>>>(mut self, v: T) -> Self{
-                self.output = std::option::Option::Some(
-                    crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output::ExecResourceOutput(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -7359,17 +6736,6 @@ impl FixedOrPercent {
         })
     }
 
-    /// Sets the value of [mode][crate::model::FixedOrPercent::mode]
-    /// to hold a `Fixed`.
-    ///
-    /// Note that all the setters affecting `mode` are
-    /// mutually exclusive.
-    pub fn set_fixed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::fixed_or_percent::Mode::Fixed(v.into()));
-        self
-    }
-
     /// The value of [mode][crate::model::FixedOrPercent::mode]
     /// if it holds a `Percent`, `None` if the field is not set or
     /// holds a different branch.
@@ -7379,17 +6745,6 @@ impl FixedOrPercent {
             crate::model::fixed_or_percent::Mode::Percent(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [mode][crate::model::FixedOrPercent::mode]
-    /// to hold a `Percent`.
-    ///
-    /// Note that all the setters affecting `mode` are
-    /// mutually exclusive.
-    pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::fixed_or_percent::Mode::Percent(v.into()));
-        self
     }
 }
 
@@ -7606,23 +6961,6 @@ impl PatchDeployment {
         })
     }
 
-    /// Sets the value of [schedule][crate::model::PatchDeployment::schedule]
-    /// to hold a `OneTimeSchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_one_time_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::OneTimeSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::patch_deployment::Schedule::OneTimeSchedule(v.into()),
-        );
-        self
-    }
-
     /// The value of [schedule][crate::model::PatchDeployment::schedule]
     /// if it holds a `RecurringSchedule`, `None` if the field is not set or
     /// holds a different branch.
@@ -7636,23 +6974,6 @@ impl PatchDeployment {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schedule][crate::model::PatchDeployment::schedule]
-    /// to hold a `RecurringSchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_recurring_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::RecurringSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::patch_deployment::Schedule::RecurringSchedule(v.into()),
-        );
-        self
     }
 }
 
@@ -7989,21 +7310,6 @@ impl RecurringSchedule {
         })
     }
 
-    /// Sets the value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
-    /// to hold a `Weekly`.
-    ///
-    /// Note that all the setters affecting `schedule_config` are
-    /// mutually exclusive.
-    pub fn set_weekly<T: std::convert::Into<std::boxed::Box<crate::model::WeeklySchedule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule_config = std::option::Option::Some(
-            crate::model::recurring_schedule::ScheduleConfig::Weekly(v.into()),
-        );
-        self
-    }
-
     /// The value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
     /// if it holds a `Monthly`, `None` if the field is not set or
     /// holds a different branch.
@@ -8015,21 +7321,6 @@ impl RecurringSchedule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
-    /// to hold a `Monthly`.
-    ///
-    /// Note that all the setters affecting `schedule_config` are
-    /// mutually exclusive.
-    pub fn set_monthly<T: std::convert::Into<std::boxed::Box<crate::model::MonthlySchedule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule_config = std::option::Option::Some(
-            crate::model::recurring_schedule::ScheduleConfig::Monthly(v.into()),
-        );
-        self
     }
 }
 
@@ -8280,23 +7571,6 @@ impl MonthlySchedule {
         })
     }
 
-    /// Sets the value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
-    /// to hold a `WeekDayOfMonth`.
-    ///
-    /// Note that all the setters affecting `day_of_month` are
-    /// mutually exclusive.
-    pub fn set_week_day_of_month<
-        T: std::convert::Into<std::boxed::Box<crate::model::WeekDayOfMonth>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.day_of_month = std::option::Option::Some(
-            crate::model::monthly_schedule::DayOfMonth::WeekDayOfMonth(v.into()),
-        );
-        self
-    }
-
     /// The value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
     /// if it holds a `MonthDay`, `None` if the field is not set or
     /// holds a different branch.
@@ -8306,18 +7580,6 @@ impl MonthlySchedule {
             crate::model::monthly_schedule::DayOfMonth::MonthDay(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
-    /// to hold a `MonthDay`.
-    ///
-    /// Note that all the setters affecting `day_of_month` are
-    /// mutually exclusive.
-    pub fn set_month_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.day_of_month = std::option::Option::Some(
-            crate::model::monthly_schedule::DayOfMonth::MonthDay(v.into()),
-        );
-        self
     }
 }
 
@@ -11268,18 +10530,6 @@ impl ExecStepConfig {
         })
     }
 
-    /// Sets the value of [executable][crate::model::ExecStepConfig::executable]
-    /// to hold a `LocalPath`.
-    ///
-    /// Note that all the setters affecting `executable` are
-    /// mutually exclusive.
-    pub fn set_local_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.executable = std::option::Option::Some(
-            crate::model::exec_step_config::Executable::LocalPath(v.into()),
-        );
-        self
-    }
-
     /// The value of [executable][crate::model::ExecStepConfig::executable]
     /// if it holds a `GcsObject`, `None` if the field is not set or
     /// holds a different branch.
@@ -11291,21 +10541,6 @@ impl ExecStepConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [executable][crate::model::ExecStepConfig::executable]
-    /// to hold a `GcsObject`.
-    ///
-    /// Note that all the setters affecting `executable` are
-    /// mutually exclusive.
-    pub fn set_gcs_object<T: std::convert::Into<std::boxed::Box<crate::model::GcsObject>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.executable = std::option::Option::Some(
-            crate::model::exec_step_config::Executable::GcsObject(v.into()),
-        );
-        self
     }
 }
 

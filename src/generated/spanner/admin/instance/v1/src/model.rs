@@ -1239,18 +1239,6 @@ impl ReplicaComputeCapacity {
         })
     }
 
-    /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
-    /// to hold a `NodeCount`.
-    ///
-    /// Note that all the setters affecting `compute_capacity` are
-    /// mutually exclusive.
-    pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.compute_capacity = std::option::Option::Some(
-            crate::model::replica_compute_capacity::ComputeCapacity::NodeCount(v.into()),
-        );
-        self
-    }
-
     /// The value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
     /// if it holds a `ProcessingUnits`, `None` if the field is not set or
     /// holds a different branch.
@@ -1262,18 +1250,6 @@ impl ReplicaComputeCapacity {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
-    /// to hold a `ProcessingUnits`.
-    ///
-    /// Note that all the setters affecting `compute_capacity` are
-    /// mutually exclusive.
-    pub fn set_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.compute_capacity = std::option::Option::Some(
-            crate::model::replica_compute_capacity::ComputeCapacity::ProcessingUnits(v.into()),
-        );
-        self
     }
 }
 
@@ -1460,18 +1436,6 @@ pub mod autoscaling_config {
             })
         }
 
-        /// Sets the value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
-        /// to hold a `MinNodes`.
-        ///
-        /// Note that all the setters affecting `min_limit` are
-        /// mutually exclusive.
-        pub fn set_min_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.min_limit = std::option::Option::Some(
-                crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinNodes(v.into()),
-            );
-            self
-        }
-
         /// The value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
         /// if it holds a `MinProcessingUnits`, `None` if the field is not set or
         /// holds a different branch.
@@ -1481,20 +1445,6 @@ pub mod autoscaling_config {
                 crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinProcessingUnits(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
-        /// to hold a `MinProcessingUnits`.
-        ///
-        /// Note that all the setters affecting `min_limit` are
-        /// mutually exclusive.
-        pub fn set_min_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.min_limit = std::option::Option::Some(
-                crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinProcessingUnits(
-                    v.into(),
-                ),
-            );
-            self
         }
 
         /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit].
@@ -1528,18 +1478,6 @@ pub mod autoscaling_config {
             })
         }
 
-        /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
-        /// to hold a `MaxNodes`.
-        ///
-        /// Note that all the setters affecting `max_limit` are
-        /// mutually exclusive.
-        pub fn set_max_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.max_limit = std::option::Option::Some(
-                crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxNodes(v.into()),
-            );
-            self
-        }
-
         /// The value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
         /// if it holds a `MaxProcessingUnits`, `None` if the field is not set or
         /// holds a different branch.
@@ -1549,20 +1487,6 @@ pub mod autoscaling_config {
                 crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxProcessingUnits(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
-        /// to hold a `MaxProcessingUnits`.
-        ///
-        /// Note that all the setters affecting `max_limit` are
-        /// mutually exclusive.
-        pub fn set_max_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.max_limit = std::option::Option::Some(
-                crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxProcessingUnits(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -4379,18 +4303,6 @@ impl InstancePartition {
         })
     }
 
-    /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
-    /// to hold a `NodeCount`.
-    ///
-    /// Note that all the setters affecting `compute_capacity` are
-    /// mutually exclusive.
-    pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.compute_capacity = std::option::Option::Some(
-            crate::model::instance_partition::ComputeCapacity::NodeCount(v.into()),
-        );
-        self
-    }
-
     /// The value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
     /// if it holds a `ProcessingUnits`, `None` if the field is not set or
     /// holds a different branch.
@@ -4402,18 +4314,6 @@ impl InstancePartition {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
-    /// to hold a `ProcessingUnits`.
-    ///
-    /// Note that all the setters affecting `compute_capacity` are
-    /// mutually exclusive.
-    pub fn set_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.compute_capacity = std::option::Option::Some(
-            crate::model::instance_partition::ComputeCapacity::ProcessingUnits(v.into()),
-        );
-        self
     }
 }
 

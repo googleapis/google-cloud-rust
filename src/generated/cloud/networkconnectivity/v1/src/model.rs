@@ -8953,23 +8953,6 @@ impl PolicyBasedRoute {
         })
     }
 
-    /// Sets the value of [target][crate::model::PolicyBasedRoute::target]
-    /// to hold a `VirtualMachine`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_virtual_machine<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy_based_route::VirtualMachine>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::policy_based_route::Target::VirtualMachine(v.into()),
-        );
-        self
-    }
-
     /// The value of [target][crate::model::PolicyBasedRoute::target]
     /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
     /// holds a different branch.
@@ -8985,25 +8968,6 @@ impl PolicyBasedRoute {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target][crate::model::PolicyBasedRoute::target]
-    /// to hold a `InterconnectAttachment`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_interconnect_attachment<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::policy_based_route::Target::InterconnectAttachment(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop].
@@ -9033,18 +8997,6 @@ impl PolicyBasedRoute {
         })
     }
 
-    /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
-    /// to hold a `NextHopIlbIp`.
-    ///
-    /// Note that all the setters affecting `next_hop` are
-    /// mutually exclusive.
-    pub fn set_next_hop_ilb_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_hop = std::option::Option::Some(
-            crate::model::policy_based_route::NextHop::NextHopIlbIp(v.into()),
-        );
-        self
-    }
-
     /// The value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
     /// if it holds a `NextHopOtherRoutes`, `None` if the field is not set or
     /// holds a different branch.
@@ -9058,23 +9010,6 @@ impl PolicyBasedRoute {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
-    /// to hold a `NextHopOtherRoutes`.
-    ///
-    /// Note that all the setters affecting `next_hop` are
-    /// mutually exclusive.
-    pub fn set_next_hop_other_routes<
-        T: std::convert::Into<crate::model::policy_based_route::OtherRoutes>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.next_hop = std::option::Option::Some(
-            crate::model::policy_based_route::NextHop::NextHopOtherRoutes(v.into()),
-        );
-        self
     }
 }
 

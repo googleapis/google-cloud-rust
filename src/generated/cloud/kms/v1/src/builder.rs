@@ -3804,19 +3804,6 @@ pub mod key_management_service {
             self.0.request.wrapped_key_material = v.into();
             self
         }
-
-        /// Sets the value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material]
-        /// to hold a `RsaAesWrappedKey`.
-        ///
-        /// Note that all the setters affecting `wrapped_key_material` are
-        /// mutually exclusive.
-        pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_rsa_aes_wrapped_key(v);
-            self
-        }
     }
 
     #[doc(hidden)]

@@ -387,23 +387,6 @@ impl DeliveryPipeline {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [pipeline][crate::model::DeliveryPipeline::pipeline]
-    /// to hold a `SerialPipeline`.
-    ///
-    /// Note that all the setters affecting `pipeline` are
-    /// mutually exclusive.
-    pub fn set_serial_pipeline<
-        T: std::convert::Into<std::boxed::Box<crate::model::SerialPipeline>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pipeline = std::option::Option::Some(
-            crate::model::delivery_pipeline::Pipeline::SerialPipeline(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for DeliveryPipeline {
@@ -648,21 +631,6 @@ impl Strategy {
         })
     }
 
-    /// Sets the value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
-    /// to hold a `Standard`.
-    ///
-    /// Note that all the setters affecting `deployment_strategy` are
-    /// mutually exclusive.
-    pub fn set_standard<T: std::convert::Into<std::boxed::Box<crate::model::Standard>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_strategy = std::option::Option::Some(
-            crate::model::strategy::DeploymentStrategy::Standard(v.into()),
-        );
-        self
-    }
-
     /// The value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
     /// if it holds a `Canary`, `None` if the field is not set or
     /// holds a different branch.
@@ -672,20 +640,6 @@ impl Strategy {
             crate::model::strategy::DeploymentStrategy::Canary(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
-    /// to hold a `Canary`.
-    ///
-    /// Note that all the setters affecting `deployment_strategy` are
-    /// mutually exclusive.
-    pub fn set_canary<T: std::convert::Into<std::boxed::Box<crate::model::Canary>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_strategy =
-            std::option::Option::Some(crate::model::strategy::DeploymentStrategy::Canary(v.into()));
-        self
     }
 }
 
@@ -912,22 +866,6 @@ impl Canary {
         })
     }
 
-    /// Sets the value of [mode][crate::model::Canary::mode]
-    /// to hold a `CanaryDeployment`.
-    ///
-    /// Note that all the setters affecting `mode` are
-    /// mutually exclusive.
-    pub fn set_canary_deployment<
-        T: std::convert::Into<std::boxed::Box<crate::model::CanaryDeployment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::canary::Mode::CanaryDeployment(v.into()));
-        self
-    }
-
     /// The value of [mode][crate::model::Canary::mode]
     /// if it holds a `CustomCanaryDeployment`, `None` if the field is not set or
     /// holds a different branch.
@@ -939,22 +877,6 @@ impl Canary {
             crate::model::canary::Mode::CustomCanaryDeployment(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [mode][crate::model::Canary::mode]
-    /// to hold a `CustomCanaryDeployment`.
-    ///
-    /// Note that all the setters affecting `mode` are
-    /// mutually exclusive.
-    pub fn set_custom_canary_deployment<
-        T: std::convert::Into<std::boxed::Box<crate::model::CustomCanaryDeployment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.mode =
-            std::option::Option::Some(crate::model::canary::Mode::CustomCanaryDeployment(v.into()));
-        self
     }
 }
 
@@ -1265,23 +1187,6 @@ impl KubernetesConfig {
         })
     }
 
-    /// Sets the value of [service_definition][crate::model::KubernetesConfig::service_definition]
-    /// to hold a `GatewayServiceMesh`.
-    ///
-    /// Note that all the setters affecting `service_definition` are
-    /// mutually exclusive.
-    pub fn set_gateway_service_mesh<
-        T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_definition = std::option::Option::Some(
-            crate::model::kubernetes_config::ServiceDefinition::GatewayServiceMesh(v.into()),
-        );
-        self
-    }
-
     /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
     /// if it holds a `ServiceNetworking`, `None` if the field is not set or
     /// holds a different branch.
@@ -1296,23 +1201,6 @@ impl KubernetesConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [service_definition][crate::model::KubernetesConfig::service_definition]
-    /// to hold a `ServiceNetworking`.
-    ///
-    /// Note that all the setters affecting `service_definition` are
-    /// mutually exclusive.
-    pub fn set_service_networking<
-        T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_definition = std::option::Option::Some(
-            crate::model::kubernetes_config::ServiceDefinition::ServiceNetworking(v.into()),
-        );
-        self
     }
 }
 
@@ -1732,23 +1620,6 @@ impl RuntimeConfig {
         })
     }
 
-    /// Sets the value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
-    /// to hold a `Kubernetes`.
-    ///
-    /// Note that all the setters affecting `runtime_config` are
-    /// mutually exclusive.
-    pub fn set_kubernetes<
-        T: std::convert::Into<std::boxed::Box<crate::model::KubernetesConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.runtime_config = std::option::Option::Some(
-            crate::model::runtime_config::RuntimeConfig::Kubernetes(v.into()),
-        );
-        self
-    }
-
     /// The value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
     /// if it holds a `CloudRun`, `None` if the field is not set or
     /// holds a different branch.
@@ -1760,21 +1631,6 @@ impl RuntimeConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
-    /// to hold a `CloudRun`.
-    ///
-    /// Note that all the setters affecting `runtime_config` are
-    /// mutually exclusive.
-    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.runtime_config = std::option::Option::Some(
-            crate::model::runtime_config::RuntimeConfig::CloudRun(v.into()),
-        );
-        self
     }
 }
 
@@ -2962,20 +2818,6 @@ impl Target {
         })
     }
 
-    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
-    /// to hold a `Gke`.
-    ///
-    /// Note that all the setters affecting `deployment_target` are
-    /// mutually exclusive.
-    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::GkeCluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target =
-            std::option::Option::Some(crate::model::target::DeploymentTarget::Gke(v.into()));
-        self
-    }
-
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `AnthosCluster`, `None` if the field is not set or
     /// holds a different branch.
@@ -2991,23 +2833,6 @@ impl Target {
         })
     }
 
-    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
-    /// to hold a `AnthosCluster`.
-    ///
-    /// Note that all the setters affecting `deployment_target` are
-    /// mutually exclusive.
-    pub fn set_anthos_cluster<
-        T: std::convert::Into<std::boxed::Box<crate::model::AnthosCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target = std::option::Option::Some(
-            crate::model::target::DeploymentTarget::AnthosCluster(v.into()),
-        );
-        self
-    }
-
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `Run`, `None` if the field is not set or
     /// holds a different branch.
@@ -3017,20 +2842,6 @@ impl Target {
             crate::model::target::DeploymentTarget::Run(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
-    /// to hold a `Run`.
-    ///
-    /// Note that all the setters affecting `deployment_target` are
-    /// mutually exclusive.
-    pub fn set_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunLocation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target =
-            std::option::Option::Some(crate::model::target::DeploymentTarget::Run(v.into()));
-        self
     }
 
     /// The value of [deployment_target][crate::model::Target::deployment_target]
@@ -3044,21 +2855,6 @@ impl Target {
         })
     }
 
-    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
-    /// to hold a `MultiTarget`.
-    ///
-    /// Note that all the setters affecting `deployment_target` are
-    /// mutually exclusive.
-    pub fn set_multi_target<T: std::convert::Into<std::boxed::Box<crate::model::MultiTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target = std::option::Option::Some(
-            crate::model::target::DeploymentTarget::MultiTarget(v.into()),
-        );
-        self
-    }
-
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `CustomTarget`, `None` if the field is not set or
     /// holds a different branch.
@@ -3070,21 +2866,6 @@ impl Target {
             crate::model::target::DeploymentTarget::CustomTarget(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [deployment_target][crate::model::Target::deployment_target]
-    /// to hold a `CustomTarget`.
-    ///
-    /// Note that all the setters affecting `deployment_target` are
-    /// mutually exclusive.
-    pub fn set_custom_target<T: std::convert::Into<std::boxed::Box<crate::model::CustomTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.deployment_target = std::option::Option::Some(
-            crate::model::target::DeploymentTarget::CustomTarget(v.into()),
-        );
-        self
     }
 }
 
@@ -3250,21 +3031,6 @@ impl ExecutionConfig {
         })
     }
 
-    /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
-    /// to hold a `DefaultPool`.
-    ///
-    /// Note that all the setters affecting `execution_environment` are
-    /// mutually exclusive.
-    pub fn set_default_pool<T: std::convert::Into<std::boxed::Box<crate::model::DefaultPool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.execution_environment = std::option::Option::Some(
-            crate::model::execution_config::ExecutionEnvironment::DefaultPool(v.into()),
-        );
-        self
-    }
-
     /// The value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
     /// if it holds a `PrivatePool`, `None` if the field is not set or
     /// holds a different branch.
@@ -3276,21 +3042,6 @@ impl ExecutionConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
-    /// to hold a `PrivatePool`.
-    ///
-    /// Note that all the setters affecting `execution_environment` are
-    /// mutually exclusive.
-    pub fn set_private_pool<T: std::convert::Into<std::boxed::Box<crate::model::PrivatePool>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.execution_environment = std::option::Option::Some(
-            crate::model::execution_config::ExecutionEnvironment::PrivatePool(v.into()),
-        );
-        self
     }
 }
 
@@ -4500,23 +4251,6 @@ impl CustomTargetType {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [definition][crate::model::CustomTargetType::definition]
-    /// to hold a `CustomActions`.
-    ///
-    /// Note that all the setters affecting `definition` are
-    /// mutually exclusive.
-    pub fn set_custom_actions<
-        T: std::convert::Into<std::boxed::Box<crate::model::CustomTargetSkaffoldActions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.definition = std::option::Option::Some(
-            crate::model::custom_target_type::Definition::CustomActions(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for CustomTargetType {
@@ -4665,22 +4399,6 @@ impl SkaffoldModules {
         })
     }
 
-    /// Sets the value of [source][crate::model::SkaffoldModules::source]
-    /// to hold a `Git`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_git<
-        T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::skaffold_modules::Source::Git(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `GoogleCloudStorage`, `None` if the field is not set or
     /// holds a different branch.
@@ -4697,23 +4415,6 @@ impl SkaffoldModules {
         })
     }
 
-    /// Sets the value of [source][crate::model::SkaffoldModules::source]
-    /// to hold a `GoogleCloudStorage`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_google_cloud_storage<
-        T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::skaffold_modules::Source::GoogleCloudStorage(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `GoogleCloudBuildRepo`, `None` if the field is not set or
     /// holds a different branch.
@@ -4728,23 +4429,6 @@ impl SkaffoldModules {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::SkaffoldModules::source]
-    /// to hold a `GoogleCloudBuildRepo`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_google_cloud_build_repo<
-        T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::skaffold_modules::Source::GoogleCloudBuildRepo(v.into()),
-        );
-        self
     }
 }
 
@@ -5941,23 +5625,6 @@ impl PolicyRule {
             crate::model::policy_rule::Rule::RolloutRestriction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [rule][crate::model::PolicyRule::rule]
-    /// to hold a `RolloutRestriction`.
-    ///
-    /// Note that all the setters affecting `rule` are
-    /// mutually exclusive.
-    pub fn set_rollout_restriction<
-        T: std::convert::Into<std::boxed::Box<crate::model::RolloutRestriction>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule = std::option::Option::Some(crate::model::policy_rule::Rule::RolloutRestriction(
-            v.into(),
-        ));
-        self
     }
 }
 
@@ -8249,17 +7916,6 @@ impl TargetArtifact {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [uri][crate::model::TargetArtifact::uri]
-    /// to hold a `ArtifactUri`.
-    ///
-    /// Note that all the setters affecting `uri` are
-    /// mutually exclusive.
-    pub fn set_artifact_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.uri =
-            std::option::Option::Some(crate::model::target_artifact::Uri::ArtifactUri(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for TargetArtifact {
@@ -10056,21 +9712,6 @@ impl Phase {
         })
     }
 
-    /// Sets the value of [jobs][crate::model::Phase::jobs]
-    /// to hold a `DeploymentJobs`.
-    ///
-    /// Note that all the setters affecting `jobs` are
-    /// mutually exclusive.
-    pub fn set_deployment_jobs<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeploymentJobs>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.jobs = std::option::Option::Some(crate::model::phase::Jobs::DeploymentJobs(v.into()));
-        self
-    }
-
     /// The value of [jobs][crate::model::Phase::jobs]
     /// if it holds a `ChildRolloutJobs`, `None` if the field is not set or
     /// holds a different branch.
@@ -10082,22 +9723,6 @@ impl Phase {
             crate::model::phase::Jobs::ChildRolloutJobs(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [jobs][crate::model::Phase::jobs]
-    /// to hold a `ChildRolloutJobs`.
-    ///
-    /// Note that all the setters affecting `jobs` are
-    /// mutually exclusive.
-    pub fn set_child_rollout_jobs<
-        T: std::convert::Into<std::boxed::Box<crate::model::ChildRolloutJobs>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.jobs =
-            std::option::Option::Some(crate::model::phase::Jobs::ChildRolloutJobs(v.into()));
-        self
     }
 }
 
@@ -10494,19 +10119,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::Job::job_type]
-    /// to hold a `DeployJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_deploy_job<T: std::convert::Into<std::boxed::Box<crate::model::DeployJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type = std::option::Option::Some(crate::model::job::JobType::DeployJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `VerifyJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10516,19 +10128,6 @@ impl Job {
             crate::model::job::JobType::VerifyJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::Job::job_type]
-    /// to hold a `VerifyJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_verify_job<T: std::convert::Into<std::boxed::Box<crate::model::VerifyJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type = std::option::Option::Some(crate::model::job::JobType::VerifyJob(v.into()));
-        self
     }
 
     /// The value of [job_type][crate::model::Job::job_type]
@@ -10544,20 +10143,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::Job::job_type]
-    /// to hold a `PredeployJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_predeploy_job<T: std::convert::Into<std::boxed::Box<crate::model::PredeployJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::PredeployJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `PostdeployJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10569,22 +10154,6 @@ impl Job {
             crate::model::job::JobType::PostdeployJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::Job::job_type]
-    /// to hold a `PostdeployJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_postdeploy_job<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJob>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::PostdeployJob(v.into()));
-        self
     }
 
     /// The value of [job_type][crate::model::Job::job_type]
@@ -10600,22 +10169,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [job_type][crate::model::Job::job_type]
-    /// to hold a `CreateChildRolloutJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_create_child_rollout_job<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJob>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::CreateChildRolloutJob(v.into()));
-        self
-    }
-
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `AdvanceChildRolloutJob`, `None` if the field is not set or
     /// holds a different branch.
@@ -10627,22 +10180,6 @@ impl Job {
             crate::model::job::JobType::AdvanceChildRolloutJob(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_type][crate::model::Job::job_type]
-    /// to hold a `AdvanceChildRolloutJob`.
-    ///
-    /// Note that all the setters affecting `job_type` are
-    /// mutually exclusive.
-    pub fn set_advance_child_rollout_job<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJob>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::job::JobType::AdvanceChildRolloutJob(v.into()));
-        self
     }
 }
 
@@ -12050,22 +11587,6 @@ impl JobRun {
         })
     }
 
-    /// Sets the value of [job_run][crate::model::JobRun::job_run]
-    /// to hold a `DeployJobRun`.
-    ///
-    /// Note that all the setters affecting `job_run` are
-    /// mutually exclusive.
-    pub fn set_deploy_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeployJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::DeployJobRun(v.into()));
-        self
-    }
-
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `VerifyJobRun`, `None` if the field is not set or
     /// holds a different branch.
@@ -12077,22 +11598,6 @@ impl JobRun {
             crate::model::job_run::JobRun::VerifyJobRun(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_run][crate::model::JobRun::job_run]
-    /// to hold a `VerifyJobRun`.
-    ///
-    /// Note that all the setters affecting `job_run` are
-    /// mutually exclusive.
-    pub fn set_verify_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::VerifyJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::VerifyJobRun(v.into()));
-        self
     }
 
     /// The value of [job_run][crate::model::JobRun::job_run]
@@ -12108,22 +11613,6 @@ impl JobRun {
         })
     }
 
-    /// Sets the value of [job_run][crate::model::JobRun::job_run]
-    /// to hold a `PredeployJobRun`.
-    ///
-    /// Note that all the setters affecting `job_run` are
-    /// mutually exclusive.
-    pub fn set_predeploy_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::PredeployJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::PredeployJobRun(v.into()));
-        self
-    }
-
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `PostdeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
@@ -12135,22 +11624,6 @@ impl JobRun {
             crate::model::job_run::JobRun::PostdeployJobRun(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_run][crate::model::JobRun::job_run]
-    /// to hold a `PostdeployJobRun`.
-    ///
-    /// Note that all the setters affecting `job_run` are
-    /// mutually exclusive.
-    pub fn set_postdeploy_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run =
-            std::option::Option::Some(crate::model::job_run::JobRun::PostdeployJobRun(v.into()));
-        self
     }
 
     /// The value of [job_run][crate::model::JobRun::job_run]
@@ -12168,23 +11641,6 @@ impl JobRun {
         })
     }
 
-    /// Sets the value of [job_run][crate::model::JobRun::job_run]
-    /// to hold a `CreateChildRolloutJobRun`.
-    ///
-    /// Note that all the setters affecting `job_run` are
-    /// mutually exclusive.
-    pub fn set_create_child_rollout_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run = std::option::Option::Some(
-            crate::model::job_run::JobRun::CreateChildRolloutJobRun(v.into()),
-        );
-        self
-    }
-
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `AdvanceChildRolloutJobRun`, `None` if the field is not set or
     /// holds a different branch.
@@ -12198,23 +11654,6 @@ impl JobRun {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_run][crate::model::JobRun::job_run]
-    /// to hold a `AdvanceChildRolloutJobRun`.
-    ///
-    /// Note that all the setters affecting `job_run` are
-    /// mutually exclusive.
-    pub fn set_advance_child_rollout_job_run<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_run = std::option::Option::Some(
-            crate::model::job_run::JobRun::AdvanceChildRolloutJobRun(v.into()),
-        );
-        self
     }
 }
 
@@ -14167,23 +13606,6 @@ impl AutomationRule {
         })
     }
 
-    /// Sets the value of [rule][crate::model::AutomationRule::rule]
-    /// to hold a `PromoteReleaseRule`.
-    ///
-    /// Note that all the setters affecting `rule` are
-    /// mutually exclusive.
-    pub fn set_promote_release_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::PromoteReleaseRule(v.into()),
-        );
-        self
-    }
-
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `AdvanceRolloutRule`, `None` if the field is not set or
     /// holds a different branch.
@@ -14197,23 +13619,6 @@ impl AutomationRule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [rule][crate::model::AutomationRule::rule]
-    /// to hold a `AdvanceRolloutRule`.
-    ///
-    /// Note that all the setters affecting `rule` are
-    /// mutually exclusive.
-    pub fn set_advance_rollout_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::AdvanceRolloutRule(v.into()),
-        );
-        self
     }
 
     /// The value of [rule][crate::model::AutomationRule::rule]
@@ -14231,23 +13636,6 @@ impl AutomationRule {
         })
     }
 
-    /// Sets the value of [rule][crate::model::AutomationRule::rule]
-    /// to hold a `RepairRolloutRule`.
-    ///
-    /// Note that all the setters affecting `rule` are
-    /// mutually exclusive.
-    pub fn set_repair_rollout_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::RepairRolloutRule(v.into()),
-        );
-        self
-    }
-
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `TimedPromoteReleaseRule`, `None` if the field is not set or
     /// holds a different branch.
@@ -14261,23 +13649,6 @@ impl AutomationRule {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [rule][crate::model::AutomationRule::rule]
-    /// to hold a `TimedPromoteReleaseRule`.
-    ///
-    /// Note that all the setters affecting `rule` are
-    /// mutually exclusive.
-    pub fn set_timed_promote_release_rule<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseRule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule = std::option::Option::Some(
-            crate::model::automation_rule::Rule::TimedPromoteReleaseRule(v.into()),
-        );
-        self
     }
 }
 
@@ -14748,21 +14119,6 @@ impl RepairPhaseConfig {
         })
     }
 
-    /// Sets the value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
-    /// to hold a `Retry`.
-    ///
-    /// Note that all the setters affecting `repair_phase` are
-    /// mutually exclusive.
-    pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::Retry>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repair_phase = std::option::Option::Some(
-            crate::model::repair_phase_config::RepairPhase::Retry(v.into()),
-        );
-        self
-    }
-
     /// The value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
     /// if it holds a `Rollback`, `None` if the field is not set or
     /// holds a different branch.
@@ -14774,21 +14130,6 @@ impl RepairPhaseConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
-    /// to hold a `Rollback`.
-    ///
-    /// Note that all the setters affecting `repair_phase` are
-    /// mutually exclusive.
-    pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::Rollback>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repair_phase = std::option::Option::Some(
-            crate::model::repair_phase_config::RepairPhase::Rollback(v.into()),
-        );
-        self
     }
 }
 
@@ -14990,25 +14331,6 @@ impl AutomationRuleCondition {
             crate::model::automation_rule_condition::RuleTypeCondition::TimedPromoteReleaseCondition(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [rule_type_condition][crate::model::AutomationRuleCondition::rule_type_condition]
-    /// to hold a `TimedPromoteReleaseCondition`.
-    ///
-    /// Note that all the setters affecting `rule_type_condition` are
-    /// mutually exclusive.
-    pub fn set_timed_promote_release_condition<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseCondition>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rule_type_condition = std::option::Option::Some(
-            crate::model::automation_rule_condition::RuleTypeCondition::TimedPromoteReleaseCondition(
-                v.into()
-            )
-        );
-        self
     }
 }
 
@@ -15838,23 +15160,6 @@ impl AutomationRun {
         })
     }
 
-    /// Sets the value of [operation][crate::model::AutomationRun::operation]
-    /// to hold a `PromoteReleaseOperation`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_promote_release_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::PromoteReleaseOperation(v.into()),
-        );
-        self
-    }
-
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `AdvanceRolloutOperation`, `None` if the field is not set or
     /// holds a different branch.
@@ -15868,23 +15173,6 @@ impl AutomationRun {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [operation][crate::model::AutomationRun::operation]
-    /// to hold a `AdvanceRolloutOperation`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_advance_rollout_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::AdvanceRolloutOperation(v.into()),
-        );
-        self
     }
 
     /// The value of [operation][crate::model::AutomationRun::operation]
@@ -15902,23 +15190,6 @@ impl AutomationRun {
         })
     }
 
-    /// Sets the value of [operation][crate::model::AutomationRun::operation]
-    /// to hold a `RepairRolloutOperation`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_repair_rollout_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::RepairRolloutOperation(v.into()),
-        );
-        self
-    }
-
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `TimedPromoteReleaseOperation`, `None` if the field is not set or
     /// holds a different branch.
@@ -15932,23 +15203,6 @@ impl AutomationRun {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [operation][crate::model::AutomationRun::operation]
-    /// to hold a `TimedPromoteReleaseOperation`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_timed_promote_release_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::automation_run::Operation::TimedPromoteReleaseOperation(v.into()),
-        );
-        self
     }
 }
 
@@ -16455,20 +15709,6 @@ impl RepairPhase {
         })
     }
 
-    /// Sets the value of [repair_phase][crate::model::RepairPhase::repair_phase]
-    /// to hold a `Retry`.
-    ///
-    /// Note that all the setters affecting `repair_phase` are
-    /// mutually exclusive.
-    pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::RetryPhase>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repair_phase =
-            std::option::Option::Some(crate::model::repair_phase::RepairPhase::Retry(v.into()));
-        self
-    }
-
     /// The value of [repair_phase][crate::model::RepairPhase::repair_phase]
     /// if it holds a `Rollback`, `None` if the field is not set or
     /// holds a different branch.
@@ -16478,20 +15718,6 @@ impl RepairPhase {
             crate::model::repair_phase::RepairPhase::Rollback(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [repair_phase][crate::model::RepairPhase::repair_phase]
-    /// to hold a `Rollback`.
-    ///
-    /// Note that all the setters affecting `repair_phase` are
-    /// mutually exclusive.
-    pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::RollbackAttempt>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repair_phase =
-            std::option::Option::Some(crate::model::repair_phase::RepairPhase::Rollback(v.into()));
-        self
     }
 }
 

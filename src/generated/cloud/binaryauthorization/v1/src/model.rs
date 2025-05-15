@@ -851,23 +851,6 @@ impl Attestor {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [attestor_type][crate::model::Attestor::attestor_type]
-    /// to hold a `UserOwnedGrafeasNote`.
-    ///
-    /// Note that all the setters affecting `attestor_type` are
-    /// mutually exclusive.
-    pub fn set_user_owned_grafeas_note<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserOwnedGrafeasNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attestor_type = std::option::Option::Some(
-            crate::model::attestor::AttestorType::UserOwnedGrafeasNote(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for Attestor {
@@ -1337,21 +1320,6 @@ impl AttestorPublicKey {
         })
     }
 
-    /// Sets the value of [public_key][crate::model::AttestorPublicKey::public_key]
-    /// to hold a `AsciiArmoredPgpPublicKey`.
-    ///
-    /// Note that all the setters affecting `public_key` are
-    /// mutually exclusive.
-    pub fn set_ascii_armored_pgp_public_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.public_key = std::option::Option::Some(
-            crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(v.into()),
-        );
-        self
-    }
-
     /// The value of [public_key][crate::model::AttestorPublicKey::public_key]
     /// if it holds a `PkixPublicKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -1365,23 +1333,6 @@ impl AttestorPublicKey {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [public_key][crate::model::AttestorPublicKey::public_key]
-    /// to hold a `PkixPublicKey`.
-    ///
-    /// Note that all the setters affecting `public_key` are
-    /// mutually exclusive.
-    pub fn set_pkix_public_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::PkixPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.public_key = std::option::Option::Some(
-            crate::model::attestor_public_key::PublicKey::PkixPublicKey(v.into()),
-        );
-        self
     }
 }
 

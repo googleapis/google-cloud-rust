@@ -2995,20 +2995,6 @@ pub mod containerd_config {
                     _ => std::option::Option::None,
                 })
             }
-
-            /// Sets the value of [certificate_config][crate::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig::certificate_config]
-            /// to hold a `GcpSecretManagerCertificateConfig`.
-            ///
-            /// Note that all the setters affecting `certificate_config` are
-            /// mutually exclusive.
-            pub fn set_gcp_secret_manager_certificate_config<T: std::convert::Into<std::boxed::Box<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig>>>(mut self, v: T) -> Self{
-                self.certificate_config = std::option::Option::Some(
-                    crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig::GcpSecretManagerCertificateConfig(
-                        v.into()
-                    )
-                );
-                self
-            }
         }
 
         impl wkt::message::Message for CertificateAuthorityDomainConfig {
@@ -10066,18 +10052,6 @@ pub mod operation_progress {
             })
         }
 
-        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
-        /// to hold a `IntValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::operation_progress::metric::Value::IntValue(v.into()),
-            );
-            self
-        }
-
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `DoubleValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -10091,18 +10065,6 @@ pub mod operation_progress {
             })
         }
 
-        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
-        /// to hold a `DoubleValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::operation_progress::metric::Value::DoubleValue(v.into()),
-            );
-            self
-        }
-
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `StringValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -10114,21 +10076,6 @@ pub mod operation_progress {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::operation_progress::Metric::value]
-        /// to hold a `StringValue`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_string_value<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::operation_progress::metric::Value::StringValue(v.into()),
-            );
-            self
         }
     }
 
@@ -12835,25 +12782,6 @@ impl BlueGreenSettings {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [rollout_policy][crate::model::BlueGreenSettings::rollout_policy]
-    /// to hold a `StandardRolloutPolicy`.
-    ///
-    /// Note that all the setters affecting `rollout_policy` are
-    /// mutually exclusive.
-    pub fn set_standard_rollout_policy<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::blue_green_settings::StandardRolloutPolicy>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rollout_policy = std::option::Option::Some(
-            crate::model::blue_green_settings::RolloutPolicy::StandardRolloutPolicy(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BlueGreenSettings {
@@ -12932,20 +12860,6 @@ pub mod blue_green_settings {
             })
         }
 
-        /// Sets the value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
-        /// to hold a `BatchPercentage`.
-        ///
-        /// Note that all the setters affecting `update_batch_size` are
-        /// mutually exclusive.
-        pub fn set_batch_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-            self.update_batch_size = std::option::Option::Some(
-                crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchPercentage(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
         /// if it holds a `BatchNodeCount`, `None` if the field is not set or
         /// holds a different branch.
@@ -12955,20 +12869,6 @@ pub mod blue_green_settings {
                 crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchNodeCount(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
-        /// to hold a `BatchNodeCount`.
-        ///
-        /// Note that all the setters affecting `update_batch_size` are
-        /// mutually exclusive.
-        pub fn set_batch_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.update_batch_size = std::option::Option::Some(
-                crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchNodeCount(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -14463,23 +14363,6 @@ impl MaintenanceWindow {
         })
     }
 
-    /// Sets the value of [policy][crate::model::MaintenanceWindow::policy]
-    /// to hold a `DailyMaintenanceWindow`.
-    ///
-    /// Note that all the setters affecting `policy` are
-    /// mutually exclusive.
-    pub fn set_daily_maintenance_window<
-        T: std::convert::Into<std::boxed::Box<crate::model::DailyMaintenanceWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = std::option::Option::Some(
-            crate::model::maintenance_window::Policy::DailyMaintenanceWindow(v.into()),
-        );
-        self
-    }
-
     /// The value of [policy][crate::model::MaintenanceWindow::policy]
     /// if it holds a `RecurringWindow`, `None` if the field is not set or
     /// holds a different branch.
@@ -14493,23 +14376,6 @@ impl MaintenanceWindow {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [policy][crate::model::MaintenanceWindow::policy]
-    /// to hold a `RecurringWindow`.
-    ///
-    /// Note that all the setters affecting `policy` are
-    /// mutually exclusive.
-    pub fn set_recurring_window<
-        T: std::convert::Into<std::boxed::Box<crate::model::RecurringTimeWindow>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = std::option::Option::Some(
-            crate::model::maintenance_window::Policy::RecurringWindow(v.into()),
-        );
-        self
     }
 }
 
@@ -14610,23 +14476,6 @@ impl TimeWindow {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [options][crate::model::TimeWindow::options]
-    /// to hold a `MaintenanceExclusionOptions`.
-    ///
-    /// Note that all the setters affecting `options` are
-    /// mutually exclusive.
-    pub fn set_maintenance_exclusion_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::MaintenanceExclusionOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = std::option::Option::Some(
-            crate::model::time_window::Options::MaintenanceExclusionOptions(v.into()),
-        );
-        self
     }
 }
 

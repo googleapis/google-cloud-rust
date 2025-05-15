@@ -892,18 +892,6 @@ impl ExportBackupRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [destination][crate::model::ExportBackupRequest::destination]
-    /// to hold a `GcsBucket`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_backup_request::Destination::GcsBucket(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ExportBackupRequest {
@@ -1432,22 +1420,6 @@ impl Cluster {
         })
     }
 
-    /// Sets the value of [import_sources][crate::model::Cluster::import_sources]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `import_sources` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::cluster::GcsBackupSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_sources =
-            std::option::Option::Some(crate::model::cluster::ImportSources::GcsSource(v.into()));
-        self
-    }
-
     /// The value of [import_sources][crate::model::Cluster::import_sources]
     /// if it holds a `ManagedBackupSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -1461,23 +1433,6 @@ impl Cluster {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [import_sources][crate::model::Cluster::import_sources]
-    /// to hold a `ManagedBackupSource`.
-    ///
-    /// Note that all the setters affecting `import_sources` are
-    /// mutually exclusive.
-    pub fn set_managed_backup_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::cluster::ManagedBackupSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_sources = std::option::Option::Some(
-            crate::model::cluster::ImportSources::ManagedBackupSource(v.into()),
-        );
-        self
     }
 }
 
@@ -1538,23 +1493,6 @@ pub mod cluster {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [info][crate::model::cluster::StateInfo::info]
-        /// to hold a `UpdateInfo`.
-        ///
-        /// Note that all the setters affecting `info` are
-        /// mutually exclusive.
-        pub fn set_update_info<
-            T: std::convert::Into<std::boxed::Box<crate::model::cluster::state_info::UpdateInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.info = std::option::Option::Some(
-                crate::model::cluster::state_info::Info::UpdateInfo(v.into()),
-            );
-            self
         }
     }
 
@@ -1943,25 +1881,6 @@ impl AutomatedBackupConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schedule][crate::model::AutomatedBackupConfig::schedule]
-    /// to hold a `FixedFrequencySchedule`.
-    ///
-    /// Note that all the setters affecting `schedule` are
-    /// mutually exclusive.
-    pub fn set_fixed_frequency_schedule<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schedule = std::option::Option::Some(
-            crate::model::automated_backup_config::Schedule::FixedFrequencySchedule(v.into()),
-        );
-        self
     }
 }
 
@@ -3650,23 +3569,6 @@ impl ConnectionDetail {
         })
     }
 
-    /// Sets the value of [connection][crate::model::ConnectionDetail::connection]
-    /// to hold a `PscAutoConnection`.
-    ///
-    /// Note that all the setters affecting `connection` are
-    /// mutually exclusive.
-    pub fn set_psc_auto_connection<
-        T: std::convert::Into<std::boxed::Box<crate::model::PscAutoConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection = std::option::Option::Some(
-            crate::model::connection_detail::Connection::PscAutoConnection(v.into()),
-        );
-        self
-    }
-
     /// The value of [connection][crate::model::ConnectionDetail::connection]
     /// if it holds a `PscConnection`, `None` if the field is not set or
     /// holds a different branch.
@@ -3680,23 +3582,6 @@ impl ConnectionDetail {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [connection][crate::model::ConnectionDetail::connection]
-    /// to hold a `PscConnection`.
-    ///
-    /// Note that all the setters affecting `connection` are
-    /// mutually exclusive.
-    pub fn set_psc_connection<
-        T: std::convert::Into<std::boxed::Box<crate::model::PscConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection = std::option::Option::Some(
-            crate::model::connection_detail::Connection::PscConnection(v.into()),
-        );
-        self
     }
 }
 
@@ -4016,25 +3901,6 @@ impl CertificateAuthority {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [server_ca][crate::model::CertificateAuthority::server_ca]
-    /// to hold a `ManagedServerCa`.
-    ///
-    /// Note that all the setters affecting `server_ca` are
-    /// mutually exclusive.
-    pub fn set_managed_server_ca<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.server_ca = std::option::Option::Some(
-            crate::model::certificate_authority::ServerCa::ManagedServerCa(v.into()),
-        );
-        self
     }
 }
 

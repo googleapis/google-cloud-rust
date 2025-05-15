@@ -1672,19 +1672,6 @@ impl AccessLevel {
         })
     }
 
-    /// Sets the value of [level][crate::model::AccessLevel::level]
-    /// to hold a `Basic`.
-    ///
-    /// Note that all the setters affecting `level` are
-    /// mutually exclusive.
-    pub fn set_basic<T: std::convert::Into<std::boxed::Box<crate::model::BasicLevel>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.level = std::option::Option::Some(crate::model::access_level::Level::Basic(v.into()));
-        self
-    }
-
     /// The value of [level][crate::model::AccessLevel::level]
     /// if it holds a `Custom`, `None` if the field is not set or
     /// holds a different branch.
@@ -1694,19 +1681,6 @@ impl AccessLevel {
             crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [level][crate::model::AccessLevel::level]
-    /// to hold a `Custom`.
-    ///
-    /// Note that all the setters affecting `level` are
-    /// mutually exclusive.
-    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomLevel>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.level = std::option::Option::Some(crate::model::access_level::Level::Custom(v.into()));
-        self
     }
 }
 
@@ -3013,18 +2987,6 @@ pub mod service_perimeter_config {
             })
         }
 
-        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
-        /// to hold a `Method`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
@@ -3036,18 +2998,6 @@ pub mod service_perimeter_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
-        /// to hold a `Permission`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Permission(v.into()),
-            );
-            self
         }
     }
 
@@ -3197,23 +3147,6 @@ pub mod service_perimeter_config {
             })
         }
 
-        /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
-        /// to hold a `AccessLevel`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_access_level<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::service_perimeter_config::ingress_source::Source::AccessLevel(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
         /// if it holds a `Resource`, `None` if the field is not set or
         /// holds a different branch.
@@ -3225,18 +3158,6 @@ pub mod service_perimeter_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
-        /// to hold a `Resource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::service_perimeter_config::ingress_source::Source::Resource(v.into()),
-            );
-            self
         }
     }
 

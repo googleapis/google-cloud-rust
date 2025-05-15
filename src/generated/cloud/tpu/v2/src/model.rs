@@ -1636,20 +1636,6 @@ impl QueuedResource {
         })
     }
 
-    /// Sets the value of [resource][crate::model::QueuedResource::resource]
-    /// to hold a `Tpu`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_tpu<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Tpu>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource =
-            std::option::Option::Some(crate::model::queued_resource::Resource::Tpu(v.into()));
-        self
-    }
-
     /// Sets the value of [tier][crate::model::QueuedResource::tier].
     ///
     /// Note that all the setters affecting `tier` are mutually
@@ -1677,19 +1663,6 @@ impl QueuedResource {
         })
     }
 
-    /// Sets the value of [tier][crate::model::QueuedResource::tier]
-    /// to hold a `Spot`.
-    ///
-    /// Note that all the setters affecting `tier` are
-    /// mutually exclusive.
-    pub fn set_spot<T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Spot>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tier = std::option::Option::Some(crate::model::queued_resource::Tier::Spot(v.into()));
-        self
-    }
-
     /// The value of [tier][crate::model::QueuedResource::tier]
     /// if it holds a `Guaranteed`, `None` if the field is not set or
     /// holds a different branch.
@@ -1701,22 +1674,6 @@ impl QueuedResource {
             crate::model::queued_resource::Tier::Guaranteed(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [tier][crate::model::QueuedResource::tier]
-    /// to hold a `Guaranteed`.
-    ///
-    /// Note that all the setters affecting `tier` are
-    /// mutually exclusive.
-    pub fn set_guaranteed<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource::Guaranteed>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tier =
-            std::option::Option::Some(crate::model::queued_resource::Tier::Guaranteed(v.into()));
-        self
     }
 }
 
@@ -1849,18 +1806,6 @@ pub mod queued_resource {
                 })
             }
 
-            /// Sets the value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
-            /// to hold a `NodeId`.
-            ///
-            /// Note that all the setters affecting `name_strategy` are
-            /// mutually exclusive.
-            pub fn set_node_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.name_strategy = std::option::Option::Some(
-                    crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v.into()),
-                );
-                self
-            }
-
             /// The value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
             /// if it holds a `MultisliceParams`, `None` if the field is not set or
             /// holds a different branch.
@@ -1874,29 +1819,6 @@ pub mod queued_resource {
                     crate::model::queued_resource::tpu::node_spec::NameStrategy::MultisliceParams(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
-            /// to hold a `MultisliceParams`.
-            ///
-            /// Note that all the setters affecting `name_strategy` are
-            /// mutually exclusive.
-            pub fn set_multislice_params<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::queued_resource::tpu::node_spec::MultisliceParams,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.name_strategy = std::option::Option::Some(
-                    crate::model::queued_resource::tpu::node_spec::NameStrategy::MultisliceParams(
-                        v.into(),
-                    ),
-                );
-                self
             }
         }
 
@@ -2094,23 +2016,6 @@ pub mod queued_resource {
             })
         }
 
-        /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// to hold a `ValidUntilDuration`.
-        ///
-        /// Note that all the setters affecting `start_timing_constraints` are
-        /// mutually exclusive.
-        pub fn set_valid_until_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_timing_constraints = std::option::Option::Some(
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilDuration(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidUntilTime`, `None` if the field is not set or
         /// holds a different branch.
@@ -2120,23 +2025,6 @@ pub mod queued_resource {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilTime(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// to hold a `ValidUntilTime`.
-        ///
-        /// Note that all the setters affecting `start_timing_constraints` are
-        /// mutually exclusive.
-        pub fn set_valid_until_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_timing_constraints = std::option::Option::Some(
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilTime(
-                    v.into()
-                )
-            );
-            self
         }
 
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
@@ -2150,23 +2038,6 @@ pub mod queued_resource {
             })
         }
 
-        /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// to hold a `ValidAfterDuration`.
-        ///
-        /// Note that all the setters affecting `start_timing_constraints` are
-        /// mutually exclusive.
-        pub fn set_valid_after_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_timing_constraints = std::option::Option::Some(
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterDuration(
-                    v.into()
-                )
-            );
-            self
-        }
-
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidAfterTime`, `None` if the field is not set or
         /// holds a different branch.
@@ -2176,23 +2047,6 @@ pub mod queued_resource {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterTime(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// to hold a `ValidAfterTime`.
-        ///
-        /// Note that all the setters affecting `start_timing_constraints` are
-        /// mutually exclusive.
-        pub fn set_valid_after_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_timing_constraints = std::option::Option::Some(
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterTime(
-                    v.into()
-                )
-            );
-            self
         }
 
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
@@ -2206,25 +2060,6 @@ pub mod queued_resource {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
-        /// to hold a `ValidInterval`.
-        ///
-        /// Note that all the setters affecting `start_timing_constraints` are
-        /// mutually exclusive.
-        pub fn set_valid_interval<
-            T: std::convert::Into<std::boxed::Box<gtype::model::Interval>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.start_timing_constraints = std::option::Option::Some(
-                crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidInterval(
-                    v.into()
-                )
-            );
-            self
         }
     }
 
@@ -2363,23 +2198,6 @@ impl QueuedResourceState {
         })
     }
 
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `CreatingData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_creating_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::CreatingData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::CreatingData(v.into()),
-        );
-        self
-    }
-
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `AcceptedData`, `None` if the field is not set or
     /// holds a different branch.
@@ -2394,23 +2212,6 @@ impl QueuedResourceState {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `AcceptedData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_accepted_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::AcceptedData(v.into()),
-        );
-        self
     }
 
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -2429,23 +2230,6 @@ impl QueuedResourceState {
         })
     }
 
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `ProvisioningData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_provisioning_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::ProvisioningData(v.into()),
-        );
-        self
-    }
-
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `FailedData`, `None` if the field is not set or
     /// holds a different branch.
@@ -2460,23 +2244,6 @@ impl QueuedResourceState {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `FailedData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_failed_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::FailedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::FailedData(v.into()),
-        );
-        self
     }
 
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -2495,23 +2262,6 @@ impl QueuedResourceState {
         })
     }
 
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `DeletingData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_deleting_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::DeletingData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::DeletingData(v.into()),
-        );
-        self
-    }
-
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `ActiveData`, `None` if the field is not set or
     /// holds a different branch.
@@ -2526,23 +2276,6 @@ impl QueuedResourceState {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `ActiveData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_active_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::ActiveData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::ActiveData(v.into()),
-        );
-        self
     }
 
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
@@ -2561,23 +2294,6 @@ impl QueuedResourceState {
         })
     }
 
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `SuspendingData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_suspending_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::SuspendingData(v.into()),
-        );
-        self
-    }
-
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `SuspendedData`, `None` if the field is not set or
     /// holds a different branch.
@@ -2592,23 +2308,6 @@ impl QueuedResourceState {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data]
-    /// to hold a `SuspendedData`.
-    ///
-    /// Note that all the setters affecting `state_data` are
-    /// mutually exclusive.
-    pub fn set_suspended_data<
-        T: std::convert::Into<std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.state_data = std::option::Option::Some(
-            crate::model::queued_resource_state::StateData::SuspendedData(v.into()),
-        );
-        self
     }
 }
 

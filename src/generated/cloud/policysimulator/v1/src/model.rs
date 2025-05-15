@@ -1170,20 +1170,6 @@ impl ReplayResult {
         })
     }
 
-    /// Sets the value of [result][crate::model::ReplayResult::result]
-    /// to hold a `Diff`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_diff<T: std::convert::Into<std::boxed::Box<crate::model::ReplayDiff>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::replay_result::Result::Diff(v.into()));
-        self
-    }
-
     /// The value of [result][crate::model::ReplayResult::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
@@ -1193,20 +1179,6 @@ impl ReplayResult {
             crate::model::replay_result::Result::Error(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [result][crate::model::ReplayResult::result]
-    /// to hold a `Error`.
-    ///
-    /// Note that all the setters affecting `result` are
-    /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::replay_result::Result::Error(v.into()));
-        self
     }
 }
 

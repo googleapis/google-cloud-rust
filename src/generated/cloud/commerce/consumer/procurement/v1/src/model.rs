@@ -82,25 +82,6 @@ impl AssignmentProtocol {
         })
     }
 
-    /// Sets the value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
-    /// to hold a `ManualAssignmentType`.
-    ///
-    /// Note that all the setters affecting `assignment_type` are
-    /// mutually exclusive.
-    pub fn set_manual_assignment_type<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.assignment_type = std::option::Option::Some(
-            crate::model::assignment_protocol::AssignmentType::ManualAssignmentType(v.into()),
-        );
-        self
-    }
-
     /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
     /// if it holds a `AutoAssignmentType`, `None` if the field is not set or
     /// holds a different branch.
@@ -115,23 +96,6 @@ impl AssignmentProtocol {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
-    /// to hold a `AutoAssignmentType`.
-    ///
-    /// Note that all the setters affecting `assignment_type` are
-    /// mutually exclusive.
-    pub fn set_auto_assignment_type<
-        T: std::convert::Into<std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.assignment_type = std::option::Option::Some(
-            crate::model::assignment_protocol::AssignmentType::AutoAssignmentType(v.into()),
-        );
-        self
     }
 }
 
@@ -1230,18 +1194,6 @@ pub mod parameter {
             })
         }
 
-        /// Sets the value of [kind][crate::model::parameter::Value::kind]
-        /// to hold a `Int64Value`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::Int64Value(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::parameter::Value::kind]
         /// if it holds a `StringValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -1255,21 +1207,6 @@ pub mod parameter {
             })
         }
 
-        /// Sets the value of [kind][crate::model::parameter::Value::kind]
-        /// to hold a `StringValue`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_string_value<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::StringValue(v.into()),
-            );
-            self
-        }
-
         /// The value of [kind][crate::model::parameter::Value::kind]
         /// if it holds a `DoubleValue`, `None` if the field is not set or
         /// holds a different branch.
@@ -1281,18 +1218,6 @@ pub mod parameter {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::parameter::Value::kind]
-        /// to hold a `DoubleValue`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::parameter::value::Kind::DoubleValue(v.into()),
-            );
-            self
         }
     }
 

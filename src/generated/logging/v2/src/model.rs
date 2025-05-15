@@ -366,20 +366,6 @@ impl LogEntry {
         })
     }
 
-    /// Sets the value of [payload][crate::model::LogEntry::payload]
-    /// to hold a `ProtoPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::ProtoPayload(v.into()));
-        self
-    }
-
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `TextPayload`, `None` if the field is not set or
     /// holds a different branch.
@@ -391,17 +377,6 @@ impl LogEntry {
         })
     }
 
-    /// Sets the value of [payload][crate::model::LogEntry::payload]
-    /// to hold a `TextPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
-        self
-    }
-
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `JsonPayload`, `None` if the field is not set or
     /// holds a different branch.
@@ -411,20 +386,6 @@ impl LogEntry {
             crate::model::log_entry::Payload::JsonPayload(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [payload][crate::model::LogEntry::payload]
-    /// to hold a `JsonPayload`.
-    ///
-    /// Note that all the setters affecting `payload` are
-    /// mutually exclusive.
-    pub fn set_json_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.payload =
-            std::option::Option::Some(crate::model::log_entry::Payload::JsonPayload(v.into()));
-        self
     }
 }
 
@@ -2281,22 +2242,6 @@ impl LogSink {
             crate::model::log_sink::Options::BigqueryOptions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [options][crate::model::LogSink::options]
-    /// to hold a `BigqueryOptions`.
-    ///
-    /// Note that all the setters affecting `options` are
-    /// mutually exclusive.
-    pub fn set_bigquery_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options =
-            std::option::Option::Some(crate::model::log_sink::Options::BigqueryOptions(v.into()));
-        self
     }
 }
 
@@ -5353,23 +5298,6 @@ impl BucketMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::BucketMetadata::request]
-    /// to hold a `CreateBucketRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_create_bucket_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateBucketRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::bucket_metadata::Request::CreateBucketRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::BucketMetadata::request]
     /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -5383,23 +5311,6 @@ impl BucketMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::BucketMetadata::request]
-    /// to hold a `UpdateBucketRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_update_bucket_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::UpdateBucketRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::bucket_metadata::Request::UpdateBucketRequest(v.into()),
-        );
-        self
     }
 }
 
@@ -5508,23 +5419,6 @@ impl LinkMetadata {
         })
     }
 
-    /// Sets the value of [request][crate::model::LinkMetadata::request]
-    /// to hold a `CreateLinkRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_create_link_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::CreateLinkRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::link_metadata::Request::CreateLinkRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [request][crate::model::LinkMetadata::request]
     /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -5538,23 +5432,6 @@ impl LinkMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [request][crate::model::LinkMetadata::request]
-    /// to hold a `DeleteLinkRequest`.
-    ///
-    /// Note that all the setters affecting `request` are
-    /// mutually exclusive.
-    pub fn set_delete_link_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeleteLinkRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request = std::option::Option::Some(
-            crate::model::link_metadata::Request::DeleteLinkRequest(v.into()),
-        );
-        self
     }
 }
 

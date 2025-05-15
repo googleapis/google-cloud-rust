@@ -93,25 +93,6 @@ impl ExportSBOMRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [target][crate::model::ExportSBOMRequest::target]
-    /// to hold a `CloudStorageLocation`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_cloud_storage_location<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(
-            crate::model::export_sbom_request::Target::CloudStorageLocation(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ExportSBOMRequest {

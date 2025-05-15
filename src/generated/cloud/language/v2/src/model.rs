@@ -103,16 +103,6 @@ impl Document {
         })
     }
 
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `GcsContentUri`, `None` if the field is not set or
     /// holds a different branch.
@@ -122,17 +112,6 @@ impl Document {
             crate::model::document::Source::GcsContentUri(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Document::source]
-    /// to hold a `GcsContentUri`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_content_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::document::Source::GcsContentUri(v.into()));
-        self
     }
 }
 

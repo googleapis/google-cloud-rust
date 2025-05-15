@@ -394,23 +394,6 @@ impl Deployment {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [blueprint][crate::model::Deployment::blueprint]
-    /// to hold a `TerraformBlueprint`.
-    ///
-    /// Note that all the setters affecting `blueprint` are
-    /// mutually exclusive.
-    pub fn set_terraform_blueprint<
-        T: std::convert::Into<std::boxed::Box<crate::model::TerraformBlueprint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.blueprint = std::option::Option::Some(
-            crate::model::deployment::Blueprint::TerraformBlueprint(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for Deployment {
@@ -994,18 +977,6 @@ impl TerraformBlueprint {
         })
     }
 
-    /// Sets the value of [source][crate::model::TerraformBlueprint::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::terraform_blueprint::Source::GcsSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::TerraformBlueprint::source]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -1015,21 +986,6 @@ impl TerraformBlueprint {
             crate::model::terraform_blueprint::Source::GitSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::TerraformBlueprint::source]
-    /// to hold a `GitSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_git_source<T: std::convert::Into<std::boxed::Box<crate::model::GitSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::terraform_blueprint::Source::GitSource(v.into()),
-        );
-        self
     }
 }
 
@@ -2135,23 +2091,6 @@ impl OperationMetadata {
         })
     }
 
-    /// Sets the value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
-    /// to hold a `DeploymentMetadata`.
-    ///
-    /// Note that all the setters affecting `resource_metadata` are
-    /// mutually exclusive.
-    pub fn set_deployment_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::DeploymentOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_metadata = std::option::Option::Some(
-            crate::model::operation_metadata::ResourceMetadata::DeploymentMetadata(v.into()),
-        );
-        self
-    }
-
     /// The value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
     /// if it holds a `PreviewMetadata`, `None` if the field is not set or
     /// holds a different branch.
@@ -2165,23 +2104,6 @@ impl OperationMetadata {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
-    /// to hold a `PreviewMetadata`.
-    ///
-    /// Note that all the setters affecting `resource_metadata` are
-    /// mutually exclusive.
-    pub fn set_preview_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::PreviewOperationMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource_metadata = std::option::Option::Some(
-            crate::model::operation_metadata::ResourceMetadata::PreviewMetadata(v.into()),
-        );
-        self
     }
 }
 
@@ -2499,23 +2421,6 @@ impl Revision {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [blueprint][crate::model::Revision::blueprint]
-    /// to hold a `TerraformBlueprint`.
-    ///
-    /// Note that all the setters affecting `blueprint` are
-    /// mutually exclusive.
-    pub fn set_terraform_blueprint<
-        T: std::convert::Into<std::boxed::Box<crate::model::TerraformBlueprint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.blueprint = std::option::Option::Some(
-            crate::model::revision::Blueprint::TerraformBlueprint(v.into()),
-        );
-        self
     }
 }
 
@@ -4804,23 +4709,6 @@ impl Preview {
             crate::model::preview::Blueprint::TerraformBlueprint(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [blueprint][crate::model::Preview::blueprint]
-    /// to hold a `TerraformBlueprint`.
-    ///
-    /// Note that all the setters affecting `blueprint` are
-    /// mutually exclusive.
-    pub fn set_terraform_blueprint<
-        T: std::convert::Into<std::boxed::Box<crate::model::TerraformBlueprint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.blueprint = std::option::Option::Some(
-            crate::model::preview::Blueprint::TerraformBlueprint(v.into()),
-        );
-        self
     }
 }
 

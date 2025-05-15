@@ -9042,18 +9042,6 @@ pub mod external_access_rule {
             })
         }
 
-        /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
-        /// to hold a `IpAddress`.
-        ///
-        /// Note that all the setters affecting `ip_range` are
-        /// mutually exclusive.
-        pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::IpAddress(v.into()),
-            );
-            self
-        }
-
         /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
         /// if it holds a `IpAddressRange`, `None` if the field is not set or
         /// holds a different branch.
@@ -9067,21 +9055,6 @@ pub mod external_access_rule {
             })
         }
 
-        /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
-        /// to hold a `IpAddressRange`.
-        ///
-        /// Note that all the setters affecting `ip_range` are
-        /// mutually exclusive.
-        pub fn set_ip_address_range<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(v.into()),
-            );
-            self
-        }
-
         /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
         /// if it holds a `ExternalAddress`, `None` if the field is not set or
         /// holds a different branch.
@@ -9093,21 +9066,6 @@ pub mod external_access_rule {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
-        /// to hold a `ExternalAddress`.
-        ///
-        /// Note that all the setters affecting `ip_range` are
-        /// mutually exclusive.
-        pub fn set_external_address<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v.into()),
-            );
-            self
         }
     }
 
@@ -12971,18 +12929,6 @@ impl ManagementDnsZoneBinding {
         })
     }
 
-    /// Sets the value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
-    /// to hold a `VpcNetwork`.
-    ///
-    /// Note that all the setters affecting `bind_network` are
-    /// mutually exclusive.
-    pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.bind_network = std::option::Option::Some(
-            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v.into()),
-        );
-        self
-    }
-
     /// The value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
     /// if it holds a `VmwareEngineNetwork`, `None` if the field is not set or
     /// holds a different branch.
@@ -12994,21 +12940,6 @@ impl ManagementDnsZoneBinding {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
-    /// to hold a `VmwareEngineNetwork`.
-    ///
-    /// Note that all the setters affecting `bind_network` are
-    /// mutually exclusive.
-    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bind_network = std::option::Option::Some(
-            crate::model::management_dns_zone_binding::BindNetwork::VmwareEngineNetwork(v.into()),
-        );
-        self
     }
 }
 
@@ -14886,17 +14817,6 @@ impl Principal {
         })
     }
 
-    /// Sets the value of [principal][crate::model::Principal::principal]
-    /// to hold a `User`.
-    ///
-    /// Note that all the setters affecting `principal` are
-    /// mutually exclusive.
-    pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.principal =
-            std::option::Option::Some(crate::model::principal::Principal::User(v.into()));
-        self
-    }
-
     /// The value of [principal][crate::model::Principal::principal]
     /// if it holds a `ServiceAccount`, `None` if the field is not set or
     /// holds a different branch.
@@ -14906,17 +14826,6 @@ impl Principal {
             crate::model::principal::Principal::ServiceAccount(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [principal][crate::model::Principal::principal]
-    /// to hold a `ServiceAccount`.
-    ///
-    /// Note that all the setters affecting `principal` are
-    /// mutually exclusive.
-    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.principal =
-            std::option::Option::Some(crate::model::principal::Principal::ServiceAccount(v.into()));
-        self
     }
 }
 

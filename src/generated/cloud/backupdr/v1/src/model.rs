@@ -1891,23 +1891,6 @@ impl BackupRule {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [backup_schedule_oneof][crate::model::BackupRule::backup_schedule_oneof]
-    /// to hold a `StandardSchedule`.
-    ///
-    /// Note that all the setters affecting `backup_schedule_oneof` are
-    /// mutually exclusive.
-    pub fn set_standard_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::StandardSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_schedule_oneof = std::option::Option::Some(
-            crate::model::backup_rule::BackupScheduleOneof::StandardSchedule(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BackupRule {
@@ -4506,23 +4489,6 @@ impl DataSource {
         })
     }
 
-    /// Sets the value of [source_resource][crate::model::DataSource::source_resource]
-    /// to hold a `DataSourceGcpResource`.
-    ///
-    /// Note that all the setters affecting `source_resource` are
-    /// mutually exclusive.
-    pub fn set_data_source_gcp_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::DataSourceGcpResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_resource = std::option::Option::Some(
-            crate::model::data_source::SourceResource::DataSourceGcpResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source_resource][crate::model::DataSource::source_resource]
     /// if it holds a `DataSourceBackupApplianceApplication`, `None` if the field is not set or
     /// holds a different branch.
@@ -4537,25 +4503,6 @@ impl DataSource {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source_resource][crate::model::DataSource::source_resource]
-    /// to hold a `DataSourceBackupApplianceApplication`.
-    ///
-    /// Note that all the setters affecting `source_resource` are
-    /// mutually exclusive.
-    pub fn set_data_source_backup_appliance_application<
-        T: std::convert::Into<std::boxed::Box<crate::model::DataSourceBackupApplianceApplication>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_resource = std::option::Option::Some(
-            crate::model::data_source::SourceResource::DataSourceBackupApplianceApplication(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -4827,23 +4774,6 @@ impl BackupConfigInfo {
         })
     }
 
-    /// Sets the value of [backup_config][crate::model::BackupConfigInfo::backup_config]
-    /// to hold a `GcpBackupConfig`.
-    ///
-    /// Note that all the setters affecting `backup_config` are
-    /// mutually exclusive.
-    pub fn set_gcp_backup_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcpBackupConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_config = std::option::Option::Some(
-            crate::model::backup_config_info::BackupConfig::GcpBackupConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [backup_config][crate::model::BackupConfigInfo::backup_config]
     /// if it holds a `BackupApplianceBackupConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -4857,23 +4787,6 @@ impl BackupConfigInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [backup_config][crate::model::BackupConfigInfo::backup_config]
-    /// to hold a `BackupApplianceBackupConfig`.
-    ///
-    /// Note that all the setters affecting `backup_config` are
-    /// mutually exclusive.
-    pub fn set_backup_appliance_backup_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::BackupApplianceBackupConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_config = std::option::Option::Some(
-            crate::model::backup_config_info::BackupConfig::BackupApplianceBackupConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -5312,25 +5225,6 @@ impl DataSourceGcpResource {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
-    /// to hold a `ComputeInstanceDatasourceProperties`.
-    ///
-    /// Note that all the setters affecting `gcp_resource_properties` are
-    /// mutually exclusive.
-    pub fn set_compute_instance_datasource_properties<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceDataSourceProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcp_resource_properties = std::option::Option::Some(
-            crate::model::data_source_gcp_resource::GcpResourceProperties::ComputeInstanceDatasourceProperties(
-                v.into()
-            )
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for DataSourceGcpResource {
@@ -5580,18 +5474,6 @@ impl BackupApplianceLockInfo {
         })
     }
 
-    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
-    /// to hold a `JobName`.
-    ///
-    /// Note that all the setters affecting `lock_source` are
-    /// mutually exclusive.
-    pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.lock_source = std::option::Option::Some(
-            crate::model::backup_appliance_lock_info::LockSource::JobName(v.into()),
-        );
-        self
-    }
-
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `BackupImage`, `None` if the field is not set or
     /// holds a different branch.
@@ -5605,18 +5487,6 @@ impl BackupApplianceLockInfo {
         })
     }
 
-    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
-    /// to hold a `BackupImage`.
-    ///
-    /// Note that all the setters affecting `lock_source` are
-    /// mutually exclusive.
-    pub fn set_backup_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.lock_source = std::option::Option::Some(
-            crate::model::backup_appliance_lock_info::LockSource::BackupImage(v.into()),
-        );
-        self
-    }
-
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `SlaId`, `None` if the field is not set or
     /// holds a different branch.
@@ -5628,18 +5498,6 @@ impl BackupApplianceLockInfo {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
-    /// to hold a `SlaId`.
-    ///
-    /// Note that all the setters affecting `lock_source` are
-    /// mutually exclusive.
-    pub fn set_sla_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.lock_source = std::option::Option::Some(
-            crate::model::backup_appliance_lock_info::LockSource::SlaId(v.into()),
-        );
-        self
     }
 }
 
@@ -5732,23 +5590,6 @@ impl BackupLock {
         })
     }
 
-    /// Sets the value of [client_lock_info][crate::model::BackupLock::client_lock_info]
-    /// to hold a `BackupApplianceLockInfo`.
-    ///
-    /// Note that all the setters affecting `client_lock_info` are
-    /// mutually exclusive.
-    pub fn set_backup_appliance_lock_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::BackupApplianceLockInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_lock_info = std::option::Option::Some(
-            crate::model::backup_lock::ClientLockInfo::BackupApplianceLockInfo(v.into()),
-        );
-        self
-    }
-
     /// The value of [client_lock_info][crate::model::BackupLock::client_lock_info]
     /// if it holds a `ServiceLockInfo`, `None` if the field is not set or
     /// holds a different branch.
@@ -5762,23 +5603,6 @@ impl BackupLock {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [client_lock_info][crate::model::BackupLock::client_lock_info]
-    /// to hold a `ServiceLockInfo`.
-    ///
-    /// Note that all the setters affecting `client_lock_info` are
-    /// mutually exclusive.
-    pub fn set_service_lock_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::ServiceLockInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.client_lock_info = std::option::Option::Some(
-            crate::model::backup_lock::ClientLockInfo::ServiceLockInfo(v.into()),
-        );
-        self
     }
 }
 
@@ -6049,23 +5873,6 @@ impl Backup {
         })
     }
 
-    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
-    /// to hold a `ComputeInstanceBackupProperties`.
-    ///
-    /// Note that all the setters affecting `backup_properties` are
-    /// mutually exclusive.
-    pub fn set_compute_instance_backup_properties<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceBackupProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_properties = std::option::Option::Some(
-            crate::model::backup::BackupProperties::ComputeInstanceBackupProperties(v.into()),
-        );
-        self
-    }
-
     /// The value of [backup_properties][crate::model::Backup::backup_properties]
     /// if it holds a `BackupApplianceBackupProperties`, `None` if the field is not set or
     /// holds a different branch.
@@ -6079,23 +5886,6 @@ impl Backup {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties]
-    /// to hold a `BackupApplianceBackupProperties`.
-    ///
-    /// Note that all the setters affecting `backup_properties` are
-    /// mutually exclusive.
-    pub fn set_backup_appliance_backup_properties<
-        T: std::convert::Into<std::boxed::Box<crate::model::BackupApplianceBackupProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_properties = std::option::Option::Some(
-            crate::model::backup::BackupProperties::BackupApplianceBackupProperties(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [plan_info][crate::model::Backup::plan_info].
@@ -6123,22 +5913,6 @@ impl Backup {
             crate::model::backup::PlanInfo::GcpBackupPlanInfo(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [plan_info][crate::model::Backup::plan_info]
-    /// to hold a `GcpBackupPlanInfo`.
-    ///
-    /// Note that all the setters affecting `plan_info` are
-    /// mutually exclusive.
-    pub fn set_gcp_backup_plan_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::backup::GCPBackupPlanInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.plan_info =
-            std::option::Option::Some(crate::model::backup::PlanInfo::GcpBackupPlanInfo(v.into()));
-        self
     }
 }
 
@@ -7890,25 +7664,6 @@ impl RestoreBackupRequest {
         })
     }
 
-    /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
-    /// to hold a `ComputeInstanceTargetEnvironment`.
-    ///
-    /// Note that all the setters affecting `target_environment` are
-    /// mutually exclusive.
-    pub fn set_compute_instance_target_environment<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceTargetEnvironment>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_environment = std::option::Option::Some(
-            crate::model::restore_backup_request::TargetEnvironment::ComputeInstanceTargetEnvironment(
-                v.into()
-            )
-        );
-        self
-    }
-
     /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties].
     ///
     /// Note that all the setters affecting `instance_properties` are mutually
@@ -7936,25 +7691,6 @@ impl RestoreBackupRequest {
             crate::model::restore_backup_request::InstanceProperties::ComputeInstanceRestoreProperties(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties]
-    /// to hold a `ComputeInstanceRestoreProperties`.
-    ///
-    /// Note that all the setters affecting `instance_properties` are
-    /// mutually exclusive.
-    pub fn set_compute_instance_restore_properties<
-        T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceRestoreProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.instance_properties = std::option::Option::Some(
-            crate::model::restore_backup_request::InstanceProperties::ComputeInstanceRestoreProperties(
-                v.into()
-            )
-        );
-        self
     }
 }
 
@@ -8076,21 +7812,6 @@ impl TargetResource {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_resource_info][crate::model::TargetResource::target_resource_info]
-    /// to hold a `GcpResource`.
-    ///
-    /// Note that all the setters affecting `target_resource_info` are
-    /// mutually exclusive.
-    pub fn set_gcp_resource<T: std::convert::Into<std::boxed::Box<crate::model::GcpResource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_resource_info = std::option::Option::Some(
-            crate::model::target_resource::TargetResourceInfo::GcpResource(v.into()),
-        );
-        self
     }
 }
 
@@ -9434,17 +9155,6 @@ impl CustomerEncryptionKey {
         })
     }
 
-    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
-    /// to hold a `RawKey`.
-    ///
-    /// Note that all the setters affecting `key` are
-    /// mutually exclusive.
-    pub fn set_raw_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.key =
-            std::option::Option::Some(crate::model::customer_encryption_key::Key::RawKey(v.into()));
-        self
-    }
-
     /// The value of [key][crate::model::CustomerEncryptionKey::key]
     /// if it holds a `RsaEncryptedKey`, `None` if the field is not set or
     /// holds a different branch.
@@ -9458,21 +9168,6 @@ impl CustomerEncryptionKey {
         })
     }
 
-    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
-    /// to hold a `RsaEncryptedKey`.
-    ///
-    /// Note that all the setters affecting `key` are
-    /// mutually exclusive.
-    pub fn set_rsa_encrypted_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key = std::option::Option::Some(
-            crate::model::customer_encryption_key::Key::RsaEncryptedKey(v.into()),
-        );
-        self
-    }
-
     /// The value of [key][crate::model::CustomerEncryptionKey::key]
     /// if it holds a `KmsKeyName`, `None` if the field is not set or
     /// holds a different branch.
@@ -9484,18 +9179,6 @@ impl CustomerEncryptionKey {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key]
-    /// to hold a `KmsKeyName`.
-    ///
-    /// Note that all the setters affecting `key` are
-    /// mutually exclusive.
-    pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.key = std::option::Option::Some(
-            crate::model::customer_encryption_key::Key::KmsKeyName(v.into()),
-        );
-        self
     }
 }
 

@@ -1576,17 +1576,6 @@ impl Operation {
         })
     }
 
-    /// Sets the value of [path_value][crate::model::Operation::path_value]
-    /// to hold a `Value`.
-    ///
-    /// Note that all the setters affecting `path_value` are
-    /// mutually exclusive.
-    pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
-        self.path_value =
-            std::option::Option::Some(crate::model::operation::PathValue::Value(v.into()));
-        self
-    }
-
     /// The value of [path_value][crate::model::Operation::path_value]
     /// if it holds a `ValueMatcher`, `None` if the field is not set or
     /// holds a different branch.
@@ -1598,20 +1587,6 @@ impl Operation {
             crate::model::operation::PathValue::ValueMatcher(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [path_value][crate::model::Operation::path_value]
-    /// to hold a `ValueMatcher`.
-    ///
-    /// Note that all the setters affecting `path_value` are
-    /// mutually exclusive.
-    pub fn set_value_matcher<T: std::convert::Into<std::boxed::Box<crate::model::ValueMatcher>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.path_value =
-            std::option::Option::Some(crate::model::operation::PathValue::ValueMatcher(v.into()));
-        self
     }
 }
 
@@ -1686,18 +1661,6 @@ impl ValueMatcher {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [match_variant][crate::model::ValueMatcher::match_variant]
-    /// to hold a `MatchesPattern`.
-    ///
-    /// Note that all the setters affecting `match_variant` are
-    /// mutually exclusive.
-    pub fn set_matches_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.match_variant = std::option::Option::Some(
-            crate::model::value_matcher::MatchVariant::MatchesPattern(v.into()),
-        );
-        self
     }
 }
 
@@ -2130,22 +2093,6 @@ impl Impact {
         })
     }
 
-    /// Sets the value of [projection][crate::model::Impact::projection]
-    /// to hold a `CostProjection`.
-    ///
-    /// Note that all the setters affecting `projection` are
-    /// mutually exclusive.
-    pub fn set_cost_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::CostProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.projection =
-            std::option::Option::Some(crate::model::impact::Projection::CostProjection(v.into()));
-        self
-    }
-
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `SecurityProjection`, `None` if the field is not set or
     /// holds a different branch.
@@ -2157,23 +2104,6 @@ impl Impact {
             crate::model::impact::Projection::SecurityProjection(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [projection][crate::model::Impact::projection]
-    /// to hold a `SecurityProjection`.
-    ///
-    /// Note that all the setters affecting `projection` are
-    /// mutually exclusive.
-    pub fn set_security_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::SecurityProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.projection = std::option::Option::Some(
-            crate::model::impact::Projection::SecurityProjection(v.into()),
-        );
-        self
     }
 
     /// The value of [projection][crate::model::Impact::projection]
@@ -2191,23 +2121,6 @@ impl Impact {
         })
     }
 
-    /// Sets the value of [projection][crate::model::Impact::projection]
-    /// to hold a `SustainabilityProjection`.
-    ///
-    /// Note that all the setters affecting `projection` are
-    /// mutually exclusive.
-    pub fn set_sustainability_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::SustainabilityProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.projection = std::option::Option::Some(
-            crate::model::impact::Projection::SustainabilityProjection(v.into()),
-        );
-        self
-    }
-
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `ReliabilityProjection`, `None` if the field is not set or
     /// holds a different branch.
@@ -2221,23 +2134,6 @@ impl Impact {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [projection][crate::model::Impact::projection]
-    /// to hold a `ReliabilityProjection`.
-    ///
-    /// Note that all the setters affecting `projection` are
-    /// mutually exclusive.
-    pub fn set_reliability_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::ReliabilityProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.projection = std::option::Option::Some(
-            crate::model::impact::Projection::ReliabilityProjection(v.into()),
-        );
-        self
     }
 }
 

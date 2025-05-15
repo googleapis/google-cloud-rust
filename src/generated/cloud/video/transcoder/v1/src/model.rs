@@ -251,17 +251,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [job_config][crate::model::Job::job_config]
-    /// to hold a `TemplateId`.
-    ///
-    /// Note that all the setters affecting `job_config` are
-    /// mutually exclusive.
-    pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.job_config =
-            std::option::Option::Some(crate::model::job::JobConfig::TemplateId(v.into()));
-        self
-    }
-
     /// The value of [job_config][crate::model::Job::job_config]
     /// if it holds a `Config`, `None` if the field is not set or
     /// holds a different branch.
@@ -271,19 +260,6 @@ impl Job {
             crate::model::job::JobConfig::Config(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [job_config][crate::model::Job::job_config]
-    /// to hold a `Config`.
-    ///
-    /// Note that all the setters affecting `job_config` are
-    /// mutually exclusive.
-    pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::JobConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_config = std::option::Option::Some(crate::model::job::JobConfig::Config(v.into()));
-        self
     }
 }
 
@@ -1257,21 +1233,6 @@ impl ElementaryStream {
         })
     }
 
-    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// to hold a `VideoStream`.
-    ///
-    /// Note that all the setters affecting `elementary_stream` are
-    /// mutually exclusive.
-    pub fn set_video_stream<T: std::convert::Into<std::boxed::Box<crate::model::VideoStream>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::VideoStream(v.into()),
-        );
-        self
-    }
-
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `AudioStream`, `None` if the field is not set or
     /// holds a different branch.
@@ -1285,21 +1246,6 @@ impl ElementaryStream {
         })
     }
 
-    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// to hold a `AudioStream`.
-    ///
-    /// Note that all the setters affecting `elementary_stream` are
-    /// mutually exclusive.
-    pub fn set_audio_stream<T: std::convert::Into<std::boxed::Box<crate::model::AudioStream>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::AudioStream(v.into()),
-        );
-        self
-    }
-
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `TextStream`, `None` if the field is not set or
     /// holds a different branch.
@@ -1311,21 +1257,6 @@ impl ElementaryStream {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
-    /// to hold a `TextStream`.
-    ///
-    /// Note that all the setters affecting `elementary_stream` are
-    /// mutually exclusive.
-    pub fn set_text_stream<T: std::convert::Into<std::boxed::Box<crate::model::TextStream>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.elementary_stream = std::option::Option::Some(
-            crate::model::elementary_stream::ElementaryStream::TextStream(v.into()),
-        );
-        self
     }
 }
 
@@ -1552,20 +1483,6 @@ impl Manifest {
             crate::model::manifest::ManifestConfig::Dash(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [manifest_config][crate::model::Manifest::manifest_config]
-    /// to hold a `Dash`.
-    ///
-    /// Note that all the setters affecting `manifest_config` are
-    /// mutually exclusive.
-    pub fn set_dash<T: std::convert::Into<std::boxed::Box<crate::model::manifest::DashConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.manifest_config =
-            std::option::Option::Some(crate::model::manifest::ManifestConfig::Dash(v.into()));
-        self
     }
 }
 
@@ -2123,18 +2040,6 @@ impl SpriteSheet {
         })
     }
 
-    /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
-    /// to hold a `TotalCount`.
-    ///
-    /// Note that all the setters affecting `extraction_strategy` are
-    /// mutually exclusive.
-    pub fn set_total_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.extraction_strategy = std::option::Option::Some(
-            crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v.into()),
-        );
-        self
-    }
-
     /// The value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
     /// if it holds a `Interval`, `None` if the field is not set or
     /// holds a different branch.
@@ -2146,21 +2051,6 @@ impl SpriteSheet {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
-    /// to hold a `Interval`.
-    ///
-    /// Note that all the setters affecting `extraction_strategy` are
-    /// mutually exclusive.
-    pub fn set_interval<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.extraction_strategy = std::option::Option::Some(
-            crate::model::sprite_sheet::ExtractionStrategy::Interval(v.into()),
-        );
-        self
     }
 }
 
@@ -2575,23 +2465,6 @@ pub mod overlay {
             })
         }
 
-        /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type]
-        /// to hold a `AnimationStatic`.
-        ///
-        /// Note that all the setters affecting `animation_type` are
-        /// mutually exclusive.
-        pub fn set_animation_static<
-            T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationStatic>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.animation_type = std::option::Option::Some(
-                crate::model::overlay::animation::AnimationType::AnimationStatic(v.into()),
-            );
-            self
-        }
-
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationFade`, `None` if the field is not set or
         /// holds a different branch.
@@ -2607,23 +2480,6 @@ pub mod overlay {
             })
         }
 
-        /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type]
-        /// to hold a `AnimationFade`.
-        ///
-        /// Note that all the setters affecting `animation_type` are
-        /// mutually exclusive.
-        pub fn set_animation_fade<
-            T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationFade>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.animation_type = std::option::Option::Some(
-                crate::model::overlay::animation::AnimationType::AnimationFade(v.into()),
-            );
-            self
-        }
-
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationEnd`, `None` if the field is not set or
         /// holds a different branch.
@@ -2637,23 +2493,6 @@ pub mod overlay {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type]
-        /// to hold a `AnimationEnd`.
-        ///
-        /// Note that all the setters affecting `animation_type` are
-        /// mutually exclusive.
-        pub fn set_animation_end<
-            T: std::convert::Into<std::boxed::Box<crate::model::overlay::AnimationEnd>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.animation_type = std::option::Option::Some(
-                crate::model::overlay::animation::AnimationType::AnimationEnd(v.into()),
-            );
-            self
         }
     }
 
@@ -3358,27 +3197,6 @@ pub mod preprocessing_config {
             })
         }
 
-        /// Sets the value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
-        /// to hold a `Yadif`.
-        ///
-        /// Note that all the setters affecting `deinterlacing_filter` are
-        /// mutually exclusive.
-        pub fn set_yadif<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.deinterlacing_filter = std::option::Option::Some(
-                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Yadif(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
         /// if it holds a `Bwdif`, `None` if the field is not set or
         /// holds a different branch.
@@ -3394,27 +3212,6 @@ pub mod preprocessing_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
-        /// to hold a `Bwdif`.
-        ///
-        /// Note that all the setters affecting `deinterlacing_filter` are
-        /// mutually exclusive.
-        pub fn set_bwdif<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.deinterlacing_filter = std::option::Option::Some(
-                crate::model::preprocessing_config::deinterlace::DeinterlacingFilter::Bwdif(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -3631,22 +3428,6 @@ impl VideoStream {
         })
     }
 
-    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
-    /// to hold a `H264`.
-    ///
-    /// Note that all the setters affecting `codec_settings` are
-    /// mutually exclusive.
-    pub fn set_h264<
-        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H264CodecSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.codec_settings =
-            std::option::Option::Some(crate::model::video_stream::CodecSettings::H264(v.into()));
-        self
-    }
-
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `H265`, `None` if the field is not set or
     /// holds a different branch.
@@ -3660,22 +3441,6 @@ impl VideoStream {
         })
     }
 
-    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
-    /// to hold a `H265`.
-    ///
-    /// Note that all the setters affecting `codec_settings` are
-    /// mutually exclusive.
-    pub fn set_h265<
-        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::H265CodecSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.codec_settings =
-            std::option::Option::Some(crate::model::video_stream::CodecSettings::H265(v.into()));
-        self
-    }
-
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `Vp9`, `None` if the field is not set or
     /// holds a different branch.
@@ -3687,22 +3452,6 @@ impl VideoStream {
             crate::model::video_stream::CodecSettings::Vp9(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings]
-    /// to hold a `Vp9`.
-    ///
-    /// Note that all the setters affecting `codec_settings` are
-    /// mutually exclusive.
-    pub fn set_vp9<
-        T: std::convert::Into<std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.codec_settings =
-            std::option::Option::Some(crate::model::video_stream::CodecSettings::Vp9(v.into()));
-        self
     }
 }
 
@@ -4031,18 +3780,6 @@ pub mod video_stream {
             })
         }
 
-        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
-        }
-
         /// The value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -4054,21 +3791,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
-        /// to hold a `GopDuration`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(v.into()),
-            );
-            self
         }
     }
 
@@ -4412,18 +4134,6 @@ pub mod video_stream {
             })
         }
 
-        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
-        }
-
         /// The value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -4435,21 +4145,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
-        /// to hold a `GopDuration`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v.into()),
-            );
-            self
         }
     }
 
@@ -4669,18 +4364,6 @@ pub mod video_stream {
             })
         }
 
-        /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
-        /// to hold a `GopFrameCount`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_frame_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v.into()),
-            );
-            self
-        }
-
         /// The value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
@@ -4692,21 +4375,6 @@ pub mod video_stream {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
-        /// to hold a `GopDuration`.
-        ///
-        /// Note that all the setters affecting `gop_mode` are
-        /// mutually exclusive.
-        pub fn set_gop_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.gop_mode = std::option::Option::Some(
-                crate::model::video_stream::vp_9_codec_settings::GopMode::GopDuration(v.into()),
-            );
-            self
         }
     }
 
@@ -5244,22 +4912,6 @@ impl Encryption {
         })
     }
 
-    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// to hold a `Aes128`.
-    ///
-    /// Note that all the setters affecting `encryption_mode` are
-    /// mutually exclusive.
-    pub fn set_aes_128<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::Aes128Encryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_mode =
-            std::option::Option::Some(crate::model::encryption::EncryptionMode::Aes128(v.into()));
-        self
-    }
-
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `SampleAes`, `None` if the field is not set or
     /// holds a different branch.
@@ -5273,23 +4925,6 @@ impl Encryption {
         })
     }
 
-    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// to hold a `SampleAes`.
-    ///
-    /// Note that all the setters affecting `encryption_mode` are
-    /// mutually exclusive.
-    pub fn set_sample_aes<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SampleAesEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_mode = std::option::Option::Some(
-            crate::model::encryption::EncryptionMode::SampleAes(v.into()),
-        );
-        self
-    }
-
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `MpegCenc`, `None` if the field is not set or
     /// holds a different branch.
@@ -5301,22 +4936,6 @@ impl Encryption {
             crate::model::encryption::EncryptionMode::MpegCenc(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode]
-    /// to hold a `MpegCenc`.
-    ///
-    /// Note that all the setters affecting `encryption_mode` are
-    /// mutually exclusive.
-    pub fn set_mpeg_cenc<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::MpegCommonEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_mode =
-            std::option::Option::Some(crate::model::encryption::EncryptionMode::MpegCenc(v.into()));
-        self
     }
 
     /// Sets the value of [secret_source][crate::model::Encryption::secret_source].
@@ -5346,23 +4965,6 @@ impl Encryption {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [secret_source][crate::model::Encryption::secret_source]
-    /// to hold a `SecretManagerKeySource`.
-    ///
-    /// Note that all the setters affecting `secret_source` are
-    /// mutually exclusive.
-    pub fn set_secret_manager_key_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::encryption::SecretManagerSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secret_source = std::option::Option::Some(
-            crate::model::encryption::SecretSource::SecretManagerKeySource(v.into()),
-        );
-        self
     }
 }
 

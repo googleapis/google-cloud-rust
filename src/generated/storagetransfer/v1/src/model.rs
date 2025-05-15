@@ -1487,18 +1487,6 @@ impl AwsS3Data {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [private_network][crate::model::AwsS3Data::private_network]
-    /// to hold a `ManagedPrivateNetwork`.
-    ///
-    /// Note that all the setters affecting `private_network` are
-    /// mutually exclusive.
-    pub fn set_managed_private_network<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.private_network = std::option::Option::Some(
-            crate::model::aws_s_3_data::PrivateNetwork::ManagedPrivateNetwork(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for AwsS3Data {
@@ -1877,23 +1865,6 @@ impl AwsS3CompatibleData {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_provider][crate::model::AwsS3CompatibleData::data_provider]
-    /// to hold a `S3Metadata`.
-    ///
-    /// Note that all the setters affecting `data_provider` are
-    /// mutually exclusive.
-    pub fn set_s3_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::S3CompatibleMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_provider = std::option::Option::Some(
-            crate::model::aws_s_3_compatible_data::DataProvider::S3Metadata(v.into()),
-        );
-        self
     }
 }
 
@@ -3190,20 +3161,6 @@ impl TransferSpec {
         })
     }
 
-    /// Sets the value of [data_sink][crate::model::TransferSpec::data_sink]
-    /// to hold a `GcsDataSink`.
-    ///
-    /// Note that all the setters affecting `data_sink` are
-    /// mutually exclusive.
-    pub fn set_gcs_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_sink =
-            std::option::Option::Some(crate::model::transfer_spec::DataSink::GcsDataSink(v.into()));
-        self
-    }
-
     /// The value of [data_sink][crate::model::TransferSpec::data_sink]
     /// if it holds a `PosixDataSink`, `None` if the field is not set or
     /// holds a different branch.
@@ -3215,23 +3172,6 @@ impl TransferSpec {
             crate::model::transfer_spec::DataSink::PosixDataSink(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_sink][crate::model::TransferSpec::data_sink]
-    /// to hold a `PosixDataSink`.
-    ///
-    /// Note that all the setters affecting `data_sink` are
-    /// mutually exclusive.
-    pub fn set_posix_data_sink<
-        T: std::convert::Into<std::boxed::Box<crate::model::PosixFilesystem>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_sink = std::option::Option::Some(
-            crate::model::transfer_spec::DataSink::PosixDataSink(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [data_source][crate::model::TransferSpec::data_source].
@@ -3261,21 +3201,6 @@ impl TransferSpec {
         })
     }
 
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `GcsDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_gcs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::GcsDataSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AwsS3DataSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -3289,23 +3214,6 @@ impl TransferSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `AwsS3DataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_aws_s3_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsS3Data>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::AwsS3DataSource(v.into()),
-        );
-        self
     }
 
     /// The value of [data_source][crate::model::TransferSpec::data_source]
@@ -3323,21 +3231,6 @@ impl TransferSpec {
         })
     }
 
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `HttpDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_http_data_source<T: std::convert::Into<std::boxed::Box<crate::model::HttpData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::HttpDataSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `PosixDataSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -3351,23 +3244,6 @@ impl TransferSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `PosixDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_posix_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::PosixFilesystem>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::PosixDataSource(v.into()),
-        );
-        self
     }
 
     /// The value of [data_source][crate::model::TransferSpec::data_source]
@@ -3385,23 +3261,6 @@ impl TransferSpec {
         })
     }
 
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `AzureBlobStorageDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_azure_blob_storage_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::AzureBlobStorageData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::AzureBlobStorageDataSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AwsS3CompatibleDataSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -3417,23 +3276,6 @@ impl TransferSpec {
         })
     }
 
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `AwsS3CompatibleDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_aws_s3_compatible_data_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::AwsS3CompatibleData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::AwsS3CompatibleDataSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `HdfsDataSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -3447,21 +3289,6 @@ impl TransferSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_source][crate::model::TransferSpec::data_source]
-    /// to hold a `HdfsDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_hdfs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::HdfsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::transfer_spec::DataSource::HdfsDataSource(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [intermediate_data_location][crate::model::TransferSpec::intermediate_data_location].
@@ -3491,25 +3318,6 @@ impl TransferSpec {
             crate::model::transfer_spec::IntermediateDataLocation::GcsIntermediateDataLocation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [intermediate_data_location][crate::model::TransferSpec::intermediate_data_location]
-    /// to hold a `GcsIntermediateDataLocation`.
-    ///
-    /// Note that all the setters affecting `intermediate_data_location` are
-    /// mutually exclusive.
-    pub fn set_gcs_intermediate_data_location<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.intermediate_data_location = std::option::Option::Some(
-            crate::model::transfer_spec::IntermediateDataLocation::GcsIntermediateDataLocation(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -3663,21 +3471,6 @@ impl ReplicationSpec {
         })
     }
 
-    /// Sets the value of [data_source][crate::model::ReplicationSpec::data_source]
-    /// to hold a `GcsDataSource`.
-    ///
-    /// Note that all the setters affecting `data_source` are
-    /// mutually exclusive.
-    pub fn set_gcs_data_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_source = std::option::Option::Some(
-            crate::model::replication_spec::DataSource::GcsDataSource(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [data_sink][crate::model::ReplicationSpec::data_sink].
     ///
     /// Note that all the setters affecting `data_sink` are mutually
@@ -3703,21 +3496,6 @@ impl ReplicationSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data_sink][crate::model::ReplicationSpec::data_sink]
-    /// to hold a `GcsDataSink`.
-    ///
-    /// Note that all the setters affecting `data_sink` are
-    /// mutually exclusive.
-    pub fn set_gcs_data_sink<T: std::convert::Into<std::boxed::Box<crate::model::GcsData>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data_sink = std::option::Option::Some(
-            crate::model::replication_spec::DataSink::GcsDataSink(v.into()),
-        );
-        self
     }
 }
 

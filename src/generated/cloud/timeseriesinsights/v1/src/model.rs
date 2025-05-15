@@ -497,17 +497,6 @@ impl EventDimension {
         })
     }
 
-    /// Sets the value of [value][crate::model::EventDimension::value]
-    /// to hold a `StringVal`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::event_dimension::Value::StringVal(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::EventDimension::value]
     /// if it holds a `LongVal`, `None` if the field is not set or
     /// holds a different branch.
@@ -517,17 +506,6 @@ impl EventDimension {
             crate::model::event_dimension::Value::LongVal(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::EventDimension::value]
-    /// to hold a `LongVal`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_long_val<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::event_dimension::Value::LongVal(v.into()));
-        self
     }
 
     /// The value of [value][crate::model::EventDimension::value]
@@ -541,17 +519,6 @@ impl EventDimension {
         })
     }
 
-    /// Sets the value of [value][crate::model::EventDimension::value]
-    /// to hold a `BoolVal`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::event_dimension::Value::BoolVal(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::EventDimension::value]
     /// if it holds a `DoubleVal`, `None` if the field is not set or
     /// holds a different branch.
@@ -561,17 +528,6 @@ impl EventDimension {
             crate::model::event_dimension::Value::DoubleVal(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::EventDimension::value]
-    /// to hold a `DoubleVal`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_double_val<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::event_dimension::Value::DoubleVal(v.into()));
-        self
     }
 }
 
@@ -1047,17 +1003,6 @@ impl PinnedDimension {
         })
     }
 
-    /// Sets the value of [value][crate::model::PinnedDimension::value]
-    /// to hold a `StringVal`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::pinned_dimension::Value::StringVal(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::PinnedDimension::value]
     /// if it holds a `BoolVal`, `None` if the field is not set or
     /// holds a different branch.
@@ -1067,17 +1012,6 @@ impl PinnedDimension {
             crate::model::pinned_dimension::Value::BoolVal(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::PinnedDimension::value]
-    /// to hold a `BoolVal`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::pinned_dimension::Value::BoolVal(v.into()));
-        self
     }
 }
 

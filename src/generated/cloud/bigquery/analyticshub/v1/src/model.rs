@@ -241,25 +241,6 @@ impl SharingEnvironmentConfig {
         })
     }
 
-    /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment]
-    /// to hold a `DefaultExchangeConfig`.
-    ///
-    /// Note that all the setters affecting `environment` are
-    /// mutually exclusive.
-    pub fn set_default_exchange_config<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.environment = std::option::Option::Some(
-            crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -275,25 +256,6 @@ impl SharingEnvironmentConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment]
-    /// to hold a `DcrExchangeConfig`.
-    ///
-    /// Note that all the setters affecting `environment` are
-    /// mutually exclusive.
-    pub fn set_dcr_exchange_config<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.environment = std::option::Option::Some(
-            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -943,22 +905,6 @@ impl Listing {
         })
     }
 
-    /// Sets the value of [source][crate::model::Listing::source]
-    /// to hold a `BigqueryDataset`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_bigquery_dataset<
-        T: std::convert::Into<std::boxed::Box<crate::model::listing::BigQueryDatasetSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::listing::Source::BigqueryDataset(v.into()));
-        self
-    }
-
     /// The value of [source][crate::model::Listing::source]
     /// if it holds a `PubsubTopic`, `None` if the field is not set or
     /// holds a different branch.
@@ -970,22 +916,6 @@ impl Listing {
             crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::Listing::source]
-    /// to hold a `PubsubTopic`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_pubsub_topic<
-        T: std::convert::Into<std::boxed::Box<crate::model::listing::PubSubTopicSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::listing::Source::PubsubTopic(v.into()));
-        self
     }
 }
 
@@ -1126,20 +1056,6 @@ pub mod listing {
                 })
             }
 
-            /// Sets the value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource]
-            /// to hold a `Table`.
-            ///
-            /// Note that all the setters affecting `resource` are
-            /// mutually exclusive.
-            pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.resource = std::option::Option::Some(
-                    crate::model::listing::big_query_dataset_source::selected_resource::Resource::Table(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource]
             /// if it holds a `Routine`, `None` if the field is not set or
             /// holds a different branch.
@@ -1149,20 +1065,6 @@ pub mod listing {
                     crate::model::listing::big_query_dataset_source::selected_resource::Resource::Routine(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource]
-            /// to hold a `Routine`.
-            ///
-            /// Note that all the setters affecting `resource` are
-            /// mutually exclusive.
-            pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.resource = std::option::Option::Some(
-                    crate::model::listing::big_query_dataset_source::selected_resource::Resource::Routine(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 
@@ -2221,17 +2123,6 @@ impl Subscription {
         })
     }
 
-    /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
-    /// to hold a `Listing`.
-    ///
-    /// Note that all the setters affecting `resource_name` are
-    /// mutually exclusive.
-    pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource_name =
-            std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
-        self
-    }
-
     /// The value of [resource_name][crate::model::Subscription::resource_name]
     /// if it holds a `DataExchange`, `None` if the field is not set or
     /// holds a different branch.
@@ -2243,18 +2134,6 @@ impl Subscription {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource_name][crate::model::Subscription::resource_name]
-    /// to hold a `DataExchange`.
-    ///
-    /// Note that all the setters affecting `resource_name` are
-    /// mutually exclusive.
-    pub fn set_data_exchange<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource_name = std::option::Option::Some(
-            crate::model::subscription::ResourceName::DataExchange(v.into()),
-        );
-        self
     }
 }
 
@@ -2326,21 +2205,6 @@ pub mod subscription {
             })
         }
 
-        /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
-        /// to hold a `LinkedDataset`.
-        ///
-        /// Note that all the setters affecting `reference` are
-        /// mutually exclusive.
-        pub fn set_linked_dataset<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.reference = std::option::Option::Some(
-                crate::model::subscription::linked_resource::Reference::LinkedDataset(v.into()),
-            );
-            self
-        }
-
         /// The value of [reference][crate::model::subscription::LinkedResource::reference]
         /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
         /// holds a different branch.
@@ -2350,23 +2214,6 @@ pub mod subscription {
                 crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference]
-        /// to hold a `LinkedPubsubSubscription`.
-        ///
-        /// Note that all the setters affecting `reference` are
-        /// mutually exclusive.
-        pub fn set_linked_pubsub_subscription<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.reference = std::option::Option::Some(
-                crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -3410,23 +3257,6 @@ impl SubscribeListingRequest {
         })
     }
 
-    /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
-    /// to hold a `DestinationDataset`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_dataset<
-        T: std::convert::Into<std::boxed::Box<crate::model::DestinationDataset>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::subscribe_listing_request::Destination::DestinationDataset(v.into()),
-        );
-        self
-    }
-
     /// The value of [destination][crate::model::SubscribeListingRequest::destination]
     /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
     /// holds a different branch.
@@ -3440,25 +3270,6 @@ impl SubscribeListingRequest {
             ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
-    /// to hold a `DestinationPubsubSubscription`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_destination_pubsub_subscription<
-        T: std::convert::Into<std::boxed::Box<crate::model::DestinationPubSubSubscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 
@@ -4797,23 +4608,6 @@ impl PushConfig {
         })
     }
 
-    /// Sets the value of [authentication_method][crate::model::PushConfig::authentication_method]
-    /// to hold a `OidcToken`.
-    ///
-    /// Note that all the setters affecting `authentication_method` are
-    /// mutually exclusive.
-    pub fn set_oidc_token<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authentication_method = std::option::Option::Some(
-            crate::model::push_config::AuthenticationMethod::OidcToken(v.into()),
-        );
-        self
-    }
-
     /// Sets the value of [wrapper][crate::model::PushConfig::wrapper].
     ///
     /// Note that all the setters affecting `wrapper` are mutually
@@ -4841,22 +4635,6 @@ impl PushConfig {
         })
     }
 
-    /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
-    /// to hold a `PubsubWrapper`.
-    ///
-    /// Note that all the setters affecting `wrapper` are
-    /// mutually exclusive.
-    pub fn set_pubsub_wrapper<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.wrapper =
-            std::option::Option::Some(crate::model::push_config::Wrapper::PubsubWrapper(v.into()));
-        self
-    }
-
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `NoWrapper`, `None` if the field is not set or
     /// holds a different branch.
@@ -4868,22 +4646,6 @@ impl PushConfig {
             crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [wrapper][crate::model::PushConfig::wrapper]
-    /// to hold a `NoWrapper`.
-    ///
-    /// Note that all the setters affecting `wrapper` are
-    /// mutually exclusive.
-    pub fn set_no_wrapper<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.wrapper =
-            std::option::Option::Some(crate::model::push_config::Wrapper::NoWrapper(v.into()));
-        self
     }
 }
 
@@ -5310,23 +5072,6 @@ impl CloudStorageConfig {
         })
     }
 
-    /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
-    /// to hold a `TextConfig`.
-    ///
-    /// Note that all the setters affecting `output_format` are
-    /// mutually exclusive.
-    pub fn set_text_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_format = std::option::Option::Some(
-            crate::model::cloud_storage_config::OutputFormat::TextConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `AvroConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -5340,23 +5085,6 @@ impl CloudStorageConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format]
-    /// to hold a `AvroConfig`.
-    ///
-    /// Note that all the setters affecting `output_format` are
-    /// mutually exclusive.
-    pub fn set_avro_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.output_format = std::option::Option::Some(
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v.into()),
-        );
-        self
     }
 }
 
@@ -5529,23 +5257,6 @@ impl MessageTransform {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [transform][crate::model::MessageTransform::transform]
-    /// to hold a `JavascriptUdf`.
-    ///
-    /// Note that all the setters affecting `transform` are
-    /// mutually exclusive.
-    pub fn set_javascript_udf<
-        T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.transform = std::option::Option::Some(
-            crate::model::message_transform::Transform::JavascriptUdf(v.into()),
-        );
-        self
     }
 }
 

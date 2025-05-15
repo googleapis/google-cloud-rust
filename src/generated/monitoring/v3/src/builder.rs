@@ -625,45 +625,6 @@ pub mod group_service {
             self.0.request.filter = v.into();
             self
         }
-
-        /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
-        /// to hold a `ChildrenOfGroup`.
-        ///
-        /// Note that all the setters affecting `filter` are
-        /// mutually exclusive.
-        pub fn set_children_of_group<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_children_of_group(v);
-            self
-        }
-
-        /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
-        /// to hold a `AncestorsOfGroup`.
-        ///
-        /// Note that all the setters affecting `filter` are
-        /// mutually exclusive.
-        pub fn set_ancestors_of_group<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_ancestors_of_group(v);
-            self
-        }
-
-        /// Sets the value of [filter][crate::model::ListGroupsRequest::filter]
-        /// to hold a `DescendantsOfGroup`.
-        ///
-        /// Note that all the setters affecting `filter` are
-        /// mutually exclusive.
-        pub fn set_descendants_of_group<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request = self.0.request.set_descendants_of_group(v);
-            self
-        }
     }
 
     #[doc(hidden)]

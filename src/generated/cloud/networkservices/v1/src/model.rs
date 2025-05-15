@@ -227,23 +227,6 @@ impl EndpointMatcher {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [matcher_type][crate::model::EndpointMatcher::matcher_type]
-    /// to hold a `MetadataLabelMatcher`.
-    ///
-    /// Note that all the setters affecting `matcher_type` are
-    /// mutually exclusive.
-    pub fn set_metadata_label_matcher<
-        T: std::convert::Into<std::boxed::Box<crate::model::endpoint_matcher::MetadataLabelMatcher>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.matcher_type = std::option::Option::Some(
-            crate::model::endpoint_matcher::MatcherType::MetadataLabelMatcher(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for EndpointMatcher {
@@ -3902,21 +3885,6 @@ pub mod grpc_route {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [destination_type][crate::model::grpc_route::Destination::destination_type]
-        /// to hold a `ServiceName`.
-        ///
-        /// Note that all the setters affecting `destination_type` are
-        /// mutually exclusive.
-        pub fn set_service_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.destination_type = std::option::Option::Some(
-                crate::model::grpc_route::destination::DestinationType::ServiceName(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for Destination {
@@ -4886,18 +4854,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `ExactMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::ExactMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4909,18 +4865,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::RegexMatch(v.into()),
-            );
-            self
         }
 
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -4936,21 +4880,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `PrefixMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_prefix_match<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::PrefixMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `PresentMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4964,18 +4893,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `PresentMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_present_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::PresentMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `SuffixMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -4987,21 +4904,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `SuffixMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_suffix_match<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::SuffixMatch(v.into()),
-            );
-            self
         }
 
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
@@ -5019,25 +4921,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type]
-        /// to hold a `RangeMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_range_match<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::header_match::MatchType::RangeMatch(v.into()),
-            );
-            self
         }
     }
 
@@ -5180,18 +5063,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `ExactMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_exact_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -5205,18 +5076,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `PresentMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -5228,18 +5087,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
-        /// to hold a `PresentMatch`.
-        ///
-        /// Note that all the setters affecting `match_type` are
-        /// mutually exclusive.
-        pub fn set_present_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.match_type = std::option::Option::Some(
-                crate::model::http_route::query_parameter_match::MatchType::PresentMatch(v.into()),
-            );
-            self
         }
     }
 
@@ -5371,21 +5218,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// to hold a `FullPathMatch`.
-        ///
-        /// Note that all the setters affecting `path_match` are
-        /// mutually exclusive.
-        pub fn set_full_path_match<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.path_match = std::option::Option::Some(
-                crate::model::http_route::route_match::PathMatch::FullPathMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// if it holds a `PrefixMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -5399,21 +5231,6 @@ pub mod http_route {
             })
         }
 
-        /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// to hold a `PrefixMatch`.
-        ///
-        /// Note that all the setters affecting `path_match` are
-        /// mutually exclusive.
-        pub fn set_prefix_match<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.path_match = std::option::Option::Some(
-                crate::model::http_route::route_match::PathMatch::PrefixMatch(v.into()),
-            );
-            self
-        }
-
         /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
@@ -5425,18 +5242,6 @@ pub mod http_route {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match]
-        /// to hold a `RegexMatch`.
-        ///
-        /// Note that all the setters affecting `path_match` are
-        /// mutually exclusive.
-        pub fn set_regex_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.path_match = std::option::Option::Some(
-                crate::model::http_route::route_match::PathMatch::RegexMatch(v.into()),
-            );
-            self
         }
     }
 

@@ -1016,23 +1016,6 @@ impl ImportAdaptiveMtFileRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
-    /// to hold a `FileInputSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_file_input_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::FileInputSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_adaptive_mt_file_request::Source::FileInputSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
     /// if it holds a `GcsInputSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -1046,23 +1029,6 @@ impl ImportAdaptiveMtFileRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
-    /// to hold a `GcsInputSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_input_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_adaptive_mt_file_request::Source::GcsInputSource(v.into()),
-        );
-        self
     }
 }
 
@@ -1599,23 +1565,6 @@ pub mod dataset_input_config {
                 _ => std::option::Option::None,
             })
         }
-
-        /// Sets the value of [source][crate::model::dataset_input_config::InputFile::source]
-        /// to hold a `GcsSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        pub fn set_gcs_source<
-            T: std::convert::Into<std::boxed::Box<crate::model::GcsInputSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::dataset_input_config::input_file::Source::GcsSource(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for InputFile {
@@ -1807,23 +1756,6 @@ impl DatasetOutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::DatasetOutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::dataset_output_config::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -3435,22 +3367,6 @@ impl GlossaryEntry {
         })
     }
 
-    /// Sets the value of [data][crate::model::GlossaryEntry::data]
-    /// to hold a `TermsPair`.
-    ///
-    /// Note that all the setters affecting `data` are
-    /// mutually exclusive.
-    pub fn set_terms_pair<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data =
-            std::option::Option::Some(crate::model::glossary_entry::Data::TermsPair(v.into()));
-        self
-    }
-
     /// The value of [data][crate::model::GlossaryEntry::data]
     /// if it holds a `TermsSet`, `None` if the field is not set or
     /// holds a different branch.
@@ -3462,22 +3378,6 @@ impl GlossaryEntry {
             crate::model::glossary_entry::Data::TermsSet(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [data][crate::model::GlossaryEntry::data]
-    /// to hold a `TermsSet`.
-    ///
-    /// Note that all the setters affecting `data` are
-    /// mutually exclusive.
-    pub fn set_terms_set<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data =
-            std::option::Option::Some(crate::model::glossary_entry::Data::TermsSet(v.into()));
-        self
     }
 }
 
@@ -4284,18 +4184,6 @@ impl DetectLanguageRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::DetectLanguageRequest::source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::detect_language_request::Source::Content(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for DetectLanguageRequest {
@@ -4676,20 +4564,6 @@ impl InputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::InputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::input_config::Source::GcsSource(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for InputConfig {
@@ -4816,23 +4690,6 @@ impl OutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::OutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::output_config::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -4999,18 +4856,6 @@ impl DocumentInputConfig {
         })
     }
 
-    /// Sets the value of [source][crate::model::DocumentInputConfig::source]
-    /// to hold a `Content`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::document_input_config::Source::Content(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::DocumentInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -5022,21 +4867,6 @@ impl DocumentInputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::DocumentInputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::document_input_config::Source::GcsSource(v.into()),
-        );
-        self
     }
 }
 
@@ -5142,23 +4972,6 @@ impl DocumentOutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::DocumentOutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::document_output_config::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 
@@ -6167,21 +5980,6 @@ impl GlossaryInputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::GlossaryInputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::glossary_input_config::Source::GcsSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for GlossaryInputConfig {
@@ -6346,22 +6144,6 @@ impl Glossary {
         })
     }
 
-    /// Sets the value of [languages][crate::model::Glossary::languages]
-    /// to hold a `LanguagePair`.
-    ///
-    /// Note that all the setters affecting `languages` are
-    /// mutually exclusive.
-    pub fn set_language_pair<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodePair>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.languages =
-            std::option::Option::Some(crate::model::glossary::Languages::LanguagePair(v.into()));
-        self
-    }
-
     /// The value of [languages][crate::model::Glossary::languages]
     /// if it holds a `LanguageCodesSet`, `None` if the field is not set or
     /// holds a different branch.
@@ -6373,23 +6155,6 @@ impl Glossary {
             crate::model::glossary::Languages::LanguageCodesSet(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [languages][crate::model::Glossary::languages]
-    /// to hold a `LanguageCodesSet`.
-    ///
-    /// Note that all the setters affecting `languages` are
-    /// mutually exclusive.
-    pub fn set_language_codes_set<
-        T: std::convert::Into<std::boxed::Box<crate::model::glossary::LanguageCodesSet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.languages = std::option::Option::Some(
-            crate::model::glossary::Languages::LanguageCodesSet(v.into()),
-        );
-        self
     }
 }
 
@@ -8074,21 +7839,6 @@ impl BatchDocumentInputConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::BatchDocumentInputConfig::source]
-    /// to hold a `GcsSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::batch_document_input_config::Source::GcsSource(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BatchDocumentInputConfig {
@@ -8181,23 +7931,6 @@ impl BatchDocumentOutputConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::BatchDocumentOutputConfig::destination]
-    /// to hold a `GcsDestination`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_gcs_destination<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::batch_document_output_config::Destination::GcsDestination(v.into()),
-        );
-        self
     }
 }
 

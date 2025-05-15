@@ -397,23 +397,6 @@ pub mod span {
             })
         }
 
-        /// Sets the value of [value][crate::model::span::TimeEvent::value]
-        /// to hold a `Annotation`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_annotation<
-            T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::Annotation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::span::time_event::Value::Annotation(v.into()),
-            );
-            self
-        }
-
         /// The value of [value][crate::model::span::TimeEvent::value]
         /// if it holds a `MessageEvent`, `None` if the field is not set or
         /// holds a different branch.
@@ -428,23 +411,6 @@ pub mod span {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [value][crate::model::span::TimeEvent::value]
-        /// to hold a `MessageEvent`.
-        ///
-        /// Note that all the setters affecting `value` are
-        /// mutually exclusive.
-        pub fn set_message_event<
-            T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::MessageEvent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.value = std::option::Option::Some(
-                crate::model::span::time_event::Value::MessageEvent(v.into()),
-            );
-            self
         }
     }
 
@@ -1281,22 +1247,6 @@ impl AttributeValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::AttributeValue::value]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::TruncatableString>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_value::Value::StringValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::AttributeValue::value]
     /// if it holds a `IntValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1308,17 +1258,6 @@ impl AttributeValue {
         })
     }
 
-    /// Sets the value of [value][crate::model::AttributeValue::value]
-    /// to hold a `IntValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_value::Value::IntValue(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::AttributeValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -1328,17 +1267,6 @@ impl AttributeValue {
             crate::model::attribute_value::Value::BoolValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::AttributeValue::value]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_value::Value::BoolValue(v.into()));
-        self
     }
 }
 

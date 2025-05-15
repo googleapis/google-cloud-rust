@@ -394,21 +394,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
-    /// to hold a `GithubConfig`.
-    ///
-    /// Note that all the setters affecting `connection_config` are
-    /// mutually exclusive.
-    pub fn set_github_config<T: std::convert::Into<std::boxed::Box<crate::model::GitHubConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_config = std::option::Option::Some(
-            crate::model::connection::ConnectionConfig::GithubConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -422,23 +407,6 @@ impl Connection {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
-    /// to hold a `GithubEnterpriseConfig`.
-    ///
-    /// Note that all the setters affecting `connection_config` are
-    /// mutually exclusive.
-    pub fn set_github_enterprise_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GitHubEnterpriseConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_config = std::option::Option::Some(
-            crate::model::connection::ConnectionConfig::GithubEnterpriseConfig(v.into()),
-        );
-        self
     }
 
     /// The value of [connection_config][crate::model::Connection::connection_config]
@@ -456,21 +424,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
-    /// to hold a `GitlabConfig`.
-    ///
-    /// Note that all the setters affecting `connection_config` are
-    /// mutually exclusive.
-    pub fn set_gitlab_config<T: std::convert::Into<std::boxed::Box<crate::model::GitLabConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_config = std::option::Option::Some(
-            crate::model::connection::ConnectionConfig::GitlabConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `BitbucketDataCenterConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -486,23 +439,6 @@ impl Connection {
         })
     }
 
-    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
-    /// to hold a `BitbucketDataCenterConfig`.
-    ///
-    /// Note that all the setters affecting `connection_config` are
-    /// mutually exclusive.
-    pub fn set_bitbucket_data_center_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::BitbucketDataCenterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_config = std::option::Option::Some(
-            crate::model::connection::ConnectionConfig::BitbucketDataCenterConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `BitbucketCloudConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -516,23 +452,6 @@ impl Connection {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
-    /// to hold a `BitbucketCloudConfig`.
-    ///
-    /// Note that all the setters affecting `connection_config` are
-    /// mutually exclusive.
-    pub fn set_bitbucket_cloud_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::BitbucketCloudConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_config = std::option::Option::Some(
-            crate::model::connection::ConnectionConfig::BitbucketCloudConfig(v.into()),
-        );
-        self
     }
 }
 

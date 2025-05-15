@@ -4418,23 +4418,6 @@ impl ManagementConfig {
         })
     }
 
-    /// Sets the value of [oneof_config][crate::model::ManagementConfig::oneof_config]
-    /// to hold a `StandardManagementConfig`.
-    ///
-    /// Note that all the setters affecting `oneof_config` are
-    /// mutually exclusive.
-    pub fn set_standard_management_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::StandardManagementConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oneof_config = std::option::Option::Some(
-            crate::model::management_config::OneofConfig::StandardManagementConfig(v.into()),
-        );
-        self
-    }
-
     /// The value of [oneof_config][crate::model::ManagementConfig::oneof_config]
     /// if it holds a `FullManagementConfig`, `None` if the field is not set or
     /// holds a different branch.
@@ -4448,23 +4431,6 @@ impl ManagementConfig {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [oneof_config][crate::model::ManagementConfig::oneof_config]
-    /// to hold a `FullManagementConfig`.
-    ///
-    /// Note that all the setters affecting `oneof_config` are
-    /// mutually exclusive.
-    pub fn set_full_management_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::FullManagementConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oneof_config = std::option::Option::Some(
-            crate::model::management_config::OneofConfig::FullManagementConfig(v.into()),
-        );
-        self
     }
 }
 

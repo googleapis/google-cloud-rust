@@ -1859,21 +1859,6 @@ impl HttpRequest {
         })
     }
 
-    /// Sets the value of [authorization_header][crate::model::HttpRequest::authorization_header]
-    /// to hold a `OauthToken`.
-    ///
-    /// Note that all the setters affecting `authorization_header` are
-    /// mutually exclusive.
-    pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_header = std::option::Option::Some(
-            crate::model::http_request::AuthorizationHeader::OauthToken(v.into()),
-        );
-        self
-    }
-
     /// The value of [authorization_header][crate::model::HttpRequest::authorization_header]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
@@ -1885,21 +1870,6 @@ impl HttpRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authorization_header][crate::model::HttpRequest::authorization_header]
-    /// to hold a `OidcToken`.
-    ///
-    /// Note that all the setters affecting `authorization_header` are
-    /// mutually exclusive.
-    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_header = std::option::Option::Some(
-            crate::model::http_request::AuthorizationHeader::OidcToken(v.into()),
-        );
-        self
     }
 }
 
@@ -2666,23 +2636,6 @@ impl Task {
         })
     }
 
-    /// Sets the value of [message_type][crate::model::Task::message_type]
-    /// to hold a `AppEngineHttpRequest`.
-    ///
-    /// Note that all the setters affecting `message_type` are
-    /// mutually exclusive.
-    pub fn set_app_engine_http_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::AppEngineHttpRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.message_type = std::option::Option::Some(
-            crate::model::task::MessageType::AppEngineHttpRequest(v.into()),
-        );
-        self
-    }
-
     /// The value of [message_type][crate::model::Task::message_type]
     /// if it holds a `HttpRequest`, `None` if the field is not set or
     /// holds a different branch.
@@ -2692,20 +2645,6 @@ impl Task {
             crate::model::task::MessageType::HttpRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [message_type][crate::model::Task::message_type]
-    /// to hold a `HttpRequest`.
-    ///
-    /// Note that all the setters affecting `message_type` are
-    /// mutually exclusive.
-    pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.message_type =
-            std::option::Option::Some(crate::model::task::MessageType::HttpRequest(v.into()));
-        self
     }
 }
 

@@ -6078,29 +6078,6 @@ pub mod indicator {
             })
         }
 
-        /// Sets the value of [signature][crate::model::indicator::ProcessSignature::signature]
-        /// to hold a `MemoryHashSignature`.
-        ///
-        /// Note that all the setters affecting `signature` are
-        /// mutually exclusive.
-        pub fn set_memory_hash_signature<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::indicator::process_signature::MemoryHashSignature,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.signature = std::option::Option::Some(
-                crate::model::indicator::process_signature::Signature::MemoryHashSignature(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [signature][crate::model::indicator::ProcessSignature::signature]
         /// if it holds a `YaraRuleSignature`, `None` if the field is not set or
         /// holds a different branch.
@@ -6116,25 +6093,6 @@ pub mod indicator {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [signature][crate::model::indicator::ProcessSignature::signature]
-        /// to hold a `YaraRuleSignature`.
-        ///
-        /// Note that all the setters affecting `signature` are
-        /// mutually exclusive.
-        pub fn set_yara_rule_signature<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::indicator::process_signature::YaraRuleSignature>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.signature = std::option::Option::Some(
-                crate::model::indicator::process_signature::Signature::YaraRuleSignature(v.into()),
-            );
-            self
         }
     }
 
@@ -7640,23 +7598,6 @@ impl LogEntry {
             crate::model::log_entry::LogEntry::CloudLoggingEntry(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [log_entry][crate::model::LogEntry::log_entry]
-    /// to hold a `CloudLoggingEntry`.
-    ///
-    /// Note that all the setters affecting `log_entry` are
-    /// mutually exclusive.
-    pub fn set_cloud_logging_entry<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudLoggingEntry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.log_entry = std::option::Option::Some(
-            crate::model::log_entry::LogEntry::CloudLoggingEntry(v.into()),
-        );
-        self
     }
 }
 
@@ -9183,23 +9124,6 @@ impl NotificationConfig {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [notify_config][crate::model::NotificationConfig::notify_config]
-    /// to hold a `StreamingConfig`.
-    ///
-    /// Note that all the setters affecting `notify_config` are
-    /// mutually exclusive.
-    pub fn set_streaming_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::notification_config::StreamingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.notify_config = std::option::Option::Some(
-            crate::model::notification_config::NotifyConfig::StreamingConfig(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for NotificationConfig {
@@ -9345,20 +9269,6 @@ impl NotificationMessage {
             crate::model::notification_message::Event::Finding(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [event][crate::model::NotificationMessage::event]
-    /// to hold a `Finding`.
-    ///
-    /// Note that all the setters affecting `event` are
-    /// mutually exclusive.
-    pub fn set_finding<T: std::convert::Into<std::boxed::Box<crate::model::Finding>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event =
-            std::option::Option::Some(crate::model::notification_message::Event::Finding(v.into()));
-        self
     }
 }
 
@@ -9757,21 +9667,6 @@ impl Resource {
         })
     }
 
-    /// Sets the value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
-    /// to hold a `GcpMetadata`.
-    ///
-    /// Note that all the setters affecting `cloud_provider_metadata` are
-    /// mutually exclusive.
-    pub fn set_gcp_metadata<T: std::convert::Into<std::boxed::Box<crate::model::GcpMetadata>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_provider_metadata = std::option::Option::Some(
-            crate::model::resource::CloudProviderMetadata::GcpMetadata(v.into()),
-        );
-        self
-    }
-
     /// The value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
     /// if it holds a `AwsMetadata`, `None` if the field is not set or
     /// holds a different branch.
@@ -9783,21 +9678,6 @@ impl Resource {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
-    /// to hold a `AwsMetadata`.
-    ///
-    /// Note that all the setters affecting `cloud_provider_metadata` are
-    /// mutually exclusive.
-    pub fn set_aws_metadata<T: std::convert::Into<std::boxed::Box<crate::model::AwsMetadata>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_provider_metadata = std::option::Option::Some(
-            crate::model::resource::CloudProviderMetadata::AwsMetadata(v.into()),
-        );
-        self
     }
 
     /// The value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
@@ -9813,23 +9693,6 @@ impl Resource {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
-    /// to hold a `AzureMetadata`.
-    ///
-    /// Note that all the setters affecting `cloud_provider_metadata` are
-    /// mutually exclusive.
-    pub fn set_azure_metadata<
-        T: std::convert::Into<std::boxed::Box<crate::model::AzureMetadata>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cloud_provider_metadata = std::option::Option::Some(
-            crate::model::resource::CloudProviderMetadata::AzureMetadata(v.into()),
-        );
-        self
     }
 }
 
@@ -13348,25 +13211,6 @@ pub mod list_findings_response {
                 })
             }
 
-            /// Sets the value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
-            /// to hold a `GcpMetadata`.
-            ///
-            /// Note that all the setters affecting `cloud_provider_metadata` are
-            /// mutually exclusive.
-            pub fn set_gcp_metadata<
-                T: std::convert::Into<std::boxed::Box<crate::model::GcpMetadata>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.cloud_provider_metadata = std::option::Option::Some(
-                    crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata::GcpMetadata(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
             /// if it holds a `AwsMetadata`, `None` if the field is not set or
             /// holds a different branch.
@@ -13380,25 +13224,6 @@ pub mod list_findings_response {
                 })
             }
 
-            /// Sets the value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
-            /// to hold a `AwsMetadata`.
-            ///
-            /// Note that all the setters affecting `cloud_provider_metadata` are
-            /// mutually exclusive.
-            pub fn set_aws_metadata<
-                T: std::convert::Into<std::boxed::Box<crate::model::AwsMetadata>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.cloud_provider_metadata = std::option::Option::Some(
-                    crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata::AwsMetadata(
-                        v.into()
-                    )
-                );
-                self
-            }
-
             /// The value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
             /// if it holds a `AzureMetadata`, `None` if the field is not set or
             /// holds a different branch.
@@ -13410,25 +13235,6 @@ pub mod list_findings_response {
                     crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata::AzureMetadata(v) => std::option::Option::Some(v),
                     _ => std::option::Option::None,
                 })
-            }
-
-            /// Sets the value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
-            /// to hold a `AzureMetadata`.
-            ///
-            /// Note that all the setters affecting `cloud_provider_metadata` are
-            /// mutually exclusive.
-            pub fn set_azure_metadata<
-                T: std::convert::Into<std::boxed::Box<crate::model::AzureMetadata>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.cloud_provider_metadata = std::option::Option::Some(
-                    crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata::AzureMetadata(
-                        v.into()
-                    )
-                );
-                self
             }
         }
 

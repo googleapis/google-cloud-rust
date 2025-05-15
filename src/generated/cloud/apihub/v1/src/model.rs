@@ -2439,20 +2439,6 @@ impl ApiHubResource {
         })
     }
 
-    /// Sets the value of [resource][crate::model::ApiHubResource::resource]
-    /// to hold a `Api`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_api<T: std::convert::Into<std::boxed::Box<crate::model::Api>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource =
-            std::option::Option::Some(crate::model::api_hub_resource::Resource::Api(v.into()));
-        self
-    }
-
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Operation`, `None` if the field is not set or
     /// holds a different branch.
@@ -2462,21 +2448,6 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Operation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource][crate::model::ApiHubResource::resource]
-    /// to hold a `Operation`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_operation<T: std::convert::Into<std::boxed::Box<crate::model::ApiOperation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(
-            crate::model::api_hub_resource::Resource::Operation(v.into()),
-        );
-        self
     }
 
     /// The value of [resource][crate::model::ApiHubResource::resource]
@@ -2490,21 +2461,6 @@ impl ApiHubResource {
         })
     }
 
-    /// Sets the value of [resource][crate::model::ApiHubResource::resource]
-    /// to hold a `Deployment`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_deployment<T: std::convert::Into<std::boxed::Box<crate::model::Deployment>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(
-            crate::model::api_hub_resource::Resource::Deployment(v.into()),
-        );
-        self
-    }
-
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Spec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2514,20 +2470,6 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Spec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource][crate::model::ApiHubResource::resource]
-    /// to hold a `Spec`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_spec<T: std::convert::Into<std::boxed::Box<crate::model::Spec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource =
-            std::option::Option::Some(crate::model::api_hub_resource::Resource::Spec(v.into()));
-        self
     }
 
     /// The value of [resource][crate::model::ApiHubResource::resource]
@@ -2541,21 +2483,6 @@ impl ApiHubResource {
         })
     }
 
-    /// Sets the value of [resource][crate::model::ApiHubResource::resource]
-    /// to hold a `Definition`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_definition<T: std::convert::Into<std::boxed::Box<crate::model::Definition>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource = std::option::Option::Some(
-            crate::model::api_hub_resource::Resource::Definition(v.into()),
-        );
-        self
-    }
-
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Version`, `None` if the field is not set or
     /// holds a different branch.
@@ -2565,20 +2492,6 @@ impl ApiHubResource {
             crate::model::api_hub_resource::Resource::Version(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [resource][crate::model::ApiHubResource::resource]
-    /// to hold a `Version`.
-    ///
-    /// Note that all the setters affecting `resource` are
-    /// mutually exclusive.
-    pub fn set_version<T: std::convert::Into<std::boxed::Box<crate::model::Version>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.resource =
-            std::option::Option::Some(crate::model::api_hub_resource::Resource::Version(v.into()));
-        self
     }
 }
 
@@ -4781,19 +4694,6 @@ impl Definition {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [value][crate::model::Definition::value]
-    /// to hold a `Schema`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::Schema>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = std::option::Option::Some(crate::model::definition::Value::Schema(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Definition {
@@ -5744,23 +5644,6 @@ impl SpecDetails {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [details][crate::model::SpecDetails::details]
-    /// to hold a `OpenApiSpecDetails`.
-    ///
-    /// Note that all the setters affecting `details` are
-    /// mutually exclusive.
-    pub fn set_open_api_spec_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::OpenApiSpecDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.details = std::option::Option::Some(
-            crate::model::spec_details::Details::OpenApiSpecDetails(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for SpecDetails {
@@ -6082,23 +5965,6 @@ impl OperationDetails {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [operation][crate::model::OperationDetails::operation]
-    /// to hold a `HttpOperation`.
-    ///
-    /// Note that all the setters affecting `operation` are
-    /// mutually exclusive.
-    pub fn set_http_operation<
-        T: std::convert::Into<std::boxed::Box<crate::model::HttpOperation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::operation_details::Operation::HttpOperation(v.into()),
-        );
-        self
     }
 }
 
@@ -6573,22 +6439,6 @@ impl AttributeValues {
         })
     }
 
-    /// Sets the value of [value][crate::model::AttributeValues::value]
-    /// to hold a `EnumValues`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_enum_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::attribute_values::EnumAttributeValues>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_values::Value::EnumValues(v.into()));
-        self
-    }
-
     /// The value of [value][crate::model::AttributeValues::value]
     /// if it holds a `StringValues`, `None` if the field is not set or
     /// holds a different branch.
@@ -6603,23 +6453,6 @@ impl AttributeValues {
         })
     }
 
-    /// Sets the value of [value][crate::model::AttributeValues::value]
-    /// to hold a `StringValues`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_string_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value = std::option::Option::Some(
-            crate::model::attribute_values::Value::StringValues(v.into()),
-        );
-        self
-    }
-
     /// The value of [value][crate::model::AttributeValues::value]
     /// if it holds a `JsonValues`, `None` if the field is not set or
     /// holds a different branch.
@@ -6632,22 +6465,6 @@ impl AttributeValues {
             crate::model::attribute_values::Value::JsonValues(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [value][crate::model::AttributeValues::value]
-    /// to hold a `JsonValues`.
-    ///
-    /// Note that all the setters affecting `value` are
-    /// mutually exclusive.
-    pub fn set_json_values<
-        T: std::convert::Into<std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.value =
-            std::option::Option::Some(crate::model::attribute_values::Value::JsonValues(v.into()));
-        self
     }
 }
 
@@ -7243,21 +7060,6 @@ impl DependencyEntityReference {
         })
     }
 
-    /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier]
-    /// to hold a `OperationResourceName`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_operation_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::dependency_entity_reference::Identifier::OperationResourceName(v.into()),
-        );
-        self
-    }
-
     /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
     /// if it holds a `ExternalApiResourceName`, `None` if the field is not set or
     /// holds a different branch.
@@ -7269,23 +7071,6 @@ impl DependencyEntityReference {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier]
-    /// to hold a `ExternalApiResourceName`.
-    ///
-    /// Note that all the setters affecting `identifier` are
-    /// mutually exclusive.
-    pub fn set_external_api_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.identifier = std::option::Option::Some(
-            crate::model::dependency_entity_reference::Identifier::ExternalApiResourceName(
-                v.into(),
-            ),
-        );
-        self
     }
 }
 

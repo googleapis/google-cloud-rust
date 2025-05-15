@@ -405,18 +405,6 @@ impl UniversalActionExtensionPoint {
         })
     }
 
-    /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
-    /// to hold a `OpenLink`.
-    ///
-    /// Note that all the setters affecting `action_type` are
-    /// mutually exclusive.
-    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action_type = std::option::Option::Some(
-            crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
-        );
-        self
-    }
-
     /// The value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
     /// if it holds a `RunFunction`, `None` if the field is not set or
     /// holds a different branch.
@@ -428,18 +416,6 @@ impl UniversalActionExtensionPoint {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
-    /// to hold a `RunFunction`.
-    ///
-    /// Note that all the setters affecting `action_type` are
-    /// mutually exclusive.
-    pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action_type = std::option::Option::Some(
-            crate::model::universal_action_extension_point::ActionType::RunFunction(v.into()),
-        );
-        self
     }
 }
 

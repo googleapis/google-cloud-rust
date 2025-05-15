@@ -420,19 +420,6 @@ impl PolicyRule {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [kind][crate::model::PolicyRule::kind]
-    /// to hold a `DenyRule`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_deny_rule<T: std::convert::Into<std::boxed::Box<crate::model::DenyRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::DenyRule(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for PolicyRule {

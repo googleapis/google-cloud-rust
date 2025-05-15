@@ -108,23 +108,6 @@ impl BigQueryConnectionSpec {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [connection_spec][crate::model::BigQueryConnectionSpec::connection_spec]
-    /// to hold a `CloudSql`.
-    ///
-    /// Note that all the setters affecting `connection_spec` are
-    /// mutually exclusive.
-    pub fn set_cloud_sql<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlBigQueryConnectionSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connection_spec = std::option::Option::Some(
-            crate::model::big_query_connection_spec::ConnectionSpec::CloudSql(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for BigQueryConnectionSpec {
@@ -629,23 +612,6 @@ impl DataSource {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [properties][crate::model::DataSource::properties]
-    /// to hold a `StorageProperties`.
-    ///
-    /// Note that all the setters affecting `properties` are
-    /// mutually exclusive.
-    pub fn set_storage_properties<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = std::option::Option::Some(
-            crate::model::data_source::Properties::StorageProperties(v.into()),
-        );
-        self
     }
 }
 
@@ -1863,18 +1829,6 @@ impl LookupEntryRequest {
         })
     }
 
-    /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name]
-    /// to hold a `LinkedResource`.
-    ///
-    /// Note that all the setters affecting `target_name` are
-    /// mutually exclusive.
-    pub fn set_linked_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target_name = std::option::Option::Some(
-            crate::model::lookup_entry_request::TargetName::LinkedResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [target_name][crate::model::LookupEntryRequest::target_name]
     /// if it holds a `SqlResource`, `None` if the field is not set or
     /// holds a different branch.
@@ -1888,18 +1842,6 @@ impl LookupEntryRequest {
         })
     }
 
-    /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name]
-    /// to hold a `SqlResource`.
-    ///
-    /// Note that all the setters affecting `target_name` are
-    /// mutually exclusive.
-    pub fn set_sql_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.target_name = std::option::Option::Some(
-            crate::model::lookup_entry_request::TargetName::SqlResource(v.into()),
-        );
-        self
-    }
-
     /// The value of [target_name][crate::model::LookupEntryRequest::target_name]
     /// if it holds a `FullyQualifiedName`, `None` if the field is not set or
     /// holds a different branch.
@@ -1911,21 +1853,6 @@ impl LookupEntryRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name]
-    /// to hold a `FullyQualifiedName`.
-    ///
-    /// Note that all the setters affecting `target_name` are
-    /// mutually exclusive.
-    pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_name = std::option::Option::Some(
-            crate::model::lookup_entry_request::TargetName::FullyQualifiedName(v.into()),
-        );
-        self
     }
 }
 
@@ -2269,16 +2196,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [entry_type][crate::model::Entry::entry_type]
-    /// to hold a `Type`.
-    ///
-    /// Note that all the setters affecting `entry_type` are
-    /// mutually exclusive.
-    pub fn set_type<T: std::convert::Into<crate::model::EntryType>>(mut self, v: T) -> Self {
-        self.entry_type = std::option::Option::Some(crate::model::entry::EntryType::Type(v.into()));
-        self
-    }
-
     /// The value of [entry_type][crate::model::Entry::entry_type]
     /// if it holds a `UserSpecifiedType`, `None` if the field is not set or
     /// holds a different branch.
@@ -2288,20 +2205,6 @@ impl Entry {
             crate::model::entry::EntryType::UserSpecifiedType(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [entry_type][crate::model::Entry::entry_type]
-    /// to hold a `UserSpecifiedType`.
-    ///
-    /// Note that all the setters affecting `entry_type` are
-    /// mutually exclusive.
-    pub fn set_user_specified_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entry_type =
-            std::option::Option::Some(crate::model::entry::EntryType::UserSpecifiedType(v.into()));
-        self
     }
 
     /// Sets the value of [system][crate::model::Entry::system].
@@ -2327,20 +2230,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [system][crate::model::Entry::system]
-    /// to hold a `IntegratedSystem`.
-    ///
-    /// Note that all the setters affecting `system` are
-    /// mutually exclusive.
-    pub fn set_integrated_system<T: std::convert::Into<crate::model::IntegratedSystem>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system =
-            std::option::Option::Some(crate::model::entry::System::IntegratedSystem(v.into()));
-        self
-    }
-
     /// The value of [system][crate::model::Entry::system]
     /// if it holds a `UserSpecifiedSystem`, `None` if the field is not set or
     /// holds a different branch.
@@ -2350,20 +2239,6 @@ impl Entry {
             crate::model::entry::System::UserSpecifiedSystem(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system][crate::model::Entry::system]
-    /// to hold a `UserSpecifiedSystem`.
-    ///
-    /// Note that all the setters affecting `system` are
-    /// mutually exclusive.
-    pub fn set_user_specified_system<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system =
-            std::option::Option::Some(crate::model::entry::System::UserSpecifiedSystem(v.into()));
-        self
     }
 
     /// Sets the value of [system_spec][crate::model::Entry::system_spec].
@@ -2395,23 +2270,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [system_spec][crate::model::Entry::system_spec]
-    /// to hold a `SqlDatabaseSystemSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_sql_database_system_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlDatabaseSystemSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::entry::SystemSpec::SqlDatabaseSystemSpec(v.into()),
-        );
-        self
-    }
-
     /// The value of [system_spec][crate::model::Entry::system_spec]
     /// if it holds a `LookerSystemSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2423,22 +2281,6 @@ impl Entry {
             crate::model::entry::SystemSpec::LookerSystemSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system_spec][crate::model::Entry::system_spec]
-    /// to hold a `LookerSystemSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_looker_system_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::LookerSystemSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec =
-            std::option::Option::Some(crate::model::entry::SystemSpec::LookerSystemSpec(v.into()));
-        self
     }
 
     /// The value of [system_spec][crate::model::Entry::system_spec]
@@ -2454,23 +2296,6 @@ impl Entry {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system_spec][crate::model::Entry::system_spec]
-    /// to hold a `CloudBigtableSystemSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_cloud_bigtable_system_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudBigtableSystemSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::entry::SystemSpec::CloudBigtableSystemSpec(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [type_spec][crate::model::Entry::type_spec].
@@ -2500,22 +2325,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [type_spec][crate::model::Entry::type_spec]
-    /// to hold a `GcsFilesetSpec`.
-    ///
-    /// Note that all the setters affecting `type_spec` are
-    /// mutually exclusive.
-    pub fn set_gcs_fileset_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsFilesetSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_spec =
-            std::option::Option::Some(crate::model::entry::TypeSpec::GcsFilesetSpec(v.into()));
-        self
-    }
-
     /// The value of [type_spec][crate::model::Entry::type_spec]
     /// if it holds a `BigqueryTableSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2527,22 +2336,6 @@ impl Entry {
             crate::model::entry::TypeSpec::BigqueryTableSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_spec][crate::model::Entry::type_spec]
-    /// to hold a `BigqueryTableSpec`.
-    ///
-    /// Note that all the setters affecting `type_spec` are
-    /// mutually exclusive.
-    pub fn set_bigquery_table_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryTableSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_spec =
-            std::option::Option::Some(crate::model::entry::TypeSpec::BigqueryTableSpec(v.into()));
-        self
     }
 
     /// The value of [type_spec][crate::model::Entry::type_spec]
@@ -2558,23 +2351,6 @@ impl Entry {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_spec][crate::model::Entry::type_spec]
-    /// to hold a `BigqueryDateShardedSpec`.
-    ///
-    /// Note that all the setters affecting `type_spec` are
-    /// mutually exclusive.
-    pub fn set_bigquery_date_sharded_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDateShardedSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_spec = std::option::Option::Some(
-            crate::model::entry::TypeSpec::BigqueryDateShardedSpec(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [spec][crate::model::Entry::spec].
@@ -2602,22 +2378,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `DatabaseTableSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_database_table_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::DatabaseTableSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec =
-            std::option::Option::Some(crate::model::entry::Spec::DatabaseTableSpec(v.into()));
-        self
-    }
-
     /// The value of [spec][crate::model::Entry::spec]
     /// if it holds a `DataSourceConnectionSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2631,23 +2391,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `DataSourceConnectionSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_data_source_connection_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::DataSourceConnectionSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = std::option::Option::Some(crate::model::entry::Spec::DataSourceConnectionSpec(
-            v.into(),
-        ));
-        self
-    }
-
     /// The value of [spec][crate::model::Entry::spec]
     /// if it holds a `RoutineSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2657,19 +2400,6 @@ impl Entry {
             crate::model::entry::Spec::RoutineSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `RoutineSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_routine_spec<T: std::convert::Into<std::boxed::Box<crate::model::RoutineSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = std::option::Option::Some(crate::model::entry::Spec::RoutineSpec(v.into()));
-        self
     }
 
     /// The value of [spec][crate::model::Entry::spec]
@@ -2683,19 +2413,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `DatasetSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_dataset_spec<T: std::convert::Into<std::boxed::Box<crate::model::DatasetSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = std::option::Option::Some(crate::model::entry::Spec::DatasetSpec(v.into()));
-        self
-    }
-
     /// The value of [spec][crate::model::Entry::spec]
     /// if it holds a `FilesetSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2705,19 +2422,6 @@ impl Entry {
             crate::model::entry::Spec::FilesetSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `FilesetSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_fileset_spec<T: std::convert::Into<std::boxed::Box<crate::model::FilesetSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = std::option::Option::Some(crate::model::entry::Spec::FilesetSpec(v.into()));
-        self
     }
 
     /// The value of [spec][crate::model::Entry::spec]
@@ -2731,19 +2435,6 @@ impl Entry {
         })
     }
 
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `ServiceSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_service_spec<T: std::convert::Into<std::boxed::Box<crate::model::ServiceSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = std::option::Option::Some(crate::model::entry::Spec::ServiceSpec(v.into()));
-        self
-    }
-
     /// The value of [spec][crate::model::Entry::spec]
     /// if it holds a `ModelSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -2753,19 +2444,6 @@ impl Entry {
             crate::model::entry::Spec::ModelSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `ModelSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_model_spec<T: std::convert::Into<std::boxed::Box<crate::model::ModelSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = std::option::Option::Some(crate::model::entry::Spec::ModelSpec(v.into()));
-        self
     }
 
     /// The value of [spec][crate::model::Entry::spec]
@@ -2779,22 +2457,6 @@ impl Entry {
             crate::model::entry::Spec::FeatureOnlineStoreSpec(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [spec][crate::model::Entry::spec]
-    /// to hold a `FeatureOnlineStoreSpec`.
-    ///
-    /// Note that all the setters affecting `spec` are
-    /// mutually exclusive.
-    pub fn set_feature_online_store_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::FeatureOnlineStoreSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec =
-            std::option::Option::Some(crate::model::entry::Spec::FeatureOnlineStoreSpec(v.into()));
-        self
     }
 }
 
@@ -3069,20 +2731,6 @@ pub mod database_table_spec {
             })
         }
 
-        /// Sets the value of [source_definition][crate::model::database_table_spec::DatabaseViewSpec::source_definition]
-        /// to hold a `BaseTable`.
-        ///
-        /// Note that all the setters affecting `source_definition` are
-        /// mutually exclusive.
-        pub fn set_base_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source_definition = std::option::Option::Some(
-                crate::model::database_table_spec::database_view_spec::SourceDefinition::BaseTable(
-                    v.into(),
-                ),
-            );
-            self
-        }
-
         /// The value of [source_definition][crate::model::database_table_spec::DatabaseViewSpec::source_definition]
         /// if it holds a `SqlQuery`, `None` if the field is not set or
         /// holds a different branch.
@@ -3092,20 +2740,6 @@ pub mod database_table_spec {
                 crate::model::database_table_spec::database_view_spec::SourceDefinition::SqlQuery(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [source_definition][crate::model::database_table_spec::DatabaseViewSpec::source_definition]
-        /// to hold a `SqlQuery`.
-        ///
-        /// Note that all the setters affecting `source_definition` are
-        /// mutually exclusive.
-        pub fn set_sql_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.source_definition = std::option::Option::Some(
-                crate::model::database_table_spec::database_view_spec::SourceDefinition::SqlQuery(
-                    v.into(),
-                ),
-            );
-            self
         }
     }
 
@@ -3590,23 +3224,6 @@ impl RoutineSpec {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [system_spec][crate::model::RoutineSpec::system_spec]
-    /// to hold a `BigqueryRoutineSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_bigquery_routine_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::BigQueryRoutineSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::routine_spec::SystemSpec::BigqueryRoutineSpec(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for RoutineSpec {
@@ -4016,23 +3633,6 @@ impl DatasetSpec {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [system_spec][crate::model::DatasetSpec::system_spec]
-    /// to hold a `VertexDatasetSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_vertex_dataset_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::dataset_spec::SystemSpec::VertexDatasetSpec(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for DatasetSpec {
@@ -4426,23 +4026,6 @@ impl ServiceSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system_spec][crate::model::ServiceSpec::system_spec]
-    /// to hold a `CloudBigtableInstanceSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_cloud_bigtable_instance_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudBigtableInstanceSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::service_spec::SystemSpec::CloudBigtableInstanceSpec(v.into()),
-        );
-        self
     }
 }
 
@@ -5089,23 +4672,6 @@ impl ModelSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system_spec][crate::model::ModelSpec::system_spec]
-    /// to hold a `VertexModelSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_vertex_model_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::VertexModelSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::model_spec::SystemSpec::VertexModelSpec(v.into()),
-        );
-        self
     }
 }
 
@@ -7026,18 +6592,6 @@ impl ImportEntriesRequest {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [source][crate::model::ImportEntriesRequest::source]
-    /// to hold a `GcsBucketPath`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_gcs_bucket_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_entries_request::Source::GcsBucketPath(v.into()),
-        );
-        self
-    }
 }
 
 impl wkt::message::Message for ImportEntriesRequest {
@@ -7486,21 +7040,6 @@ impl SetConfigRequest {
         })
     }
 
-    /// Sets the value of [configuration][crate::model::SetConfigRequest::configuration]
-    /// to hold a `TagTemplateMigration`.
-    ///
-    /// Note that all the setters affecting `configuration` are
-    /// mutually exclusive.
-    pub fn set_tag_template_migration<T: std::convert::Into<crate::model::TagTemplateMigration>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.configuration = std::option::Option::Some(
-            crate::model::set_config_request::Configuration::TagTemplateMigration(v.into()),
-        );
-        self
-    }
-
     /// The value of [configuration][crate::model::SetConfigRequest::configuration]
     /// if it holds a `CatalogUiExperience`, `None` if the field is not set or
     /// holds a different branch.
@@ -7512,21 +7051,6 @@ impl SetConfigRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [configuration][crate::model::SetConfigRequest::configuration]
-    /// to hold a `CatalogUiExperience`.
-    ///
-    /// Note that all the setters affecting `configuration` are
-    /// mutually exclusive.
-    pub fn set_catalog_ui_experience<T: std::convert::Into<crate::model::CatalogUIExperience>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.configuration = std::option::Option::Some(
-            crate::model::set_config_request::Configuration::CatalogUiExperience(v.into()),
-        );
-        self
     }
 }
 
@@ -8069,20 +7593,6 @@ impl TaggedEntry {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [entry][crate::model::TaggedEntry::entry]
-    /// to hold a `V1Entry`.
-    ///
-    /// Note that all the setters affecting `entry` are
-    /// mutually exclusive.
-    pub fn set_v1_entry<T: std::convert::Into<std::boxed::Box<crate::model::Entry>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entry =
-            std::option::Option::Some(crate::model::tagged_entry::Entry::V1Entry(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for TaggedEntry {
@@ -8146,19 +7656,6 @@ impl DumpItem {
             crate::model::dump_item::Item::TaggedEntry(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [item][crate::model::DumpItem::item]
-    /// to hold a `TaggedEntry`.
-    ///
-    /// Note that all the setters affecting `item` are
-    /// mutually exclusive.
-    pub fn set_tagged_entry<T: std::convert::Into<std::boxed::Box<crate::model::TaggedEntry>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.item = std::option::Option::Some(crate::model::dump_item::Item::TaggedEntry(v.into()));
-        self
     }
 }
 
@@ -8369,22 +7866,6 @@ impl PhysicalSchema {
         })
     }
 
-    /// Sets the value of [schema][crate::model::PhysicalSchema::schema]
-    /// to hold a `Avro`.
-    ///
-    /// Note that all the setters affecting `schema` are
-    /// mutually exclusive.
-    pub fn set_avro<
-        T: std::convert::Into<std::boxed::Box<crate::model::physical_schema::AvroSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::physical_schema::Schema::Avro(v.into()));
-        self
-    }
-
     /// The value of [schema][crate::model::PhysicalSchema::schema]
     /// if it holds a `Thrift`, `None` if the field is not set or
     /// holds a different branch.
@@ -8396,22 +7877,6 @@ impl PhysicalSchema {
             crate::model::physical_schema::Schema::Thrift(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schema][crate::model::PhysicalSchema::schema]
-    /// to hold a `Thrift`.
-    ///
-    /// Note that all the setters affecting `schema` are
-    /// mutually exclusive.
-    pub fn set_thrift<
-        T: std::convert::Into<std::boxed::Box<crate::model::physical_schema::ThriftSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::physical_schema::Schema::Thrift(v.into()));
-        self
     }
 
     /// The value of [schema][crate::model::PhysicalSchema::schema]
@@ -8427,22 +7892,6 @@ impl PhysicalSchema {
         })
     }
 
-    /// Sets the value of [schema][crate::model::PhysicalSchema::schema]
-    /// to hold a `Protobuf`.
-    ///
-    /// Note that all the setters affecting `schema` are
-    /// mutually exclusive.
-    pub fn set_protobuf<
-        T: std::convert::Into<std::boxed::Box<crate::model::physical_schema::ProtobufSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::physical_schema::Schema::Protobuf(v.into()));
-        self
-    }
-
     /// The value of [schema][crate::model::PhysicalSchema::schema]
     /// if it holds a `Parquet`, `None` if the field is not set or
     /// holds a different branch.
@@ -8454,22 +7903,6 @@ impl PhysicalSchema {
             crate::model::physical_schema::Schema::Parquet(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schema][crate::model::PhysicalSchema::schema]
-    /// to hold a `Parquet`.
-    ///
-    /// Note that all the setters affecting `schema` are
-    /// mutually exclusive.
-    pub fn set_parquet<
-        T: std::convert::Into<std::boxed::Box<crate::model::physical_schema::ParquetSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::physical_schema::Schema::Parquet(v.into()));
-        self
     }
 
     /// The value of [schema][crate::model::PhysicalSchema::schema]
@@ -8485,22 +7918,6 @@ impl PhysicalSchema {
         })
     }
 
-    /// Sets the value of [schema][crate::model::PhysicalSchema::schema]
-    /// to hold a `Orc`.
-    ///
-    /// Note that all the setters affecting `schema` are
-    /// mutually exclusive.
-    pub fn set_orc<
-        T: std::convert::Into<std::boxed::Box<crate::model::physical_schema::OrcSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::physical_schema::Schema::Orc(v.into()));
-        self
-    }
-
     /// The value of [schema][crate::model::PhysicalSchema::schema]
     /// if it holds a `Csv`, `None` if the field is not set or
     /// holds a different branch.
@@ -8512,22 +7929,6 @@ impl PhysicalSchema {
             crate::model::physical_schema::Schema::Csv(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [schema][crate::model::PhysicalSchema::schema]
-    /// to hold a `Csv`.
-    ///
-    /// Note that all the setters affecting `schema` are
-    /// mutually exclusive.
-    pub fn set_csv<
-        T: std::convert::Into<std::boxed::Box<crate::model::physical_schema::CsvSchema>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.schema =
-            std::option::Option::Some(crate::model::physical_schema::Schema::Csv(v.into()));
-        self
     }
 }
 
@@ -10027,21 +9428,6 @@ impl ImportTaxonomiesRequest {
         })
     }
 
-    /// Sets the value of [source][crate::model::ImportTaxonomiesRequest::source]
-    /// to hold a `InlineSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_inline_source<T: std::convert::Into<std::boxed::Box<crate::model::InlineSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_taxonomies_request::Source::InlineSource(v.into()),
-        );
-        self
-    }
-
     /// The value of [source][crate::model::ImportTaxonomiesRequest::source]
     /// if it holds a `CrossRegionalSource`, `None` if the field is not set or
     /// holds a different branch.
@@ -10055,23 +9441,6 @@ impl ImportTaxonomiesRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [source][crate::model::ImportTaxonomiesRequest::source]
-    /// to hold a `CrossRegionalSource`.
-    ///
-    /// Note that all the setters affecting `source` are
-    /// mutually exclusive.
-    pub fn set_cross_regional_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::CrossRegionalSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(
-            crate::model::import_taxonomies_request::Source::CrossRegionalSource(v.into()),
-        );
-        self
     }
 }
 
@@ -10284,18 +9653,6 @@ impl ExportTaxonomiesRequest {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [destination][crate::model::ExportTaxonomiesRequest::destination]
-    /// to hold a `SerializedTaxonomies`.
-    ///
-    /// Note that all the setters affecting `destination` are
-    /// mutually exclusive.
-    pub fn set_serialized_taxonomies<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.destination = std::option::Option::Some(
-            crate::model::export_taxonomies_request::Destination::SerializedTaxonomies(v.into()),
-        );
-        self
     }
 }
 
@@ -10584,23 +9941,6 @@ impl ColumnSchema {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system_spec][crate::model::ColumnSchema::system_spec]
-    /// to hold a `LookerColumnSpec`.
-    ///
-    /// Note that all the setters affecting `system_spec` are
-    /// mutually exclusive.
-    pub fn set_looker_column_spec<
-        T: std::convert::Into<std::boxed::Box<crate::model::column_schema::LookerColumnSpec>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system_spec = std::option::Option::Some(
-            crate::model::column_schema::SystemSpec::LookerColumnSpec(v.into()),
-        );
-        self
     }
 }
 
@@ -11188,21 +10528,6 @@ impl SearchCatalogResult {
         })
     }
 
-    /// Sets the value of [system][crate::model::SearchCatalogResult::system]
-    /// to hold a `IntegratedSystem`.
-    ///
-    /// Note that all the setters affecting `system` are
-    /// mutually exclusive.
-    pub fn set_integrated_system<T: std::convert::Into<crate::model::IntegratedSystem>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system = std::option::Option::Some(
-            crate::model::search_catalog_result::System::IntegratedSystem(v.into()),
-        );
-        self
-    }
-
     /// The value of [system][crate::model::SearchCatalogResult::system]
     /// if it holds a `UserSpecifiedSystem`, `None` if the field is not set or
     /// holds a different branch.
@@ -11214,21 +10539,6 @@ impl SearchCatalogResult {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [system][crate::model::SearchCatalogResult::system]
-    /// to hold a `UserSpecifiedSystem`.
-    ///
-    /// Note that all the setters affecting `system` are
-    /// mutually exclusive.
-    pub fn set_user_specified_system<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.system = std::option::Option::Some(
-            crate::model::search_catalog_result::System::UserSpecifiedSystem(v.into()),
-        );
-        self
     }
 }
 
@@ -11316,21 +10626,6 @@ impl BigQueryTableSpec {
         })
     }
 
-    /// Sets the value of [type_spec][crate::model::BigQueryTableSpec::type_spec]
-    /// to hold a `ViewSpec`.
-    ///
-    /// Note that all the setters affecting `type_spec` are
-    /// mutually exclusive.
-    pub fn set_view_spec<T: std::convert::Into<std::boxed::Box<crate::model::ViewSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_spec = std::option::Option::Some(
-            crate::model::big_query_table_spec::TypeSpec::ViewSpec(v.into()),
-        );
-        self
-    }
-
     /// The value of [type_spec][crate::model::BigQueryTableSpec::type_spec]
     /// if it holds a `TableSpec`, `None` if the field is not set or
     /// holds a different branch.
@@ -11342,21 +10637,6 @@ impl BigQueryTableSpec {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_spec][crate::model::BigQueryTableSpec::type_spec]
-    /// to hold a `TableSpec`.
-    ///
-    /// Note that all the setters affecting `type_spec` are
-    /// mutually exclusive.
-    pub fn set_table_spec<T: std::convert::Into<std::boxed::Box<crate::model::TableSpec>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_spec = std::option::Option::Some(
-            crate::model::big_query_table_spec::TypeSpec::TableSpec(v.into()),
-        );
-        self
     }
 }
 
@@ -11660,16 +10940,6 @@ impl Tag {
             _ => std::option::Option::None,
         })
     }
-
-    /// Sets the value of [scope][crate::model::Tag::scope]
-    /// to hold a `Column`.
-    ///
-    /// Note that all the setters affecting `scope` are
-    /// mutually exclusive.
-    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.scope = std::option::Option::Some(crate::model::tag::Scope::Column(v.into()));
-        self
-    }
 }
 
 impl wkt::message::Message for Tag {
@@ -11777,16 +11047,6 @@ impl TagField {
         })
     }
 
-    /// Sets the value of [kind][crate::model::TagField::kind]
-    /// to hold a `DoubleValue`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::tag_field::Kind::DoubleValue(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::TagField::kind]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -11796,16 +11056,6 @@ impl TagField {
             crate::model::tag_field::Kind::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::TagField::kind]
-    /// to hold a `StringValue`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::tag_field::Kind::StringValue(v.into()));
-        self
     }
 
     /// The value of [kind][crate::model::TagField::kind]
@@ -11819,16 +11069,6 @@ impl TagField {
         })
     }
 
-    /// Sets the value of [kind][crate::model::TagField::kind]
-    /// to hold a `BoolValue`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::tag_field::Kind::BoolValue(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::TagField::kind]
     /// if it holds a `TimestampValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -11838,20 +11078,6 @@ impl TagField {
             crate::model::tag_field::Kind::TimestampValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::TagField::kind]
-    /// to hold a `TimestampValue`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::tag_field::Kind::TimestampValue(v.into()));
-        self
     }
 
     /// The value of [kind][crate::model::TagField::kind]
@@ -11867,21 +11093,6 @@ impl TagField {
         })
     }
 
-    /// Sets the value of [kind][crate::model::TagField::kind]
-    /// to hold a `EnumValue`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_enum_value<
-        T: std::convert::Into<std::boxed::Box<crate::model::tag_field::EnumValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::tag_field::Kind::EnumValue(v.into()));
-        self
-    }
-
     /// The value of [kind][crate::model::TagField::kind]
     /// if it holds a `RichtextValue`, `None` if the field is not set or
     /// holds a different branch.
@@ -11891,17 +11102,6 @@ impl TagField {
             crate::model::tag_field::Kind::RichtextValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [kind][crate::model::TagField::kind]
-    /// to hold a `RichtextValue`.
-    ///
-    /// Note that all the setters affecting `kind` are
-    /// mutually exclusive.
-    pub fn set_richtext_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.kind =
-            std::option::Option::Some(crate::model::tag_field::Kind::RichtextValue(v.into()));
-        self
     }
 }
 
@@ -12388,20 +11588,6 @@ impl FieldType {
         })
     }
 
-    /// Sets the value of [type_decl][crate::model::FieldType::type_decl]
-    /// to hold a `PrimitiveType`.
-    ///
-    /// Note that all the setters affecting `type_decl` are
-    /// mutually exclusive.
-    pub fn set_primitive_type<T: std::convert::Into<crate::model::field_type::PrimitiveType>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_decl =
-            std::option::Option::Some(crate::model::field_type::TypeDecl::PrimitiveType(v.into()));
-        self
-    }
-
     /// The value of [type_decl][crate::model::FieldType::type_decl]
     /// if it holds a `EnumType`, `None` if the field is not set or
     /// holds a different branch.
@@ -12413,22 +11599,6 @@ impl FieldType {
             crate::model::field_type::TypeDecl::EnumType(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [type_decl][crate::model::FieldType::type_decl]
-    /// to hold a `EnumType`.
-    ///
-    /// Note that all the setters affecting `type_decl` are
-    /// mutually exclusive.
-    pub fn set_enum_type<
-        T: std::convert::Into<std::boxed::Box<crate::model::field_type::EnumType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_decl =
-            std::option::Option::Some(crate::model::field_type::TypeDecl::EnumType(v.into()));
-        self
     }
 }
 

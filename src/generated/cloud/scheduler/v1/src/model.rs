@@ -741,19 +741,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [target][crate::model::Job::target]
-    /// to hold a `PubsubTarget`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_pubsub_target<T: std::convert::Into<std::boxed::Box<crate::model::PubsubTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(crate::model::job::Target::PubsubTarget(v.into()));
-        self
-    }
-
     /// The value of [target][crate::model::Job::target]
     /// if it holds a `AppEngineHttpTarget`, `None` if the field is not set or
     /// holds a different branch.
@@ -767,22 +754,6 @@ impl Job {
         })
     }
 
-    /// Sets the value of [target][crate::model::Job::target]
-    /// to hold a `AppEngineHttpTarget`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_app_engine_http_target<
-        T: std::convert::Into<std::boxed::Box<crate::model::AppEngineHttpTarget>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target =
-            std::option::Option::Some(crate::model::job::Target::AppEngineHttpTarget(v.into()));
-        self
-    }
-
     /// The value of [target][crate::model::Job::target]
     /// if it holds a `HttpTarget`, `None` if the field is not set or
     /// holds a different branch.
@@ -792,19 +763,6 @@ impl Job {
             crate::model::job::Target::HttpTarget(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [target][crate::model::Job::target]
-    /// to hold a `HttpTarget`.
-    ///
-    /// Note that all the setters affecting `target` are
-    /// mutually exclusive.
-    pub fn set_http_target<T: std::convert::Into<std::boxed::Box<crate::model::HttpTarget>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target = std::option::Option::Some(crate::model::job::Target::HttpTarget(v.into()));
-        self
     }
 }
 
@@ -1297,21 +1255,6 @@ impl HttpTarget {
         })
     }
 
-    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header]
-    /// to hold a `OauthToken`.
-    ///
-    /// Note that all the setters affecting `authorization_header` are
-    /// mutually exclusive.
-    pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_header = std::option::Option::Some(
-            crate::model::http_target::AuthorizationHeader::OauthToken(v.into()),
-        );
-        self
-    }
-
     /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
@@ -1323,21 +1266,6 @@ impl HttpTarget {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header]
-    /// to hold a `OidcToken`.
-    ///
-    /// Note that all the setters affecting `authorization_header` are
-    /// mutually exclusive.
-    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorization_header = std::option::Option::Some(
-            crate::model::http_target::AuthorizationHeader::OidcToken(v.into()),
-        );
-        self
     }
 }
 
