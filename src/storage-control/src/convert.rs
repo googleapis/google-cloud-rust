@@ -195,14 +195,6 @@ mod test {
     use super::*;
     use test_case::test_case;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    struct TestMessage {}
-    impl wkt::message::Message for TestMessage {
-        fn typename() -> &'static str {
-            "type.googleapis.com/my.custom.TestMessage"
-        }
-    }
-
     fn prost_folder() -> prost_types::Any {
         let folder = crate::google::storage::control::v2::Folder {
             name: "test-name".to_string(),
@@ -301,7 +293,7 @@ mod test {
     #[test]
     fn lro_to_prost_unknown_metadata() -> anyhow::Result<()> {
         let wkt = longrunning::model::Operation::new()
-            .set_metadata(wkt::Any::try_from(&TestMessage::default())?);
+            .set_metadata(wkt::Any::try_from(&wkt::Duration::default())?);
         let prost = wkt.to_proto();
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
@@ -310,7 +302,7 @@ mod test {
     #[test]
     fn lro_to_prost_unknown_response() -> anyhow::Result<()> {
         let wkt = longrunning::model::Operation::new()
-            .set_response(wkt::Any::try_from(&TestMessage::default())?);
+            .set_response(wkt::Any::try_from(&wkt::Duration::default())?);
         let prost = wkt.to_proto();
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
@@ -351,7 +343,7 @@ mod test {
 
     #[test]
     fn lro_any_to_prost_unknown_type() -> anyhow::Result<()> {
-        let wkt = wkt::Any::try_from(&TestMessage::default())?;
+        let wkt = wkt::Any::try_from(&wkt::Duration::default())?;
         let prost = lro_any_to_prost(wkt);
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
