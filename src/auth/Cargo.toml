@@ -42,20 +42,8 @@ bon.workspace         = true
 gax.workspace = true
 
 [dev-dependencies]
-axum.workspace        = true
-httptest.workspace    = true
-mockall.workspace     = true
-regex.workspace       = true
-rsa                   = { workspace = true, features = ["pem"] }
-scoped-env.workspace  = true
-serial_test.workspace = true
-tempfile.workspace    = true
-test-case.workspace   = true
-tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
-tokio-test.workspace  = true
-url.workspace         = true
-mutants.workspace     = true
 axum.workspace           = true
+httptest.workspace       = true
 mockall.workspace        = true
 regex.workspace          = true
 rsa                      = { workspace = true, features = ["pem"] }

@@ -635,7 +635,7 @@ mod test {
             .map(|s| s.to_string())
     }
 
-    pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
+    pub static RSA_PRIVATE_KEY: LazyLock<RsaPrivateKey> = LazyLock::new(|| {
         let p_str: &str = "141367881524527794394893355677826002829869068195396267579403819572502936761383874443619453704612633353803671595972343528718438130450055151198231345212263093247511629886734453413988207866331439612464122904648042654465604881130663408340669956544709445155137282157402427763452856646879397237752891502149781819597";
         let q_str: &str = "179395413952110013801471600075409598322058038890563483332288896635704255883613060744402506322679437982046475766067250097809676406576067239936945362857700460740092421061356861438909617220234758121022105150630083703531219941303688818533566528599328339894969707615478438750812672509434761181735933851075292740309";
         let e_str: &str = "65537";
@@ -645,11 +645,12 @@ mod test {
         let public_exponent =
             BigUint::parse_bytes(e_str.as_bytes(), 10).expect("Failed to parse public exponent");
 
-        // Create the RsaPrivateKey from pre-defined primes
-        let priv_key = RsaPrivateKey::from_primes(vec![p, q], public_exponent)
-            .expect("Failed to create RsaPrivateKey from primes");
+        RsaPrivateKey::from_primes(vec![p, q], public_exponent)
+            .expect("Failed to create RsaPrivateKey from primes")
+    });
 
-        priv_key
+    pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
+        RSA_PRIVATE_KEY
             .to_pkcs8_pem(LineEnding::LF)
             .expect("Failed to encode key to PKCS#8 PEM")
             .to_string()
