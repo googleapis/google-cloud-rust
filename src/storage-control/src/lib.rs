@@ -26,7 +26,6 @@
 
 pub use gax::Result;
 pub use gax::error::Error;
-use gaxi::prost::{ConvertError, FromProto, ToProto};
 #[allow(dead_code)]
 // TODO(#1813) - fix the broken link to `[here]`.
 #[allow(rustdoc::broken_intra_doc_links)]
@@ -80,41 +79,4 @@ pub(crate) mod google {
     }
 }
 
-impl ToProto<google::rpc::Status> for rpc::model::Status {
-    type Output = google::rpc::Status;
-    fn to_proto(self) -> std::result::Result<google::rpc::Status, ConvertError> {
-        Ok(google::rpc::Status {
-            code: self.code.to_proto()?,
-            message: self.message.to_proto()?,
-            // TODO(#1699) - deal with the error details
-            ..Default::default()
-        })
-    }
-}
-
-impl FromProto<rpc::model::Status> for google::rpc::Status {
-    fn cnv(self) -> std::result::Result<rpc::model::Status, ConvertError> {
-        Ok(
-            rpc::model::Status::new()
-                .set_code(self.code)
-                .set_message(self.message),
-            // TODO(#1699) - deal with the error details
-            // .set_details(self.details.into_iter().filter_map(any_from_prost))
-        )
-    }
-}
-
-// TODO(#2037) - The generator should control this, in `transport.rs`
-impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
-    type Output = google::longrunning::Operation;
-    fn to_proto(self) -> std::result::Result<google::longrunning::Operation, ConvertError> {
-        Err(ConvertError::Unimplemented)
-    }
-}
-
-// TODO(#2037) - The generator should control this, in `transport.rs`
-impl FromProto<longrunning::model::Operation> for google::longrunning::Operation {
-    fn cnv(self) -> std::result::Result<longrunning::model::Operation, ConvertError> {
-        Err(ConvertError::Unimplemented)
-    }
-}
+mod convert;
