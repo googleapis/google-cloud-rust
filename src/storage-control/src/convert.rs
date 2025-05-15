@@ -76,7 +76,6 @@ impl FromProto<longrunning::model::Operation> for google::longrunning::Operation
 fn lro_any_to_prost(
     value: wkt::Any,
 ) -> std::result::Result<prost_types::Any, gaxi::prost::ConvertError> {
-    use gaxi::prost::ToProto;
     match value.type_url().unwrap_or_default() {
         "" => Ok(prost_types::Any::default()),
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
@@ -118,9 +117,50 @@ fn lro_any_to_prost(
     }
 }
 
+// TODO(#2037) - The generator should control this code.
+#[allow(dead_code)]
+/// Convert from a `prost_types::Any` to our `wkt::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_from_prost(
+    value: prost_types::Any,
+) -> std::result::Result<wkt::Any, gaxi::prost::ConvertError> {
+    match value.type_url.as_str() {
+        "" => Ok(wkt::Any::default()),
+        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
+            .to_msg::<google::storage::control::v2::RenameFolderMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
+            .to_msg::<google::storage::control::v2::CreateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
+            .to_msg::<google::storage::control::v2::UpdateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.Folder" => value
+            .to_msg::<google::storage::control::v2::Folder>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
+            .to_msg::<google::storage::control::v2::AnywhereCache>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::try_from(&our_msg).map_err(ConvertError::other)),
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
+    use test_case::test_case;
 
     #[test]
     fn lro_any_to_prost_empty() -> anyhow::Result<()> {
@@ -131,39 +171,47 @@ mod test {
     }
 
     #[test]
-    fn lro_any_to_prost_known_type() -> anyhow::Result<()> {
-        let expected = {
-            let folder = crate::google::storage::control::v2::Folder {
-                name: "test-name".to_string(),
-                metageneration: 42,
-                ..Default::default()
-            };
-            prost_types::Any::from_msg(&folder)?
-        };
-        let wkt = {
-            let folder = crate::model::Folder::new()
-                .set_name("test-name")
-                .set_metageneration(42);
-            wkt::Any::try_from(&folder)?
-        };
-        let prost = lro_any_to_prost(wkt)?;
-        assert_eq!(prost, expected);
+    fn lro_any_from_prost_empty() -> anyhow::Result<()> {
+        let prost = prost_types::Any::default();
+        let wkt = lro_any_from_prost(prost)?;
+        assert_eq!(wkt, wkt::Any::default());
+        Ok(())
+    }
 
-        let expected = {
-            let md = crate::google::storage::control::v2::CreateAnywhereCacheMetadata {
-                zone: Some("test-zone".to_string()),
-                ..Default::default()
-            };
-            prost_types::Any::from_msg(&md)?
+    fn prost_folder() -> prost_types::Any {
+        let folder = crate::google::storage::control::v2::Folder {
+            name: "test-name".to_string(),
+            metageneration: 42,
+            ..Default::default()
         };
-        let wkt = {
-            let md =
-                crate::model::CreateAnywhereCacheMetadata::new().set_zone("test-zone".to_string());
-            wkt::Any::try_from(&md)?
-        };
-        let prost = lro_any_to_prost(wkt)?;
-        assert_eq!(prost, expected);
+        prost_types::Any::from_msg(&folder).unwrap()
+    }
 
+    fn wkt_folder() -> wkt::Any {
+        let folder = crate::model::Folder::new()
+            .set_name("test-name")
+            .set_metageneration(42);
+        wkt::Any::try_from(&folder).unwrap()
+    }
+
+    fn prost_create_metadata() -> prost_types::Any {
+        let md = crate::google::storage::control::v2::CreateAnywhereCacheMetadata {
+            zone: Some("test-zone".to_string()),
+            ..Default::default()
+        };
+        prost_types::Any::from_msg(&md).unwrap()
+    }
+
+    fn wkt_create_metadata() -> wkt::Any {
+        let md = crate::model::CreateAnywhereCacheMetadata::new().set_zone("test-zone".to_string());
+        wkt::Any::try_from(&md).unwrap()
+    }
+
+    #[test_case(prost_folder(), wkt_folder())]
+    #[test_case(prost_create_metadata(), wkt_create_metadata())]
+    fn lro_any_roundtrip_known_type(prost: prost_types::Any, wkt: wkt::Any) -> anyhow::Result<()> {
+        assert_eq!(prost, lro_any_to_prost(wkt.clone())?);
+        assert_eq!(wkt, lro_any_from_prost(prost)?);
         Ok(())
     }
 
@@ -181,6 +229,15 @@ mod test {
         let prost = lro_any_to_prost(wkt);
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
 
+        Ok(())
+    }
+
+    #[test]
+    fn lro_any_from_prost_unknown_type() -> anyhow::Result<()> {
+        let unknown = prost_types::Duration::default();
+        let prost = prost_types::Any::from_msg(&unknown)?;
+        let wkt = lro_any_from_prost(prost);
+        assert!(matches!(wkt, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
     }
 }
