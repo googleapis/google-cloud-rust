@@ -367,7 +367,7 @@ mod v1 {
         domain: String,
         entity_id: String,
         etag: String,
-        project_team: ProjectTeam,
+        project_team: Option<ProjectTeam>,
     }
 
     #[serde_with::serde_as]
@@ -388,17 +388,18 @@ mod v1 {
                 .set_domain(value.domain)
                 .set_entity_id(value.entity_id)
                 .set_etag(value.etag)
-                .set_project_team(value.project_team)
+                .set_project_team(to_control_project_team(value.project_team))
         }
     }
 
-    impl std::convert::From<ProjectTeam> for Option<control::model::ProjectTeam> {
-        fn from(value: ProjectTeam) -> Self {
-            Some(
+    fn to_control_project_team(p: Option<ProjectTeam>) -> Option<control::model::ProjectTeam> {
+        match p {
+            Some(p) => Some(
                 control::model::ProjectTeam::new()
-                    .set_project_number(value.project_number)
-                    .set_team(value.team),
-            )
+                    .set_project_number(p.project_number)
+                    .set_team(p.team),
+            ),
+            None => None,
         }
     }
 
@@ -459,7 +460,7 @@ mod v1 {
                 // datetime fields:
                 "timeCreated": "2025-05-13T10:30:00Z",
                 // list fields:
-                "acl": [{"id": "acl-id", "projectTeam": {"projectNumber": "123456", "team": "myteam"}}]
+                "acl": [{"id": "acl-id","unknownField": 5, "projectTeam": {"projectNumber": "123456", "team": "myteam"}}]
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
