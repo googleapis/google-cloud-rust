@@ -320,6 +320,7 @@ test-case     = { version = "3" }
 tokio-stream  = { version = "0.1", default-features = false }
 tokio-test    = { version = "0.4", default-features = false }
 url           = { version = "2" }
+num-bigint-dig= { version = "0.8" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.20", path = "src/auth", package = "google-cloud-auth" }
