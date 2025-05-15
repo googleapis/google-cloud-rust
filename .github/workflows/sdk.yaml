@@ -190,7 +190,6 @@ jobs:
           set -e
           rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
           rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
-          cargo install cargo-tarpaulin --version 0.32.1 --locked
       - name: Display Cargo version
         run: cargo version
       - name: Display rustc version

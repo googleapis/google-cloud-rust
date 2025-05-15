@@ -15,12 +15,13 @@
 use crate::Error;
 use crate::Result;
 use gax::options::RequestOptionsBuilder;
+use gax::retry_policy::RetryPolicyExt;
 use showcase::model::compliance_data::LifeKingdom;
 use std::process::Stdio;
 use std::time::Duration;
 use tokio::process::Command;
 
-const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@latest";
+const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
 
 pub async fn run() -> Result<()> {
     use showcase::model::*;
@@ -147,22 +148,15 @@ async fn wait_until_ready() -> Result<()> {
     let client = showcase::client::Testing::builder()
         .with_endpoint("http://localhost:7469")
         .with_credentials(auth::credentials::testing::test_credentials())
-        .with_retry_policy(gax::retry_policy::NeverRetry)
         .with_tracing()
         .build()
         .await?;
 
-    for _ in 0..10 {
-        let attempt = client
-            .list_sessions()
-            .with_attempt_timeout(Duration::from_secs(1))
-            .send()
-            .await;
-        if attempt.is_ok() {
-            return Ok(());
-        }
-        tokio::time::sleep(Duration::from_millis(500)).await;
-    }
-
-    Err(Error::other("not ready"))
+    let _list = client
+        .list_sessions()
+        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(10))
+        .with_attempt_timeout(Duration::from_secs(1))
+        .send()
+        .await?;
+    Ok(())
 }
