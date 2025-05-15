@@ -96,7 +96,7 @@ impl FromProto<longrunning::model::Operation> for google::longrunning::Operation
 
         Ok(longrunning::model::Operation::new()
             .set_name(self.name)
-            .set_metadata(metadata)
+            .set_or_clear_metadata(metadata)
             .set_done(self.done)
             .set_result(result))
     }
